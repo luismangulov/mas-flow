@@ -20,8 +20,6 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         LogIn L = new LogIn();
-       
-  
         L.setVisible(true);
         //System.out.println("he creado la ventana");
         // hola dieguito
