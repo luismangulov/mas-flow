@@ -5,7 +5,8 @@
 
 package masflow;
 
-import Seguridad.Login;
+import Seguridad.LogIn;
+import Seguridad.Perfil.AdmPerfil;
 
 /**
  *
@@ -18,9 +19,11 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Login L = new Login();
+        LogIn L = new LogIn();
+       
+  
         L.setVisible(true);
-        
+        //System.out.println("he creado la ventana");
         // hola dieguito
     }
 
