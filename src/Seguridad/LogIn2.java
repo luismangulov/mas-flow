@@ -62,6 +62,11 @@ public class LogIn2 extends javax.swing.JFrame {
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setName("btnCancelar"); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         lblCambiarContraseña.setForeground(new java.awt.Color(0, 0, 153));
         lblCambiarContraseña.setText("Cambiar contraseña...");
@@ -141,6 +146,10 @@ m.setVisible(true);
 private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+System.exit(0);
+}//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
