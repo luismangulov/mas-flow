@@ -81,6 +81,7 @@ public class AdmProducto extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jLabel1);
+        jLabel1.getAccessibleContext().setAccessibleDescription("");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
         jToolBar1.add(jLabel2);
@@ -104,17 +105,11 @@ public class AdmProducto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
