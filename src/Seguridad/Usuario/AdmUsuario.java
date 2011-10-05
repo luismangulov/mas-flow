@@ -152,7 +152,7 @@ public class AdmUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void jLabel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MousePressed
-MantenimientoRack m = new MantenimientoRack();
+MantenimientoUsuario m = new MantenimientoUsuario();
 m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_jLabel8MousePressed
