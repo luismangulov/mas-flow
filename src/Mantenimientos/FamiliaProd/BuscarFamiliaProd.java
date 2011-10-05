@@ -41,8 +41,6 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
 
         jLabel1.setText("Código:");
 
-        jTextField1.setEditable(false);
-
         jLabel2.setText("Nombre:");
 
         jButton1.setText("Aceptar");
