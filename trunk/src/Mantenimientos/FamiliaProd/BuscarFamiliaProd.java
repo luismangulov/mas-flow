@@ -43,7 +43,7 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre:");
 
-        jButton1.setText("Aceptar");
+        jButton1.setText("Buscar");
         jButton1.setMaximumSize(new java.awt.Dimension(75, 23));
         jButton1.setMinimumSize(new java.awt.Dimension(75, 23));
         jButton1.setPreferredSize(new java.awt.Dimension(75, 23));
