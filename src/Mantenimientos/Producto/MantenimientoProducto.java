@@ -45,9 +45,11 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Código:");
+
+        jTextField1.setEditable(false);
 
         jLabel2.setText("Nombre:");
 
@@ -66,6 +68,9 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         });
 
         jButton1.setText("Aceptar");
+        jButton1.setMaximumSize(new java.awt.Dimension(75, 23));
+        jButton1.setMinimumSize(new java.awt.Dimension(75, 23));
+        jButton1.setPreferredSize(new java.awt.Dimension(75, 23));
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +104,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
                 .addContainerGap(34, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addComponent(jButton1)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(78, 78, 78))
@@ -135,7 +140,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
