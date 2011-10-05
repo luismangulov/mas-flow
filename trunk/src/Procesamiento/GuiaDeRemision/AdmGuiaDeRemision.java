@@ -137,7 +137,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-MantenimientoRack m = new MantenimientoRack();
+MantenimientoGuiaDeRemision m = new MantenimientoGuiaDeRemision();
 m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_jLabel1MousePressed
