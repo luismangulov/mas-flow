@@ -35,6 +35,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
+        pnlMantenimientos = new javax.swing.JPanel();
+        pnlProcesos = new javax.swing.JPanel();
+        pnlSeguridad = new javax.swing.JPanel();
+        pnlReportes = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -49,6 +53,64 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel3.setText("Seguridad");
 
         jLabel4.setText("Reportes");
+
+        javax.swing.GroupLayout pnlMantenimientosLayout = new javax.swing.GroupLayout(pnlMantenimientos);
+        pnlMantenimientos.setLayout(pnlMantenimientosLayout);
+        pnlMantenimientosLayout.setHorizontalGroup(
+            pnlMantenimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 710, Short.MAX_VALUE)
+        );
+        pnlMantenimientosLayout.setVerticalGroup(
+            pnlMantenimientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+
+        pnlMantenimientos.setBounds(-130, -10, 710, 370);
+        jLayeredPane1.add(pnlMantenimientos, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout pnlProcesosLayout = new javax.swing.GroupLayout(pnlProcesos);
+        pnlProcesos.setLayout(pnlProcesosLayout);
+        pnlProcesosLayout.setHorizontalGroup(
+            pnlProcesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 710, Short.MAX_VALUE)
+        );
+        pnlProcesosLayout.setVerticalGroup(
+            pnlProcesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+
+        pnlProcesos.setBounds(-130, -10, 710, 370);
+        jLayeredPane1.add(pnlProcesos, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout pnlSeguridadLayout = new javax.swing.GroupLayout(pnlSeguridad);
+        pnlSeguridad.setLayout(pnlSeguridadLayout);
+        pnlSeguridadLayout.setHorizontalGroup(
+            pnlSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 710, Short.MAX_VALUE)
+        );
+        pnlSeguridadLayout.setVerticalGroup(
+            pnlSeguridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+
+        pnlSeguridad.setBounds(-130, -10, 710, 370);
+        jLayeredPane1.add(pnlSeguridad, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout pnlReportesLayout = new javax.swing.GroupLayout(pnlReportes);
+        pnlReportes.setLayout(pnlReportesLayout);
+        pnlReportesLayout.setHorizontalGroup(
+            pnlReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 710, Short.MAX_VALUE)
+            .addGap(0, 710, Short.MAX_VALUE)
+        );
+        pnlReportesLayout.setVerticalGroup(
+            pnlReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+
+        pnlReportes.setBounds(-130, -10, 710, 370);
+        jLayeredPane1.add(pnlReportes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel5.setText("Rack");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,7 +130,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(125, 125, 125)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -114,7 +176,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(35, 35, 35)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,5 +234,9 @@ a.setVisible(true);
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel pnlMantenimientos;
+    private javax.swing.JPanel pnlProcesos;
+    private javax.swing.JPanel pnlReportes;
+    private javax.swing.JPanel pnlSeguridad;
     // End of variables declaration//GEN-END:variables
 }
