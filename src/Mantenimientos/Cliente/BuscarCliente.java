@@ -39,7 +39,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setText("RUC:");
 
@@ -73,7 +73,7 @@ public class BuscarCliente extends javax.swing.JFrame {
                         .addGap(49, 49, 49))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addContainerGap(333, Short.MAX_VALUE))))
+                        .addContainerGap(341, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(206, Short.MAX_VALUE)
                 .addComponent(jButton2)
