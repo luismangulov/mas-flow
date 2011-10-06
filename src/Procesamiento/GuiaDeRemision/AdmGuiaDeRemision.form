@@ -34,6 +34,10 @@
           <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
           <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
           <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+<<<<<<< .mine
+          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+=======
+>>>>>>> .r56
           <Group type="102" alignment="0" attributes="0">
               <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -54,20 +58,32 @@
           <Properties>
             <Property name="autoCreateRowSorter" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="4">
-                <Column editable="false" title="Codigo" type="java.lang.String"/>
+              <Table columnCount="5" rowCount="4">
+                <Column editable="false" title="C&#xf3;digo" type="java.lang.String"/>
                 <Column editable="false" title="Nombre destinatario" type="java.lang.String"/>
-                <Column editable="false" title="Direccion destino" type="java.lang.String"/>
+                <Column editable="false" title="Direcci&#xf3;n destino" type="java.lang.String"/>
+                <Column editable="true" title="Contacto" type="java.lang.Object"/>
+                <Column editable="true" title="Fecha" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -122,7 +138,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="                                                                                                   "/>
+            <Property name="text" type="java.lang.String" value="                                                                                                                                  "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">

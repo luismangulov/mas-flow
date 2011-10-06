@@ -45,20 +45,20 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre solicitante", "Direccion"
+                "Código", "Proveedor", "Teléfonos", "Contacto", "Fecha"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Byte.class
+                java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -113,6 +113,10 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
+<<<<<<< .mine
+            .addGap(0, 400, Short.MAX_VALUE)
+=======
+>>>>>>> .r56
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
