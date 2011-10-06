@@ -93,6 +93,11 @@ public class AdmRack extends javax.swing.JFrame {
         jToolBar1.add(jLabel3);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel4MousePressed(evt);
+            }
+        });
         jToolBar1.add(jLabel4);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
@@ -127,6 +132,11 @@ MantenimientoRack m = new MantenimientoRack();
 m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_jLabel1MousePressed
+
+private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
+BuscarRack m = new BuscarRack();
+m.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel4MousePressed
 
     /**
      * @param args the command line arguments
