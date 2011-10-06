@@ -42,7 +42,8 @@ public class MantenimientoOrdenDeSuministro extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
         jComboBox2 = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Administrar Orden de Suministro");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
