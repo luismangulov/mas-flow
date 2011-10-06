@@ -72,7 +72,8 @@ public class AdmUsuario extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
         jToolBar1.add(jLabel6);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Administrar usuario");
 
         jToolBar2.setRollover(true);
 
@@ -85,12 +86,22 @@ public class AdmUsuario extends javax.swing.JFrame {
         jToolBar2.add(jLabel8);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel9MousePressed(evt);
+            }
+        });
         jToolBar2.add(jLabel9);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
         jToolBar2.add(jLabel10);
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel11MousePressed(evt);
+            }
+        });
         jToolBar2.add(jLabel11);
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
@@ -154,6 +165,18 @@ MantenimientoUsuario m = new MantenimientoUsuario();
 m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_jLabel8MousePressed
+
+private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
+// TODO add your handling code here:
+    MantenimientoUsuario m = new MantenimientoUsuario();
+m.setVisible(true);
+}//GEN-LAST:event_jLabel9MousePressed
+
+private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+// TODO add your handling code here:
+    BuscarUsuario m = new BuscarUsuario();
+m.setVisible(true);
+}//GEN-LAST:event_jLabel11MousePressed
 
     /**
      * @param args the command line arguments

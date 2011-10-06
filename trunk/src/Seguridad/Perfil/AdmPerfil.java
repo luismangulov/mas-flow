@@ -41,7 +41,8 @@ public class AdmPerfil extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Administrar perfil");
 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -83,12 +84,22 @@ public class AdmPerfil extends javax.swing.JFrame {
         jToolBar1.add(jLabel1);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
+            }
+        });
         jToolBar1.add(jLabel2);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
         jToolBar1.add(jLabel3);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel4MousePressed(evt);
+            }
+        });
         jToolBar1.add(jLabel4);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
@@ -134,6 +145,18 @@ MantenimientoPerfil m = new MantenimientoPerfil();
 m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_jLabel1MousePressed
+
+private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+// TODO add your handling code here:
+    MantenimientoPerfil m = new MantenimientoPerfil();
+m.setVisible(true);
+}//GEN-LAST:event_jLabel2MousePressed
+
+private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
+// TODO add your handling code here:
+        BuscarPerfil m = new BuscarPerfil();
+        m.setVisible(true);
+}//GEN-LAST:event_jLabel4MousePressed
 
     /**
      * @param args the command line arguments
