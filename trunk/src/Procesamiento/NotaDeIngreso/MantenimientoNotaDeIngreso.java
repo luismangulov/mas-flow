@@ -41,7 +41,8 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Administrar Nota de Ingreso");
 
         jLabel1.setText("Nombre solicitante");
 

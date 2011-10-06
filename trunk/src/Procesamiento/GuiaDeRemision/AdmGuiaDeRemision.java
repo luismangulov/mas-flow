@@ -41,7 +41,8 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow -");
 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -104,21 +105,11 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
-            .addGap(0, 600, Short.MAX_VALUE)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
