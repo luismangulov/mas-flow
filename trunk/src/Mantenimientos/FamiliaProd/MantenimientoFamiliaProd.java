@@ -40,6 +40,7 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Registrar familia de productos");
 
         jTextField1.setEditable(false);
 

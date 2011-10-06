@@ -38,6 +38,7 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Buscar familia de productos");
 
         jLabel1.setText("Código:");
 

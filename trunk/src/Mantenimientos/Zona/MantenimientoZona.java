@@ -42,6 +42,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Registrar zona");
 
         jTextField1.setEditable(false);
 

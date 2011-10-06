@@ -42,6 +42,7 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Buscar ubicación");
 
         jLabel1.setText("Rack:");
 

@@ -42,6 +42,7 @@ public class BuscarProducto extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Buscar producto");
 
         jLabel1.setText("Código:");
 
