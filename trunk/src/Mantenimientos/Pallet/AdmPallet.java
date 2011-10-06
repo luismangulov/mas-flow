@@ -46,20 +46,20 @@ public class AdmPallet extends javax.swing.JFrame {
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Alto", "Ancho", "CapacidadAlmacenaje", "CantidadProducto"
+                "Código", "Alto", "Ancho", "Producto", "Cant. Actual", "Cant. Máx.", "Unidad", "Fecha Vencimiento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.Byte.class
+                java.lang.String.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.String.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -71,6 +71,13 @@ public class AdmPallet extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(35);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(35);
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(40);
 
         jToolBar1.setRollover(true);
 
@@ -114,7 +121,6 @@ public class AdmPallet extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
