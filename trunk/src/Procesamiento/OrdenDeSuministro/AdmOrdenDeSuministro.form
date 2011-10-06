@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="+Flow - "/>
+    <Property name="title" type="java.lang.String" value="+Flow - Administrar Orden de suministro"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -29,8 +29,6 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
           <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
           <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
           <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
@@ -113,6 +111,9 @@
               <Image iconType="3" name="/Iconos/search_page.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel4MousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
