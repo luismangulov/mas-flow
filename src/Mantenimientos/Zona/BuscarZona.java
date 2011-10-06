@@ -40,6 +40,7 @@ public class BuscarZona extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Buscar zona");
 
         jLabel2.setText("Nombre:");
 

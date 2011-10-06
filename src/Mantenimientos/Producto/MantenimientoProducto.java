@@ -46,6 +46,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Registrar producto");
 
         jLabel1.setText("Código:");
 
@@ -59,7 +60,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
 
         jLabel6.setText("<html>Máx. Cant.<br>por pallet</html>");
 
-        jButton1.setText("Aceptar");
+        jButton1.setText("Guardar");
         jButton1.setMaximumSize(new java.awt.Dimension(75, 23));
         jButton1.setMinimumSize(new java.awt.Dimension(75, 23));
         jButton1.setPreferredSize(new java.awt.Dimension(75, 23));

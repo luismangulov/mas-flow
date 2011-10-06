@@ -38,6 +38,7 @@ public class BuscarPallet extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Buscar pallet");
 
         jLabel1.setText("Código:");
 

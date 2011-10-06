@@ -54,7 +54,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Almacén");
+        setTitle("+Flow - Registrar almacén");
 
         jLabel1.setText("Código:");
 

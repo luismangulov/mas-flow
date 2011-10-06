@@ -48,7 +48,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - ");
+        setTitle("+Flow -  Registrar rack");
 
         jLabel1.setText("Código:");
 

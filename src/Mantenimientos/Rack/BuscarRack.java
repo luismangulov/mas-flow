@@ -38,6 +38,7 @@ public class BuscarRack extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Buscar rack");
 
         jLabel1.setText("Zona:");
 

@@ -122,7 +122,7 @@ public class BuscarPerfil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addGap(126, 126, 126))
+                .addGap(26, 26, 26))
         );
 
         pack();

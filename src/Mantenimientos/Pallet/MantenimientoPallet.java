@@ -42,6 +42,7 @@ public class MantenimientoPallet extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Registrar pallet");
 
         jLabel6.setText("cms.");
 
