@@ -141,6 +141,7 @@ c.setVisible(true);
 private void btnIngresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMousePressed
 masflow.MenuPrincipal m = new masflow.MenuPrincipal();
 m.setVisible(true);
+this.dispose();
 }//GEN-LAST:event_btnIngresarMousePressed
 
 private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
