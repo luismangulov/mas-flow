@@ -53,7 +53,7 @@ public class AdmPerfil extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Detalle"
+                "Código", "Nombre", "Detalle"
             }
         ) {
             Class[] types = new Class [] {
@@ -120,7 +120,6 @@ public class AdmPerfil extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)

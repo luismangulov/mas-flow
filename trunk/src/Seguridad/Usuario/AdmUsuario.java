@@ -122,14 +122,14 @@ public class AdmUsuario extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Usuario", "Estado usuario", "Nombre", "Apellido Paterno", "Apellido Materno"
+                "Usuario", "Estado ", "Apellido Paterno", "Apellido Materno", "Nombre"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.Object.class, java.lang.Byte.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -141,6 +141,8 @@ public class AdmUsuario extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTable1.getColumnModel().getColumn(4).setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
