@@ -54,7 +54,7 @@ public class MantenimientoPallet extends javax.swing.JFrame {
 
         jLabel3.setText("Ancho:");
 
-        jButton1.setText("Aceptar");
+        jButton1.setText("Guardar");
         jButton1.setToolTipText("");
 
         jButton2.setText("Cancelar");

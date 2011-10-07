@@ -42,6 +42,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Buscar cliente");
 
         jButton2.setText("Cancelar");
 

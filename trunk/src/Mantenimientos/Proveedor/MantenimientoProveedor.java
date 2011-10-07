@@ -54,6 +54,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Registrar proveedor");
 
         jLabel1.setText("Código:");
 

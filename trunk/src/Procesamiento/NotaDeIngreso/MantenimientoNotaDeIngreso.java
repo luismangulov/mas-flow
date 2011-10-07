@@ -42,7 +42,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Registrar Nota de Ingreso");
+        setTitle("+Flow - Registrar nota de ingreso");
 
         jLabel4.setText("Fecha:");
 

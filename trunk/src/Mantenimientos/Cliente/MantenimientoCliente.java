@@ -54,6 +54,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Registrar cliente");
 
         jLabel1.setText("Código:");
 

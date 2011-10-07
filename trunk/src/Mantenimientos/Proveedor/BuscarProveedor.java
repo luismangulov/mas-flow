@@ -44,6 +44,7 @@ public class BuscarProveedor extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+Flow - Buscar proveedor");
 
         jButton2.setText("Cancelar");
 

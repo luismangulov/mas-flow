@@ -74,7 +74,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         jLabel8.setText("ms.");
 
-        jButton1.setText("Aceptar");
+        jButton1.setText("Guardar");
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {

@@ -42,8 +42,6 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar  usuario");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Item 2", "Item 3", "Item 4" }));
-
         jLabel2.setText("Empleado:");
 
         jLabel1.setText("Usuario:");
@@ -63,8 +61,6 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Perfil:");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
