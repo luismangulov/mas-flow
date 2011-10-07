@@ -44,7 +44,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Registrar Guia de remision");
+        setTitle("+Flow - Registrar Guia de remisión");
 
         jLabel1.setText("Cliente:");
 

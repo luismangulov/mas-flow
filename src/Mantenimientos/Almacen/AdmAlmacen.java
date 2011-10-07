@@ -42,7 +42,7 @@ public class AdmAlmacen extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Administrar Almacén");
+        setTitle("+Flow - Administrar almacén");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jTable1.setAutoCreateRowSorter(true);

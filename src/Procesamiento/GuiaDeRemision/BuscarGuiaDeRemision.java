@@ -38,7 +38,7 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Buscar Guia de remision");
+        setTitle("+Flow - Buscar guía de remisión");
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

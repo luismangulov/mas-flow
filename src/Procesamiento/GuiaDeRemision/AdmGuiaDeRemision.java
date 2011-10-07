@@ -40,7 +40,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Administrar Guias de Remision");
+        setTitle("+Flow - Administrar guia de remision");
 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -108,7 +108,6 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)

@@ -43,7 +43,7 @@ public class MantenimientoOrdenDeSuministro extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Registrar Orden de Suministro");
+        setTitle("+Flow - Registrar orden de suministro");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -59,11 +59,6 @@ public class MantenimientoOrdenDeSuministro extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Código:");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Almacén:");
 

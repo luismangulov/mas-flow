@@ -40,7 +40,7 @@ public class BuscarOrdenDeSuministro extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Buscar Orden de Suministro");
+        setTitle("+Flow - Buscar orden de suministro");
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {

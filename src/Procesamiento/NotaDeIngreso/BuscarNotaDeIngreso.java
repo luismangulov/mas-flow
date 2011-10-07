@@ -38,7 +38,7 @@ public class BuscarNotaDeIngreso extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Buscar Notas de Ingreso");
+        setTitle("+Flow - Buscar Nota de ingreso");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
