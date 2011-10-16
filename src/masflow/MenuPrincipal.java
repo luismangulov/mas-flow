@@ -63,6 +63,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
         jLayeredPane4 = new javax.swing.JLayeredPane();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
@@ -70,7 +71,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
 
@@ -126,7 +126,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel10MousePressed(evt);
             }
         });
-        jLabel10.setBounds(30, 170, 140, 17);
+        jLabel10.setBounds(20, 170, 160, 17);
         jLayeredPane1.add(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -138,7 +138,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel11MousePressed(evt);
             }
         });
-        jLabel11.setBounds(30, 260, 50, 17);
+        jLabel11.setBounds(20, 260, 60, 17);
         jLayeredPane1.add(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -150,7 +150,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel12MousePressed(evt);
             }
         });
-        jLabel12.setBounds(30, 20, 70, 17);
+        jLabel12.setBounds(20, 20, 80, 17);
         jLayeredPane1.add(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -162,7 +162,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel13MousePressed(evt);
             }
         });
-        jLabel13.setBounds(30, 140, 40, 17);
+        jLabel13.setBounds(20, 140, 60, 17);
         jLayeredPane1.add(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -174,7 +174,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel14MousePressed(evt);
             }
         });
-        jLabel14.setBounds(30, 110, 80, 17);
+        jLabel14.setBounds(20, 110, 90, 17);
         jLayeredPane1.add(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -186,7 +186,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel15MousePressed(evt);
             }
         });
-        jLabel15.setBounds(30, 230, 80, 17);
+        jLabel15.setBounds(20, 230, 90, 17);
         jLayeredPane1.add(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -198,7 +198,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel16MousePressed(evt);
             }
         });
-        jLabel16.setBounds(30, 200, 70, 17);
+        jLabel16.setBounds(20, 200, 90, 17);
         jLayeredPane1.add(jLabel16, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -210,7 +210,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel17MousePressed(evt);
             }
         });
-        jLabel17.setBounds(30, 50, 40, 17);
+        jLabel17.setBounds(20, 50, 60, 17);
         jLayeredPane1.add(jLabel17, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -222,7 +222,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel21MousePressed(evt);
             }
         });
-        jLabel21.setBounds(30, 80, 40, 17);
+        jLabel21.setBounds(20, 80, 50, 17);
         jLayeredPane1.add(jLabel21, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -237,7 +237,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel19.setBounds(30, 260, 80, 17);
         jLayeredPane2.add(jLabel19, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel20.setForeground(new java.awt.Color(0, 0, 102));
         jLabel20.setText("Ordenar Productos");
         jLabel20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -246,7 +246,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel20MousePressed(evt);
             }
         });
-        jLabel20.setBounds(50, 20, 120, 17);
+        jLabel20.setBounds(50, 20, 140, 17);
         jLayeredPane2.add(jLabel20, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -282,7 +282,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel26MousePressed(evt);
             }
         });
-        jLabel26.setBounds(50, 50, 120, 17);
+        jLabel26.setBounds(50, 50, 140, 17);
         jLayeredPane2.add(jLabel26, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -294,7 +294,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel27MousePressed(evt);
             }
         });
-        jLabel27.setBounds(50, 80, 140, 17);
+        jLabel27.setBounds(50, 80, 150, 17);
         jLayeredPane2.add(jLabel27, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -306,7 +306,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel30MousePressed(evt);
             }
         });
-        jLabel30.setBounds(40, 20, 110, 17);
+        jLabel30.setBounds(40, 20, 130, 17);
         jLayeredPane3.add(jLabel30, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -330,8 +330,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel36MousePressed(evt);
             }
         });
-        jLabel36.setBounds(40, 80, 100, 17);
+        jLabel36.setBounds(40, 80, 130, 17);
         jLayeredPane3.add(jLabel36, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel43.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel43.setText("Log de Auditoría");
+        jLabel43.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel43.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel43MousePressed(evt);
+            }
+        });
+        jLabel43.setBounds(40, 110, 120, 17);
+        jLayeredPane3.add(jLabel43, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel37.setForeground(new java.awt.Color(0, 0, 102));
@@ -348,7 +360,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel38MousePressed(evt);
             }
         });
-        jLabel38.setBounds(30, 20, 50, 17);
+        jLabel38.setBounds(40, 20, 50, 17);
         jLayeredPane4.add(jLabel38, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel39.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -378,20 +390,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel42MousePressed(evt);
             }
         });
-        jLabel42.setBounds(30, 50, 60, 17);
+        jLabel42.setBounds(40, 50, 60, 17);
         jLayeredPane4.add(jLabel42, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel43.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel43.setText("Log de Auditoría");
-        jLabel43.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel43.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel43MousePressed(evt);
-            }
-        });
-        jLabel43.setBounds(30, 80, 100, 17);
-        jLayeredPane4.add(jLabel43, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36));
         jLabel44.setText("<html>Sistemas<br>+Flow</html>");
@@ -428,15 +428,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel1)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addComponent(jLabel7))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(50, 50, 50)
+                                        .addComponent(jLabel4))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(jLabel4))
-                            .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)
+                                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
@@ -458,7 +463,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel45)
                                 .addGap(19, 19, 19)))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,14 +491,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addGap(11, 11, 11)
                                 .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
