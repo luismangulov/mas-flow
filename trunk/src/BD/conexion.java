@@ -16,8 +16,8 @@ public class conexion {
     private static String user;
     private static String password;
     public conexion(){
-        // la ip 127.0.0.1 es un ejemplo
-        strConexion = "jdbc:postgresql://127.0.0.1/database1";
+        
+        strConexion = "jdbc:postgresql://localhost/database1";
         user = "postgres";
         password = "dp";
     }
