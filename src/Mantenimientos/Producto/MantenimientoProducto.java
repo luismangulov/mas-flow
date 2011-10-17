@@ -50,8 +50,6 @@ public class MantenimientoProducto extends javax.swing.JFrame {
 
         jLabel1.setText("Código:");
 
-        jTextField1.setEditable(false);
-
         jLabel2.setText("Nombre:");
 
         jLabel3.setText("Descripción:");
