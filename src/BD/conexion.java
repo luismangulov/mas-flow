@@ -12,7 +12,7 @@ import java.sql.*;
  */
 public class conexion {
 
-    private Connection cnn = null;
+    public static Connection cnn = null;
     public void estableceCnn()
     {
         if (cnn != null)
