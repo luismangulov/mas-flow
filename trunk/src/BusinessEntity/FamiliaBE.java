@@ -17,6 +17,15 @@ public class FamiliaBE {
     /**
      * @return the codigo
      */
+    public FamiliaBE(String codigo,String nombre,String descripcion, String estado){
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.estado = estado;
+    }
+            
+           
+    
     public String getCodigo() {
         return codigo;
     }
