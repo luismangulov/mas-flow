@@ -4,7 +4,7 @@
  */
 
 package BD;
-import java.sql.Connection;
+import java.sql.*;
 
 /**
  *
@@ -12,14 +12,38 @@ import java.sql.Connection;
  */
 public class conexion {
 
-    private static String strConexion;
-    private static String user;
-    private static String password;
-    public conexion(){
-        
-        strConexion = "jdbc:postgresql://localhost/database1";
-        user = "postgres";
-        password = "dp";
+    private Connection cnn = null;
+    public void estableceCnn()
+    {
+        if (cnn != null)
+            return;
+        //jdbc:postgreslq://ubicacion_de_BD:puerto/nombre_BD
+        String driver = "org.postgresql.Driver";
+        String url = "Jdbc:postgresql://quilla.lab.inf.pucp.edu.pe:1051/template1/";
+        String user = "postgres";
+        String password = "imperio";
+
+        try
+        {
+            Class.forName(driver);
+            cnn = DriverManager.getConnection(url,user,password);
+//            Statement stmt = cnn.createStatement();
+            if (cnn != null){
+                System.out.println("Conexión a base de datos ... Ok");
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void cerrarCnn()
+    {
+        try{
+        cnn.close();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     
 }
