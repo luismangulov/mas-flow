@@ -21,9 +21,20 @@ public class FamiliaDA {
         cnn.estableceCnn();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
         try{
-             pstmt = cnn.cnn.prepareStatement("SELECT * FROM Producto");
-             
+             pstmt = cnn.cnn.prepareStatement("SELECT * FROM Familia WHERE IndActivo = 1");
+             String strCodigo;
+             String strNombre;
+             String strDescripcion;
+             String strEstado;
+             while (rs.next()) {
+                strCodigo = rs.getString(1);
+                strNombre = rs.getString(2);
+                strDescripcion = rs.getString(3);
+                strEstado = rs.getString(4);
+                arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
+            }
              
         }catch (SQLException e) {			
 			e.printStackTrace();
@@ -35,6 +46,6 @@ public class FamiliaDA {
 		}
       
         
-        return null;
+        return arrFamilia;
     }
 }
