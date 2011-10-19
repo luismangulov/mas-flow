@@ -50,7 +50,12 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
 
         jLabel1.setText("Código:");
 
+        jTextField2.setName("lblNombre"); // NOI18N
+
+        jTextField3.setName("lblDescripcion"); // NOI18N
+
         jButton1.setText("Guardar");
+        jButton1.setName("btnGuardar"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -119,6 +124,7 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
+    
 }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
