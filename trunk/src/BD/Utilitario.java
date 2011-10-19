@@ -15,17 +15,14 @@ import java.sql.SQLException;
  * @author DIEGO
  */
 public class Utilitario {
-    public static String generaCodigo(String strNombreTabla, int intCantidadCaracteres) throws FileNotFoundException, IOException, SQLException {
-        conexion cnn = new conexion();
-        cnn.estableceCnn();
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+     public static String generaCodigo(String strNombreTabla, int intCantidadCaracteres) throws FileNotFoundException, IOException {
+        conexion objConexion = new conexion();
         String strSentencia = "SELECT MAX(Id"+strNombreTabla+") FROM "+strNombreTabla;
         String strId = "";
 
-        pstmt = cnn.cnn.prepareStatement(strSentencia);
+
         try {
-            rs = pstmt.executeQuery();
+            ResultSet rs = objConexion.EjecutarS(strSentencia);
 
             if (rs.next()) {
                 strId = rs.getString(1);
@@ -53,9 +50,7 @@ public class Utilitario {
             System.out.println(a.getMessage());
         }
         finally{
-            if (pstmt !=null) {try{pstmt.close();}catch(Exception a){System.out.println(a.getMessage());}}
-			if (cnn.cnn !=null) {try{cnn.cnn.close();}catch(Exception a){System.out.println(a.getMessage());}}
-			if (rs !=null) {try{rs.close();}catch(Exception a){System.out.println(a.getMessage());}}
+            objConexion.SalirS();
         }
         return strId;
     }
