@@ -5,6 +5,7 @@
 
 package BD;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,36 +13,75 @@ import java.sql.*;
  */
 public class conexion {
 
-    public static Connection cnn = null;
-    public void estableceCnn()
+    private Connection con;
+    private String driver;
+    private String url;
+    private String user;
+    private String password;
+    private Statement stmt;
+    
+    
+    public conexion()
     {
-        if (cnn != null)
-            return;
+      
         //jdbc:postgreslq://ubicacion_de_BD:puerto/nombre_BD
-        String driver = "org.postgresql.Driver";
-        String url = "Jdbc:postgresql://quilla.lab.inf.pucp.edu.pe:1051/template1/";
-        String user = "postgres";
-        String password = "imperio";
+        driver = "org.postgresql.Driver";
+        url = "Jdbc:postgresql://quilla.lab.inf.pucp.edu.pe:1051/template1/";
+        user = "postgres";
+        password = "imperio";
+        stmt= null;
+        con = null;
+    }
 
-        try
-        {
+      //Para ejecutar sentencias Insert,Update,Delete
+    public void EjecutarUID(String QueryUID) {
+        try {
             Class.forName(driver);
-            cnn = DriverManager.getConnection(url,user,password);
-//            Statement stmt = cnn.createStatement();
-            if (cnn != null){
-                System.out.println("Conexión a base de datos ... Ok");
-            }
-        } catch (Exception e){
+            con = DriverManager.getConnection(url, user , password);
+            stmt = con.createStatement();
+            stmt.executeUpdate(QueryUID);
+        }
+        catch ( Exception e ) {
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+    }
+    
+    
+     //Cerrar la Conexion
+    public void SalirUID() {
+        try {
+            stmt.close();
+            con.close();
+        }
+        catch( Exception e ){
             System.out.println(e.getMessage());
         }
     }
-
-    public void cerrarCnn()
-    {
-        try{
-        cnn.close();
+    
+     //Para ejecutar Select
+    public ResultSet EjecutarS(String QueryS) {
+        ResultSet rs = null;
+        try {
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, user , password);
+            stmt = con.createStatement();
+            //Query
+            rs = stmt.executeQuery(QueryS);
         }
-        catch (Exception e){
+        catch ( Exception e ){
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
+
+    //Para cerrar la conexion
+    public void SalirS() {
+        try {
+            stmt.execute("END");
+            stmt.close();
+            con.close();
+        }
+        catch( Exception e ){
             System.out.println(e.getMessage());
         }
     }
