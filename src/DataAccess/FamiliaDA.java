@@ -62,7 +62,7 @@ public class FamiliaDA {
         }catch (Exception a) {			
 			System.out.println(a.getMessage());
 		} finally{
-			//6. Se cierran todos los objetos de conexion. ES EL MAS IMPORTANTE
+			
 			if (pstmt !=null) {try{pstmt.close();}catch(Exception a){System.out.println(a.getMessage());}}
 			if (cnn.cnn !=null) {try{cnn.cnn.close();}catch(Exception a){System.out.println(a.getMessage());}}
 			if (rs !=null) {try{rs.close();}catch(Exception a){System.out.println(a.getMessage());}}
