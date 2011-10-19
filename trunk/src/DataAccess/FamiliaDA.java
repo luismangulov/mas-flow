@@ -50,6 +50,7 @@ public class FamiliaDA {
              String strNombre;
              String strDescripcion;
              String strEstado;
+             rs = pstmt.executeQuery();
              while (rs.next()) {
                 strCodigo = rs.getString(1);
                 strNombre = rs.getString(2);
