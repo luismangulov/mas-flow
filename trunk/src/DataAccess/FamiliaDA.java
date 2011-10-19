@@ -16,6 +16,28 @@ import java.util.ArrayList;
  * @author DIEGO
  */
 public class FamiliaDA {
+    
+    public String insertar(FamiliaBE objFamilia) throws SQLException{
+        conexion cnn = new conexion();
+        cnn.estableceCnn();
+        PreparedStatement pstmt = null;
+       
+        String sql = "INSERT INTO Familia(idfamilia,nombre, descripcion, indactivo) VALUES('"+ objFamilia.getCodigo() +"','"+ objFamilia.getNombre() +"','"+ objFamilia.getDescripcion() +"','"+ objFamilia.getEstado() +"');";
+        pstmt = cnn.cnn.prepareStatement(sql);
+        try{
+            pstmt.executeUpdate(); 
+         }catch (SQLException e) {			
+			e.printStackTrace();
+		} finally{
+			//6. Se cierran todos los objetos de conexion. ES EL MAS IMPORTANTE
+			if (pstmt !=null) {try{pstmt.close();}catch(Exception e){e.printStackTrace();}}
+			if (cnn.cnn !=null) {try{cnn.cnn.close();}catch(Exception e){e.printStackTrace();}}
+		}
+        
+        
+        return null;
+    }
+    
     public ArrayList<FamiliaBE> queryAllFamilia(){
         conexion cnn = new conexion();
         cnn.estableceCnn();
@@ -40,9 +62,9 @@ public class FamiliaDA {
 			e.printStackTrace();
 		} finally{
 			//6. Se cierran todos los objetos de conexion. ES EL MAS IMPORTANTE
-			try { if (rs != null) {rs.close();} } catch(Exception e){e.printStackTrace();}
-			try { if (pstmt != null) {pstmt.close();} } catch(Exception e){e.printStackTrace();}
-			
+			if (pstmt !=null) {try{pstmt.close();}catch(Exception e){e.printStackTrace();}}
+			if (cnn.cnn !=null) {try{cnn.cnn.close();}catch(Exception e){e.printStackTrace();}}
+			if (rs !=null) {try{rs.close();}catch(Exception e){e.printStackTrace();}}
 		}
       
         
