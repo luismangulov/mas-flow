@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class FamiliaDA {
     
-    public String insertar(FamiliaBE objFamilia) throws SQLException{
+    public String insertar(FamiliaBE objFamilia) throws Exception{
         conexion cnn = new conexion();
         cnn.estableceCnn();
         PreparedStatement pstmt = null;
@@ -26,12 +26,12 @@ public class FamiliaDA {
         pstmt = cnn.cnn.prepareStatement(sql);
         try{
             pstmt.executeUpdate(); 
-         }catch (SQLException e) {			
-			e.printStackTrace();
+         }catch (Exception a) {	
+             System.out.println(a.getMessage());
 		} finally{
 			//6. Se cierran todos los objetos de conexion. ES EL MAS IMPORTANTE
-			if (pstmt !=null) {try{pstmt.close();}catch(Exception e){e.printStackTrace();}}
-			if (cnn.cnn !=null) {try{cnn.cnn.close();}catch(Exception e){e.printStackTrace();}}
+			if (pstmt !=null) {try{pstmt.close();}catch(Exception a){System.out.println(a.getMessage());}}
+			if (cnn.cnn !=null) {try{cnn.cnn.close();}catch(Exception a){System.out.println(a.getMessage());}}
 		}
         
         
@@ -58,13 +58,13 @@ public class FamiliaDA {
                 arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
             }
              
-        }catch (SQLException e) {			
-			e.printStackTrace();
+        }catch (Exception a) {			
+			System.out.println(a.getMessage());
 		} finally{
 			//6. Se cierran todos los objetos de conexion. ES EL MAS IMPORTANTE
-			if (pstmt !=null) {try{pstmt.close();}catch(Exception e){e.printStackTrace();}}
-			if (cnn.cnn !=null) {try{cnn.cnn.close();}catch(Exception e){e.printStackTrace();}}
-			if (rs !=null) {try{rs.close();}catch(Exception e){e.printStackTrace();}}
+			if (pstmt !=null) {try{pstmt.close();}catch(Exception a){System.out.println(a.getMessage());}}
+			if (cnn.cnn !=null) {try{cnn.cnn.close();}catch(Exception a){System.out.println(a.getMessage());}}
+			if (rs !=null) {try{rs.close();}catch(Exception a){System.out.println(a.getMessage());}}
 		}
       
         
