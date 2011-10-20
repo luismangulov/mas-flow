@@ -290,8 +290,33 @@ public class EntidadDA {
     }
 
 
+     public boolean modificar(EntidadBE objEntidad) throws Exception{
 
+        boolean boolExito = false;
+        conexion objConexion = new conexion();
+
+        String sql = "update Entidad set  "
+                +" nrodocumento='" + objEntidad.getNroDocumento()
+                +"', direccion='" + objEntidad.getDireccion() +"', telefono='" + objEntidad.getTelefono()
+                +"', email='" + objEntidad.getEmail() +"', nombrecontacto='" + objEntidad.getNombreContacto()
+                +"', dnicontacto='" + objEntidad.getDniContacto() +"',telefonocontacto='" + objEntidad.getTelefonoContacto()
+                +"', tipopersona'" + objEntidad.getIdTipoPersona() +"', razonsocial='" + objEntidad.getRazonSocial()
+                +"', paginaweb='" + objEntidad.getPaginaWeb() +"', idtipoEntidad='" + objEntidad.getIdTipoEntidad()
+                +"', indActivo='" + objEntidad.getIndActivo() +"', idciuu'" + objEntidad.getIdCIUU()
+                +"' where  identidad='"+ objEntidad.getIdEntidad() +"'";
+
+         try{
+            objConexion.EjecutarUID(sql);
+            boolExito=true;
+         }catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{objConexion.SalirUID();}
+
+        return boolExito;
+    }
 
 
 
 }
+
