@@ -13,4 +13,75 @@ public class DetalleGuiaRemisionBE {
     private int cantidad;
     private double subtotal;
     private ProductoBE producto;
+    private String estado;
+
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    /**
+     * @return the cantidad
+     */
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    /**
+     * @param cantidad the cantidad to set
+     */
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    /**
+     * @return the subtotal
+     */
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    /**
+     * @param subtotal the subtotal to set
+     */
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    /**
+     * @return the producto
+     */
+    public ProductoBE getProducto() {
+        return producto;
+    }
+
+    /**
+     * @param producto the producto to set
+     */
+    public void setProducto(ProductoBE producto) {
+        this.producto = producto;
+    }
+
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }
