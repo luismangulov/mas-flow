@@ -21,13 +21,13 @@ public class ProveedorBE {
     private String nombreContacto;
     private String DNIContacto;
     private String telefonoContacto;
-    private char tipoPersona;
+    private String tipoPersona;
 
-    public char getTipoPersona() {
+    public String getTipoPersona() {
         return tipoPersona;
     }
 
-    public void setTipoPersona(char tipoPersona) {
+    public void setTipoPersona(String tipoPersona) {
         this.tipoPersona = tipoPersona;
     }
 
