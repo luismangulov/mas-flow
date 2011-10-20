@@ -26,11 +26,12 @@ public class conexion {
       
         //jdbc:postgreslq://ubicacion_de_BD:puerto/nombre_BD
         driver = "org.postgresql.Driver";
-        url = "Jdbc:postgresql://quilla.lab.inf.pucp.edu.pe:1051/template1/";
+        url = "jdbc:postgresql://quilla.lab.inf.pucp.edu.pe:1051/postgres";
         user = "postgres";
         password = "imperio";
         stmt= null;
         con = null;
+
     }
 
       //Para ejecutar sentencias Insert,Update,Delete
