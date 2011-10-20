@@ -41,7 +41,7 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         lblInsertar = new javax.swing.JLabel();
         lblEditar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
         lblRefrescar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -52,20 +52,20 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         dgvFamilia.setAutoCreateRowSorter(true);
         dgvFamilia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Código", "Nombre", "Descripción"
+                "Código", "Nombre", "Descripción", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -99,13 +99,13 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
         jToolBar1.add(jLabel3);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel4MousePressed(evt);
+                lblBuscarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel4);
+        jToolBar1.add(lblBuscar);
 
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
         lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -145,10 +145,10 @@ m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_lblInsertarMousePressed
 
-    private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-       BuscarFamiliaProd b = new BuscarFamiliaProd();
+    private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
+       BuscarFamiliaProd b = new BuscarFamiliaProd(this);
        b.setVisible(true);
-    }//GEN-LAST:event_jLabel4MousePressed
+    }//GEN-LAST:event_lblBuscarMousePressed
 
     private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
         // TODO add your handling code here:
@@ -214,11 +214,11 @@ m.setVisible(true);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dgvFamilia;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblInsertar;
     private javax.swing.JLabel lblRefrescar;
@@ -233,21 +233,31 @@ m.setVisible(true);
     
     public void recargaruno(FamiliaBE familia){
         DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
-        modelo.addRow(new Object[3]);
+        modelo.addRow(new Object[4]);
         dgvFamilia.clearSelection();
         dgvFamilia.setValueAt(familia.getCodigo(),0,0 );
         dgvFamilia.setValueAt(familia.getNombre(),0,1 );
         dgvFamilia.setValueAt(familia.getDescripcion(),0,2 );
+        if(familia.getEstado().equals("1")){
+             dgvFamilia.setValueAt("Activo",0,3 );
+        }else if(familia.getEstado().equals("0")){
+             dgvFamilia.setValueAt("Inactivo",0,3 );
+        }
     }
     
     public void recargar(ArrayList<FamiliaBE> familias){
         DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
-        modelo.addRow(new Object[3]);
+        modelo.addRow(new Object[4]);
         dgvFamilia.clearSelection();
         for(int i=0;i<familias.size();i++){
             dgvFamilia.setValueAt(familias.get(i).getCodigo(),i,0 );
             dgvFamilia.setValueAt(familias.get(i).getNombre(),i,1 );
             dgvFamilia.setValueAt(familias.get(i).getDescripcion(),i,2 );
+            if(familias.get(i).getEstado().equals("1")){
+                dgvFamilia.setValueAt("Activo",i,3 );
+            }else if(familias.get(i).getEstado().equals("0")){
+                dgvFamilia.setValueAt("Inactivo",i,3 );
+        }
         }
     }
 }
