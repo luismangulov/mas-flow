@@ -11,7 +11,8 @@ import DataAccess.ProveedorDA;
  * @author victor
  */
 public class ProveedorBL {
-    public void insertarProveedor(ProveedorBE proveedor){
-
+    public void insertarProveedor(ProveedorBE proveedor) throws Exception{
+        ProveedorDA proveedorDA = new ProveedorDA();
+        proveedorDA.insertarProveedor(proveedor);
     }
 }
