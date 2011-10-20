@@ -11,7 +11,7 @@ package BusinessEntity;
  */
 public class ProveedorBE {
     private String codigo;
-    private String DniRuc;
+    private String NroDocumento;
     private String razonSocial;
     private String ciuu;
     private String direccion;
@@ -21,6 +21,15 @@ public class ProveedorBE {
     private String nombreContacto;
     private String DNIContacto;
     private String telefonoContacto;
+    private char tipoPersona;
+
+    public char getTipoPersona() {
+        return tipoPersona;
+    }
+
+    public void setTipoPersona(char tipoPersona) {
+        this.tipoPersona = tipoPersona;
+    }
 
     public String getCiuu() {
         return ciuu;
@@ -86,12 +95,12 @@ public class ProveedorBE {
         this.paginaWeb = paginaWeb;
     }
 
-    public String getDniRuc() {
-        return DniRuc;
+    public String getNroDocumento() {
+        return NroDocumento;
     }
 
-    public void setDniRuc(String DniRuc) {
-        this.DniRuc = DniRuc;
+    public void seNroDocumento(String NroDocumento) {
+        this.NroDocumento = NroDocumento;
     }
 
     public String getTelefono() {
