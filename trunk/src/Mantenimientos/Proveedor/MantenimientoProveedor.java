@@ -9,8 +9,10 @@
  * Created on Oct 2, 2011, 3:34:26 PM
  */
 package Mantenimientos.Proveedor;
+import BusinessEntity.EntidadBE;
 import BusinessEntity.ProveedorBE;
 import BusinessLogic.ProveedorBL;
+import DataAccess.EntidadDA;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -19,16 +21,21 @@ import java.util.logging.Logger;
  */
 public class MantenimientoProveedor extends javax.swing.JFrame {
 
-    private String codigo;
-    private String dniContacto;
-    private String dniRuc;
+    private String idEntidad;
+    private String nroDocumento;
     private String direccion;
+    private String telefono;
     private String email;
     private String nombreContacto;
-    private String paginaWeb;
-    private String razonSocial;
-    private String telefono;
+    private String dniContacto;
     private String telefonoContacto;
+    private String idTipoPersona;
+    private String razonSocial;
+    private String paginaWeb;
+    private String idTipoEntidad;
+    private String indActivo;
+    private String idCIUU;
+
 
     /** Creates new form MantenimientoProveedor */
     public MantenimientoProveedor() {
@@ -60,7 +67,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         txtTelefonoContacto = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chbActivo = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtDNIRUC = new javax.swing.JTextField();
@@ -101,7 +108,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
 
         jLabel11.setText("Telf. Contacto:");
 
-        jCheckBox1.setText("Activo");
+        chbActivo.setText("Activo");
 
         jLabel2.setText("DNI/RUC:");
 
@@ -127,7 +134,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
+                        .addComponent(chbActivo)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +225,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(txtTelefonoContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
+                .addComponent(chbActivo)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,26 +241,35 @@ private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_jTextField8ActionPerformed
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-    ProveedorBE proveedor = new ProveedorBE();
-    proveedor.setCodigo(txtCodigo.getText());
-    proveedor.setNroDocumento(txtDNIRUC.getText());
-    proveedor.setRazonSocial(txtRazonSocial.getText());
-//    proveedor.setCiuu(cbCIUU.getSelectedItem().toString());
-    proveedor.setDireccion(txtDireccion.getText());
-    proveedor.setTelefono(txtTelefono.getText());
-    proveedor.setPaginaWeb(txtPaginaWeb.getText());
-    proveedor.setEmail(txtEmail.getText());
-    proveedor.setNombreContacto(txtNombreContacto.getText());
-    proveedor.setDNIContacto(txtDNIContacto.getText());
-    proveedor.setTelefonoContacto(txtTelefonoContacto.getText());
-    proveedor.setCiuu("A");
-    proveedor.setTipoPersona("J");
-    ProveedorBL proveedorBL = new ProveedorBL();
-        try {
-            proveedorBL.insertarProveedor(proveedor);
-        } catch (Exception ex) {
-            Logger.getLogger(MantenimientoProveedor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    
+    idEntidad = txtCodigo.getText();
+    nroDocumento = txtDNIRUC.getText();
+    razonSocial = txtRazonSocial.getText();
+    idCIUU =cbCIUU.getSelectedItem().toString();
+    direccion = txtDireccion.getText();
+    telefono = txtTelefono.getText();
+    paginaWeb = txtPaginaWeb.getText();
+    email = txtEmail.getText();
+    nombreContacto = txtNombreContacto.getText();
+    dniContacto = txtDNIContacto.getText();
+    telefonoContacto = txtTelefonoContacto.getText();
+    idTipoEntidad = "P";
+
+    if (txtDNIRUC.getText().length()==8)
+        idTipoPersona = "N";
+    else
+        idTipoPersona = "J";
+
+    if (chbActivo.isSelected()){
+        indActivo = "A";
+    }
+    else
+        indActivo = "I";
+
+    EntidadBE entidad = new EntidadBE(idEntidad, nroDocumento, direccion, telefono,
+                        email, nombreContacto, dniContacto, telefonoContacto, idTipoPersona,
+                        razonSocial, paginaWeb, idTipoEntidad, indActivo, idCIUU);
+    
 }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
@@ -295,7 +311,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbCIUU;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox chbActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
