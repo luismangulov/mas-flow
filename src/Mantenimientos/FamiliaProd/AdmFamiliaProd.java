@@ -89,6 +89,11 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         jToolBar1.add(lblInsertar);
 
         lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEditarMousePressed(evt);
+            }
+        });
         jToolBar1.add(lblEditar);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
@@ -150,6 +155,16 @@ m.setVisible(true);
         FamiliaBL objFamiliaBL = new FamiliaBL();
         this.recargar(objFamiliaBL.queryAllFamilia());
     }//GEN-LAST:event_lblRefrescarMousePressed
+
+    private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
+        // TODO add your handling code here:
+        if((dgvFamilia.getRowCount() == 0)){
+        
+        } else if((dgvFamilia.getRowCount() > 1)){
+            
+        }
+        
+    }//GEN-LAST:event_lblEditarMousePressed
 
     /**
      * @param args the command line arguments
