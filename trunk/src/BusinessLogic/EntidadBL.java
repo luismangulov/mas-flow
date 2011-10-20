@@ -9,6 +9,6 @@ package BusinessLogic;
  *
  * @author giuliana
  */
-public class ClienteBL {
+public class EntidadBL {
 
 }
