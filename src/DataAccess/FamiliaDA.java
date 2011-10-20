@@ -114,24 +114,24 @@ public class FamiliaDA {
         sql+= " WHERE IndActivo = '1'";
         if(!(codigo.equals("")) || !(nombre.equals(""))){
 //           If (!(codigo.equals(""))){
-//                If (primero){
+//                If (primero == true){
 //                    sql += " WHERE";
 //                    primero = false;
-//                 }else if(primero){
+//                 }else if(primero == false){
 //                    sql += "AND ";
 //                 }           
 //        
-//                sql += " familia.idfamilia LIKE '%" & codigo & "%'";
+//                sql += " familia.idfamilia LIKE '%" + codigo + "%'";
 //           }
 //           If (!(nombre.equals(""))){
-//                If (primero){
+//                If (primero == true){
 //                    sql += " WHERE";
 //                    primero = false;
-//                 }else if(primero){
+//                 }else if(primero == false){
 //                    sql += "AND ";
 //                 }           
 //        
-//                sql += " familia.nombre LIKE '%" & codigo & "%'";
+//                sql += " familia.nombre LIKE '%" + nombre + "%'";
 //           }
            
         

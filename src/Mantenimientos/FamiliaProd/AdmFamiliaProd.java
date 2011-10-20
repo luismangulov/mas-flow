@@ -10,6 +10,11 @@
  */
 package Mantenimientos.FamiliaProd;
 
+import BusinessEntity.FamiliaBE;
+import BusinessLogic.FamiliaBL;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DIEGO
@@ -31,21 +36,21 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        dgvFamilia = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         lblInsertar = new javax.swing.JLabel();
         lblEditar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblRefrescar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar familia de producto");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        dgvFamilia.setAutoCreateRowSorter(true);
+        dgvFamilia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -71,7 +76,7 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(dgvFamilia);
 
         jToolBar1.setRollover(true);
 
@@ -97,8 +102,13 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         });
         jToolBar1.add(jLabel4);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
-        jToolBar1.add(jLabel5);
+        lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRefrescarMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblRefrescar);
 
         jLabel7.setText("                                                                                                   ");
         jToolBar1.add(jLabel7);
@@ -134,6 +144,12 @@ m.setVisible(true);
        BuscarFamiliaProd b = new BuscarFamiliaProd();
        b.setVisible(true);
     }//GEN-LAST:event_jLabel4MousePressed
+
+    private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
+        // TODO add your handling code here:
+        FamiliaBL objFamiliaBL = new FamiliaBL();
+        this.recargar(objFamiliaBL.queryAllFamilia());
+    }//GEN-LAST:event_lblRefrescarMousePressed
 
     /**
      * @param args the command line arguments
@@ -171,15 +187,42 @@ m.setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable dgvFamilia;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblInsertar;
+    private javax.swing.JLabel lblRefrescar;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the dgvFamilia
+     */
+    public javax.swing.JTable getDgvFamilia() {
+        return dgvFamilia;
+    }
+    
+    public void recargaruno(FamiliaBE familia){
+        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+        modelo.addRow(new Object[3]);
+        dgvFamilia.clearSelection();
+        dgvFamilia.setValueAt(familia.getCodigo(),0,0 );
+        dgvFamilia.setValueAt(familia.getNombre(),0,1 );
+        dgvFamilia.setValueAt(familia.getDescripcion(),0,2 );
+    }
+    
+    public void recargar(ArrayList<FamiliaBE> familias){
+        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+        modelo.addRow(new Object[3]);
+        dgvFamilia.clearSelection();
+        for(int i=0;i<familias.size();i++){
+            dgvFamilia.setValueAt(familias.get(i).getCodigo(),i,0 );
+            dgvFamilia.setValueAt(familias.get(i).getNombre(),i,1 );
+            dgvFamilia.setValueAt(familias.get(i).getDescripcion(),i,2 );
+        }
+    }
 }

@@ -10,6 +10,7 @@
  */
 package Mantenimientos.FamiliaProd;
 
+import BusinessEntity.FamiliaBE;
 import BusinessLogic.FamiliaBL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
         this.objPadre = padre;
         accion = "registrar";
         initComponents();
+        this.setVisible(true);
     }
 
     /** This method is called from within the constructor to
@@ -59,8 +61,18 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
         jLabel1.setText("Código:");
 
         txtNombre.setName("lblNombre"); // NOI18N
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         txtDescripcion.setName("lblDescripcion"); // NOI18N
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.setName("btnGuardar"); // NOI18N
@@ -134,11 +146,45 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 // TODO add your handling code here:
     FamiliaBL objFamiliaBL = new FamiliaBL();
         try {
-            objFamiliaBL.insertar(this.txtNombre.getText(), this.txtDescripcion.getText());
+             if(this.accion.equals("registrar")){
+                objFamiliaBL.insertar(this.txtNombre.getText(), this.txtDescripcion.getText());
+                FamiliaBE familia;
+                familia = objFamiliaBL.getFamilia();
+                this.objPadre.recargaruno(familia);
+                this.dispose();
+             }
         } catch (Exception ex) {
             Logger.getLogger(MantenimientoFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);
         }
 }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char c = (char)evt.getKeyChar();
+       if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ) {
+         
+        }
+       else {
+        evt.consume();
+        }
+       if ((this.txtNombre.getText().length() + 1) > 30) {
+       evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        // TODO add your handling code here:
+          char c = (char)evt.getKeyChar();
+       if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ) {
+         
+        }
+       else {
+        evt.consume();
+        }
+       if ((this.txtDescripcion.getText().length() + 1) > 30) {
+       evt.consume();
+        }
+    }//GEN-LAST:event_txtDescripcionKeyTyped
 
     /**
      * @param args the command line arguments
