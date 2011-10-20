@@ -104,6 +104,7 @@ public class FamiliaDA {
         String sql = "UPDATE familia SET";
              sql += " nombre='"+objFamilia.getNombre()+"'," +
                     "descripcion='"+objFamilia.getDescripcion()+ "'"+
+                     "indactivo='"+objFamilia.getEstado()+ "'"+ 
                     " WHERE idfamilia='"+objFamilia.getCodigo()+"'";
         
         try{
