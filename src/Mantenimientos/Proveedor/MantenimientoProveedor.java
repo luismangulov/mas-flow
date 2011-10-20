@@ -246,7 +246,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     proveedor.setNombreContacto(txtNombreContacto.getText());
     proveedor.setDNIContacto(txtDNIContacto.getText());
     proveedor.setTelefonoContacto(txtTelefonoContacto.getText());
-
+    proveedor.setCiuu("A");
+    proveedor.setTipoPersona("J");
     ProveedorBL proveedorBL = new ProveedorBL();
         try {
             proveedorBL.insertarProveedor(proveedor);
