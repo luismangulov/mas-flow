@@ -10,8 +10,6 @@
  */
 package Mantenimientos.Proveedor;
 import BusinessEntity.EntidadBE;
-import BusinessEntity.ProveedorBE;
-import BusinessLogic.ProveedorBL;
 import DataAccess.EntidadDA;
 import java.util.logging.Level;
 import java.util.logging.Logger;
