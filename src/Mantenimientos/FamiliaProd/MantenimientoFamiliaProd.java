@@ -163,7 +163,17 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 this.dispose();
              }
              if(this.accion.equals("modificar")){
-                 
+                 FamiliaBE familia = null;
+                 familia = objFamiliaBL.setFamilia(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText());
+                 //familia = new FamiliaBE(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),"1");
+                 objFamiliaBL.modificar(familia);
+                 int fila;
+                 fila = this.objPadre.getDgvFamilia().getSelectedRow();
+                 this.objPadre.getDgvFamilia().removeRowSelectionInterval(fila, fila);
+                 this.objPadre.getDgvFamilia().setValueAt(familia.getCodigo(), fila, 0);
+                 this.objPadre.getDgvFamilia().setValueAt(familia.getNombre(), fila, 1);
+                 this.objPadre.getDgvFamilia().setValueAt(familia.getDescripcion(), fila, 2);
+                 this.dispose();
              }
         } catch (Exception ex) {
             Logger.getLogger(MantenimientoFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);

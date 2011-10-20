@@ -65,13 +65,44 @@ public class FamiliaDA {
         return arrFamilia;
     }
     
+     public FamiliaBE queryByIdFamilia(String codigo){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        FamiliaBE familia = null;
+        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia ";
+           sql += " WHERE idfamilia='"+codigo+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strCodigo;
+            String strNombre;
+            String strDescripcion;
+            String strEstado;
+            if (rs.next()){
+              
+                strCodigo = rs.getString(1);
+                strNombre = rs.getString(2);
+                strDescripcion = rs.getString(3);
+                strEstado = rs.getString(4);
+                familia = new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado);
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return familia;
+    }
+    
      public boolean modificar(FamiliaBE objFamilia) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
         String sql = "UPDATE familia SET";
-             sql += "nombre='"+objFamilia.getNombre()+"'," +
+             sql += " nombre='"+objFamilia.getNombre()+"'," +
                     "descripcion='"+objFamilia.getDescripcion()+ "'"+
                     " WHERE idfamilia='"+objFamilia.getCodigo()+"'";
         

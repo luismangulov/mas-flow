@@ -158,11 +158,21 @@ m.setVisible(true);
 
     private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
         // TODO add your handling code here:
-        if((dgvFamilia.getRowCount() == 0)){
-        
-        } else if((dgvFamilia.getRowCount() > 1)){
+//        if((dgvFamilia.getRowCount() == -1)){
+//           
+//        } else if((dgvFamilia.getRowCount() > 1)){
+//            
+//        }else{
+            int fila;
+            String codigo;
+            fila = dgvFamilia.getSelectedRow();
+            codigo = (String)dgvFamilia.getValueAt(fila, 0);
+            FamiliaBL objFamiliaBL = new FamiliaBL();
+            FamiliaBE familia = objFamiliaBL.queryByIdFamilia(codigo);
+            MantenimientoFamiliaProd m = new MantenimientoFamiliaProd(this,familia);
+            m.setVisible(true);
+//        }
             
-        }
         
     }//GEN-LAST:event_lblEditarMousePressed
 
