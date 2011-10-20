@@ -28,10 +28,30 @@ public class FamiliaBL {
         return objFamiliaDA.queryAllFamilia();
     }
     
+    public FamiliaBE queryByIdFamilia(String codigo){
+        FamiliaDA objFamiliaDA = new FamiliaDA();
+        return objFamiliaDA.queryByIdFamilia(codigo);
+    }
+    
+     public boolean modificar(FamiliaBE objFamilia) throws Exception{
+          boolean exito = false;
+          FamiliaDA objFamiliaDA = new FamiliaDA();
+          exito = objFamiliaDA.modificar(objFamilia);
+          return exito;
+     }
+    
     /**
      * @return the familia
      */
     public FamiliaBE getFamilia() {
+        return familia;
+    }
+
+    /**
+     * @param familia the familia to set
+     */
+    public FamiliaBE setFamilia(String codigo,String nombre,String descripcion) {
+        familia = new FamiliaBE(codigo,nombre,descripcion,"1");
         return familia;
     }
     
