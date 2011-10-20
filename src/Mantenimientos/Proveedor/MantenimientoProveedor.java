@@ -233,7 +233,7 @@ private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
     ProveedorBE proveedor = new ProveedorBE();
     proveedor.setCodigo(txtCodigo.getText());
-    proveedor.setDniRuc(txtDNIRUC.getText());
+    proveedor.setNroDocumento(txtDNIRUC.getText());
     proveedor.setRazonSocial(txtRazonSocial.getText());
     proveedor.setCiuu(cbCIUU.getSelectedItem().toString());
     proveedor.setDireccion(txtDireccion.getText());
