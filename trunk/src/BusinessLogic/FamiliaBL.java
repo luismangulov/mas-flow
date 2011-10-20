@@ -15,9 +15,9 @@ import java.util.ArrayList;
  */
 public class FamiliaBL {
     private FamiliaBE familia;
-    public boolean insertar(String nombre,String descripcion) throws Exception{
+    public boolean insertar(String nombre,String descripcion,String estado) throws Exception{
         boolean exito = false;
-        familia = new FamiliaBE(Utilitario.generaCodigo("familia",6),nombre,descripcion,"1");
+        familia = new FamiliaBE(Utilitario.generaCodigo("familia",6),nombre,descripcion,estado);
         FamiliaDA objFamiliaDA = new FamiliaDA();
         exito = objFamiliaDA.insertar(getFamilia());
         return exito;
@@ -50,8 +50,8 @@ public class FamiliaBL {
     /**
      * @param familia the familia to set
      */
-    public FamiliaBE setFamilia(String codigo,String nombre,String descripcion) {
-        familia = new FamiliaBE(codigo,nombre,descripcion,"1");
+    public FamiliaBE setFamilia(String codigo,String nombre,String descripcion,String estado) {
+        familia = new FamiliaBE(codigo,nombre,descripcion,estado);
         return familia;
     }
     
