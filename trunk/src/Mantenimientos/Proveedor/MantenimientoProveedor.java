@@ -10,6 +10,9 @@
  */
 package Mantenimientos.Proveedor;
 import BusinessEntity.ProveedorBE;
+import BusinessLogic.ProveedorBL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author DIEGO
@@ -235,7 +238,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     proveedor.setCodigo(txtCodigo.getText());
     proveedor.setNroDocumento(txtDNIRUC.getText());
     proveedor.setRazonSocial(txtRazonSocial.getText());
-    proveedor.setCiuu(cbCIUU.getSelectedItem().toString());
+//    proveedor.setCiuu(cbCIUU.getSelectedItem().toString());
     proveedor.setDireccion(txtDireccion.getText());
     proveedor.setTelefono(txtTelefono.getText());
     proveedor.setPaginaWeb(txtPaginaWeb.getText());
@@ -244,6 +247,12 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     proveedor.setDNIContacto(txtDNIContacto.getText());
     proveedor.setTelefonoContacto(txtTelefonoContacto.getText());
 
+    ProveedorBL proveedorBL = new ProveedorBL();
+        try {
+            proveedorBL.insertarProveedor(proveedor);
+        } catch (Exception ex) {
+            Logger.getLogger(MantenimientoProveedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
 }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
