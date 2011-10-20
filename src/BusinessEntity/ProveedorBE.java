@@ -11,16 +11,30 @@ package BusinessEntity;
  */
 public class ProveedorBE {
     private String codigo;
-    private Integer dni;
-    private Integer ruc;
-    private String nombre;
+    private String DniRuc;
+    private String razonSocial;
+    private String ciuu;
     private String direccion;
+    private String telefono;
+    private String paginaWeb;
+    private String email;
+    private String nombreContacto;
+    private String DNIContacto;
+    private String telefonoContacto;
 
-    public Integer getDNIContacto() {
+    public String getCiuu() {
+        return ciuu;
+    }
+
+    public void setCiuu(String ciuu) {
+        this.ciuu = ciuu;
+    }
+
+    public String getDNIContacto() {
         return DNIContacto;
     }
 
-    public void setDNIContacto(Integer DNIContacto) {
+    public void setDNIContacto(String DNIContacto) {
         this.DNIContacto = DNIContacto;
     }
 
@@ -40,14 +54,6 @@ public class ProveedorBE {
         this.direccion = direccion;
     }
 
-    public Integer getDni() {
-        return dni;
-    }
-
-    public void setDni(Integer dni) {
-        this.dni = dni;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -56,12 +62,12 @@ public class ProveedorBE {
         this.email = email;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getRazonSocial() {
+        return razonSocial;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
     }
 
     public String getNombreContacto() {
@@ -80,35 +86,32 @@ public class ProveedorBE {
         this.paginaWeb = paginaWeb;
     }
 
-    public Integer getRuc() {
-        return ruc;
+    public String getDniRuc() {
+        return DniRuc;
     }
 
-    public void setRuc(Integer ruc) {
-        this.ruc = ruc;
+    public void setDniRuc(String DniRuc) {
+        this.DniRuc = DniRuc;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public Integer getTelefonoContacto() {
+    public String getTelefonoContacto() {
         return telefonoContacto;
     }
 
-    public void setTelefonoContacto(Integer telefonoContacto) {
+    public void setTelefonoContacto(String telefonoContacto) {
         this.telefonoContacto = telefonoContacto;
     }
-    private Integer telefono;
-    private String paginaWeb;
-    private String email;
-    private String nombreContacto;
-    private Integer DNIContacto;
-    private Integer telefonoContacto;
+
+   
+   
 
 
 }
