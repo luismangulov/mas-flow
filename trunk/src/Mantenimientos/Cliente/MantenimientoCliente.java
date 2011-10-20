@@ -10,8 +10,12 @@
  */
 package Mantenimientos.Cliente;
 import BusinessEntity.CIUUBE;
+import BusinessEntity.EntidadBE;
+import BusinessLogic.EntidadBL;
 import java.util.ArrayList;
 import DataAccess.CIUUDA;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author DIEGO
@@ -21,20 +25,16 @@ public class MantenimientoCliente extends javax.swing.JFrame {
     /** Creates new form MantenimientoCliente */
     public MantenimientoCliente() {
         initComponents();
-        ArrayList<CIUUBE> arrCIUU = DataAccess.CIUUDA.queryAllCIUU();
-        cmbCIUU.addItem("Seleccione");
-        for (CIUUBE CIUU : arrCIUU){
-            cmbCIUU.addItem(CIUU.getIdCIUU() + " - " + CIUU.getDescripcion());
-        }
-
-//        index = OGGestorTipoDocIdentidad.indexTipoDocIdentidad(arrTipoDocIdentidad,objCliente.getObjTipoDocIdentidad().getStrIdTipoDocIdentidad());
-//        jcmbTipoDocumento.setSelectedIndex(index+1);
-
+        this.setLocationRelativeTo(null);
+        this.llenarCombo();
+        
     }
 
-     public MantenimientoCliente(byte i, String codigoCliente) {
+     public MantenimientoCliente(byte i, String codigoCliente) throws Exception{
           
          initComponents();
+         this.setLocationRelativeTo(null);
+         this.llenarCombo();
 
          if (i==0) {
             this.setTitle("+Flow - Registrar cliente");
@@ -42,9 +42,32 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         } else {
             this.setTitle("+Flow - Editar cliente");
 
+            EntidadBE cliente = new EntidadBE();
+            EntidadBL objEntidadBL = new EntidadBL();
+            cliente =objEntidadBL.getCliente(codigoCliente);
 
-        
-        
+            txtCodigo.setText(cliente.getIdEntidad());
+            txtDNIRUC.setText(cliente.getNroDocumento());
+            txtDireccion.setText(cliente.getDireccion());
+            txtTelefono.setText(cliente.getTelefono());
+            txtEmail.setText(cliente.getEmail());
+            txtNombreContacto.setText(cliente.getNombreContacto());
+            txtDNIContacto.setText(cliente.getDniContacto());
+            txtTelfContacto.setText(cliente.getTelefonoContacto());
+            //txtIdTipoPersona.setText(cliente.      ());
+            txtRazonSocial.setText(cliente.getRazonSocial());
+            txtPaginaWeb.setText(cliente.getPaginaWeb());
+            //txtIdTipoEntidad.setText(cliente.getIdEntidad());
+
+            if (cliente.getIndActivo()=="1"){
+                cbxActivo.setSelected(true);
+            } else{
+                cbxActivo.setSelected(false);
+            }
+
+            //txtIdCIUU.setText(cliente.getIdEntidad());
+
+             
         
         }
             
@@ -78,7 +101,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         cmbCIUU = new javax.swing.JComboBox();
         txtDireccion = new javax.swing.JTextField();
-        txtTelefonos = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         txtPaginaWeb = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtDNIContacto = new javax.swing.JTextField();
@@ -100,7 +123,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         jLabel4.setText("Dirección:");
 
-        jLabel5.setText("Teléfonos:");
+        jLabel5.setText("Teléfono:");
 
         jLabel6.setText("Página Web¨:");
 
@@ -126,9 +149,9 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         jLabel10.setText("E-mail:");
 
-        txtTelefonos.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonosActionPerformed(evt);
+                txtTelefonoActionPerformed(evt);
             }
         });
 
@@ -154,6 +177,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         jLabel11.setText("Telf. Contacto:");
 
+        cbxActivo.setSelected(true);
         cbxActivo.setText("Activo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -193,7 +217,6 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                                             .addComponent(txtNombreContacto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                                             .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                                             .addComponent(txtPaginaWeb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                                            .addComponent(txtTelefonos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                                             .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                                             .addComponent(cmbCIUU, javax.swing.GroupLayout.Alignment.LEADING, 0, 308, Short.MAX_VALUE)
                                             .addComponent(txtRazonSocial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
@@ -202,7 +225,8 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                                                 .addComponent(jLabel2)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtDNIRUC, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                                .addComponent(txtDNIRUC, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(26, 26, 26))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(108, Short.MAX_VALUE)
@@ -235,7 +259,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtTelefonos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -270,9 +294,9 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRazonSocialActionPerformed
 
-    private void txtTelefonosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonosActionPerformed
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonosActionPerformed
+    }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
         this.dispose();    // TODO add your handling code here:
@@ -280,6 +304,27 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
 
+
+    String tipoPersona = new String();
+    if (txtDNIRUC.getText().length()==8) {tipoPersona="N";}
+    else if (txtDNIRUC.getText().length()==11) {tipoPersona="J";}
+
+    String indActivo = new String();
+    if (cbxActivo.isSelected()) {indActivo="1";}
+    else {indActivo="0";}
+
+    EntidadBL entidadBL = new EntidadBL();
+        try {
+            entidadBL.insertarEntidad(txtDNIRUC.getText(),txtDireccion.getText(),
+            txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
+            txtDNIContacto.getText(), txtTelfContacto.getText(),tipoPersona, 
+            txtRazonSocial.getText(), txtPaginaWeb.getText(), "C", indActivo, 
+            cmbCIUU.getSelectedItem().toString().substring(0,1) );
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
         // TODO add your handling code here:
@@ -358,7 +403,21 @@ public class MantenimientoCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombreContacto;
     private javax.swing.JTextField txtPaginaWeb;
     private javax.swing.JTextField txtRazonSocial;
-    private javax.swing.JTextField txtTelefonos;
+    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTelfContacto;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarCombo() {
+
+        ArrayList<CIUUBE> arrCIUU = DataAccess.CIUUDA.queryAllCIUU();
+        cmbCIUU.addItem("Seleccione");
+        for (CIUUBE CIUU : arrCIUU){
+            cmbCIUU.addItem((CIUU.getIdCIUU() + " - " + CIUU.getDescripcion()));
+        }
+
+//        index = OGGestorTipoDocIdentidad.indexTipoDocIdentidad(arrTipoDocIdentidad,objCliente.getObjTipoDocIdentidad().getStrIdTipoDocIdentidad());
+//        jcmbTipoDocumento.setSelectedIndex(index+1);
+
+
+    }
 }

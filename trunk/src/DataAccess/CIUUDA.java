@@ -24,7 +24,7 @@ public class CIUUDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<CIUUBE> arrCIUU = new ArrayList<CIUUBE>();
-        String sql = "SELECT idCIUU, descripcion FROM CIUU";
+        String sql = "SELECT idciuu, descripcion FROM CIUU;";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdCIUU;
