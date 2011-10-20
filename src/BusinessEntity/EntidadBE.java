@@ -12,7 +12,7 @@ import java.util.Date;
 public class EntidadBE {
 
 private String IdEntidad;
-private String RUCDNI;
+private String NroDocumento;
 private String Direccion;
 private String Telefono;
 private String Email;
@@ -39,7 +39,7 @@ private String IdTipoEntidad;
 
 
         this.IdEntidad=IdEntidad;
-        this.RUCDNI=RUCDNI;
+        this.NroDocumento=NroDocumento;
         this.Direccion=Direccion;
         this.Telefono=Telefono;
         this.Email=Email;
