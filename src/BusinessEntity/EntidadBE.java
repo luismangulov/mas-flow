@@ -4,58 +4,50 @@
  */
 
 package BusinessEntity;
-import java.util.Date;
+
 /**
  *
  * @author giuliana
  */
 public class EntidadBE {
 
-private String IdEntidad;
-private String NroDocumento;
-private String Direccion;
-private String Telefono;
-private String Email;
-private String NombreContacto;
-private String DNIContacto;
-private String TelefonoContacto;
-private String ApellidoPaterno;
-private String ApellidoMaterno;
-private Character Sexo;
-private Date FechaNacimiento;
-private String IdEstadoEntidad;
-private String IdTipoPersona;
-private String RazonSocial;
-private String PaginaWeb;
-private String IdTipoEntidad;
-
-  
-    
-    public EntidadBE(String IdEntidad,String RUCDNI,String Direccion,String Telefono,
-        String Email,String NombreContacto,String DNIContacto,String TelefonoContacto,
-        String ApellidoPaterno,String ApellidoMaterno,Character Sexo,Date FechaNacimiento,
-        String IdEstadoEntidad,String IdTipoPersona,String RazonSocial,String PaginaWeb,
-        String IdTipoEntidad){
+    private String idEntidad;
+    private String nroDocumento;
+    private String direccion;
+    private String telefono;
+    private String email;
+    private String nombreContacto;
+    private String dniContacto;
+    private String telefonoContacto;
+    private String idTipoPersona;
+    private String razonSocial;
+    private String paginaWeb;
+    private String idTipoEntidad;
+    private String indActivo;
+    private String idCIUU;
 
 
-        this.IdEntidad=IdEntidad;
-        this.NroDocumento=NroDocumento;
-        this.Direccion=Direccion;
-        this.Telefono=Telefono;
-        this.Email=Email;
-        this.NombreContacto=NombreContacto;
-        this.DNIContacto=DNIContacto;
-        this.TelefonoContacto=TelefonoContacto;
-        this.ApellidoPaterno=ApellidoPaterno;
-        this.ApellidoMaterno=ApellidoMaterno;
-        this.Sexo=Sexo;
-        this.FechaNacimiento=FechaNacimiento;
-        this.IdEstadoEntidad=IdEstadoEntidad;
-        this.IdTipoPersona=IdTipoPersona;
-        this.RazonSocial=RazonSocial;
-        this.PaginaWeb=PaginaWeb;
-        this.IdTipoEntidad=IdTipoEntidad;
 
+    public EntidadBE(String idEntidad, String nroDocumento, String direccion,
+    String telefono, String email, String nombreContacto, String dniContacto,
+    String telefonoContacto, String idTipoPersona, String razonSocial,
+    String paginaWeb, String idTipoEntidad, String indActivo, String idCIUU){
+
+
+        this.idEntidad=idEntidad;
+        this.nroDocumento=nroDocumento;
+        this.direccion=direccion;
+        this.telefono=telefono;
+        this.email=email;
+        this.nombreContacto=nombreContacto;
+        this.dniContacto=dniContacto;
+        this.telefonoContacto=telefonoContacto;
+        this.idTipoPersona=idTipoPersona;
+        this.razonSocial=razonSocial;
+        this.paginaWeb=paginaWeb;
+        this.idTipoEntidad=idTipoEntidad;
+        this.indActivo=indActivo;
+        this.idCIUU=idCIUU;
 
     }
 
