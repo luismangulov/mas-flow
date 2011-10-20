@@ -31,6 +31,15 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
+     public MantenimientoFamiliaProd(AdmFamiliaProd padre,FamiliaBE familia) {
+        this.objPadre = padre;
+        accion = "modificar";
+        initComponents();
+        this.setVisible(true);
+        this.txtCodigo.setText(familia.getCodigo());
+        this.txtNombre.setText(familia.getNombre());
+        this.txtDescripcion.setText(familia.getDescripcion());
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -152,6 +161,9 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 familia = objFamiliaBL.getFamilia();
                 this.objPadre.recargaruno(familia);
                 this.dispose();
+             }
+             if(this.accion.equals("modificar")){
+                 
              }
         } catch (Exception ex) {
             Logger.getLogger(MantenimientoFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);
