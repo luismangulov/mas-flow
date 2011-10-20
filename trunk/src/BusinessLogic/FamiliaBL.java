@@ -13,9 +13,11 @@ import DataAccess.FamiliaDA;
  * @author DIEGO
  */
 public class FamiliaBL {
-    public void insertar(String nombre,String descripcion) throws Exception{
+    public boolean insertar(String nombre,String descripcion) throws Exception{
+        boolean exito = false;
         FamiliaBE familia = new FamiliaBE(Utilitario.generaCodigo("familia",6),nombre,descripcion,"1");
         FamiliaDA objFamiliaDA = new FamiliaDA();
-        objFamiliaDA.insertar(familia);
+        exito = objFamiliaDA.insertar(familia);
+        return exito;
     }
 }
