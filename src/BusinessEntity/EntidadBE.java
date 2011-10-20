@@ -26,12 +26,13 @@ public class EntidadBE {
     private String indActivo;
     private String idCIUU;
 
-
+    public EntidadBE(){}
 
     public EntidadBE(String idEntidad, String nroDocumento, String direccion,
     String telefono, String email, String nombreContacto, String dniContacto,
     String telefonoContacto, String idTipoPersona, String razonSocial,
-    String paginaWeb, String idTipoEntidad, String indActivo, String idCIUU){
+    String paginaWeb, String idTipoEntidad, String indActivo, String idCIUU)
+    {
 
 
         this.idEntidad=idEntidad;
