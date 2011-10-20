@@ -10,6 +10,11 @@
  */
 package Mantenimientos.Cliente;
 
+import BusinessEntity.EntidadBE;
+import BusinessLogic.EntidadBL;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DIEGO
@@ -31,7 +36,7 @@ public class AdmCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCliente = new javax.swing.JTable();
+        dgvCliente = new javax.swing.JTable();
         tlbCliente = new javax.swing.JToolBar();
         lblAgregar = new javax.swing.JLabel();
         lblEditar = new javax.swing.JLabel();
@@ -44,8 +49,8 @@ public class AdmCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar cliente");
 
-        tblCliente.setAutoCreateRowSorter(true);
-        tblCliente.setModel(new javax.swing.table.DefaultTableModel(
+        dgvCliente.setAutoCreateRowSorter(true);
+        dgvCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -71,19 +76,20 @@ public class AdmCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblCliente);
-        tblCliente.getColumnModel().getColumn(0).setResizable(false);
-        tblCliente.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tblCliente.getColumnModel().getColumn(1).setResizable(false);
-        tblCliente.getColumnModel().getColumn(1).setPreferredWidth(40);
-        tblCliente.getColumnModel().getColumn(2).setResizable(false);
-        tblCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tblCliente.getColumnModel().getColumn(3).setResizable(false);
-        tblCliente.getColumnModel().getColumn(3).setPreferredWidth(40);
-        tblCliente.getColumnModel().getColumn(4).setResizable(false);
-        tblCliente.getColumnModel().getColumn(4).setPreferredWidth(60);
-        tblCliente.getColumnModel().getColumn(5).setResizable(false);
-        tblCliente.getColumnModel().getColumn(5).setPreferredWidth(100);
+        dgvCliente.setName("dgvCliente"); // NOI18N
+        jScrollPane1.setViewportView(dgvCliente);
+        dgvCliente.getColumnModel().getColumn(0).setResizable(false);
+        dgvCliente.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvCliente.getColumnModel().getColumn(1).setResizable(false);
+        dgvCliente.getColumnModel().getColumn(1).setPreferredWidth(40);
+        dgvCliente.getColumnModel().getColumn(2).setResizable(false);
+        dgvCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+        dgvCliente.getColumnModel().getColumn(3).setResizable(false);
+        dgvCliente.getColumnModel().getColumn(3).setPreferredWidth(40);
+        dgvCliente.getColumnModel().getColumn(4).setResizable(false);
+        dgvCliente.getColumnModel().getColumn(4).setPreferredWidth(60);
+        dgvCliente.getColumnModel().getColumn(5).setResizable(false);
+        dgvCliente.getColumnModel().getColumn(5).setPreferredWidth(100);
 
         tlbCliente.setRollover(true);
 
@@ -96,6 +102,11 @@ public class AdmCliente extends javax.swing.JFrame {
         tlbCliente.add(lblAgregar);
 
         lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEditarMousePressed(evt);
+            }
+        });
         tlbCliente.add(lblEditar);
 
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
@@ -147,6 +158,20 @@ BuscarCliente m = new BuscarCliente();
 m.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_lblBuscarMousePressed
 
+private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
+// TODO add your handling code here:
+    
+            int fila;
+            String codigo;
+            fila = dgvCliente.getSelectedRow();
+            codigo = (String)dgvCliente.getValueAt(fila, 0);
+            EntidadBL objClienteBL = new EntidadBL();
+//            EntidadBE cliente = objClienteBL.getCliente(codigo);
+//            MantenimientoCliente m = new MantenimientoCliente(this,cliente);
+//            m.setVisible(true);
+    
+}//GEN-LAST:event_lblEditarMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -182,7 +207,12 @@ m.setVisible(true);// TODO add your handling code here:
             }
         });
     }
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable dgvCliente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAgregar;
     private javax.swing.JLabel lblBlanco;
@@ -191,7 +221,41 @@ m.setVisible(true);// TODO add your handling code here:
     private javax.swing.JLabel lblEliminar;
     private javax.swing.JLabel lblInfo;
     private javax.swing.JLabel lblRefrescar;
-    private javax.swing.JTable tblCliente;
     private javax.swing.JToolBar tlbCliente;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JTable getDgvCliente() {
+        return dgvCliente;
+    }
+    
+    public void recargaruno(EntidadBE cliente){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvCliente.getModel();
+        modelo.addRow(new Object[6]);
+        dgvCliente.clearSelection();
+        dgvCliente.setValueAt(cliente.getIdEntidad(),0,0 );
+        dgvCliente.setValueAt(cliente.getNroDocumento(),0,1 );
+        dgvCliente.setValueAt(cliente.getRazonSocial(),0,2 );
+        dgvCliente.setValueAt(cliente.getTelefono(),0,3);
+        dgvCliente.setValueAt(cliente.getEmail(),0,4 );
+        dgvCliente.setValueAt(cliente.getNombreContacto(),0,5 );
+    }
+    
+    public void recargar(ArrayList<EntidadBE> clientes){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvCliente.getModel();
+        modelo.addRow(new Object[6]);
+        dgvCliente.clearSelection();
+        for(int i=0;i<clientes.size();i++){
+            dgvCliente.setValueAt(clientes.get(i).getIdEntidad(),i,0 );
+            dgvCliente.setValueAt(clientes.get(i).getNroDocumento(),i,1 );
+            dgvCliente.setValueAt(clientes.get(i).getRazonSocial(),i,2 );
+            dgvCliente.setValueAt(clientes.get(i).getTelefono(),i,3 );
+            dgvCliente.setValueAt(clientes.get(i).getEmail(),i,4 );
+            dgvCliente.setValueAt(clientes.get(i).getNombreContacto(),i,5 );
+        }
+    }
+
+
+
 }
