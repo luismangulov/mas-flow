@@ -10,14 +10,22 @@
  */
 package Mantenimientos.FamiliaProd;
 
+import BusinessLogic.FamiliaBL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author DIEGO
  */
 public class MantenimientoFamiliaProd extends javax.swing.JFrame {
-
+    
+    private AdmFamiliaProd objPadre;
+    private String accion;
     /** Creates new form MantenimientoFamiliaProd */
-    public MantenimientoFamiliaProd() {
+    public MantenimientoFamiliaProd(AdmFamiliaProd padre) {
+        this.objPadre = padre;
+        accion = "registrar";
         initComponents();
     }
 
@@ -124,7 +132,12 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 // TODO add your handling code here:
-    
+    FamiliaBL objFamiliaBL = new FamiliaBL();
+        try {
+            objFamiliaBL.insertar(this.txtNombre.getText(), this.txtDescripcion.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(MantenimientoFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);
+        }
 }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
