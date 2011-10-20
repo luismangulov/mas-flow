@@ -9,7 +9,9 @@
  * Created on Oct 2, 2011, 3:34:26 PM
  */
 package Mantenimientos.Cliente;
-
+import BusinessEntity.CIUUBE;
+import java.util.ArrayList;
+import DataAccess.CIUUDA;
 /**
  *
  * @author DIEGO
@@ -19,8 +21,39 @@ public class MantenimientoCliente extends javax.swing.JFrame {
     /** Creates new form MantenimientoCliente */
     public MantenimientoCliente() {
         initComponents();
+        ArrayList<CIUUBE> arrCIUU = DataAccess.CIUUDA.queryAllCIUU();
+        cmbCIUU.addItem("Seleccione");
+        for (CIUUBE CIUU : arrCIUU){
+            cmbCIUU.addItem(CIUU.getIdCIUU() + " - " + CIUU.getDescripcion());
+        }
+
+//        index = OGGestorTipoDocIdentidad.indexTipoDocIdentidad(arrTipoDocIdentidad,objCliente.getObjTipoDocIdentidad().getStrIdTipoDocIdentidad());
+//        jcmbTipoDocumento.setSelectedIndex(index+1);
+
     }
 
+     public MantenimientoCliente(byte i, String codigoCliente) {
+          
+         initComponents();
+
+         if (i==0) {
+            this.setTitle("+Flow - Registrar cliente");
+                 
+        } else {
+            this.setTitle("+Flow - Editar cliente");
+
+
+        
+        
+        
+        }
+            
+                
+         
+       
+    }
+     
+     
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -50,8 +83,8 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         txtDNIContacto = new javax.swing.JTextField();
         txtNombreContacto = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         txtTelfContacto = new javax.swing.JTextField();
         cbxActivo = new javax.swing.JCheckBox();
@@ -75,6 +108,14 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         jLabel8.setText("DNI Contacto:");
 
+        txtDNIRUC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDNIRUCKeyTyped(evt);
+            }
+        });
+
+        txtCodigo.setEnabled(false);
+
         txtRazonSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRazonSocialActionPerformed(evt);
@@ -91,15 +132,25 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Guardar");
-        jButton1.setMaximumSize(new java.awt.Dimension(75, 23));
-        jButton1.setMinimumSize(new java.awt.Dimension(75, 23));
-        jButton1.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnGuardar.setText("Guardar");
+        btnGuardar.setMaximumSize(new java.awt.Dimension(75, 23));
+        btnGuardar.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnGuardar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnGuardarMousePressed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
-        jButton2.setMaximumSize(new java.awt.Dimension(75, 30));
-        jButton2.setMinimumSize(new java.awt.Dimension(75, 30));
-        jButton2.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setMaximumSize(new java.awt.Dimension(75, 30));
+        btnCancelar.setMinimumSize(new java.awt.Dimension(75, 30));
+        btnCancelar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
 
         jLabel11.setText("Telf. Contacto:");
 
@@ -155,9 +206,9 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                         .addGap(26, 26, 26))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(108, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(106, 106, 106))
         );
         layout.setVerticalGroup(
@@ -207,8 +258,8 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                 .addComponent(cbxActivo)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -223,6 +274,31 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonosActionPerformed
 
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+        this.dispose();    // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarMousePressed
+
+    private void txtDNIRUCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIRUCKeyTyped
+       char c = (char)evt.getKeyChar();
+       if ((c >= '0' && c <= '9') || (Character.isISOControl(c))) {
+         // keep digit
+        }
+       else {
+        evt.consume();
+        }
+       if ((this.txtDNIRUC.getText().length() + 1) > 11) {
+       evt.consume();
+        }
+
+    }//GEN-LAST:event_txtDNIRUCKeyTyped
+    
     /**
      * @param args the command line arguments
      */
@@ -259,10 +335,10 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JCheckBox cbxActivo;
     private javax.swing.JComboBox cmbCIUU;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
