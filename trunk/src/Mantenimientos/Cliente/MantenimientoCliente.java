@@ -16,22 +16,24 @@ import java.util.ArrayList;
 import DataAccess.CIUUDA;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DIEGO
  */
 public class MantenimientoCliente extends javax.swing.JFrame {
-
-    /** Creates new form MantenimientoCliente */
+ int tipoVentana;
+    /** Creates new form MantenimientoCliente 
     public MantenimientoCliente() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.llenarCombo();
         
     }
-
-     public MantenimientoCliente(byte i, String codigoCliente) throws Exception{
-          
+*/
+     public MantenimientoCliente(int i, String codigoCliente) throws Exception{
+        tipoVentana=i;
          initComponents();
          this.setLocationRelativeTo(null);
          this.llenarCombo();
@@ -67,7 +69,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
             //txtIdCIUU.setText(cliente.getIdEntidad());
 
-             
+            this.setVisible(true) ;
         
         }
             
@@ -144,14 +146,54 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                 txtRazonSocialActionPerformed(evt);
             }
         });
+        txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRazonSocialKeyTyped(evt);
+            }
+        });
 
         jLabel9.setText("<html>Nombre<br>contacto:</html>");
 
         jLabel10.setText("E-mail:");
 
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
+            }
+        });
+
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonoActionPerformed(evt);
+            }
+        });
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+
+        txtPaginaWeb.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPaginaWebKeyTyped(evt);
+            }
+        });
+
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmailKeyTyped(evt);
+            }
+        });
+
+        txtDNIContacto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDNIContactoKeyTyped(evt);
+            }
+        });
+
+        txtNombreContacto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreContactoKeyTyped(evt);
             }
         });
 
@@ -176,6 +218,12 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         });
 
         jLabel11.setText("Telf. Contacto:");
+
+        txtTelfContacto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelfContactoKeyTyped(evt);
+            }
+        });
 
         cbxActivo.setSelected(true);
         cbxActivo.setText("Activo");
@@ -211,20 +259,20 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                                             .addGap(27, 27, 27)
                                             .addComponent(jLabel11)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtTelfContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
-                                        .addComponent(txtNombreContacto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                                        .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                                        .addComponent(txtPaginaWeb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                                        .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                                        .addComponent(cmbCIUU, javax.swing.GroupLayout.Alignment.LEADING, 0, 308, Short.MAX_VALUE)
-                                        .addComponent(txtRazonSocial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                                            .addComponent(txtTelfContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+                                        .addComponent(txtNombreContacto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                                        .addComponent(txtPaginaWeb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                                        .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                                        .addComponent(cmbCIUU, javax.swing.GroupLayout.Alignment.LEADING, 0, 336, Short.MAX_VALUE)
+                                        .addComponent(txtRazonSocial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                                             .addComponent(jLabel2)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(txtDNIRUC, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)))))
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)))))
                         .addGap(26, 26, 26))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(108, Short.MAX_VALUE)
@@ -304,20 +352,79 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
 
     String tipoPersona = new String();
-    if (txtDNIRUC.getText().length()==8) {tipoPersona="N";}
-    else if (txtDNIRUC.getText().length()==11) {tipoPersona="J";}
-
+    if ((txtDNIRUC.getText().length())==8) {tipoPersona="N";}
+    else if ((txtDNIRUC.getText().length())==11) {tipoPersona="J";}
+    else {JOptionPane.showMessageDialog(null, "DNI/RUC incorrecto.", "Error", 0); 
+    return;
+    }
+    
+    if ((txtRazonSocial.getText().length())==0) {
+        JOptionPane.showMessageDialog(null, "Falta indicar razón social.", "Error", 0);
+        return;
+    }
+    
+    if ((cmbCIUU.getSelectedIndex()==0) && txtDNIRUC.getText().length()!=8) {
+        JOptionPane.showMessageDialog(null, "Falta indicar CIUU.", "Error", 0);
+        return;
+    }
+    
+    if ((txtDireccion.getText().length())==0) {
+        JOptionPane.showMessageDialog(null, "Falta indicar dirección.", "Error", 0);
+        return;
+    }
+    
+    if ((txtTelefono.getText().length())==0) {
+        JOptionPane.showMessageDialog(null, "Falta indicar teléfono del cliente.", "Error", 0);
+        return;
+    }
+    
+    if ((txtPaginaWeb.getText().length()==0)&& txtDNIRUC.getText().length()!=8) {
+        JOptionPane.showMessageDialog(null, "Falta indicar página web.", "Error", 0);
+        return;
+    }
+    
+    if ((txtEmail.getText().length())==0) {
+        JOptionPane.showMessageDialog(null, "Falta indicar email.", "Error", 0);
+        return;
+    }
+    
+    if ((txtNombreContacto.getText().length()==0)&& txtDNIRUC.getText().length()!=8) {
+        JOptionPane.showMessageDialog(null, "Falta indicar nombre del contacto.", "Error", 0);
+        return;
+    }
+    
+    if ((txtDNIContacto.getText().length()==0)&& txtDNIRUC.getText().length()!=8) {
+        JOptionPane.showMessageDialog(null, "Falta indicar DNI del contacto.", "Error", 0);
+        return;
+    }
+    
+    if ((txtTelfContacto.getText().length()==0)&& txtDNIRUC.getText().length()!=8) {
+        JOptionPane.showMessageDialog(null, "Falta indicar teléfono del contacto.", "Error", 0);
+        return;
+    }
+    
     String indActivo = new String();
     if (cbxActivo.isSelected()) {indActivo="1";}
     else {indActivo="0";}
-
+      
+    
+    
     EntidadBL entidadBL = new EntidadBL();
         try {
-            entidadBL.insertarEntidad(txtDNIRUC.getText(),txtDireccion.getText(),
+            if (this.tipoVentana==0){entidadBL.insertarEntidad(txtDNIRUC.getText(),txtDireccion.getText(),
+            txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
+            txtDNIContacto.getText(), txtTelfContacto.getText(),tipoPersona, 
+            txtRazonSocial.getText(), txtPaginaWeb.getText(), "C", indActivo, 
+            cmbCIUU.getSelectedItem().toString().substring(0,1) );}
+            else {
+            entidadBL.modificarEntidad(txtCodigo.getText(),txtDNIRUC.getText(),txtDireccion.getText(),
             txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
             txtDNIContacto.getText(), txtTelfContacto.getText(),tipoPersona, 
             txtRazonSocial.getText(), txtPaginaWeb.getText(), "C", indActivo, 
             cmbCIUU.getSelectedItem().toString().substring(0,1) );
+            
+            }
+              
 
 
         } catch (Exception ex) {
@@ -341,42 +448,97 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtDNIRUCKeyTyped
+
+private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
+       if ((this.txtRazonSocial.getText().length() + 1) > 60) {
+       evt.consume();
+        }
+            // TODO add your handling code here:
+}//GEN-LAST:event_txtRazonSocialKeyTyped
+
+private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+     if ((this.txtDireccion.getText().length() + 1) > 60) { evt.consume();        }
+        // TODO add your handling code here:
+}//GEN-LAST:event_txtDireccionKeyTyped
+
+private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+    
+    if ((this.txtTelefono.getText().length() + 1) > 12) {
+       evt.consume();
+        }// TODO add your handling code here:
+}//GEN-LAST:event_txtTelefonoKeyTyped
+
+private void txtPaginaWebKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaginaWebKeyTyped
+    if ((this.txtPaginaWeb.getText().length() + 1) > 30) {
+       evt.consume();}
+    
+    // TODO add your handling code here:
+}//GEN-LAST:event_txtPaginaWebKeyTyped
+
+private void txtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyTyped
+       if ((this.txtEmail.getText().length() + 1) > 30) {
+       evt.consume();}// TODO add your handling code here:
+}//GEN-LAST:event_txtEmailKeyTyped
+
+private void txtNombreContactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreContactoKeyTyped
+       if ((this.txtNombreContacto.getText().length() + 1) > 30) {
+       evt.consume();}// TODO add your handling code here:
+}//GEN-LAST:event_txtNombreContactoKeyTyped
+
+private void txtDNIContactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIContactoKeyTyped
+       char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+        if ((this.txtDNIContacto.getText().length() + 1) > 8) {
+       evt.consume();}// TODO add your handling code here:
+}//GEN-LAST:event_txtDNIContactoKeyTyped
+
+private void txtTelfContactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelfContactoKeyTyped
+       char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+        if ((this.txtTelfContacto.getText().length() + 1) > 12) {
+       evt.consume();}// TODO add your handling code here:
+}//GEN-LAST:event_txtTelfContactoKeyTyped
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new MantenimientoCliente().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(MantenimientoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(MantenimientoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(MantenimientoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(MantenimientoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//
+//            public void run() {
+//                new MantenimientoCliente(tipoVentana, "").setVisible(true);
+//            }
+//        });
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
@@ -407,12 +569,14 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
     private void llenarCombo() {
 
-        ArrayList<CIUUBE> arrCIUU = DataAccess.CIUUDA.queryAllCIUU();
+       try { ArrayList<CIUUBE> arrCIUU = DataAccess.CIUUDA.queryAllCIUU();
         cmbCIUU.addItem("Seleccione");
         for (CIUUBE CIUU : arrCIUU){
             cmbCIUU.addItem((CIUU.getIdCIUU() + " - " + CIUU.getDescripcion()));
         }
-
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
 //        index = OGGestorTipoDocIdentidad.indexTipoDocIdentidad(arrTipoDocIdentidad,objCliente.getObjTipoDocIdentidad().getStrIdTipoDocIdentidad());
 //        jcmbTipoDocumento.setSelectedIndex(index+1);
 

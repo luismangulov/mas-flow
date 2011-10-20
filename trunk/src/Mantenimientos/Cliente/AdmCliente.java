@@ -13,6 +13,8 @@ package Mantenimientos.Cliente;
 import BusinessEntity.EntidadBE;
 import BusinessLogic.EntidadBL;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -148,9 +150,13 @@ public class AdmCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
-MantenimientoCliente m = new MantenimientoCliente();
-m.setVisible(true);
-// TODO add your handling code here:
+        try {
+            MantenimientoCliente m = new MantenimientoCliente(0,"");
+            m.setVisible(true);
+            // TODO add your handling code here:
+        } catch (Exception ex) {
+            Logger.getLogger(AdmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
 }//GEN-LAST:event_lblAgregarMousePressed
 
 private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
@@ -165,7 +171,15 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             String codigo;
             fila = dgvCliente.getSelectedRow();
             codigo = (String)dgvCliente.getValueAt(fila, 0);
-            EntidadBL objClienteBL = new EntidadBL();
+            
+             try {
+            MantenimientoCliente m = new MantenimientoCliente(0,"");
+            m.setVisible(true);
+            // TODO add your handling code here:
+        } catch (Exception ex) {
+            Logger.getLogger(AdmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            //EntidadBL objClienteBL = new EntidadBL(1, codigo);
 //            EntidadBE cliente = objClienteBL.getCliente(codigo);
 //            MantenimientoCliente m = new MantenimientoCliente(this,cliente);
 //            m.setVisible(true);
