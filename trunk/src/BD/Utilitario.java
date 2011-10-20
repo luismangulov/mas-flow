@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class Utilitario {
      public static String generaCodigo(String strNombreTabla, int intCantidadCaracteres) throws FileNotFoundException, IOException {
         conexion objConexion = new conexion();
-        String strSentencia = "SELECT MAX(Id"+strNombreTabla+") FROM "+strNombreTabla;
+        String strSentencia = "SELECT MAX(id"+strNombreTabla+") FROM "+strNombreTabla;
         String strId = "";
 
 
