@@ -99,7 +99,7 @@ public class ProveedorBE {
         return NroDocumento;
     }
 
-    public void seNroDocumento(String NroDocumento) {
+    public void setNroDocumento(String NroDocumento) {
         this.NroDocumento = NroDocumento;
     }
 
