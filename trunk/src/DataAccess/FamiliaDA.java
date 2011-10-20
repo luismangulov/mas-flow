@@ -39,7 +39,7 @@ public class FamiliaDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
-        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia WHERE IndActivo = '1'";
+        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia WHERE IndActivo = '1' order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
             String strCodigo;
