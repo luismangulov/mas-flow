@@ -22,7 +22,7 @@ public class FamiliaDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO familia(idfamilia, nombre, descripcion, indactivo) VALUES('"+ objFamilia.getCodigo() +"','"+ objFamilia.getNombre() +"','"+ objFamilia.getDescripcion() +"','"+ objFamilia.getEstado() +"')";
+        String sql = "INSERT INTO familia(idfamilia, nombre, descripcion, indactivo) VALUES('"+ objFamilia.getIdFamilia() +"','"+ objFamilia.getNombre() +"','"+ objFamilia.getDescripcion() +"','"+ objFamilia.getEstado() +"')";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -64,7 +64,7 @@ public class FamiliaDA {
       
         return arrFamilia;
     }
-    
+
      public FamiliaBE queryByIdFamilia(String codigo){
         conexion objConexion=new conexion();
         ResultSet rs = null;
@@ -95,6 +95,37 @@ public class FamiliaDA {
       
         return familia;
     }
+
+    public FamiliaBE queryByNombreFamilia(String nombreFamilia){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        FamiliaBE familia = null;
+        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia ";
+           sql += " WHERE nombre='"+nombreFamilia+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strCodigo;
+            String strNombre;
+            String strDescripcion;
+            String strEstado;
+            if (rs.next()){
+
+                strCodigo = rs.getString(1);
+                strNombre = rs.getString(2);
+                strDescripcion = rs.getString(3);
+                strEstado = rs.getString(4);
+                familia = new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado);
+            }
+
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+
+        return familia;
+    }
     
      public boolean modificar(FamiliaBE objFamilia) throws Exception{
         
@@ -105,7 +136,7 @@ public class FamiliaDA {
              sql += " nombre='"+objFamilia.getNombre()+"'," +
                     "descripcion='"+objFamilia.getDescripcion()+ "',"+
                      "indactivo='"+objFamilia.getEstado()+ "'"+ 
-                    " WHERE idfamilia='"+objFamilia.getCodigo()+"'";
+                    " WHERE idfamilia='"+objFamilia.getIdFamilia()+"'";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -124,7 +155,7 @@ public class FamiliaDA {
         conexion objConexion = new conexion();
        
         String sql = "UPDATE familia SET indactivo = '0'";
-             sql += " WHERE idfamilia='"+objFamilia.getCodigo()+"'";
+             sql += " WHERE idfamilia='"+objFamilia.getIdFamilia()+"'";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -180,5 +211,7 @@ public class FamiliaDA {
          }
       
         return arrFamilia;
-    }  
+    }
+
+
 }
