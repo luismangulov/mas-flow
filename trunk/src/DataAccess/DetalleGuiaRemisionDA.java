@@ -21,6 +21,7 @@ public class DetalleGuiaRemisionDA {
        
         String sql = "INSERT INTO guiaremision(iddetalleguiaremision,idguiaremision,cantidad,subtotal,idproducto) VALUES('"+ objDetalleGuiaRemision.getCodigo() +"','"+ codGuiaRemision +"','"+ objDetalleGuiaRemision.getCantidad() +"','"+ objDetalleGuiaRemision.getSubtotal() +"','"+ objDetalleGuiaRemision.getProducto().getIdProducto() +"')";
         
+        
         try{
             objConexion.EjecutarUID(sql);
             boolExito=true;
