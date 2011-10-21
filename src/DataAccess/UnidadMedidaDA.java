@@ -33,7 +33,35 @@ public class UnidadMedidaDA {
             String strDescripcion;
             String strEstado;
             if (rs.next()){
+                strIdUnidadMedida = rs.getString(1);
+                strNombre = rs.getString(4);
+                strDescripcion = rs.getString(2);
+                strEstado = rs.getString(3);
+                unidadMedidaBE = new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strEstado);
+            }
 
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+
+        return unidadMedidaBE;
+    }
+
+    public UnidadMedidaBE queryByNombreUnidadMedida(String nombreUnidadMedida){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        String sql = "SELECT idUnidadMedida,descripcion,indactivo,nombre FROM UnidadMedida "
+                     + " WHERE nombre='"+nombreUnidadMedida+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdUnidadMedida;
+            String strNombre;
+            String strDescripcion;
+            String strEstado;
+            if (rs.next()){
                 strIdUnidadMedida = rs.getString(1);
                 strNombre = rs.getString(4);
                 strDescripcion = rs.getString(2);
