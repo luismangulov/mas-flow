@@ -17,7 +17,7 @@ public class DetalleGuiaRemisionDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO guiaremision(iddetalleguiaremision,idguiaremision,cantidad,subtotal,idproducto,indactivo) VALUES('"+ objDetalleGuiaRemision.getCodigo() +"','"+ codGuiaRemision +"','"+ objDetalleGuiaRemision.getCantidad() +"','"+ objDetalleGuiaRemision.getSubtotal() +"','"+ objDetalleGuiaRemision.getProducto().getCodigo() +"','"+ objDetalleGuiaRemision.getEstado() +"')";
+        String sql = "INSERT INTO guiaremision(iddetalleguiaremision,idguiaremision,cantidad,subtotal,idproducto,indactivo) VALUES('"+ objDetalleGuiaRemision.getCodigo() +"','"+ codGuiaRemision +"','"+ objDetalleGuiaRemision.getCantidad() +"','"+ objDetalleGuiaRemision.getSubtotal() +"','"+ objDetalleGuiaRemision.getProducto().getIdProducto() +"','"+ objDetalleGuiaRemision.getEstado() +"')";
         
         try{
             objConexion.EjecutarUID(sql);
