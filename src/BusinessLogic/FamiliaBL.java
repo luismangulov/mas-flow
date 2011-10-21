@@ -22,7 +22,13 @@ public class FamiliaBL {
         exito = objFamiliaDA.insertar(getFamilia());
         return exito;
     }
-    
+    public String getIdFamilia(String nombreFamilia){
+        FamiliaDA familiaDA = new FamiliaDA();
+        familia = new FamiliaBE();
+        familia = familiaDA.queryByNombreFamilia(nombreFamilia);
+        return familia.getIdFamilia();
+    }
+
     public ArrayList<FamiliaBE> queryAllFamilia(){
         FamiliaDA objFamiliaDA = new FamiliaDA();
         return objFamiliaDA.queryAllFamilia();
@@ -58,6 +64,13 @@ public class FamiliaBL {
     public FamiliaBE setFamilia(String codigo,String nombre,String descripcion,String estado) {
         familia = new FamiliaBE(codigo,nombre,descripcion,estado);
         return familia;
+    }
+
+    public ArrayList<FamiliaBE> getAllFamilia() {
+        ArrayList<FamiliaBE>  arrFamilia = null;
+        FamiliaDA objFamiliaDA = new FamiliaDA();
+        arrFamilia = objFamiliaDA.queryAllFamilia();
+        return arrFamilia;
     }
     
 }
