@@ -13,6 +13,7 @@ package Mantenimientos.FamiliaProd;
 import BusinessEntity.FamiliaBE;
 import BusinessLogic.FamiliaBL;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -158,11 +159,11 @@ m.setVisible(true);
 
     private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
         // TODO add your handling code here:
-//        if((dgvFamilia.getRowCount() == -1)){
-//           
-//        } else if((dgvFamilia.getRowCount() > 1)){
-//            
-//        }else{
+        if((dgvFamilia.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una familia de producto", "Mensaje",0);
+        } else if((dgvFamilia.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
+        }else{
             int fila;
             String codigo;
             fila = dgvFamilia.getSelectedRow();
@@ -171,7 +172,7 @@ m.setVisible(true);
             FamiliaBE familia = objFamiliaBL.queryByIdFamilia(codigo);
             MantenimientoFamiliaProd m = new MantenimientoFamiliaProd(this,familia);
             m.setVisible(true);
-//        }
+        }
             
         
     }//GEN-LAST:event_lblEditarMousePressed
