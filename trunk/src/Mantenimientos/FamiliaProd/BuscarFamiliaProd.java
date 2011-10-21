@@ -128,7 +128,7 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
         
         ArrayList<FamiliaBE> familias = objFamiliaBL.buscar(this.txtCodigo.getText(), this.txtNombre.getText(),(String)this.cbxEstado.getSelectedItem());
         this.objPadre.recargar(familias);
-        
+        this.dispose();
     }//GEN-LAST:event_btnBuscarMousePressed
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
