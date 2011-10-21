@@ -9,22 +9,36 @@ package BusinessEntity;
  * @author DIEGO
  */
 public class ProductoBE {
-    private String codigo;
+
+    private String idProducto;
     private String nombre;
     private String descripcion;
     private int maxCantPorPallet;
-    private FamiliaBE familia;
-    private UnidadMedidaBE unidadMedida;
+    private String unidadMedida;
+    private String familia;
+    private String indActivo;
     private double precio;
-    private String estado;
 
+    public ProductoBE(){}
 
-    public String getCodigo() {
-        return codigo;
+    public ProductoBE(String idProducto, String nombre, String descripcion, int maxCantPorPallet,
+                      String unidadMedida, String familia, String indActivo, double precio){
+        this.idProducto = idProducto;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.maxCantPorPallet = maxCantPorPallet;
+        this.unidadMedida = unidadMedida;
+        this.familia = familia;
+        this.indActivo = indActivo;
+        this.precio = precio;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public String getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(String idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getDescripcion() {
@@ -36,18 +50,18 @@ public class ProductoBE {
     }
 
     public String getEstado() {
-        return estado;
+        return indActivo;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstado(String indActivo) {
+        this.indActivo = indActivo;
     }
 
-    public FamiliaBE getFamilia() {
+    public String getIdFamilia() {
         return familia;
     }
 
-    public void setFamilia(FamiliaBE familia) {
+    public void setIdFamilia(String familia) {
         this.familia = familia;
     }
 
@@ -75,11 +89,11 @@ public class ProductoBE {
         this.precio = precio;
     }
 
-    public UnidadMedidaBE getUnidadMedida() {
+    public String getIdUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(UnidadMedidaBE unidadMedida) {
+    public void setIdUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
 }
