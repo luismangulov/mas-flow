@@ -36,7 +36,7 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
         accion = "modificar";
         initComponents();
         this.setVisible(true);
-        this.txtCodigo.setText(familia.getCodigo());
+        this.txtCodigo.setText(familia.getIdFamilia());
         this.txtNombre.setText(familia.getNombre());
         this.txtDescripcion.setText(familia.getDescripcion());
     }
@@ -187,7 +187,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                  int fila;
                  fila = this.objPadre.getDgvFamilia().getSelectedRow();
                  this.objPadre.getDgvFamilia().removeRowSelectionInterval(fila, fila);
-                 this.objPadre.getDgvFamilia().setValueAt(familia.getCodigo(), fila, 0);
+                 this.objPadre.getDgvFamilia().setValueAt(familia.getIdFamilia(), fila, 0);
                  this.objPadre.getDgvFamilia().setValueAt(familia.getNombre(), fila, 1);
                  this.objPadre.getDgvFamilia().setValueAt(familia.getDescripcion(), fila, 2);
                  this.dispose();
