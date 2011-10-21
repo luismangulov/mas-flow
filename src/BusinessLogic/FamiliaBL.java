@@ -46,9 +46,9 @@ public class FamiliaBL {
           return exito;
      }
     
-     public ArrayList<FamiliaBE> buscar(String codigo,String nombre){
+     public ArrayList<FamiliaBE> buscar(String codigo,String nombre, String estado){
           FamiliaDA objFamiliaDA = new FamiliaDA();
-          return objFamiliaDA.buscar(codigo, nombre);
+          return objFamiliaDA.buscar(codigo, nombre, estado);
      }
      
     /**
