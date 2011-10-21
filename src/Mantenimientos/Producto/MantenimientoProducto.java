@@ -54,7 +54,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
         arrFamilia = objFamiliaBL.getAllFamilia();
         for(FamiliaBE objFamilia : arrFamilia)
-            cbFamilia.addItem(objFamilia.getco());
+            cbFamilia.addItem(objFamilia.getIdFamilia());
     }
 
     @SuppressWarnings("unchecked")
