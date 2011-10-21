@@ -28,15 +28,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                       <Component id="btnGuardar" min="-2" pref="74" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                      <Component id="btnCancelar" pref="75" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="246" max="-2" attributes="0"/>
+                              <EmptySpace pref="244" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -49,21 +49,17 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtIdProducto" min="-2" pref="78" max="-2" attributes="1"/>
-                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                      <Component id="txtDescripcion" alignment="0" pref="203" max="32767" attributes="1"/>
-                                      <Component id="cbFamilia" alignment="0" pref="203" max="32767" attributes="1"/>
-                                      <Component id="txtNombre" alignment="0" min="-2" pref="201" max="-2" attributes="1"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="txtMaxCantPallet" alignment="0" max="32767" attributes="1"/>
-                                          <Component id="cbUnidad" alignment="0" pref="58" max="32767" attributes="1"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="txtDescripcion" alignment="0" pref="201" max="32767" attributes="1"/>
+                                  <Component id="cbFamilia" alignment="0" pref="201" max="32767" attributes="1"/>
+                                  <Component id="txtNombre" alignment="0" min="-2" pref="201" max="-2" attributes="1"/>
+                                  <Component id="cbUnidad" alignment="0" pref="201" max="32767" attributes="1"/>
+                                  <Component id="txtMaxCantPallet" alignment="0" min="-2" pref="96" max="-2" attributes="1"/>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,8 +105,8 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnCancelar" alignment="3" min="-2" pref="37" max="-2" attributes="1"/>
                           <Component id="btnGuardar" alignment="3" min="-2" pref="37" max="-2" attributes="1"/>
+                          <Component id="btnCancelar" alignment="3" min="-2" pref="37" max="-2" attributes="1"/>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
