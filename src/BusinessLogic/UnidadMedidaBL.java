@@ -15,7 +15,7 @@ public class UnidadMedidaBL {
 
     public String getIdUnidadMedida(String nombreUnidadMedida){
         UnidadMedidaDA objUnidadMedidaDA = new UnidadMedidaDA();
-        String idUnidadMedida = objUnidadMedidaDA.queryByIdUnidadMedida(nombreUnidadMedida).getidUnidadMedida();
+        String idUnidadMedida = objUnidadMedidaDA.queryByNombreUnidadMedida(nombreUnidadMedida).getidUnidadMedida();
         return idUnidadMedida;
     }
 
