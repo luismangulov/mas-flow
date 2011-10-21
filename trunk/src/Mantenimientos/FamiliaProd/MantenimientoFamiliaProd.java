@@ -10,10 +10,12 @@
  */
 package Mantenimientos.FamiliaProd;
 
+import BD.Utilitario;
 import BusinessEntity.FamiliaBE;
 import BusinessLogic.FamiliaBL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -163,68 +165,77 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 // TODO add your handling code here:
     FamiliaBL objFamiliaBL = new FamiliaBL();
+    if(this.valida()){    
         try {
-             if(this.accion.equals("registrar")){
-                String estado;
-                if(this.cbxActivo.isSelected()){
-                    estado = "1";
-                }else estado = "0";       
-                objFamiliaBL.insertar(this.txtNombre.getText(), this.txtDescripcion.getText(),estado);
-                FamiliaBE familia;
-                familia = objFamiliaBL.getFamilia();
-                this.objPadre.recargaruno(familia);
-                this.dispose();
-             }
-             if(this.accion.equals("modificar")){
-                 FamiliaBE familia = null;
-                 String estado;
-                if(this.cbxActivo.isSelected()){
-                    estado = "1";
-                }else estado = "0";   
-                 familia = objFamiliaBL.setFamilia(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),estado);
-                 //familia = new FamiliaBE(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),"1");
-                 objFamiliaBL.modificar(familia);
-                 int fila;
-                 fila = this.objPadre.getDgvFamilia().getSelectedRow();
-                 this.objPadre.getDgvFamilia().removeRowSelectionInterval(fila, fila);
-                 this.objPadre.getDgvFamilia().setValueAt(familia.getIdFamilia(), fila, 0);
-                 this.objPadre.getDgvFamilia().setValueAt(familia.getNombre(), fila, 1);
-                 this.objPadre.getDgvFamilia().setValueAt(familia.getDescripcion(), fila, 2);
-                 this.dispose();
-             }
-        } catch (Exception ex) {
-            Logger.getLogger(MantenimientoFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                 if(this.accion.equals("registrar")){
+                    String estado;
+                    if(this.cbxActivo.isSelected()){
+                        estado = "1";
+                    }else estado = "0";       
+                    objFamiliaBL.insertar(this.txtNombre.getText(), this.txtDescripcion.getText(),estado);
+                    FamiliaBE familia;
+                    familia = objFamiliaBL.getFamilia();
+                    this.objPadre.recargaruno(familia);
+                    this.dispose();
+                 }
+                 if(this.accion.equals("modificar")){
+                     FamiliaBE familia = null;
+                     String estado;
+                    if(this.cbxActivo.isSelected()){
+                        estado = "1";
+                    }else estado = "0";   
+                     familia = objFamiliaBL.setFamilia(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),estado);
+                     //familia = new FamiliaBE(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),"1");
+                     objFamiliaBL.modificar(familia);
+                     int fila;
+                     fila = this.objPadre.getDgvFamilia().getSelectedRow();
+                     this.objPadre.getDgvFamilia().removeRowSelectionInterval(fila, fila);
+                     this.objPadre.getDgvFamilia().setValueAt(familia.getIdFamilia(), fila, 0);
+                     this.objPadre.getDgvFamilia().setValueAt(familia.getNombre(), fila, 1);
+                     this.objPadre.getDgvFamilia().setValueAt(familia.getDescripcion(), fila, 2);
+                     this.dispose();
+                 }
+            } catch (Exception ex) {
+                Logger.getLogger(MantenimientoFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
-        char c = (char)evt.getKeyChar();
-       if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ) {
-         
-        }
-       else {
-        evt.consume();
-        }
+       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()))
+            evt.consume();
        if ((this.txtNombre.getText().length() + 1) > 30) {
-       evt.consume();
+            evt.consume();
         }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         // TODO add your handling code here:
-          char c = (char)evt.getKeyChar();
-       if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ) {
-         
-        }
-       else {
-        evt.consume();
-        }
+       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()))
+            evt.consume();
        if ((this.txtDescripcion.getText().length() + 1) > 30) {
-       evt.consume();
+            evt.consume();
         }
     }//GEN-LAST:event_txtDescripcionKeyTyped
 
+    
+    private boolean valida(){
+        boolean esValido = true;
+
+        if(this.txtNombre.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre de la familia de producto", "Error",0);
+            esValido = false;
+        }
+
+        if(this.txtDescripcion.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe ingresar la descripcion de la familia de producto", "Error",0);
+            esValido = false;
+        }
+
+        return esValido;
+    }
+    
     /**
      * @param args the command line arguments
      */
