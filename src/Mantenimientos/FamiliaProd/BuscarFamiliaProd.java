@@ -126,7 +126,7 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
         // TODO add your handling code here:
         FamiliaBL objFamiliaBL = new FamiliaBL();
         
-        ArrayList<FamiliaBE> familias = objFamiliaBL.buscar(this.txtCodigo.getText(), this.txtNombre.getText());
+        ArrayList<FamiliaBE> familias = objFamiliaBL.buscar(this.txtCodigo.getText(), this.txtNombre.getText(),(String)this.cbxEstado.getSelectedItem());
         this.objPadre.recargar(familias);
         
     }//GEN-LAST:event_btnBuscarMousePressed
