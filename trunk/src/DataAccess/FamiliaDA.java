@@ -168,25 +168,32 @@ public class FamiliaDA {
         return boolExito;
     }
       
-    public ArrayList<FamiliaBE> buscar(String codigo,String nombre){
+    public ArrayList<FamiliaBE> buscar(String codigo,String nombre,String estado){
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
-        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia";
-        boolean primero = false;
-        sql+= " WHERE IndActivo = '1'";
-        if(!(codigo.equals("")) || !(nombre.equals(""))){
+        String indActivo = "";
+        if(estado.equals("Activo")){
+            indActivo = "1";
+        }else if(estado.equals("Inactivo")){
+             indActivo = "0";
+        }
+        
+        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia WHERE indactivo ='"+indActivo+"'";
+       
+        //sql+= " WHERE";
+        if(!(codigo.equals("")) || !(nombre.equals("")) || !estado.equals("")){
            if (!codigo.equals("")){           
-                sql += "AND idfamilia LIKE '%" + codigo + "%'";
+               sql +=  " AND idfamilia LIKE '%" + codigo + "%'";
            }
            if (!nombre.equals("")){
-                
-                sql += "AND nombre LIKE '%" + nombre + "%'";
+               sql += " AND nombre LIKE '%" + nombre + "%'";
            }
-           
-        
+               
             
-        }        
+        }
+        
+              
         
         try{
             rs=objConexion.EjecutarS(sql);
