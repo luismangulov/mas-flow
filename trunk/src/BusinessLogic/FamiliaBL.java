@@ -48,7 +48,7 @@ public class FamiliaBL {
     
      public ArrayList<FamiliaBE> buscar(String codigo,String nombre){
           FamiliaDA objFamiliaDA = new FamiliaDA();
-           return objFamiliaDA.buscar(codigo, nombre);
+          return objFamiliaDA.buscar(codigo, nombre);
      }
      
     /**
