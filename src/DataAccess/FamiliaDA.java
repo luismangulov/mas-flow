@@ -184,10 +184,10 @@ public class FamiliaDA {
         //sql+= " WHERE";
         if(!(codigo.equals("")) || !(nombre.equals("")) || !estado.equals("")){
            if (!codigo.equals("")){           
-               sql +=  " AND idfamilia LIKE '%" + codigo + "%'";
+               sql +=  " AND idfamilia LIKE '%"+codigo+"%'";
            }
            if (!nombre.equals("")){
-               sql += " AND nombre LIKE '%" + nombre + "%'";
+               sql += " AND nombre LIKE '%"+nombre+"%'";
            }
                
             
