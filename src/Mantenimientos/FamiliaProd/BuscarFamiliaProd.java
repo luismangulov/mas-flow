@@ -69,7 +69,7 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
             }
         });
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Activo", "Inactivo" }));
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
 
         jLabel3.setText("Estado:");
 
