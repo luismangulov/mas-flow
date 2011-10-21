@@ -10,6 +10,7 @@
  */
 package Mantenimientos.FamiliaProd;
 
+import BD.Utilitario;
 import BusinessEntity.FamiliaBE;
 import BusinessLogic.FamiliaBL;
 import java.util.ArrayList;
@@ -48,7 +49,19 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar familia de productos");
 
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
         jLabel1.setText("Código:");
+
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("Nombre:");
 
@@ -135,6 +148,24 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        // TODO add your handling code here:
+        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()))
+            evt.consume();
+       if ((this.txtNombre.getText().length() + 1) > 6) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()))
+            evt.consume();
+       if ((this.txtNombre.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
 
     /**
      * @param args the command line arguments
