@@ -37,7 +37,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProductos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -47,7 +47,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         txtCliente = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblAdd = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -81,7 +81,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -100,11 +100,11 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(25);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(25);
+        jScrollPane1.setViewportView(tblProductos);
+        tblProductos.getColumnModel().getColumn(0).setPreferredWidth(20);
+        tblProductos.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tblProductos.getColumnModel().getColumn(2).setPreferredWidth(25);
+        tblProductos.getColumnModel().getColumn(3).setPreferredWidth(25);
 
         jLabel3.setText("Nombre:");
 
@@ -134,12 +134,14 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
 
         jLabel9.setText("RUC/DNI:");
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\DIEGO\\Documents\\NetBeansProjects\\trunk\\src\\Iconos\\add24.png")); // NOI18N
-        jLabel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel6.setMaximumSize(new java.awt.Dimension(30, 30));
-        jLabel6.setMinimumSize(new java.awt.Dimension(30, 30));
-        jLabel6.setName(""); // NOI18N
-        jLabel6.setPreferredSize(new java.awt.Dimension(30, 30));
+        lblAdd.setIcon(new javax.swing.ImageIcon("C:\\Users\\DIEGO\\Documents\\NetBeansProjects\\trunk\\src\\Iconos\\add24.png")); // NOI18N
+        lblAdd.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblAdd.setName(""); // NOI18N
+        lblAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAddMousePressed(evt);
+            }
+        });
 
         txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +192,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAdd)
                     .addComponent(lblRemover))
                 .addContainerGap())
         );
@@ -222,7 +224,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblAdd)
                         .addGap(18, 18, 18)
                         .addComponent(lblRemover)
                         .addGap(55, 55, 55))
@@ -272,6 +274,12 @@ m.setVisible(true);// TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActionPerformed
 
+    private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
+        // TODO add your handling code here:
+        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto();
+        m.setVisible(true);
+    }//GEN-LAST:event_lblAddMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -314,13 +322,13 @@ m.setVisible(true);// TODO add your handling code here:
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblAdd;
     private javax.swing.JLabel lblAyuda;
     private javax.swing.JLabel lblRemover;
+    private javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDireccion;

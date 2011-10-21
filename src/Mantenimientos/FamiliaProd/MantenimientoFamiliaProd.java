@@ -193,6 +193,11 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                      this.objPadre.getDgvFamilia().setValueAt(familia.getIdFamilia(), fila, 0);
                      this.objPadre.getDgvFamilia().setValueAt(familia.getNombre(), fila, 1);
                      this.objPadre.getDgvFamilia().setValueAt(familia.getDescripcion(), fila, 2);
+                     if(familia.getEstado().equals("1")){
+                          this.objPadre.getDgvFamilia().setValueAt("Activo", fila, 3);
+                      }else if(familia.getEstado().equals("0")){
+                         this.objPadre.getDgvFamilia().setValueAt("Inactivo", fila, 3);
+                      }
                      this.dispose();
                  }
             } catch (Exception ex) {

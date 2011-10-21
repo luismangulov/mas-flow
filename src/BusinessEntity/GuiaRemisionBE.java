@@ -14,10 +14,34 @@ public class GuiaRemisionBE {
     private String codigo;
     private Date fecha;
     private EntidadBE cliente;
-
+    
     /**
      * @return the codigo
      */
+    public GuiaRemisionBE(String codigo,Date fecha,String codCliente){
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.cliente.setIdEntidad(codCliente);
+    }
+    public GuiaRemisionBE(String codigo,Date fecha,EntidadBE objCliente){
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.cliente.setIdEntidad(objCliente.getIdEntidad());
+        this.cliente.setNroDocumento(objCliente.getNroDocumento()) ;
+        this.cliente.setDireccion(objCliente.getDireccion());
+        this.cliente.setTelefono(objCliente.getTelefono());
+        this.cliente.setEmail(objCliente.getEmail());
+        this.cliente.setNombreContacto(objCliente.getNombreContacto());
+        this.cliente.setDniContacto(objCliente.getDniContacto());
+        this.cliente.setTelefonoContacto(objCliente.getTelefonoContacto());
+        this.cliente.setIdTipoPersona(objCliente.getIdTipoPersona());
+        this.cliente.setRazonSocial(objCliente.getRazonSocial());
+        this.cliente.setPaginaWeb(objCliente.getPaginaWeb());
+        this.cliente.setIdTipoEntidad(objCliente.getIdTipoEntidad());
+        this.cliente.setIndActivo(objCliente.getIndActivo());
+        this.cliente.setIdCIUU(objCliente.getIdCIUU());
+    }
+    
     public String getCodigo() {
         return codigo;
     }
@@ -56,4 +80,6 @@ public class GuiaRemisionBE {
     public void setCliente(EntidadBE cliente) {
         this.cliente = cliente;
     }
+
+    
 }
