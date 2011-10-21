@@ -235,7 +235,7 @@ m.setVisible(true);
         DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
         modelo.addRow(new Object[4]);
         dgvFamilia.clearSelection();
-        dgvFamilia.setValueAt(familia.getCodigo(),0,0 );
+        dgvFamilia.setValueAt(familia.getIdFamilia(),0,0 );
         dgvFamilia.setValueAt(familia.getNombre(),0,1 );
         dgvFamilia.setValueAt(familia.getDescripcion(),0,2 );
         if(familia.getEstado().equals("1")){
@@ -250,7 +250,7 @@ m.setVisible(true);
         modelo.addRow(new Object[4]);
         dgvFamilia.clearSelection();
         for(int i=0;i<familias.size();i++){
-            dgvFamilia.setValueAt(familias.get(i).getCodigo(),i,0 );
+            dgvFamilia.setValueAt(familias.get(i).getIdFamilia(),i,0 );
             dgvFamilia.setValueAt(familias.get(i).getNombre(),i,1 );
             dgvFamilia.setValueAt(familias.get(i).getDescripcion(),i,2 );
             if(familias.get(i).getEstado().equals("1")){
