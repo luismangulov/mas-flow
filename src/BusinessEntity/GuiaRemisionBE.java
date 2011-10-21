@@ -21,11 +21,13 @@ public class GuiaRemisionBE {
     public GuiaRemisionBE(String codigo,Date fecha,String codCliente){
         this.codigo = codigo;
         this.fecha = fecha;
+        this.cliente = null;
         this.cliente.setIdEntidad(codCliente);
     }
     public GuiaRemisionBE(String codigo,Date fecha,EntidadBE objCliente){
         this.codigo = codigo;
         this.fecha = fecha;
+        this.cliente = null;
         this.cliente.setIdEntidad(objCliente.getIdEntidad());
         this.cliente.setNroDocumento(objCliente.getNroDocumento()) ;
         this.cliente.setDireccion(objCliente.getDireccion());
