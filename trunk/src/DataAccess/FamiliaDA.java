@@ -179,20 +179,42 @@ public class FamiliaDA {
              indActivo = "0";
         }
         
-        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia WHERE indactivo ='"+indActivo+"'";
-       
+        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia";
+                //" WHERE indactivo ='"+indActivo+"'";
+       boolean primero;
+        primero = true;
         //sql+= " WHERE";
         if(!(codigo.equals("")) || !(nombre.equals("")) || !estado.equals("")){
            if (!codigo.equals("")){           
-               sql +=  " AND idfamilia LIKE '%"+codigo+"%'";
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql +=  " idfamilia LIKE '%"+codigo+"%'";
            }
            if (!nombre.equals("")){
-               sql += " AND nombre LIKE '%"+nombre+"%'";
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " nombre LIKE '%"+nombre+"%'";
            }
-               
-            
+           if(estado.equals("Activo")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " indactivo = '1'";
+           }    
+           if(estado.equals("Inactivo")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " indactivo = '0'";
+           } 
         }
-        
+        sql +=" order by 1";
               
         
         try{

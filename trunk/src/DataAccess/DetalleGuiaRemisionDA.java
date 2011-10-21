@@ -6,6 +6,8 @@ package DataAccess;
 
 import BD.conexion;
 import BusinessEntity.DetalleGuiaRemisionBE;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +19,7 @@ public class DetalleGuiaRemisionDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO guiaremision(iddetalleguiaremision,idguiaremision,cantidad,subtotal,idproducto,indactivo) VALUES('"+ objDetalleGuiaRemision.getCodigo() +"','"+ codGuiaRemision +"','"+ objDetalleGuiaRemision.getCantidad() +"','"+ objDetalleGuiaRemision.getSubtotal() +"','"+ objDetalleGuiaRemision.getProducto().getIdProducto() +"','"+ objDetalleGuiaRemision.getEstado() +"')";
+        String sql = "INSERT INTO guiaremision(iddetalleguiaremision,idguiaremision,cantidad,subtotal,idproducto) VALUES('"+ objDetalleGuiaRemision.getCodigo() +"','"+ codGuiaRemision +"','"+ objDetalleGuiaRemision.getCantidad() +"','"+ objDetalleGuiaRemision.getSubtotal() +"','"+ objDetalleGuiaRemision.getProducto().getIdProducto() +"')";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -29,4 +31,6 @@ public class DetalleGuiaRemisionDA {
         
         return boolExito;
     }
+    
+    
 }
