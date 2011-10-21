@@ -121,7 +121,7 @@ public class Utilitario {
             return false;
     }
 
-    // Fuente: http://eos87.blogspot.com/2008/01/validacin-de-email-y-fecha-en-java.html
+    
     public static boolean isEmail(String correo) {
         Pattern pat = null;
         Matcher mat = null;
