@@ -9,32 +9,33 @@ package BusinessEntity;
  * @author DIEGO
  */
 public class FamiliaBE {
-    private String codigo;
+    private String idFamilia;
     private String nombre;
     private String descripcion;
-    private String estado;
+    private String indActivo;
 
     /**
      * @return the codigo
      */
-    public FamiliaBE(String codigo,String nombre,String descripcion, String estado){
-        this.codigo = codigo;
+
+    public FamiliaBE(){}
+
+    public FamiliaBE(String idFamilia,String nombre,String descripcion, String indActivo){
+        this.idFamilia = idFamilia;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.estado = estado;
+        this.indActivo = indActivo;
     }
-            
            
-    
-    public String getCodigo() {
-        return codigo;
+    public String getIdFamilia() {
+        return idFamilia;
     }
 
     /**
      * @param codigo the codigo to set
      */
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setIdFamilia(String idFamilia) {
+        this.idFamilia = idFamilia;
     }
 
     /**
@@ -69,13 +70,13 @@ public class FamiliaBE {
      * @return the estado
      */
     public String getEstado() {
-        return estado;
+        return indActivo;
     }
 
     /**
      * @param estado the estado to set
      */
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstado(String indActivo) {
+        this.indActivo = indActivo;
     }
 }
