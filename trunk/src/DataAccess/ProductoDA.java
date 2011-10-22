@@ -29,9 +29,9 @@ public class ProductoDA {
     private ProductoBE objProducto;
     private boolean boolExito;
     private String query;
-    private ArrayList<ProductoBE> arrProductoBE;
+    private ArrayList<ProductoBE> arrProductos;
 
-    public boolean insertar(ProductoBE objProducto){
+    public void insertar(ProductoBE objProducto){
         boolExito = false;
         objConexion = new conexion();
         Utilitario objUtilitario = new Utilitario();
@@ -51,44 +51,16 @@ public class ProductoDA {
                 +"','" + objProducto.getIdUnidadMedida() +"','" + objProducto.getIdFamilia()
                 +"','" + objProducto.getEstado() +"','" + objProducto.getPrecio() + "')";
 
-         try{
+        try{
             objConexion.EjecutarUID(query);
-            boolExito=true;
-         }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "El registro fue exitoso", "Éxito", 0);
+        }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
         }
         finally{objConexion.SalirUID();}
-
-        return boolExito;
     }
 
-    public ProductoBE queryByIdProducto(String idProducto) {
-        objConexion = new conexion();
-        String query = "SELECT * FROM PRODUCTO WHERE IDPRODUCTO = '" + idProducto + "'";
-        rs =objConexion.EjecutarS(query);
-
-        try {
-            rs.next();
-            String strIdProducto = rs.getString("IdProducto");
-            String strNombreProducto = rs.getString("Nombre");
-            String strDescripcion = rs.getString("Descripcion");
-            int intMaxCantPorPallet = rs.getInt("MaxCantPorPallet");
-            String strIdUnidadMedida = rs.getString("idUnidadMedida");
-            String strIdFamilia = rs.getString("idFamilia");
-            String strIndActivo = rs.getString("IndActivo");
-            int intPrecio = rs.getInt("precio");
-            objProducto = new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,
-            intMaxCantPorPallet,strIdUnidadMedida,strIdFamilia,strIndActivo,intPrecio);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-        return objProducto;
-    }
-
-    public boolean modificar(ProductoBE productoBE) {
+    public void modificar(ProductoBE productoBE) {
         boolExito = false;
         objConexion = new conexion();
         query = "UPDATE PRODUCTO set nombre = '"+productoBE.getNombre()+"', descripcion ='"+productoBE.getDescripcion()+
@@ -97,28 +69,26 @@ public class ProductoDA {
                         +" WHERE idProducto ='" +productoBE.getIdProducto()+"'";
         try{
             objConexion.EjecutarUID(query);
-            boolExito = true;
+            JOptionPane.showMessageDialog(null, "La modificación fue exitosa", "Éxito", 0);   
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "No se pudo modificar el registro", "Error", 0);
         }finally{
             objConexion.SalirUID();
         }
-        return boolExito;
     }
 
-    public boolean eliminar(String idProducto) {
+    public void eliminar(String idProducto) {
         boolExito = false;
         objConexion = new conexion();
         query = "UPDATE PRODUCTO set indActivo = '0' WHERE idProducto ='"+idProducto+"'";
         try{
             objConexion.EjecutarUID(query);
-            boolExito = true;
+            JOptionPane.showMessageDialog(null, "La eliminación fue exitosa", "Éxito", 0);
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
         }finally{
             objConexion.SalirUID();
         }
-        return boolExito;
     }
 
     public ArrayList<ProductoBE> queryAllProductoActivo(){
@@ -135,13 +105,13 @@ public class ProductoDA {
                 String strIdFamilia = rs.getString("idFamilia");
                 String strIndActivo = rs.getString("IndActivo");
                 int intPrecio = rs.getInt("precio");
-                arrProductoBE.add(new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,intMaxCantPorPallet,
+                arrProductos.add(new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,intMaxCantPorPallet,
                                   strIdUnidadMedida,strIdFamilia,strIndActivo,intPrecio));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return arrProductoBE;
+        return arrProductos;
     }
 
     public ArrayList<ProductoBE> queryListSearch(String idProducto, String nombre, String idFamilia) {
@@ -171,7 +141,7 @@ public class ProductoDA {
             query = query + "idFamilia LIKE '%" + idFamilia + "%'";
         }
         rs = objConexion.EjecutarS(query);
-        arrProductoBE = new ArrayList<ProductoBE>();
+        arrProductos = new ArrayList<ProductoBE>();
         try {
             while (rs.next()) {
                 String strIdProducto = rs.getString("IdProducto");
@@ -182,12 +152,39 @@ public class ProductoDA {
                 String strIdFamilia = rs.getString("idFamilia");
                 String strIndActivo = rs.getString("IndActivo");
                 int intPrecio = rs.getInt("precio");
-                arrProductoBE.add(new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,intMaxCantPorPallet,
+                arrProductos.add(new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,intMaxCantPorPallet,
                                   strIdUnidadMedida,strIdFamilia,strIndActivo,intPrecio));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return arrProductoBE;
+        return arrProductos;
+    }
+    
+    
+    public ProductoBE queryByIdProducto(String idProducto) {
+        objConexion = new conexion();
+        String query = "SELECT * FROM PRODUCTO WHERE IDPRODUCTO = '" + idProducto + "'";
+        rs =objConexion.EjecutarS(query);
+
+        try {
+            rs.next();
+            String strIdProducto = rs.getString("IdProducto");
+            String strNombreProducto = rs.getString("Nombre");
+            String strDescripcion = rs.getString("Descripcion");
+            int intMaxCantPorPallet = rs.getInt("MaxCantPorPallet");
+            String strIdUnidadMedida = rs.getString("idUnidadMedida");
+            String strIdFamilia = rs.getString("idFamilia");
+            String strIndActivo = rs.getString("IndActivo");
+            int intPrecio = rs.getInt("precio");
+            objProducto = new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,
+            intMaxCantPorPallet,strIdUnidadMedida,strIdFamilia,strIndActivo,intPrecio);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        return objProducto;
     }
 }
