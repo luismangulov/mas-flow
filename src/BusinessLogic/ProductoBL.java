@@ -27,9 +27,9 @@ public class ProductoBL {
         return objProductoDA.modificar(productoBE);
     }
     
-    public boolean eliminar(ProductoBE productoBE) {
+    public boolean eliminar(String idProducto) {
         objProductoDA = new ProductoDA();
-        return objProductoDA.eliminar(productoBE);
+        return objProductoDA.eliminar(idProducto);
     }
     
     public ProductoBE getByIdProducto(String idProducto) {
