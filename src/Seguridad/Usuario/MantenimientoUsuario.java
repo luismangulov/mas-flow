@@ -193,6 +193,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 // TODO add your handling code here:
      this.hide();
      // agregar usuaraiooooooooooooooooooooooooooo
+     //prueba de subversionnnnn carajppppppppppp
 }//GEN-LAST:event_jButton1ActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
