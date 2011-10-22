@@ -29,6 +29,8 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
     public MantenimientoFamiliaProd(AdmFamiliaProd padre) {
         this.objPadre = padre;
         accion = "registrar";
+        
+        
         initComponents();
         this.setVisible(true);
     }
@@ -36,7 +38,9 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
      public MantenimientoFamiliaProd(AdmFamiliaProd padre,FamiliaBE familia) {
         this.objPadre = padre;
         accion = "modificar";
+        
         initComponents();
+        this.cbxActivo.setEnabled(true);
         this.setVisible(true);
         this.txtCodigo.setText(familia.getIdFamilia());
         this.txtNombre.setText(familia.getNombre());
@@ -104,6 +108,7 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
 
         cbxActivo.setSelected(true);
         cbxActivo.setText("Activo");
+        cbxActivo.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
