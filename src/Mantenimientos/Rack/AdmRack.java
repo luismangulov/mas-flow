@@ -24,6 +24,7 @@ public class AdmRack extends javax.swing.JFrame {
 
     /** Creates new form AdmRack */
     ArrayList<RackBE> arrRacks;
+    String idRack;
     
     public AdmRack() {
         initComponents();
@@ -174,7 +175,8 @@ private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-
     if (fila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
-        MantenimientoRack frmManteminiento = new MantenimientoRack('M');
+        idRack = (String)dgvRacks.getValueAt(fila, 0);
+        MantenimientoRack frmManteminiento = new MantenimientoRack('M',idRack);
         frmManteminiento.setVisible(true);
     }
 }//GEN-LAST:event_lblModificarRackMouseClicked
@@ -185,7 +187,8 @@ private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
     if (fila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
-        MantenimientoRack frmManteminiento = new MantenimientoRack('E');
+        idRack = (String)dgvRacks.getValueAt(fila, 0);
+        MantenimientoRack frmManteminiento = new MantenimientoRack('E',idRack);
         frmManteminiento.setVisible(true);
     }
 }//GEN-LAST:event_lblEliminarRackMouseClicked
@@ -215,8 +218,9 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
             Double douAncho = arrRacks.get(i).getAncho();
             int intPisos = arrRacks.get(i).getPisos();
             int intColumnas = arrRacks.get(i).getColumnas();
+            String strIdZona = arrRacks.get(i).getIdZona();
             
-            modelo.addRow(new Object[]{strIdRack,douAlto + "x" + douAncho,intPisos,intColumnas});
+            modelo.addRow(new Object[]{strIdRack,douAlto + "x" + douAncho,intPisos,intColumnas,strIdZona});
             
         }
     }
