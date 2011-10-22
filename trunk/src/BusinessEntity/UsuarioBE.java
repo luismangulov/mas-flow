@@ -17,6 +17,9 @@ public class UsuarioBE {
     private String idEstadousuario;
     private String idPerfil;
 
+    public UsuarioBE() {
+    }
+
     public String getIdEstadousuario() {
         return idEstadousuario;
     }
