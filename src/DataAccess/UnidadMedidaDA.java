@@ -19,11 +19,10 @@ import java.util.logging.Logger;
  */
 public class UnidadMedidaDA {
 
-    private UnidadMedidaBE unidadMedidaBE;
-
     public UnidadMedidaBE queryByIdUnidadMedida(String idUnidadMedida){
         conexion objConexion=new conexion();
         ResultSet rs = null;
+        UnidadMedidaBE objUnidadMedidaBE = null;
         String sql = "SELECT idUnidadMedida,descripcion,indactivo,nombre FROM UnidadMedida "
                      + " WHERE idUnidadMedida='"+idUnidadMedida+"'";
         try{
@@ -37,7 +36,7 @@ public class UnidadMedidaDA {
                 strNombre = rs.getString(4);
                 strDescripcion = rs.getString(2);
                 strEstado = rs.getString(3);
-                unidadMedidaBE = new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strEstado);
+                objUnidadMedidaBE = new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strEstado);
             }
 
         }catch (Exception a){
@@ -47,11 +46,12 @@ public class UnidadMedidaDA {
              objConexion.SalirS();
          }
 
-        return unidadMedidaBE;
+        return objUnidadMedidaBE;
     }
 
     public UnidadMedidaBE queryByNombreUnidadMedida(String nombreUnidadMedida){
         conexion objConexion=new conexion();
+        UnidadMedidaBE objUnidadMedidaBE = null;
         ResultSet rs = null;
         String sql = "SELECT idUnidadMedida,descripcion,indactivo,nombre FROM UnidadMedida "
                      + " WHERE nombre='"+nombreUnidadMedida+"'";
@@ -66,7 +66,7 @@ public class UnidadMedidaDA {
                 strNombre = rs.getString(4);
                 strDescripcion = rs.getString(2);
                 strEstado = rs.getString(3);
-                unidadMedidaBE = new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strEstado);
+                objUnidadMedidaBE = new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strEstado);
             }
 
         }catch (Exception a){
@@ -76,7 +76,7 @@ public class UnidadMedidaDA {
              objConexion.SalirS();
          }
 
-        return unidadMedidaBE;
+        return objUnidadMedidaBE;
     }
 
     public ArrayList<UnidadMedidaBE> queryAllUnidadMedida() {
