@@ -331,7 +331,10 @@ m.setVisible(true);
     public void recargaruno(FamiliaBE familia){
         DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
         modelo.addRow(new Object[4]);
-        dgvFamilia.clearSelection();
+        
+            //dgvFamilia.removeRowSelectionInterval(0, dgvFamilia.getRowCount());
+          dgvFamilia.clearSelection(); 
+         
         dgvFamilia.setValueAt(familia.getIdFamilia(),0,0 );
         dgvFamilia.setValueAt(familia.getNombre(),0,1 );
         dgvFamilia.setValueAt(familia.getDescripcion(),0,2 );
@@ -345,7 +348,8 @@ m.setVisible(true);
     public void recargar(ArrayList<FamiliaBE> familias){
         DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
         modelo.addRow(new Object[4]);
-        dgvFamilia.clearSelection();
+         //dgvFamilia.removeRowSelectionInterval(0, dgvFamilia.getRowCount());
+          dgvFamilia.clearSelection();  
         for(int i=0;i<familias.size();i++){
             dgvFamilia.setValueAt(familias.get(i).getIdFamilia(),i,0 );
             dgvFamilia.setValueAt(familias.get(i).getNombre(),i,1 );
