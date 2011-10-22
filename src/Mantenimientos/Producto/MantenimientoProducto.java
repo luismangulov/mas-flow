@@ -20,6 +20,7 @@ import DataAccess.FamiliaDA;
 import DataAccess.ProductoDA;
 import DataAccess.UnidadMedidaDA;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,7 +46,8 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         this.accion = c;
         ProductoBL objProductoBL = new ProductoBL();
         objProducto = objProductoBL.getByIdProducto(idProducto);
-        cargarComponentes(objProducto);
+        this.setVisible(true);
+        this.cargarComponentes(objProducto);
     }
 
     public MantenimientoProducto() {
@@ -65,18 +67,24 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         txtNombre.setText(objProducto.getNombre());
         txtDescripcion.setText(objProducto.getDescripcion());
         txtMaxCantPallet.setText(String.valueOf(objProducto.getMaxCantPorPallet()));
+        cargarComboFamilia();
+        cargarComboUnidadMedida();
         
-        for(int i=0; i<cbFamilia.getSize().width-1; i++)
-            if(cbFamilia.getItemAt(i).toString()==objFamiliaDA.queryByNombreFamilia(objProducto.getIdFamilia()).getNombre()){
+        for(int i=0; i<cbFamilia.getSize().width; i++){
+//            JOptionPane.showMessageDialog(null, cbFamilia.getItemAt(i).toString(),"wa",0);
+            String strNombreFamilia = objFamiliaDA.queryByIdFamilia(objProducto.getIdFamilia()).getNombre();
+            if(cbFamilia.getItemAt(i).toString().equals(strNombreFamilia)){
                 cbFamilia.setSelectedIndex(i);
                 break;
+            }
         }
-        for(int i=0; i<cbUnidad.getSize().width-1; i++)
-            if(cbUnidad.getItemAt(i).toString()==objUnidadMedidaDA.queryByNombreUnidadMedida(objProducto.getNombre()).getNombre()){
+        for(int i=0; i<cbUnidad.getSize().width-1; i++){
+            String strUnidadMedida = objUnidadMedidaDA.queryByIdUnidadMedida(objProducto.getIdUnidadMedida()).getNombre();
+            if(cbUnidad.getItemAt(i).toString().equals(strUnidadMedida)){
                 cbUnidad.setSelectedIndex(i);
                 break;
-        }
-        
+            }
+        }    
         if (accion=='M')
             btnGuardar.setName("Modificar");
         else
@@ -246,16 +254,17 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         unidadMedida = unidadBL.getIdUnidadMedida(cbUnidad.getSelectedItem().toString());
         FamiliaBL familiaBL = new FamiliaBL();
         familia = familiaBL.getIdFamilia((String)cbFamilia.getSelectedItem());
-        indActivo = "A";
+        indActivo = "1";
         precio = 0;
         ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
         ProductoBL productoBL = new ProductoBL();
         boolExito = productoBL.insertar(productoBE);
-        
+        if (boolExito)
+            JOptionPane.showMessageDialog(null, "El registro fue exitoso", "Éxito", 0);
     }
     
     private void modificar(){
-        
+        idProducto = txtIdProducto.getText();
         nombre = txtNombre.getText();
         descripcion = txtDescripcion.getText();
         maxCantPorPallet = Integer.parseInt(txtMaxCantPallet.getText());
@@ -265,27 +274,29 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         familia = familiaBL.getIdFamilia((String)cbFamilia.getSelectedItem());
         indActivo = "A";
         precio = 0;
-        ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
+        ProductoBE productoBE = new ProductoBE(idProducto,nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
         ProductoBL productoBL = new ProductoBL();
         boolExito = productoBL.modificar(productoBE);
-        
+        if (boolExito)
+            JOptionPane.showMessageDialog(null, "La modificación fue exitosa", "Éxito", 0);        
     }
     
     private void eliminar(){
-        
-        nombre = txtNombre.getText();
-        descripcion = txtDescripcion.getText();
-        maxCantPorPallet = Integer.parseInt(txtMaxCantPallet.getText());
-        UnidadMedidaBL unidadBL = new UnidadMedidaBL();
-        unidadMedida = unidadBL.getIdUnidadMedida(cbUnidad.getSelectedItem().toString());
-        FamiliaBL familiaBL = new FamiliaBL();
-        familia = familiaBL.getIdFamilia((String)cbFamilia.getSelectedItem());
-        indActivo = "A";
-        precio = 0;
-        ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
+          idProducto = txtIdProducto.getText();
+//        nombre = txtNombre.getText();
+//        descripcion = txtDescripcion.getText();
+//        maxCantPorPallet = Integer.parseInt(txtMaxCantPallet.getText());
+//        UnidadMedidaBL unidadBL = new UnidadMedidaBL();
+//        unidadMedida = unidadBL.getIdUnidadMedida(cbUnidad.getSelectedItem().toString());
+//        FamiliaBL familiaBL = new FamiliaBL();
+//        familia = familiaBL.getIdFamilia((String)cbFamilia.getSelectedItem());
+//        indActivo = "A";
+//        precio = 0;
         ProductoBL productoBL = new ProductoBL();
-        boolExito = productoBL.eliminar(productoBE);
+        boolExito = productoBL.eliminar(idProducto);
         
+        if (boolExito)
+            JOptionPane.showMessageDialog(null, "La eliminación fue exitosa", "Éxito", 0);
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
