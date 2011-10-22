@@ -88,6 +88,9 @@ public class AdmProducto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        dgvProductos.setRowSelectionAllowed(true);
+        dgvProductos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dgvProductosMouseClicked(evt);
