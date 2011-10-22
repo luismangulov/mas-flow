@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import BD.Utilitario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author victor
@@ -54,7 +55,7 @@ public class ProductoDA {
             objConexion.EjecutarUID(query);
             boolExito=true;
          }catch (Exception e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
         }
         finally{objConexion.SalirUID();}
 
@@ -90,21 +91,33 @@ public class ProductoDA {
     public boolean modificar(ProductoBE productoBE) {
         boolExito = false;
         objConexion = new conexion();
-        query = "UPDATE PRODUCTO nombre = '"+productoBE.getNombre()+"', descripcion ='"+productoBE.getDescripcion()+
+        query = "UPDATE PRODUCTO set nombre = '"+productoBE.getNombre()+"', descripcion ='"+productoBE.getDescripcion()+
                         "', maxCantPorPallet = '"+String.valueOf(productoBE.getMaxCantPorPallet())+"', idUnidadMedida ='"
                         +productoBE.getIdUnidadMedida()+"', idFamilia = '" +productoBE.getIdFamilia()+ "', precio ='"+String.valueOf(productoBE.getPrecio())+"'"
-                        +" WHERE idProducto ='" +productoBE.getIdProducto();
-        objConexion.EjecutarUID(query);
-        boolExito = true;
+                        +" WHERE idProducto ='" +productoBE.getIdProducto()+"'";
+        try{
+            objConexion.EjecutarUID(query);
+            boolExito = true;
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "No se pudo modificar el registro", "Error", 0);
+        }finally{
+            objConexion.SalirUID();
+        }
         return boolExito;
     }
 
-    public boolean eliminar(ProductoBE productoBE) {
+    public boolean eliminar(String idProducto) {
         boolExito = false;
         objConexion = new conexion();
-        query = "UPDATE PRODUCTO indActivo = '0' WHERE idProducto ='"+productoBE.getIdProducto()+"'";
-        objConexion.EjecutarS(query);
-        boolExito = true;
+        query = "UPDATE PRODUCTO set indActivo = '0' WHERE idProducto ='"+idProducto+"'";
+        try{
+            objConexion.EjecutarUID(query);
+            boolExito = true;
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
+        }finally{
+            objConexion.SalirUID();
+        }
         return boolExito;
     }
 
@@ -136,10 +149,10 @@ public class ProductoDA {
         boolean flagNombre = false;
         boolean flagFamilia = false;
         objConexion = new conexion();
-        query = "SELECT * FROM PRODUCTO";
+        query = "SELECT * FROM PRODUCTO WHERE indActivo ='1'";
 
         if (!idProducto.equals("")){
-            query = query + " WHERE idProducto LIKE '%" + idProducto + "%'";
+            query = query + " AND idProducto LIKE '%" + idProducto + "%'";
             flagIdProd = true;
         }
         if (!nombre.equals("")){
