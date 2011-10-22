@@ -53,106 +53,7 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         dgvFamilia.setAutoCreateRowSorter(true);
         dgvFamilia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nombre", "Descripción", "Estado"
@@ -329,14 +230,23 @@ m.setVisible(true);
     }
     
     public void recargaruno(FamiliaBE familia){
-        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
-        modelo.addRow(new Object[4]);
-        for(int i=0;i<dgvFamilia.getRowCount();i++){
-            dgvFamilia.removeRowSelectionInterval(i, i);
-        }
-            //
-         // dgvFamilia.clearSelection(); 
+//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+//        modelo.addRow(new Object[4]);
+//        for(int i=0;i<dgvFamilia.getRowCount();i++){
+//             dgvFamilia.remove(i);
+//            dgvFamilia.removeRowSelectionInterval(i, i);
+//        }
          
+                   //
+//          dgvFamilia.clearSelection(); 
+         
+        DefaultTableModel modelo= new DefaultTableModel();
+        dgvFamilia.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripción");
+        modelo.addColumn("Estado");
+         modelo.addRow(new Object[4]);
         dgvFamilia.setValueAt(familia.getIdFamilia(),0,0 );
         dgvFamilia.setValueAt(familia.getNombre(),0,1 );
         dgvFamilia.setValueAt(familia.getDescripcion(),0,2 );
@@ -348,13 +258,23 @@ m.setVisible(true);
     }
     
     public void recargar(ArrayList<FamiliaBE> familias){
-        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
-        modelo.addRow(new Object[4]);
-          for(int i=0;i<dgvFamilia.getRowCount();i++){
-            dgvFamilia.removeRowSelectionInterval(i, i);
-        }
-          //dgvFamilia.clearSelection();  
+        DefaultTableModel modelo= new DefaultTableModel();
+        dgvFamilia.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripción");
+        modelo.addColumn("Estado");
+        
+//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+//        modelo.addRow(new Object[4]);
+//          for(int i=0;i<dgvFamilia.getRowCount();i++){
+//            dgvFamilia.remove(i);
+//            dgvFamilia.removeRowSelectionInterval(i, i);
+//        }
+//          dgvFamilia.clearSelection();  
+                    
         for(int i=0;i<familias.size();i++){
+             modelo.addRow(new Object[4]);
             dgvFamilia.setValueAt(familias.get(i).getIdFamilia(),i,0 );
             dgvFamilia.setValueAt(familias.get(i).getNombre(),i,1 );
             dgvFamilia.setValueAt(familias.get(i).getDescripcion(),i,2 );
