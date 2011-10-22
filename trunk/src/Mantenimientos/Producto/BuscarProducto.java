@@ -15,6 +15,7 @@ import BusinessEntity.ProductoBE;
 import BusinessLogic.FamiliaBL;
 import BusinessLogic.ProductoBL;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -29,11 +30,14 @@ public class BuscarProducto extends javax.swing.JFrame {
     private String strIdFamilia;
     private ProductoBL objProductoBL;
     private FamiliaBL objFamiliaBL;
+    private ArrayList<ProductoBE> arrProductos;
+    private AdmProducto ventanaPadre;
 
     /** Creates new form BuscarProducto */
-    public BuscarProducto(ArrayList<ProductoBE> arrProductos) {
+    public BuscarProducto(AdmProducto ventanaPadre) {
         initComponents();
         this.cargarComboFamilia();
+        this.ventanaPadre = ventanaPadre;
     }
 
     public void cargarComboFamilia(){
@@ -76,6 +80,11 @@ public class BuscarProducto extends javax.swing.JFrame {
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBuscarMouseClicked(evt);
+            }
+        });
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -153,10 +162,25 @@ public class BuscarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+        
         strIdFamilia = objFamiliaBL.getIdFamilia(cbFamilia.getSelectedItem().toString());
-//        arrProductos = objProductoBL.getListSearch(strIdProducto, strNombre, strIdFamilia);
-//        AdmProducto
+        strIdProducto = txtIdProducto.getText();
+        strNombre = txtNombre.getText();
+        objProductoBL = new ProductoBL();
+        arrProductos = objProductoBL.getListSearch(strIdProducto, strNombre, strIdFamilia);
+        
+        if (arrProductos.size()!=0){
+            ventanaPadre.llenarDgv(arrProductos);
+            this.dispose();
+        }
+        
+        else
+            JOptionPane.showMessageDialog(null, "No existen productos de dicho criterio", "Advertencia", 0);
     }//GEN-LAST:event_btnBuscarMouseClicked
+
+private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
