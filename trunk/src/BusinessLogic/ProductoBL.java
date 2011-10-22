@@ -17,19 +17,19 @@ public class ProductoBL {
 
     private ProductoDA objProductoDA;
 
-    public boolean insertar(ProductoBE producto){
+    public void insertar(ProductoBE producto){
         objProductoDA = new ProductoDA();
-        return objProductoDA.insertar(producto);
+        objProductoDA.insertar(producto);
     }
 
-    public boolean modificar(ProductoBE productoBE) {
+    public void modificar(ProductoBE productoBE) {
         objProductoDA = new ProductoDA();
-        return objProductoDA.modificar(productoBE);
+        objProductoDA.modificar(productoBE);
     }
     
-    public boolean eliminar(String idProducto) {
+    public void eliminar(String idProducto) {
         objProductoDA = new ProductoDA();
-        return objProductoDA.eliminar(idProducto);
+        objProductoDA.eliminar(idProducto);
     }
     
     public ProductoBE getByIdProducto(String idProducto) {
