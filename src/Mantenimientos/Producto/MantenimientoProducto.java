@@ -258,12 +258,11 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         precio = 0;
         ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
         ProductoBL productoBL = new ProductoBL();
-        boolExito = productoBL.insertar(productoBE);
-        if (boolExito)
-            JOptionPane.showMessageDialog(null, "El registro fue exitoso", "Éxito", 0);
+        productoBL.insertar(productoBE);
     }
     
     private void modificar(){
+        
         idProducto = txtIdProducto.getText();
         nombre = txtNombre.getText();
         descripcion = txtDescripcion.getText();
@@ -276,27 +275,15 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         precio = 0;
         ProductoBE productoBE = new ProductoBE(idProducto,nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
         ProductoBL productoBL = new ProductoBL();
-        boolExito = productoBL.modificar(productoBE);
-        if (boolExito)
-            JOptionPane.showMessageDialog(null, "La modificación fue exitosa", "Éxito", 0);        
+        productoBL.modificar(productoBE);     
     }
     
     private void eliminar(){
-          idProducto = txtIdProducto.getText();
-//        nombre = txtNombre.getText();
-//        descripcion = txtDescripcion.getText();
-//        maxCantPorPallet = Integer.parseInt(txtMaxCantPallet.getText());
-//        UnidadMedidaBL unidadBL = new UnidadMedidaBL();
-//        unidadMedida = unidadBL.getIdUnidadMedida(cbUnidad.getSelectedItem().toString());
-//        FamiliaBL familiaBL = new FamiliaBL();
-//        familia = familiaBL.getIdFamilia((String)cbFamilia.getSelectedItem());
-//        indActivo = "A";
-//        precio = 0;
-        ProductoBL productoBL = new ProductoBL();
-        boolExito = productoBL.eliminar(idProducto);
         
-        if (boolExito)
-            JOptionPane.showMessageDialog(null, "La eliminación fue exitosa", "Éxito", 0);
+        idProducto = txtIdProducto.getText();
+        ProductoBL productoBL = new ProductoBL();
+        productoBL.eliminar(idProducto);
+
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
