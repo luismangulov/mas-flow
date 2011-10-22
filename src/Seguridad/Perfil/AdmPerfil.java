@@ -155,6 +155,9 @@ private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 // TODO add your handling code here:
         BuscarPerfil m = new BuscarPerfil();
         m.setVisible(true);
+
+
+        
 }//GEN-LAST:event_jLabel4MousePressed
 
     /**
