@@ -44,6 +44,7 @@ public class BuscarProducto extends javax.swing.JFrame {
         objFamiliaBL = new FamiliaBL();
         ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
         arrFamilia = objFamiliaBL.getAllFamilia();
+        cbFamilia.addItem("");
         for(FamiliaBE objFamilia : arrFamilia)
             cbFamilia.addItem(objFamilia.getNombre());
     }
