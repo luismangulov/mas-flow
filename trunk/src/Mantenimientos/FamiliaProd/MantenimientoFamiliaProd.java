@@ -29,9 +29,9 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
     public MantenimientoFamiliaProd(AdmFamiliaProd padre) {
         this.objPadre = padre;
         accion = "registrar";
-        
-        
         initComponents();
+        this.setTitle("+Flow - Registrar cliente");
+                         
         this.setVisible(true);
     }
 
@@ -41,10 +41,11 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
         
         initComponents();
         this.cbxActivo.setEnabled(true);
-        this.setVisible(true);
+        this.setTitle("+Flow - Editar cliente");
         this.txtCodigo.setText(familia.getIdFamilia());
         this.txtNombre.setText(familia.getNombre());
         this.txtDescripcion.setText(familia.getDescripcion());
+        this.setVisible(true);
     }
     /** This method is called from within the constructor to
      * initialize the form.
