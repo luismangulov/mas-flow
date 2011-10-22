@@ -57,12 +57,15 @@ public class MantenimientoProducto extends javax.swing.JFrame {
     }
 
     private void cargarComponentes(ProductoBE objProducto){
+        
         FamiliaDA objFamiliaDA = new FamiliaDA();
         UnidadMedidaDA objUnidadMedidaDA = new UnidadMedidaDA();
+        
         txtIdProducto.setText(objProducto.getIdProducto());
         txtNombre.setText(objProducto.getNombre());
         txtDescripcion.setText(objProducto.getDescripcion());
         txtMaxCantPallet.setText(String.valueOf(objProducto.getMaxCantPorPallet()));
+        
         for(int i=0; i<cbFamilia.getSize().width-1; i++)
             if(cbFamilia.getItemAt(i).toString()==objFamiliaDA.queryByNombreFamilia(objProducto.getIdFamilia()).getNombre()){
                 cbFamilia.setSelectedIndex(i);
@@ -73,6 +76,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
                 cbUnidad.setSelectedIndex(i);
                 break;
         }
+        
         if (accion=='M')
             btnGuardar.setName("Modificar");
         else
@@ -81,16 +85,20 @@ public class MantenimientoProducto extends javax.swing.JFrame {
     }
 
     public void cargarComboUnidadMedida(){
+        
         UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
         ArrayList<UnidadMedidaBE> arrUnidadMedida = new ArrayList<UnidadMedidaBE>();
         arrUnidadMedida = objUnidadMedidaBL.getAllUnidadMedida();
+        
         for(UnidadMedidaBE unidadMedida : arrUnidadMedida)
             cbUnidad.addItem(unidadMedida.getNombre());
     }
 
-        public void cargarComboFamilia(){
+    public void cargarComboFamilia(){
+            
         FamiliaBL objFamiliaBL = new FamiliaBL();
         ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
+        
         arrFamilia = objFamiliaBL.getAllFamilia();
         for(FamiliaBE objFamilia : arrFamilia)
             cbFamilia.addItem(objFamilia.getNombre());
@@ -156,8 +164,9 @@ public class MantenimientoProducto extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(50, 50, 50)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(44, 44, 44))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,6 +238,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void insertar(){
+        
         nombre = txtNombre.getText();
         descripcion = txtDescripcion.getText();
         maxCantPorPallet = Integer.parseInt(txtMaxCantPallet.getText());
@@ -241,9 +251,11 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
         ProductoBL productoBL = new ProductoBL();
         boolExito = productoBL.insertar(productoBE);
+        
     }
     
     private void modificar(){
+        
         nombre = txtNombre.getText();
         descripcion = txtDescripcion.getText();
         maxCantPorPallet = Integer.parseInt(txtMaxCantPallet.getText());
@@ -256,9 +268,11 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
         ProductoBL productoBL = new ProductoBL();
         boolExito = productoBL.modificar(productoBE);
+        
     }
     
     private void eliminar(){
+        
         nombre = txtNombre.getText();
         descripcion = txtDescripcion.getText();
         maxCantPorPallet = Integer.parseInt(txtMaxCantPallet.getText());
@@ -271,15 +285,20 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
         ProductoBL productoBL = new ProductoBL();
         boolExito = productoBL.eliminar(productoBE);
+        
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
         if (accion=='R')
             this.insertar();
+        
         else if(accion=='M')
             this.modificar();
+        
         else
             this.eliminar();
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
