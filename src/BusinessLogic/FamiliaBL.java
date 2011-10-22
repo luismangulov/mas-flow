@@ -26,6 +26,8 @@ public class FamiliaBL {
         FamiliaDA familiaDA = new FamiliaDA();
         familia = new FamiliaBE();
         familia = familiaDA.queryByNombreFamilia(nombreFamilia);
+        if (familia == null)
+            return "";
         return familia.getIdFamilia();
     }
 
