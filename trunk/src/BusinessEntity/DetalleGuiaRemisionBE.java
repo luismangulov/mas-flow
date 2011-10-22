@@ -13,11 +13,20 @@ public class DetalleGuiaRemisionBE {
     private int cantidad;
     private double subtotal;
     private ProductoBE producto;
-    private String estado;
+   
 
     /**
      * @return the codigo
      */
+    
+    public DetalleGuiaRemisionBE(String codigo,int cantidad,double subtotal,String codProducto){
+        this.codigo = codigo;
+        this.cantidad = cantidad;
+        this.subtotal = subtotal;
+        this.producto = null;
+        this.producto.setIdProducto(codProducto);
+    }
+    
     public String getCodigo() {
         return codigo;
     }
@@ -74,14 +83,5 @@ public class DetalleGuiaRemisionBE {
     /**
      * @return the estado
      */
-    public String getEstado() {
-        return estado;
-    }
-
-    /**
-     * @param estado the estado to set
-     */
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+   
 }
