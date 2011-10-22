@@ -11,10 +11,14 @@
 package Mantenimientos.Producto;
 
 import BusinessEntity.ProductoBE;
+import DataAccess.FamiliaDA;
+import DataAccess.ProductoDA;
+import DataAccess.UnidadMedidaDA;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,6 +29,8 @@ public class AdmProducto extends javax.swing.JFrame {
     private String idProducto;
     private boolean seleccionCliente = false;
     public ArrayList<ProductoBE> arrProductos;
+    private FamiliaDA objFamiliaDA;
+    private UnidadMedidaDA objUnidadMedidaDA;
     /** Creates new form AdmProducto */
     public AdmProducto() {
         initComponents();
@@ -167,7 +173,7 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_lblRegistrarMousePressed
 
     private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
-       BuscarProducto b = new BuscarProducto(arrProductos);
+       BuscarProducto b = new BuscarProducto(this);
        b.setVisible(true);
     }//GEN-LAST:event_lblBuscarMousePressed
 
@@ -204,6 +210,29 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
 
     }//GEN-LAST:event_dgvProductosMouseClicked
 
+    public void llenarDgv(ArrayList<ProductoBE> arrProductos){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvProductos.getModel();    
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+        this.arrProductos = arrProductos;
+        dgvProductos.clearSelection();
+        objUnidadMedidaDA = new UnidadMedidaDA();                
+        objFamiliaDA = new FamiliaDA();
+        
+        for (int i=0; i<arrProductos.size(); i++){
+            
+            String strIdProducto = arrProductos.get(i).getIdProducto();
+            String strNombre = arrProductos.get(i).getNombre();
+            String strDescripcion = arrProductos.get(i).getDescripcion();
+            String strNombreFamilia = objFamiliaDA.queryByIdFamilia(arrProductos.get(i).getIdFamilia()).getNombre();
+            String strNombreUnidad = objUnidadMedidaDA.queryByIdUnidadMedida(arrProductos.get(i).getIdUnidadMedida()).getNombre();
+            
+            modelo.addRow(new Object[]{strIdProducto,strNombre,strDescripcion,strNombreFamilia,strNombreUnidad});
+            
+        }
+    }
 
     /**
      * @param args the command line arguments
