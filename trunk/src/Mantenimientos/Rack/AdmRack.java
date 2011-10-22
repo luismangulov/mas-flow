@@ -10,6 +10,12 @@
  */
 package Mantenimientos.Rack;
 
+import BusinessEntity.RackBE;
+import DataAccess.RackDA;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DIEGO
@@ -17,6 +23,8 @@ package Mantenimientos.Rack;
 public class AdmRack extends javax.swing.JFrame {
 
     /** Creates new form AdmRack */
+    ArrayList<RackBE> arrRacks;
+    
     public AdmRack() {
         initComponents();
     }
@@ -31,21 +39,21 @@ public class AdmRack extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        dgvRacks = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblRegistrarRack = new javax.swing.JLabel();
+        lblModificarRack = new javax.swing.JLabel();
+        lblEliminarRack = new javax.swing.JLabel();
+        lblBuscarRack = new javax.swing.JLabel();
+        lblCargarRacks = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar rack");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        dgvRacks.setAutoCreateRowSorter(true);
+        dgvRacks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -71,36 +79,57 @@ public class AdmRack extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setResizable(false);
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(dgvRacks);
+        dgvRacks.getColumnModel().getColumn(0).setResizable(false);
+        dgvRacks.getColumnModel().getColumn(2).setResizable(false);
 
         jToolBar1.setRollover(true);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblRegistrarRack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblRegistrarRack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRegistrarRackMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel1MousePressed(evt);
+                lblRegistrarRackMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel1);
+        jToolBar1.add(lblRegistrarRack);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
-        jToolBar1.add(jLabel2);
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
-        jToolBar1.add(jLabel3);
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel4MousePressed(evt);
+        lblModificarRack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        lblModificarRack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblModificarRackMouseClicked(evt);
             }
         });
-        jToolBar1.add(jLabel4);
+        jToolBar1.add(lblModificarRack);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
-        jToolBar1.add(jLabel5);
+        lblEliminarRack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminarRack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEliminarRackMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(lblEliminarRack);
+
+        lblBuscarRack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscarRack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBuscarRackMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblBuscarRackMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblBuscarRack);
+
+        lblCargarRacks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblCargarRacks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCargarRacksMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(lblCargarRacks);
 
         jLabel7.setText("                                                                                                   ");
         jToolBar1.add(jLabel7);
@@ -126,17 +155,71 @@ public class AdmRack extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-MantenimientoRack m = new MantenimientoRack();
-m.setVisible(true);
-// TODO add your handling code here:
-}//GEN-LAST:event_jLabel1MousePressed
+private void lblRegistrarRackMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarRackMousePressed
 
-private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-BuscarRack m = new BuscarRack();
-m.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel4MousePressed
+}//GEN-LAST:event_lblRegistrarRackMousePressed
 
+private void lblBuscarRackMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarRackMousePressed
+
+}//GEN-LAST:event_lblBuscarRackMousePressed
+
+private void lblRegistrarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarRackMouseClicked
+    MantenimientoRack frmManteminiento = new MantenimientoRack('R');
+    frmManteminiento.setVisible(true);
+}//GEN-LAST:event_lblRegistrarRackMouseClicked
+
+private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModificarRackMouseClicked
+    int fila;
+    fila = dgvRacks.getSelectedRow();
+    if (fila==-1)
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
+    else{
+        MantenimientoRack frmManteminiento = new MantenimientoRack('M');
+        frmManteminiento.setVisible(true);
+    }
+}//GEN-LAST:event_lblModificarRackMouseClicked
+
+private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarRackMouseClicked
+    int fila;
+    fila = dgvRacks.getSelectedRow();
+    if (fila==-1)
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
+    else{
+        MantenimientoRack frmManteminiento = new MantenimientoRack('E');
+        frmManteminiento.setVisible(true);
+    }
+}//GEN-LAST:event_lblEliminarRackMouseClicked
+
+private void lblBuscarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarRackMouseClicked
+    BuscarRack frmBusqueda = new BuscarRack(this);
+    frmBusqueda.setVisible(true);
+}//GEN-LAST:event_lblBuscarRackMouseClicked
+
+private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCargarRacksMouseClicked
+    RackDA objRackDA = new RackDA();
+    ArrayList<RackBE> arrRacks = objRackDA.queryAllActivo();
+}//GEN-LAST:event_lblCargarRacksMouseClicked
+
+    public void llenarDgv(ArrayList<RackBE> arrRacks){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvRacks.getModel();    
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+        this.arrRacks = arrRacks;
+        
+        for (int i=0; i<arrRacks.size(); i++){
+            
+            String strIdRack = arrRacks.get(i).getIdRack();
+            Double douAlto = arrRacks.get(i).getAlto();
+            Double douAncho = arrRacks.get(i).getAncho();
+            int intPisos = arrRacks.get(i).getPisos();
+            int intColumnas = arrRacks.get(i).getColumnas();
+            
+            modelo.addRow(new Object[]{strIdRack,douAlto + "x" + douAncho,intPisos,intColumnas});
+            
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -173,15 +256,15 @@ m.setVisible(true);// TODO add your handling code here:
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTable dgvRacks;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblBuscarRack;
+    private javax.swing.JLabel lblCargarRacks;
+    private javax.swing.JLabel lblEliminarRack;
+    private javax.swing.JLabel lblModificarRack;
+    private javax.swing.JLabel lblRegistrarRack;
     // End of variables declaration//GEN-END:variables
 }
