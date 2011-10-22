@@ -13,6 +13,7 @@ package Mantenimientos.Rack;
 import BusinessEntity.RackBE;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.RackBL;
+import BusinessLogic.ZonaBL;
 import DataAccess.ZonaDA;
 import java.util.ArrayList;
 
@@ -44,10 +45,15 @@ public class MantenimientoRack extends javax.swing.JFrame {
     }
     
     public MantenimientoRack(char c, String idRack) {
-        initComponents();
-        this.cargarComboZona();
         this.accion = c;
-        this.idRack = idRack;
+        if (c=='M'){
+            initComponents();
+            objRackBL = new RackBL();
+            objRackBE = objRackBL.getByIdRack(idRack);
+            this.setVisible(true);
+            this.cargarComponentes(objRackBE);
+        }
+        else eliminar(idRack);
     }
     
     private void cargarComboZona(){
@@ -60,6 +66,25 @@ public class MantenimientoRack extends javax.swing.JFrame {
         
     }
     
+    private void cargarComponentes(RackBE objRackBE){
+        
+        objZonaDA = new ZonaDA();
+        txtIdRack.setText(objRackBE.getIdRack());
+        txtAlto.setText(objRackBE.getAlto().toString());
+        txtAncho.setText(objRackBE.getAncho().toString());
+        txtPisos.setText(String.valueOf(objRackBE.getPisos()));
+        txtColumnas.setText(String.valueOf(objRackBE.getColumnas()));
+        cargarComboZona();
+        
+        for(int i=0; i<cbZona.getSize().width; i++){
+            String strNombreZona = objZonaDA.queryByIdZona(objRackBE.getIdZona()).getNombre();
+            if(cbZona.getItemAt(i).toString().equals(strNombreZona)){
+                cbZona.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+    
     private void insertar(){
         
         strIdRack = txtIdRack.getText();
@@ -67,7 +92,8 @@ public class MantenimientoRack extends javax.swing.JFrame {
         douAncho = Double.valueOf(txtAncho.getText());
         intPisos = Integer.valueOf(txtPisos.getText());
         intColumnas = Integer.valueOf(txtColumnas.getText());
-        strIdZona = String.valueOf(cbZona.getSelectedItem());
+        ZonaBL objZonaBL = new ZonaBL();
+        strIdZona = objZonaBL.getByNombreZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
         objRackBE = new RackBE(strIdRack,douAlto, douAncho, intPisos, intColumnas, "1", strIdZona);
         objRackBL.insertar(objRackBE);
@@ -81,18 +107,18 @@ public class MantenimientoRack extends javax.swing.JFrame {
         douAncho = Double.valueOf(txtAncho.getText());
         intPisos = Integer.valueOf(txtPisos.getText());
         intColumnas = Integer.valueOf(txtColumnas.getText());
-        strIdZona = String.valueOf(cbZona.getSelectedItem());
+        ZonaBL objZonaBL = new ZonaBL();
+        strIdZona = objZonaBL.getByNombreZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
         objRackBE = new RackBE(strIdRack,douAlto, douAncho, intPisos, intColumnas, "1", strIdZona);
         objRackBL.modificar(objRackBE);        
         
     }
     
-    private void eliminar(){
+    private void eliminar(String idRack){
         
-        strIdRack = txtIdRack.getText();
         objRackBL = new RackBL();
-        objRackBL.eliminar(strIdRack);
+        objRackBL.eliminar(idRack);
         
     }
     
@@ -309,8 +335,6 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         this.insertar();
     else if (accion == 'M')
         this.modificar();
-    else 
-        this.eliminar();
     
 }//GEN-LAST:event_btnGuardarActionPerformed
 
