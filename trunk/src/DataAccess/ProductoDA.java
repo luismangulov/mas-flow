@@ -138,22 +138,27 @@ public class ProductoDA {
         objConexion = new conexion();
         query = "SELECT * FROM PRODUCTO";
 
-        if (idProducto != ""){
-            query = query + "WHERE idProducto LIKE '%" + idProducto + "%'";
+        if (!idProducto.equals("")){
+            query = query + " WHERE idProducto LIKE '%" + idProducto + "%'";
             flagIdProd = true;
         }
-        if (nombre != ""){
+        if (!nombre.equals("")){
             flagNombre = true;
             if(flagIdProd == true)
                 query = query + "AND ";
+            else 
+                query = query + " WHERE ";
             query = query + "nombre LIKE '%" + nombre + "%'";
         }
-        if (idFamilia != ""){
+        if (!idFamilia.equals("")){
             if(flagIdProd == true || flagNombre == true)
                 query = query + "AND ";
+            else 
+                query = query + " WHERE ";
             query = query + "idFamilia LIKE '%" + idFamilia + "%'";
         }
         rs = objConexion.EjecutarS(query);
+        arrProductoBE = new ArrayList<ProductoBE>();
         try {
             while (rs.next()) {
                 String strIdProducto = rs.getString("IdProducto");
@@ -172,22 +177,4 @@ public class ProductoDA {
         }
         return arrProductoBE;
     }
-
-//            conexion objConexion=new conexion();
-//        ResultSet rs = null;
-//        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
-//        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia";
-//        boolean primero = false;
-//        sql+= " WHERE IndActivo = '1'";
-//        if(!(codigo.equals("")) || !(nombre.equals(""))){
-//           if (!codigo.equals("")){
-//                sql += "AND idfamilia LIKE '%" + codigo + "%'";
-//           }
-//           if (!nombre.equals("")){
-//
-//                sql += "AND nombre LIKE '%" + nombre + "%'";
-//           }
-//
-
-
 }
