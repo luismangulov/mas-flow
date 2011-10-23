@@ -22,6 +22,13 @@ public class FamiliaBL {
         exito = objFamiliaDA.insertar(getFamilia());
         return exito;
     }
+    
+    public boolean eliminar(String codFamilia) throws Exception{
+        boolean exito = false;
+        FamiliaDA objFamiliaDA = new FamiliaDA();
+        exito = objFamiliaDA.eliminar(codFamilia);
+        return exito;
+    }
     public String getIdFamilia(String nombreFamilia){
         FamiliaDA familiaDA = new FamiliaDA();
         familia = new FamiliaBE();

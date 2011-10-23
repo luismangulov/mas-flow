@@ -13,6 +13,8 @@ package Mantenimientos.FamiliaProd;
 import BusinessEntity.FamiliaBE;
 import BusinessLogic.FamiliaBL;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,7 +26,9 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
 
     /** Creates new form AdmFamiliaProd */
     public AdmFamiliaProd() {
+        
         initComponents();
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to
@@ -41,7 +45,7 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         lblInsertar = new javax.swing.JLabel();
         lblEditar = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblEliminar = new javax.swing.JLabel();
         lblBuscar = new javax.swing.JLabel();
         lblRefrescar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -49,11 +53,17 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar familia de producto");
+        setBounds(new java.awt.Rectangle(0, 0, 600, 400));
+        setMinimumSize(new java.awt.Dimension(600, 400));
 
         dgvFamilia.setAutoCreateRowSorter(true);
         dgvFamilia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "Código", "Nombre", "Descripción", "Estado"
@@ -75,6 +85,10 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(dgvFamilia);
+        dgvFamilia.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvFamilia.getColumnModel().getColumn(1).setPreferredWidth(100);
+        dgvFamilia.getColumnModel().getColumn(2).setPreferredWidth(120);
+        dgvFamilia.getColumnModel().getColumn(3).setPreferredWidth(40);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -101,10 +115,16 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         });
         jToolBar1.add(lblEditar);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
-        jLabel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jToolBar1.add(jLabel3);
+        lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminar.setToolTipText("Eliminar");
+        lblEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblEliminar);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
         lblBuscar.setToolTipText("Buscar");
@@ -138,7 +158,7 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -189,6 +209,26 @@ m.setVisible(true);
         
     }//GEN-LAST:event_lblEditarMousePressed
 
+    private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+        // TODO add your handling code here:
+        int respuesta = 0;
+        respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar esta familia de productos? Esta acción no podrá deshacerse.", "Eliminar familia de productos", 0); 
+        if(respuesta == 0){
+            int fila;
+            String codigo;
+            fila = dgvFamilia.getSelectedRow();
+            codigo = (String)dgvFamilia.getValueAt(fila, 0);
+            FamiliaBL objFamiliaBL = new FamiliaBL();
+            try {
+                objFamiliaBL.eliminar(codigo);
+                this.lblRefrescarMousePressed(evt);
+            } catch (Exception ex) {
+                Logger.getLogger(AdmFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }//GEN-LAST:event_lblEliminarMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -226,13 +266,13 @@ m.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dgvFamilia;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblEditar;
+    private javax.swing.JLabel lblEliminar;
     private javax.swing.JLabel lblInsertar;
     private javax.swing.JLabel lblRefrescar;
     // End of variables declaration//GEN-END:variables
@@ -261,6 +301,11 @@ m.setVisible(true);
         modelo.addColumn("Nombre");
         modelo.addColumn("Descripción");
         modelo.addColumn("Estado");
+        
+        dgvFamilia.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvFamilia.getColumnModel().getColumn(1).setPreferredWidth(100);
+        dgvFamilia.getColumnModel().getColumn(2).setPreferredWidth(120);
+        dgvFamilia.getColumnModel().getColumn(3).setPreferredWidth(40);
          modelo.addRow(new Object[4]);
         dgvFamilia.setValueAt(familia.getIdFamilia(),0,0 );
         dgvFamilia.setValueAt(familia.getNombre(),0,1 );
@@ -279,6 +324,11 @@ m.setVisible(true);
         modelo.addColumn("Nombre");
         modelo.addColumn("Descripción");
         modelo.addColumn("Estado");
+        
+        dgvFamilia.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvFamilia.getColumnModel().getColumn(1).setPreferredWidth(100);
+        dgvFamilia.getColumnModel().getColumn(2).setPreferredWidth(120);
+        dgvFamilia.getColumnModel().getColumn(3).setPreferredWidth(40);
         
 //        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
 //        modelo.addRow(new Object[4]);
