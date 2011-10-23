@@ -18,10 +18,11 @@ import BusinessEntity.FamiliaBE;
  * @author DIEGO
  */
 public class AyudaFamiliaProd extends javax.swing.JFrame {
-
+    private FamiliaBE objFamilia;
     /** Creates new form AyudaFamiliaProd */
     public AyudaFamiliaProd(FamiliaBE familia) {
         initComponents();
+        objFamilia = familia;
     }
 
     /** This method is called from within the constructor to
