@@ -210,7 +210,7 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
             codigo = (String)dgvFamilia.getValueAt(fila, 0);
             FamiliaBL objFamiliaBL = new FamiliaBL();
             FamiliaBE familia = objFamiliaBL.queryByIdFamilia(codigo);
-            MantenimientoZona.objFamiliaBE = familia;
+            MantenimientoZona.familia = familia;
             AdmFamiliaProd.familia = familia;
             this.dispose();
         }
