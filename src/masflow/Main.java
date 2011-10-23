@@ -5,7 +5,7 @@
 
 package masflow;
 
-import Seguridad.LogIn2;
+import Seguridad.Login;
 
 
 /**
@@ -19,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        LogIn2 L = new LogIn2();
+        Login L = new Login();
         L.setVisible(true);
       
     }
