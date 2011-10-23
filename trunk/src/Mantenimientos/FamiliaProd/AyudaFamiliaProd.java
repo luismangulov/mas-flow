@@ -211,7 +211,7 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
             FamiliaBL objFamiliaBL = new FamiliaBL();
             FamiliaBE familia = objFamiliaBL.queryByIdFamilia(codigo);
             MantenimientoZona.familia = familia;
-            AdmFamiliaProd.familia = familia;
+            
             this.dispose();
         }
     }//GEN-LAST:event_btnAceptarMousePressed
