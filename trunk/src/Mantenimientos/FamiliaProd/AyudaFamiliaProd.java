@@ -12,17 +12,21 @@ package Mantenimientos.FamiliaProd;
 
 import BD.Utilitario;
 import BusinessEntity.FamiliaBE;
+import BusinessLogic.FamiliaBL;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author DIEGO
  */
 public class AyudaFamiliaProd extends javax.swing.JFrame {
-    private FamiliaBE objFamilia;
+    
     /** Creates new form AyudaFamiliaProd */
-    public AyudaFamiliaProd(FamiliaBE familia) {
+    public AyudaFamiliaProd() {
         initComponents();
-        objFamilia = familia;
+       
     }
 
     /** This method is called from within the constructor to
@@ -39,7 +43,7 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblFamilia = new javax.swing.JTable();
+        dgvFamilia = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -64,7 +68,7 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
             }
         });
 
-        tblFamilia.setModel(new javax.swing.table.DefaultTableModel(
+        dgvFamilia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -90,7 +94,7 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblFamilia);
+        jScrollPane1.setViewportView(dgvFamilia);
 
         btnBuscar.setText("Buscar");
         btnBuscar.setPreferredSize(new java.awt.Dimension(75, 23));
@@ -187,11 +191,28 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
 
     private void btnBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMousePressed
         // TODO add your handling code here:
-        
+        FamiliaBL objFamiliaBL = new FamiliaBL();
+        ArrayList<FamiliaBE> familias = objFamiliaBL.buscarAyuda(this.txtCodigo.getText(), this.txtNombre.getText());
+        this.recargar(familias);
     }//GEN-LAST:event_btnBuscarMousePressed
 
     private void btnAceptarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMousePressed
         // TODO add your handling code here:
+        if((dgvFamilia.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una familia de producto", "Mensaje",0);
+        } else if((dgvFamilia.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvFamilia.getSelectedRow();
+            codigo = (String)dgvFamilia.getValueAt(fila, 0);
+            FamiliaBL objFamiliaBL = new FamiliaBL();
+            FamiliaBE familia = objFamiliaBL.queryByIdFamilia(codigo);
+            
+            AdmFamiliaProd.familia = familia;
+            this.dispose();
+        }
     }//GEN-LAST:event_btnAceptarMousePressed
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
@@ -202,47 +223,65 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(AyudaFamiliaProd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(AyudaFamiliaProd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(AyudaFamiliaProd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(AyudaFamiliaProd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//
-//            public void run() {
-//                new AyudaFamiliaProd().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AyudaFamiliaProd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AyudaFamiliaProd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AyudaFamiliaProd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AyudaFamiliaProd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                new AyudaFamiliaProd().setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JTable dgvFamilia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblFamilia;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+
+    public void recargar(ArrayList<FamiliaBE> familias){
+            DefaultTableModel modelo= new DefaultTableModel();
+            dgvFamilia.setModel(modelo);
+            modelo.addColumn("Código");
+            modelo.addColumn("Nombre");
+
+
+            for(int i=0;i<familias.size();i++){
+                 modelo.addRow(new Object[4]);
+                dgvFamilia.setValueAt(familias.get(i).getIdFamilia(),i,0 );
+                dgvFamilia.setValueAt(familias.get(i).getNombre(),i,1 );
+
+            }
+    }
+
 }
+
