@@ -243,7 +243,51 @@ public class FamiliaDA {
     }
 
     
-    
+    public ArrayList<FamiliaBE> buscarAyuda(String codigo,String nombre){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
+               
+        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia WHERE indactivo = '1'";
+                //" WHERE indactivo ='"+indActivo+"'";
+       boolean primero;
+       
+        //sql+= " WHERE";
+        if(!(codigo.equals("")) || !(nombre.equals(""))){
+           if (!codigo.equals("")){ 
+               sql +=  " AND idfamilia LIKE '%"+codigo+"%'";
+           }
+           if (!nombre.equals("")){
+               sql += " AND nombre LIKE '%"+nombre+"%'";
+           }
+        }
+        sql +=" order by 1";
+              
+        
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strCodigo;
+            String strNombre;
+            String strDescripcion;
+            String strEstado;
+            while (rs.next()){
+              
+                strCodigo = rs.getString(1);
+                strNombre = rs.getString(2);
+                strDescripcion = rs.getString(3);
+                strEstado = rs.getString(4);
+                arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return arrFamilia;
+    }
     
     
 }
