@@ -13,6 +13,7 @@ package Mantenimientos.FamiliaProd;
 import BD.Utilitario;
 import BusinessEntity.FamiliaBE;
 import BusinessLogic.FamiliaBL;
+import Mantenimientos.Zona.MantenimientoZona;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -209,8 +210,8 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
             codigo = (String)dgvFamilia.getValueAt(fila, 0);
             FamiliaBL objFamiliaBL = new FamiliaBL();
             FamiliaBE familia = objFamiliaBL.queryByIdFamilia(codigo);
-            
-            //AdmFamiliaProd.familia = familia;
+            MantenimientoZona.objFamiliaBE = familia;
+            AdmFamiliaProd.familia = familia;
             this.dispose();
         }
     }//GEN-LAST:event_btnAceptarMousePressed
