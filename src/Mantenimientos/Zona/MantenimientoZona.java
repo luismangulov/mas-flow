@@ -10,12 +10,14 @@
  */
 package Mantenimientos.Zona;
 
+import BusinessEntity.FamiliaBE;
+
 /**
  *
  * @author DIEGO
  */
 public class MantenimientoZona extends javax.swing.JFrame {
-
+    public static FamiliaBE familia = new FamiliaBE();
     /** Creates new form MantenimientoZona */
     public MantenimientoZona() {
         initComponents();
