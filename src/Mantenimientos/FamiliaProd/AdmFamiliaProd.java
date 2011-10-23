@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author DIEGO
  */
 public class AdmFamiliaProd extends javax.swing.JFrame {
-
+    public static FamiliaBE familia = new FamiliaBE();
     /** Creates new form AdmFamiliaProd */
     public AdmFamiliaProd() {
         
@@ -49,7 +49,7 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         lblBuscar = new javax.swing.JLabel();
         lblRefrescar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblAyuda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar familia de producto");
@@ -151,8 +151,13 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         jLabel7.setText("                                                                                                   ");
         jToolBar1.add(jLabel7);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
-        jToolBar1.add(jLabel6);
+        lblAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
+        lblAyuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAyudaMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblAyuda);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,8 +178,9 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void lblInsertarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInsertarMousePressed
-MantenimientoFamiliaProd m = new MantenimientoFamiliaProd(this);
-m.setVisible(true);
+    //JOptionPane.showMessageDialog(null, familia.getIdFamilia(), "Mensaje",0);
+    MantenimientoFamiliaProd m = new MantenimientoFamiliaProd(this);
+    m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_lblInsertarMousePressed
 
@@ -229,6 +235,13 @@ m.setVisible(true);
         }
     }//GEN-LAST:event_lblEliminarMousePressed
 
+    private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAyudaMousePressed
+        // TODO add your handling code here:
+//        AyudaFamiliaProd  a = new  AyudaFamiliaProd();
+//        a.setVisible(true); 
+       
+    }//GEN-LAST:event_lblAyudaMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -266,10 +279,10 @@ m.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dgvFamilia;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblAyuda;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblEliminar;
