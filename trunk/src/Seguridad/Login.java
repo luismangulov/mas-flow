@@ -14,10 +14,10 @@ package Seguridad;
  *
  * @author Giuliana
  */
-public class LogIn2 extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /** Creates new form LogIn2 */
-    public LogIn2() {
+    public Login() {
         initComponents();
     }
 
@@ -70,7 +70,7 @@ public class LogIn2 extends javax.swing.JFrame {
 
         lblCambiarContraseña.setForeground(new java.awt.Color(0, 0, 153));
         lblCambiarContraseña.setText("Cambiar contraseña...");
-        lblCambiarContraseña.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCambiarContraseña.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblCambiarContraseña.setName("lblCambiarContraseña"); // NOI18N
         lblCambiarContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -169,13 +169,13 @@ System.exit(0);
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LogIn2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LogIn2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LogIn2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LogIn2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -183,7 +183,7 @@ System.exit(0);
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new LogIn2().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
