@@ -149,13 +149,13 @@ public class FamiliaDA {
         return boolExito;
     }
      
-      public boolean eliminar(FamiliaBE objFamilia) throws Exception{
+      public boolean eliminar(String codFamilia) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "UPDATE familia SET indactivo = '0'";
-             sql += " WHERE idfamilia='"+objFamilia.getIdFamilia()+"'";
+        String sql = "DELETE FROM familia";
+             sql += " WHERE idfamilia='"+codFamilia+"'";
         
         try{
             objConexion.EjecutarUID(sql);

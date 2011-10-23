@@ -29,9 +29,11 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
     public MantenimientoFamiliaProd(AdmFamiliaProd padre) {
         this.objPadre = padre;
         accion = "registrar";
+       
         initComponents();
+         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar cliente");
-                         
+                        
         this.setVisible(true);
     }
 
@@ -40,6 +42,7 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
         accion = "modificar";
         
         initComponents();
+        this.setLocationRelativeTo(null);
         this.cbxActivo.setEnabled(true);
         this.setTitle("+Flow - Editar cliente");
         this.txtCodigo.setText(familia.getIdFamilia());
