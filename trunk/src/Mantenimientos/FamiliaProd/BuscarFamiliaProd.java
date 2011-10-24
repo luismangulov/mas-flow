@@ -10,7 +10,7 @@
  */
 package Mantenimientos.FamiliaProd;
 
-import BD.Utilitario;
+import Util.Utilitario;
 import BusinessEntity.FamiliaBE;
 import BusinessLogic.FamiliaBL;
 import java.util.ArrayList;

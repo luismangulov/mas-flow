@@ -120,7 +120,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel10.setForeground(new java.awt.Color(0, 0, 102));
         jLabel10.setText("Familias de Productos");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel10MousePressed(evt);
@@ -132,7 +132,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel11.setForeground(new java.awt.Color(0, 0, 102));
         jLabel11.setText("Clientes");
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel11MousePressed(evt);
@@ -144,7 +144,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel12.setForeground(new java.awt.Color(0, 0, 102));
         jLabel12.setText("Almacenes");
-        jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel12MousePressed(evt);
@@ -156,7 +156,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel13.setForeground(new java.awt.Color(0, 0, 102));
         jLabel13.setText("Pallets");
-        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel13MousePressed(evt);
@@ -168,7 +168,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel14.setForeground(new java.awt.Color(0, 0, 102));
         jLabel14.setText("Ubicaciones");
-        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel14MousePressed(evt);
@@ -180,7 +180,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel15.setForeground(new java.awt.Color(0, 0, 102));
         jLabel15.setText("Proveedores");
-        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel15MousePressed(evt);
@@ -192,7 +192,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel16.setForeground(new java.awt.Color(0, 0, 102));
         jLabel16.setText("Productos");
-        jLabel16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel16.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel16MousePressed(evt);
@@ -204,7 +204,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel17.setForeground(new java.awt.Color(0, 0, 102));
         jLabel17.setText("Zonas");
-        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel17MousePressed(evt);
@@ -216,7 +216,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel21.setForeground(new java.awt.Color(0, 0, 102));
         jLabel21.setText("Racks");
-        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel21MousePressed(evt);
@@ -240,7 +240,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel20.setForeground(new java.awt.Color(0, 0, 102));
         jLabel20.setText("Ordenar Productos");
-        jLabel20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel20.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel20MousePressed(evt);
@@ -276,7 +276,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel26.setForeground(new java.awt.Color(0, 0, 102));
         jLabel26.setText("Ingresar Productos");
-        jLabel26.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel26.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel26MousePressed(evt);
@@ -288,7 +288,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel27.setForeground(new java.awt.Color(0, 0, 102));
         jLabel27.setText("Despachar Productos");
-        jLabel27.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel27.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel27MousePressed(evt);
@@ -300,7 +300,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel30.setForeground(new java.awt.Color(0, 0, 102));
         jLabel30.setText("Reporte de Stock");
-        jLabel30.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel30.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel30MousePressed(evt);
@@ -312,7 +312,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel35.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel35.setForeground(new java.awt.Color(0, 0, 102));
         jLabel35.setText("Kárdex");
-        jLabel35.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel35.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel35.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel35MousePressed(evt);
@@ -324,7 +324,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel36.setForeground(new java.awt.Color(0, 0, 102));
         jLabel36.setText("Historial de Pallet");
-        jLabel36.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel36.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel36.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel36MousePressed(evt);
@@ -336,7 +336,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel43.setForeground(new java.awt.Color(0, 0, 102));
         jLabel43.setText("Log de Auditoría");
-        jLabel43.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel43.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel43.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel43MousePressed(evt);
@@ -354,7 +354,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel38.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel38.setForeground(new java.awt.Color(0, 0, 102));
         jLabel38.setText("Perfiles");
-        jLabel38.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel38.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel38.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel38MousePressed(evt);
@@ -384,7 +384,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel42.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel42.setForeground(new java.awt.Color(0, 0, 102));
         jLabel42.setText("Usuarios");
-        jLabel42.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel42.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel42.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel42MousePressed(evt);

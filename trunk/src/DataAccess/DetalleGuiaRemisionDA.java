@@ -4,7 +4,7 @@
  */
 package DataAccess;
 
-import BD.conexion;
+import Util.conexion;
 import BusinessEntity.DetalleGuiaRemisionBE;
 import java.sql.ResultSet;
 import java.util.ArrayList;

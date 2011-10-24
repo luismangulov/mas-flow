@@ -4,7 +4,7 @@
  */
 package BusinessLogic;
 
-import BD.Utilitario;
+import Util.Utilitario;
 import BusinessEntity.FamiliaBE;
 import DataAccess.FamiliaDA;
 import java.util.ArrayList;

@@ -4,7 +4,7 @@
  */
 package DataAccess;
 
-import BD.conexion;
+import Util.conexion;
 import BusinessEntity.EntidadBE;
 import BusinessEntity.GuiaRemisionBE;
 import BusinessLogic.EntidadBL;

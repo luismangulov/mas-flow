@@ -13,33 +13,47 @@ import java.util.Date;
  */
 public class UsuarioBE {
 
+
+
     private String idUsuario;
     private String nombre;
     private String paterno;
     private String materno;
     private String password;
     private String idPerfil;
-    private String idEstadousuario;
-    private String limiteIntentos;
-    private Date FechaCambioClave;
+    private String idEstadoUsuario;
+    private int limiteIntentos;
+    private Date fechaCambioClave;
 
+    
     public UsuarioBE() {
     }
 
+    public UsuarioBE(String idUsuario, String nombre, String paterno, String materno, String password, String idPerfil, String idEstadoUsuario, int limiteIntentos, Date fechaCambioClave) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.paterno = paterno;
+        this.materno = materno;
+        this.password = password;
+        this.idPerfil = idPerfil;
+        this.idEstadoUsuario = idEstadoUsuario;
+        this.limiteIntentos = limiteIntentos;
+        this.fechaCambioClave = fechaCambioClave;
+    }
     public Date getFechaCambioClave() {
-        return FechaCambioClave;
+        return fechaCambioClave;
     }
 
-    public void setFechaCambioClave(Date FechaCambioClave) {
-        this.FechaCambioClave = FechaCambioClave;
+    public void setFechaCambioClave(Date fechaCambioClave) {
+        this.fechaCambioClave = fechaCambioClave;
     }
 
     public String getIdEstadousuario() {
-        return idEstadousuario;
+        return idEstadoUsuario;
     }
 
-    public void setIdEstadousuario(String idEstadousuario) {
-        this.idEstadousuario = idEstadousuario;
+    public void setIdEstadousuario(String idEstadoUsuario) {
+        this.idEstadoUsuario = idEstadoUsuario;
     }
 
     public String getIdPerfil() {
