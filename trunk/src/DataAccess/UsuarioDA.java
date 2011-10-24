@@ -4,6 +4,8 @@
  */
 package DataAccess;
 
+import BusinessEntity.EstadoUsuarioBE;
+import BusinessEntity.PerfilBE;
 import BusinessEntity.UsuarioBE;
 import Util.conexion;
 import java.sql.ResultSet;
@@ -21,7 +23,7 @@ public class UsuarioDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO usuario(idUsuario, nombre, paterno,materno, password, idPerfil, idEstadoUsuario,limiteIntentos,fechaCambioClave) VALUES('"+ objUsuario.getIdUsuario() +"','"+ objUsuario.getNombre() +"','"+ objUsuario.getPaterno() +"','"+ objUsuario.getMaterno()+"','"+ objUsuario.getPassword() +"','"+ objUsuario.getIdPerfil() +"','"+ objUsuario.getLimiteIntentos() +"','"+ objUsuario.getFechaCambioClave()+ " ')";
+        String sql = "INSERT INTO usuario(idUsuario, nombre, paterno,materno, password, idPerfil, idEstadoUsuario,limiteIntentos,fechaCambioClave) VALUES('"+ objUsuario.getIdUsuario() +"','"+ objUsuario.getNombre() +"','"+ objUsuario.getPaterno() +"','"+ objUsuario.getMaterno()+"','"+ objUsuario.getPassword() +"','"+ objUsuario.getPerfil().getIdPerfil() +"','"+ objUsuario.getEstadoUsuario().getIdEstadoUsuario() +"','"+ objUsuario.getLimiteIntentos() +"','"+ objUsuario.getFechaCambioClave()+ " ')";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -47,9 +49,14 @@ public class UsuarioDA {
             String strMaterno;
             String strPassword;
             String strIdPerfil;
-            String strEstadoUsuario;
+            String strIdEstadoUsuario;
             int intLimiteIntentos;
             Date dateFechaCambioClave;
+            
+            PerfilDA objPerfilDA=new PerfilDA();
+            PerfilBE objPerfilBE=new PerfilBE();
+            EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
+            EstadoUsuarioBE objEstadoUsuarioBE=new EstadoUsuarioBE();
 
             while (rs.next()){
               
@@ -59,10 +66,12 @@ public class UsuarioDA {
                 strMaterno = rs.getString(4);
                 strPassword = rs.getString(5);
                 strIdPerfil = rs.getString(6);
-                strEstadoUsuario = rs.getString(7);
+                objPerfilBE= objPerfilDA.queryByIdPerfil(strIdPerfil);
+                strIdEstadoUsuario = rs.getString(7);
+                objEstadoUsuarioBE= objEstadoUsuarioDA.queryByIdEstadoUsuario(strIdEstadoUsuario);
                 intLimiteIntentos = rs.getInt(8);
                 dateFechaCambioClave = rs.getDate(9);
-                arrUsuario.add(new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,strPassword,strIdPerfil,strEstadoUsuario,intLimiteIntentos,dateFechaCambioClave));
+                arrUsuario.add(new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,strPassword,objPerfilBE,objEstadoUsuarioBE,intLimiteIntentos,dateFechaCambioClave));
             }
              
         }catch (Exception a){
@@ -89,9 +98,13 @@ public class UsuarioDA {
             String strMaterno;
             String strPassword;
             String strIdPerfil;
-            String strEstadoUsuario;
+            String strIdEstadoUsuario;
             int intLimiteIntentos;
             Date dateFechaCambioClave;
+            PerfilDA objPerfilDA=new PerfilDA();
+            PerfilBE objPerfilBE=new PerfilBE();
+            EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
+            EstadoUsuarioBE objEstadoUsuarioBE=new EstadoUsuarioBE();
             
             if (rs.next()){    
                 
@@ -102,10 +115,12 @@ public class UsuarioDA {
                 strMaterno = rs.getString(4);
                 strPassword = rs.getString(5);
                 strIdPerfil = rs.getString(6);
-                strEstadoUsuario = rs.getString(7);
+                objPerfilBE= objPerfilDA.queryByIdPerfil(strIdPerfil);
+                strIdEstadoUsuario = rs.getString(7);
+                objEstadoUsuarioBE= objEstadoUsuarioDA.queryByIdEstadoUsuario(strIdEstadoUsuario);
                 intLimiteIntentos = rs.getInt(8);
                 dateFechaCambioClave = rs.getDate(9);
-                usuario = new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,strPassword,strIdPerfil,strEstadoUsuario,intLimiteIntentos,dateFechaCambioClave);
+                usuario = new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,strPassword,objPerfilBE,objEstadoUsuarioBE,intLimiteIntentos,dateFechaCambioClave);
             }
              
         }catch (Exception a){
@@ -159,8 +174,8 @@ public class UsuarioDA {
                     "paterno='"+objUsuario.getPaterno()+ "',"+
                     "materno='"+objUsuario.getMaterno()+ "'"+ 
                     "password='"+objUsuario.getPassword()+ "'"+ 
-                    "idPerfil='"+objUsuario.getIdPerfil()+ "'"+ 
-                    "idEstadoUsuario='"+objUsuario.getIdEstadousuario()+ "'"+ 
+                    "idPerfil='"+objUsuario.getPerfil().getIdPerfil()+ "'"+ 
+                    "idEstadoUsuario='"+objUsuario.getEstadoUsuario().getIdEstadoUsuario()+ "'"+ 
                     "limiteIntentos='"+objUsuario.getLimiteIntentos()+ "'"+ 
                     "fechaCambioClave='"+objUsuario.getFechaCambioClave()+ "'"+ 
                     "WHERE idUsuario='"+objUsuario.getIdUsuario()+"'";
@@ -283,9 +298,13 @@ public class UsuarioDA {
             String strMaterno;
             String strPassword;
             String strIdPerfil;
-            String strEstadoUsuario;
+            String strIdEstadoUsuario;
             int intLimiteIntentos;
             Date dateFechaCambioClave;
+            PerfilDA objPerfilDA=new PerfilDA();
+            PerfilBE objPerfilBE=new PerfilBE();
+            EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
+            EstadoUsuarioBE objEstadoUsuarioBE=new EstadoUsuarioBE();
 
             while (rs.next()){
               
@@ -295,10 +314,12 @@ public class UsuarioDA {
                 strMaterno = rs.getString(4);
                 strPassword = rs.getString(5);
                 strIdPerfil = rs.getString(6);
-                strEstadoUsuario = rs.getString(7);
+                objPerfilBE= objPerfilDA.queryByIdPerfil(strIdPerfil);
+                strIdEstadoUsuario = rs.getString(7);
+                objEstadoUsuarioBE= objEstadoUsuarioDA.queryByIdEstadoUsuario(strIdEstadoUsuario);
                 intLimiteIntentos = rs.getInt(8);
                 dateFechaCambioClave = rs.getDate(9);
-                arrUsuario.add(new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,strPassword,strIdPerfil,strEstadoUsuario,intLimiteIntentos,dateFechaCambioClave));
+                arrUsuario.add(new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,strPassword,objPerfilBE,objEstadoUsuarioBE,intLimiteIntentos,dateFechaCambioClave));
             }
              
         }catch (Exception a){

@@ -5,12 +5,16 @@
 
 package BusinessEntity;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author florencio
  */
 public class PerfilBE {
+    
     private String idPerfil;
+    private ArrayList<PerfilDetalleBE> listaPerfilDetalles = new ArrayList<PerfilDetalleBE>();
     private String descripcion;
     private String indActivo;
 

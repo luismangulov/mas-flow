@@ -8,7 +8,6 @@ package BusinessLogic;
  *
  * @author Florencio
  */
-public class PerfilBL {
-    
+public class EstadoUsuarioBL {
     
 }

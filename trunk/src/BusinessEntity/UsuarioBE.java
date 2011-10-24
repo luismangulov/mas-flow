@@ -20,8 +20,8 @@ public class UsuarioBE {
     private String paterno;
     private String materno;
     private String password;
-    private String idPerfil;
-    private String idEstadoUsuario;
+    private PerfilBE perfil;
+    private EstadoUsuarioBE estadoUsuario;
     private int limiteIntentos;
     private Date fechaCambioClave;
 
@@ -29,14 +29,14 @@ public class UsuarioBE {
     public UsuarioBE() {
     }
 
-    public UsuarioBE(String idUsuario, String nombre, String paterno, String materno, String password, String idPerfil, String idEstadoUsuario, int limiteIntentos, Date fechaCambioClave) {
+    public UsuarioBE(String idUsuario, String nombre, String paterno, String materno, String password, PerfilBE perfil, EstadoUsuarioBE estadoUsuario, int limiteIntentos, Date fechaCambioClave) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.paterno = paterno;
         this.materno = materno;
         this.password = password;
-        this.idPerfil = idPerfil;
-        this.idEstadoUsuario = idEstadoUsuario;
+        this.perfil = perfil;
+        this.estadoUsuario= estadoUsuario;
         this.limiteIntentos = limiteIntentos;
         this.fechaCambioClave = fechaCambioClave;
     }
@@ -48,21 +48,23 @@ public class UsuarioBE {
         this.fechaCambioClave = fechaCambioClave;
     }
 
-    public String getIdEstadousuario() {
-        return idEstadoUsuario;
+    public EstadoUsuarioBE getEstadoUsuario() {
+        return estadoUsuario;
     }
 
-    public void setIdEstadousuario(String idEstadoUsuario) {
-        this.idEstadoUsuario = idEstadoUsuario;
+    public void setEstadoUsuario(EstadoUsuarioBE estadoUsuario) {
+        this.estadoUsuario = estadoUsuario;
     }
 
-    public String getIdPerfil() {
-        return idPerfil;
+    public PerfilBE getPerfil() {
+        return perfil;
     }
 
-    public void setIdPerfil(String idPerfil) {
-        this.idPerfil = idPerfil;
+    public void setPerfil(PerfilBE perfil) {
+        this.perfil = perfil;
     }
+
+
 
     public String getIdUsuario() {
         return idUsuario;
