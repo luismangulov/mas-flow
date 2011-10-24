@@ -12,7 +12,7 @@ public class UbicacionBE {
     private String idUbicacion;
     private int fila;
     private int columna;
-    private String indActivo;
+    private String indActivo; // 0 disponible, 1 en uso, 2 en mantenimiento
     private String idRack;
 
     public UbicacionBE() {
