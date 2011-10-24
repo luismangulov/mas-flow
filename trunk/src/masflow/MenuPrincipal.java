@@ -549,8 +549,7 @@ private void jLabel26MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 }//GEN-LAST:event_jLabel26MousePressed
 
 private void jLabel27MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MousePressed
-    Procesamiento.GuiaDeRemision.AdmGuiaDeRemision a = new Procesamiento.GuiaDeRemision.AdmGuiaDeRemision();
-    a.setVisible(true);// TODO add your handling code here:
+    // TODO add your handling code here:
 }//GEN-LAST:event_jLabel27MousePressed
 
 private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
@@ -625,6 +624,8 @@ private void jLabel43MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
 private void jLabel28MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MousePressed
 // TODO add your handling code here:
+    Procesamiento.GuiaDeRemision.AdmGuiaDeRemision a = new Procesamiento.GuiaDeRemision.AdmGuiaDeRemision();
+    a.setVisible(true);
 }//GEN-LAST:event_jLabel28MousePressed
 
     /**
