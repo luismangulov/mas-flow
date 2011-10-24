@@ -27,8 +27,8 @@ public class MantenimientoRack extends javax.swing.JFrame {
     ZonaDA objZonaDA;
     ArrayList<ZonaBE> arrZonas;
     String strIdRack;
-    Double douAlto;
-    Double douAncho;
+    int intPosX;
+    int intPosY;
     int intPisos;
     int intColumnas;
     String strIndActivo;
@@ -70,8 +70,8 @@ public class MantenimientoRack extends javax.swing.JFrame {
         
         objZonaDA = new ZonaDA();
         txtIdRack.setText(objRackBE.getIdRack());
-        txtAlto.setText(objRackBE.getAlto().toString());
-        txtAncho.setText(objRackBE.getAncho().toString());
+        txtPosX.setText(String.valueOf(objRackBE.getPosX()));
+        txtPosY.setText(String.valueOf(objRackBE.getPosY()));
         txtPisos.setText(String.valueOf(objRackBE.getPisos()));
         txtColumnas.setText(String.valueOf(objRackBE.getColumnas()));
         cargarComboZona();
@@ -87,15 +87,17 @@ public class MantenimientoRack extends javax.swing.JFrame {
     
     private void insertar(){
         
+        chbxActivo.setEnabled(false);
         strIdRack = txtIdRack.getText();
-        douAlto = Double.valueOf(txtAlto.getText());
-        douAncho = Double.valueOf(txtAncho.getText());
+        intPosX = Integer.valueOf(txtPosX.getText());
+        intPosY = Integer.valueOf(txtPosY.getText());
         intPisos = Integer.valueOf(txtPisos.getText());
         intColumnas = Integer.valueOf(txtColumnas.getText());
+        strIndActivo = "1";
         ZonaBL objZonaBL = new ZonaBL();
         strIdZona = objZonaBL.getByNombreZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
-        objRackBE = new RackBE(strIdRack,douAlto, douAncho, intPisos, intColumnas, "1", strIdZona);
+        objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "");
         objRackBL.insertar(objRackBE);
         
     }
@@ -103,14 +105,18 @@ public class MantenimientoRack extends javax.swing.JFrame {
     private void modificar(){
         
         strIdRack = txtIdRack.getText();
-        douAlto = Double.valueOf(txtAlto.getText());
-        douAncho = Double.valueOf(txtAncho.getText());
+        intPosX = Integer.valueOf(txtPosX.getText());
+        intPosY = Integer.valueOf(txtPosY.getText());
         intPisos = Integer.valueOf(txtPisos.getText());
         intColumnas = Integer.valueOf(txtColumnas.getText());
+        if (chbxActivo.isSelected())
+            strIndActivo = "1";
+        else 
+            strIndActivo = "0";
         ZonaBL objZonaBL = new ZonaBL();
         strIdZona = objZonaBL.getByNombreZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
-        objRackBE = new RackBE(strIdRack,douAlto, douAncho, intPisos, intColumnas, "1", strIdZona);
+        objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "");
         objRackBL.modificar(objRackBE);        
         
     }
@@ -135,11 +141,9 @@ public class MantenimientoRack extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtIdRack = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtAlto = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        txtPosX = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtAncho = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        txtPosY = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPisos = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -148,31 +152,28 @@ public class MantenimientoRack extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         cbZona = new javax.swing.JComboBox();
+        chbxActivo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow -  Registrar rack");
 
         jLabel1.setText("Código:");
 
-        jLabel2.setText("Alto:");
+        jLabel2.setText("Posición X:");
 
-        txtAlto.addActionListener(new java.awt.event.ActionListener() {
+        txtPosX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAltoActionPerformed(evt);
+                txtPosXActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("cms.");
+        jLabel4.setText("Posición Y:");
 
-        jLabel4.setText("Ancho:");
-
-        txtAncho.addActionListener(new java.awt.event.ActionListener() {
+        txtPosY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAnchoActionPerformed(evt);
+                txtPosYActionPerformed(evt);
             }
         });
-
-        jLabel5.setText("cms.");
 
         jLabel6.setText("Pisos:");
 
@@ -219,103 +220,111 @@ public class MantenimientoRack extends javax.swing.JFrame {
             }
         });
 
+        chbxActivo.setText("Activo");
+        chbxActivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                chbxActivoMouseClicked(evt);
+            }
+        });
+        chbxActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbxActivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtPisos)
-                                            .addComponent(txtAlto, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addGap(18, 18, 18))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtColumnas)
-                                            .addComponent(txtAncho, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnCancelar)))
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(cbZona, 0, 203, Short.MAX_VALUE)))))
-                .addContainerGap())
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbZona, 0, 230, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel8))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(14, 14, 14))))
+                .addGap(31, 31, 31))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(chbxActivo)
+                .addContainerGap(303, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar)
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtAlto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtAncho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                            .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32)
+                .addComponent(chbxActivo)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-298)/2, (screenSize.height-283)/2, 298, 283);
+        setBounds((screenSize.width-378)/2, (screenSize.height-357)/2, 378, 357);
     }// </editor-fold>//GEN-END:initComponents
 
-private void txtAltoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAltoActionPerformed
+private void txtPosXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPosXActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_txtAltoActionPerformed
+}//GEN-LAST:event_txtPosXActionPerformed
 
-private void txtAnchoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnchoActionPerformed
+private void txtPosYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPosYActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_txtAnchoActionPerformed
+}//GEN-LAST:event_txtPosYActionPerformed
 
 private void txtPisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPisosActionPerformed
 // TODO add your handling code here:
@@ -345,6 +354,14 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
     this.dispose();
 }//GEN-LAST:event_btnCancelarMouseClicked
+
+private void chbxActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbxActivoActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_chbxActivoActionPerformed
+
+private void chbxActivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chbxActivoMouseClicked
+// TODO add your handling code here:
+}//GEN-LAST:event_chbxActivoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -385,18 +402,17 @@ private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbZona;
+    private javax.swing.JCheckBox chbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField txtAlto;
-    private javax.swing.JTextField txtAncho;
     private javax.swing.JTextField txtColumnas;
     private javax.swing.JTextField txtIdRack;
     private javax.swing.JTextField txtPisos;
+    private javax.swing.JTextField txtPosX;
+    private javax.swing.JTextField txtPosY;
     // End of variables declaration//GEN-END:variables
 }
