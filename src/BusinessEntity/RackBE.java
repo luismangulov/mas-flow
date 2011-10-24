@@ -10,40 +10,42 @@ package BusinessEntity;
  */
 public class RackBE {
     private String idRack;
-    private Double ancho;
-    private Double alto;
+    private int posX;
+    private int posY;
     private int pisos;
     private int columnas;
     private String indActivo;
     private String idZona;
+    private String identificador;
 
     public RackBE() {
     }
 
-    public RackBE(String idRack, Double ancho, Double alto, int pisos, int columnas, String indActivo, String idZona) {
+    public RackBE(String idRack, int posX, int posY, int pisos, int columnas, String indActivo, String idZona, String identificador) {
         this.idRack = idRack;
-        this.ancho = ancho;
-        this.alto = alto;
+        this.posX = posX;
+        this.posY = posY;
         this.pisos = pisos;
         this.columnas = columnas;
         this.indActivo = indActivo;
         this.idZona = idZona;
+        this.identificador = identificador;
     }
     
-        public Double getAlto() {
-        return alto;
+        public int getPosY() {
+        return posY;
     }
 
-    public void setAlto(Double alto) {
-        this.alto = alto;
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 
-    public Double getAncho() {
-        return ancho;
+    public int getPosX() {
+        return posX;
     }
 
-    public void setAncho(Double ancho) {
-        this.ancho = ancho;
+    public void setPosX(int posX) {
+        this.posX = posX;
     }
 
     public int getColumnas() {
@@ -86,4 +88,11 @@ public class RackBE {
         this.pisos = pisos;
     }
 
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
 }
