@@ -16,16 +16,46 @@ import java.util.Date;
  */
 public class GuiaRemisionBL {
     private GuiaRemisionBE objGuiaRemisionBE;
+    private String codigo;
     public boolean insertar(Date fecha,String codCliente) throws Exception{
         boolean exito = false;
-        objGuiaRemisionBE = new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente,"1");
+        
+        setObjGuiaRemisionBE(new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente,"1"));
         GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
-        exito = objGuiaRemisionDA.insertar(objGuiaRemisionBE);
+        exito = objGuiaRemisionDA.insertar(getObjGuiaRemisionBE());
         return exito;
     }
     
     public ArrayList<GuiaRemisionBE> queryAllGuiaRemision(){
         GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
         return objGuiaRemisionDA.queryAllGuiaRemision();
+    }
+
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    /**
+     * @return the objGuiaRemisionBE
+     */
+    public GuiaRemisionBE getObjGuiaRemisionBE() {
+        return objGuiaRemisionBE;
+    }
+
+    /**
+     * @param objGuiaRemisionBE the objGuiaRemisionBE to set
+     */
+    public void setObjGuiaRemisionBE(GuiaRemisionBE objGuiaRemisionBE) {
+        this.objGuiaRemisionBE = objGuiaRemisionBE;
     }
 }

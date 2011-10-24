@@ -10,6 +10,16 @@
  */
 package Procesamiento.GuiaDeRemision;
 
+import BusinessLogic.DetalleGuiaRemisionBL;
+import BusinessLogic.GuiaRemisionBL;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author DIEGO
@@ -76,6 +86,8 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
+
+        txtCodigo.setEnabled(false);
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,6 +256,29 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 // TODO add your handling code here:
+    GuiaRemisionBL objGuiaRemisionBL = new GuiaRemisionBL();
+    SimpleDateFormat df1 = new SimpleDateFormat( "dd/MM/yy" );
+       
+    try {
+        if(objGuiaRemisionBL.insertar(df1.parse(this.txtFecha.getText()),this.txtCliente.getText())){
+            for(int i = 0;i<this.tblProductos.getRowCount();i++){
+                DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
+                try {
+                    objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBL.getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)this.tblProductos.getValueAt(i, 2)));
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    } catch (Exception ex) {
+        Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+       
     
 }//GEN-LAST:event_btnGuardarActionPerformed
 

@@ -11,7 +11,6 @@ package BusinessEntity;
 public class DetalleGuiaRemisionBE {
     private String codigo;
     private int cantidad;
-    private double subtotal;
     private ProductoBE producto;
    
 
@@ -19,10 +18,9 @@ public class DetalleGuiaRemisionBE {
      * @return the codigo
      */
     
-    public DetalleGuiaRemisionBE(String codigo,int cantidad,double subtotal,String codProducto){
+    public DetalleGuiaRemisionBE(String codigo,int cantidad,String codProducto){
         this.codigo = codigo;
         this.cantidad = cantidad;
-        this.subtotal = subtotal;
         this.producto = null;
         this.producto.setIdProducto(codProducto);
     }
@@ -52,21 +50,7 @@ public class DetalleGuiaRemisionBE {
         this.cantidad = cantidad;
     }
 
-    /**
-     * @return the subtotal
-     */
-    public double getSubtotal() {
-        return subtotal;
-    }
-
-    /**
-     * @param subtotal the subtotal to set
-     */
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
-    }
-
-    /**
+        /**
      * @return the producto
      */
     public ProductoBE getProducto() {
