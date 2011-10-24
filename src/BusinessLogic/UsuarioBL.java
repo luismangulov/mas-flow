@@ -44,10 +44,10 @@ public class UsuarioBL {
 
     public ArrayList<UsuarioBE> queryAllUsuario(){
         UsuarioDA objUsuarioDA = new UsuarioDA();
-        return objUsuarioDA.queryAllFamilia();
+        return objUsuarioDA.queryAllUsuario();
     }
     
-    public UsuarioBE queryByIdFamilia(String idUsuario){
+    public UsuarioBE queryByIdUsuario(String idUsuario){
         UsuarioDA objUsuarioDA = new UsuarioDA();
         return objUsuarioDA.queryByIdUsuario(idUsuario);
     }
@@ -79,7 +79,7 @@ public class UsuarioBL {
         return usuario;
     }
 
-    public ArrayList<UsuarioBE> getAllFamilia() {
+    public ArrayList<UsuarioBE> getAllUsuario() {
         ArrayList<UsuarioBE>  arrUsuario = null;
         UsuarioDA objUsuarioDA = new UsuarioDA();
         arrUsuario = objUsuarioDA.queryAllUsuario();
