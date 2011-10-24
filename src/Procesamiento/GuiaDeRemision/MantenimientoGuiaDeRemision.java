@@ -14,11 +14,14 @@ import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,9 +30,17 @@ import java.util.logging.Logger;
 public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
     private AdmGuiaDeRemision objPadre;
     /** Creates new form MantenimientoGuiaDeRemision */
-    public MantenimientoGuiaDeRemision(AdmGuiaDeRemision padre) {
+    public MantenimientoGuiaDeRemision(AdmGuiaDeRemision padre){
         this.objPadre = padre;
         initComponents();
+//        Calendar currentDate = Calendar.getInstance(); 
+//        SimpleDateFormat formatter=  new SimpleDateFormat("dd-MM-yyyy");
+//        String dateNow = formatter.format(currentDate.getTime());
+             
+        Date fechaActual = new Date();
+        
+        DateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+        this.txtFecha.setText(formato.format(fechaActual));
         this.setVisible(true);
     }
 
@@ -60,7 +71,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         lblAdd = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
-        jdcFecha = new com.toedter.calendar.JDateChooser();
+        txtFecha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar Guia de remisión");
@@ -198,9 +209,9 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel9))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtRUCDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtFecha)
+                                    .addComponent(txtRUCDNI, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -213,13 +224,12 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -249,7 +259,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -261,7 +271,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     SimpleDateFormat df1 = new SimpleDateFormat( "dd/MM/yy" );
        
     try {
-        if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText())){
+        if(objGuiaRemisionBL.insertar(df1.parse(this.txtFecha.getText()),this.txtCliente.getText())){
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
                 try {
@@ -363,7 +373,6 @@ m.setVisible(true);// TODO add your handling code here:
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel lblAdd;
     private javax.swing.JLabel lblAyuda;
     private javax.swing.JLabel lblRemover;
@@ -371,6 +380,7 @@ m.setVisible(true);// TODO add your handling code here:
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRUCDNI;
     // End of variables declaration//GEN-END:variables
