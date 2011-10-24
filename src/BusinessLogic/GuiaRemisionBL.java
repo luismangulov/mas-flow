@@ -4,7 +4,7 @@
  */
 package BusinessLogic;
 
-import BD.Utilitario;
+import Util.Utilitario;
 import BusinessEntity.GuiaRemisionBE;
 import DataAccess.GuiaRemisionDA;
 import java.util.ArrayList;

@@ -5,7 +5,7 @@
 
 package DataAccess;
 import BusinessEntity.ProveedorBE;
-import BD.conexion;
+import Util.conexion;
 /**
  *
  * @author victor

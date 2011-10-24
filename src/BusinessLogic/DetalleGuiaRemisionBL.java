@@ -4,7 +4,7 @@
  */
 package BusinessLogic;
 
-import BD.Utilitario;
+import Util.Utilitario;
 import BusinessEntity.DetalleGuiaRemisionBE;
 import DataAccess.DetalleGuiaRemisionDA;
 import java.io.FileNotFoundException;

@@ -5,7 +5,7 @@
 
 package DataAccess;
 
-import BD.conexion;
+import Util.conexion;
 import BusinessEntity.UnidadMedidaBE;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;

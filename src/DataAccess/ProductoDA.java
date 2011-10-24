@@ -6,7 +6,7 @@
 package DataAccess;
 
 import BusinessEntity.ProductoBE;
-import BD.conexion;
+import Util.conexion;
 import BusinessEntity.EntidadBE;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import BD.Utilitario;
+import Util.Utilitario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

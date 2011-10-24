@@ -4,20 +4,15 @@
  */
 package DataAccess;
 
+import BusinessEntity.UsuarioBE;
 import Util.conexion;
-import BusinessEntity.FamiliaBE;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
- * @author DIEGO
+ * @author Florencio
  */
-public class FamiliaDA {
-    
-    public boolean insertar(FamiliaBE objFamilia) throws Exception{
+public class UsuarioDA {
+        public boolean insertar(UsuarioBE objFamilia) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
