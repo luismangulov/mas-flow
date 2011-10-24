@@ -6,18 +6,22 @@ package DataAccess;
 
 import BusinessEntity.UsuarioBE;
 import Util.conexion;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
  * @author Florencio
  */
 public class UsuarioDA {
-        public boolean insertar(UsuarioBE objFamilia) throws Exception{
+    
+     public boolean insertar(UsuarioBE objUsuario) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO familia(idfamilia, nombre, descripcion, indactivo) VALUES('"+ objFamilia.getIdFamilia() +"','"+ objFamilia.getNombre() +"','"+ objFamilia.getDescripcion() +"','"+ objFamilia.getEstado() +"')";
+        String sql = "INSERT INTO usuario(idUsuario, nombre, paterno,materno, password, idPerfil, idEstadoUsuario,limiteIntentos,fechaCambioClave) VALUES('"+ objUsuario.getIdUsuario() +"','"+ objUsuario.getNombre() +"','"+ objUsuario.getPaterno() +"','"+ objUsuario.getMaterno()+"','"+ objUsuario.getPassword() +"','"+ objUsuario.getIdPerfil() +"','"+ objUsuario.getLimiteIntentos() +"','"+ objUsuario.getFechaCambioClave()+ " ')";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -30,24 +34,35 @@ public class UsuarioDA {
         return boolExito;
     }
     
-    public ArrayList<FamiliaBE> queryAllFamilia(){
+    public ArrayList<UsuarioBE> queryAllUsuario(){
         conexion objConexion=new conexion();
         ResultSet rs = null;
-        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
-        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia WHERE IndActivo = '1' order by 1";
+        ArrayList<UsuarioBE> arrUsuario = new ArrayList<UsuarioBE>();
+        String sql = "SELECT idUsuario,nombre,paterno,materno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave FROM Familia WHERE idEstadoUsuario = '1' order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
-            String strCodigo;
+            String strIdUsuario;
             String strNombre;
-            String strDescripcion;
-            String strEstado;
+            String strPaterno;
+            String strMaterno;
+            String strPassword;
+            String strIdPerfil;
+            String strEstadoUsuario;
+            int intLimiteIntentos;
+            Date dateFechaCambioClave;
+
             while (rs.next()){
               
-                strCodigo = rs.getString(1);
+                strIdUsuario = rs.getString(1);
                 strNombre = rs.getString(2);
-                strDescripcion = rs.getString(3);
-                strEstado = rs.getString(4);
-                arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
+                strPaterno = rs.getString(3);
+                strMaterno = rs.getString(4);
+                strPassword = rs.getString(5);
+                strIdPerfil = rs.getString(6);
+                strEstadoUsuario = rs.getString(7);
+                intLimiteIntentos = rs.getInt(8);
+                dateFechaCambioClave = rs.getDate(9);
+                arrUsuario.add(new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,strPassword,strIdPerfil,strEstadoUsuario,intLimiteIntentos,dateFechaCambioClave));
             }
              
         }catch (Exception a){
@@ -57,28 +72,40 @@ public class UsuarioDA {
              objConexion.SalirS();
          }
       
-        return arrFamilia;
+        return arrUsuario;
     }
 
-     public FamiliaBE queryByIdFamilia(String codigo){
+     public UsuarioBE queryByIdUsuario(String idUsuario){
         conexion objConexion=new conexion();
         ResultSet rs = null;
-        FamiliaBE familia = null;
-        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia ";
-           sql += " WHERE idfamilia='"+codigo+"'";
+        UsuarioBE usuario = null;
+        String sql = "SELECT idUsuario,nombre,paterno,materno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave FROM Usuario ";
+           sql += " WHERE idfamilia='"+idUsuario+"'";
         try{
             rs=objConexion.EjecutarS(sql);
-            String strCodigo;
+            String strIdUsuario;
             String strNombre;
-            String strDescripcion;
-            String strEstado;
-            if (rs.next()){
-              
-                strCodigo = rs.getString(1);
+            String strPaterno;
+            String strMaterno;
+            String strPassword;
+            String strIdPerfil;
+            String strEstadoUsuario;
+            int intLimiteIntentos;
+            Date dateFechaCambioClave;
+            
+            if (rs.next()){    
+                
+                
+                strIdUsuario = rs.getString(1);
                 strNombre = rs.getString(2);
-                strDescripcion = rs.getString(3);
-                strEstado = rs.getString(4);
-                familia = new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado);
+                strPaterno = rs.getString(3);
+                strMaterno = rs.getString(4);
+                strPassword = rs.getString(5);
+                strIdPerfil = rs.getString(6);
+                strEstadoUsuario = rs.getString(7);
+                intLimiteIntentos = rs.getInt(8);
+                dateFechaCambioClave = rs.getDate(9);
+                usuario = new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,strPassword,strIdPerfil,strEstadoUsuario,intLimiteIntentos,dateFechaCambioClave);
             }
              
         }catch (Exception a){
@@ -88,50 +115,55 @@ public class UsuarioDA {
              objConexion.SalirS();
          }
       
-        return familia;
+        return usuario;
     }
 
-    public FamiliaBE queryByNombreFamilia(String nombreFamilia){
-        conexion objConexion=new conexion();
-        ResultSet rs = null;
-        FamiliaBE familia = null;
-        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia ";
-           sql += " WHERE nombre='"+nombreFamilia+"'";
-        try{
-            rs=objConexion.EjecutarS(sql);
-            String strCodigo;
-            String strNombre;
-            String strDescripcion;
-            String strEstado;
-            if (rs.next()){
-
-                strCodigo = rs.getString(1);
-                strNombre = rs.getString(2);
-                strDescripcion = rs.getString(3);
-                strEstado = rs.getString(4);
-                familia = new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado);
-            }
-
-        }catch (Exception a){
-            System.out.println(a.getMessage());
-         }
-         finally{
-             objConexion.SalirS();
-         }
-
-        return familia;
-    }
+//    public FamiliaBE queryByNombreFamilia(String nombreFamilia){
+//        conexion objConexion=new conexion();
+//        ResultSet rs = null;
+//        FamiliaBE familia = null;
+//        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia ";
+//           sql += " WHERE nombre='"+nombreFamilia+"'";
+//        try{
+//            rs=objConexion.EjecutarS(sql);
+//            String strCodigo;
+//            String strNombre;
+//            String strDescripcion;
+//            String strEstado;
+//            if (rs.next()){
+//
+//                strCodigo = rs.getString(1);
+//                strNombre = rs.getString(2);
+//                strDescripcion = rs.getString(3);
+//                strEstado = rs.getString(4);
+//                familia = new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado);
+//            }
+//
+//        }catch (Exception a){
+//            System.out.println(a.getMessage());
+//         }
+//         finally{
+//             objConexion.SalirS();
+//         }
+//
+//        return familia;
+//    }
     
-     public boolean modificar(FamiliaBE objFamilia) throws Exception{
+     public boolean modificar(UsuarioBE objUsuario) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
         String sql = "UPDATE familia SET";
-             sql += " nombre='"+objFamilia.getNombre()+"'," +
-                    "descripcion='"+objFamilia.getDescripcion()+ "',"+
-                     "indactivo='"+objFamilia.getEstado()+ "'"+ 
-                    " WHERE idfamilia='"+objFamilia.getIdFamilia()+"'";
+             sql += " nombre='"+objUsuario.getNombre()+"'," +
+                    "paterno='"+objUsuario.getPaterno()+ "',"+
+                    "materno='"+objUsuario.getMaterno()+ "'"+ 
+                    "password='"+objUsuario.getPassword()+ "'"+ 
+                    "idPerfil='"+objUsuario.getIdPerfil()+ "'"+ 
+                    "idEstadoUsuario='"+objUsuario.getIdEstadousuario()+ "'"+ 
+                    "limiteIntentos='"+objUsuario.getLimiteIntentos()+ "'"+ 
+                    "fechaCambioClave='"+objUsuario.getFechaCambioClave()+ "'"+ 
+                    "WHERE idUsuario='"+objUsuario.getIdUsuario()+"'";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -144,13 +176,13 @@ public class UsuarioDA {
         return boolExito;
     }
      
-      public boolean eliminar(String codFamilia) throws Exception{
+      public boolean eliminar(String IdUsuario) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "DELETE FROM familia";
-             sql += " WHERE idfamilia='"+codFamilia+"'";
+        String sql = "DELETE FROM Usuario";
+             sql += " WHERE idUsuario='"+IdUsuario+"'";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -163,29 +195,29 @@ public class UsuarioDA {
         return boolExito;
     }
       
-    public ArrayList<FamiliaBE> buscar(String codigo,String nombre,String estado){
+    public ArrayList<UsuarioBE> buscar(String idUsuario,String nombre,String paterno,String materno,String idPerfil, String idEstadoUsuario){
         conexion objConexion=new conexion();
         ResultSet rs = null;
-        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
+        ArrayList<UsuarioBE> arrUsuario = new ArrayList<UsuarioBE>();
         String indActivo = "";
-        if(estado.equals("Activo")){
+        if(idEstadoUsuario.equals("Activo")){
             indActivo = "1";
-        }else if(estado.equals("Inactivo")){
+        }else if(idEstadoUsuario.equals("Inactivo")){
              indActivo = "0";
         }
         
-        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia";
+        String sql = "SELECT idUsuario,nombre,paterno,materno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave FROM Usuario";
                 //" WHERE indactivo ='"+indActivo+"'";
        boolean primero;
         primero = true;
         //sql+= " WHERE";
-        if(!(codigo.equals("")) || !(nombre.equals("")) || !estado.equals("")){
-           if (!codigo.equals("")){           
+        if(!(idUsuario.equals("")) || !(nombre.equals("")) || !paterno.equals("")|| !materno.equals("")|| !idPerfil.equals("")|| !idEstadoUsuario.equals("")){
+           if (!idUsuario.equals("")){           
                if(primero == true){
                    sql+= " WHERE";
                    primero = false;
                }else if(primero == false)sql+= " AND ";
-               sql +=  " idfamilia LIKE '%"+codigo+"%'";
+               sql +=  " idUsuario LIKE '%"+idUsuario+"%'";
            }
            if (!nombre.equals("")){
                if(primero == true){
@@ -194,14 +226,45 @@ public class UsuarioDA {
                }else if(primero == false)sql+= " AND ";
                sql += " nombre LIKE '%"+nombre+"%'";
            }
-           if(estado.equals("Activo")){
+           if (!paterno.equals("")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " nombre LIKE '%"+paterno+"%'";
+           }
+           if (!materno.equals("")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " nombre LIKE '%"+materno+"%'";
+           }
+           if (!idPerfil.equals("")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " nombre LIKE '%"+idPerfil+"%'";
+           }
+           if (!idEstadoUsuario.equals("")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " nombre LIKE '%"+idEstadoUsuario+"%'";
+           }
+                 
+           
+           
+           if(idEstadoUsuario.equals("Activo")){
                if(primero == true){
                    sql+= " WHERE";
                    primero = false;
                }else if(primero == false)sql+= " AND ";
                sql += " indactivo = '1'";
            }    
-           if(estado.equals("Inactivo")){
+           if(idEstadoUsuario.equals("Inactivo")){
                if(primero == true){
                    sql+= " WHERE";
                    primero = false;
@@ -210,21 +273,32 @@ public class UsuarioDA {
            } 
         }
         sql +=" order by 1";
-              
-        
+ 
         try{
+            
             rs=objConexion.EjecutarS(sql);
-            String strCodigo;
+            String strIdUsuario;
             String strNombre;
-            String strDescripcion;
-            String strEstado;
+            String strPaterno;
+            String strMaterno;
+            String strPassword;
+            String strIdPerfil;
+            String strEstadoUsuario;
+            int intLimiteIntentos;
+            Date dateFechaCambioClave;
+
             while (rs.next()){
               
-                strCodigo = rs.getString(1);
+                strIdUsuario = rs.getString(1);
                 strNombre = rs.getString(2);
-                strDescripcion = rs.getString(3);
-                strEstado = rs.getString(4);
-                arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
+                strPaterno = rs.getString(3);
+                strMaterno = rs.getString(4);
+                strPassword = rs.getString(5);
+                strIdPerfil = rs.getString(6);
+                strEstadoUsuario = rs.getString(7);
+                intLimiteIntentos = rs.getInt(8);
+                dateFechaCambioClave = rs.getDate(9);
+                arrUsuario.add(new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,strPassword,strIdPerfil,strEstadoUsuario,intLimiteIntentos,dateFechaCambioClave));
             }
              
         }catch (Exception a){
@@ -234,55 +308,56 @@ public class UsuarioDA {
              objConexion.SalirS();
          }
       
-        return arrFamilia;
+        return arrUsuario;
+  
     }
 
     
-    public ArrayList<FamiliaBE> buscarAyuda(String codigo,String nombre){
-        conexion objConexion=new conexion();
-        ResultSet rs = null;
-        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
-               
-        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia WHERE indactivo = '1'";
-                //" WHERE indactivo ='"+indActivo+"'";
-       boolean primero;
-       
-        //sql+= " WHERE";
-        if(!(codigo.equals("")) || !(nombre.equals(""))){
-           if (!codigo.equals("")){ 
-               sql +=  " AND idfamilia LIKE '%"+codigo+"%'";
-           }
-           if (!nombre.equals("")){
-               sql += " AND nombre LIKE '%"+nombre+"%'";
-           }
-        }
-        sql +=" order by 1";
-              
-        
-        try{
-            rs=objConexion.EjecutarS(sql);
-            String strCodigo;
-            String strNombre;
-            String strDescripcion;
-            String strEstado;
-            while (rs.next()){
-              
-                strCodigo = rs.getString(1);
-                strNombre = rs.getString(2);
-                strDescripcion = rs.getString(3);
-                strEstado = rs.getString(4);
-                arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
-            }
-             
-        }catch (Exception a){
-            System.out.println(a.getMessage());
-         }
-         finally{
-             objConexion.SalirS();
-         }
-      
-        return arrFamilia;
-    }
-    
+//    public ArrayList<FamiliaBE> buscarAyuda(String codigo,String nombre){
+//        conexion objConexion=new conexion();
+//        ResultSet rs = null;
+//        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
+//               
+//        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia WHERE indactivo = '1'";
+//                //" WHERE indactivo ='"+indActivo+"'";
+//       boolean primero;
+//       
+//        //sql+= " WHERE";
+//        if(!(codigo.equals("")) || !(nombre.equals(""))){
+//           if (!codigo.equals("")){ 
+//               sql +=  " AND idfamilia LIKE '%"+codigo+"%'";
+//           }
+//           if (!nombre.equals("")){
+//               sql += " AND nombre LIKE '%"+nombre+"%'";
+//           }
+//        }
+//        sql +=" order by 1";
+//              
+//        
+//        try{
+//            rs=objConexion.EjecutarS(sql);
+//            String strCodigo;
+//            String strNombre;
+//            String strDescripcion;
+//            String strEstado;
+//            while (rs.next()){
+//              
+//                strCodigo = rs.getString(1);
+//                strNombre = rs.getString(2);
+//                strDescripcion = rs.getString(3);
+//                strEstado = rs.getString(4);
+//                arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
+//            }
+//             
+//        }catch (Exception a){
+//            System.out.println(a.getMessage());
+//         }
+//         finally{
+//             objConexion.SalirS();
+//         }
+//      
+//        return arrFamilia;
+//    }
+//    
     
 }

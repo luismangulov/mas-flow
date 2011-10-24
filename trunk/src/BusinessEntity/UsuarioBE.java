@@ -72,11 +72,11 @@ public class UsuarioBE {
         this.idUsuario = idUsuario;
     }
 
-    public String getLimiteIntentos() {
+    public int getLimiteIntentos() {
         return limiteIntentos;
     }
 
-    public void setLimiteIntentos(String limiteIntentos) {
+    public void setLimiteIntentos(int limiteIntentos) {
         this.limiteIntentos = limiteIntentos;
     }
 
