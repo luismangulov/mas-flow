@@ -10,6 +10,9 @@
  */
 package Procesamiento.GuiaDeRemision;
 
+import BusinessEntity.GuiaRemisionBE;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DIEGO
@@ -45,20 +48,20 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Cliente", "Dirección", "Contacto", "Fecha"
+                "Código", "Cliente", "Dirección", "Contacto", "Fecha", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -70,7 +73,6 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(3).setResizable(false);
 
         jToolBar1.setRollover(true);
 
@@ -108,8 +110,6 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,4 +177,35 @@ private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
+
+
+public void recargaruno(GuiaRemisionBE guiaRemision,String direccion,String contacto){
+////
+         
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
+        jTable1.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Contacto");
+        modelo.addColumn("Fecha");
+//        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
+//        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
+//        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
+//        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
+         modelo.addRow(new Object[5]);
+        jTable1.setValueAt(guiaRemision.getCodigo(),0,0 );
+        jTable1.setValueAt(guiaRemision.getCliente().getIdEntidad(),0,1 );
+        jTable1.setValueAt(direccion,0,2 );
+        jTable1.setValueAt(contacto,0,3 );
+        jTable1.setValueAt(guiaRemision.getFecha(),0,4 );
+    }
+
+
+
 }
