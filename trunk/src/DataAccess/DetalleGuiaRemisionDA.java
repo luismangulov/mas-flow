@@ -19,7 +19,7 @@ public class DetalleGuiaRemisionDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO guiaremision(iddetalleguiaremision,idguiaremision,cantidad,idproducto) VALUES('"+ objDetalleGuiaRemision.getCodigo() +"','"+ codGuiaRemision +"','"+ objDetalleGuiaRemision.getCantidad() +"','"+ objDetalleGuiaRemision.getProducto().getIdProducto() +"')";
+        String sql = "INSERT INTO detalleguiaremision(iddetalleguiaremision,idguiaremision,cantidad,idproducto) VALUES('"+ objDetalleGuiaRemision.getCodigo() +"','"+ codGuiaRemision +"','"+ objDetalleGuiaRemision.getCantidad() +"','"+ objDetalleGuiaRemision.getProducto().getIdProducto() +"')";
         
         
         try{
