@@ -10,6 +10,14 @@
  */
 package Seguridad.Usuario;
 
+import BusinessEntity.UsuarioBE;
+import BusinessLogic.UsuarioBL;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DIEGO
@@ -39,15 +47,15 @@ public class AdmUsuario extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jToolBar2 = new javax.swing.JToolBar();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lblAgregar = new javax.swing.JLabel();
+        lblEditar = new javax.swing.JLabel();
+        lblEliminar = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
+        lblRefrescar = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        dgvUsuario = new javax.swing.JTable();
 
         jToolBar1.setRollover(true);
 
@@ -77,35 +85,45 @@ public class AdmUsuario extends javax.swing.JFrame {
 
         jToolBar2.setRollover(true);
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel8MousePressed(evt);
+                lblAgregarMousePressed(evt);
             }
         });
-        jToolBar2.add(jLabel8);
+        jToolBar2.add(lblAgregar);
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel9MousePressed(evt);
+                lblEditarMousePressed(evt);
             }
         });
-        jToolBar2.add(jLabel9);
+        jToolBar2.add(lblEditar);
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
-        jToolBar2.add(jLabel10);
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel11MousePressed(evt);
+                lblEliminarMousePressed(evt);
             }
         });
-        jToolBar2.add(jLabel11);
+        jToolBar2.add(lblEliminar);
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
-        jToolBar2.add(jLabel12);
+        lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblBuscarMousePressed(evt);
+            }
+        });
+        jToolBar2.add(lblBuscar);
+
+        lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRefrescarMousePressed(evt);
+            }
+        });
+        jToolBar2.add(lblRefrescar);
 
         jLabel13.setText("                                                                                                   ");
         jToolBar2.add(jLabel13);
@@ -113,8 +131,8 @@ public class AdmUsuario extends javax.swing.JFrame {
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
         jToolBar2.add(jLabel14);
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        dgvUsuario.setAutoCreateRowSorter(true);
+        dgvUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -122,7 +140,7 @@ public class AdmUsuario extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Usuario", "Estado ", "Apellido Paterno", "Apellido Materno", "Nombre", "Perfil"
+                "Usuario", "Nombre", "Apellido Paterno", "Apellido Materno", "Perfil", "Estado "
             }
         ) {
             Class[] types = new Class [] {
@@ -140,10 +158,10 @@ public class AdmUsuario extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
-        jTable1.getColumnModel().getColumn(4).setResizable(false);
-        jTable1.getColumnModel().getColumn(5).setResizable(false);
+        jScrollPane1.setViewportView(dgvUsuario);
+        dgvUsuario.getColumnModel().getColumn(1).setResizable(false);
+        dgvUsuario.getColumnModel().getColumn(2).setResizable(false);
+        dgvUsuario.getColumnModel().getColumn(4).setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,23 +181,64 @@ public class AdmUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jLabel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MousePressed
-MantenimientoUsuario m = new MantenimientoUsuario();
-m.setVisible(true);
+private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
 // TODO add your handling code here:
-}//GEN-LAST:event_jLabel8MousePressed
+    
+    MantenimientoUsuario m = new MantenimientoUsuario(this);
+    m.setVisible(true);
 
-private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
+}//GEN-LAST:event_lblAgregarMousePressed
+
+private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
 // TODO add your handling code here:
-    MantenimientoUsuario m = new MantenimientoUsuario();
-m.setVisible(true);
-}//GEN-LAST:event_jLabel9MousePressed
+        if((dgvUsuario.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una familia de producto", "Mensaje",0);
+        } else if((dgvUsuario.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvUsuario.getSelectedRow();
+            codigo = (String)dgvUsuario.getValueAt(fila, 0);
+            UsuarioBL objUsuarioBL = new UsuarioBL();
+            UsuarioBE usuario = objUsuarioBL.queryByIdUsuario(codigo);
+            MantenimientoUsuario m = new MantenimientoUsuario(this,usuario);
+            m.setVisible(true);
+        }
+}//GEN-LAST:event_lblEditarMousePressed
 
-private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 // TODO add your handling code here:
     BuscarUsuario m = new BuscarUsuario();
-m.setVisible(true);
-}//GEN-LAST:event_jLabel11MousePressed
+    m.setVisible(true);
+}//GEN-LAST:event_lblBuscarMousePressed
+
+private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+// TODO add your handling code here:
+           int respuesta = 0;
+        respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este usuario? Esta acción no podrá deshacerse.", "Eliminar usuario", 0); 
+        if(respuesta == 0){
+            int fila;
+            String codigo;
+            fila = dgvUsuario.getSelectedRow();
+            codigo = (String)dgvUsuario.getValueAt(fila, 0);
+            UsuarioBL objUsuarioBL = new UsuarioBL();
+            try {
+                objUsuarioBL.eliminar(codigo);
+                this.lblRefrescarMousePressed(evt);
+            } catch (Exception ex) {
+                Logger.getLogger(AdmUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    
+}//GEN-LAST:event_lblEliminarMousePressed
+
+private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
+// TODO add your handling code here:
+        UsuarioBL objUsuarioBL = new UsuarioBL();
+        this.recargar(objUsuarioBL.queryAllUsuario());
+}//GEN-LAST:event_lblRefrescarMousePressed
 
     /**
      * @param args the command line arguments
@@ -217,10 +276,8 @@ m.setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable dgvUsuario;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -229,11 +286,98 @@ m.setVisible(true);
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JLabel lblAgregar;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblEditar;
+    private javax.swing.JLabel lblEliminar;
+    private javax.swing.JLabel lblRefrescar;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JTable getDgvUsuario() {
+        return dgvUsuario;
+    }
+    
+    public void recargaruno(UsuarioBE usuario){
+//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+//        modelo.addRow(new Object[4]);
+//        for(int i=0;i<dgvFamilia.getRowCount();i++){
+//             dgvFamilia.remove(i);
+//            dgvFamilia.removeRowSelectionInterval(i, i);
+//        }
+         
+                   //
+//          dgvFamilia.clearSelection(); 
+         
+        DefaultTableModel modelo= new DefaultTableModel();
+        dgvUsuario.setModel(modelo);
+        modelo.addColumn("IdUsuario");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido Paterno");
+        modelo.addColumn("Apellido Materno"); 
+        modelo.addColumn("Perfil"); 
+        modelo.addColumn("Estado");         
+        dgvUsuario.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvUsuario.getColumnModel().getColumn(1).setPreferredWidth(100);
+        dgvUsuario.getColumnModel().getColumn(2).setPreferredWidth(100);
+        dgvUsuario.getColumnModel().getColumn(3).setPreferredWidth(100);
+        dgvUsuario.getColumnModel().getColumn(4).setPreferredWidth(40);
+        dgvUsuario.getColumnModel().getColumn(5).setPreferredWidth(40);
+        modelo.addRow(new Object[6]);
+        dgvUsuario.setValueAt(usuario.getIdUsuario(),0,0 );
+        dgvUsuario.setValueAt(usuario.getNombre(),0,1 );
+        dgvUsuario.setValueAt(usuario.getPaterno(),0,2 );
+        dgvUsuario.setValueAt(usuario.getMaterno(),0,3 );
+        dgvUsuario.setValueAt(usuario.getPerfil().getIdPerfil(),0,4 );        
+        if(usuario.getEstadoUsuario().getIdEstadoUsuario().equals("1")){
+             dgvUsuario.setValueAt("Activo",0,5 );
+        }else if(usuario.getEstadoUsuario().getIdEstadoUsuario().equals("0")){
+             dgvUsuario.setValueAt("Inactivo",0,5 );
+        }
+    }
+    
+    public void recargar(ArrayList<UsuarioBE> usuarios){
+        DefaultTableModel modelo= new DefaultTableModel();
+        dgvUsuario.setModel(modelo);
+        modelo.addColumn("IdUsuario");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido Paterno");
+        modelo.addColumn("Apellido Materno"); 
+        modelo.addColumn("Perfil"); 
+        modelo.addColumn("Estado"); 
+        
+        dgvUsuario.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvUsuario.getColumnModel().getColumn(1).setPreferredWidth(100);
+        dgvUsuario.getColumnModel().getColumn(2).setPreferredWidth(100);
+        dgvUsuario.getColumnModel().getColumn(3).setPreferredWidth(100);
+        dgvUsuario.getColumnModel().getColumn(4).setPreferredWidth(40);
+        dgvUsuario.getColumnModel().getColumn(5).setPreferredWidth(40);
+        
+//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+//        modelo.addRow(new Object[4]);
+//          for(int i=0;i<dgvFamilia.getRowCount();i++){
+//            dgvFamilia.remove(i);
+//            dgvFamilia.removeRowSelectionInterval(i, i);
+//        }
+//          dgvFamilia.clearSelection();  
+                    
+        for(int i=0;i<usuarios.size();i++){
+             modelo.addRow(new Object[6]);
+         dgvUsuario.setValueAt(usuarios.get(i).getIdUsuario(),i,0 );
+        dgvUsuario.setValueAt(usuarios.get(i).getNombre(),i,1 );
+        dgvUsuario.setValueAt(usuarios.get(i).getPaterno(),i,2 );
+        dgvUsuario.setValueAt(usuarios.get(i).getMaterno(),i,3 );
+        dgvUsuario.setValueAt(usuarios.get(i).getPerfil().getIdPerfil(),i,4 );        
+        if(usuarios.get(i).getEstadoUsuario().getIdEstadoUsuario().equals("1")){
+             dgvUsuario.setValueAt("Activo",i,5 );
+        }else if(usuarios.get(i).getEstadoUsuario().getIdEstadoUsuario().equals("0")){
+             dgvUsuario.setValueAt("Inactivo",i,5 );
+        }
+        }
+               
+ 
+    }
+
 }

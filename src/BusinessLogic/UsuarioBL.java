@@ -4,8 +4,12 @@
  */
 package BusinessLogic;
 
+import BusinessEntity.EstadoUsuarioBE;
+import BusinessEntity.PerfilBE;
 import Util.Utilitario;
 import BusinessEntity.UsuarioBE;
+import DataAccess.EstadoUsuarioDA;
+import DataAccess.PerfilDA;
 import DataAccess.UsuarioDA;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +25,16 @@ public class UsuarioBL {
     
     public boolean insertar(String nombre,String paterno,String materno, String password,String idPerfil, String idEstadoUsuario,int limiteIntentos, Date fechaCambioClave ) throws Exception{
         boolean exito = false;
-        usuario = new UsuarioBE(Utilitario.generaCodigo("usuario",6),nombre,paterno,materno, password, idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave);
+//        Dim odaPerfil As New PerfilDA()
+//        Dim obePerfil As PerfilBE = odaPerfil.queryByIdPerfilSinDetalle(perfil)
+//        Dim obeUsuario As New UsuarioBE("", codigo, obeEmpleado, obePerfil)
+        PerfilDA objPerfilDA=new PerfilDA();
+        PerfilBE objPerfilBE = objPerfilDA.queryByIdPerfil(idPerfil);
+        
+        EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
+        EstadoUsuarioBE objEstadoUsuarioBE = objEstadoUsuarioDA.queryByIdEstadoUsuario(idEstadoUsuario);
+        
+        usuario = new UsuarioBE(Utilitario.generaCodigo("usuario",6),nombre,paterno,materno, password, objPerfilBE,objEstadoUsuarioBE,limiteIntentos,fechaCambioClave);
         UsuarioDA objUsuarioDA = new UsuarioDA();
         exito = objUsuarioDA.insertar(getUsuario());
         return exito;
@@ -75,11 +88,18 @@ public class UsuarioBL {
     }
 
     public UsuarioBE setUsuario(String idUsuario,String nombre,String paterno,String materno,String password,String idPerfil, String idEstadoUsuario,int limiteIntentos, Date fechaCambioClave) {
-        usuario = new UsuarioBE(idUsuario,nombre,paterno,materno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave);
+        PerfilDA objPerfilDA=new PerfilDA();
+        PerfilBE objPerfilBE = objPerfilDA.queryByIdPerfil(idPerfil);
+        
+        EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
+        EstadoUsuarioBE objEstadoUsuarioBE = objEstadoUsuarioDA.queryByIdEstadoUsuario(idEstadoUsuario);
+        
+        usuario = new UsuarioBE(idUsuario,nombre,paterno,materno,password,objPerfilBE,objEstadoUsuarioBE,limiteIntentos,fechaCambioClave);
         return usuario;
     }
 
     public ArrayList<UsuarioBE> getAllUsuario() {
+        
         ArrayList<UsuarioBE>  arrUsuario = null;
         UsuarioDA objUsuarioDA = new UsuarioDA();
         arrUsuario = objUsuarioDA.queryAllUsuario();
