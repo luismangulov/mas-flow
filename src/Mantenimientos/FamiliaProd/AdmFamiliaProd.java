@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author DIEGO
  */
 public class AdmFamiliaProd extends javax.swing.JFrame {
-    public static FamiliaBE familia = new FamiliaBE();
+    //public static FamiliaBE familia = new FamiliaBE();
     /** Creates new form AdmFamiliaProd */
     public AdmFamiliaProd() {
         
