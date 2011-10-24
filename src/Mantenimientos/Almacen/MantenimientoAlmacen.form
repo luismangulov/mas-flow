@@ -212,12 +212,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ms."/>
+        <Property name="text" type="java.lang.String" value="mts."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ms."/>
+        <Property name="text" type="java.lang.String" value="mts."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">

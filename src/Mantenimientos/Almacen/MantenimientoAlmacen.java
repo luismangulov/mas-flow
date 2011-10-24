@@ -70,9 +70,9 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         jTextField1.setEditable(false);
 
-        jLabel7.setText("ms.");
+        jLabel7.setText("mts.");
 
-        jLabel8.setText("ms.");
+        jLabel8.setText("mts.");
 
         jButton1.setText("Guardar");
 
