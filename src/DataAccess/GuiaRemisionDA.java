@@ -22,7 +22,7 @@ public class GuiaRemisionDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO guiaremision(idguiaremision, fecha, identidad) VALUES('"+ objGuiaRemision.getCodigo() +"','"+ objGuiaRemision.getFecha() +"','"+ objGuiaRemision.getCliente().getIdEntidad() +"')";
+        String sql = "INSERT INTO guiaremision(idguiaremision, fecha, identidad, indEstado) VALUES('"+ objGuiaRemision.getCodigo() +"','"+ objGuiaRemision.getFecha() +"','"+ objGuiaRemision.getCliente().getIdEntidad() +"','"+ objGuiaRemision.getEstado() +"')";
         
         try{
             objConexion.EjecutarUID(sql);

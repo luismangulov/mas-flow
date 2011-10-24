@@ -18,7 +18,7 @@ public class GuiaRemisionBL {
     private GuiaRemisionBE objGuiaRemisionBE;
     public boolean insertar(Date fecha,String codCliente) throws Exception{
         boolean exito = false;
-        objGuiaRemisionBE = new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente);
+        objGuiaRemisionBE = new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente,"1");
         GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
         exito = objGuiaRemisionDA.insertar(objGuiaRemisionBE);
         return exito;

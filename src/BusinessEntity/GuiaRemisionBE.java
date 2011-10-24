@@ -14,15 +14,17 @@ public class GuiaRemisionBE {
     private String codigo;
     private Date fecha;
     private EntidadBE cliente;
+    private String estado;
     
     /**
      * @return the codigo
      */
-    public GuiaRemisionBE(String codigo,Date fecha,String codCliente){
+    public GuiaRemisionBE(String codigo,Date fecha,String codCliente,String estado){
         this.codigo = codigo;
         this.fecha = fecha;
         this.cliente = null;
         this.cliente.setIdEntidad(codCliente);
+        this.estado = estado;
     }
     public GuiaRemisionBE(String codigo,Date fecha,EntidadBE objCliente){
         this.codigo = codigo;
@@ -81,6 +83,20 @@ public class GuiaRemisionBE {
      */
     public void setCliente(EntidadBE cliente) {
         this.cliente = cliente;
+    }
+
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     
