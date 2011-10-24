@@ -214,13 +214,13 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
         for (int i=0; i<arrRacks.size(); i++){
             
             String strIdRack = arrRacks.get(i).getIdRack();
-            Double douAlto = arrRacks.get(i).getAlto();
-            Double douAncho = arrRacks.get(i).getAncho();
+            int intPosX = arrRacks.get(i).getPosX();
+            int intPosY = arrRacks.get(i).getPosY();
             int intPisos = arrRacks.get(i).getPisos();
             int intColumnas = arrRacks.get(i).getColumnas();
             String strIdZona = arrRacks.get(i).getIdZona();
             
-            modelo.addRow(new Object[]{strIdRack,douAlto + "x" + douAncho,intPisos,intColumnas,strIdZona});
+            modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdZona});
             
         }
     }
