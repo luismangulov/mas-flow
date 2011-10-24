@@ -308,7 +308,12 @@ private void lblInsertarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
                    //
 //          dgvFamilia.clearSelection(); 
          
-        DefaultTableModel modelo= new DefaultTableModel();
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
         dgvFamilia.setModel(modelo);
         modelo.addColumn("Código");
         modelo.addColumn("Nombre");
@@ -331,7 +336,12 @@ private void lblInsertarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
     }
     
     public void recargar(ArrayList<FamiliaBE> familias){
-        DefaultTableModel modelo= new DefaultTableModel();
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
         dgvFamilia.setModel(modelo);
         modelo.addColumn("Código");
         modelo.addColumn("Nombre");
