@@ -25,9 +25,12 @@ public class AdmCliente extends javax.swing.JFrame {
 
     /** Creates new form AdmCliente */
     public AdmCliente() {
+       
+        
         initComponents();
     }
 
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -50,14 +53,16 @@ public class AdmCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar cliente");
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
+            }
+        });
 
         dgvCliente.setAutoCreateRowSorter(true);
         dgvCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "RUC", "Razón Social", "Teléfonos", "E-mail", "Contacto"
@@ -78,8 +83,11 @@ public class AdmCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvCliente.setCellSelectionEnabled(false);
         dgvCliente.setName("dgvCliente"); // NOI18N
+        dgvCliente.setRowSelectionAllowed(true);
         jScrollPane1.setViewportView(dgvCliente);
+        dgvCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvCliente.getColumnModel().getColumn(0).setResizable(false);
         dgvCliente.getColumnModel().getColumn(0).setPreferredWidth(40);
         dgvCliente.getColumnModel().getColumn(1).setResizable(false);
@@ -93,9 +101,13 @@ public class AdmCliente extends javax.swing.JFrame {
         dgvCliente.getColumnModel().getColumn(5).setResizable(false);
         dgvCliente.getColumnModel().getColumn(5).setPreferredWidth(100);
 
+        tlbCliente.setFloatable(false);
         tlbCliente.setRollover(true);
 
         lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblAgregar.setToolTipText("Agregar");
+        lblAgregar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblAgregarMousePressed(evt);
@@ -123,6 +135,11 @@ public class AdmCliente extends javax.swing.JFrame {
         tlbCliente.add(lblBuscar);
 
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRefrescarMousePressed(evt);
+            }
+        });
         tlbCliente.add(lblRefrescar);
 
         lblBlanco.setText("                                                                                                   ");
@@ -143,7 +160,7 @@ public class AdmCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,7 +190,7 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             codigo = (String)dgvCliente.getValueAt(fila, 0);
             
              try {
-            MantenimientoCliente m = new MantenimientoCliente(0,"");
+            MantenimientoCliente m = new MantenimientoCliente(1,codigo);
             m.setVisible(true);
             // TODO add your handling code here:
         } catch (Exception ex) {
@@ -185,6 +202,28 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 //            m.setVisible(true);
     
 }//GEN-LAST:event_lblEditarMousePressed
+
+private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
+        try {
+            // TODO add your handling code here:
+                EntidadBL objClienteBL =new EntidadBL();
+                this.recargar(objClienteBL.getAllClientesActivos());
+        } catch (Exception ex) {
+            Logger.getLogger(AdmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_lblRefrescarMousePressed
+
+private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+
+String espacios= "";
+for (int i=0;i<this.getWidth()/2-100; i++){
+    espacios=espacios+ "  ";
+}
+lblBlanco.setText(espacios);      
+  
+    
+    // TODO add your handling code here:
+}//GEN-LAST:event_formPropertyChange
 
     /**
      * @param args the command line arguments
@@ -257,10 +296,13 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     
     public void recargar(ArrayList<EntidadBE> clientes){
         
+        
+        
         DefaultTableModel modelo=(DefaultTableModel) dgvCliente.getModel();
-        modelo.addRow(new Object[6]);
         dgvCliente.clearSelection();
+        
         for(int i=0;i<clientes.size();i++){
+            modelo.addRow(new Object[6]);
             dgvCliente.setValueAt(clientes.get(i).getIdEntidad(),i,0 );
             dgvCliente.setValueAt(clientes.get(i).getNroDocumento(),i,1 );
             dgvCliente.setValueAt(clientes.get(i).getRazonSocial(),i,2 );
