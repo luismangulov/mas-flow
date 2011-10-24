@@ -40,7 +40,9 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         Date fechaActual = new Date();
         
         DateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        this.txtFecha.setText(formato.format(fechaActual));
+        //this.txtFecha.setText(formato.format(fechaActual));
+        this.txtFecha.setText("ghjgfs");
+        this.txtCliente.setText("ghjgfs");
         this.setVisible(true);
     }
 
