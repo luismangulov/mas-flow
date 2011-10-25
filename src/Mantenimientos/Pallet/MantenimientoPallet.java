@@ -10,6 +10,13 @@
  */
 package Mantenimientos.Pallet;
 
+import BusinessEntity.AlmacenBE;
+import BusinessEntity.PalletBE;
+import BusinessLogic.AlmacenBL;
+import BusinessLogic.PalletBL;
+import java.sql.Date;
+import java.util.ArrayList;
+
 /**
  *
  * @author DIEGO
@@ -17,9 +24,83 @@ package Mantenimientos.Pallet;
 public class MantenimientoPallet extends javax.swing.JFrame {
 
     /** Creates new form MantenimientoPallet */
-    public MantenimientoPallet() {
+    String strIdPallet;
+    String strIdProducto;
+    String strIndActivo;
+    String strIdUbicacion;
+    String strIdAlmacen;
+    Date datfechaVencimiento;
+    String strNombreAlmacen;
+    ArrayList<AlmacenBE> arrAlmacenes;
+    PalletBE objPalletBE;
+    AlmacenBL objAlmacenBL;
+    AlmacenBE objAlmacenBE;
+    PalletBL objPalletBL;
+    String idPalletSeleccionado;
+    char accion;
+    
+    public MantenimientoPallet(char accion) {
         initComponents();
+        this.accion = accion;
+        this.cargarComboAlmacen();
     }
+    
+    public MantenimientoPallet(char accion, String idPallet) {
+        initComponents();
+        this.accion = accion;
+        this.idPalletSeleccionado = idPallet;
+        this.cargarComboAlmacen();
+    }
+    
+    public void cargarComboAlmacen(){
+        objAlmacenBL = new AlmacenBL();
+        arrAlmacenes = new ArrayList<AlmacenBE>();
+        
+        arrAlmacenes= objAlmacenBL.getAllAlmacenActivo();
+        for(AlmacenBE objAlmacen : arrAlmacenes)
+            cbAlmacen.addItem(objAlmacen.getNombre());
+        
+//        if (accion == 'M'){
+//            for(int i=0; i<cbAlmacen.getSize().width-1; i++){
+//                String strAlmacen = objAlmacenBL.getAlmacenById(objPalletBE.getIdAlmacen()).getNombre();
+//                if(cbAlmacen.getItemAt(i).toString().equals(strAlmacen)){
+//                    cbAlmacen.setSelectedIndex(i);
+//                    break;
+//                }
+//            }    
+//        }
+    }
+    
+    public void insertar(){
+        
+        strIndActivo = "1";
+        objAlmacenBL = new AlmacenBL();
+        strNombreAlmacen = cbAlmacen.getSelectedItem().toString();
+        strIdAlmacen = objAlmacenBL.getAlmacenByNombre(strNombreAlmacen).getIdAlmacen();
+        objPalletBE = new PalletBE("",null,strIndActivo,null,strIdAlmacen,null);
+        objPalletBL = new PalletBL();
+        objPalletBL.insertar(objPalletBE); 
+    }
+    
+//    public void modificar(){
+//
+//        strIdPallet = idPalletSeleccionado;
+//        objAlmacenBL = new AlmacenBL();
+//        strNombreAlmacen = cbAlmacen.getSelectedObjects().toString();
+//        strIdAlmacen = objAlmacenBL.getAlmacenByNombre(strNombreAlmacen).getIdAlmacen();
+//        objPalletBE = new PalletBE(strIdPallet,null,strIndActivo,null,strIdAlmacen,null);
+//        objPalletBL = new PalletBL();
+//        objPalletBL.modificar(objPalletBE); 
+//        
+//    }
+    
+    public void eliminar(){
+        
+        objPalletBL = new PalletBL();
+        objPalletBL.eliminar(idPalletSeleccionado); 
+        
+    }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -30,67 +111,52 @@ public class MantenimientoPallet extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        txtIdPallet = new javax.swing.JTextField();
+        cbAlmacen = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar pallet");
 
-        jLabel6.setText("cms.");
-
         jLabel1.setText("Código:");
 
-        jLabel8.setText("cms.");
+        jLabel2.setText("Almacén");
 
-        jLabel2.setText("Ancho:");
+        btnGuardar.setText("Guardar");
+        btnGuardar.setToolTipText("");
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseClicked(evt);
+            }
+        });
 
-        jLabel3.setText("Ancho:");
-
-        jButton1.setText("Guardar");
-        jButton1.setToolTipText("");
-
-        jButton2.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIdPallet, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(cbAlmacen, 0, 147, Short.MAX_VALUE))
+                .addGap(66, 66, 66))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(127, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addGap(10, 10, 10)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addGap(28, 28, 28))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jButton1)
-                .addContainerGap(157, Short.MAX_VALUE))
+                        .addComponent(btnGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,24 +164,29 @@ public class MantenimientoPallet extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdPallet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCancelar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+    if (accion == 'R')
+        this.insertar();
+//    else if (accion == 'M')
+//        this.modificar();
+    else
+        this.eliminar();
+}//GEN-LAST:event_btnGuardarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -148,20 +219,16 @@ public class MantenimientoPallet extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new MantenimientoPallet().setVisible(true);
+//                new MantenimientoPallet().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox cbAlmacen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField txtIdPallet;
     // End of variables declaration//GEN-END:variables
 }
