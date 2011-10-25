@@ -19,10 +19,8 @@ public class EntidadBE {
     private String nombreContacto;
     private String dniContacto;
     private String telefonoContacto;
-    private String idTipoPersona;
     private String razonSocial;
     private String paginaWeb;
-    private String idTipoEntidad;
     private String indActivo;
     private String idCIUU;
 
@@ -30,8 +28,8 @@ public class EntidadBE {
 
     public EntidadBE(String idEntidad, String nroDocumento, String direccion,
     String telefono, String email, String nombreContacto, String dniContacto,
-    String telefonoContacto, String idTipoPersona, String razonSocial,
-    String paginaWeb, String idTipoEntidad, String indActivo, String idCIUU)
+    String telefonoContacto, String razonSocial,
+    String paginaWeb,  String indActivo, String idCIUU)
     {
 
 
@@ -43,10 +41,8 @@ public class EntidadBE {
         this.nombreContacto=nombreContacto;
         this.dniContacto=dniContacto;
         this.telefonoContacto=telefonoContacto;
-        this.idTipoPersona=idTipoPersona;
         this.razonSocial=razonSocial;
         this.paginaWeb=paginaWeb;
-        this.idTipoEntidad=idTipoEntidad;
         this.indActivo=indActivo;
         this.idCIUU=idCIUU;
 
@@ -165,20 +161,6 @@ public class EntidadBE {
     }
 
     /**
-     * @return the idTipoPersona
-     */
-    public String getIdTipoPersona() {
-        return idTipoPersona;
-    }
-
-    /**
-     * @param idTipoPersona the idTipoPersona to set
-     */
-    public void setIdTipoPersona(String idTipoPersona) {
-        this.idTipoPersona = idTipoPersona;
-    }
-
-    /**
      * @return the razonSocial
      */
     public String getRazonSocial() {
@@ -204,20 +186,6 @@ public class EntidadBE {
      */
     public void setPaginaWeb(String paginaWeb) {
         this.paginaWeb = paginaWeb;
-    }
-
-    /**
-     * @return the idTipoEntidad
-     */
-    public String getIdTipoEntidad() {
-        return idTipoEntidad;
-    }
-
-    /**
-     * @param idTipoEntidad the idTipoEntidad to set
-     */
-    public void setIdTipoEntidad(String idTipoEntidad) {
-        this.idTipoEntidad = idTipoEntidad;
     }
 
     /**
