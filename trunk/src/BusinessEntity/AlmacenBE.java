@@ -10,16 +10,16 @@ package BusinessEntity;
  */
 public class AlmacenBE {
     
-    private String idAlmacen;
-    private String nombre;
-    private double largo;
-    private double ancho;
-    private String direccion;
-    private String telefono;
-    private String idDistrito;
-    private String idProvincia;
-    private String idDepartamento;
-    private String indActivo;
+    private String idAlmacen;//6
+    private String nombre;//30
+    private double largo;//6,2
+    private double ancho;//6,2
+    private String direccion;//30
+    private String telefono;//12
+    private String idDistrito;//6
+    private String idProvincia;//6
+    private String idDepartamento;//6
+    private String indActivo;//1
 
     public AlmacenBE() {
     }
