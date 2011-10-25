@@ -117,5 +117,23 @@ public class UbicacionDA {
         }
         return arrUbicaciones;
     }
+
+    public UbicacionBE queryUbicacionByIdUbicacion(String IdUbicacion) {
+        objConexion = new conexion();
+        query = "SELECT * FROM UBICACION WHERE idUbicacion='"+IdUbicacion+"'";
+        rs = objConexion.EjecutarS(query);
+        try {
+            rs.next();
+            String strIdUbicacion = rs.getString("IdUbicacion");
+            int fila = rs.getInt("Fila");
+            int columna = rs.getInt("Columna");
+            String strIndActivo = rs.getString("IndActivo");
+            String idRack = rs.getString("idRack");
+            objUbicacion = new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,idRack);
+        } catch (SQLException ex) {
+            Logger.getLogger(UbicacionDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return objUbicacion;
+    }
     
 }
