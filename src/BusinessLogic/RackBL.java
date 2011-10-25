@@ -20,9 +20,9 @@ public class RackBL {
         objRackDA.insertar(objRack);
     }
     
-    public void modificar(RackBE objRack){
+    public void modificar(RackBE objRack, boolean cambioZona){
         objRackDA = new RackDA();
-        objRackDA.modificar(objRack);
+        objRackDA.modificar(objRack, cambioZona);
     }
         
     public void eliminar(String idRack){
@@ -47,5 +47,10 @@ public class RackBL {
 
     public ArrayList<RackBE> getRacksByZona(String idZona) {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public RackBE getRackByIdUbicacion(String strIdUbicacion) {
+        objRackDA = new RackDA();
+        return objRackDA.queryRackByUbicacion(strIdUbicacion);
     }
 }
