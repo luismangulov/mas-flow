@@ -10,16 +10,44 @@
  */
 package Mantenimientos.Pallet;
 
+import BusinessEntity.AlmacenBE;
+import BusinessLogic.AlmacenBL;
+import BusinessLogic.PalletBL;
+import java.util.ArrayList;
+
 /**
  *
  * @author DIEGO
  */
+
+
 public class BuscarPallet extends javax.swing.JFrame {
 
     /** Creates new form BuscarPallet */
-    public BuscarPallet() {
+    AdmPallet ventanaPadre;
+    AlmacenBL objAlmacenBL;
+    ArrayList<AlmacenBE> arrAlmacenes;
+    PalletBL objPalletBL;
+    String strIdPallet;
+    String strIdProducto;
+    String strNombreAlmacen;
+    String strIdAlmacen;
+    
+    public BuscarPallet(AdmPallet ventanaPadre) {
         initComponents();
+        this.ventanaPadre = ventanaPadre;
+        cargarComboAlmacen();
     }
+    
+    public void cargarComboAlmacen(){
+        objAlmacenBL = new AlmacenBL();
+        arrAlmacenes = new ArrayList<AlmacenBE>();
+        
+        arrAlmacenes= objAlmacenBL.getAllAlmacenActivo();
+        for(AlmacenBE objAlmacen : arrAlmacenes)
+            cbAlmacen.addItem(objAlmacen.getNombre());
+    }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -31,28 +59,37 @@ public class BuscarPallet extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtIdPallet = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtIdProducto = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        cbAlmacen = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar pallet");
 
         jLabel1.setText("Código:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtIdPallet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtIdPalletActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Producto:");
 
-        jButton1.setText("Buscar");
+        btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+
+        jLabel2.setText("Almacén:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,20 +98,21 @@ public class BuscarPallet extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jButton1)
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtIdProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(txtIdPallet, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbAlmacen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(73, Short.MAX_VALUE)
+                .addComponent(btnBuscar)
+                .addGap(36, 36, 36)
+                .addComponent(btnCancelar)
+                .addGap(71, 71, 71))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,24 +120,41 @@ public class BuscarPallet extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdPallet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnCancelar))
+                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtIdPalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPalletActionPerformed
 
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtIdPalletActionPerformed
+
+private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+    
+    strIdPallet = txtIdPallet.getText();
+    strIdProducto = txtIdProducto.getText();
+    strNombreAlmacen = cbAlmacen.getSelectedItem().toString();
+    objAlmacenBL = new AlmacenBL();
+    strIdAlmacen = objAlmacenBL.getAlmacenByNombre(strNombreAlmacen).getIdAlmacen();
+    objPalletBL = new PalletBL();
+    objPalletBL.getListSearch(strIdPallet, strIdProducto, strIdAlmacen);
+            
+}//GEN-LAST:event_btnBuscarMouseClicked
+
 
     /**
      * @param args the command line arguments
@@ -132,16 +187,18 @@ public class BuscarPallet extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new BuscarPallet().setVisible(true);
+//                new BuscarPallet().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox cbAlmacen;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField txtIdPallet;
+    private javax.swing.JTextField txtIdProducto;
     // End of variables declaration//GEN-END:variables
 }
