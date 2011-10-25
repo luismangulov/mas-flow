@@ -113,10 +113,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nombre", "Cantidad", "Unidad"
@@ -337,15 +334,16 @@ m.setVisible(true);// TODO add your handling code here:
 
     private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
         // TODO add your handling code here:
-        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this.producto);
+        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.producto);
         m.setVisible(true);
         recargaruno(this.producto);
+        
         
     }//GEN-LAST:event_lblAddMousePressed
 
     private void lblRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverMousePressed
         // TODO add your handling code here:
-        
+        //recargaruno(this.producto);
         
     }//GEN-LAST:event_lblRemoverMousePressed
 
