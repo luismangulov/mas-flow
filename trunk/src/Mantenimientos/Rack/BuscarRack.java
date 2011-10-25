@@ -47,7 +47,7 @@ public class BuscarRack extends javax.swing.JFrame {
         arrZonas = new ArrayList<ZonaBE>();
         arrZonas = objZonaDA.queryAllFamilia();
         for(ZonaBE zona : arrZonas)
-            cbZona.addItem(zona.getNombre());
+            cbZona.addItem(zona.getIdentificador());
         
     }
     
@@ -142,7 +142,7 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         
         objZonaBL = new ZonaBL();
-        strIdZona = objZonaBL.getByNombreZona(cbZona.getSelectedItem().toString()).getIdZona();
+        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
         strIdRack = txtIdRack.getText();
         objRackBL = new RackBL();
         arrRacks = objRackBL.getListSearch(strIdRack, strIdZona);
