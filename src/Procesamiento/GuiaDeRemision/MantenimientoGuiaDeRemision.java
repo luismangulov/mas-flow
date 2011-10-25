@@ -409,10 +409,9 @@ m.setVisible(true);// TODO add your handling code here:
            
         
          modelo.addRow(new Object[4]);
-        tblProductos.setValueAt(producto.getIdProducto(),0,0 );
-        tblProductos.setValueAt(producto.getNombre(),0,1 );
-        
-        
+        tblProductos.setValueAt(producto.getIdProducto(),tblProductos.getRowCount()-1,0 );
+        tblProductos.setValueAt(producto.getNombre(),tblProductos.getRowCount()-1,1 );
+       
     }
 
 
