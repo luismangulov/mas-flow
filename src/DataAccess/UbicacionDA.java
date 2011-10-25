@@ -47,7 +47,7 @@ public class UbicacionDA {
                 + "indActivo, idRack) "
                 + "VALUES('"+ objUbicacionBE.getIdUbicacion() +"','" + objUbicacionBE.getFila()
                 +"','" + objUbicacionBE.getColumna() +"','" + objUbicacionBE.getIndActivo()
-                +"','" + objUbicacionBE.getIdRack() + "'";
+                +"','" + objUbicacionBE.getIdRack() + "')";
 
         try{
             objConexion.EjecutarUID(query);
