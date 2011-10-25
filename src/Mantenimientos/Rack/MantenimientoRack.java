@@ -11,9 +11,13 @@
 package Mantenimientos.Rack;
 
 import BusinessEntity.RackBE;
+import BusinessEntity.UbicacionBE;
+import BusinessEntity.UnidadMedidaBE;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.RackBL;
+import BusinessLogic.UbicacionBL;
 import BusinessLogic.ZonaBL;
+import DataAccess.UnidadMedidaDA;
 import DataAccess.ZonaDA;
 import java.util.ArrayList;
 
@@ -37,6 +41,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
     String idRack;
     RackBL objRackBL;
     RackBE objRackBE;
+    String idAlmacen;
     
     public MantenimientoRack(char c) {
         initComponents();
@@ -62,9 +67,10 @@ public class MantenimientoRack extends javax.swing.JFrame {
         arrZonas = new ArrayList<ZonaBE>();
         arrZonas = objZonaDA.queryAllFamilia();
         for(ZonaBE zona : arrZonas)
-            cbZona.addItem(zona.getNombre());
+            cbZona.addItem(zona.getIdentificador());
         
     }
+    
     
     private void cargarComponentes(RackBE objRackBE){
         
@@ -95,11 +101,28 @@ public class MantenimientoRack extends javax.swing.JFrame {
         intColumnas = Integer.valueOf(txtColumnas.getText());
         strIndActivo = "1";
         ZonaBL objZonaBL = new ZonaBL();
-        strIdZona = objZonaBL.getByNombreZona(cbZona.getSelectedItem().toString()).getIdZona();
+        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
         objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "");
         objRackBL.insertar(objRackBE);
         
+        UbicacionBL objUbicacionBL = new UbicacionBL();
+        UbicacionBE objUbicacionBE;
+        
+        for (int i=1; i<=objRackBE.getPisos(); i++)
+            
+            for (int j=1; j<=objRackBE.getColumnas(); j++){
+                
+                objUbicacionBE = new UbicacionBE();
+                objUbicacionBE.setFila(i);
+                objUbicacionBE.setColumna(j);
+                objUbicacionBE.setIdRack(objRackBE.getIdRack());
+                objUbicacionBE.setIndActivo("1");
+                
+                objUbicacionBL.insertar(objUbicacionBE);
+                
+            }
+
     }
     
     private void modificar(){
@@ -114,7 +137,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
         else 
             strIndActivo = "0";
         ZonaBL objZonaBL = new ZonaBL();
-        strIdZona = objZonaBL.getByNombreZona(cbZona.getSelectedItem().toString()).getIdZona();
+        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
         objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "");
         objRackBL.modificar(objRackBE);        
