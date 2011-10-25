@@ -270,7 +270,7 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-    public void recargar(ArrayList<FamiliaBE> familias){
+        public void recargar(ArrayList<FamiliaBE> familias){
             DefaultTableModel modelo= new DefaultTableModel();
             dgvFamilia.setModel(modelo);
             modelo.addColumn("Código");

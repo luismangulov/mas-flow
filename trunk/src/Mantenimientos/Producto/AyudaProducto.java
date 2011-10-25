@@ -14,7 +14,9 @@ import BusinessEntity.FamiliaBE;
 import BusinessEntity.ProductoBE;
 import BusinessLogic.FamiliaBL;
 import BusinessLogic.ProductoBL;
+import Util.Utilitario;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -110,6 +112,11 @@ public class AyudaProducto extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnBuscarMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,11 +180,30 @@ public class AyudaProducto extends javax.swing.JFrame {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
+        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()))
+            evt.consume();
+       if ((this.txtNombre.getText().length() + 1) > 6) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
         // TODO add your handling code here:
+        if (!Utilitario.validarCadenaAlfaNumerica(evt.getKeyChar()))
+            evt.consume();
+       if ((this.txtNombre.getText().length() + 1) > 30) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtNombreKeyPressed
+
+    private void btnBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMousePressed
+        // TODO add your handling code here:
+        FamiliaBL objFamiliaBL = new FamiliaBL();
+        String strIdFamilia = objFamiliaBL.getIdFamilia(cbFamilia.getSelectedItem().toString());
+        ProductoBL objProductoBL = new ProductoBL();
+        ArrayList<ProductoBE> productos = objProductoBL.getListSearch(this.txtCodigo.getText(), this.txtNombre.getText(),strIdFamilia);
+        this.recargar(productos);
+    }//GEN-LAST:event_btnBuscarMousePressed
 
     /**
      * @param args the command line arguments
@@ -240,5 +266,19 @@ public class AyudaProducto extends javax.swing.JFrame {
        
     }
     
+    public void recargar(ArrayList<ProductoBE> productos){
+            DefaultTableModel modelo= new DefaultTableModel();
+            tblProductos.setModel(modelo);
+            modelo.addColumn("Código");
+            modelo.addColumn("Nombre");
+
+
+            for(int i=0;i<productos.size();i++){
+                 modelo.addRow(new Object[4]);
+                tblProductos.setValueAt(productos.get(i).getIdProducto(),i,0 );
+                tblProductos.setValueAt(productos.get(i).getNombre(),i,1 );
+
+            }
+    }
 
 }
