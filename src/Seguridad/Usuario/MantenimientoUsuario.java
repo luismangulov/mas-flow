@@ -12,6 +12,7 @@ package Seguridad.Usuario;
 
 import BusinessEntity.UsuarioBE;
 import BusinessLogic.UsuarioBL;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -178,7 +179,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";       
-                    objUsuarioBL.insertar(this.txtNombre.getText(), this.txtNombre.getText(),this.txtMaterno,this.txtPaterno.getText(),this.cbxPerfil.getSelectedIndex(),estado,"");
+        //corregir            objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno,"",this.cbxPerfil.getSelectedIndex(),estado,3,new java.util.Date());
                     UsuarioBE usuario;
                     usuario = objUsuarioBL.getUsuario();
                     this.objPadre.recargaruno(usuario);
@@ -190,24 +191,29 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";   
-                     usuario = objUsuarioBL.setUsuario(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),estado);
+         //corregir           // usuario = objUsuarioBL.setUsuario(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),estado);
                      //familia = new FamiliaBE(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),"1");
-                     objFamiliaBL.modificar(familia);
+                     objUsuarioBL.modificar(usuario);
                      int fila;
-                     fila = this.objPadre.getDgvFamilia().getSelectedRow();
-                     this.objPadre.getDgvFamilia().removeRowSelectionInterval(fila, fila);
-                     this.objPadre.getDgvFamilia().setValueAt(familia.getIdFamilia(), fila, 0);
-                     this.objPadre.getDgvFamilia().setValueAt(familia.getNombre(), fila, 1);
-                     this.objPadre.getDgvFamilia().setValueAt(familia.getDescripcion(), fila, 2);
-                     if(familia.getEstado().equals("1")){
-                          this.objPadre.getDgvFamilia().setValueAt("Activo", fila, 3);
-                      }else if(familia.getEstado().equals("0")){
-                         this.objPadre.getDgvFamilia().setValueAt("Inactivo", fila, 3);
+                     fila = this.objPadre.getDgvUsuario().getSelectedRow();
+                     this.objPadre.getDgvUsuario().removeRowSelectionInterval(fila, fila);
+                     this.objPadre.getDgvUsuario().setValueAt(usuario.getIdUsuario(), fila, 0);
+                     this.objPadre.getDgvUsuario().setValueAt(usuario.getNombre(), fila, 1);
+                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
+                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
+                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
+                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
+                     //faltaaaaaaaaaaaa!!!
+                     
+                     if(usuario.getEstadoUsuario().getIdEstadoUsuario().equals("1")){
+                          this.objPadre.getDgvUsuario().setValueAt("Activo", fila, 3);
+                      }else if(usuario.getEstadoUsuario().getIdEstadoUsuario().equals("0")){
+                         this.objPadre.getDgvUsuario().setValueAt("Inactivo", fila, 3);
                       }
                      this.dispose();
                  }
       } catch (Exception ex) {
-                Logger.getLogger(MantenimientoFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MantenimientoUsuario.class.getName()).log(Level.SEVERE, null, ex);
       }
 
     
