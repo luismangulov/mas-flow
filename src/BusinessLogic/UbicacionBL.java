@@ -28,5 +28,10 @@ public class UbicacionBL {
     public ArrayList<UbicacionBE> getUbicacionesByRack(String idRack) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
+    public UbicacionBE getUbicacionByIdUbicacion(String strIdUbicacion) {
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryUbicacionByIdUbicacion(strIdUbicacion);
+    }
             
 }
