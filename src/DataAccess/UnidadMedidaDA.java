@@ -30,13 +30,15 @@ public class UnidadMedidaDA {
             String strIdUnidadMedida;
             String strNombre;
             String strDescripcion;
-            String strEstado;
+            String strIndActivo;
             if (rs.next()){
-                strIdUnidadMedida = rs.getString(1);
-                strNombre = rs.getString(4);
-                strDescripcion = rs.getString(2);
-                strEstado = rs.getString(3);
-                objUnidadMedidaBE = new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strEstado);
+                
+                strIdUnidadMedida = rs.getString("IdUnidadMedida");
+                strNombre = rs.getString("Nombre");
+                strDescripcion = rs.getString("Descripcion");
+                strIndActivo = rs.getString("IndActivo");
+                
+                objUnidadMedidaBE = new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strIndActivo);
             }
 
         }catch (Exception a){
@@ -60,13 +62,16 @@ public class UnidadMedidaDA {
             String strIdUnidadMedida;
             String strNombre;
             String strDescripcion;
-            String strEstado;
+            String strIndActivo;
+            
             if (rs.next()){
-                strIdUnidadMedida = rs.getString(1);
-                strNombre = rs.getString(4);
-                strDescripcion = rs.getString(2);
-                strEstado = rs.getString(3);
-                objUnidadMedidaBE = new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strEstado);
+                
+                strIdUnidadMedida = rs.getString("IdUnidadMedida");
+                strNombre = rs.getString("Nombre");
+                strDescripcion = rs.getString("Descripcion");
+                strIndActivo = rs.getString("IndActivo");
+                
+                objUnidadMedidaBE = new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strIndActivo);
             }
 
         }catch (Exception a){
@@ -93,10 +98,10 @@ public class UnidadMedidaDA {
             String strIndActivo;
 
             while (rs.next()){
-                strIdUnidadMedida = rs.getString(1);
-                strNombre = rs.getString(4);
-                strDescripcion = rs.getString(2);
-                strIndActivo = rs.getString(3);
+                strIdUnidadMedida = rs.getString("IdUnidadMedida");
+                strNombre = rs.getString("Nombre");
+                strDescripcion = rs.getString("Descripcion");
+                strIndActivo = rs.getString("IndActivo");
 
                 arrUnidadMedida.add(new UnidadMedidaBE(strIdUnidadMedida,strNombre,strDescripcion,strIndActivo));
             }
