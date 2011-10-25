@@ -33,6 +33,10 @@ public class AlmacenBL {
         return arrAlmacenes;
         
     }
+
+    public String getAlmacenByNombre(String strNombreAlmacen) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
     
     
 }
