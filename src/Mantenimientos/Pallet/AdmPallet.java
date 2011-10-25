@@ -10,6 +10,14 @@
  */
 package Mantenimientos.Pallet;
 
+import BusinessEntity.PalletBE;
+import BusinessLogic.PalletBL;
+import BusinessLogic.ProductoBL;
+import BusinessLogic.RackBL;
+import BusinessLogic.UbicacionBL;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DIEGO
@@ -17,6 +25,13 @@ package Mantenimientos.Pallet;
 public class AdmPallet extends javax.swing.JFrame {
 
     /** Creates new form AdmPallet */
+    ArrayList<PalletBE> arrPallets;
+    PalletBL objPalletBL;
+    String strIdPallet;
+    ProductoBL objProductoBL;
+    UbicacionBL objUbicacionBL;
+    RackBL objRackBL;
+    
     public AdmPallet() {
         initComponents();
     }
@@ -31,36 +46,36 @@ public class AdmPallet extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        dgvPallets = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblRegistrarPallet = new javax.swing.JLabel();
+        lblModificarPallet = new javax.swing.JLabel();
+        lblEliminarPallet = new javax.swing.JLabel();
+        lblBuscarPallet = new javax.swing.JLabel();
+        lblRefrescarPallets = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar pallet");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        dgvPallets.setAutoCreateRowSorter(true);
+        dgvPallets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Código", "Alto", "Ancho", "Producto", "Cant. Actual", "Cant. Máx.", "Unidad", "Fecha Vencimiento"
+                "Código", "Producto", "Cant. Máx.", "Unidad", "Fecha Vencimiento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.String.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -71,41 +86,44 @@ public class AdmPallet extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(25);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(25);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(35);
-        jTable1.getColumnModel().getColumn(5).setPreferredWidth(35);
-        jTable1.getColumnModel().getColumn(6).setPreferredWidth(25);
-        jTable1.getColumnModel().getColumn(7).setPreferredWidth(40);
+        jScrollPane1.setViewportView(dgvPallets);
+        dgvPallets.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvPallets.getColumnModel().getColumn(1).setPreferredWidth(25);
+        dgvPallets.getColumnModel().getColumn(2).setPreferredWidth(25);
+        dgvPallets.getColumnModel().getColumn(4).setPreferredWidth(35);
+        dgvPallets.getColumnModel().getColumn(5).setPreferredWidth(35);
+        dgvPallets.getColumnModel().getColumn(6).setPreferredWidth(25);
+        dgvPallets.getColumnModel().getColumn(7).setPreferredWidth(40);
 
         jToolBar1.setRollover(true);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblRegistrarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblRegistrarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRegistrarPalletMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel1MousePressed(evt);
+                lblRegistrarPalletMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel1);
+        jToolBar1.add(lblRegistrarPallet);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
-        jToolBar1.add(jLabel2);
+        lblModificarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        jToolBar1.add(lblModificarPallet);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
-        jToolBar1.add(jLabel3);
+        lblEliminarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        jToolBar1.add(lblEliminarPallet);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBuscarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel4MousePressed(evt);
+                lblBuscarPalletMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel4);
+        jToolBar1.add(lblBuscarPallet);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
-        jToolBar1.add(jLabel5);
+        lblRefrescarPallets.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        jToolBar1.add(lblRefrescarPallets);
 
         jLabel7.setText("                                                                                                   ");
         jToolBar1.add(jLabel7);
@@ -131,17 +149,47 @@ public class AdmPallet extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-MantenimientoPallet m = new MantenimientoPallet();
-m.setVisible(true);
-// TODO add your handling code here:
-}//GEN-LAST:event_jLabel1MousePressed
+private void lblRegistrarPalletMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarPalletMousePressed
 
-    private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-        BuscarPallet b = new BuscarPallet();
-        b.setVisible(true);
-    }//GEN-LAST:event_jLabel4MousePressed
+}//GEN-LAST:event_lblRegistrarPalletMousePressed
 
+    private void lblBuscarPalletMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarPalletMousePressed
+        BuscarPallet ventana = new BuscarPallet(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_lblBuscarPalletMousePressed
+
+private void lblRegistrarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarPalletMouseClicked
+    MantenimientoPallet ventana = new MantenimientoPallet('R');
+    ventana.setVisible(true);
+}//GEN-LAST:event_lblRegistrarPalletMouseClicked
+
+    public void llenarDgv(ArrayList<PalletBE> arrPallets){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+        this.arrPallets = arrPallets;
+        dgvPallets.clearSelection();
+        objProductoBL = new ProductoBL();                
+        objUbicacionBL = new UbicacionBL();
+        objRackBL = new RackBL();
+        
+        for (int i=0; i<arrPallets.size(); i++){
+            
+            String strIdPallet = arrPallets.get(i).getIdPallet();
+            String strNombreProducto = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto()).getNombre();
+            int intMaxCantPallet = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto()).getMaxCantPorPallet();
+            
+            String strIdUbicacion = arrPallets.get(i).getIdUbicacion();
+            int intFila = objUbicacionBL.getUbicacionByIdUbicacion(strIdUbicacion).getFila();
+            int intColumna = objUbicacionBL.getUbicacionByIdUbicacion(strIdUbicacion).getColumna();
+            String strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
+            
+            modelo.addRow(new Object[]{strIdPallet,strNombreProducto,intMaxCantPallet,strIdentificadorRack,intFila,intColumna});
+            
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -178,15 +226,15 @@ m.setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTable dgvPallets;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblBuscarPallet;
+    private javax.swing.JLabel lblEliminarPallet;
+    private javax.swing.JLabel lblModificarPallet;
+    private javax.swing.JLabel lblRefrescarPallets;
+    private javax.swing.JLabel lblRegistrarPallet;
     // End of variables declaration//GEN-END:variables
 }
