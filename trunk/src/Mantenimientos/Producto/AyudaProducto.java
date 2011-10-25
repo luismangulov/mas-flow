@@ -23,13 +23,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Giuliana
  */
-public class AyudaProducto extends javax.swing.JFrame {
+public class AyudaProducto extends javax.swing.JDialog {
     ProductoBE producto;
     /** Creates new form AyudaProducto */
-    public AyudaProducto(ProductoBE producto) {
+    public AyudaProducto(java.awt.Frame parent, boolean modal,ProductoBE producto) {
+        super(parent, modal);
         initComponents();
         this.cargarComboFamilia();
         this.producto = producto;
+//        producto.setIdProducto("000001");
+//        producto.setNombre("dsas");
         this.setLocationRelativeTo(null); 
     }
 
@@ -231,7 +234,8 @@ public class AyudaProducto extends javax.swing.JFrame {
             ProductoBL objProductoBL = new ProductoBL();
             ProductoBE objProductoBE = objProductoBL.getByIdProducto(codigo);
             
-            this.producto = objProductoBE;
+            this.producto.setIdProducto(objProductoBE.getIdProducto());
+            this.producto.setNombre(objProductoBE.getNombre());
             //JOptionPane.showMessageDialog(null, producto.getIdProducto(), "Error", 0);
             this.dispose();
         }
