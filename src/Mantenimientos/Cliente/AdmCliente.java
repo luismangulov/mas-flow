@@ -25,9 +25,9 @@ public class AdmCliente extends javax.swing.JFrame {
 
     /** Creates new form AdmCliente */
     public AdmCliente() {
-       
-        
+               
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     
@@ -65,14 +65,14 @@ public class AdmCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "RUC", "Razón Social", "Teléfonos", "E-mail", "Contacto"
+                "Código", "Nombre", "Estado", "Contacto", "Teléfono"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -83,23 +83,15 @@ public class AdmCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        dgvCliente.setCellSelectionEnabled(false);
         dgvCliente.setName("dgvCliente"); // NOI18N
-        dgvCliente.setRowSelectionAllowed(true);
         jScrollPane1.setViewportView(dgvCliente);
         dgvCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvCliente.getColumnModel().getColumn(0).setResizable(false);
         dgvCliente.getColumnModel().getColumn(0).setPreferredWidth(40);
-        dgvCliente.getColumnModel().getColumn(1).setResizable(false);
-        dgvCliente.getColumnModel().getColumn(1).setPreferredWidth(40);
-        dgvCliente.getColumnModel().getColumn(2).setResizable(false);
-        dgvCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
-        dgvCliente.getColumnModel().getColumn(3).setResizable(false);
-        dgvCliente.getColumnModel().getColumn(3).setPreferredWidth(40);
-        dgvCliente.getColumnModel().getColumn(4).setResizable(false);
-        dgvCliente.getColumnModel().getColumn(4).setPreferredWidth(60);
-        dgvCliente.getColumnModel().getColumn(5).setResizable(false);
-        dgvCliente.getColumnModel().getColumn(5).setPreferredWidth(100);
+        dgvCliente.getColumnModel().getColumn(1).setPreferredWidth(150);
+        dgvCliente.getColumnModel().getColumn(2).setPreferredWidth(40);
+        dgvCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
+        dgvCliente.getColumnModel().getColumn(4).setPreferredWidth(40);
 
         tlbCliente.setFloatable(false);
         tlbCliente.setRollover(true);
@@ -116,6 +108,8 @@ public class AdmCliente extends javax.swing.JFrame {
         tlbCliente.add(lblAgregar);
 
         lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        lblEditar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblEditarMousePressed(evt);
@@ -124,9 +118,13 @@ public class AdmCliente extends javax.swing.JFrame {
         tlbCliente.add(lblEditar);
 
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tlbCliente.add(lblEliminar);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblBuscarMousePressed(evt);
@@ -135,6 +133,8 @@ public class AdmCliente extends javax.swing.JFrame {
         tlbCliente.add(lblBuscar);
 
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblRefrescarMousePressed(evt);
@@ -142,10 +142,12 @@ public class AdmCliente extends javax.swing.JFrame {
         });
         tlbCliente.add(lblRefrescar);
 
-        lblBlanco.setText("                                                                                                   ");
+        lblBlanco.setText("                                                                                        ");
         tlbCliente.add(lblBlanco);
 
         lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
+        lblInfo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tlbCliente.add(lblInfo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -215,12 +217,12 @@ private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
 
 private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
 
-String espacios= "";
-for (int i=0;i<this.getWidth()/2-100; i++){
-    espacios=espacios+ "  ";
-}
-lblBlanco.setText(espacios);      
-  
+//String espacios= "";
+//for (int i=0;i<this.getWidth()/2-100; i++){
+//    espacios=espacios+ "  ";
+//}
+//lblBlanco.setText(espacios);
+//
     
     // TODO add your handling code here:
 }//GEN-LAST:event_formPropertyChange

@@ -266,8 +266,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         indActivo = "I";
 
     EntidadBE entidad = new EntidadBE(idEntidad, nroDocumento, direccion, telefono,
-                        email, nombreContacto, dniContacto, telefonoContacto, idTipoPersona,
-                        razonSocial, paginaWeb, idTipoEntidad, indActivo, idCIUU);
+                        email, nombreContacto, dniContacto, telefonoContacto, 
+                        razonSocial, paginaWeb,  indActivo, idCIUU);
     
 }//GEN-LAST:event_btnGuardarActionPerformed
 

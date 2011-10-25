@@ -454,16 +454,16 @@ public class MantenimientoCliente extends javax.swing.JFrame {
     
     EntidadBL entidadBL = new EntidadBL();
         try {
-            if (this.tipoVentana==0){entidadBL.insertarEntidad(txtDNIRUC.getText(),txtDireccion.getText(),
+            if (this.tipoVentana==0){entidadBL.insertar("C-"+txtDNIRUC.getText(),txtDNIRUC.getText(),txtDireccion.getText(),
             txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
-            txtDNIContacto.getText(), txtTelfContacto.getText(),tipoPersona, 
-            txtRazonSocial.getText(), txtPaginaWeb.getText(), "C", indActivo, 
+            txtDNIContacto.getText(), txtTelfContacto.getText(),
+            txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo, 
             cmbCIUU.getSelectedItem().toString().substring(0,1) );}
             else {
-            entidadBL.modificarEntidad(txtCodigo.getText(),txtDNIRUC.getText(),txtDireccion.getText(),
+            entidadBL.modificar("C-"+txtDNIRUC.getText(),txtCodigo.getText(),txtDNIRUC.getText(),txtDireccion.getText(),
             txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
-            txtDNIContacto.getText(), txtTelfContacto.getText(),tipoPersona, 
-            txtRazonSocial.getText(), txtPaginaWeb.getText(), "C", indActivo, 
+            txtDNIContacto.getText(), txtTelfContacto.getText(), 
+            txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo, 
             cmbCIUU.getSelectedItem().toString().substring(0,1) );
             
             }

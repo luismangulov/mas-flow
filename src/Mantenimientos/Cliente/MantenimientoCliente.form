@@ -69,13 +69,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtTelfContacto" pref="89" max="32767" attributes="1"/>
                           </Group>
-                          <Component id="txtNombreContacto" alignment="0" pref="280" max="32767" attributes="1"/>
-                          <Component id="txtEmail" alignment="0" pref="280" max="32767" attributes="1"/>
-                          <Component id="txtPaginaWeb" alignment="0" pref="280" max="32767" attributes="1"/>
-                          <Component id="txtDireccion" alignment="0" pref="280" max="32767" attributes="1"/>
-                          <Component id="cmbCIUU" alignment="0" pref="280" max="32767" attributes="0"/>
-                          <Component id="txtRazonSocial" alignment="0" pref="280" max="32767" attributes="1"/>
-                          <Component id="txtTelefono" alignment="0" pref="280" max="32767" attributes="1"/>
+                          <Component id="txtNombreContacto" alignment="0" pref="319" max="32767" attributes="1"/>
+                          <Component id="txtEmail" alignment="0" pref="319" max="32767" attributes="1"/>
+                          <Component id="txtPaginaWeb" alignment="0" pref="319" max="32767" attributes="1"/>
+                          <Component id="txtDireccion" alignment="0" pref="319" max="32767" attributes="1"/>
+                          <Component id="cmbCIUU" alignment="0" pref="319" max="32767" attributes="0"/>
+                          <Component id="txtRazonSocial" alignment="0" pref="319" max="32767" attributes="1"/>
+                          <Component id="txtTelefono" alignment="0" pref="319" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>
@@ -86,7 +86,6 @@
                       <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnGuardar" min="-2" max="-2" attributes="1"/>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
