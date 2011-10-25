@@ -111,7 +111,7 @@ public class EntidadDA {
         ArrayList<EntidadBE> arrEntidad = new ArrayList<EntidadBE>();
         String sql = "SELECT idEntidad, nroDocumento, direccion, telefono, email, nombreContacto, "
                 + "dniContacto, telefonoContacto, idTipoPersona, razonSocial, paginaWeb, "
-                + "idTipoEntidad, indActivo, idCIUU FROM Entidad WHERE IndActivo = '1' and tipoEntidad='"+tipo+"'";
+                + "idTipoEntidad, indActivo, idCIUU FROM Entidad WHERE IndActivo = '1' and idtipoEntidad='"+tipo+"'";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdEntidad;
@@ -168,7 +168,7 @@ public class EntidadDA {
         String sql = "SELECT idEntidad, nroDocumento, direccion, telefono, email, nombreContacto, "
                 + "dniContacto, telefonoContacto, idTipoPersona, razonSocial, paginaWeb, "
                 + "idTipoEntidad, indActivo, idCIUU FROM Entidad WHERE "
-                + "identidad='"+ codigo+"';";
+                + "identidad='"+ codigo+" and idtipoEntidad='C';";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdEntidad;
@@ -185,7 +185,7 @@ public class EntidadDA {
             String strIdTipoEntidad;
             String strIndActivo;
             String strIdCIUU;
-            
+
             rs.next();
             strIdEntidad = rs.getString(1);
             strNroDocumento = rs.getString(2);
@@ -319,4 +319,3 @@ public class EntidadDA {
 
 
 }
-
