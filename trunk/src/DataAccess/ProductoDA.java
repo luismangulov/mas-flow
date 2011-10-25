@@ -7,7 +7,6 @@ package DataAccess;
 
 import BusinessEntity.ProductoBE;
 import Util.conexion;
-import BusinessEntity.EntidadBE;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -53,7 +52,6 @@ public class ProductoDA {
 
         try{
             objConexion.EjecutarUID(query);
-            JOptionPane.showMessageDialog(null, "El registro fue exitoso", "Éxito", 0);
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
         }
@@ -63,13 +61,15 @@ public class ProductoDA {
     public void modificar(ProductoBE productoBE) {
         boolExito = false;
         objConexion = new conexion();
-        query = "UPDATE PRODUCTO set nombre = '"+productoBE.getNombre()+"', descripcion ='"+productoBE.getDescripcion()+
-                        "', maxCantPorPallet = '"+String.valueOf(productoBE.getMaxCantPorPallet())+"', idUnidadMedida ='"
-                        +productoBE.getIdUnidadMedida()+"', idFamilia = '" +productoBE.getIdFamilia()+ "', precio ='"+String.valueOf(productoBE.getPrecio())+"'"
-                        +" WHERE idProducto ='" +productoBE.getIdProducto()+"'";
+        query = "UPDATE PRODUCTO set nombre = '"+ productoBE.getNombre() +"',"
+                             + " descripcion ='"+ productoBE.getDescripcion() + "', "
+                             + "maxCantPorPallet = '"+ productoBE.getMaxCantPorPallet() + "', "
+                             + "idUnidadMedida ='" + productoBE.getIdUnidadMedida() +"', "
+                             + " idFamilia = '" + productoBE.getIdFamilia() + "', "
+                             + "precio ='"+ productoBE.getPrecio() +"'"
+                             +" WHERE idProducto ='" + productoBE.getIdProducto() +"'";
         try{
             objConexion.EjecutarUID(query);
-            JOptionPane.showMessageDialog(null, "La modificación fue exitosa", "Éxito", 0);   
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "No se pudo modificar el registro", "Error", 0);
         }finally{
@@ -83,7 +83,6 @@ public class ProductoDA {
         query = "UPDATE PRODUCTO set indActivo = '0' WHERE idProducto ='"+idProducto+"'";
         try{
             objConexion.EjecutarUID(query);
-            JOptionPane.showMessageDialog(null, "La eliminación fue exitosa", "Éxito", 0);
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
         }finally{
@@ -109,7 +108,7 @@ public class ProductoDA {
                                   strIdUnidadMedida,strIdFamilia,strIndActivo,intPrecio));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
         }
         return arrProductos;
     }
@@ -156,7 +155,7 @@ public class ProductoDA {
                                   strIdUnidadMedida,strIdFamilia,strIndActivo,intPrecio));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
         }
         return arrProductos;
     }
