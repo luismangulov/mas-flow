@@ -252,7 +252,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
 
     private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
         // TODO add your handling code here:
-        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this.producto);
+       Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.producto);
         m.setVisible(true);
     }//GEN-LAST:event_lblAddMousePressed
 
