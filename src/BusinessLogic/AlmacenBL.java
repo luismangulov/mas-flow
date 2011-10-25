@@ -5,6 +5,8 @@
 package BusinessLogic;
 
 import BusinessEntity.AlmacenBE;
+import BusinessEntity.PalletBE;
+import DataAccess.AlmacenDA;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 public class AlmacenBL {
     
     ArrayList<AlmacenBE> arrAlmacenes;
+    AlmacenDA objAlmacenDA;
     
     public void insertar(AlmacenBE objAlmacenBE){
         
@@ -30,13 +33,22 @@ public class AlmacenBL {
     public ArrayList<AlmacenBE> getAllAlmacenActivo(){
         
         arrAlmacenes = new ArrayList<AlmacenBE>();
-        return arrAlmacenes;
+        objAlmacenDA = new AlmacenDA();
+        return objAlmacenDA.queryAllAlmacen();
         
     }
 
-    public String getAlmacenByNombre(String strNombreAlmacen) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public AlmacenBE getAlmacenByNombre(String strNombreAlmacen) {
+        objAlmacenDA = new AlmacenDA();
+        return objAlmacenDA.queryByNombreAlmacen(strNombreAlmacen);
     }
+
+    public AlmacenBE getAlmacenById(String idAlmacen) {
+        objAlmacenDA = new AlmacenDA();
+        return objAlmacenDA.queryByIdProducto(idAlmacen);
+    }
+
+
     
     
 }
