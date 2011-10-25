@@ -15,6 +15,7 @@ public class GuiaRemisionBE {
     private Date fecha;
     private EntidadBE cliente;
     private String estado;
+    //private EstadoGRBE estado;
     
     /**
      * @return the codigo
