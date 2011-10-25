@@ -23,7 +23,7 @@ public class UnidadMedidaDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         UnidadMedidaBE objUnidadMedidaBE = null;
-        String sql = "SELECT idUnidadMedida,descripcion,indactivo,nombre FROM UnidadMedida "
+        String sql = "SELECT * FROM UnidadMedida "
                      + " WHERE idUnidadMedida='"+idUnidadMedida+"'";
         try{
             rs=objConexion.EjecutarS(sql);
