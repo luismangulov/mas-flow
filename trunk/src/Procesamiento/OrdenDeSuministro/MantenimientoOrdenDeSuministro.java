@@ -10,12 +10,14 @@
  */
 package Procesamiento.OrdenDeSuministro;
 
+import BusinessEntity.ProductoBE;
+
 /**
  *
  * @author DIEGO
  */
 public class MantenimientoOrdenDeSuministro extends javax.swing.JFrame {
-
+    private ProductoBE producto;
     /** Creates new form MantenimientoOrdenDeSuministro */
     public MantenimientoOrdenDeSuministro() {
         initComponents();
@@ -202,7 +204,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton2ActionPerformed
 
 private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto();
+Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this.producto);
 m.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_jLabel3MousePressed
 
