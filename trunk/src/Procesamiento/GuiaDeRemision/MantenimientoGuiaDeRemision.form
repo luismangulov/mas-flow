@@ -261,6 +261,9 @@
           <Color id="Default Cursor"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblRemoverMousePressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCliente">
       <Events>
