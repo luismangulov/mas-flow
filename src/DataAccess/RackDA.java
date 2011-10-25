@@ -65,20 +65,27 @@ public class RackDA {
         finally{objConexion.SalirUID();}
     }
     
-    public void modificar(RackBE objRack){
+    public void modificar(RackBE objRack, boolean cambioZona){
         
         objConexion = new conexion();
+        
+        if (cambioZona)
+            objRack.setIdentificador(generaIdentificador(objRack.getIdZona()));
+        
+        
         query = "UPDATE RACK set posX = '"+String.valueOf(objRack.getPosX())+"', "
                                 + "posY='"+String.valueOf(objRack.getPosY())+"', "
                                 + "pisos = '"+String.valueOf(objRack.getPisos())+"',"
                                 + "columnas ='"+String.valueOf(objRack.getColumnas())+"', "
                                 + "indActivo = '" +objRack.getIndActivo()+ "',"
-                                + "idZona ='"+objRack.getIdZona()+"'";
+                                + "idZona ='"+objRack.getIdZona()+"',"
+                                + "identificador='"+objRack.getIdentificador()+"'"
+                                + " WHERE idRack = '"+objRack.getIdRack()+"'";
+        
         try{
             objConexion.EjecutarUID(query);
-            JOptionPane.showMessageDialog(null, "La modificación fue exitosa", "Éxito", 0);   
         } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "No se pudo modificar el registro", "Error", 0);
+                JOptionPane.showMessageDialog(null, "No se pudo modificar la modificacion", "Error", 0);
         }finally{
             objConexion.SalirUID();
         }
@@ -118,25 +125,33 @@ public class RackDA {
             objConexion.SalirS();
         }
         
-        intMaxId = Integer.valueOf(strMaxId);
-        intMaxId++;
-        strMaxId = String.valueOf(intMaxId);
+        if (strMaxId != null){
+            intMaxId = Integer.valueOf(strMaxId);
+            intMaxId++;
+            strMaxId = String.valueOf(intMaxId);
         
-        while (strMaxId.length() < 3)
-            strMaxId = "0" + strMaxId;
-
-        query = "SELECT substr(identificador,1,length(identificador)-length(substr(identificador,length(identificador)-2,3))) FROM RACK WHERE idZona = '"+ idZona +"'";
+            while (strMaxId.length() < 3)
+                strMaxId = "0" + strMaxId;
+            
+           query = "SELECT substr(identificador,1,length(identificador)-"
+                   + "length(substr(identificador,length(identificador)-2,3))) FROM RACK WHERE idZona = '"+ idZona +"'";
+            
+        }else{
+            strMaxId = "001";
+            query = "SELECT TRIM(nombre) FROM ZONA WHERE idZona ='" + idZona + "'";
+        }
         rs = objConexion.EjecutarS(query);
 
         try{
             rs.next();
             strNombreZona = rs.getString(1);
+            if (strMaxId.equals("001"))
+                strNombreZona = strNombreZona + "-";
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
         } finally{
             objConexion.SalirS();
         }
-        
         return strNombreZona + strMaxId;
     }
     
@@ -217,5 +232,40 @@ public class RackDA {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
         }
         return arrRacks;
+    }
+
+    public RackBE queryRackByUbicacion(String strIdUbicacion) {
+        
+        objConexion = new conexion();
+        query = "SELECT idRack FROM UBICACION WHERE idUbicacion='"+strIdUbicacion+"'";
+        rs = objConexion.EjecutarS(query);
+        String strIdRack = null;
+        
+        try {
+            rs.next();
+            strIdRack = rs.getString(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        query = "SELECT * FROM RACK WHERE idRack = '"+strIdRack+"'";
+        rs = objConexion.EjecutarS(query);
+        try {
+            rs.next();
+            strIdRack = rs.getString("IdRack");
+            int intPosX = rs.getInt("PosX");
+            int intPosY = rs.getInt("PosY");
+            int intPisos = rs.getInt("Pisos");
+            int intColumnas = rs.getInt("Columnas");
+            String strIndActivo = rs.getString("IndActivo");
+            String strIdZona = rs.getString("IdZona");
+            String strIdentificador = rs.getString("Identificador");
+            objRackBE = new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador);
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return objRackBE;
     }
 }
