@@ -16,6 +16,7 @@ import BusinessLogic.FamiliaBL;
 import BusinessLogic.ProductoBL;
 import Util.Utilitario;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -57,6 +58,11 @@ public class AyudaProducto extends javax.swing.JFrame {
         setTitle("+Flow - Ayuda Producto");
 
         btnAceptar.setText("Aceptar");
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAceptarMousePressed(evt);
+            }
+        });
 
         tblProductos.setAutoCreateRowSorter(true);
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
@@ -85,7 +91,8 @@ public class AyudaProducto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblProductos.setColumnSelectionAllowed(true);
+        tblProductos.setCellSelectionEnabled(false);
+        tblProductos.setRowSelectionAllowed(true);
         jScrollPane1.setViewportView(tblProductos);
         tblProductos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblProductos.getColumnModel().getColumn(0).setPreferredWidth(10);
@@ -110,6 +117,11 @@ public class AyudaProducto extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -204,6 +216,31 @@ public class AyudaProducto extends javax.swing.JFrame {
         ArrayList<ProductoBE> productos = objProductoBL.getListSearch(this.txtCodigo.getText(), this.txtNombre.getText(),strIdFamilia);
         this.recargar(productos);
     }//GEN-LAST:event_btnBuscarMousePressed
+
+    private void btnAceptarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMousePressed
+        // TODO add your handling code here:
+         if((tblProductos.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un producto", "Mensaje",0);
+        } else if((tblProductos.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de un producto", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = tblProductos.getSelectedRow();
+            codigo = (String)tblProductos.getValueAt(fila, 0);
+            ProductoBL objProductoBL = new ProductoBL();
+            ProductoBE objProductoBE = objProductoBL.getByIdProducto(codigo);
+            
+            this.producto = objProductoBE;
+            //JOptionPane.showMessageDialog(null, producto.getIdProducto(), "Error", 0);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnAceptarMousePressed
+
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMousePressed
 
     /**
      * @param args the command line arguments

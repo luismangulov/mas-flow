@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -30,7 +31,8 @@ import javax.swing.JOptionPane;
  */
 public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
     private AdmGuiaDeRemision objPadre;
-    private ProductoBE producto;
+    private ProductoBE producto =new ProductoBE();
+    
     /** Creates new form MantenimientoGuiaDeRemision */
     public MantenimientoGuiaDeRemision(AdmGuiaDeRemision padre){
         this.objPadre = padre;
@@ -38,7 +40,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
 //        Calendar currentDate = Calendar.getInstance(); 
 //        SimpleDateFormat formatter=  new SimpleDateFormat("dd-MM-yyyy");
 //        String dateNow = formatter.format(currentDate.getTime());
-             
+         
         Date fechaActual = new Date();
         
         //DateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
@@ -151,6 +153,11 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         lblRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete24.png"))); // NOI18N
         lblRemover.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblRemover.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRemoverMousePressed(evt);
+            }
+        });
 
         txtCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,7 +339,15 @@ m.setVisible(true);// TODO add your handling code here:
         // TODO add your handling code here:
         Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this.producto);
         m.setVisible(true);
+        recargaruno(this.producto);
+        
     }//GEN-LAST:event_lblAddMousePressed
+
+    private void lblRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverMousePressed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_lblRemoverMousePressed
 
     /**
      * @param args the command line arguments
@@ -390,4 +405,17 @@ m.setVisible(true);// TODO add your handling code here:
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRUCDNI;
     // End of variables declaration//GEN-END:variables
+
+    public void recargaruno(ProductoBE producto){
+        DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
+           
+        
+         modelo.addRow(new Object[4]);
+        tblProductos.setValueAt(producto.getIdProducto(),0,0 );
+        tblProductos.setValueAt(producto.getNombre(),0,1 );
+        
+        
+    }
+
+
 }
