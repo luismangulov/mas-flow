@@ -45,18 +45,20 @@ public class RackDA {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        query = "INSERT INTO RACK(idRack,posX,posY,pisos,columnas,indActivo,idZona) VALUES('"
+        objRack.setIdentificador(generaIdentificador(objRack.getIdZona()));
+        
+        query = "INSERT INTO RACK(idRack,posX,posY,pisos,columnas,indActivo,idZona,identificador) VALUES('"
                         +objRack.getIdRack()+"','"
                         +String.valueOf(objRack.getPosX())+"','"
                         +String.valueOf(objRack.getPosY())+"','"
                         +String.valueOf(objRack.getPisos())+"','"
                         +String.valueOf(objRack.getColumnas())+"','"
                         +objRack.getIndActivo()+"','"
-                        +objRack.getIdZona()+"')";
+                        +objRack.getIdZona()+"','"
+                        +objRack.getIdentificador()+"')";
         
         try{
             objConexion.EjecutarUID(query);
-            JOptionPane.showMessageDialog(null, "El registro fue exitoso", "Éxito", 0);
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
         }
@@ -94,6 +96,48 @@ public class RackDA {
         }finally{
             objConexion.SalirUID();
         }
+    }
+    
+    public String generaIdentificador(String idZona){
+        
+        objConexion = new conexion();
+        query = "SELECT MAX(substr(identificador,length(identificador)-2,3)) FROM RACK WHERE idZona = '"+ idZona +"'";
+        rs = objConexion.EjecutarS(query);
+        String strMaxId = null;
+        String strNombreZona = null;
+        String strIdentificador;
+        int intCantidadCaracteres;
+        int intMaxId;
+        
+        try{
+            rs.next();
+            strMaxId = rs.getString(1);
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
+        } finally{
+            objConexion.SalirS();
+        }
+        
+        intMaxId = Integer.valueOf(strMaxId);
+        intMaxId++;
+        strMaxId = String.valueOf(intMaxId);
+        
+        while (strMaxId.length() < 3)
+            strMaxId = "0" + strMaxId;
+
+        query = "SELECT substr(identificador,1,length(identificador)-length(substr(identificador,length(identificador)-2,3))) FROM RACK WHERE idZona = '"+ idZona +"'";
+        rs = objConexion.EjecutarS(query);
+
+        try{
+            rs.next();
+            strNombreZona = rs.getString(1);
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
+        } finally{
+            objConexion.SalirS();
+        }
+        
+        return strNombreZona + strMaxId;
     }
     
     public RackBE queryByIdRack(String idRack){
