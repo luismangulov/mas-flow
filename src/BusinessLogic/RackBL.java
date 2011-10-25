@@ -44,4 +44,8 @@ public class RackBL {
         objRackDA = new RackDA();
         return objRackDA.queryListSearch(idRack, idZona);
     }
+
+    public ArrayList<RackBE> getRacksByZona(String idZona) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
