@@ -6,6 +6,7 @@ package BusinessLogic;
 
 import BusinessEntity.ZonaBE;
 import DataAccess.ZonaDA;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,8 +22,12 @@ public class ZonaBL {
         return objZonaDA.queryByIdZona(idZona);
     }
     
-    public ZonaBE getByNombreZona(String nombreZona){
+    public ZonaBE getByIdentificadorZona(String identificador){
         objZonaDA = new ZonaDA();
-        return objZonaDA.queryByNombreZona(nombreZona);
+        return objZonaDA.queryByIdentificadorZona(identificador);
+    }
+
+    public ArrayList<ZonaBE> getZonasByAlmacen(String idAlmacen) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
