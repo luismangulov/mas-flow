@@ -42,6 +42,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
     RackBL objRackBL;
     RackBE objRackBE;
     String idAlmacen;
+    String guardaIdZona;
     
     public MantenimientoRack(char c) {
         initComponents();
@@ -80,15 +81,21 @@ public class MantenimientoRack extends javax.swing.JFrame {
         txtPosY.setText(String.valueOf(objRackBE.getPosY()));
         txtPisos.setText(String.valueOf(objRackBE.getPisos()));
         txtColumnas.setText(String.valueOf(objRackBE.getColumnas()));
+        
+        if (objRackBE.getIndActivo() == "1")
+            chbxActivo.setSelected(true);
+        else
+            chbxActivo.setSelected(false);
         cargarComboZona();
         
         for(int i=0; i<cbZona.getSize().width; i++){
-            String strNombreZona = objZonaDA.queryByIdZona(objRackBE.getIdZona()).getNombre();
-            if(cbZona.getItemAt(i).toString().equals(strNombreZona)){
+            String strIdentificadorZona = objZonaDA.queryByIdZona(objRackBE.getIdZona()).getIdentificador();
+            if(cbZona.getItemAt(i).toString().equals(strIdentificadorZona)){
                 cbZona.setSelectedIndex(i);
                 break;
             }
         }
+        guardaIdZona = cbZona.getSelectedItem().toString();
     }
     
     private void insertar(){
@@ -103,7 +110,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
         ZonaBL objZonaBL = new ZonaBL();
         strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
-        objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "");
+        objRackBE = new RackBE("",intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "");
         objRackBL.insertar(objRackBE);
         
         UbicacionBL objUbicacionBL = new UbicacionBL();
@@ -126,7 +133,9 @@ public class MantenimientoRack extends javax.swing.JFrame {
     }
     
     private void modificar(){
-        
+        boolean cambioZona = false;
+        if (!strIdZona.equals(cbZona.getSelectedItem().toString()))
+            cambioZona = true;
         strIdRack = txtIdRack.getText();
         intPosX = Integer.valueOf(txtPosX.getText());
         intPosY = Integer.valueOf(txtPosY.getText());
@@ -140,7 +149,8 @@ public class MantenimientoRack extends javax.swing.JFrame {
         strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
         objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "");
-        objRackBL.modificar(objRackBE);        
+        
+        objRackBL.modificar(objRackBE,cambioZona);        
         
     }
     
