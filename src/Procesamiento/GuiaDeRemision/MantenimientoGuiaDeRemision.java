@@ -10,6 +10,7 @@
  */
 package Procesamiento.GuiaDeRemision;
 
+import BusinessEntity.ProductoBE;
 import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
 import java.io.FileNotFoundException;
@@ -29,6 +30,7 @@ import javax.swing.JOptionPane;
  */
 public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
     private AdmGuiaDeRemision objPadre;
+    private ProductoBE producto;
     /** Creates new form MantenimientoGuiaDeRemision */
     public MantenimientoGuiaDeRemision(AdmGuiaDeRemision padre){
         this.objPadre = padre;
@@ -328,7 +330,7 @@ m.setVisible(true);// TODO add your handling code here:
 
     private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
         // TODO add your handling code here:
-        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto();
+        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this.producto);
         m.setVisible(true);
     }//GEN-LAST:event_lblAddMousePressed
 

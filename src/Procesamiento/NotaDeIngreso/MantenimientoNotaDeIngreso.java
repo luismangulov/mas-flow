@@ -10,12 +10,14 @@
  */
 package Procesamiento.NotaDeIngreso;
 
+import BusinessEntity.ProductoBE;
+
 /**
  *
  * @author DIEGO
  */
 public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
-
+    private ProductoBE producto;
     /** Creates new form MantenimientoNotaDeIngreso */
     public MantenimientoNotaDeIngreso() {
         initComponents();
@@ -250,7 +252,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
 
     private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
         // TODO add your handling code here:
-        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto();
+        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this.producto);
         m.setVisible(true);
     }//GEN-LAST:event_lblAddMousePressed
 
