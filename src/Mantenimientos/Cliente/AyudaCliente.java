@@ -27,6 +27,7 @@ public class AyudaCliente extends javax.swing.JDialog {
     public AyudaCliente(java.awt.Frame parent, boolean modal,EntidadBE cliente) {
         super(parent, modal);
         initComponents();
+        this.cliente = cliente;
         this.setLocationRelativeTo(null); 
     }
 
