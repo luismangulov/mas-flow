@@ -407,8 +407,9 @@ public class ZonaDA {
         query = "SELECT * FROM Zona WHERE IndActivo = '1' AND idAlmacen ='" +idAlmacen +"'";
         
         try{
-            rs = objConexion.EjecutarS(query);            
-            rs.next();
+            rs = objConexion.EjecutarS(query);     
+            
+            while(rs.next()){
               
             String strIdZona = rs.getString("idZona");
             String strNombre = rs.getString("nombre");
@@ -420,8 +421,9 @@ public class ZonaDA {
             int intPosY = rs.getInt("posY");
             String strIdentificador = rs.getString("Identificador");
                 
-            objZonaBE = new ZonaBE(strIdZona,strNombre,strIdentificador,strIndActivo,strIdAlmacen,intPosX,intPosY,intAncho,intLargo,null);
-             
+            arrZonas.add(objZonaBE = new ZonaBE(strIdZona,strNombre,strIdentificador,strIndActivo,strIdAlmacen,intPosX,intPosY,intAncho,intLargo,null));
+            }
+            
         }catch (Exception e){
             System.out.println(e.getMessage());
          }
