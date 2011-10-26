@@ -5,50 +5,68 @@
 package BusinessLogic;
 
 import BusinessEntity.AlmacenBE;
-import BusinessEntity.PalletBE;
-import DataAccess.AlmacenDA;
 import java.util.ArrayList;
-
+import DataAccess.AlmacenDA;
+import Util.Utilitario;
 /**
  *
  * @author victor
  */
 public class AlmacenBL {
-    
-    ArrayList<AlmacenBE> arrAlmacenes;
-    AlmacenDA objAlmacenDA;
-    
-    public void insertar(AlmacenBE objAlmacenBE){
-        
+
+
+
+     private AlmacenBE almacen;
+
+    public boolean insertar(String idAlmacen, String nombre, double largo, double ancho,
+            String direccion, String telefono, String idDistrito, String idProvincia, 
+            String idDepartamento, String indActivo) throws Exception{
+        boolean exito = false;
+        almacen = new AlmacenBE(Utilitario.generaCodigo("almacen",6), nombre, largo, ancho,
+                direccion, telefono, idDistrito, idProvincia, idDepartamento, indActivo);
+        AlmacenDA objAlmacenDA = new AlmacenDA();
+        exito = objAlmacenDA.insertar(almacen);
+        return exito;
+
     }
     
-    public void modificar(AlmacenBE objAlmacenBE){
-        
-    }
+     public boolean modificar(AlmacenBE objAlmacen) throws Exception{
+          boolean exito = false;
+          AlmacenDA objAlmacenDA = new AlmacenDA();
+          exito = objAlmacenDA.modificar(objAlmacen);
+          return exito;
+     }
     
-    public void eliminar(String idAlmacen){
-        
+    public boolean eliminar(String codAlmacen) throws Exception{
+        boolean exito = false;
+        AlmacenDA objAlmacenDA = new AlmacenDA();
+        exito = objAlmacenDA.eliminar(codAlmacen);
+        return exito;
     }
-    
-    public ArrayList<AlmacenBE> getAllAlmacenActivo(){
-        
-        arrAlmacenes = new ArrayList<AlmacenBE>();
-        objAlmacenDA = new AlmacenDA();
+
+
+      public ArrayList<AlmacenBE> buscar(String codigo,String nombre, String indActivo, String idDepartamento,
+              String idProvincia, String idDistrito){
+          AlmacenDA objAlmacenDA = new AlmacenDA();
+          return objAlmacenDA.buscar(codigo, nombre, indActivo,idDepartamento, idProvincia, idDistrito);
+     }
+
+
+    public ArrayList<AlmacenBE> getAllAlmacen(){
+
+        AlmacenDA objAlmacenDA = new AlmacenDA();
         return objAlmacenDA.queryAllAlmacen();
-        
+
     }
-
-    public AlmacenBE getAlmacenByNombre(String strNombreAlmacen) {
-        objAlmacenDA = new AlmacenDA();
-        return objAlmacenDA.queryByNombreAlmacen(strNombreAlmacen);
-    }
-
-    public AlmacenBE getAlmacenById(String idAlmacen) {
-        objAlmacenDA = new AlmacenDA();
-        return objAlmacenDA.queryByIdProducto(idAlmacen);
-    }
-
-
     
-    
+     public ArrayList<AlmacenBE> getAllAlmacenActivo(){
+        AlmacenDA objAlmacenDA = new AlmacenDA();
+        return objAlmacenDA.queryAllAlmacenActivo();
+
+    }
+
+     public AlmacenBE getAlmacen(String codigo){
+        AlmacenDA objAlmacenDA = new AlmacenDA();
+        return objAlmacenDA.queryByIdAlmacen(codigo);
+    }
 }
