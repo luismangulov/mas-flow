@@ -45,7 +45,7 @@ public class BuscarPallet extends javax.swing.JFrame {
         
         arrAlmacenes= objAlmacenBL.getAllAlmacenActivo();
         for(AlmacenBE objAlmacen : arrAlmacenes)
-            cbAlmacen.addItem(objAlmacen.getNombre());
+            cbAlmacen.addItem(objAlmacen.getIdAlmacen());
     }
     
 
@@ -147,9 +147,9 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     
     strIdPallet = txtIdPallet.getText();
     strIdProducto = txtIdProducto.getText();
-    strNombreAlmacen = cbAlmacen.getSelectedItem().toString();
-    objAlmacenBL = new AlmacenBL();
-    strIdAlmacen = objAlmacenBL.getAlmacenByNombre(strNombreAlmacen).getIdAlmacen();
+    strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+//    objAlmacenBL = new AlmacenBL();
+//    strIdAlmacen = objAlmacenBL.getAlmacen(strNombreAlmacen).getIdAlmacen();
     objPalletBL = new PalletBL();
     objPalletBL.getListSearch(strIdPallet, strIdProducto, strIdAlmacen);
             

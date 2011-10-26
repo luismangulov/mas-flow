@@ -58,7 +58,7 @@ public class MantenimientoPallet extends javax.swing.JFrame {
         
         arrAlmacenes= objAlmacenBL.getAllAlmacenActivo();
         for(AlmacenBE objAlmacen : arrAlmacenes)
-            cbAlmacen.addItem(objAlmacen.getNombre());
+            cbAlmacen.addItem(objAlmacen.getIdAlmacen());
         
 //        if (accion == 'M'){
 //            for(int i=0; i<cbAlmacen.getSize().width-1; i++){
@@ -75,8 +75,8 @@ public class MantenimientoPallet extends javax.swing.JFrame {
         
         strIndActivo = "1";
         objAlmacenBL = new AlmacenBL();
-        strNombreAlmacen = cbAlmacen.getSelectedItem().toString();
-        strIdAlmacen = objAlmacenBL.getAlmacenByNombre(strNombreAlmacen).getIdAlmacen();
+        strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+//        strIdAlmacen = objAlmacenBL.ge(strNombreAlmacen).getIdAlmacen();
         objPalletBE = new PalletBE("",null,strIndActivo,null,strIdAlmacen,null);
         objPalletBL = new PalletBL();
         objPalletBL.insertar(objPalletBE); 
