@@ -70,13 +70,18 @@ public class ZonaBL {
         ZonaDA objZonaDA = new ZonaDA();
         return objZonaDA.queryByIdZona(codigo);
     }
+     
+     // víctor
 
     public ZonaBE getByIdentificadorZona(String identificador){
         ZonaDA objZonaDA = new ZonaDA();
         return objZonaDA.queryByIdentificadorZona(identificador);
     }
 
-
+    public ArrayList<ZonaBE> getZonasByAlmacen(String idAlmacen) {
+        ZonaDA objZonaDA = new ZonaDA();
+        return objZonaDA.queryZonasByAlmacen(idAlmacen);
+    }
 
 
 }
