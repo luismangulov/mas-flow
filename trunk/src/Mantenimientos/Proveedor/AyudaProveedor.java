@@ -10,14 +10,23 @@
  */
 package Mantenimientos.Proveedor;
 
+import Util.Utilitario;
+import BusinessEntity.EntidadBE;
+import BusinessLogic.EntidadBL;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Giuliana
  */
 public class AyudaProveedor extends javax.swing.JDialog {
-
+EntidadBE proveedor;
     /** Creates new form AyudaProveedor */
-    public AyudaProveedor() {
+    public AyudaProveedor(java.awt.Frame parent, boolean modal,EntidadBE proveedor) {
+
+        super(parent, modal);
+        this.proveedor=proveedor;
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -48,8 +57,18 @@ public class AyudaProveedor extends javax.swing.JDialog {
         jLabel3.setText("Razón Social:");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnBuscarMousePressed(evt);
+            }
+        });
 
         btnAceptar.setText("Aceptar");
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAceptarMousePressed(evt);
+            }
+        });
 
         dgvProveedor.setAutoCreateRowSorter(true);
         dgvProveedor.setModel(new javax.swing.table.DefaultTableModel(
@@ -79,7 +98,6 @@ public class AyudaProveedor extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        dgvProveedor.setCellSelectionEnabled(false);
         jScrollPane1.setViewportView(dgvProveedor);
         dgvProveedor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvProveedor.getColumnModel().getColumn(0).setPreferredWidth(10);
@@ -89,7 +107,6 @@ public class AyudaProveedor extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -114,7 +131,6 @@ public class AyudaProveedor extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -136,41 +152,39 @@ public class AyudaProveedor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMousePressed
+     EntidadBL objEntidadBL = new EntidadBL();
+        ArrayList<EntidadBE> proveedores = objEntidadBL.buscarProveedor("", this.txtDocumento.getText(), this.txtRazonSocial.getText(),"","1");
+        this.recargar(proveedores);
+                // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarMousePressed
+
+    private void btnAceptarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMousePressed
+       if((dgvProveedor.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un proveedor.", "Mensaje",0);
+        } else if((dgvProveedor.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un proveedor", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvProveedor.getSelectedRow();
+            codigo = (String)dgvProveedor.getValueAt(fila, 0);
+            EntidadBL objEntidadBL = new EntidadBL();
+            EntidadBE objProveedorBE = objEntidadBL.getProveedor(codigo);
+
+            this.proveedor.setIdEntidad(objProveedorBE.getIdEntidad());
+            this.proveedor.setRazonSocial(objProveedorBE.getRazonSocial());
+            this.proveedor.setNroDocumento(objProveedorBE.getNroDocumento());
+            this.proveedor.setDireccion(objProveedorBE.getDireccion());
+
+            this.dispose();  // TODO add your handling code here:
+    }//GEN-LAST:event_btnAceptarMousePressed
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AyudaProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AyudaProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AyudaProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AyudaProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new AyudaProveedor().setVisible(true);
-            }
-        });
-    }
+   
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnBuscar;
@@ -181,4 +195,20 @@ public class AyudaProveedor extends javax.swing.JDialog {
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtRazonSocial;
     // End of variables declaration//GEN-END:variables
+
+public void recargar(ArrayList<EntidadBE> proveedores){
+            DefaultTableModel modelo= new DefaultTableModel();
+            dgvProveedor.setModel(modelo);
+            modelo.addColumn("Código");
+            modelo.addColumn("Razón Social");
+
+
+            for(int i=0;i<proveedores.size();i++){
+                 modelo.addRow(new Object[4]);
+                dgvProveedor.setValueAt(proveedores.get(i).getIdEntidad(),i,0 );
+                dgvProveedor.setValueAt(proveedores.get(i).getRazonSocial(),i,1 );
+
+            }
+    }
+
 }
