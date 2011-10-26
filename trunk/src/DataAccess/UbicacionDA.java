@@ -128,6 +128,7 @@ public class UbicacionDA {
         objConexion = new conexion();
         query = "SELECT * FROM UBICACION WHERE indActivo = '1'";
         rs = objConexion.EjecutarS(query);
+        arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
             while (rs.next()) {
                 String strIdUbicacion = rs.getString("IdUbicacion");
@@ -143,7 +144,7 @@ public class UbicacionDA {
         return arrUbicaciones;
     }
 
-    public UbicacionBE queryUbicacionByIdUbicacion(String IdUbicacion) {
+    public UbicacionBE queryUbicacionById(String IdUbicacion) {
         objConexion = new conexion();
         query = "SELECT * FROM UBICACION WHERE idUbicacion='"+IdUbicacion+"'";
         rs = objConexion.EjecutarS(query);
@@ -159,6 +160,88 @@ public class UbicacionDA {
             Logger.getLogger(UbicacionDA.class.getName()).log(Level.SEVERE, null, ex);
         }
         return objUbicacion;
+    }
+
+    public ArrayList<UbicacionBE> queryUbicacionesByRack(String idRack) {
+        objConexion = new conexion();
+        query = "SELECT * FROM UBICACION WHERE indActivo = '1' AND idRack ='" +idRack+"'";
+        rs = objConexion.EjecutarS(query);
+        arrUbicaciones = new ArrayList<UbicacionBE>();
+        try {
+            while (rs.next()) {
+                String strIdUbicacion = rs.getString("IdUbicacion");
+                int fila = rs.getInt("Fila");
+                int columna = rs.getInt("Columna");
+                String strIndActivo = rs.getString("IndActivo");
+                String strIdRack = rs.getString("idRack");
+                arrUbicaciones.add(new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,strIdRack));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }
+        return arrUbicaciones;
+    }
+
+    public UbicacionBE queryUbicacionByRackFilaColumna(String strIdRack, int intFila, int intColumna) {
+        objConexion = new conexion();
+        query = "SELECT * FROM UBICACION WHERE indActivo = '1' AND idRack = '" +strIdRack+ 
+                "' AND fila ="+intFila+" AND columna ="+intColumna+"";
+        rs = objConexion.EjecutarS(query);
+        try {
+            rs.next();
+            String strIdUbicacion = rs.getString("IdUbicacion");
+            int fila = rs.getInt("Fila");
+            int columna = rs.getInt("Columna");
+            String strIndActivo = rs.getString("IndActivo");
+            String idRack = rs.getString("idRack");
+            objUbicacion = new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,idRack);
+        } catch (SQLException ex) {
+            Logger.getLogger(UbicacionDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return objUbicacion;
+    }
+
+    public ArrayList<UbicacionBE> queryUbicacionesByZona(String strIdZona) {
+        objConexion = new conexion();
+        query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
+                + "FROM UBICACION A, RACK B WHERE A.idRack = B.idRack AND B.idZona = '" + strIdZona +"'";
+        rs = objConexion.EjecutarS(query);
+        arrUbicaciones = new ArrayList<UbicacionBE>();
+        try {
+            while (rs.next()) {
+                String strIdUbicacion = rs.getString("IdUbicacion");
+                int fila = rs.getInt("Fila");
+                int columna = rs.getInt("Columna");
+                String strIndActivo = rs.getString("IndActivo");
+                String strIdRack = rs.getString("idRack");
+                arrUbicaciones.add(new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,strIdRack));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }
+        return arrUbicaciones;
+    }
+
+    public ArrayList<UbicacionBE> queryUbicacionesByAlmacen(String strIdAlmacen) {
+        objConexion = new conexion();
+        query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
+                + "FROM UBICACION A, RACK B, ZONA C "
+                + "WHERE C.idZona = B.idZona AND A.idRack = B.idRack AND B.idZona AND C.idAlmacen= '" + strIdAlmacen +"'";
+        rs = objConexion.EjecutarS(query);
+        arrUbicaciones = new ArrayList<UbicacionBE>();
+        try {
+            while (rs.next()) {
+                String strIdUbicacion = rs.getString("IdUbicacion");
+                int fila = rs.getInt("Fila");
+                int columna = rs.getInt("Columna");
+                String strIndActivo = rs.getString("IndActivo");
+                String strIdRack = rs.getString("idRack");
+                arrUbicaciones.add(new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,strIdRack));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }
+        return arrUbicaciones;
     }
     
 }
