@@ -15,51 +15,78 @@ import java.util.ArrayList;
  * @author giuliana
  */
 public class EntidadBL {
-        public boolean insertarEntidad( String nroDocumento, String direccion,
-            String telefono, String email, String nombreContacto, String dniContacto,
-            String telefonoContacto, String idTipoPersona, String razonSocial,
-            String paginaWeb, String idTipoEntidad, String indActivo, String idCIUU) throws Exception{
+        public boolean insertar(String idEntidad, String nroDocumento, String direccion,
+    String telefono, String email, String nombreContacto, String dniContacto,
+    String telefonoContacto, String razonSocial,
+    String paginaWeb,  String indActivo, String idCIUU) throws Exception{
         boolean exito = false;
-        EntidadBE Entidad = new EntidadBE(Utilitario.generaCodigo("Entidad",6),nroDocumento,
-                direccion,telefono, email, nombreContacto, dniContacto, telefonoContacto,
-                idTipoPersona, razonSocial, paginaWeb, idTipoEntidad, indActivo, idCIUU);
+        EntidadBE Entidad = new EntidadBE(idEntidad, nroDocumento,  direccion,
+            telefono, email, nombreContacto, dniContacto, telefonoContacto, razonSocial,
+            paginaWeb, indActivo, idCIUU);
         EntidadDA objEntidadDA = new EntidadDA();
         exito = objEntidadDA.insertar(Entidad);
         return exito;
         }
 
-         public boolean modificarEntidad( String idEntidad,String nroDocumento, String direccion,
-            String telefono, String email, String nombreContacto, String dniContacto,
-            String telefonoContacto, String idTipoPersona, String razonSocial,
-            String paginaWeb, String idTipoEntidad, String indActivo, String idCIUU) throws Exception{
+         public boolean modificar(String idEntidadAnterior, String idEntidad, String nroDocumento, String direccion,
+    String telefono, String email, String nombreContacto, String dniContacto,
+    String telefonoContacto, String razonSocial,
+    String paginaWeb,  String indActivo, String idCIUU) throws Exception{
         boolean exito = false;
-        EntidadBE Entidad = new EntidadBE(idEntidad, nroDocumento,
-                direccion,telefono, email, nombreContacto, dniContacto, telefonoContacto,
-                idTipoPersona, razonSocial, paginaWeb, idTipoEntidad, indActivo, idCIUU);
+        EntidadBE Entidad = new EntidadBE(idEntidad, nroDocumento,  direccion,
+            telefono, email, nombreContacto, dniContacto, telefonoContacto, razonSocial,
+            paginaWeb, indActivo, idCIUU);
         EntidadDA objEntidadDA = new EntidadDA();
-        exito = objEntidadDA.modificar(Entidad);
+        exito = objEntidadDA.modificar(idEntidadAnterior, Entidad);
         return exito;
         }
 
-        public ArrayList<EntidadBE> buscarEntidad(String idEntidad, String nroDocumento, String razonSocial,
-              String idCIUU, String indActivo, String tipoEntidad) throws Exception{
 
-            ArrayList<EntidadBE> arrEntidad;
+        public boolean eliminar(String idEntidad) throws Exception{
+        boolean exito = false;
+        EntidadDA objEntidadDA = new EntidadDA();
+        exito = objEntidadDA.eliminar(idEntidad);
+        return exito;
+        }
+
+
+        public ArrayList<EntidadBE> buscarCliente(String tipo, String nroDocumento,
+                String razonSocial, String direccion, String indActivo) throws Exception{
 
         EntidadDA objEntidadDA = new EntidadDA();
-        arrEntidad = objEntidadDA.buscar( idEntidad,  nroDocumento,  razonSocial,
-               idCIUU,  indActivo,  tipoEntidad);
-        return arrEntidad;
+        return objEntidadDA.buscar("C", tipo, nroDocumento, razonSocial, direccion, indActivo);
+        
         }
+
+
+        public ArrayList<EntidadBE> buscarProveedor(String tipo, String nroDocumento,
+                String razonSocial, String direccion, String indActivo) throws Exception{
+
+        EntidadDA objEntidadDA = new EntidadDA();
+        return objEntidadDA.buscar("P", tipo, nroDocumento, razonSocial, direccion, indActivo);
+
+        }
+
 
         public EntidadBE getCliente(String codigo) throws Exception{ EntidadBE e = null;
 
         EntidadDA objEntidadDA = new EntidadDA();
-        e = objEntidadDA.queryClientebyCodigo(codigo);
+        e = objEntidadDA.querybyCodigo(codigo);
 
         return e;
 
         }
+
+
+         public EntidadBE getProveedor(String codigo) throws Exception{ EntidadBE e = null;
+
+        EntidadDA objEntidadDA = new EntidadDA();
+        e = objEntidadDA.querybyCodigo(codigo);
+
+        return e;
+
+        }
+
 
         public ArrayList<EntidadBE> getAllClientes() throws Exception{
         ArrayList<EntidadBE>  arrEntidades = null;
@@ -69,11 +96,29 @@ public class EntidadBL {
         return arrEntidades;
         }
 
+        public ArrayList<EntidadBE> getAllProveedores() throws Exception{
+        ArrayList<EntidadBE>  arrEntidades = null;
+
+        EntidadDA objEntidadDA = new EntidadDA();
+        arrEntidades = objEntidadDA.queryAllEntidad("P");
+        return arrEntidades;
+        }
+
+
+
         public ArrayList<EntidadBE> getAllClientesActivos() throws Exception{
         ArrayList<EntidadBE>  arrEntidades = null;
 
         EntidadDA objEntidadDA = new EntidadDA();
         arrEntidades = objEntidadDA.queryAllEntidadActivo("C");
+        return arrEntidades;
+        }
+
+        public ArrayList<EntidadBE> getAllProveedoresActivos() throws Exception{
+        ArrayList<EntidadBE>  arrEntidades = null;
+
+        EntidadDA objEntidadDA = new EntidadDA();
+        arrEntidades = objEntidadDA.queryAllEntidadActivo("P");
         return arrEntidades;
         }
 
