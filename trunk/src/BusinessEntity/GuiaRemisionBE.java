@@ -13,21 +13,20 @@ import java.util.Date;
 public class GuiaRemisionBE {
     private String codigo;
     private Date fecha;
-    private EntidadBE cliente;
-    private String estado;
-    //private EstadoGRBE estado;
+    private EntidadBE cliente = null;
+    private EstadoGRBE estado = null;
     
     /**
      * @return the codigo
      */
-    public GuiaRemisionBE(String codigo,Date fecha,String codCliente,String estado){
+    public GuiaRemisionBE(String codigo,Date fecha,String codCliente,EstadoGRBE estado){
         this.codigo = codigo;
         this.fecha = fecha;
         this.cliente = null;
         this.cliente.setIdEntidad(codCliente);
         this.estado = estado;
     }
-    public GuiaRemisionBE(String codigo,Date fecha,EntidadBE objCliente){
+    public GuiaRemisionBE(String codigo,Date fecha,EntidadBE objCliente,EstadoGRBE estado){
         this.codigo = codigo;
         this.fecha = fecha;
         this.cliente = null;
@@ -39,12 +38,11 @@ public class GuiaRemisionBE {
         this.cliente.setNombreContacto(objCliente.getNombreContacto());
         this.cliente.setDniContacto(objCliente.getDniContacto());
         this.cliente.setTelefonoContacto(objCliente.getTelefonoContacto());
-        this.cliente.setIdTipoPersona(objCliente.getIdTipoPersona());
         this.cliente.setRazonSocial(objCliente.getRazonSocial());
         this.cliente.setPaginaWeb(objCliente.getPaginaWeb());
-        this.cliente.setIdTipoEntidad(objCliente.getIdTipoEntidad());
         this.cliente.setIndActivo(objCliente.getIndActivo());
         this.cliente.setIdCIUU(objCliente.getIdCIUU());
+        this.estado = estado;
     }
     
     public String getCodigo() {
@@ -89,16 +87,18 @@ public class GuiaRemisionBE {
     /**
      * @return the estado
      */
-    public String getEstado() {
+    public EstadoGRBE getEstado() {
         return estado;
     }
 
     /**
      * @param estado the estado to set
      */
-    public void setEstado(String estado) {
+    public void setEstado(EstadoGRBE estado) {
         this.estado = estado;
     }
+
+   
 
     
 }

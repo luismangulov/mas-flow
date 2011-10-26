@@ -16,4 +16,8 @@ public class EstadoGRBL {
         EstadoGRDA objEstadoGRDA = new EstadoGRDA();
         return objEstadoGRDA.queryByDescripcionEstadoGR(descripcion);
     }
+    public EstadoGRBE queryByIdEstadoGRBE(String codigo){
+        EstadoGRDA objEstadoGRDA = new EstadoGRDA();
+        return objEstadoGRDA.queryByIdEstadoGRBE(codigo);
+    }
 }
