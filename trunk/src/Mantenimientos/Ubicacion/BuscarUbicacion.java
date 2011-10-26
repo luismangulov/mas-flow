@@ -67,7 +67,7 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
         for(AlmacenBE almacen : arrAlmacenes)
-           cbAlmacen.addItem(almacen.getNombre());
+           cbAlmacen.addItem(almacen.getIdAlmacen());
 
     }
     
@@ -231,7 +231,7 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     
 
         if (cbAlmacen.getItemCount() > 0){
-            strIdAlmacen = objAlmacenBL.getAlmacenByNombre(cbAlmacen.getSelectedItem().toString()).getIdAlmacen();
+            strIdAlmacen = cbAlmacen.getSelectedItem().toString();
             cargarComboZona(strIdAlmacen);
         }    
     
@@ -285,7 +285,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     }
     else if (cbZona.getSelectedItem().toString().equals("") && !cbAlmacen.getSelectedItem().toString().equals("")){
         
-        strIdAlmacen = objAlmacenBL.getAlmacenByNombre(cbAlmacen.getSelectedItem().toString()).getIdAlmacen();
+        strIdAlmacen = cbAlmacen.getSelectedItem().toString();
         arrUbicaciones = objUbicacionBL.getUbicacionesByAlmacen(strIdAlmacen);
         
     }
