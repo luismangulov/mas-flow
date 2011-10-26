@@ -17,12 +17,11 @@ public class ProductoBE {
     private String unidadMedida;
     private String familia;
     private String indActivo;
-    private double precio;
 
     public ProductoBE(){}
 
     public ProductoBE(String idProducto, String nombre, String descripcion, int maxCantPorPallet,
-                      String unidadMedida, String familia, String indActivo, double precio){
+                      String unidadMedida, String familia, String indActivo){
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -30,7 +29,6 @@ public class ProductoBE {
         this.unidadMedida = unidadMedida;
         this.familia = familia;
         this.indActivo = indActivo;
-        this.precio = precio;
     }
 
     public String getIdProducto() {
@@ -79,14 +77,6 @@ public class ProductoBE {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
     public String getIdUnidadMedida() {
