@@ -280,10 +280,10 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 // TODO add your handling code here:
     GuiaRemisionBL objGuiaRemisionBL = new GuiaRemisionBL();
     //SimpleDateFormat df1 = new SimpleDateFormat( "dd/MM/yy" );
-       
+     GuiaRemisionBE objGuiaRemisionBE;  
     try {
         if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText())){
-            GuiaRemisionBE objGuiaRemisionBE;
+            
             objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
