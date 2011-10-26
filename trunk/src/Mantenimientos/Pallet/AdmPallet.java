@@ -182,8 +182,8 @@ private void lblRegistrarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GE
             int intMaxCantPallet = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto()).getMaxCantPorPallet();
             
             String strIdUbicacion = arrPallets.get(i).getIdUbicacion();
-            int intFila = objUbicacionBL.getUbicacionByIdUbicacion(strIdUbicacion).getFila();
-            int intColumna = objUbicacionBL.getUbicacionByIdUbicacion(strIdUbicacion).getColumna();
+            int intFila = objUbicacionBL.getUbicacionById(strIdUbicacion).getFila();
+            int intColumna = objUbicacionBL.getUbicacionById(strIdUbicacion).getColumna();
             String strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
             
             modelo.addRow(new Object[]{strIdPallet,strNombreProducto,intMaxCantPallet,strIdentificadorRack,intFila,intColumna});
