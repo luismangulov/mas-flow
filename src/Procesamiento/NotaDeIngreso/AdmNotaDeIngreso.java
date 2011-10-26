@@ -31,7 +31,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblNotaIngreso = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -42,8 +42,8 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar Nota de ingreso");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblNotaIngreso.setAutoCreateRowSorter(true);
+        tblNotaIngreso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -51,11 +51,11 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Proveedor", "Teléfonos", "Contacto", "Fecha", "Estado"
+                "Código", "Proveedor", "Direccion", "Contacto", "Fecha", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Byte.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -69,7 +69,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblNotaIngreso);
 
         jToolBar1.setRollover(true);
 
@@ -172,7 +172,70 @@ m.setVisible(true);
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tblNotaIngreso;
     // End of variables declaration//GEN-END:variables
+
+//public void recargaruno(GuiaRemisionBE guiaRemision,String direccion,String contacto){
+//    ////
+//         
+//        DefaultTableModel modelo= new DefaultTableModel(){
+//            @Override
+//            public boolean isCellEditable(int rowIndex, int columnIndex) {
+//                return false;  
+//            }
+//        };
+//        tblGuiaRemision.setModel(modelo);
+//        modelo.addColumn("Código");
+//        modelo.addColumn("Cliente");
+//        modelo.addColumn("Dirección");
+//        modelo.addColumn("Contacto");
+//        modelo.addColumn("Fecha");
+//        modelo.addColumn("Estado");
+////        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
+////        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
+////        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
+////        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
+//         modelo.addRow(new Object[5]);
+//        tblGuiaRemision.setValueAt(guiaRemision.getCodigo(),0,0 );
+//        tblGuiaRemision.setValueAt(guiaRemision.getCliente().getIdEntidad(),0,1 );
+//        tblGuiaRemision.setValueAt(direccion,0,2 );
+//        tblGuiaRemision.setValueAt(contacto,0,3 );
+//        tblGuiaRemision.setValueAt(guiaRemision.getFecha(),0,4 );
+//        tblGuiaRemision.setValueAt(guiaRemision.getEstado().getDescripcion(),0,5 );
+//    }
+//
+//    public void recargar(ArrayList<GuiaRemisionBE> guiaRemisiones){
+//    ////
+//         
+//        DefaultTableModel modelo= new DefaultTableModel(){
+//            @Override
+//            public boolean isCellEditable(int rowIndex, int columnIndex) {
+//                return false;  
+//            }
+//        };
+//        tblGuiaRemision.setModel(modelo);
+//        modelo.addColumn("Código");
+//        modelo.addColumn("Cliente");
+//        modelo.addColumn("Dirección");
+//        modelo.addColumn("Contacto");
+//        modelo.addColumn("Fecha");
+//        modelo.addColumn("Estado");
+////        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
+////        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
+////        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
+////        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
+//        
+//        for(int i = 0;i<guiaRemisiones.size();i++){
+//            modelo.addRow(new Object[5]);
+//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCodigo(),0,0 );
+//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getIdEntidad(),0,1 );
+//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getDireccion(),0,2 );
+//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getNombreContacto(),0,3 );
+//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getFecha(),0,4 );
+//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getEstado().getDescripcion(),0,5 );
+//        }
+//        
+//    }
+
 }
