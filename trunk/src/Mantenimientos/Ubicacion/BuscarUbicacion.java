@@ -6,9 +6,22 @@
 /*
  * BuscarUbicacion.java
  *
- * Created on Oct 2, 2011, 3:30:12 PM
+ * Created on Oct 2, 2011, 3:13:20 PM
  */
 package Mantenimientos.Ubicacion;
+
+import BusinessEntity.AlmacenBE;
+import BusinessEntity.RackBE;
+import BusinessEntity.UbicacionBE;
+import BusinessEntity.ZonaBE;
+import BusinessLogic.AlmacenBL;
+import BusinessLogic.RackBL;
+import BusinessLogic.UbicacionBL;
+import BusinessLogic.ZonaBL;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,8 +30,88 @@ package Mantenimientos.Ubicacion;
 public class BuscarUbicacion extends javax.swing.JFrame {
 
     /** Creates new form BuscarUbicacion */
-    public BuscarUbicacion() {
+    
+    String strIdAlmacen;
+    String strIdZona;
+    String strIdRack;
+    String strIdUbicacion;
+    
+    AlmacenBL objAlmacenBL = new AlmacenBL();   
+    ZonaBL objZonaBL = new ZonaBL();
+    RackBL objRackBL = new RackBL();    
+    UbicacionBL objUbicacionBL = new UbicacionBL();    
+    
+    UbicacionBE objUbicacionBE = new UbicacionBE();
+    
+    ArrayList<UbicacionBE> arrUbicaciones;
+    
+    AdmUbicacion ventanaPadre;
+    
+    public BuscarUbicacion(AdmUbicacion ventanaPadre) {
+        
         initComponents();
+        objAlmacenBL = new AlmacenBL();
+        this.ventanaPadre = ventanaPadre;
+        cargarComboAlmacen();
+        
+    }
+    
+    
+    public void cargarComboAlmacen(){
+        
+        cbAlmacen.removeAllItems();
+        cbZona.removeAllItems();
+        cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();
+        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+        arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
+        
+        for(AlmacenBE almacen : arrAlmacenes)
+           cbAlmacen.addItem(almacen.getNombre());
+
+    }
+    
+    public void cargarComboZona(String idAlmacen){
+        
+        cbZona.removeAllItems();
+        cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();
+        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+        
+        cbZona.addItem("");
+        
+        for(ZonaBE zona : arrZonas)
+            cbZona.addItem(zona.getIdentificador());
+        
+    }
+    
+    public void cargarComboRack(String idZona){
+        
+        cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();
+        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+        arrRacks = objRackBL.getRacksByZona(idZona);
+        
+        
+        cbRack.addItem("");
+        
+        for(RackBE rack : arrRacks)
+            cbRack.addItem(rack.getIdentificador());
+        
+    }
+    
+    public void cargarComboUbicacion(String idRack){
+       
+        cbUbicacion.removeAllItems();
+        ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack);
+        
+        cbUbicacion.addItem("");
+        
+        for(UbicacionBE ubicacion : arrUbicaciones)
+            cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
+        
     }
 
     /** This method is called from within the constructor to
@@ -33,125 +126,173 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cbZona = new javax.swing.JComboBox();
+        cbRack = new javax.swing.JComboBox();
+        cbUbicacion = new javax.swing.JComboBox();
+        btnBuscar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        cbAlmacen = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Buscar ubicación");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Rack:");
+        jLabel1.setText("Zona:");
 
-        jLabel2.setText("Ubicación:");
+        jLabel2.setText("Rack:");
 
-        jLabel3.setText("Estado:");
+        jLabel3.setText("Ubicación:");
 
-        jLabel4.setText("Pallet:");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        cbZona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                cbZonaActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        cbRack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                cbRackActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Vacío", "Ocupado", "Bloqueado" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+        btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+
+        cbAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                cbAlmacenActionPerformed(evt);
             }
         });
 
-        jButton1.setText(" Buscar ");
-        jButton1.setMaximumSize(new java.awt.Dimension(75, 23));
-        jButton1.setMinimumSize(new java.awt.Dimension(75, 23));
-
-        jButton2.setText("Cancelar");
+        jLabel5.setText("Almacén:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
-                .addGap(35, 35, 35))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbZona, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbRack, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbUbicacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(btnBuscar)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnCancelar)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cbRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addGap(19, 19, 19))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnBuscar))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField1ActionPerformed
+private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
+    
 
-private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField2ActionPerformed
+        if (cbAlmacen.getItemCount() > 0){
+            strIdAlmacen = objAlmacenBL.getAlmacenByNombre(cbAlmacen.getSelectedItem().toString()).getIdAlmacen();
+            cargarComboZona(strIdAlmacen);
+        }    
+    
+}//GEN-LAST:event_cbAlmacenActionPerformed
 
-private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jComboBox1ActionPerformed
+private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
+    
+    if (!cbZona.getSelectedItem().toString().equals("")){
+        int intCantItem = cbZona.getItemCount();
+        if (intCantItem > 0){
+            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+            cargarComboRack(strIdZona);
+        }
+    }
+}//GEN-LAST:event_cbZonaActionPerformed
 
-private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField3ActionPerformed
+private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRackActionPerformed
+    
+    if (!cbZona.getSelectedItem().toString().equals("")){
+        int intCantItem = cbRack.getItemCount();
+        if (intCantItem > 0){
+            String strIdentificador = cbRack.getSelectedItem().toString();
+            strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
+            cargarComboUbicacion(strIdRack);
+        }
+    }
+}//GEN-LAST:event_cbRackActionPerformed
+
+private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+    
+    arrUbicaciones = new ArrayList<UbicacionBE>();
+    
+    if (!cbUbicacion.getSelectedItem().toString().equals("")){
+        
+        strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
+        int intFila = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
+        int intColumna = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
+        objUbicacionBE = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack,intFila,intColumna);
+        arrUbicaciones.add(objUbicacionBE);
+    }
+    else if (cbUbicacion.getSelectedItem().toString().equals("") && !cbRack.getSelectedItem().toString().equals("")){
+        
+        strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
+        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(strIdRack);
+    }
+    else if (cbRack.getSelectedItem().toString().equals("") && !cbZona.getSelectedItem().toString().equals("")){
+        
+        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+        arrUbicaciones = objUbicacionBL.getUbicacionesByZona(strIdZona);
+        
+    }
+    else if (cbZona.getSelectedItem().toString().equals("") && !cbAlmacen.getSelectedItem().toString().equals("")){
+        
+        strIdAlmacen = objAlmacenBL.getAlmacenByNombre(cbAlmacen.getSelectedItem().toString()).getIdAlmacen();
+        arrUbicaciones = objUbicacionBL.getUbicacionesByAlmacen(strIdAlmacen);
+        
+    }
+        
+    ventanaPadre.llenarDgv(arrUbicaciones);
+    
+}//GEN-LAST:event_btnBuscarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -184,20 +325,20 @@ private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new BuscarUbicacion().setVisible(true);
+//                new BuscarUbicacion().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox cbAlmacen;
+    private javax.swing.JComboBox cbRack;
+    private javax.swing.JComboBox cbUbicacion;
+    private javax.swing.JComboBox cbZona;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }
