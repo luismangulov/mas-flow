@@ -10,12 +10,20 @@
  */
 package Mantenimientos.Ubicacion;
 
+import BusinessEntity.UbicacionBE;
+import BusinessLogic.PalletBL;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author DIEGO
+ * @author VICTOR
  */
+
+
 public class AdmUbicacion extends javax.swing.JFrame {
 
+    ArrayList<UbicacionBE> arrUbicaciones;
     /** Creates new form AdmUbicacion */
     public AdmUbicacion() {
         initComponents();
@@ -31,7 +39,7 @@ public class AdmUbicacion extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        dgvUbicaciones = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         lblBloquearUbicacion = new javax.swing.JLabel();
         lblBuscar = new javax.swing.JLabel();
@@ -42,23 +50,23 @@ public class AdmUbicacion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar ubicación");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        dgvUbicaciones.setAutoCreateRowSorter(true);
+        dgvUbicaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Rack", "Ubicación", "Estado", "Pallet"
+                "Ubicación", "Rack", "Fila", "Columna", "Estado", "Pallet"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -69,11 +77,13 @@ public class AdmUbicacion extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setResizable(false);
-        jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
-        jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane1.setViewportView(dgvUbicaciones);
+        dgvUbicaciones.getColumnModel().getColumn(0).setResizable(false);
+        dgvUbicaciones.getColumnModel().getColumn(1).setResizable(false);
+        dgvUbicaciones.getColumnModel().getColumn(2).setResizable(false);
+        dgvUbicaciones.getColumnModel().getColumn(3).setResizable(false);
+        dgvUbicaciones.getColumnModel().getColumn(4).setResizable(false);
+        dgvUbicaciones.getColumnModel().getColumn(5).setResizable(false);
 
         jToolBar1.setRollover(true);
 
@@ -115,7 +125,6 @@ public class AdmUbicacion extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 404, Short.MAX_VALUE)
-            .addGap(0, 404, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -130,12 +139,12 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 }//GEN-LAST:event_lblBuscarMousePressed
 
 private void lblBloquearUbicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBloquearUbicacionMouseClicked
-    BloquearUbicacion ventana = new BloquearUbicacion();
+    BuscarUbicacion ventana = new BuscarUbicacion(this);
     ventana.setVisible(true);
 }//GEN-LAST:event_lblBloquearUbicacionMouseClicked
 
 private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMouseClicked
-    BuscarUbicacion ventana = new BuscarUbicacion();
+    BuscarUbicacion ventana = new BuscarUbicacion(this);
     ventana.setVisible(true);
 }//GEN-LAST:event_lblBuscarMouseClicked
 
@@ -175,13 +184,46 @@ private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable dgvUbicaciones;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblBloquearUbicacion;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblRefrescar;
     // End of variables declaration//GEN-END:variables
+
+    public void llenarDgv(ArrayList<UbicacionBE> arrUbicaciones){
+
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvUbicaciones.getModel();    
+        this.limpiarDgv();
+        this.arrUbicaciones = arrUbicaciones;
+        
+        for (int i=0; i<arrUbicaciones.size(); i++){
+            
+            String strIdUbicacion = arrUbicaciones.get(i).getIdUbicacion();
+            String strIdRack = arrUbicaciones.get(i).getIdRack();
+            int intFila = arrUbicaciones.get(i).getFila();
+            int intColumna = arrUbicaciones.get(i).getColumna();
+            String strIndActivo = arrUbicaciones.get(i).getIndActivo();
+            
+            PalletBL objPalletBL = new PalletBL();
+            String strIdPallet = objPalletBL.getPalletByIdUbicacion(strIdUbicacion).getIdPallet();
+            
+            modelo.addRow(new Object[]{strIdUbicacion,strIdRack, intFila,intColumna,strIndActivo,strIdPallet});
+        }
+    }
+    
+    public void limpiarDgv(){
+                
+        DefaultTableModel modelo=(DefaultTableModel) dgvUbicaciones.getModel();    
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+    }
+    
+
+
 }
