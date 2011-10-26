@@ -192,9 +192,9 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
 // TODO add your handling code here:
         if((dgvUsuario.getSelectedRowCount() == 0)){
-           JOptionPane.showMessageDialog(null, "No ha seleccionado una familia de producto", "Mensaje",0);
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un usuario", "Mensaje",0);
         } else if((dgvUsuario.getSelectedRowCount() > 1)){
-            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de un usuario", "Mensaje",0);
         }else{
             int fila;
             String codigo;
@@ -309,9 +309,14 @@ private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
 //        }
          
                    //
-//          dgvFamilia.clearSelection(); 
+//          dgvFamilia.clearSelection();
+         DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
          
-        DefaultTableModel modelo= new DefaultTableModel();
         dgvUsuario.setModel(modelo);
         modelo.addColumn("IdUsuario");
         modelo.addColumn("Nombre");
@@ -330,16 +335,19 @@ private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
         dgvUsuario.setValueAt(usuario.getNombre(),0,1 );
         dgvUsuario.setValueAt(usuario.getPaterno(),0,2 );
         dgvUsuario.setValueAt(usuario.getMaterno(),0,3 );
-        dgvUsuario.setValueAt(usuario.getPerfil().getIdPerfil(),0,4 );        
-        if(usuario.getEstadoUsuario().getIdEstadoUsuario().equals("1")){
-             dgvUsuario.setValueAt("Activo",0,5 );
-        }else if(usuario.getEstadoUsuario().getIdEstadoUsuario().equals("0")){
-             dgvUsuario.setValueAt("Inactivo",0,5 );
-        }
+        dgvUsuario.setValueAt(usuario.getPerfil().getDescripcion(),0,4 ); 
+        dgvUsuario.setValueAt(usuario.getEstadoUsuario().getDescripcion(),0,5 );
+        
     }
     
     public void recargar(ArrayList<UsuarioBE> usuarios){
-        DefaultTableModel modelo= new DefaultTableModel();
+        
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
         dgvUsuario.setModel(modelo);
         modelo.addColumn("IdUsuario");
         modelo.addColumn("Nombre");
@@ -364,17 +372,15 @@ private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
 //          dgvFamilia.clearSelection();  
                     
         for(int i=0;i<usuarios.size();i++){
-             modelo.addRow(new Object[6]);
-         dgvUsuario.setValueAt(usuarios.get(i).getIdUsuario(),i,0 );
+            
+        modelo.addRow(new Object[6]);
+        dgvUsuario.setValueAt(usuarios.get(i).getIdUsuario(),i,0 );
         dgvUsuario.setValueAt(usuarios.get(i).getNombre(),i,1 );
         dgvUsuario.setValueAt(usuarios.get(i).getPaterno(),i,2 );
         dgvUsuario.setValueAt(usuarios.get(i).getMaterno(),i,3 );
-        dgvUsuario.setValueAt(usuarios.get(i).getPerfil().getIdPerfil(),i,4 );        
-        if(usuarios.get(i).getEstadoUsuario().getIdEstadoUsuario().equals("1")){
-             dgvUsuario.setValueAt("Activo",i,5 );
-        }else if(usuarios.get(i).getEstadoUsuario().getIdEstadoUsuario().equals("0")){
-             dgvUsuario.setValueAt("Inactivo",i,5 );
-        }
+        dgvUsuario.setValueAt(usuarios.get(i).getPerfil().getDescripcion(),i,4 );
+        dgvUsuario.setValueAt(usuarios.get(i).getEstadoUsuario().getDescripcion(),i,5 );
+
         }
                
  

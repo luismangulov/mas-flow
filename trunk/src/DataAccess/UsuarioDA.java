@@ -23,7 +23,7 @@ public class UsuarioDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO usuario(idUsuario, nombre, paterno,materno, password, idPerfil, idEstadoUsuario,limiteIntentos,fechaCambioClave) VALUES('"+ objUsuario.getIdUsuario() +"','"+ objUsuario.getNombre() +"','"+ objUsuario.getPaterno() +"','"+ objUsuario.getMaterno()+"','"+ objUsuario.getPassword() +"','"+ objUsuario.getPerfil().getIdPerfil() +"','"+ objUsuario.getEstadoUsuario().getIdEstadoUsuario() +"','"+ objUsuario.getLimiteIntentos() +"','"+ objUsuario.getFechaCambioClave()+ " ')";
+        String sql = "INSERT INTO usuario(idUsuario, nombre, apellidopaterno,apellidomaterno, password, idPerfil, idEstadoUsuario,limiteIntentos,fechaCambioClave) VALUES('"+ objUsuario.getIdUsuario() +"','"+ objUsuario.getNombre() +"','"+ objUsuario.getPaterno() +"','"+ objUsuario.getMaterno()+"','"+ objUsuario.getPassword() +"','"+ objUsuario.getPerfil().getIdPerfil() +"','"+ objUsuario.getEstadoUsuario().getIdEstadoUsuario() +"','"+ objUsuario.getLimiteIntentos() +"','"+ objUsuario.getFechaCambioClave()+ " ')";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -40,7 +40,7 @@ public class UsuarioDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<UsuarioBE> arrUsuario = new ArrayList<UsuarioBE>();
-        String sql = "SELECT idUsuario,nombre,paterno,materno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave FROM Familia WHERE idEstadoUsuario = '1' order by 1";
+        String sql = "SELECT idUsuario,nombre,apellidopaterno,apellidomaterno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave FROM usuario WHERE idEstadoUsuario = '1' order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdUsuario;
@@ -88,8 +88,8 @@ public class UsuarioDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         UsuarioBE usuario = null;
-        String sql = "SELECT idUsuario,nombre,paterno,materno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave FROM Usuario ";
-           sql += " WHERE idfamilia='"+idUsuario+"'";
+        String sql = "SELECT idUsuario,nombre,apellidopaterno,apellidomaterno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave FROM Usuario ";
+           sql += " WHERE idUsuario='"+idUsuario+"'";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdUsuario;

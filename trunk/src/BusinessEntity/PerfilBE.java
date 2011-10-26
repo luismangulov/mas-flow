@@ -22,6 +22,12 @@ public class PerfilBE {
 
     }
 
+    public PerfilBE(String idPerfil, String descripcion, String indActivo) {
+        this.idPerfil = idPerfil;
+        this.descripcion = descripcion;
+        this.indActivo = indActivo;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }

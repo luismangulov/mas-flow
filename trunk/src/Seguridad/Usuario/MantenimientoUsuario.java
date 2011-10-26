@@ -12,6 +12,7 @@ package Seguridad.Usuario;
 
 import BusinessEntity.UsuarioBE;
 import BusinessLogic.UsuarioBL;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,16 +37,24 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
 
     MantenimientoUsuario(AdmUsuario padre, UsuarioBE usuario) {
         this.objPadre = padre;
-        accion = "modificar";
-        
+        accion = "modificar";        
         initComponents();
         this.setLocationRelativeTo(null);
         this.ckbActivo.setEnabled(true);
         this.setTitle("+Flow - Editar Usuario");
         this.txtIdUsuario.setText(usuario.getIdUsuario());
         this.txtNombre.setText(usuario.getNombre());
-        this.txtPaterno.setText(usuario.getNombre());
-        this.txtMaterno.setText(usuario.getNombre());
+        this.txtPaterno.setText(usuario.getPaterno());
+        this.txtMaterno.setText(usuario.getMaterno());
+        String idEstadoUsuario=usuario.getEstadoUsuario().getIdEstadoUsuario();
+        if (usuario.getEstadoUsuario().getIdEstadoUsuario().equals("1"))
+        {
+            this.ckbActivo.setSelected(true);
+         
+        }else{
+            this.ckbActivo.setSelected(false);
+        }
+        
         //this.cbxPerfil.setSelectedIndex(usuario.getIdPerfil());               
         this.setVisible(true);
     }
@@ -173,26 +182,30 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     UsuarioBL objUsuarioBL = new UsuarioBL();    
     
     try {
-                 
+           
+        Date fechaActual = new Date();
         if(this.accion.equals("registrar")){
+            
+                    
                     String estado;
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
-                    }else estado = "0";       
-        //corregir            objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno,"",this.cbxPerfil.getSelectedIndex(),estado,3,new java.util.Date());
+                    }else estado = "0";  
+                    
+                    objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText()," ","000001",estado,3,fechaActual);
                     UsuarioBE usuario;
                     usuario = objUsuarioBL.getUsuario();
                     this.objPadre.recargaruno(usuario);
                     this.dispose();
-                 }
-                 if(this.accion.equals("modificar")){
+                 
+        }
+        if(this.accion.equals("modificar")){
                      UsuarioBE usuario = null;
                      String estado;
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";   
-         //corregir           // usuario = objUsuarioBL.setUsuario(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),estado);
-                     //familia = new FamiliaBE(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),"1");
+                    usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText()," ","000001",estado,3,fechaActual);
                      objUsuarioBL.modificar(usuario);
                      int fila;
                      fila = this.objPadre.getDgvUsuario().getSelectedRow();
