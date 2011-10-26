@@ -11,6 +11,7 @@
 package Procesamiento.GuiaDeRemision;
 
 import BusinessEntity.GuiaRemisionBE;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,7 +35,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblGuiaRemision = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -45,8 +46,8 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar guia de remision");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblGuiaRemision.setAutoCreateRowSorter(true);
+        tblGuiaRemision.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -72,7 +73,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblGuiaRemision);
 
         jToolBar1.setRollover(true);
 
@@ -110,7 +111,6 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,13 +174,13 @@ private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tblGuiaRemision;
     // End of variables declaration//GEN-END:variables
 
 
-public void recargaruno(GuiaRemisionBE guiaRemision,String direccion,String contacto){
-////
+    public void recargaruno(GuiaRemisionBE guiaRemision,String direccion,String contacto){
+    ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
             @Override
@@ -188,24 +188,57 @@ public void recargaruno(GuiaRemisionBE guiaRemision,String direccion,String cont
                 return false;  
             }
         };
-        jTable1.setModel(modelo);
+        tblGuiaRemision.setModel(modelo);
         modelo.addColumn("Código");
         modelo.addColumn("Cliente");
         modelo.addColumn("Dirección");
         modelo.addColumn("Contacto");
         modelo.addColumn("Fecha");
+        modelo.addColumn("Estado");
 //        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
 //        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
 //        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
          modelo.addRow(new Object[5]);
-        jTable1.setValueAt(guiaRemision.getCodigo(),0,0 );
-        jTable1.setValueAt(guiaRemision.getCliente().getIdEntidad(),0,1 );
-        jTable1.setValueAt(direccion,0,2 );
-        jTable1.setValueAt(contacto,0,3 );
-        jTable1.setValueAt(guiaRemision.getFecha(),0,4 );
+        tblGuiaRemision.setValueAt(guiaRemision.getCodigo(),0,0 );
+        tblGuiaRemision.setValueAt(guiaRemision.getCliente().getIdEntidad(),0,1 );
+        tblGuiaRemision.setValueAt(direccion,0,2 );
+        tblGuiaRemision.setValueAt(contacto,0,3 );
+        tblGuiaRemision.setValueAt(guiaRemision.getFecha(),0,4 );
+        tblGuiaRemision.setValueAt(guiaRemision.getEstado().getDescripcion(),0,5 );
     }
 
-
+    public void recargar(ArrayList<GuiaRemisionBE> guiaRemisiones){
+    ////
+         
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
+        tblGuiaRemision.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Contacto");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Estado");
+//        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
+//        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
+//        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
+//        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
+        
+        for(int i = 0;i<guiaRemisiones.size();i++){
+            modelo.addRow(new Object[5]);
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCodigo(),0,0 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getIdEntidad(),0,1 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getDireccion(),0,2 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getNombreContacto(),0,3 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getFecha(),0,4 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getEstado().getDescripcion(),0,5 );
+        }
+        
+    }
 
 }

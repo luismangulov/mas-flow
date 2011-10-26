@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -24,7 +24,7 @@ public class GuiaRemisionDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO guiaremision(idguiaremision, fecha, identidad, indEstado) VALUES('"+ objGuiaRemision.getCodigo() +"','"+ objGuiaRemision.getFecha() +"','"+ objGuiaRemision.getCliente().getIdEntidad() +"','"+ objGuiaRemision.getEstado().getCodigo() +"')";
+        String sql = "INSERT INTO guiaremision(idguiaremision, fecha, identidad, idestadogr) VALUES('"+ objGuiaRemision.getCodigo() +"','"+ objGuiaRemision.getFecha() +"','"+ objGuiaRemision.getCliente().getIdEntidad() +"','"+ objGuiaRemision.getEstado().getCodigo() +"')";
         
         try{
             objConexion.EjecutarUID(sql);

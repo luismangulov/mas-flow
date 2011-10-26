@@ -10,6 +10,7 @@
  */
 package Procesamiento.GuiaDeRemision;
 
+import BusinessEntity.GuiaRemisionBE;
 import BusinessEntity.ProductoBE;
 import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
@@ -282,10 +283,12 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        
     try {
         if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText())){
+            GuiaRemisionBE objGuiaRemisionBE;
+            objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
                 try {
-                    objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBL.getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)this.tblProductos.getValueAt(i, 2)));
+                    objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBL.getObjGuiaRemisionBE().getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)this.tblProductos.getValueAt(i, 2)));
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
@@ -295,6 +298,9 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
             }
         }
+        
+        //this.objPadre.recargaruno(objGuiaRemisionBE, null, null);
+        this.dispose();
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
     }
