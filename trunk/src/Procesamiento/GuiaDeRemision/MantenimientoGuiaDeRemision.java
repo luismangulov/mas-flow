@@ -10,6 +10,7 @@
  */
 package Procesamiento.GuiaDeRemision;
 
+import BusinessEntity.EntidadBE;
 import BusinessEntity.GuiaRemisionBE;
 import BusinessEntity.ProductoBE;
 import BusinessLogic.DetalleGuiaRemisionBL;
@@ -33,6 +34,7 @@ import javax.swing.table.DefaultTableModel;
 public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
     private AdmGuiaDeRemision objPadre;
     private ProductoBE producto =new ProductoBE();
+    private EntidadBE cliente = new EntidadBE();
     
     /** Creates new form MantenimientoGuiaDeRemision */
     public MantenimientoGuiaDeRemision(AdmGuiaDeRemision padre){
@@ -324,8 +326,13 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_btnCancelarActionPerformed
 
 private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAyudaMousePressed
-Mantenimientos.Cliente.AyudaCliente m = new Mantenimientos.Cliente.AyudaCliente();
-m.setVisible(true);// TODO add your handling code here:
+// TODO add your handling code here:
+    Mantenimientos.Cliente.AyudaCliente m = new Mantenimientos.Cliente.AyudaCliente(this,true,this.cliente);
+    m.setVisible(true);
+    this.txtCliente.setText(cliente.getIdEntidad());
+    this.txtRUCDNI.setText(cliente.getNroDocumento());
+    this.txtNombre.setText(cliente.getRazonSocial());
+    this.txtDireccion.setText(cliente.getDireccion());
 }//GEN-LAST:event_lblAyudaMousePressed
 
     private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
