@@ -13,17 +13,36 @@ import java.util.Date;
 public class NotaIngresoBE {
     private String codigo;
     private Date fecha;
-    private EntidadBE proveedor;
-    private String estado;
-
+    private EntidadBE proveedor = null;
+    private EstadoNIBE estado = null;
     
-    public NotaIngresoBE(String codigo,Date fecha,String codProveedor,String estado){
+    public NotaIngresoBE(String codigo,Date fecha,String codProveedor,EstadoNIBE estado){
         this.codigo = codigo;
         this.fecha = fecha;
         this.proveedor = null;
         this.proveedor.setIdEntidad(codProveedor);
         this.estado = estado;
     }
+    
+     public NotaIngresoBE(String codigo,Date fecha,EntidadBE objProveedor,EstadoNIBE estado){
+        this.codigo = codigo;
+        this.fecha = fecha;
+        this.proveedor = null;
+        this.proveedor.setIdEntidad(objProveedor.getIdEntidad());
+        this.proveedor.setNroDocumento(objProveedor.getNroDocumento()) ;
+        this.proveedor.setDireccion(objProveedor.getDireccion());
+        this.proveedor.setTelefono(objProveedor.getTelefono());
+        this.proveedor.setEmail(objProveedor.getEmail());
+        this.proveedor.setNombreContacto(objProveedor.getNombreContacto());
+        this.proveedor.setDniContacto(objProveedor.getDniContacto());
+        this.proveedor.setTelefonoContacto(objProveedor.getTelefonoContacto());
+        this.proveedor.setRazonSocial(objProveedor.getRazonSocial());
+        this.proveedor.setPaginaWeb(objProveedor.getPaginaWeb());
+        this.proveedor.setIndActivo(objProveedor.getIndActivo());
+        this.proveedor.setIdCIUU(objProveedor.getIdCIUU());
+        this.estado = estado;
+    }
+    
     
     /**
      * @return the codigo
@@ -70,16 +89,17 @@ public class NotaIngresoBE {
     /**
      * @return the estado
      */
-    public String getEstado() {
+    public EstadoNIBE getEstado() {
         return estado;
     }
 
     /**
      * @param estado the estado to set
      */
-    public void setEstado(String estado) {
+    public void setEstado(EstadoNIBE estado) {
         this.estado = estado;
     }
+
     
     
 }

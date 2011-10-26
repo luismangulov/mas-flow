@@ -4,8 +4,11 @@
  */
 package DataAccess;
 
+import BusinessEntity.EntidadBE;
+import BusinessEntity.EstadoNIBE;
 import BusinessEntity.NotaIngresoBE;
 import BusinessLogic.EntidadBL;
+import BusinessLogic.EstadoNIBL;
 import Util.conexion;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ public class NotaIngresoDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO notaingreso(idnotaingreso, fecha, identidad, indEstado) VALUES('"+ objNotaIngreso.getCodigo() +"','"+ objNotaIngreso.getFecha() +"','"+ objNotaIngreso.getProveedor().getIdEntidad() +"','"+ objNotaIngreso.getEstado() +"')";
+        String sql = "INSERT INTO notaingreso(idnotaingreso, fecha, identidad, idestadoni) VALUES('"+ objNotaIngreso.getCodigo() +"','"+ objNotaIngreso.getFecha() +"','"+ objNotaIngreso.getProveedor().getIdEntidad() +"','"+ objNotaIngreso.getEstado().getCodigo() +"')";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -38,22 +41,28 @@ public class NotaIngresoDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<NotaIngresoBE> arrNotaIngreso = new ArrayList<NotaIngresoBE>();
-        String sql = "SELECT idnotaingreso,fecha,identidad,indestado FROM notaingreso order by 1";
+        String sql = "SELECT idnotaingreso,fecha,identidad,idestadoni FROM notaingreso order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
             String strCodigo;
             Date fecha;
             String strIdEntidad;
-            String strEstado;
+            String strCodEstado;
             while (rs.next()){
               
                 strCodigo = rs.getString(1);
                 fecha = rs.getDate(2);
                 strIdEntidad = rs.getString(3);
-                strEstado = rs.getString(4);
+                strCodEstado = rs.getString(4);
                 EntidadBL objEntidadBL = new EntidadBL();
-                //EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
-                //arrNotaIngreso.add(new NotaIngresoBE(strCodigo,fecha,objEntidadBE));
+                EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
+               
+                EstadoNIBL objEstadoNIBL = new EstadoNIBL();
+                EstadoNIBE objEstadoNIBE = new EstadoNIBE();
+                objEstadoNIBE = objEstadoNIBL.queryByIdEstadoNI(strCodEstado);
+                
+                
+                arrNotaIngreso.add(new NotaIngresoBE(strCodigo,fecha,objEntidadBE,objEstadoNIBE));
             }
              
         }catch (Exception a){
