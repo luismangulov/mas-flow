@@ -6,6 +6,7 @@ package BusinessLogic;
 
 import BusinessEntity.UbicacionBE;
 import DataAccess.UbicacionDA;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +24,11 @@ public class UbicacionBL {
     
     public void bloquearUbicacion(String idUbicacion){
         
+    }
+    
+    public boolean eliminarUbicacionesByRack(String idRack){
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.eliminarUbicacionesRack(idRack);
     }
 
     public ArrayList<UbicacionBE> getUbicacionesByRack(String idRack) {

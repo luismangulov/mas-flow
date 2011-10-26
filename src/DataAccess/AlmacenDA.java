@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
  * @author victor
  */
 
-
 public class AlmacenDA {
     
     conexion objConexion;
