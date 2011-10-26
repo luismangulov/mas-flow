@@ -69,7 +69,7 @@ public class AdmCliente extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nombre", "Estado", "Contacto", "Teléfono"
+                "Código", "Razón Social", "Estado", "Contacto", "Teléfono"
             }
         ) {
             Class[] types = new Class [] {
