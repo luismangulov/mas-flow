@@ -53,7 +53,7 @@ public class UsuarioDA {
             int intLimiteIntentos;
             Date dateFechaCambioClave;
             
-            PerfilDA objPerfilDA=new PerfilDA();
+            PerfilAD objPerfilDA=new PerfilAD();
             PerfilBE objPerfilBE=new PerfilBE();
             EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
             EstadoUsuarioBE objEstadoUsuarioBE=new EstadoUsuarioBE();
@@ -101,7 +101,7 @@ public class UsuarioDA {
             String strIdEstadoUsuario;
             int intLimiteIntentos;
             Date dateFechaCambioClave;
-            PerfilDA objPerfilDA=new PerfilDA();
+            PerfilAD objPerfilDA=new PerfilAD();
             PerfilBE objPerfilBE=new PerfilBE();
             EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
             EstadoUsuarioBE objEstadoUsuarioBE=new EstadoUsuarioBE();
@@ -169,14 +169,13 @@ public class UsuarioDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "UPDATE familia SET";
-             sql += " nombre='"+objUsuario.getNombre()+"'," +
-                    "paterno='"+objUsuario.getPaterno()+ "',"+
-                    "materno='"+objUsuario.getMaterno()+ "'"+ 
-                    "password='"+objUsuario.getPassword()+ "'"+ 
-                    "idPerfil='"+objUsuario.getPerfil().getIdPerfil()+ "'"+ 
-                    "idEstadoUsuario='"+objUsuario.getEstadoUsuario().getIdEstadoUsuario()+ "'"+ 
-                    "limiteIntentos='"+objUsuario.getLimiteIntentos()+ "'"+ 
+        String sql = "UPDATE usuario SET ";
+                sql+="nombre='"+objUsuario.getNombre()+"'," +
+                    "apellidopaterno='"+objUsuario.getPaterno()+ "',"+
+                    "apellidomaterno='"+objUsuario.getMaterno()+ "',"+ 
+                    "idPerfil='"+objUsuario.getPerfil().getIdPerfil()+ "',"+ 
+                    "idEstadoUsuario='"+objUsuario.getEstadoUsuario().getIdEstadoUsuario()+ "',"+ 
+                    "limiteIntentos='"+objUsuario.getLimiteIntentos()+ "',"+ 
                     "fechaCambioClave='"+objUsuario.getFechaCambioClave()+ "'"+ 
                     "WHERE idUsuario='"+objUsuario.getIdUsuario()+"'";
         
@@ -301,7 +300,7 @@ public class UsuarioDA {
             String strIdEstadoUsuario;
             int intLimiteIntentos;
             Date dateFechaCambioClave;
-            PerfilDA objPerfilDA=new PerfilDA();
+            PerfilAD objPerfilDA=new PerfilAD();
             PerfilBE objPerfilBE=new PerfilBE();
             EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
             EstadoUsuarioBE objEstadoUsuarioBE=new EstadoUsuarioBE();

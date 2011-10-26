@@ -6,7 +6,7 @@ package BusinessLogic;
 
 import BusinessEntity.PerfilBE;
 import DataAccess.FamiliaDA;
-import DataAccess.PerfilDA;
+import DataAccess.PerfilAD;
 import Util.Utilitario;
 import java.util.ArrayList;
 
@@ -20,14 +20,14 @@ public class PerfilBL {
     public boolean insertar(String descripcion,String indEstado) throws Exception{
         boolean exito = false;
         perfil = new PerfilBE(Utilitario.generaCodigo("perfil",6),descripcion,indEstado);
-        PerfilDA objPerfilDA = new PerfilDA();
+        PerfilAD objPerfilDA = new PerfilAD();
         exito = objPerfilDA.insertar(getPerfil());
         return exito;
     }
     
     public boolean eliminar(String idPerfil) throws Exception{
         boolean exito = false;
-        PerfilDA objPerfilDA = new PerfilDA();
+        PerfilAD objPerfilDA = new PerfilAD();
         exito = objPerfilDA.eliminar(idPerfil);
         return exito;
     }
@@ -41,26 +41,26 @@ public class PerfilBL {
 //    }
 
     public ArrayList<PerfilBE> queryAllPerfil(){
-        PerfilDA objPerfilDA = new PerfilDA();
-        return objPerfilDA.queryAllFamilia();
+        PerfilAD objPerfilDA = new PerfilAD();
+        return objPerfilDA.queryAllPerfil();
     }
     
     public PerfilBE queryByIdPerfil(String idPerfil){
-        PerfilDA objPerfilDA = new PerfilDA();
+        PerfilAD objPerfilDA = new PerfilAD();
         return objPerfilDA.queryByIdPerfil(idPerfil);
     }
     
      public boolean modificar(PerfilBE objPerfil) throws Exception{
           boolean exito = false;
-          PerfilDA objPerfilDA = new PerfilDA();
+          PerfilAD objPerfilDA = new PerfilAD();
           exito = objPerfilDA.modificar(objPerfil);
           return exito;
      }
     
-     public ArrayList<PerfilBE> buscar(String idPerfil,String descripcion, String indEstado){
-          PerfilDA objPerfilDA = new PerfilDA();
-          return objPerfilDA.buscar(idPerfil, descripcion, indEstado);
-     }
+//     public ArrayList<PerfilBE> buscar(String idPerfil,String descripcion, String indEstado){
+//          PerfilAD objPerfilDA = new PerfilAD();
+//          return objPerfilDA.buscar(idPerfil, descripcion, indEstado);
+//     }
      
 //     public ArrayList<PerfilBE> buscarAyuda(String idPerfil,String descripcion,String indEstado){
 //         FamiliaDA objFamiliaDA = new FamiliaDA();
@@ -84,7 +84,7 @@ public class PerfilBL {
 
     public ArrayList<PerfilBE> getAllPerfil() {
         ArrayList<PerfilBE>  arrPerfil = null;
-        PerfilDA objPerfilDA = new PerfilDA();
+        PerfilAD objPerfilDA = new PerfilAD();
         arrPerfil = objPerfilDA.queryAllPerfil();
         return arrPerfil;
     }
