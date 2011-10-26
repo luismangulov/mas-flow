@@ -51,7 +51,7 @@ public class EntidadBL {
 
 
         public ArrayList<EntidadBE> buscarCliente(String tipo, String nroDocumento,
-                String razonSocial, String direccion, String indActivo) throws Exception{
+                String razonSocial, String direccion, String indActivo){
 
         EntidadDA objEntidadDA = new EntidadDA();
         return objEntidadDA.buscar("C", tipo, nroDocumento, razonSocial, direccion, indActivo);
@@ -60,7 +60,7 @@ public class EntidadBL {
 
 
         public ArrayList<EntidadBE> buscarProveedor(String tipo, String nroDocumento,
-                String razonSocial, String direccion, String indActivo) throws Exception{
+                String razonSocial, String direccion, String indActivo) {
 
         EntidadDA objEntidadDA = new EntidadDA();
         return objEntidadDA.buscar("P", tipo, nroDocumento, razonSocial, direccion, indActivo);
@@ -68,7 +68,7 @@ public class EntidadBL {
         }
 
 
-        public EntidadBE getCliente(String codigo) throws Exception{ EntidadBE e = null;
+        public EntidadBE getCliente(String codigo) { EntidadBE e = null;
 
         EntidadDA objEntidadDA = new EntidadDA();
         e = objEntidadDA.querybyCodigo(codigo);
@@ -78,7 +78,7 @@ public class EntidadBL {
         }
 
 
-         public EntidadBE getProveedor(String codigo) throws Exception{ EntidadBE e = null;
+         public EntidadBE getProveedor(String codigo) { EntidadBE e = null;
 
         EntidadDA objEntidadDA = new EntidadDA();
         e = objEntidadDA.querybyCodigo(codigo);

@@ -10,14 +10,22 @@
  */
 package Mantenimientos.Cliente;
 
+import Util.Utilitario;
+import BusinessEntity.EntidadBE;
+import BusinessLogic.EntidadBL;
+import Procesamiento.GuiaDeRemision.MantenimientoGuiaDeRemision;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Giuliana
  */
 public class AyudaCliente extends javax.swing.JDialog {
-
+    EntidadBE cliente;
     /** Creates new form AyudaCliente */
-    public AyudaCliente() {
+    public AyudaCliente(java.awt.Frame parent, boolean modal,EntidadBE cliente) {
+        super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null); 
     }
@@ -44,6 +52,11 @@ public class AyudaCliente extends javax.swing.JDialog {
         setTitle("+Flow - Ayuda Cliente");
 
         btnAceptar.setText("Aceptar");
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAceptarMousePressed(evt);
+            }
+        });
 
         dgvCliente.setAutoCreateRowSorter(true);
         dgvCliente.setModel(new javax.swing.table.DefaultTableModel(
@@ -73,7 +86,6 @@ public class AyudaCliente extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        dgvCliente.setCellSelectionEnabled(false);
         jScrollPane1.setViewportView(dgvCliente);
         dgvCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvCliente.getColumnModel().getColumn(0).setPreferredWidth(10);
@@ -84,6 +96,11 @@ public class AyudaCliente extends javax.swing.JDialog {
         jLabel2.setText("Documento:");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnBuscarMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,41 +151,39 @@ public class AyudaCliente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AyudaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AyudaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AyudaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AyudaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMousePressed
+    EntidadBL objEntidadBL = new EntidadBL();
+        ArrayList<EntidadBE> clientes = objEntidadBL.buscarCliente("", this.txtDocumento.getText(), this.txtRazonSocial.getText(),"","1");
+        this.recargar(clientes);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarMousePressed
+
+    private void btnAceptarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMousePressed
+        if((dgvCliente.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un cliente.", "Mensaje",0);
+        } else if((dgvCliente.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un cliente", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvCliente.getSelectedRow();
+            codigo = (String)dgvCliente.getValueAt(fila, 0);
+            EntidadBL objEntidadBL = new EntidadBL();
+            EntidadBE objClienteBE = objEntidadBL.getCliente(codigo);
+
+            this.cliente.setIdEntidad(objClienteBE.getIdEntidad());
+            this.cliente.setRazonSocial(objClienteBE.getRazonSocial());
+            this.cliente.setNroDocumento(objClienteBE.getNroDocumento());
+            this.cliente.setDireccion(objClienteBE.getDireccion());
+
+            this.dispose();
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
 
-            public void run() {
-                new AyudaCliente().setVisible(true);
-            }
-        });
-    }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAceptarMousePressed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnBuscar;
@@ -179,4 +194,21 @@ public class AyudaCliente extends javax.swing.JDialog {
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtRazonSocial;
     // End of variables declaration//GEN-END:variables
+
+ public void recargar(ArrayList<EntidadBE> clientes){
+            DefaultTableModel modelo= new DefaultTableModel();
+            dgvCliente.setModel(modelo);
+            modelo.addColumn("Código");
+            modelo.addColumn("Razón Social");
+
+
+            for(int i=0;i<clientes.size();i++){
+                 modelo.addRow(new Object[4]);
+                dgvCliente.setValueAt(clientes.get(i).getIdEntidad(),i,0 );
+                dgvCliente.setValueAt(clientes.get(i).getRazonSocial(),i,1 );
+
+            }
+    }
+
+
 }

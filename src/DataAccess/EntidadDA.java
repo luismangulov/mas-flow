@@ -211,8 +211,8 @@ public class EntidadDA {
         ArrayList<EntidadBE> arrEntidad = new ArrayList<EntidadBE>();
 
         String sql = "SELECT idEntidad, nroDocumento, direccion, telefono, email, nombreContacto, "
-                + "dniContacto, telefonoContacto, idTipoPersona, razonSocial, paginaWeb, "
-                + "idTipoEntidad, indActivo, idCIUU FROM Entidad WHERE idEntidad like '"+tipoEntidad+"%'";
+                + "dniContacto, telefonoContacto, razonSocial, paginaWeb, "
+                + "indActivo, idCIUU FROM Entidad WHERE idEntidad like '"+tipoEntidad+"%'";
 
         if (tipoPersona == null ? "" != null : !tipoPersona.equals("")){
             if (tipoPersona.equals("E")){sql= sql + "and  nroDocumento like '___________' ";}
@@ -247,10 +247,8 @@ public class EntidadDA {
             String strNombreContacto;
             String strDniContacto;
             String strTelefonoContacto;
-            String strIdTipoPersona;
             String strRazonSocial;
             String strPaginaWeb;
-            String strIdTipoEntidad;
             String strIndActivo;
             String strIdCIUU;
             while (rs.next()){
