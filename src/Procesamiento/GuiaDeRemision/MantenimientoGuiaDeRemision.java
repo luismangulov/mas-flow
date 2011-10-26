@@ -284,7 +284,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     try {
         if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText())){
             
-            objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
+            
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
                 try {
@@ -298,8 +298,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
             }
         }
-        
-        //this.objPadre.recargaruno(objGuiaRemisionBE, null, null);
+        objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
+        this.objPadre.recargaruno(objGuiaRemisionBE, null, null);
         this.dispose();
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);

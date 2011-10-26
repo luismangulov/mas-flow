@@ -284,7 +284,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
     try {
         if(objNotaIngresoBL.insertar(this.jdcFecha.getDate(),this.txtProveedor.getText())){
             
-            objNotaIngresoBE = objNotaIngresoBL.getObjNotaIngresoBE();
+           
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleNotaIngresoBL objDetalleGuiaRemisionBL = new DetalleNotaIngresoBL();
                 try {
@@ -298,8 +298,8 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
                 }
             }
         }
-        
-        //this.objPadre.recargaruno(objGuiaRemisionBE, null, null);
+        objNotaIngresoBE = objNotaIngresoBL.getObjNotaIngresoBE();
+        this.objPadre.recargaruno(objNotaIngresoBE, null, null);
         this.dispose();
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
