@@ -6,34 +6,33 @@
 package DataAccess;
 
 import Util.conexion;
-import BusinessEntity.CIUUBE;
+import BusinessEntity.DepartamentoBE;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 /**
  *
  * @author giuliana
  */
-public class CIUUDA {
+public class DepartamentoDA {
 
-
-        public static ArrayList<CIUUBE> queryAllCIUU(){
+    public static ArrayList<DepartamentoBE> queryAllDepartamento(String idDepartamento){
 
         conexion objConexion=new conexion();
         ResultSet rs = null;
-        ArrayList<CIUUBE> arrCIUU = new ArrayList<CIUUBE>();
-        String sql = "SELECT idciuu, descripcion FROM CIUU order by 1;";
+        ArrayList<DepartamentoBE> arrDepartamento = new ArrayList<DepartamentoBE>();
+        String sql = "SELECT idDepartamento, descripcion "
+                + "FROM distrito where idDepartamento='"+idDepartamento+"' order by 2";
         try{
             rs=objConexion.EjecutarS(sql);
-            String strIdCIUU;
+            String strIdDepartamento;
             String strDescripcion;
             while (rs.next()){
-                strIdCIUU = rs.getString(1);
+                strIdDepartamento = rs.getString(1);
                 strDescripcion = rs.getString(2);
-                
-                arrCIUU.add(new CIUUBE( strIdCIUU, strDescripcion));
+
+                arrDepartamento.add(new DepartamentoBE( strIdDepartamento, strDescripcion));
             }
 
         }catch (Exception a){
@@ -43,7 +42,6 @@ public class CIUUDA {
              objConexion.SalirS();
          }
 
-        return arrCIUU;
+        return arrDepartamento;
     }
-
 }
