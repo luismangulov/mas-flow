@@ -23,14 +23,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jToolBar1" alignment="0" pref="600" max="32767" attributes="0"/>
+          <Component id="tlbProveedor" alignment="0" pref="600" max="32767" attributes="0"/>
           <Component id="jScrollPane1" alignment="0" pref="600" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
+              <Component id="tlbProveedor" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="338" max="32767" attributes="0"/>
           </Group>
@@ -45,11 +45,11 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="dgvProveedor">
           <Properties>
             <Property name="autoCreateRowSorter" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
+              <Table columnCount="5" rowCount="5">
                 <Column editable="false" title="C&#xf3;digo" type="java.lang.String"/>
                 <Column editable="false" title="Nombre" type="java.lang.String"/>
                 <Column editable="false" title="Estado" type="java.lang.String"/>
@@ -58,28 +58,28 @@
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="false">
+              <TableColumnModel selectionModel="1">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -93,7 +93,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JToolBar" name="jToolBar1">
+    <Container class="javax.swing.JToolBar" name="tlbProveedor">
       <Properties>
         <Property name="floatable" type="boolean" value="false"/>
         <Property name="rollover" type="boolean" value="true"/>
@@ -101,11 +101,12 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lblAgregar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/add_page.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Agregar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
@@ -116,14 +117,15 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel1MousePressed"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAgregarMousePressed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="lblEditar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/download.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Editar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
@@ -134,11 +136,12 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="lblEliminar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/delete_page.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Eliminar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
@@ -149,11 +152,12 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="lblBuscar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/search_page.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Buscar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
@@ -164,14 +168,15 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel4MousePressed"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBuscarMousePressed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
+        <Component class="javax.swing.JLabel" name="lblRefrescar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/refresh.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Refrescar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
@@ -182,16 +187,17 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
+        <Component class="javax.swing.JLabel" name="lblBlanco">
           <Properties>
             <Property name="text" type="java.lang.String" value="                                                                                        "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel6">
+        <Component class="javax.swing.JLabel" name="lblInfo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/info.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Informaci&#xf3;n"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
