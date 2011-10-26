@@ -9,7 +9,7 @@ import BusinessEntity.PerfilBE;
 import Util.Utilitario;
 import BusinessEntity.UsuarioBE;
 import DataAccess.EstadoUsuarioDA;
-import DataAccess.PerfilDA;
+import DataAccess.PerfilAD;
 import DataAccess.UsuarioDA;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +28,7 @@ public class UsuarioBL {
 //        Dim odaPerfil As New PerfilDA()
 //        Dim obePerfil As PerfilBE = odaPerfil.queryByIdPerfilSinDetalle(perfil)
 //        Dim obeUsuario As New UsuarioBE("", codigo, obeEmpleado, obePerfil)
-        PerfilDA objPerfilDA=new PerfilDA();
+        PerfilAD objPerfilDA=new PerfilAD();
         PerfilBE objPerfilBE = objPerfilDA.queryByIdPerfil(idPerfil);
         
         EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
@@ -88,7 +88,7 @@ public class UsuarioBL {
     }
 
     public UsuarioBE setUsuario(String idUsuario,String nombre,String paterno,String materno,String password,String idPerfil, String idEstadoUsuario,int limiteIntentos, Date fechaCambioClave) {
-        PerfilDA objPerfilDA=new PerfilDA();
+        PerfilAD objPerfilDA=new PerfilAD();
         PerfilBE objPerfilBE = objPerfilDA.queryByIdPerfil(idPerfil);
         
         EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();

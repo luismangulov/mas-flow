@@ -13,7 +13,7 @@ package Seguridad.Usuario;
 import BusinessEntity.PerfilBE;
 import BusinessEntity.UsuarioBE;
 import BusinessLogic.UsuarioBL;
-import DataAccess.PerfilDA;
+import DataAccess.PerfilAD;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -196,7 +196,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     }else estado = "0";
                     
                     
-                    objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText()," ","000001",estado,3,fechaActual);
+                    objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"","000001",estado,3,fechaActual);
                     UsuarioBE usuario;
                     usuario = objUsuarioBL.getUsuario();
                     this.objPadre.recargaruno(usuario);
@@ -209,7 +209,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";   
-                    usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText()," ","000001",estado,3,fechaActual);
+                    usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"","000001",estado,3,fechaActual);
                      objUsuarioBL.modificar(usuario);
                      int fila;
                      fila = this.objPadre.getDgvUsuario().getSelectedRow();
@@ -217,16 +217,9 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                      this.objPadre.getDgvUsuario().setValueAt(usuario.getIdUsuario(), fila, 0);
                      this.objPadre.getDgvUsuario().setValueAt(usuario.getNombre(), fila, 1);
                      this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
-                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
-                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
-                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
-                     //faltaaaaaaaaaaaa!!!
-                     
-                     if(usuario.getEstadoUsuario().getIdEstadoUsuario().equals("1")){
-                          this.objPadre.getDgvUsuario().setValueAt("Activo", fila, 3);
-                      }else if(usuario.getEstadoUsuario().getIdEstadoUsuario().equals("0")){
-                         this.objPadre.getDgvUsuario().setValueAt("Inactivo", fila, 3);
-                      }
+                     this.objPadre.getDgvUsuario().setValueAt(usuario.getMaterno(), fila, 3);
+                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPerfil().getDescripcion(), fila, 4);
+                     this.objPadre.getDgvUsuario().setValueAt(usuario.getEstadoUsuario().getDescripcion(), fila, 5);
                      this.dispose();
                  }
       } catch (Exception ex) {
@@ -294,7 +287,7 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
         private void llenarCombo() {
             
-        PerfilDA objPerfilDA =new PerfilDA();
+        PerfilAD objPerfilDA =new PerfilAD();
         
 
        try { ArrayList<PerfilBE> arrPerfil= objPerfilDA.queryAllPerfil();
