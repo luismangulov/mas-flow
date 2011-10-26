@@ -32,12 +32,29 @@ public class UbicacionBL {
     }
 
     public ArrayList<UbicacionBE> getUbicacionesByRack(String idRack) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryUbicacionesByRack(idRack);
     }
 
-    public UbicacionBE getUbicacionByIdUbicacion(String strIdUbicacion) {
+    public UbicacionBE getUbicacionById(String strIdUbicacion) {
         objUbicacionDA = new UbicacionDA();
-        return objUbicacionDA.queryUbicacionByIdUbicacion(strIdUbicacion);
+        return objUbicacionDA.queryUbicacionById(strIdUbicacion);
+    }
+
+    public UbicacionBE getUbicacionByRackFilaColumna(String strIdRack, int intFila, int intColumna) {
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryUbicacionByRackFilaColumna(strIdRack,intFila,intColumna);
+                
+    }
+
+    public ArrayList<UbicacionBE> getUbicacionesByZona(String strIdZona) {
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryUbicacionesByZona(strIdZona);
+    }
+
+    public ArrayList<UbicacionBE> getUbicacionesByAlmacen(String strIdAlmacen) {
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryUbicacionesByAlmacen(strIdAlmacen);
     }
             
 }
