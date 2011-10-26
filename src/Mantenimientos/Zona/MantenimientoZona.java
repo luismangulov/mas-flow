@@ -11,6 +11,7 @@
 package Mantenimientos.Zona;
 
 import BusinessEntity.FamiliaBE;
+import Mantenimientos.Producto.AyudaProducto;
 
 /**
  *
@@ -173,8 +174,8 @@ public class MantenimientoZona extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto();
-m.setVisible(true);// TODO add your handling code here:
+//AyudaProducto m = new AyudaProducto(this,true,producto);
+//m.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_jLabel4MousePressed
 
     /**
