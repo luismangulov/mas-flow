@@ -10,6 +10,11 @@
  */
 package Seguridad.Perfil;
 
+import BusinessEntity.PerfilBE;
+import BusinessLogic.PerfilBL;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DIEGO
@@ -31,21 +36,21 @@ public class AdmPerfil extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        dgvPerfil = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblAgregar = new javax.swing.JLabel();
+        lblEditar = new javax.swing.JLabel();
+        lblEliminar = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
+        lblRefrescar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar perfil");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        dgvPerfil.setAutoCreateRowSorter(true);
+        dgvPerfil.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -71,39 +76,44 @@ public class AdmPerfil extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(dgvPerfil);
 
         jToolBar1.setRollover(true);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel1MousePressed(evt);
+                lblAgregarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel1);
+        jToolBar1.add(lblAgregar);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel2MousePressed(evt);
+                lblEditarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel2);
+        jToolBar1.add(lblEditar);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
-        jToolBar1.add(jLabel3);
+        lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        jToolBar1.add(lblEliminar);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel4MousePressed(evt);
+                lblBuscarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel4);
+        jToolBar1.add(lblBuscar);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
-        jToolBar1.add(jLabel5);
+        lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRefrescarMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblRefrescar);
 
         jLabel7.setText("                                                                                                   ");
         jToolBar1.add(jLabel7);
@@ -128,8 +138,6 @@ public class AdmPerfil extends javax.swing.JFrame {
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -139,26 +147,32 @@ public class AdmPerfil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
 MantenimientoPerfil m = new MantenimientoPerfil();
 m.setVisible(true);
 // TODO add your handling code here:
-}//GEN-LAST:event_jLabel1MousePressed
+}//GEN-LAST:event_lblAgregarMousePressed
 
-private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
 // TODO add your handling code here:
     MantenimientoPerfil m = new MantenimientoPerfil();
 m.setVisible(true);
-}//GEN-LAST:event_jLabel2MousePressed
+}//GEN-LAST:event_lblEditarMousePressed
 
-private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
+private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 // TODO add your handling code here:
         BuscarPerfil m = new BuscarPerfil();
         m.setVisible(true);
 
 
         
-}//GEN-LAST:event_jLabel4MousePressed
+}//GEN-LAST:event_lblBuscarMousePressed
+
+private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
+// TODO add your handling code here:
+    PerfilBL objPerfilBL = new PerfilBL();
+    this.recargar(objPerfilBL.getAllPerfil());
+}//GEN-LAST:event_lblRefrescarMousePressed
 
     /**
      * @param args the command line arguments
@@ -196,15 +210,87 @@ private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTable dgvPerfil;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblAgregar;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblEditar;
+    private javax.swing.JLabel lblEliminar;
+    private javax.swing.JLabel lblRefrescar;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JTable getDgvPerfil() {
+        return dgvPerfil;
+    }
+    
+    public void recargaruno(PerfilBE perfil){
+//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+//        modelo.addRow(new Object[4]);
+//        for(int i=0;i<dgvFamilia.getRowCount();i++){
+//             dgvFamilia.remove(i);
+//            dgvFamilia.removeRowSelectionInterval(i, i);
+//        }
+         
+                   //
+//          dgvFamilia.clearSelection(); 
+         
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
+        dgvPerfil.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Detalle");
+        
+        dgvPerfil.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvPerfil.getColumnModel().getColumn(1).setPreferredWidth(100);
+        dgvPerfil.getColumnModel().getColumn(2).setPreferredWidth(120);
+        
+        modelo.addRow(new Object[3]);
+        dgvPerfil.setValueAt(perfil.getIdPerfil(),0,0 );
+        dgvPerfil.setValueAt(perfil.getDescripcion(),0,1 );
+
+
+    }
+    
+    public void recargar(ArrayList<PerfilBE> perfiles){
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
+        dgvPerfil.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Detalle");
+        
+        dgvPerfil.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvPerfil.getColumnModel().getColumn(1).setPreferredWidth(100);
+        dgvPerfil.getColumnModel().getColumn(2).setPreferredWidth(120);
+        
+        
+//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+//        modelo.addRow(new Object[4]);
+//          for(int i=0;i<dgvFamilia.getRowCount();i++){
+//            dgvFamilia.remove(i);
+//            dgvFamilia.removeRowSelectionInterval(i, i);
+//        }
+//          dgvFamilia.clearSelection();  
+                    
+        for(int i=0;i<perfiles.size();i++){
+             modelo.addRow(new Object[3]);
+            dgvPerfil.setValueAt(perfiles.get(i).getIdPerfil(),i,0 );
+            dgvPerfil.setValueAt(perfiles.get(i).getDescripcion(),i,1 );
+            
+
+   
+        }
+    }
+
 }
