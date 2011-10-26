@@ -44,11 +44,11 @@ public class ProductoDA {
         }
 
         query = "INSERT INTO Producto(idProducto, nombre, descripcion,"
-                + "maxCantPorPallet, idUnidadMedida, idFamilia, indActivo, precio) "
+                + "maxCantPorPallet, idUnidadMedida, idFamilia, indActivo) "
                 + "VALUES('"+ objProducto.getIdProducto() +"','" + objProducto.getNombre()
                 +"','" + objProducto.getDescripcion() +"','" + objProducto.getMaxCantPorPallet()
                 +"','" + objProducto.getIdUnidadMedida() +"','" + objProducto.getIdFamilia()
-                +"','" + objProducto.getEstado() +"','" + objProducto.getPrecio() + "')";
+                +"','" + objProducto.getEstado() +"')";
 
         try{
             objConexion.EjecutarUID(query);
@@ -65,8 +65,7 @@ public class ProductoDA {
                              + " descripcion ='"+ productoBE.getDescripcion() + "', "
                              + "maxCantPorPallet = '"+ productoBE.getMaxCantPorPallet() + "', "
                              + "idUnidadMedida ='" + productoBE.getIdUnidadMedida() +"', "
-                             + " idFamilia = '" + productoBE.getIdFamilia() + "', "
-                             + "precio ='"+ productoBE.getPrecio() +"'"
+                             + " idFamilia = '" + productoBE.getIdFamilia() + "' "
                              +" WHERE idProducto ='" + productoBE.getIdProducto() +"'";
         try{
             objConexion.EjecutarUID(query);
@@ -103,9 +102,9 @@ public class ProductoDA {
                 String strIdUnidadMedida = rs.getString("idUnidadMedida");
                 String strIdFamilia = rs.getString("idFamilia");
                 String strIndActivo = rs.getString("IndActivo");
-                int intPrecio = rs.getInt("precio");
+                
                 arrProductos.add(new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,intMaxCantPorPallet,
-                                  strIdUnidadMedida,strIdFamilia,strIndActivo,intPrecio));
+                                  strIdUnidadMedida,strIdFamilia,strIndActivo));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
@@ -150,9 +149,9 @@ public class ProductoDA {
                 String strIdUnidadMedida = rs.getString("idUnidadMedida");
                 String strIdFamilia = rs.getString("idFamilia");
                 String strIndActivo = rs.getString("IndActivo");
-                int intPrecio = rs.getInt("precio");
+                
                 arrProductos.add(new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,intMaxCantPorPallet,
-                                  strIdUnidadMedida,strIdFamilia,strIndActivo,intPrecio));
+                                  strIdUnidadMedida,strIdFamilia,strIndActivo));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
@@ -175,9 +174,9 @@ public class ProductoDA {
             String strIdUnidadMedida = rs.getString("idUnidadMedida");
             String strIdFamilia = rs.getString("idFamilia");
             String strIndActivo = rs.getString("IndActivo");
-            int intPrecio = rs.getInt("precio");
+
             objProducto = new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,
-            intMaxCantPorPallet,strIdUnidadMedida,strIdFamilia,strIndActivo,intPrecio);
+            intMaxCantPorPallet,strIdUnidadMedida,strIdFamilia,strIndActivo);
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
