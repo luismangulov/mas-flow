@@ -126,7 +126,7 @@ public class PerfilAD {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "UPDATE perfil SET";
+        String sql = "UPDATE perfil SET ";
              sql += "descripcion='"+objPerfil.getDescripcion()+ "',"+
                      "indactivo='"+objPerfil.getIndActivo()+ "'"+ 
                     " WHERE idPerfil='"+objPerfil.getIdPerfil()+"'";
@@ -148,7 +148,7 @@ public class PerfilAD {
         conexion objConexion = new conexion();
        
         String sql = "DELETE FROM Perfil";
-             sql += " WHERE idfamilia='"+idPerfil+"'";
+             sql += " WHERE idPerfil='"+idPerfil+"'";
         
         try{
             objConexion.EjecutarUID(sql);

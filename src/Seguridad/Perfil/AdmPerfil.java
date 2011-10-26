@@ -13,6 +13,9 @@ package Seguridad.Perfil;
 import BusinessEntity.PerfilBE;
 import BusinessLogic.PerfilBL;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -97,6 +100,11 @@ public class AdmPerfil extends javax.swing.JFrame {
         jToolBar1.add(lblEditar);
 
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarMousePressed(evt);
+            }
+        });
         jToolBar1.add(lblEliminar);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
@@ -137,7 +145,6 @@ public class AdmPerfil extends javax.swing.JFrame {
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -148,15 +155,29 @@ public class AdmPerfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
-MantenimientoPerfil m = new MantenimientoPerfil();
+MantenimientoPerfil m = new MantenimientoPerfil(this);
 m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_lblAgregarMousePressed
 
 private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
 // TODO add your handling code here:
-    MantenimientoPerfil m = new MantenimientoPerfil();
-m.setVisible(true);
+       if((dgvPerfil.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una familia de producto", "Mensaje",0);
+        } else if((dgvPerfil.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvPerfil.getSelectedRow();
+            codigo = (String)dgvPerfil.getValueAt(fila, 0);
+            PerfilBL objPerfilBL = new PerfilBL();
+            PerfilBE perfil = objPerfilBL.queryByIdPerfil(codigo);
+            MantenimientoPerfil m = new MantenimientoPerfil(this,perfil);
+            m.setVisible(true);
+        }
+            
+
 }//GEN-LAST:event_lblEditarMousePressed
 
 private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
@@ -173,6 +194,29 @@ private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
     PerfilBL objPerfilBL = new PerfilBL();
     this.recargar(objPerfilBL.getAllPerfil());
 }//GEN-LAST:event_lblRefrescarMousePressed
+
+private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+// TODO add your handling code here:
+    
+            int respuesta = 0;
+        respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este perfil? Esta acción no podrá deshacerse.", "Eliminar perfil", 0); 
+        if(respuesta == 0){
+            int fila;
+            String codigo;
+            fila = dgvPerfil.getSelectedRow();
+            codigo = (String)dgvPerfil.getValueAt(fila, 0);
+            PerfilBL objFamiliaBL = new PerfilBL();
+            try {
+                objFamiliaBL.eliminar(codigo);
+                this.lblRefrescarMousePressed(evt);
+            } catch (Exception ex) {
+                Logger.getLogger(AdmPerfil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    
+    
+}//GEN-LAST:event_lblEliminarMousePressed
 
     /**
      * @param args the command line arguments
