@@ -10,6 +10,10 @@
  */
 package Procesamiento.NotaDeIngreso;
 
+import BusinessEntity.NotaIngresoBE;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DIEGO
@@ -176,66 +180,66 @@ m.setVisible(true);
     private javax.swing.JTable tblNotaIngreso;
     // End of variables declaration//GEN-END:variables
 
-//public void recargaruno(GuiaRemisionBE guiaRemision,String direccion,String contacto){
-//    ////
-//         
-//        DefaultTableModel modelo= new DefaultTableModel(){
-//            @Override
-//            public boolean isCellEditable(int rowIndex, int columnIndex) {
-//                return false;  
-//            }
-//        };
-//        tblGuiaRemision.setModel(modelo);
-//        modelo.addColumn("Código");
-//        modelo.addColumn("Cliente");
-//        modelo.addColumn("Dirección");
-//        modelo.addColumn("Contacto");
-//        modelo.addColumn("Fecha");
-//        modelo.addColumn("Estado");
-////        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
-////        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
-////        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
-////        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
-//         modelo.addRow(new Object[5]);
-//        tblGuiaRemision.setValueAt(guiaRemision.getCodigo(),0,0 );
-//        tblGuiaRemision.setValueAt(guiaRemision.getCliente().getIdEntidad(),0,1 );
-//        tblGuiaRemision.setValueAt(direccion,0,2 );
-//        tblGuiaRemision.setValueAt(contacto,0,3 );
-//        tblGuiaRemision.setValueAt(guiaRemision.getFecha(),0,4 );
-//        tblGuiaRemision.setValueAt(guiaRemision.getEstado().getDescripcion(),0,5 );
-//    }
-//
-//    public void recargar(ArrayList<GuiaRemisionBE> guiaRemisiones){
-//    ////
-//         
-//        DefaultTableModel modelo= new DefaultTableModel(){
-//            @Override
-//            public boolean isCellEditable(int rowIndex, int columnIndex) {
-//                return false;  
-//            }
-//        };
-//        tblGuiaRemision.setModel(modelo);
-//        modelo.addColumn("Código");
-//        modelo.addColumn("Cliente");
-//        modelo.addColumn("Dirección");
-//        modelo.addColumn("Contacto");
-//        modelo.addColumn("Fecha");
-//        modelo.addColumn("Estado");
-////        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
-////        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
-////        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
-////        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
-//        
-//        for(int i = 0;i<guiaRemisiones.size();i++){
-//            modelo.addRow(new Object[5]);
-//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCodigo(),0,0 );
-//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getIdEntidad(),0,1 );
-//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getDireccion(),0,2 );
-//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getNombreContacto(),0,3 );
-//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getFecha(),0,4 );
-//            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getEstado().getDescripcion(),0,5 );
-//        }
-//        
-//    }
+public void recargaruno(NotaIngresoBE notaIngreso,String direccion,String contacto){
+    ////
+         
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
+        tblNotaIngreso.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Contacto");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Estado");
+//        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
+//        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
+//        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
+//        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
+         modelo.addRow(new Object[5]);
+         tblNotaIngreso.setValueAt(notaIngreso.getCodigo(),0,0 );
+         tblNotaIngreso.setValueAt(notaIngreso.getProveedor().getIdEntidad(),0,1 );
+         tblNotaIngreso.setValueAt(direccion,0,2 );
+         tblNotaIngreso.setValueAt(contacto,0,3 );
+         tblNotaIngreso.setValueAt(notaIngreso.getFecha(),0,4 );
+         tblNotaIngreso.setValueAt(notaIngreso.getEstado().getDescripcion(),0,5 );
+    }
+
+    public void recargar(ArrayList<NotaIngresoBE> notasIngreso){
+    ////
+         
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
+         tblNotaIngreso.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Contacto");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Estado");
+//        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
+//        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
+//        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
+//        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
+        
+        for(int i = 0;i<notasIngreso.size();i++){
+            modelo.addRow(new Object[5]);
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getCodigo(),0,0 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getIdEntidad(),0,1 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getDireccion(),0,2 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getNombreContacto(),0,3 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getFecha(),0,4 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getEstado().getDescripcion(),0,5 );
+        }
+        
+    }
 
 }
