@@ -169,7 +169,8 @@ public class RackDA {
                 int intColumnas = rs.getInt("Columnas");
                 String strIndActivo = rs.getString("IndActivo");
                 String strIdZona = rs.getString("IdZona");
-                objRackBE = new RackBE(strIdRack,posX,posY,intPisos,intColumnas,strIndActivo,strIdZona, "");
+                String strIdentificador = rs.getString("Identificador");
+                objRackBE = new RackBE(strIdRack,posX,posY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador);
                 
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,7 +194,8 @@ public class RackDA {
                 int intColumnas = rs.getInt("Columnas");
                 String strIndActivo = rs.getString("IndActivo");
                 String strIdZona = rs.getString("IdZona");
-                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona, ""));
+                String strIdentificador = rs.getString("Identificador");                
+                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona, strIdentificador));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -226,7 +228,8 @@ public class RackDA {
                 int intColumnas = rs.getInt("Columnas");
                 String strIndActivo = rs.getString("IndActivo");
                 String strIdZona = rs.getString("IdZona");
-                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona, ""));
+                String strIdentificador = rs.getString("Identificador");
+                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -237,22 +240,12 @@ public class RackDA {
     public RackBE queryRackByUbicacion(String strIdUbicacion) {
         
         objConexion = new conexion();
-        query = "SELECT idRack FROM UBICACION WHERE idUbicacion='"+strIdUbicacion+"'";
+        query = "SELECT a.idRack, a.posx, a.posy, a.pisos, a.columnas, a.indActivo, a.idZona, a.identificador FROM RACK a, UBICACION b WHERE a.indActivo = '1' AND a.idRack = b.idRack AND b.idUbicacion = '" +strIdUbicacion+"'";
         rs = objConexion.EjecutarS(query);
-        String strIdRack = null;
         
         try {
             rs.next();
-            strIdRack = rs.getString(1);
-        } catch (SQLException ex) {
-            Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        query = "SELECT * FROM RACK WHERE idRack = '"+strIdRack+"'";
-        rs = objConexion.EjecutarS(query);
-        try {
-            rs.next();
-            strIdRack = rs.getString("IdRack");
+            String strIdRack = rs.getString("IdRack");
             int intPosX = rs.getInt("PosX");
             int intPosY = rs.getInt("PosY");
             int intPisos = rs.getInt("Pisos");
@@ -267,5 +260,55 @@ public class RackDA {
         }
         
         return objRackBE;
+    }
+
+    public RackBE queryRackByIdentificador(String identificador) {
+
+        objConexion = new conexion();
+        query = "SELECT * FROM RACK WHERE indActivo ='1' AND identificador ='"+identificador +"'";
+        rs = objConexion.EjecutarS(query);
+        
+        try {
+            rs.next();
+            String strIdRack = rs.getString("IdRack");
+            int intPosX = rs.getInt("PosX");
+            int intPosY = rs.getInt("PosY");
+            int intPisos = rs.getInt("Pisos");
+            int intColumnas = rs.getInt("Columnas");
+            String strIndActivo = rs.getString("IndActivo");
+            String strIdZona = rs.getString("IdZona");
+            String strIdentificador = rs.getString("Identificador");
+            objRackBE = new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador);
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return objRackBE;
+  
+    }
+
+    public ArrayList<RackBE> queryRackByZona(String idZona) {
+                objConexion = new conexion();
+        query = "SELECT * FROM RACK WHERE indActivo = '1' AND idZona ='" +idZona+"'";
+        rs = objConexion.EjecutarS(query);
+        arrRacks = new ArrayList<RackBE>();
+        try {
+            while (rs.next()) {
+                String strIdRack = rs.getString("IdRack");
+                int intPosX = rs.getInt("PosX");
+                int intPosY = rs.getInt("PosY");
+                int intPisos = rs.getInt("Pisos");
+                int intColumnas = rs.getInt("Columnas");
+                String strIndActivo = rs.getString("IndActivo");
+                String strIdZona = rs.getString("IdZona");
+                String strIdentificador = rs.getString("Identificador");
+                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arrRacks;
+        
     }
 }
