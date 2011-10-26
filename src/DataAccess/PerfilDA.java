@@ -8,6 +8,7 @@ import BusinessEntity.PerfilBE;
 import BusinessEntity.UsuarioBE;
 import Util.conexion;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -45,6 +46,33 @@ public class PerfilDA {
       
         return perfil;
     }
-
+  
+      public ArrayList<PerfilBE> queryAllPerfil(){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<PerfilBE> arrPerfil = new ArrayList<PerfilBE>();
+        String sql = "SELECT idPerfil,Descripcion,IndActivo FROM Perfil WHERE indActivo= '1' order by 1";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdPerfil;
+            String strDescripcion;
+            String strIndActivo;
+            
+            while (rs.next()){
+              
+                strIdPerfil = rs.getString(1);
+                strDescripcion = rs.getString(2);
+                strIndActivo = rs.getString(3);
+                arrPerfil.add(new PerfilBE(strIdPerfil,strDescripcion,strIndActivo));
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+        return arrPerfil;
+    }
     
 }
