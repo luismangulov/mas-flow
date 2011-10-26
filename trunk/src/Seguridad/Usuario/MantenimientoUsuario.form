@@ -38,7 +38,7 @@
                       <EmptySpace pref="47" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="cbxPerfil" min="-2" pref="141" max="-2" attributes="1"/>
+                              <Component id="cmbPerfil" min="-2" pref="141" max="-2" attributes="1"/>
                               <EmptySpace pref="74" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtMaterno" alignment="0" min="-2" pref="140" max="-2" attributes="1"/>
@@ -83,7 +83,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cbxPerfil" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbPerfil" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -127,7 +127,7 @@
         <Property name="text" type="java.lang.String" value="Perfil:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbxPerfil">
+    <Component class="javax.swing.JComboBox" name="cmbPerfil">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>

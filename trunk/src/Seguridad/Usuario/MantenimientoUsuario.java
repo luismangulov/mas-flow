@@ -10,8 +10,11 @@
  */
 package Seguridad.Usuario;
 
+import BusinessEntity.PerfilBE;
 import BusinessEntity.UsuarioBE;
 import BusinessLogic.UsuarioBL;
+import DataAccess.PerfilDA;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +34,8 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         accion = "registrar";       
         initComponents();
         this.setLocationRelativeTo(null); 
-        this.setTitle("+Flow - Registrar usuario");                        
+        this.setTitle("+Flow - Registrar usuario");  
+        this.llenarCombo();
         this.setVisible(true);
     }
 
@@ -42,12 +46,13 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.ckbActivo.setEnabled(true);
         this.setTitle("+Flow - Editar Usuario");
+        this.llenarCombo();
         this.txtIdUsuario.setText(usuario.getIdUsuario());
         this.txtNombre.setText(usuario.getNombre());
         this.txtPaterno.setText(usuario.getPaterno());
         this.txtMaterno.setText(usuario.getMaterno());
-        String idEstadoUsuario=usuario.getEstadoUsuario().getIdEstadoUsuario();
-        if (usuario.getEstadoUsuario().getIdEstadoUsuario().equals("1"))
+        String idEstadoUsuario=usuario.getEstadoUsuario().getIdEstadoUsuario().trim();
+        if (idEstadoUsuario.equals("1"))
         {
             this.ckbActivo.setSelected(true);
          
@@ -73,7 +78,7 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        cbxPerfil = new javax.swing.JComboBox();
+        cmbPerfil = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -129,7 +134,7 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbxPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE))
                             .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,7 +168,7 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(ckbActivo)
@@ -184,13 +189,12 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     try {
            
         Date fechaActual = new Date();
-        if(this.accion.equals("registrar")){
-            
-                    
+        if(this.accion.equals("registrar")){                               
                     String estado;
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
-                    }else estado = "0";  
+                    }else estado = "0";
+                    
                     
                     objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText()," ","000001",estado,3,fechaActual);
                     UsuarioBE usuario;
@@ -275,8 +279,8 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox cbxPerfil;
     private javax.swing.JCheckBox ckbActivo;
+    private javax.swing.JComboBox cmbPerfil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -287,4 +291,25 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPaterno;
     // End of variables declaration//GEN-END:variables
+
+        private void llenarCombo() {
+            
+        PerfilDA objPerfilDA =new PerfilDA();
+        
+
+       try { ArrayList<PerfilBE> arrPerfil= objPerfilDA.queryAllPerfil();
+        cmbPerfil.addItem("Seleccione");
+        for (PerfilBE perfil : arrPerfil){
+            cmbPerfil.addItem(perfil.getDescripcion());
+        }
+        } catch (Exception ex) {
+            Logger.getLogger(MantenimientoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        index = OGGestorTipoDocIdentidad.indexTipoDocIdentidad(arrTipoDocIdentidad,objCliente.getObjTipoDocIdentidad().getStrIdTipoDocIdentidad());
+//        jcmbTipoDocumento.setSelectedIndex(index+1);
+
+
+    }
+
+
 }
