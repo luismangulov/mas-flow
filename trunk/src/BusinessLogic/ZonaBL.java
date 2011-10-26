@@ -71,7 +71,10 @@ public class ZonaBL {
         return objZonaDA.queryByIdZona(codigo);
     }
 
-
+    public ZonaBE getByIdentificadorZona(String identificador){
+        ZonaDA objZonaDA = new ZonaDA();
+        return objZonaDA.queryByIdentificadorZona(identificador);
+    }
 
 
 
