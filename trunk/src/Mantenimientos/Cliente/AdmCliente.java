@@ -62,7 +62,11 @@ public class AdmCliente extends javax.swing.JFrame {
         dgvCliente.setAutoCreateRowSorter(true);
         dgvCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
                 "Código", "Nombre", "Estado", "Contacto", "Teléfono"
@@ -83,10 +87,10 @@ public class AdmCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvCliente.setColumnSelectionAllowed(true);
         dgvCliente.setName("dgvCliente"); // NOI18N
         jScrollPane1.setViewportView(dgvCliente);
         dgvCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        dgvCliente.getColumnModel().getColumn(0).setResizable(false);
         dgvCliente.getColumnModel().getColumn(0).setPreferredWidth(40);
         dgvCliente.getColumnModel().getColumn(1).setPreferredWidth(150);
         dgvCliente.getColumnModel().getColumn(2).setPreferredWidth(40);
@@ -108,6 +112,7 @@ public class AdmCliente extends javax.swing.JFrame {
         tlbCliente.add(lblAgregar);
 
         lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        lblEditar.setToolTipText("Editar");
         lblEditar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -118,11 +123,13 @@ public class AdmCliente extends javax.swing.JFrame {
         tlbCliente.add(lblEditar);
 
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminar.setToolTipText("Eliminar");
         lblEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tlbCliente.add(lblEliminar);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.setToolTipText("Buscar");
         lblBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,6 +140,7 @@ public class AdmCliente extends javax.swing.JFrame {
         tlbCliente.add(lblBuscar);
 
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.setToolTipText("Refrescar");
         lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -146,6 +154,7 @@ public class AdmCliente extends javax.swing.JFrame {
         tlbCliente.add(lblBlanco);
 
         lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
+        lblInfo.setToolTipText("Información");
         lblInfo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tlbCliente.add(lblInfo);

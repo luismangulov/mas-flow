@@ -32,22 +32,23 @@ public class AdmProveedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        dgvProveedor = new javax.swing.JTable();
+        tlbProveedor = new javax.swing.JToolBar();
+        lblAgregar = new javax.swing.JLabel();
+        lblEditar = new javax.swing.JLabel();
+        lblEliminar = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
+        lblRefrescar = new javax.swing.JLabel();
+        lblBlanco = new javax.swing.JLabel();
+        lblInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar proveedor");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        dgvProveedor.setAutoCreateRowSorter(true);
+        dgvProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -72,75 +73,77 @@ public class AdmProveedor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setResizable(false);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
-        jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(40);
-        jTable1.getColumnModel().getColumn(3).setResizable(false);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(4).setResizable(false);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
+        jScrollPane1.setViewportView(dgvProveedor);
+        dgvProveedor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        dgvProveedor.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvProveedor.getColumnModel().getColumn(1).setPreferredWidth(150);
+        dgvProveedor.getColumnModel().getColumn(2).setPreferredWidth(40);
+        dgvProveedor.getColumnModel().getColumn(3).setPreferredWidth(100);
+        dgvProveedor.getColumnModel().getColumn(4).setPreferredWidth(40);
 
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
+        tlbProveedor.setFloatable(false);
+        tlbProveedor.setRollover(true);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
-        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblAgregar.setToolTipText("Agregar");
+        lblAgregar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel1MousePressed(evt);
+                lblAgregarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel1);
+        tlbProveedor.add(lblAgregar);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
-        jLabel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jToolBar1.add(jLabel2);
+        lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        lblEditar.setToolTipText("Editar");
+        lblEditar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tlbProveedor.add(lblEditar);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
-        jLabel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jToolBar1.add(jLabel3);
+        lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminar.setToolTipText("Eliminar");
+        lblEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tlbProveedor.add(lblEliminar);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
-        jLabel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.setToolTipText("Buscar");
+        lblBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel4MousePressed(evt);
+                lblBuscarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel4);
+        tlbProveedor.add(lblBuscar);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
-        jLabel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jToolBar1.add(jLabel5);
+        lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.setToolTipText("Refrescar");
+        lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tlbProveedor.add(lblRefrescar);
 
-        jLabel7.setText("                                                                                        ");
-        jToolBar1.add(jLabel7);
+        lblBlanco.setText("                                                                                        ");
+        tlbProveedor.add(lblBlanco);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
-        jLabel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jToolBar1.add(jLabel6);
+        lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
+        lblInfo.setToolTipText("Información");
+        lblInfo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tlbProveedor.add(lblInfo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(tlbProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tlbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
         );
@@ -148,16 +151,16 @@ public class AdmProveedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
 MantenimientoProveedor m = new MantenimientoProveedor();
 m.setVisible(true);
 // TODO add your handling code here:
-}//GEN-LAST:event_jLabel1MousePressed
+}//GEN-LAST:event_lblAgregarMousePressed
 
-private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
+private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 BuscarProveedor m = new BuscarProveedor();
 m.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel4MousePressed
+}//GEN-LAST:event_lblBuscarMousePressed
 
     /**
      * @param args the command line arguments
@@ -195,15 +198,15 @@ m.setVisible(true);// TODO add your handling code here:
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JTable dgvProveedor;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblAgregar;
+    private javax.swing.JLabel lblBlanco;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblEditar;
+    private javax.swing.JLabel lblEliminar;
+    private javax.swing.JLabel lblInfo;
+    private javax.swing.JLabel lblRefrescar;
+    private javax.swing.JToolBar tlbProveedor;
     // End of variables declaration//GEN-END:variables
 }
