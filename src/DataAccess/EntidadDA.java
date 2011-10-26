@@ -220,15 +220,15 @@ public class EntidadDA {
         }
 
         if (nroDocumento == null ? "" != null : !nroDocumento.equals("")){
-            sql= sql + "and  nroDocumento like '"+ nroDocumento+"' ";
+            sql= sql + "and  nroDocumento like '%"+ nroDocumento+"%' ";
         }
 
         if (razonSocial == null ? "" != null : !razonSocial.equals("")){
-            sql= sql + "and  razonSocial like '"+ razonSocial+"' ";
+            sql= sql + "and  razonSocial like '%"+ razonSocial+"%' ";
         }
 
         if (direccion == null ? "" != null : !direccion.equals("")){
-            sql= sql + "and  direccion like '"+ direccion+"' ";
+            sql= sql + "and  direccion like '%"+ direccion+"%' ";
         }
 
         if (indActivo == null ? "" != null : !indActivo.equals("")){
