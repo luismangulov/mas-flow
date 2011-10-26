@@ -208,4 +208,29 @@ public class PalletDA {
         return arrPallets;
     }
 
+    public PalletBE queryByIdUbicacion(String idUbicacion) {
+        
+        objConexion = new conexion();
+        query = "SELECT * FROM Pallet WHERE idUbicacion ='" + idUbicacion + "'";
+        rs = objConexion.EjecutarS(query);
+        arrPallets = new ArrayList<PalletBE>();
+        
+        try {
+            rs.next();   
+            String strIdPallet = rs.getString("IdPallet");
+            String strIdProducto = rs.getString("IdProducto");
+            String strIndActivo= rs.getString("IndActivo");
+            String strIdUbicacion = rs.getString("Ubicacion");
+            String strIdAlmacen = rs.getString("Almacen");
+            Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
+            
+            objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento);
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }
+        return objPalletBE;
+        
+    }
+
 }
