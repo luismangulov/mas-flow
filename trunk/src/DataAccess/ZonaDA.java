@@ -21,7 +21,7 @@ public class ZonaDA {
     conexion objConexion;
     String query;
     
-    public ArrayList<ZonaBE> queryAllFamilia(){
+    public ArrayList<ZonaBE> queryAllZona(){
         
         objConexion = new conexion();
         ResultSet rs = null;

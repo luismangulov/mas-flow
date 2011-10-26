@@ -85,18 +85,43 @@ public class UbicacionDA {
         }
     }
 
-    public void eliminarUbicacionesRack(String idRack) {
+    public boolean eliminarUbicacionesRack(String idRack){
         boolExito = false;
         objConexion = new conexion();
-        query = "DELETE UBICACION WHERE idRack ='" + idRack + "'";
+        if(validaBorrarUbicaciones(idRack)){
+            query = "DELETE FROM UBICACION WHERE idRack ='" + idRack + "'";
+            try{
+                objConexion.EjecutarUID(query);
+                boolExito = true;
+            } catch (Exception e){
+                    JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
+            }finally{
+                objConexion.SalirUID();
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Hay ubicaciones amarradas", "Error", 0);
+        return boolExito;
+    }
+    
+    public boolean validaBorrarUbicaciones(String idRack){
+        boolean boolValido = false;
+        rs = null;
+        objConexion = new conexion();
+        query = "SELECT idUbicacion FROM UBICACION WHERE indActivo = '2' OR indActivo = '3' AND idRack ='" + idRack + "'";
         try{
-            objConexion.EjecutarUID(query);
+            rs = objConexion.EjecutarS(query);
+            rs.next();
+            if (!rs.isAfterLast())
+                boolValido = true;
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
         }finally{
-            objConexion.SalirUID();
+            objConexion.SalirS();
         }
+        return boolValido;
     }
+    
 
     public ArrayList<UbicacionBE> queryAllUbicacionActiva(){
         

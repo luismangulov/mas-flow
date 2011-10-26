@@ -75,13 +75,13 @@ public class RackDA {
         
         query = "UPDATE RACK set posX = '"+String.valueOf(objRack.getPosX())+"', "
                                 + "posY='"+String.valueOf(objRack.getPosY())+"', "
-                                + "pisos = '"+String.valueOf(objRack.getPisos())+"',"
-                                + "columnas ='"+String.valueOf(objRack.getColumnas())+"', "
+//                                + "pisos = '"+String.valueOf(objRack.getPisos())+"',"
+//                                + "columnas ='"+String.valueOf(objRack.getColumnas())+"', "
                                 + "indActivo = '" +objRack.getIndActivo()+ "',"
                                 + "idZona ='"+objRack.getIdZona()+"',"
                                 + "identificador='"+objRack.getIdentificador()+"'"
                                 + " WHERE idRack = '"+objRack.getIdRack()+"'";
-        
+            
         try{
             objConexion.EjecutarUID(query);
         } catch (Exception e){
@@ -94,10 +94,9 @@ public class RackDA {
     public void eliminar(String idRack){
 
         objConexion = new conexion();
-        query = "UPDATE RACK set indActivo = '0' WHERE idRack ='"+idRack+"'";
+        query = "DELETE FROM RACK WHERE idRack ='"+idRack+"'";
         try{
             objConexion.EjecutarUID(query);
-            JOptionPane.showMessageDialog(null, "La eliminación fue exitosa", "Éxito", 0);
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
         }finally{
@@ -203,17 +202,18 @@ public class RackDA {
         
     } 
     
-    public ArrayList<RackBE> queryListSearch(String idRack, String idZona) {
+    public ArrayList<RackBE> queryListSearch(String idRack, String idZona, String indActivos) {
         
-        boolean flagIdRack = false;
         objConexion = new conexion();
-        query = "SELECT * FROM RACK WHERE indActivo ='1'";
+        query = "SELECT * FROM RACK WHERE indActivo ='" +indActivos+"'";
 
-        if (!idRack.equals("")){
+        if (!idRack.equals(""))
             query = query + " AND idRack LIKE '%" + idRack + "%'";
-        }
+        
+        
         if (!idZona.equals(""))
-            query = query + " AND idZona LIKE '%" + idZona + "%'";
+                query = query + " AND idZona LIKE '%" + idZona + "%'";
+        
 
         rs = objConexion.EjecutarS(query);
         arrRacks = new ArrayList<RackBE>();
