@@ -4,43 +4,47 @@
  */
 package BusinessEntity;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author victor
  */
 public class ZonaBE {
-    private String idZona;
-    private String nombre;
-    private String indActivo;
-    private String idAlmacen;
-    private Double largo;
-    private Double ancho;
-    private int posX;
-    private int posY;
-    private String identificador;
+    private String idZona;//6
+    private String nombre;//30
+    private String identificador;//13
+    private String indActivo;//1
+    private String idAlmacen;//6
+    private int posX;//6
+    private int posY; //6
+    private int largo;//6
+    private int ancho; //6
+    private ArrayList <FamiliaBE> familias;
     
+    
+
     public ZonaBE() {
     }
 
-    public ZonaBE(String idZona, String nombre, String indActivo, String idAlmacen, Double largo, Double ancho, int posX, int posY, String identificador) {
+    public ZonaBE(String idZona, String nombre, String identificador, String indActivo,
+            String idAlmacen, int posX, int posY, int ancho, int largo, ArrayList <FamiliaBE> familias) {
         this.idZona = idZona;
         this.nombre = nombre;
+        this.identificador = identificador;
         this.indActivo = indActivo;
         this.idAlmacen = idAlmacen;
-        this.largo = largo;
-        this.ancho = ancho;
-        this.posX = posX;
-        this.posY = posY;
-        this.identificador = identificador;
+        this.posX =posX;
+        this.posY=posY;
+        this.ancho=ancho;
+        this.largo=largo;
+        this.familias=familias;
+
+
+
     }
 
-    public Double getAncho() {
-        return ancho;
-    }
-
-    public void setAncho(Double ancho) {
-        this.ancho = ancho;
-    }
+   
 
     public String getIdAlmacen() {
         return idAlmacen;
@@ -58,28 +62,12 @@ public class ZonaBE {
         this.idZona = idZona;
     }
 
-    public String getIdentificador() {
-        return identificador;
-    }
-
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
-    }
-
     public String getIndActivo() {
         return indActivo;
     }
 
     public void setIndActivo(String indActivo) {
         this.indActivo = indActivo;
-    }
-
-    public Double getLargo() {
-        return largo;
-    }
-
-    public void setLargo(Double largo) {
-        this.largo = largo;
     }
 
     public String getNombre() {
@@ -90,21 +78,87 @@ public class ZonaBE {
         this.nombre = nombre;
     }
 
+    /**
+     * @return the posX
+     */
     public int getPosX() {
         return posX;
     }
 
+    /**
+     * @param posX the posX to set
+     */
     public void setPosX(int posX) {
         this.posX = posX;
     }
 
+    /**
+     * @return the posY
+     */
     public int getPosY() {
         return posY;
     }
 
+    /**
+     * @param posY the posY to set
+     */
     public void setPosY(int posY) {
         this.posY = posY;
     }
-    
-    
+
+    /**
+     * @return the largo
+     */
+    public int getLargo() {
+        return largo;
+    }
+
+    /**
+     * @param largo the largo to set
+     */
+    public void setLargo(int largo) {
+        this.largo = largo;
+    }
+
+    /**
+     * @return the ancho
+     */
+    public int getAncho() {
+        return ancho;
+    }
+
+    /**
+     * @param ancho the ancho to set
+     */
+    public void setAncho(int ancho) {
+        this.ancho = ancho;
+    }
+
+    /**
+     * @return the identificador
+     */
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    /**
+     * @param identificador the identificador to set
+     */
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+
+    /**
+     * @return the familias
+     */
+    public ArrayList<FamiliaBE> getFamilias() {
+        return familias;
+    }
+
+    /**
+     * @param familias the familias to set
+     */
+    public void setFamilias(ArrayList<FamiliaBE> familias) {
+        this.familias = familias;
+    }
 }
