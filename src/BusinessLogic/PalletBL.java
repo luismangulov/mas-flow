@@ -36,6 +36,11 @@ public class PalletBL {
         objPalletDA = new PalletDA();
         return objPalletDA.queryListSearch(idPallet, idProducto, idAlmacen);
     }
+
+    public PalletBE getPalletByIdUbicacion(String strIdUbicacion) {
+        objPalletDA = new PalletDA();
+        return objPalletDA.queryByIdUbicacion(strIdUbicacion);
+    }
     
     
 }
