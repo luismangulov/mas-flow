@@ -46,11 +46,18 @@ public class RackBL {
     }
 
     public ArrayList<RackBE> getRacksByZona(String idZona) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        objRackDA = new RackDA();
+        return objRackDA.queryRackByZona(idZona);
     }
 
     public RackBE getRackByIdUbicacion(String strIdUbicacion) {
         objRackDA = new RackDA();
         return objRackDA.queryRackByUbicacion(strIdUbicacion);
     }
+    
+    public RackBE getByIdentificador(String strIdentificador){
+        objRackDA = new RackDA();
+        return objRackDA.queryRackByIdentificador(strIdentificador);
+    }
 }
+
