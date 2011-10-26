@@ -56,20 +56,20 @@ public class AdmRack extends javax.swing.JFrame {
         dgvRacks.setAutoCreateRowSorter(true);
         dgvRacks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Rack", "Dimensiones", "Pisos", "Columnas", "Zona"
+                "Rack", "Posición X", "Posición Y", "Pisos", "Columnas", "Zona"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -82,7 +82,11 @@ public class AdmRack extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(dgvRacks);
         dgvRacks.getColumnModel().getColumn(0).setResizable(false);
+        dgvRacks.getColumnModel().getColumn(1).setResizable(false);
         dgvRacks.getColumnModel().getColumn(2).setResizable(false);
+        dgvRacks.getColumnModel().getColumn(3).setResizable(false);
+        dgvRacks.getColumnModel().getColumn(4).setResizable(false);
+        dgvRacks.getColumnModel().getColumn(5).setResizable(false);
 
         jToolBar1.setRollover(true);
 
@@ -165,7 +169,7 @@ private void lblBuscarRackMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIR
 }//GEN-LAST:event_lblBuscarRackMousePressed
 
 private void lblRegistrarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarRackMouseClicked
-    MantenimientoRack frmManteminiento = new MantenimientoRack('R');
+    MantenimientoRack frmManteminiento = new MantenimientoRack('R',this);
     frmManteminiento.setVisible(true);
 }//GEN-LAST:event_lblRegistrarRackMouseClicked
 
@@ -176,7 +180,7 @@ private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
         idRack = (String)dgvRacks.getValueAt(fila, 0);
-        MantenimientoRack frmManteminiento = new MantenimientoRack('M',idRack);
+        MantenimientoRack frmManteminiento = new MantenimientoRack('M',idRack,this);
         frmManteminiento.setVisible(true);
     }
 }//GEN-LAST:event_lblModificarRackMouseClicked
@@ -188,7 +192,7 @@ private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
         idRack = (String)dgvRacks.getValueAt(fila, 0);
-        MantenimientoRack frmManteminiento = new MantenimientoRack('E',idRack);
+        MantenimientoRack frmManteminiento = new MantenimientoRack('E',idRack,this);
         frmManteminiento.setVisible(true);
     }
 }//GEN-LAST:event_lblEliminarRackMouseClicked
@@ -206,9 +210,7 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
     public void llenarDgv(ArrayList<RackBE> arrRacks){
         
         DefaultTableModel modelo=(DefaultTableModel) dgvRacks.getModel();    
-        for(int i=modelo.getRowCount()-1; i>=0; i--){
-            modelo.removeRow(i);
-        }
+        this.limpiarDgv();
         this.arrRacks = arrRacks;
         
         for (int i=0; i<arrRacks.size(); i++){
@@ -223,6 +225,30 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
             modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdZona});
             
         }
+    }
+    
+    public void limpiarDgv(){
+                
+        DefaultTableModel modelo=(DefaultTableModel) dgvRacks.getModel();    
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+    }
+    
+    
+    public void actualizaDgv(RackBE rackBE){
+
+        DefaultTableModel modelo=(DefaultTableModel) dgvRacks.getModel();  
+        this.limpiarDgv();
+        String strIdRack = rackBE.getIdRack();
+        int intPosX = rackBE.getPosX();
+        int intPosY = rackBE.getPosY();
+        int intPisos = rackBE.getPisos();
+        int intColumnas = rackBE.getColumnas();
+        String strIdZona = rackBE.getIdZona();
+
+        modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdZona});
+        
     }
     /**
      * @param args the command line arguments
