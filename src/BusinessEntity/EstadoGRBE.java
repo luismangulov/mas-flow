@@ -12,6 +12,9 @@ public class EstadoGRBE {
     private String codigo;
     private String descripcion;
 
+    public EstadoGRBE(){
+        
+    }
     public EstadoGRBE(String codigo,String descripcion){
         this.codigo = codigo;
         this.descripcion = descripcion;

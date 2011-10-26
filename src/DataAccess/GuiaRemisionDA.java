@@ -6,8 +6,10 @@ package DataAccess;
 
 import Util.conexion;
 import BusinessEntity.EntidadBE;
+import BusinessEntity.EstadoGRBE;
 import BusinessEntity.GuiaRemisionBE;
 import BusinessLogic.EntidadBL;
+import BusinessLogic.EstadoGRBL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +24,7 @@ public class GuiaRemisionDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO guiaremision(idguiaremision, fecha, identidad, indEstado) VALUES('"+ objGuiaRemision.getCodigo() +"','"+ objGuiaRemision.getFecha() +"','"+ objGuiaRemision.getCliente().getIdEntidad() +"','"+ objGuiaRemision.getEstado() +"')";
+        String sql = "INSERT INTO guiaremision(idguiaremision, fecha, identidad, indEstado) VALUES('"+ objGuiaRemision.getCodigo() +"','"+ objGuiaRemision.getFecha() +"','"+ objGuiaRemision.getCliente().getIdEntidad() +"','"+ objGuiaRemision.getEstado().getCodigo() +"')";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -39,22 +41,28 @@ public class GuiaRemisionDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<GuiaRemisionBE> arrGuiaRemision = new ArrayList<GuiaRemisionBE>();
-        String sql = "SELECT idguiaremision,fecha,identidad,indestado FROM guiaremision order by 1";
+        String sql = "SELECT idguiaremision,fecha,identidad,idestadogr FROM guiaremision order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
             String strCodigo;
             Date fecha;
             String strIdEntidad;
-            String strEstado;
+            String strCodEstado;
+            
             while (rs.next()){
               
                 strCodigo = rs.getString(1);
                 fecha = rs.getDate(2);
                 strIdEntidad = rs.getString(3);
-                strEstado = rs.getString(4);
+                strCodEstado = rs.getString(4);
                 EntidadBL objEntidadBL = new EntidadBL();
                 EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
-                arrGuiaRemision.add(new GuiaRemisionBE(strCodigo,fecha,objEntidadBE));
+               
+                EstadoGRBL objEstadoGRBL = new EstadoGRBL();
+                EstadoGRBE objEstadoGRBE = new EstadoGRBE();
+                objEstadoGRBE = objEstadoGRBL.queryByIdEstadoGRBE(strCodEstado);
+                
+                arrGuiaRemision.add(new GuiaRemisionBE(strCodigo,fecha,objEntidadBE,objEstadoGRBE));
             }
              
         }catch (Exception a){

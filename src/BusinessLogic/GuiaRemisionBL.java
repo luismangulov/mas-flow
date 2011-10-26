@@ -4,8 +4,10 @@
  */
 package BusinessLogic;
 
+import BusinessEntity.EstadoGRBE;
 import Util.Utilitario;
 import BusinessEntity.GuiaRemisionBE;
+import DataAccess.EstadoGRDA;
 import DataAccess.GuiaRemisionDA;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,8 +21,11 @@ public class GuiaRemisionBL {
     private String codigo;
     public boolean insertar(Date fecha,String codCliente) throws Exception{
         boolean exito = false;
+        EstadoGRDA objEstadoGRDA = new EstadoGRDA();
+        EstadoGRBE objEstadoGRBE = new EstadoGRBE();
+        objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Registrado");
         
-        setObjGuiaRemisionBE(new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente,"1"));
+        setObjGuiaRemisionBE(new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente,objEstadoGRBE));
         GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
         exito = objGuiaRemisionDA.insertar(getObjGuiaRemisionBE());
         return exito;
