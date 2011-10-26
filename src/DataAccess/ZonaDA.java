@@ -292,6 +292,38 @@ public class ZonaDA {
         
         return boolExito;
     }
+        public ZonaBE queryByIdentificadorZona(String identificador){
+        
+        objConexion = new conexion();
+        ResultSet rs = null;
+        
+        query = "SELECT * FROM Zona WHERE identificador LIKE '%"+identificador+"%'";
+        
+        try{
+            rs = objConexion.EjecutarS(query);
+            
+            rs.next();
+            String strIdZona = rs.getString("idZona");
+            String strNombre = rs.getString("nombre");
+            String strIndActivo = rs.getString("indActivo");
+            String strIdAlmacen = rs.getString("idAlmacen");
+            int intLargo = rs.getInt("Largo");
+            int intAncho = rs.getInt("Ancho");
+            int intPosX = rs.getInt("PosX");
+            int intPosY = rs.getInt("posY");
+            String strIdentificador = rs.getString("Identificador");
+            
+            objZonaBE = new ZonaBE(strIdZona,strNombre,strIdentificador,strIndActivo,strIdAlmacen,intPosX,intPosY,intAncho,intLargo,null);
+            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e, query, 0);
+         }
+         finally{
+             objConexion.SalirS();
+         }
+        
+      return objZonaBE;
+    }
 
     public ArrayList<ZonaBE> buscar(String codigo, String nombre, String indActivo, String idAlmacen, String identificador) {
 
