@@ -207,6 +207,7 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
             idProducto = (String)dgvProductos.getValueAt(fila, 0);
             ProductoBL objProductoBL = new ProductoBL();
             objProductoBL.eliminar(idProducto);
+            borrarFilaDgv(fila);
         }
     }//GEN-LAST:event_lblEliminarMouseClicked
 
@@ -235,6 +236,20 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
             
             modelo.addRow(new Object[]{strIdProducto,strNombre,strDescripcion,strNombreFamilia,strNombreUnidad});
             
+        }
+    }
+    
+    public void borrarFilaDgv(int fila){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvProductos.getModel();    
+        modelo.removeRow(fila);
+        
+    }
+    
+    public void limpiarDgv(){
+        DefaultTableModel modelo=(DefaultTableModel) dgvProductos.getModel();    
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
         }
     }
 
