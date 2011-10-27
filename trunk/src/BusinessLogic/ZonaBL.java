@@ -17,7 +17,7 @@ import Util.Utilitario;
 public class ZonaBL {
     
    
-    ZonaBE zona;
+    private ZonaBE zona;
 
     public boolean insertar(String idZona, String nombre, String identificador, String indActivo,
             String idAlmacen, int posX, int posY, int ancho, int largo, ArrayList <FamiliaBE> familias)
@@ -26,7 +26,7 @@ public class ZonaBL {
         zona = new ZonaBE(Utilitario.generaCodigo("Zona",6), nombre, identificador, indActivo,
             idAlmacen, posX, posY, ancho, largo, familias);
         ZonaDA objZonaDA = new ZonaDA();
-        exito = objZonaDA.insertar(zona);
+        exito = objZonaDA.insertar(getZona());
         return exito;
 
     }
@@ -81,6 +81,13 @@ public class ZonaBL {
     public ArrayList<ZonaBE> getZonasByAlmacen(String idAlmacen) {
         ZonaDA objZonaDA = new ZonaDA();
         return objZonaDA.queryZonasByAlmacen(idAlmacen);
+    }
+
+    /**
+     * @return the zona
+     */
+    public ZonaBE getZona() {
+        return zona;
     }
 
 

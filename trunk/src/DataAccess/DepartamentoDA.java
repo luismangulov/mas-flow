@@ -17,13 +17,13 @@ import java.util.ArrayList;
  */
 public class DepartamentoDA {
 
-    public static ArrayList<DepartamentoBE> queryAllDepartamento(String idDepartamento){
+    public static ArrayList<DepartamentoBE> queryAllDepartamento(){
 
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<DepartamentoBE> arrDepartamento = new ArrayList<DepartamentoBE>();
         String sql = "SELECT idDepartamento, descripcion "
-                + "FROM distrito where idDepartamento='"+idDepartamento+"' order by 2";
+                + "FROM distrito order by 2";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdDepartamento;
@@ -44,4 +44,35 @@ public class DepartamentoDA {
 
         return arrDepartamento;
     }
+
+
+        public static DepartamentoBE queryDepartamento(String idDepartamento){
+
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        DepartamentoBE departamento = new DepartamentoBE("","");
+        String sql = "SELECT idDepartamento, descripcion "
+                + "FROM distrito where idDepartamento='"+idDepartamento+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdDepartamento;
+            String strDescripcion;
+            if (rs.next()){
+                strIdDepartamento = rs.getString(1);
+                strDescripcion = rs.getString(2);
+
+                departamento =new DepartamentoBE( strIdDepartamento, strDescripcion);
+            }
+
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+
+        return departamento;
+    }
+
+
 }

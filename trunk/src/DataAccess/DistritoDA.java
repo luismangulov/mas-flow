@@ -50,5 +50,41 @@ public class DistritoDA {
         return arrDistrito;
 
     }
+
+
+     public static DistritoBE queryDistrito(String idDepartamento, String idProvincia, String idDistrito){
+
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        DistritoBE distrito = new DistritoBE("","","","");
+        String sql = "SELECT idDepartamento, idProvincia, idDistrito, descripcion "
+                + "FROM distrito where idDepartamento='"+idDepartamento+
+                "' and idProvincia='"+idProvincia+"' idDistrito='"+idDistrito+
+                "' order by 4";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdDepartamento;
+            String strIdProvincia;
+            String strIdDistrito;
+            String strDescripcion;
+            if (rs.next()){
+                strIdDepartamento = rs.getString(1);
+                strIdProvincia = rs.getString(2);
+                strIdDistrito = rs.getString(3);
+                strDescripcion = rs.getString(4);
+
+                distrito=new DistritoBE( strIdDepartamento, strIdProvincia,strIdDistrito, strDescripcion);
+            }
+
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+
+        return distrito;
+
+    }
 }
 

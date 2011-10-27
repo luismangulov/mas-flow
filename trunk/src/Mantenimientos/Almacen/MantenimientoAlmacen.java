@@ -9,7 +9,18 @@
  * Created on Oct 2, 2011, 2:57:54 PM
  */
 package Mantenimientos.Almacen;
-
+import BusinessEntity.AlmacenBE;
+import BusinessLogic.AlmacenBL;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import BusinessEntity.DepartamentoBE;
+import DataAccess.DepartamentoDA;
+import BusinessEntity.ProvinciaBE;
+import DataAccess.ProvinciaDA;
+import BusinessEntity.DistritoBE;
+import DataAccess.DistritoDA;
 /**
  *
  * @author DIEGO
@@ -17,9 +28,66 @@ package Mantenimientos.Almacen;
 public class MantenimientoAlmacen extends javax.swing.JFrame {
 
     /** Creates new form MantenimientoAlmacen */
-    public MantenimientoAlmacen() {
+    private AdmAlmacen objPadre;
+    private String accion;
+    private String codigo;
+    private ArrayList<DepartamentoBE> departamentos;
+    private ArrayList<ProvinciaBE> provincias;
+    private ArrayList<DistritoBE> distritos;
+
+     public MantenimientoAlmacen(AdmAlmacen padre) {
+        this.objPadre = padre;
+        accion = "registrar";
+
         initComponents();
         this.setLocationRelativeTo(null);
+        this.llenarComboDepartamentos();
+        this.setTitle("+Flow - Registrar almacén");
+        this.cbxActivo.setEnabled(false);
+        this.setVisible(true);
+    }
+
+     public MantenimientoAlmacen(AdmAlmacen padre,AlmacenBE almacen){
+
+        this.objPadre = padre;
+        this.codigo=almacen.getIdAlmacen();
+        accion = "modificar";
+
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        this.cbxActivo.setEnabled(true);
+        this.cbxActivo.setSelected(true);
+        this.setTitle("+Flow - Editar almacén");
+
+        txtCodigo.setText(almacen.getIdAlmacen());
+        txtNombre.setText(almacen.getNombre());
+        txtDireccion.setText(almacen.getDireccion());
+        txtTelefono.setText(almacen.getTelefono());
+        txtLargo.setText(String.valueOf(almacen.getLargo()));
+        txtAncho.setText(String.valueOf(almacen.getAncho()));
+
+        this.llenarComboDepartamentos();
+        DepartamentoBE departamento = DepartamentoDA.queryDepartamento(almacen.getIdDepartamento());
+        cmbDepartamento.setSelectedItem(departamento.getDescripcion());
+        this.llenarComboProvincias();
+        ProvinciaBE provincia = ProvinciaDA.queryProvincia(almacen.getIdDepartamento(), almacen.getIdProvincia());
+        cmbProvincia.setSelectedItem(provincia.getDescripcion());
+        this.llenarComboDistritos();
+        DistritoBE distrito = DistritoDA.queryDistrito(almacen.getIdDepartamento(), almacen.getIdProvincia(), almacen.getIdDistrito());
+        cmbDistrito.setSelectedItem(distrito.getDescripcion());
+
+            if (almacen.getIndActivo().equals("1")){
+                cbxActivo.setSelected(true);
+            } else{
+                cbxActivo.setSelected(false);
+            }
+
+            //txtIdDistrito.setText(cliente.getIdAlmacen());
+
+            this.setVisible(true) ;
+
+
     }
 
     /** This method is called from within the constructor to
@@ -72,15 +140,37 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         txtCodigo.setEditable(false);
 
+        cmbDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDepartamentoActionPerformed(evt);
+            }
+        });
+
+        cmbProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProvinciaActionPerformed(evt);
+            }
+        });
+
         jLabel7.setText("mts.");
 
         jLabel8.setText("mts.");
 
         btnGuardar.setText("Guardar");
         btnGuardar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnGuardarMousePressed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -203,41 +293,76 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
 
+private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+    this.dispose();    // TODO add your handling code here:
+}//GEN-LAST:event_btnCancelarMousePressed
+
+private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
+     String indActivo = new String();
+        if (cbxActivo.isSelected()) {indActivo="1";} else {indActivo="0";}
+
+
+
+        AlmacenBL almacenBL = new AlmacenBL();
+        try {
+            if (this.accion.equals("registrar")){
+
+                    almacenBL.insertar(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
+                    Double.parseDouble(txtAncho.getText()),txtDireccion.getText(),txtTelefono.getText(),
+                    distritos.get(cmbDistrito.getSelectedIndex()-1).getIdDistrito(),
+                    provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia(),
+                    departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),  indActivo );
+                    AlmacenBE almacen = almacenBL.getAlmacen();
+                    this.objPadre.recargaruno(almacen);
+                    this.dispose();
+            } else {
+                AlmacenBE almacen = new AlmacenBE(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
+                    Double.parseDouble(txtAncho.getText()),txtDireccion.getText(),txtTelefono.getText(),
+                    distritos.get(cmbDistrito.getSelectedIndex()).getIdDistrito(),
+                    provincias.get(cmbProvincia.getSelectedIndex()).getIdProvincia(),
+                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(),  indActivo);
+
+                    almacenBL.modificar(almacen);
+                        int fila;
+                        fila = this.objPadre.getDgvAlmacen().getSelectedRow();
+                        this.objPadre.getDgvAlmacen().removeRowSelectionInterval(fila, fila);
+                        
+                        this.objPadre.getDgvAlmacen().setValueAt(almacen.getIdAlmacen(), fila, 0);
+                        this.objPadre.getDgvAlmacen().setValueAt(almacen.getNombre(), fila, 1);
+                        this.objPadre.getDgvAlmacen().setValueAt((String)cmbDistrito.getSelectedItem(), fila, 3);
+                        this.objPadre.getDgvAlmacen().setValueAt((String)cmbProvincia.getSelectedItem(), fila, 4);
+                        this.objPadre.getDgvAlmacen().setValueAt((String)cmbDepartamento.getSelectedItem(), fila, 5);
+                        if(almacen.getIndActivo().equals("1")){
+                             this.objPadre.getDgvAlmacen().setValueAt("Activo", fila, 2);
+                         }else if(almacen.getIndActivo().equals("0")){
+                            this.objPadre.getDgvAlmacen().setValueAt("Inactivo", fila, 2);
+                         }
+                        this.dispose();
+
+
+                    }
+
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    // TODO add your handling code here:
+}//GEN-LAST:event_btnGuardarMousePressed
+
+private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
+    this.llenarComboProvincias();    // TODO add your handling code here:
+}//GEN-LAST:event_cmbDepartamentoActionPerformed
+
+private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciaActionPerformed
+    this.llenarComboDistritos();    // TODO add your handling code here:
+}//GEN-LAST:event_cmbProvinciaActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new MantenimientoAlmacen().setVisible(true);
-            }
-        });
-    }
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
@@ -263,4 +388,49 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarComboDepartamentos() {
+       try {
+
+           departamentos = DataAccess.DepartamentoDA.queryAllDepartamento();
+        cmbDepartamento.addItem("Seleccione");
+        for (DepartamentoBE Departamento : departamentos){
+            cmbDepartamento.addItem((Departamento.getDescripcion()));
+        }
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void llenarComboProvincias() {
+        try {
+
+            this.provincias.clear();
+            provincias = DataAccess.ProvinciaDA.queryAllProvincia(
+                    departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento());
+        cmbProvincia.addItem("Seleccione");
+        for (ProvinciaBE Provincia : provincias){
+            cmbProvincia.addItem((Provincia.getDescripcion()));
+
+        }
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void llenarComboDistritos() {
+        try {
+
+            this.distritos.clear();
+            distritos = DataAccess.DistritoDA.queryAllDistrito(
+                departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),
+                provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia());
+        cmbDistrito.addItem("Seleccione");
+        for (DistritoBE Distrito : distritos){
+            cmbDistrito.addItem((Distrito.getDescripcion()));
+        }
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
