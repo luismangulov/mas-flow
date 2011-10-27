@@ -15,6 +15,7 @@ import BusinessLogic.EntidadBL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -116,6 +117,11 @@ public class AdmProveedor extends javax.swing.JFrame {
         lblEliminar.setToolTipText("Eliminar");
         lblEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarMousePressed(evt);
+            }
+        });
         tlbProveedor.add(lblEliminar);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
@@ -133,6 +139,11 @@ public class AdmProveedor extends javax.swing.JFrame {
         lblRefrescar.setToolTipText("Refrescar");
         lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRefrescarMousePressed(evt);
+            }
+        });
         tlbProveedor.add(lblRefrescar);
 
         lblBlanco.setText("                                                                                        ");
@@ -187,6 +198,35 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             m.setVisible(true);    // TODO add your handling code here:
 }//GEN-LAST:event_lblEditarMousePressed
 
+private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+          int respuesta = 0;
+        respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este proveedor? Esta acción no podrá deshacerse.", "Eliminar proveedor", 0);
+        if(respuesta == 0){
+            int fila;
+            String codigo;
+            fila = dgvProveedor.getSelectedRow();
+            codigo = (String)dgvProveedor.getValueAt(fila, 0);
+            EntidadBL objProveedorBL = new EntidadBL();
+            try {
+                objProveedorBL.eliminar(codigo);
+                this.lblRefrescarMousePressed(evt);
+            } catch (Exception ex) {
+                Logger.getLogger(AdmProveedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }     //  TODO add your handling code here:
+}//GEN-LAST:event_lblEliminarMousePressed
+
+private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
+    try {
+            // TODO add your handling code here:
+                EntidadBL objProveedorBL =new EntidadBL();
+                this.recargar(objProveedorBL.getAllProveedoresActivos());
+        } catch (Exception ex) {
+            Logger.getLogger(AdmProveedor.class.getName()).log(Level.SEVERE, null, ex);
+        }// TODO add your handling code here:
+}//GEN-LAST:event_lblRefrescarMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -240,35 +280,71 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         return dgvProveedor;
     }
 
-    public void recargaruno(EntidadBE cliente){
-
-        DefaultTableModel modelo=(DefaultTableModel) dgvProveedor.getModel();
-        modelo.addRow(new Object[6]);
+    public void recargaruno(EntidadBE proveedor){
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        dgvProveedor.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Contacto");
+        modelo.addColumn("Teléfono");
+      
+        
+        modelo.addRow(new Object[5]);
         dgvProveedor.clearSelection();
-        dgvProveedor.setValueAt(cliente.getIdEntidad(),0,0 );
-        dgvProveedor.setValueAt(cliente.getNroDocumento(),0,1 );
-        dgvProveedor.setValueAt(cliente.getRazonSocial(),0,2 );
-        dgvProveedor.setValueAt(cliente.getTelefono(),0,3);
-        dgvProveedor.setValueAt(cliente.getEmail(),0,4 );
-        dgvProveedor.setValueAt(cliente.getNombreContacto(),0,5 );
+        dgvProveedor.setValueAt(proveedor.getIdEntidad(),0,0 );
+        dgvProveedor.setValueAt(proveedor.getRazonSocial(),0,1 );
+        //dgvProveedor.setValueAt(proveedor.getIndActivo(),0,2 );
+
+        if(proveedor.getIndActivo().equals("1")){
+                dgvProveedor.setValueAt("Activo",0,2 );
+            }else if(proveedor.getIndActivo().equals("0")){
+                dgvProveedor.setValueAt("Inactivo",0,2 );
+        }
+        dgvProveedor.setValueAt(proveedor.getNombreContacto(),0,3);
+        dgvProveedor.setValueAt(proveedor.getTelefonoContacto(),0,4 );
+        
     }
 
-    public void recargar(ArrayList<EntidadBE> clientes){
+    public void recargar(ArrayList<EntidadBE> proveedores){
 
 
 
-        DefaultTableModel modelo=(DefaultTableModel) dgvProveedor.getModel();
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        dgvProveedor.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Contacto");
+        modelo.addColumn("Teléfono");
+      
+        for(int i=0;i<proveedores.size();i++){
+        modelo.addRow(new Object[5]);
         dgvProveedor.clearSelection();
-
-        for(int i=0;i<clientes.size();i++){
-            modelo.addRow(new Object[6]);
-            dgvProveedor.setValueAt(clientes.get(i).getIdEntidad(),i,0 );
-            dgvProveedor.setValueAt(clientes.get(i).getNroDocumento(),i,1 );
-            dgvProveedor.setValueAt(clientes.get(i).getRazonSocial(),i,2 );
-            dgvProveedor.setValueAt(clientes.get(i).getTelefono(),i,3 );
-            dgvProveedor.setValueAt(clientes.get(i).getEmail(),i,4 );
-            dgvProveedor.setValueAt(clientes.get(i).getNombreContacto(),i,5 );
+        dgvProveedor.setValueAt(proveedores.get(i).getIdEntidad(),i,0 );
+        dgvProveedor.setValueAt(proveedores.get(i).getRazonSocial(),i,1 );
+        //dgvProveedor.setValueAt(proveedores.get(i).getIndActivo(),i,2 );
+        if(proveedores.get(i).getIndActivo().equals("1")){
+                dgvProveedor.setValueAt("Activo",i,2 );
+            }else if(proveedores.get(i).getIndActivo().equals("0")){
+                dgvProveedor.setValueAt("Inactivo",i,2 );
         }
+
+        dgvProveedor.setValueAt(proveedores.get(i).getNombreContacto(),i,3);
+        dgvProveedor.setValueAt(proveedores.get(i).getTelefonoContacto(),i,4 );
+
+        
+             }
     }
 
 }
