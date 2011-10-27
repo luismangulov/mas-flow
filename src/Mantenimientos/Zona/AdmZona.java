@@ -321,8 +321,10 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         dgvZona.setValueAt(zona.getIdZona(),0,0 );
         dgvZona.setValueAt(zona.getNombre(),0,1 );
         AlmacenBL a= new AlmacenBL();
-        dgvZona.setValueAt(a.getAlmacen(zona.getIdZona()).getNombre(),0,2 );
-        dgvZona.setValueAt(zona.getIdentificador(),0,3 );
+        try{dgvZona.setValueAt(a.getAlmacen(zona.getIdAlmacen()).getNombre(),0,2 );
+        }
+        catch(Exception e){}
+        dgvZona.setValueAt(zona.getIdentificador(), 0, 3);
         if(zona.getIndActivo().equals("1")){
              dgvZona.setValueAt("Activo",0,4 );
         }else if(zona.getIndActivo().equals("0")){
@@ -363,9 +365,10 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
             dgvZona.setValueAt(allZona.get(i).getIdZona(),i,0 );
             dgvZona.setValueAt(allZona.get(i).getNombre(),i,1 );
             AlmacenBL a= new AlmacenBL();
-
-            dgvZona.setValueAt(a.getAlmacen(allZona.get(i).getIdZona()).getNombre(),0,2 );
-            dgvZona.setValueAt(allZona.get(i).getIdentificador(),0,3 );
+            try{
+            dgvZona.setValueAt(a.getAlmacen(allZona.get(i).getIdAlmacen()).getNombre(),i,2 );
+                } catch(Exception e){}
+                dgvZona.setValueAt(allZona.get(i).getIdentificador(), i, 3);
             if(allZona.get(i).getIndActivo().equals("1")){
                 dgvZona.setValueAt("Activo",i,4 );
             }else if(allZona.get(i).getIndActivo().equals("0")){
