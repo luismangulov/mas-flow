@@ -40,6 +40,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
     public MantenimientoGuiaDeRemision(AdmGuiaDeRemision padre){
         this.objPadre = padre;
         initComponents();
+         this.setLocationRelativeTo(null); 
 //        Calendar currentDate = Calendar.getInstance(); 
 //        SimpleDateFormat formatter=  new SimpleDateFormat("dd-MM-yyyy");
 //        String dateNow = formatter.format(currentDate.getTime());
@@ -84,7 +85,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar Guia de remisión");
 
-        jLabel1.setText("Cliente:");
+        jLabel1.setText("Cliente*:");
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -145,11 +146,11 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         tblProductos.getColumnModel().getColumn(2).setPreferredWidth(25);
         tblProductos.getColumnModel().getColumn(3).setPreferredWidth(25);
 
-        jLabel3.setText("Nombre:");
+        jLabel3.setText("Nombre*:");
 
-        jLabel2.setText("Código:");
+        jLabel2.setText("Código*:");
 
-        jLabel4.setText("Fecha:");
+        jLabel4.setText("Fecha*:");
 
         lblAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search24.png"))); // NOI18N
         lblAyuda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

@@ -19,6 +19,7 @@ public class BuscarNotaDeIngreso extends javax.swing.JFrame {
     /** Creates new form BuscarNotaDeIngreso */
     public BuscarNotaDeIngreso() {
         initComponents();
+         this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

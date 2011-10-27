@@ -34,6 +34,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
     public MantenimientoNotaDeIngreso(AdmNotaDeIngreso padre) {
         this.objPadre = padre;
         initComponents();
+         this.setLocationRelativeTo(null); 
         Date fechaActual = new Date();
         this.jdcFecha.setDate(fechaActual);
         this.setVisible(true);
@@ -94,15 +95,17 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar nota de ingreso");
 
-        jLabel1.setText("Código:");
+        jLabel1.setText("Código*:");
 
         jTextField1.setEnabled(false);
 
-        jLabel2.setText("Fecha:");
+        jLabel2.setText("Fecha*:");
 
         jdcFecha.setEnabled(false);
 
-        jLabel3.setText("Proveedor:");
+        jLabel3.setText("Proveedor*:");
+
+        txtProveedor.setEditable(false);
 
         lblAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search24.png"))); // NOI18N
         lblAyuda.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -113,9 +116,15 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
 
         jLabel5.setText("RUC:");
 
-        jLabel6.setText("Nombre:");
+        txtRuc.setEditable(false);
+
+        jLabel6.setText("Nombre*:");
 
         jLabel7.setText("Dirección:");
+
+        txtNombre.setEditable(false);
+
+        txtDireccion.setEditable(false);
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -192,7 +201,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                                                .addComponent(txtProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(lblAyuda)
                                                 .addGap(56, 56, 56))
@@ -208,8 +217,8 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(jdcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(txtRuc, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-                                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)))
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)

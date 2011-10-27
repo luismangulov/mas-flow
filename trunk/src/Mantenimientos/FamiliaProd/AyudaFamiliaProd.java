@@ -175,7 +175,8 @@ public class AyudaFamiliaProd extends javax.swing.JDialog {
 
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
         // TODO add your handling code here:
-        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()))
+       char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
             evt.consume();
        if ((this.txtNombre.getText().length() + 1) > 6) {
             evt.consume();
@@ -184,7 +185,8 @@ public class AyudaFamiliaProd extends javax.swing.JDialog {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
-        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()))
+       char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
             evt.consume();
        if ((this.txtNombre.getText().length() + 1) > 30) {
             evt.consume();

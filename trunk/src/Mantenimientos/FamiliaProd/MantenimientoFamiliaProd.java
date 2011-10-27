@@ -74,9 +74,9 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
 
         txtCodigo.setEditable(false);
 
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("Nombre*:");
 
-        jLabel3.setText("Descripción:");
+        jLabel3.setText("Descripción*:");
 
         jLabel1.setText("Código:");
 
@@ -138,7 +138,7 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
                             .addComponent(txtDescripcion)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +217,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
-       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()))
+        char c = (char)evt.getKeyChar();
+       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
             evt.consume();
        if ((this.txtNombre.getText().length() + 1) > 30) {
             evt.consume();
@@ -226,7 +227,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         // TODO add your handling code here:
-       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()))
+        char c = (char)evt.getKeyChar();
+       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
             evt.consume();
        if ((this.txtDescripcion.getText().length() + 1) > 30) {
             evt.consume();
