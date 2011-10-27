@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+
 public class PalletDA {
     
     conexion objConexion;
@@ -257,7 +258,7 @@ public class PalletDA {
         String strIdHistorialPallet = "";
         
         try {
-            strIdHistorialPallet = objUtilitario.generaCodigo("HistorialPallet", 8);
+            strIdHistorialPallet = objUtilitario.generaCodigo("historialpallet", 8);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -270,7 +271,8 @@ public class PalletDA {
                     + "VALUES('"+strIdHistorialPallet+"',"
                     + "'"+strIdPallet+"',"
                     + "'"+strIdUbicacionOrigen+"',"
-                    + "'"+strIdUbicacionDestino+"')";
+                    + "'"+strIdUbicacionDestino+"'"
+                    + null +")";
 
             try{
                 objConexion.EjecutarUID(query);

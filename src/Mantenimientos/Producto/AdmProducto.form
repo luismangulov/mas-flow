@@ -59,7 +59,7 @@
                 <Column editable="false" title="Nombre" type="java.lang.String"/>
                 <Column editable="false" title="Descripci&#xf3;n" type="java.lang.String"/>
                 <Column editable="false" title="Familia" type="java.lang.String"/>
-                <Column editable="false" title="Unidad" type="java.lang.Object"/>
+                <Column editable="false" title="Unidad" type="java.lang.String"/>
                 <Column editable="false" title="Cant. M&#xe1;x. por Pallet" type="java.lang.Byte"/>
               </Table>
             </Property>
