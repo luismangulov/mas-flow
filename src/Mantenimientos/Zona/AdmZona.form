@@ -31,7 +31,6 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
           <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Component id="tlbZona" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -142,6 +141,9 @@
               <Color id="Cursor de mano"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblEditarMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblEliminar">
           <Properties>
@@ -158,6 +160,9 @@
               <Color id="Cursor de mano"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblEliminarMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblBuscar">
           <Properties>
@@ -193,6 +198,9 @@
               <Color id="Cursor de mano"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblRefrescarMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblVerMapa">
           <Properties>

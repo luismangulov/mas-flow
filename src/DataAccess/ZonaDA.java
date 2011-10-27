@@ -179,7 +179,7 @@ public class ZonaDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
-        String sql = "SELECT idfamilia, nombre, descripcion, indActivo FROM Familia F, ZonaXFamilia ZF "
+        String sql = "SELECT ZF.idfamilia, nombre, descripcion, indActivo FROM Familia F, ZonaXFamilia ZF "
                 + "WHERE IndActivo = '1'  and F.idfamilia= ZF.idfamilia and idzona='"+strIdZona+"' order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
@@ -250,7 +250,7 @@ public class ZonaDA {
                     "posX="+objZona.getPosX()+ ","+
                     "posY="+objZona.getPosY()+ ","+
                     "ancho="+objZona.getAncho()+ ","+
-                    "largo="+objZona.getLargo()+ ","+
+                    "largo="+objZona.getLargo()+
                     " WHERE idZona='"+objZona.getIdZona()+"'; "
                     + "DELETE FROM zonaXfamilia WHERE idZona='"+objZona.getIdZona()+"'; ";
 

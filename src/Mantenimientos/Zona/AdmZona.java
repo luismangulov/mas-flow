@@ -11,7 +11,14 @@
 package Mantenimientos.Zona;
 
 import BusinessEntity.ZonaBE;
-
+import BusinessLogic.ZonaBL;
+import BusinessLogic.AlmacenBL;
+import java.awt.Cursor;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author DIEGO
@@ -108,12 +115,22 @@ public class AdmZona extends javax.swing.JFrame {
         lblEditar.setToolTipText("Editar");
         lblEditar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEditarMousePressed(evt);
+            }
+        });
         tlbZona.add(lblEditar);
 
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
         lblEliminar.setToolTipText("Eliminar");
         lblEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarMousePressed(evt);
+            }
+        });
         tlbZona.add(lblEliminar);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
@@ -131,6 +148,11 @@ public class AdmZona extends javax.swing.JFrame {
         lblRefrescar.setToolTipText("Refrescar");
         lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRefrescarMousePressed(evt);
+            }
+        });
         tlbZona.add(lblRefrescar);
 
         lblVerMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
@@ -158,8 +180,6 @@ public class AdmZona extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
             .addGap(0, 400, Short.MAX_VALUE)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -185,6 +205,49 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         BuscarZona b = new BuscarZona();
         b.setVisible(true);
     }//GEN-LAST:event_lblBuscarMousePressed
+
+    private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
+        ZonaBL objZonaBL = new ZonaBL();
+        this.recargar(objZonaBL.getAllZonaActivo());
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblRefrescarMousePressed
+
+    private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
+        if((dgvZona.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una zona", "Mensaje",0);
+        } else if((dgvZona.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de una zona", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvZona.getSelectedRow();
+            codigo = (String)dgvZona.getValueAt(fila, 0);
+            ZonaBL objZonaBL = new ZonaBL();
+            ZonaBE zona = objZonaBL.getZona(codigo);
+            MantenimientoZona m = new MantenimientoZona(this,zona);
+            m.setVisible(true);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEditarMousePressed
+
+    private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+ int respuesta = 0;
+        respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar esta zona? Esta acción no podrá deshacerse.", "Eliminar zona", 0); 
+        if(respuesta == 0){
+            int fila;
+            String codigo;
+            fila = dgvZona.getSelectedRow();
+            codigo = (String)dgvZona.getValueAt(fila, 0);
+            ZonaBL objZonaBL = new ZonaBL();
+            try {
+                objZonaBL.eliminar(codigo);
+                this.lblRefrescarMousePressed(evt);
+            } catch (Exception ex) {
+                Logger.getLogger(AdmZona.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEliminarMousePressed
 
     /**
      * @param args the command line arguments
@@ -236,12 +299,83 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     // End of variables declaration//GEN-END:variables
 
     void recargaruno(ZonaBE zona) {
-        throw new UnsupportedOperationException("Not yet implemented");
+         DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;  
+            }
+        };
+        dgvZona.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Almacén");
+        modelo.addColumn("Identificador");
+        modelo.addColumn("Estado");
+        
+        dgvZona.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvZona.getColumnModel().getColumn(1).setPreferredWidth(60);
+        dgvZona.getColumnModel().getColumn(2).setPreferredWidth(50);
+        dgvZona.getColumnModel().getColumn(3).setPreferredWidth(50);
+        dgvZona.getColumnModel().getColumn(3).setPreferredWidth(40);
+        modelo.addRow(new Object[4]);
+        dgvZona.setValueAt(zona.getIdZona(),0,0 );
+        dgvZona.setValueAt(zona.getNombre(),0,1 );
+        AlmacenBL a= new AlmacenBL();
+        dgvZona.setValueAt(a.getAlmacen(zona.getIdZona()).getNombre(),0,2 );
+        dgvZona.setValueAt(zona.getIdentificador(),0,3 );
+        if(zona.getIndActivo().equals("1")){
+             dgvZona.setValueAt("Activo",0,4 );
+        }else if(zona.getIndActivo().equals("0")){
+             dgvZona.setValueAt("Inactivo",0,4 );
+        }
     }
 
     public javax.swing.JTable getDgvZona() {
         return dgvZona;
     }
+
+    private void recargar(ArrayList<ZonaBE> allZona) {
+    
+          DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        dgvZona.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Almacén");
+        modelo.addColumn("Identificador");
+        modelo.addColumn("Estado");
+
+        dgvZona.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvZona.getColumnModel().getColumn(1).setPreferredWidth(60);
+        dgvZona.getColumnModel().getColumn(2).setPreferredWidth(50);
+        dgvZona.getColumnModel().getColumn(3).setPreferredWidth(50);
+        dgvZona.getColumnModel().getColumn(3).setPreferredWidth(40);
+
+
+
+
+            for(int i=0;i<allZona.size();i++){
+            modelo.addRow(new Object[5]);
+            dgvZona.setValueAt(allZona.get(i).getIdZona(),i,0 );
+            dgvZona.setValueAt(allZona.get(i).getNombre(),i,1 );
+            AlmacenBL a= new AlmacenBL();
+
+            dgvZona.setValueAt(a.getAlmacen(allZona.get(i).getIdZona()).getNombre(),0,2 );
+            dgvZona.setValueAt(allZona.get(i).getIdentificador(),0,3 );
+            if(allZona.get(i).getIndActivo().equals("1")){
+                dgvZona.setValueAt("Activo",i,4 );
+            }else if(allZona.get(i).getIndActivo().equals("0")){
+                dgvZona.setValueAt("Inactivo",i,4 );
+        }
+
+        }
+        
+    }
+    
 
 
 }

@@ -11,7 +11,18 @@
 package Mantenimientos.Almacen;
 
 import BusinessEntity.AlmacenBE;
-
+import BusinessLogic.AlmacenBL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import BusinessEntity.DepartamentoBE;
+import DataAccess.DepartamentoDA;
+import BusinessEntity.ProvinciaBE;
+import DataAccess.ProvinciaDA;
+import BusinessEntity.DistritoBE;
+import DataAccess.DistritoDA;
+import java.util.ArrayList;
 /**
  *
  * @author DIEGO
@@ -99,12 +110,22 @@ public class AdmAlmacen extends javax.swing.JFrame {
         lblEditar.setToolTipText("Editar");
         lblEditar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEditarMousePressed(evt);
+            }
+        });
         tlbAlmacen.add(lblEditar);
 
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
         lblEliminar.setToolTipText("Eliminar");
         lblEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarMousePressed(evt);
+            }
+        });
         tlbAlmacen.add(lblEliminar);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
@@ -122,6 +143,11 @@ public class AdmAlmacen extends javax.swing.JFrame {
         lblRefrescar.setToolTipText("Refrescar");
         lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRefrescarMousePressed(evt);
+            }
+        });
         tlbAlmacen.add(lblRefrescar);
 
         lblVerMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
@@ -168,6 +194,50 @@ m.setVisible(true);
         BuscarAlmacen b = new BuscarAlmacen();
         b.setVisible(true);
     }//GEN-LAST:event_lblBuscarMousePressed
+
+    private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
+        AlmacenBL objAlmacenBL = new AlmacenBL();
+        this.recargar(objAlmacenBL.getAllAlmacenActivo());
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblRefrescarMousePressed
+
+    private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
+        if((dgvAlmacen.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un almacén.", "Mensaje",0);
+        } else if((dgvAlmacen.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un almacén.", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvAlmacen.getSelectedRow();
+            codigo = (String)dgvAlmacen.getValueAt(fila, 0);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            AlmacenBE almacen = objAlmacenBL.getAlmacen(codigo);
+            MantenimientoAlmacen m = new MantenimientoAlmacen(this,almacen);
+            m.setVisible(true);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEditarMousePressed
+
+    private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+        int respuesta = 0;
+        respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este almacen? Esta acción no podrá deshacerse.", "Eliminar almacén", 0);
+        if(respuesta == 0){
+            int fila;
+            String codigo;
+            fila = dgvAlmacen.getSelectedRow();
+            codigo = (String)dgvAlmacen.getValueAt(fila, 0);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            try {
+                objAlmacenBL.eliminar(codigo);
+                this.lblRefrescarMousePressed(evt);
+            } catch (Exception ex) {
+                Logger.getLogger(AdmAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_lblEliminarMousePressed
+
 
     /**
      * @param args the command line arguments
@@ -224,8 +294,80 @@ public javax.swing.JTable getDgvAlmacen() {
     }
 
     void recargaruno(AlmacenBE almacen) {
-        
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        dgvAlmacen.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Distrito");
+        modelo.addColumn("Provincia");
+        modelo.addColumn("Departamento");
+
+//        dgvAlmacen.getColumnModel().getColumn(0).setPreferredWidth(40);
+//        dgvAlmacen.getColumnModel().getColumn(1).setPreferredWidth(60);
+//        dgvAlmacen.getColumnModel().getColumn(2).setPreferredWidth(50);
+//        dgvAlmacen.getColumnModel().getColumn(3).setPreferredWidth(50);
+//        dgvAlmacen.getColumnModel().getColumn(3).setPreferredWidth(40);
+
+        modelo.addRow(new Object[6]);
+        dgvAlmacen.setValueAt(almacen.getIdAlmacen(),0,0 );
+        dgvAlmacen.setValueAt(almacen.getNombre(),0,1 );
+        DistritoDA a= new DistritoDA();
+        dgvAlmacen.setValueAt(a.queryDistrito(almacen.getIdDepartamento(), almacen.getIdProvincia(), almacen.getIdDistrito()).getDescripcion(),0,3 );
+        ProvinciaDA b= new ProvinciaDA();
+        dgvAlmacen.setValueAt(b.queryProvincia(almacen.getIdDepartamento(), almacen.getIdProvincia()).getDescripcion(),0,4 );
+        DepartamentoDA c= new DepartamentoDA();
+        dgvAlmacen.setValueAt(c.queryDepartamento(almacen.getIdDepartamento()).getDescripcion(),0,5 );
+
+        if(almacen.getIndActivo().equals("1")){
+             dgvAlmacen.setValueAt("Activo",0,2 );
+        }else if(almacen.getIndActivo().equals("0")){
+             dgvAlmacen.setValueAt("Inactivo",0,2 );
+        }
     }
 
+    private void recargar(ArrayList<AlmacenBE> allAlmacen) {
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        dgvAlmacen.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Distrito");
+        modelo.addColumn("Provincia");
+        modelo.addColumn("Departamento");
 
+         for(int i=0;i<allAlmacen.size();i++){
+
+            modelo.addRow(new Object[6]);
+            dgvAlmacen.setValueAt(allAlmacen.get(i).getIdAlmacen(),0,0 );
+            dgvAlmacen.setValueAt(allAlmacen.get(i).getNombre(),0,1 );
+            DistritoDA a= new DistritoDA();
+            dgvAlmacen.setValueAt(a.queryDistrito(allAlmacen.get(i).getIdDepartamento(), allAlmacen.get(i).getIdProvincia(), allAlmacen.get(i).getIdDistrito()).getDescripcion(),0,3 );
+            ProvinciaDA b= new ProvinciaDA();
+            dgvAlmacen.setValueAt(b.queryProvincia(allAlmacen.get(i).getIdDepartamento(), allAlmacen.get(i).getIdProvincia()).getDescripcion(),0,4 );
+            DepartamentoDA c= new DepartamentoDA();
+            dgvAlmacen.setValueAt(c.queryDepartamento(allAlmacen.get(i).getIdDepartamento()).getDescripcion(),0,5 );
+
+            if(allAlmacen.get(i).getIndActivo().equals("1")){
+                 dgvAlmacen.setValueAt("Activo",0,2 );
+            }else if(allAlmacen.get(i).getIndActivo().equals("0")){
+                 dgvAlmacen.setValueAt("Inactivo",0,2 );
+            }
+
+        }
+
+    }
 }
+
+
+
