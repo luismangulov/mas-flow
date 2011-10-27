@@ -12,7 +12,9 @@ package Mantenimientos.Ubicacion;
 
 import BusinessEntity.UbicacionBE;
 import BusinessLogic.PalletBL;
+import BusinessLogic.UbicacionBL;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -139,8 +141,15 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 }//GEN-LAST:event_lblBuscarMousePressed
 
 private void lblBloquearUbicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBloquearUbicacionMouseClicked
-    BuscarUbicacion ventana = new BuscarUbicacion(this);
-    ventana.setVisible(true);
+    int fila;
+    fila = dgvUbicaciones.getSelectedRow();
+    if (fila==-1)
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
+    else{
+        String strIdUbicacion = (String)dgvUbicaciones.getValueAt(fila, 0);
+        UbicacionBL objUbicacionBL = new UbicacionBL();
+        objUbicacionBL.bloquearUbicacion(strIdUbicacion);
+    }
 }//GEN-LAST:event_lblBloquearUbicacionMouseClicked
 
 private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMouseClicked
@@ -208,9 +217,12 @@ private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             int intFila = arrUbicaciones.get(i).getFila();
             int intColumna = arrUbicaciones.get(i).getColumna();
             String strIndActivo = arrUbicaciones.get(i).getIndActivo();
-            
+            String strIdPallet;
             PalletBL objPalletBL = new PalletBL();
-            String strIdPallet = objPalletBL.getPalletByIdUbicacion(strIdUbicacion).getIdPallet();
+            if (objPalletBL.getPalletByIdUbicacion(strIdUbicacion) != null)
+                strIdPallet = objPalletBL.getPalletByIdUbicacion(strIdUbicacion).getIdPallet();
+            else
+                strIdPallet = "";
             
             modelo.addRow(new Object[]{strIdUbicacion,strIdRack, intFila,intColumna,strIndActivo,strIdPallet});
         }
