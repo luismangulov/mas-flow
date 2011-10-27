@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author DIEGO
+ * @author VICTOR
  */
 public class BuscarUbicacion extends javax.swing.JFrame {
 
@@ -56,18 +56,19 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         
     }
     
-    
     public void cargarComboAlmacen(){
         
         cbAlmacen.removeAllItems();
         cbZona.removeAllItems();
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
+       
         ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
-        for(AlmacenBE almacen : arrAlmacenes)
-           cbAlmacen.addItem(almacen.getIdAlmacen());
+        if (arrAlmacenes != null)
+            for(AlmacenBE almacen : arrAlmacenes)
+                cbAlmacen.addItem(almacen.getIdAlmacen());
 
     }
     
@@ -76,41 +77,47 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         cbZona.removeAllItems();
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
+
         ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
         
         cbZona.addItem("");
         
-        for(ZonaBE zona : arrZonas)
-            cbZona.addItem(zona.getIdentificador());
+        if (arrZonas != null)
+            for(ZonaBE zona : arrZonas)
+                cbZona.addItem(zona.getIdentificador());
         
     }
     
     public void cargarComboRack(String idZona){
         
-        cbRack.removeAllItems();
+        cbRack.removeAllItems();        
         cbUbicacion.removeAllItems();
+       
         ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
         arrRacks = objRackBL.getRacksByZona(idZona);
         
-        
         cbRack.addItem("");
         
-        for(RackBE rack : arrRacks)
-            cbRack.addItem(rack.getIdentificador());
+        if (arrRacks != null)
+            for(RackBE rack : arrRacks)
+                cbRack.addItem(rack.getIdentificador());
         
     }
     
     public void cargarComboUbicacion(String idRack){
        
+        
         cbUbicacion.removeAllItems();
+        
         ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
         arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack);
         
         cbUbicacion.addItem("");
         
-        for(UbicacionBE ubicacion : arrUbicaciones)
-            cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
+        if (arrUbicaciones != null)
+            for(UbicacionBE ubicacion : arrUbicaciones)
+                cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
         
     }
 
@@ -229,35 +236,33 @@ public class BuscarUbicacion extends javax.swing.JFrame {
 
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
     
+//    if (cbAlmacen.getItemCount() > 0){
+        strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+        cargarComboZona(strIdAlmacen);
+        
+//    }    
 
-        if (cbAlmacen.getItemCount() > 0){
-            strIdAlmacen = cbAlmacen.getSelectedItem().toString();
-            cargarComboZona(strIdAlmacen);
-        }    
-    
 }//GEN-LAST:event_cbAlmacenActionPerformed
 
 private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
     
-    if (!cbZona.getSelectedItem().toString().equals("")){
-        int intCantItem = cbZona.getItemCount();
-        if (intCantItem > 0){
-            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
-            cargarComboRack(strIdZona);
-        }
+    int intCantItem = cbZona.getItemCount() - 1;
+    if (intCantItem > 0){
+        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+        cargarComboRack(strIdZona);
     }
+
 }//GEN-LAST:event_cbZonaActionPerformed
 
 private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRackActionPerformed
     
-    if (!cbZona.getSelectedItem().toString().equals("")){
-        int intCantItem = cbRack.getItemCount();
-        if (intCantItem > 0){
-            String strIdentificador = cbRack.getSelectedItem().toString();
-            strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
-            cargarComboUbicacion(strIdRack);
-        }
+    int intCantItem = cbRack.getItemCount() - 1;
+    if (intCantItem > 0){
+        String strIdentificador = cbRack.getSelectedItem().toString();
+        strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
+        cargarComboUbicacion(strIdRack);
     }
+
 }//GEN-LAST:event_cbRackActionPerformed
 
 private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked

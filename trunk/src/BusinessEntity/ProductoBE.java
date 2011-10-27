@@ -14,8 +14,8 @@ public class ProductoBE {
     private String nombre;
     private String descripcion;
     private int maxCantPorPallet;
-    private String unidadMedida;
-    private String familia;
+    private String idUnidadMedida;
+    private String idFamilia;
     private String indActivo;
 
     public ProductoBE(){}
@@ -26,8 +26,8 @@ public class ProductoBE {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.maxCantPorPallet = maxCantPorPallet;
-        this.unidadMedida = unidadMedida;
-        this.familia = familia;
+        this.idUnidadMedida = unidadMedida;
+        this.idFamilia = familia;
         this.indActivo = indActivo;
     }
 
@@ -56,11 +56,11 @@ public class ProductoBE {
     }
 
     public String getIdFamilia() {
-        return familia;
+        return idFamilia;
     }
 
     public void setIdFamilia(String familia) {
-        this.familia = familia;
+        this.idFamilia = familia;
     }
 
     public int getMaxCantPorPallet() {
@@ -80,10 +80,10 @@ public class ProductoBE {
     }
 
     public String getIdUnidadMedida() {
-        return unidadMedida;
+        return idUnidadMedida;
     }
 
     public void setIdUnidadMedida(String unidadMedida) {
-        this.unidadMedida = unidadMedida;
+        this.idUnidadMedida = unidadMedida;
     }
 }
