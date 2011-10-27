@@ -221,7 +221,6 @@ public class PalletDA {
         
         try {
             rs.next();
-            if (rs.isAfterLast()){
                 
             String strIdPallet = rs.getString("IdPallet");
             String strIdProducto = rs.getString("IdProducto");
@@ -231,16 +230,55 @@ public class PalletDA {
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             
             objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento);
-            
-            }
-            else 
-                objPalletBE = null;
-            
+                       
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+            objPalletBE = null;
         }
         return objPalletBE;
         
+    }
+
+    public void reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino) {
+        
+        boolean exito = false;
+        objConexion = new conexion();
+        query = "UPDATE PALLET SET idUbicacion = '" + strIdUbicacionDestino + "' WHERE idPallet ='" +strIdPallet +"'";
+        
+        try{
+            objConexion.EjecutarUID(query);
+            exito = true;
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+        }
+        finally{objConexion.SalirUID();}
+        
+        objUtilitario = new Utilitario();
+        String strIdHistorialPallet = "";
+        
+        try {
+            strIdHistorialPallet = objUtilitario.generaCodigo("HistorialPallet", 8);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (exito){
+            
+            query = "INSERT INTO HISTORIALPALLET(idHistorialPallet, idPallet, idUbicacionOrigen,idUbicacionDestino) "
+                    + "VALUES('"+strIdHistorialPallet+"',"
+                    + "'"+strIdPallet+"',"
+                    + "'"+strIdUbicacionOrigen+"',"
+                    + "'"+strIdUbicacionDestino+"')";
+
+            try{
+                objConexion.EjecutarUID(query);
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+            }
+            finally{objConexion.SalirUID();}
+        }
     }
 
 }

@@ -167,7 +167,7 @@ public class ProductoDA {
 
         try {
             rs.next();
-            if (rs.isAfterLast()){
+
                 String strIdProducto = rs.getString("IdProducto");
                 String strNombreProducto = rs.getString("Nombre");
                 String strDescripcion = rs.getString("Descripcion");
@@ -178,14 +178,39 @@ public class ProductoDA {
                 
                 objProducto = new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,
                 intMaxCantPorPallet,strIdUnidadMedida,strIdFamilia,strIndActivo);
-            }
-            
-            else
-                objProducto = null;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+            objProducto = null;
+        }
+
+
+        return objProducto;
+    }
+
+    public ProductoBE queryByNombreProducto(String nombreProducto) {
+        objConexion = new conexion();
+        String query = "SELECT * FROM PRODUCTO WHERE nombre = '" + nombreProducto + "'";
+        rs =objConexion.EjecutarS(query);
+
+        try {
+            rs.next();
+
+                String strIdProducto = rs.getString("IdProducto");
+                String strNombreProducto = rs.getString("Nombre");
+                String strDescripcion = rs.getString("Descripcion");
+                int intMaxCantPorPallet = rs.getInt("MaxCantPorPallet");
+                String strIdUnidadMedida = rs.getString("idUnidadMedida");
+                String strIdFamilia = rs.getString("idFamilia");
+                String strIndActivo = rs.getString("IndActivo");
+                
+                objProducto = new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,
+                intMaxCantPorPallet,strIdUnidadMedida,strIdFamilia,strIndActivo);
 
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+            objProducto = null;
         }
 
 

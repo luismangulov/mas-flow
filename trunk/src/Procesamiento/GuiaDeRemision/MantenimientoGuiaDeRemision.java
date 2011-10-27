@@ -431,7 +431,6 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     public void recargaruno(ProductoBE producto){
         DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
-           
         
          modelo.addRow(new Object[4]);
         tblProductos.setValueAt(producto.getIdProducto(),tblProductos.getRowCount()-1,0 );
