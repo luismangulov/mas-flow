@@ -13,8 +13,10 @@ package Procesamiento.NotaDeIngreso;
 import BusinessEntity.EntidadBE;
 import BusinessEntity.NotaIngresoBE;
 import BusinessEntity.ProductoBE;
+import BusinessEntity.UnidadMedidaBE;
 import BusinessLogic.DetalleNotaIngresoBL;
 import BusinessLogic.NotaIngresoBL;
+import BusinessLogic.UnidadMedidaBL;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
@@ -397,7 +399,10 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
          modelo.addRow(new Object[4]);
         tblProductos.setValueAt(producto.getIdProducto(),tblProductos.getRowCount()-1,0 );
         tblProductos.setValueAt(producto.getNombre(),tblProductos.getRowCount()-1,1 );
-       
+       UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
+        UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
+        objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(producto.getIdUnidadMedida());
+         tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
     }
 
 

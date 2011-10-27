@@ -81,20 +81,20 @@ public class GuiaRemisionDA {
         ResultSet rs = null;
          ArrayList<GuiaRemisionBE> arrGuiaRemision = new ArrayList<GuiaRemisionBE>();
                 
-        String sql = "SELECT g.idguiaremision, g.fecha, g.identidad, g.idestadogr FROM  guiaremision g,entidad e";
+        String sql = "SELECT g.idguiaremision, g.fecha, g.identidad, g.idestadogr FROM  guiaremision g, entidad e";
                
-        sql  +=" WHERE g.idestadogr ='"+codestado+"'";
-        
+        sql  +=" WHERE g.idestadogr LIKE '%"+codestado+"%'";
+        sql +=  " AND g.identidad = e.identidad";
        
         //sql+= " WHERE";
         if(!(codigo.equals("")) || !(nombcliente.equals(""))){
            if (!codigo.equals("")){           
                
-               sql +=  " AND idguiaremision LIKE '%"+codigo+"%'";
+               sql +=  " AND g.idguiaremision LIKE '%"+codigo+"%'";
            }
            if (!nombcliente.equals("")){
                
-               sql += " AND e.identidad = g.identidad AND e.razonsocial LIKE '%"+nombcliente+"%'";
+               sql += " AND e.razonsocial LIKE '%"+nombcliente+"%'";
            }
           
         }

@@ -114,10 +114,10 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
                         .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                         .addContainerGap(28, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -166,7 +166,7 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         EstadoGRBE objEstadoGRBE = new EstadoGRBE();
         String codEstado = "";
         if(this.cbxEstado.getSelectedItem().toString().equals("Todos")){
-            codEstado = "0";
+            codEstado = "";
         } else{
             objEstadoGRBE = objEstadoGRBL.queryByDescripcionEstadoGR(this.cbxEstado.getSelectedItem().toString().trim());
             

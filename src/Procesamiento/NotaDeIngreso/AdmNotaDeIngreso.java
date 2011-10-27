@@ -141,7 +141,7 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
 private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 // TODO add your handling code here:
-    BuscarNotaDeIngreso m = new BuscarNotaDeIngreso();
+    BuscarNotaDeIngreso m = new BuscarNotaDeIngreso(this);
     m.setVisible(true);
 }//GEN-LAST:event_lblBuscarMousePressed
 

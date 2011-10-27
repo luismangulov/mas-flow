@@ -36,6 +36,11 @@ public class NotaIngresoBL {
         NotaIngresoDA objGuiaRemisionDA = new NotaIngresoDA();
         return objGuiaRemisionDA.queryAllNotaIngreso();
     }
+    
+    public ArrayList<NotaIngresoBE> buscar(String codigo,String nombproveedor,String codestado){
+        NotaIngresoDA objGuiaRemisionDA = new NotaIngresoDA();
+        return objGuiaRemisionDA.buscar(codigo, nombproveedor, codestado);
+    }
 
     /**
      * @return the objNotaIngresoBE
