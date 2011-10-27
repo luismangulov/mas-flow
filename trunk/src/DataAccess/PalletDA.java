@@ -281,4 +281,33 @@ public class PalletDA {
         }
     }
 
+    public ArrayList<PalletBE> queryList() {
+        objConexion = new conexion();
+        
+        query = "SELECT * FROM PALLET";
+
+        rs = objConexion.EjecutarS(query);
+        arrPallets = new ArrayList<PalletBE>();
+        
+        Date dateFechaVencimiento = null;
+        
+        try {
+            while (rs.next()) {
+                
+                String strIdPallet = rs.getString("IdPallet");
+                String strIdProducto = rs.getString("IdProducto");
+                String strIndActivo= rs.getString("IndActivo");
+                String strIdUbicacion = rs.getString("idUbicacion");
+                String strIdAlmacen = rs.getString("idAlmacen");
+                if (rs.getDate("FechaVencimiento") != null)
+                    dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arrPallets;
+    }
+
 }

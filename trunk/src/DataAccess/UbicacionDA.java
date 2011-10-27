@@ -57,11 +57,14 @@ public class UbicacionDA {
         finally{objConexion.SalirUID();}
     }
 
-    public void bloquearUbicacion(String idUbicacion){
+    public void bloquearUbicacion(String idUbicacion, String indActivo){
         
         boolExito = false;
         objConexion = new conexion();
-        query = "UPDATE UBICACION set indActivo = '0' WHERE idUbicacion = '" + idUbicacion + "'";
+        if (indActivo.equals("1"))            
+            query = "UPDATE UBICACION set indActivo = '0' WHERE idUbicacion = '" + idUbicacion + "'";
+        else
+            query = "UPDATE UBICACION set indActivo = '1' WHERE idUbicacion = '" + idUbicacion + "'";
         try{
             objConexion.EjecutarUID(query);
         } catch (Exception e){
@@ -71,19 +74,19 @@ public class UbicacionDA {
         }
     }
         
-    public void desbloquearUbicacion(String idUbicacion){
-        
-        boolExito = false;
-        objConexion = new conexion();
-        query = "UPDATE UBICACION set indActivo = '1' WHERE idUbicacion = '" + idUbicacion + "'";
-        try{
-            objConexion.EjecutarUID(query);
-        } catch (Exception e){
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
-        }finally{
-            objConexion.SalirUID();
-        }
-    }
+//    public void desbloquearUbicacion(String idUbicacion){
+//        
+//        boolExito = false;
+//        objConexion = new conexion();
+//        query = "UPDATE UBICACION set indActivo = '1' WHERE idUbicacion = '" + idUbicacion + "'";
+//        try{
+//            objConexion.EjecutarUID(query);
+//        } catch (Exception e){
+//                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
+//        }finally{
+//            objConexion.SalirUID();
+//        }
+//    }
 
     public boolean eliminarUbicacionesRack(String idRack){
         boolExito = false;
@@ -243,6 +246,27 @@ public class UbicacionDA {
                 String strIndActivo = rs.getString("IndActivo");
                 String strIdRack = rs.getString("idRack");
                 arrUbicaciones.add(new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,strIdRack));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }
+        return arrUbicaciones;
+    }
+
+    public ArrayList<UbicacionBE> queryAll() {
+        
+        objConexion = new conexion();
+        query = "SELECT * FROM UBICACION WHERE indActivo = '1'";
+        rs = objConexion.EjecutarS(query);
+        arrUbicaciones = new ArrayList<UbicacionBE>();
+        try {
+            while (rs.next()) {
+                String strIdUbicacion = rs.getString("IdUbicacion");
+                int fila = rs.getInt("Fila");
+                int columna = rs.getInt("Columna");
+                String strIndActivo = rs.getString("IndActivo");
+                String idRack = rs.getString("idRack");
+                arrUbicaciones.add(new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,idRack));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);

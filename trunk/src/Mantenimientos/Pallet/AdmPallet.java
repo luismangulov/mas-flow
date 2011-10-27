@@ -100,6 +100,7 @@ public class AdmPallet extends javax.swing.JFrame {
         dgvPallets.getColumnModel().getColumn(5).setResizable(false);
         dgvPallets.getColumnModel().getColumn(5).setPreferredWidth(35);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         lblRegistrarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
@@ -130,6 +131,11 @@ public class AdmPallet extends javax.swing.JFrame {
         jToolBar1.add(lblBuscarPallet);
 
         lblRefrescarPallets.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescarPallets.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRefrescarPalletsMouseClicked(evt);
+            }
+        });
         jToolBar1.add(lblRefrescarPallets);
 
         jLabel7.setText("                                                                                                   ");
@@ -184,6 +190,11 @@ private void lblEliminarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
         }
     }
 }//GEN-LAST:event_lblEliminarPalletMouseClicked
+
+private void lblRefrescarPalletsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarPalletsMouseClicked
+    objPalletBL = new PalletBL();
+    llenarDgv(objPalletBL.getAll());
+}//GEN-LAST:event_lblRefrescarPalletsMouseClicked
 
     public void llenarDgv(ArrayList<PalletBE> arrPallets){
         
