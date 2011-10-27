@@ -267,11 +267,11 @@ public class PalletDA {
         
         if (exito){
             
-            query = "INSERT INTO HISTORIALPALLET(idHistorialPallet, idPallet, idUbicacionOrigen,idUbicacionDestino) "
+            query = "INSERT INTO HISTORIALPALLET(idHistorialPallet, idPallet, idUbicacionOrigen,idUbicacionDestino,fechamovimiento) "
                     + "VALUES('"+strIdHistorialPallet+"',"
                     + "'"+strIdPallet+"',"
                     + "'"+strIdUbicacionOrigen+"',"
-                    + "'"+strIdUbicacionDestino+"'"
+                    + "'"+strIdUbicacionDestino+"',"
                     + null +")";
 
             try{
