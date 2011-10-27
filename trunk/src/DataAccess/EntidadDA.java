@@ -287,12 +287,12 @@ public class EntidadDA {
         conexion objConexion = new conexion();
 
         String sql = "update Entidad set  "
-                +" idEntidad='" + objEntidad.getIdEntidad()+" nrodocumento='" + objEntidad.getNroDocumento()
+                +" idEntidad='" + objEntidad.getIdEntidad()+"', nrodocumento='" + objEntidad.getNroDocumento()
                 +"', direccion='" + objEntidad.getDireccion() +"', telefono='" + objEntidad.getTelefono()
                 +"', email='" + objEntidad.getEmail() +"', nombrecontacto='" + objEntidad.getNombreContacto()
                 +"', dnicontacto='" + objEntidad.getDniContacto() +"',telefonocontacto='" + objEntidad.getTelefonoContacto()
                 +"', razonsocial='" + objEntidad.getRazonSocial()+"', paginaweb='" + objEntidad.getPaginaWeb() 
-                +"', indActivo='" + objEntidad.getIndActivo() +"', idciuu'" + objEntidad.getIdCIUU()
+                +"', indActivo='" + objEntidad.getIndActivo() +"', idciuu='" + objEntidad.getIdCIUU()
                 +"' where  identidad='"+ objEntidad.getIdEntidad() +"'";
 
          try{

@@ -9,9 +9,11 @@
  * Created on Oct 2, 2011, 3:34:26 PM
  */
 package Mantenimientos.Proveedor;
+import BusinessEntity.CIUUBE;
 import BusinessEntity.EntidadBE;
 import BusinessLogic.EntidadBL;
-import DataAccess.EntidadDA;
+import java.util.ArrayList;
+import DataAccess.CIUUDA;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,29 +23,70 @@ import javax.swing.JOptionPane;
  */
 public class MantenimientoProveedor extends javax.swing.JFrame {
 
-    int tipoVentana;
+    private AdmProveedor objPadre;
+    private String accion;
+    private String codigo;
 
-    private String idEntidad;
-    private String nroDocumento;
-    private String direccion;
-    private String telefono;
-    private String email;
-    private String nombreContacto;
-    private String dniContacto;
-    private String telefonoContacto;
-    private String idTipoPersona;
-    private String razonSocial;
-    private String paginaWeb;
-    private String idTipoEntidad;
-    private String indActivo;
-    private String idCIUU;
+     public MantenimientoProveedor(AdmProveedor padre) {
+        this.objPadre = padre;
+        accion = "registrar";
 
-
-    /** Creates new form MantenimientoProveedor */
-    public MantenimientoProveedor() {
         initComponents();
-        this.jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto"));
         this.setLocationRelativeTo(null);
+        rdbEmpresa.setSelected(true);
+        this.setLocationRelativeTo(null);
+        this.buttonGroup1.add(this.rdbEmpresa);
+        this.buttonGroup1.add(this.rdbPersona);
+        this.llenarCombo();
+        this.setTitle("+Flow - Registrar proveedor");
+        this.cbxActivo.setEnabled(false);
+        this.setVisible(true);
+    }
+
+     public MantenimientoProveedor(AdmProveedor padre,EntidadBE proveedor){
+
+         this.objPadre = padre;
+         this.codigo=proveedor.getIdEntidad();
+        accion = "modificar";
+
+        initComponents();
+        this.setLocationRelativeTo(null);
+        rdbEmpresa.setSelected(true);
+        this.setLocationRelativeTo(null);
+        this.buttonGroup1.add(this.rdbEmpresa);
+        this.buttonGroup1.add(this.rdbPersona);
+        this.llenarCombo();
+        this.cbxActivo.setEnabled(true);
+        this.cbxActivo.setSelected(true);
+        this.setTitle("+Flow - Editar proveedor");
+
+        txtCodigo.setText(proveedor.getIdEntidad());
+        txtDoc.setText(proveedor.getNroDocumento());
+        txtDireccion.setText(proveedor.getDireccion());
+        txtTelefono.setText(proveedor.getTelefono());
+        txtEmail.setText(proveedor.getEmail());
+        txtNombreContacto.setText(proveedor.getNombreContacto());
+        txtDNIContacto.setText(proveedor.getDniContacto());
+        txtTelfContacto.setText(proveedor.getTelefonoContacto());
+        //txtIdTipoPersona.setText(proveedor.      ());
+        txtRazonSocial.setText(proveedor.getRazonSocial());
+        txtPaginaWeb.setText(proveedor.getPaginaWeb());
+        //txtIdTipoEntidad.setText(proveedor.getIdEntidad());
+        //CIUUDA ciuuDa = new CIUUDA();
+        CIUUBE CIUU = CIUUDA.getCIUU(proveedor.getIdCIUU());
+        cmbCIUU.setSelectedItem(CIUU.getIdCIUU() + " - " + CIUU.getDescripcion());
+        
+            if (proveedor.getIndActivo().equals("1")){
+                cbxActivo.setSelected(true);
+            } else{
+                cbxActivo.setSelected(false);
+            }
+
+            //txtIdCIUU.setText(cliente.getIdEntidad());
+
+            this.setVisible(true) ;
+
+
     }
 
     /** This method is called from within the constructor to
@@ -56,6 +99,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField8 = new javax.swing.JTextField();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         txtDoc = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -173,6 +217,8 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
 
         jLabel10.setText("E-mail*:");
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contacto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+
         jLabel9.setText("Nombre:");
 
         txtNombreContacto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -210,17 +256,16 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(txtDNIContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addComponent(jLabel11)
                         .addGap(28, 28, 28)
                         .addComponent(txtTelfContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtNombreContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE))
+                    .addComponent(txtNombreContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,7 +275,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
                     .addComponent(txtDNIContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelfContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cbxActivo.setSelected(true);
@@ -261,23 +306,14 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxActivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel6)
@@ -291,20 +327,28 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                                     .addComponent(txtPaginaWeb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(rdbEmpresa)
                                 .addGap(18, 18, 18)
                                 .addComponent(rdbPersona)
                                 .addGap(33, 33, 33)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(37, 37, 37)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(25, 25, 25))))
-                .addGap(26, 26, 26))
+                                .addComponent(txtDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(37, 37, 37)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)))
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbxActivo)
+                        .addContainerGap(402, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(115, 115, 115))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,13 +389,13 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(cbxActivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -510,30 +554,48 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     String indActivo = new String();
     if (cbxActivo.isSelected()) {indActivo="1";} else {indActivo="0";}
 
-
-
-    EntidadBL entidadBL = new EntidadBL();
-    try {
-        if (this.tipoVentana==0){entidadBL.insertar("C-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
-                txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
-                txtDNIContacto.getText(), txtTelfContacto.getText(),
-                txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
-                cmbCIUU.getSelectedItem().toString().substring(0,1) );} else {
-            entidadBL.modificar("C-"+txtDoc.getText(),txtCodigo.getText(),txtDoc.getText(),txtDireccion.getText(),
+   
+       EntidadBL entidadBL = new EntidadBL();
+        try {
+            if (this.accion.equals("registrar")){
+                entidadBL.insertar("P-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
                     txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                     txtDNIContacto.getText(), txtTelfContacto.getText(),
                     txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
                     cmbCIUU.getSelectedItem().toString().substring(0,1) );
+                    EntidadBE cliente = entidadBL.getCliente("P-"+txtDoc.getText());
+                    this.objPadre.recargaruno(cliente);
+                    this.dispose();
+            } else {
+                entidadBL.modificar(this.codigo, "C-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
+                        txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
+                        txtDNIContacto.getText(), txtTelfContacto.getText(),
+                        txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
+                        cmbCIUU.getSelectedItem().toString().substring(0,1) );
+                        int fila;
+                        fila = this.objPadre.getDgvProveedor().getSelectedRow();
+                        this.objPadre.getDgvProveedor().removeRowSelectionInterval(fila, fila);
+                        EntidadBE cliente = entidadBL.getCliente("P-"+txtDoc.getText());
 
-                }
+                        this.objPadre.getDgvProveedor().setValueAt(cliente.getIdEntidad(), fila, 0);
+                        this.objPadre.getDgvProveedor().setValueAt(cliente.getRazonSocial(), fila, 1);
+                        this.objPadre.getDgvProveedor().setValueAt(cliente.getNombreContacto(), fila, 3);
+                        this.objPadre.getDgvProveedor().setValueAt(cliente.getTelefonoContacto(), fila, 4);
 
+                        if(cliente.getIndActivo().equals("1")){
+                             this.objPadre.getDgvProveedor().setValueAt("Activo", fila, 2);
+                         }else if(cliente.getIndActivo().equals("0")){
+                            this.objPadre.getDgvProveedor().setValueAt("Inactivo", fila, 2);
+                         }
+                        this.dispose();
+            }
+                    
+        } catch (Exception ex) {
+            Logger.getLogger(MantenimientoProveedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-
-    } catch (Exception ex) {
-        Logger.getLogger(MantenimientoProveedor.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
-    this.hide();
+   
+   
     // TODO add your handling code here:
 }//GEN-LAST:event_btnGuardarMousePressed
 
@@ -548,41 +610,11 @@ private void cmbCIUUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new MantenimientoProveedor().setVisible(true);
-            }
-        });
-    }
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox cbxActivo;
     private javax.swing.JComboBox cmbCIUU;
     private javax.swing.JLabel jLabel1;
@@ -611,4 +643,19 @@ private void cmbCIUUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTelfContacto;
     // End of variables declaration//GEN-END:variables
-}
+
+    private void llenarCombo() {
+
+       try { ArrayList<CIUUBE> arrCIUU = DataAccess.CIUUDA.queryAllCIUU();
+        cmbCIUU.addItem("Seleccione");
+        for (CIUUBE CIUU : arrCIUU){
+            cmbCIUU.addItem((CIUU.getIdCIUU() + " - " + CIUU.getDescripcion()));
+        }
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoProveedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        index = OGGestorTipoDocIdentidad.indexTipoDocIdentidad(arrTipoDocIdentidad,objCliente.getObjTipoDocIdentidad().getStrIdTipoDocIdentidad());
+//        jcmbTipoDocumento.setSelectedIndex(index+1);
+
+
+    }}

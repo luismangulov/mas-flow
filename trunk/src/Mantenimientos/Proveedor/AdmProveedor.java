@@ -10,6 +10,12 @@
  */
 package Mantenimientos.Proveedor;
 
+import BusinessEntity.EntidadBE;
+import BusinessLogic.EntidadBL;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author DIEGO
@@ -99,6 +105,11 @@ public class AdmProveedor extends javax.swing.JFrame {
         lblEditar.setToolTipText("Editar");
         lblEditar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEditarMousePressed(evt);
+            }
+        });
         tlbProveedor.add(lblEditar);
 
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
@@ -152,15 +163,29 @@ public class AdmProveedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
-MantenimientoProveedor m = new MantenimientoProveedor();
-m.setVisible(true);
-// TODO add your handling code here:
+
+            MantenimientoProveedor m = new MantenimientoProveedor(this);
+            m.setVisible(true);
+            // TODO add your handling code here:
+
 }//GEN-LAST:event_lblAgregarMousePressed
 
 private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 BuscarProveedor m = new BuscarProveedor();
 m.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_lblBuscarMousePressed
+
+private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
+            int fila;
+            String codigo;
+            fila = dgvProveedor.getSelectedRow();
+            codigo = (String)dgvProveedor.getValueAt(fila, 0);
+            EntidadBL objProveedorBL = new EntidadBL();
+            EntidadBE proveedor = objProveedorBL.getProveedor(codigo);
+
+            MantenimientoProveedor m = new MantenimientoProveedor(this, proveedor);
+            m.setVisible(true);    // TODO add your handling code here:
+}//GEN-LAST:event_lblEditarMousePressed
 
     /**
      * @param args the command line arguments
@@ -209,4 +234,41 @@ m.setVisible(true);// TODO add your handling code here:
     private javax.swing.JLabel lblRefrescar;
     private javax.swing.JToolBar tlbProveedor;
     // End of variables declaration//GEN-END:variables
+
+    
+    public javax.swing.JTable getDgvProveedor() {
+        return dgvProveedor;
+    }
+
+    public void recargaruno(EntidadBE cliente){
+
+        DefaultTableModel modelo=(DefaultTableModel) dgvProveedor.getModel();
+        modelo.addRow(new Object[6]);
+        dgvProveedor.clearSelection();
+        dgvProveedor.setValueAt(cliente.getIdEntidad(),0,0 );
+        dgvProveedor.setValueAt(cliente.getNroDocumento(),0,1 );
+        dgvProveedor.setValueAt(cliente.getRazonSocial(),0,2 );
+        dgvProveedor.setValueAt(cliente.getTelefono(),0,3);
+        dgvProveedor.setValueAt(cliente.getEmail(),0,4 );
+        dgvProveedor.setValueAt(cliente.getNombreContacto(),0,5 );
+    }
+
+    public void recargar(ArrayList<EntidadBE> clientes){
+
+
+
+        DefaultTableModel modelo=(DefaultTableModel) dgvProveedor.getModel();
+        dgvProveedor.clearSelection();
+
+        for(int i=0;i<clientes.size();i++){
+            modelo.addRow(new Object[6]);
+            dgvProveedor.setValueAt(clientes.get(i).getIdEntidad(),i,0 );
+            dgvProveedor.setValueAt(clientes.get(i).getNroDocumento(),i,1 );
+            dgvProveedor.setValueAt(clientes.get(i).getRazonSocial(),i,2 );
+            dgvProveedor.setValueAt(clientes.get(i).getTelefono(),i,3 );
+            dgvProveedor.setValueAt(clientes.get(i).getEmail(),i,4 );
+            dgvProveedor.setValueAt(clientes.get(i).getNombreContacto(),i,5 );
+        }
+    }
+
 }

@@ -179,7 +179,7 @@ public class AdmCliente extends javax.swing.JFrame {
 
 private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
         try {
-            MantenimientoCliente m = new MantenimientoCliente(0,"");
+            MantenimientoCliente m = new MantenimientoCliente(this);
             m.setVisible(true);
             // TODO add your handling code here:
         } catch (Exception ex) {
@@ -199,9 +199,10 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             String codigo;
             fila = dgvCliente.getSelectedRow();
             codigo = (String)dgvCliente.getValueAt(fila, 0);
-            
+            EntidadBL objClienteBL = new EntidadBL();
+            EntidadBE cliente = objClienteBL.getCliente(codigo);
              try {
-            MantenimientoCliente m = new MantenimientoCliente(1,codigo);
+            MantenimientoCliente m = new MantenimientoCliente(this, cliente);
             m.setVisible(true);
             // TODO add your handling code here:
         } catch (Exception ex) {
