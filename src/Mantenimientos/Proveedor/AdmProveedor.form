@@ -135,6 +135,9 @@
               <Color id="Cursor de mano"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblEditarMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblEliminar">
           <Properties>

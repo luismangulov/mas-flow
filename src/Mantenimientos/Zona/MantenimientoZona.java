@@ -43,8 +43,8 @@ public class MantenimientoZona extends javax.swing.JFrame {
         txtPosY = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txtAncho = new javax.swing.JTextField();
         lblAdd = new javax.swing.JLabel();
+        txtAncho = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         cbxActivo = new javax.swing.JCheckBox();

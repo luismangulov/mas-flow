@@ -220,8 +220,6 @@
         <Property name="text" type="java.lang.String" value="C&#xf3;digo*:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtAncho">
-    </Component>
     <Component class="javax.swing.JLabel" name="lblAdd">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -239,6 +237,8 @@
       <Events>
         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAddMousePressed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtAncho">
     </Component>
     <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
