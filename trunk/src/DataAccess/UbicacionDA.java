@@ -150,12 +150,17 @@ public class UbicacionDA {
         rs = objConexion.EjecutarS(query);
         try {
             rs.next();
-            String strIdUbicacion = rs.getString("IdUbicacion");
-            int fila = rs.getInt("Fila");
-            int columna = rs.getInt("Columna");
-            String strIndActivo = rs.getString("IndActivo");
-            String idRack = rs.getString("idRack");
-            objUbicacion = new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,idRack);
+            if (rs.isAfterLast()){
+                String strIdUbicacion = rs.getString("IdUbicacion");
+                int fila = rs.getInt("Fila");
+                int columna = rs.getInt("Columna");
+                String strIndActivo = rs.getString("IndActivo");
+                String idRack = rs.getString("idRack");
+                objUbicacion = new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,idRack);
+            }
+            else
+                objUbicacion = null;
+            
         } catch (SQLException ex) {
             Logger.getLogger(UbicacionDA.class.getName()).log(Level.SEVERE, null, ex);
         }
