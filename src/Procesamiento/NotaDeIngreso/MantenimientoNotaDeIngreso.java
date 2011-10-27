@@ -10,6 +10,7 @@
  */
 package Procesamiento.NotaDeIngreso;
 
+import BusinessEntity.EntidadBE;
 import BusinessEntity.NotaIngresoBE;
 import BusinessEntity.ProductoBE;
 import BusinessLogic.DetalleNotaIngresoBL;
@@ -27,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
     private ProductoBE producto =new ProductoBE();
+    private EntidadBE proveedor = new EntidadBE();
     private AdmNotaDeIngreso objPadre;
     /** Creates new form MantenimientoNotaDeIngreso */
     public MantenimientoNotaDeIngreso(AdmNotaDeIngreso padre) {
@@ -265,7 +267,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
 
     private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAyudaMousePressed
         // TODO add your handling code here:
-        Mantenimientos.Proveedor.AyudaProveedor m = new Mantenimientos.Proveedor.AyudaProveedor();
+        Mantenimientos.Proveedor.AyudaProveedor m = new Mantenimientos.Proveedor.AyudaProveedor(this,true,this.proveedor);
         m.setVisible(true);
     }//GEN-LAST:event_lblAyudaMousePressed
 
