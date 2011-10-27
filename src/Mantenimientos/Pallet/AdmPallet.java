@@ -56,6 +56,7 @@ public class AdmPallet extends javax.swing.JFrame {
         lblEliminarPallet = new javax.swing.JLabel();
         lblBuscarPallet = new javax.swing.JLabel();
         lblRefrescarPallets = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -91,20 +92,25 @@ public class AdmPallet extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(dgvPallets);
         dgvPallets.getColumnModel().getColumn(0).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvPallets.getColumnModel().getColumn(0).setPreferredWidth(20);
         dgvPallets.getColumnModel().getColumn(1).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(1).setPreferredWidth(25);
+        dgvPallets.getColumnModel().getColumn(1).setPreferredWidth(40);
         dgvPallets.getColumnModel().getColumn(2).setResizable(false);
+        dgvPallets.getColumnModel().getColumn(2).setPreferredWidth(30);
         dgvPallets.getColumnModel().getColumn(3).setResizable(false);
         dgvPallets.getColumnModel().getColumn(3).setPreferredWidth(25);
         dgvPallets.getColumnModel().getColumn(4).setResizable(false);
+        dgvPallets.getColumnModel().getColumn(4).setPreferredWidth(20);
         dgvPallets.getColumnModel().getColumn(5).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(5).setPreferredWidth(35);
+        dgvPallets.getColumnModel().getColumn(5).setPreferredWidth(40);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         lblRegistrarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblRegistrarPallet.setToolTipText("Agregar");
+        lblRegistrarPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRegistrarPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRegistrarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblRegistrarPalletMouseClicked(evt);
@@ -116,6 +122,9 @@ public class AdmPallet extends javax.swing.JFrame {
         jToolBar1.add(lblRegistrarPallet);
 
         lblEliminarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminarPallet.setToolTipText("Editar");
+        lblEliminarPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblEliminarPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblEliminarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEliminarPalletMouseClicked(evt);
@@ -124,6 +133,9 @@ public class AdmPallet extends javax.swing.JFrame {
         jToolBar1.add(lblEliminarPallet);
 
         lblBuscarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscarPallet.setToolTipText("Buscar");
+        lblBuscarPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblBuscarPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBuscarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblBuscarPalletMousePressed(evt);
@@ -132,6 +144,9 @@ public class AdmPallet extends javax.swing.JFrame {
         jToolBar1.add(lblBuscarPallet);
 
         lblRefrescarPallets.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescarPallets.setToolTipText("Refrescar");
+        lblRefrescarPallets.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRefrescarPallets.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRefrescarPallets.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblRefrescarPalletsMouseClicked(evt);
@@ -139,7 +154,20 @@ public class AdmPallet extends javax.swing.JFrame {
         });
         jToolBar1.add(lblRefrescarPallets);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/back.png"))); // NOI18N
+        jLabel1.setToolTipText("Reubicar Pallet");
+        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jToolBar1.add(jLabel1);
+
         jLabel7.setText("                                                                                                   ");
+        jLabel7.setMaximumSize(new java.awt.Dimension(0, 0));
+        jLabel7.setMinimumSize(new java.awt.Dimension(0, 0));
         jToolBar1.add(jLabel7);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
@@ -149,15 +177,16 @@ public class AdmPallet extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -196,6 +225,11 @@ private void lblRefrescarPalletsMouseClicked(java.awt.event.MouseEvent evt) {//G
     objPalletBL = new PalletBL();
     llenarDgv(objPalletBL.getAll());
 }//GEN-LAST:event_lblRefrescarPalletsMouseClicked
+
+private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    ReubicarPallet ventana = new ReubicarPallet(this);
+    ventana.setVisible(true);
+}//GEN-LAST:event_jLabel1MouseClicked
 
     public void llenarDgv(ArrayList<PalletBE> arrPallets){
         
@@ -333,6 +367,7 @@ private void lblRefrescarPalletsMouseClicked(java.awt.event.MouseEvent evt) {//G
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dgvPallets;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
