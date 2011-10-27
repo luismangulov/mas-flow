@@ -236,7 +236,7 @@ public class AyudaProducto extends javax.swing.JDialog {
             
             this.producto.setIdProducto(objProductoBE.getIdProducto());
             this.producto.setNombre(objProductoBE.getNombre());
-            this.producto.setIdFamilia(objProductoBE.getIdUnidadMedida());
+            this.producto.setIdUnidadMedida(objProductoBE.getIdUnidadMedida());
             //JOptionPane.showMessageDialog(null, producto.getIdProducto(), "Error", 0);
             this.dispose();
         }
