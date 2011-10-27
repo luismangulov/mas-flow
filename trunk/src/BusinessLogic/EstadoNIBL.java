@@ -6,6 +6,7 @@ package BusinessLogic;
 
 import BusinessEntity.EstadoNIBE;
 import DataAccess.EstadoNIDA;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,4 +21,9 @@ public class EstadoNIBL {
         EstadoNIDA objEstadoGRDA = new EstadoNIDA();
         return objEstadoGRDA.queryByIdEstadoNI(codigo);
     }
+    
+     public ArrayList<EstadoNIBE> queryAllEstadoNIBE(){
+         EstadoNIDA objEstadoGRDA = new EstadoNIDA();
+        return objEstadoGRDA.queryAllEstadoNIBE();
+     }
 }

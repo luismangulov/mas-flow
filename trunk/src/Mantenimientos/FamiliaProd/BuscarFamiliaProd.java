@@ -25,8 +25,9 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
     /** Creates new form BuscarFamiliaProd */
     public BuscarFamiliaProd(AdmFamiliaProd padre) {
         this.objPadre = padre;
-        this.setLocationRelativeTo(null); 
+        
         initComponents();
+        this.setLocationRelativeTo(null); 
         this.setVisible(true);
     }
 

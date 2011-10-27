@@ -74,4 +74,63 @@ public class GuiaRemisionDA {
       
         return arrGuiaRemision;
     }
+     
+     
+      public ArrayList<GuiaRemisionBE> buscar(String codigo,String nombcliente,String codestado){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+         ArrayList<GuiaRemisionBE> arrGuiaRemision = new ArrayList<GuiaRemisionBE>();
+                
+        String sql = "SELECT g.idguiaremision, g.fecha, g.identidad, g.idestadogr FROM  guiaremision g,entidad e";
+               
+        sql  +=" WHERE g.idestadogr ='"+codestado+"'";
+        
+       
+        //sql+= " WHERE";
+        if(!(codigo.equals("")) || !(nombcliente.equals(""))){
+           if (!codigo.equals("")){           
+               
+               sql +=  " AND idguiaremision LIKE '%"+codigo+"%'";
+           }
+           if (!nombcliente.equals("")){
+               
+               sql += " AND e.identidad = g.identidad AND e.razonsocial LIKE '%"+nombcliente+"%'";
+           }
+          
+        }
+        sql +=" order by 1";
+              
+        
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strCodigo;
+            Date fecha;
+            String strIdEntidad;
+            String strCodEstado;
+            while (rs.next()){
+              
+                strCodigo = rs.getString(1);
+                fecha = rs.getDate(2);
+                strIdEntidad = rs.getString(3);
+                strCodEstado = rs.getString(4);
+                EntidadBL objEntidadBL = new EntidadBL();
+                EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
+               
+                EstadoGRBL objEstadoGRBL = new EstadoGRBL();
+                EstadoGRBE objEstadoGRBE = new EstadoGRBE();
+                objEstadoGRBE = objEstadoGRBL.queryByIdEstadoGRBE(strCodEstado);
+                
+                arrGuiaRemision.add(new GuiaRemisionBE(strCodigo,fecha,objEntidadBE,objEstadoGRBE));
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return arrGuiaRemision;
+        
+      }     
 }
