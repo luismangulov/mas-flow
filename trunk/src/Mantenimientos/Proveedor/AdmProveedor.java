@@ -182,7 +182,7 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_lblAgregarMousePressed
 
 private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
-BuscarProveedor m = new BuscarProveedor();
+BuscarProveedor m = new BuscarProveedor(this);
 m.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_lblBuscarMousePressed
 

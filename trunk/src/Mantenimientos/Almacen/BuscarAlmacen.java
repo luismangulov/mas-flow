@@ -9,17 +9,20 @@
  * Created on Oct 2, 2011, 3:15:38 PM
  */
 package Mantenimientos.Almacen;
-
+import BusinessEntity.AlmacenBE;
+import BusinessLogic.AlmacenBL;
 /**
  *
  * @author DIEGO
  */
 public class BuscarAlmacen extends javax.swing.JFrame {
-
+    private AdmAlmacen ventanaPadre ;
     /** Creates new form BuscarAlmacen */
-    public BuscarAlmacen() {
+    
+    public BuscarAlmacen(AdmAlmacen padre) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.ventanaPadre=padre;
     }
 
     /** This method is called from within the constructor to
@@ -61,17 +64,27 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         btnBuscar.setMaximumSize(new java.awt.Dimension(100, 23));
         btnBuscar.setMinimumSize(new java.awt.Dimension(100, 23));
         btnBuscar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnBuscarMousePressed(evt);
+            }
+        });
 
         jLabel7.setText("Nombre:");
 
         jLabel8.setText("Estado:");
 
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Activo", "Inactivo" }));
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Activos", "Inactivos" }));
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setMaximumSize(new java.awt.Dimension(100, 23));
         btnCancelar.setMinimumSize(new java.awt.Dimension(100, 23));
         btnCancelar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,41 +155,29 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+    this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMousePressed
+
+        AlmacenBL a = new AlmacenBL();
+        String indActivo="";
+        if (cmbEstado.getSelectedItem()=="Activos"){
+        indActivo="1";
+        }
+        if (cmbEstado.getSelectedItem()=="Inactivos"){
+        indActivo="0";
+        }
+        this.ventanaPadre.recargar(a.buscar(txtCodigo.getText(), txtNombre.getText(), indActivo, "", "", ""));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarMousePressed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarAlmacen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new BuscarAlmacen().setVisible(true);
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;

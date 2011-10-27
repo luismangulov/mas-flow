@@ -9,17 +9,19 @@
  * Created on Oct 2, 2011, 3:34:45 PM
  */
 package Mantenimientos.Proveedor;
-
+import BusinessEntity.EntidadBE;
+import BusinessLogic.EntidadBL;
 /**
  *
  * @author DIEGO
  */
 public class BuscarProveedor extends javax.swing.JFrame {
-
+    private AdmProveedor ventanaPadre ;
     /** Creates new form BuscarProveedor */
-    public BuscarProveedor() {
+    public BuscarProveedor(AdmProveedor padre) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.ventanaPadre=padre;
     }
 
     /** This method is called from within the constructor to
@@ -65,11 +67,21 @@ public class BuscarProveedor extends javax.swing.JFrame {
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.setMaximumSize(new java.awt.Dimension(100, 23));
         btnBuscar.setMinimumSize(new java.awt.Dimension(100, 23));
         btnBuscar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnBuscarMousePressed(evt);
+            }
+        });
 
         jLabel8.setText("Estado:");
 
@@ -111,7 +123,6 @@ public class BuscarProveedor extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 245, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -145,41 +156,35 @@ public class BuscarProveedor extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_txtDocActionPerformed
 
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+    this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMousePressed
+  EntidadBL a = new EntidadBL();
+        String tipo="";
+        String indActivo="";
+        if (cmbEstado.getSelectedItem()=="Activo"){
+        indActivo="1";
+        }
+        if (cmbEstado.getSelectedItem()=="Inactivo"){
+        indActivo="0";
+        }
+        if (cmbTipo.getSelectedItem()=="Empresas"){
+        tipo="E";
+        }
+        if (cmbTipo.getSelectedItem()=="Personas"){
+        tipo="P";
+        }
+        this.ventanaPadre.recargar(a.buscarProveedor(tipo,txtDoc.getText(), txtRazonSocial.getText(),txtDireccion.getText(), indActivo));
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarMousePressed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new BuscarProveedor().setVisible(true);
-            }
-        });
-    }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
