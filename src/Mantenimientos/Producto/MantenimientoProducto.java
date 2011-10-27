@@ -255,8 +255,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         FamiliaBL familiaBL = new FamiliaBL();
         familia = familiaBL.getIdFamilia((String)cbFamilia.getSelectedItem());
         indActivo = "1";
-        precio = 0;
-        ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
+        ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo);
         ProductoBL productoBL = new ProductoBL();
         productoBL.insertar(productoBE);
     }
@@ -272,8 +271,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         FamiliaBL familiaBL = new FamiliaBL();
         familia = familiaBL.getIdFamilia((String)cbFamilia.getSelectedItem());
         indActivo = "A";
-        precio = 0;
-        ProductoBE productoBE = new ProductoBE(idProducto,nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo,precio);
+        ProductoBE productoBE = new ProductoBE(idProducto,nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo);
         ProductoBL productoBL = new ProductoBL();
         productoBL.modificar(productoBE);     
     }
