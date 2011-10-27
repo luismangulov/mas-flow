@@ -183,10 +183,10 @@ public class PalletDA {
         query = "SELECT * FROM PALLET WHERE indActivo ='1' AND idAlmacen ='" +idAlmacen+"'";
 
         if (!idPallet.equals("")){
-            query = query + " AND idPallet ='" + idPallet + "'";
+            query = query + " AND idPallet LIKE '%" + idPallet + "%'";
         }
         if (!idProducto.equals(""))
-            query = query + " AND idProducto = '" + idProducto + "'";
+            query = query + " AND idProducto LIKE '%" + idProducto + "%'";
 
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
