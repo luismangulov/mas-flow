@@ -13,8 +13,8 @@ import java.util.Date;
 public class GuiaRemisionBE {
     private String codigo;
     private Date fecha;
-    private EntidadBE cliente = null;
-    private EstadoGRBE estado = null;
+    private EntidadBE cliente = new EntidadBE();
+    private EstadoGRBE estado = new EstadoGRBE();
     
     /**
      * @return the codigo
@@ -22,7 +22,6 @@ public class GuiaRemisionBE {
     public GuiaRemisionBE(String codigo,Date fecha,String codCliente,EstadoGRBE estado){
         this.codigo = codigo;
         this.fecha = fecha;
-        this.cliente = null;
         this.cliente.setIdEntidad(codCliente);
         this.estado = estado;
     }

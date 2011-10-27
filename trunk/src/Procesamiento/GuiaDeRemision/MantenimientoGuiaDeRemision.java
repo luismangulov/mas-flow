@@ -125,11 +125,18 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblProductos);
@@ -214,13 +221,13 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                             .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblAyuda))
-                                    .addComponent(txtCodigo))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel9))
@@ -247,15 +254,15 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)
                         .addComponent(txtRUCDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblAyuda))
-                .addGap(15, 15, 15)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -288,13 +295,15 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     //SimpleDateFormat df1 = new SimpleDateFormat( "dd/MM/yy" );
      GuiaRemisionBE objGuiaRemisionBE;  
     try {
-        if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText())){
+        if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText().trim())){
             
-            
+            objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
                 try {
-                    objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBL.getObjGuiaRemisionBE().getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)this.tblProductos.getValueAt(i, 2)));
+                    
+                   objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBE.getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)this.tblProductos.getValueAt(i, 2)));
+                   
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
@@ -305,7 +314,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
-        this.objPadre.recargaruno(objGuiaRemisionBE, null, null);
+        this.objPadre.recargaruno(objGuiaRemisionBE, cliente.getDireccion());
         this.dispose();
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);

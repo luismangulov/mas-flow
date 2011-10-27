@@ -25,9 +25,9 @@ public class GuiaRemisionBL {
         EstadoGRBE objEstadoGRBE = new EstadoGRBE();
         objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Registrado");
         
-        setObjGuiaRemisionBE(new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente,objEstadoGRBE));
+        objGuiaRemisionBE = new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente,objEstadoGRBE);
         GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
-        exito = objGuiaRemisionDA.insertar(getObjGuiaRemisionBE());
+        exito = objGuiaRemisionDA.insertar(objGuiaRemisionBE);
         return exito;
     }
     
