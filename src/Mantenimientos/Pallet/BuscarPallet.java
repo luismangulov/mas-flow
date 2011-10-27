@@ -11,6 +11,7 @@
 package Mantenimientos.Pallet;
 
 import BusinessEntity.AlmacenBE;
+import BusinessEntity.PalletBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.PalletBL;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class BuscarPallet extends javax.swing.JFrame {
     AdmPallet ventanaPadre;
     AlmacenBL objAlmacenBL;
     ArrayList<AlmacenBE> arrAlmacenes;
+    ArrayList<PalletBE> arrPallets;
     PalletBL objPalletBL;
     String strIdPallet;
     String strIdProducto;
@@ -151,7 +153,9 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 //    objAlmacenBL = new AlmacenBL();
 //    strIdAlmacen = objAlmacenBL.getAlmacen(strNombreAlmacen).getIdAlmacen();
     objPalletBL = new PalletBL();
-    objPalletBL.getListSearch(strIdPallet, strIdProducto, strIdAlmacen);
+    arrPallets = objPalletBL.getListSearch(strIdPallet, strIdProducto, strIdAlmacen);
+    this.ventanaPadre.llenarDgv(arrPallets);
+    this.dispose();
             
 }//GEN-LAST:event_btnBuscarMouseClicked
 

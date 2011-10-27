@@ -44,13 +44,13 @@ public class PalletDA {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        query = "INSERT INTO PALLET(idPallet,idProducto,indActivo,idUbicacion,idAlmacen,fechaVencimiento) VALUES('"
-                        +objPallet.getIdPallet()+"',"
-                        +objPallet.getIdProducto()+",'"
-                        +objPallet.getIndActivo()+"',"
-                        +objPallet.getIdUbicacion()+",'"
-                        +objPallet.getIdAlmacen()+"',"
-                        +objPallet.getFechaVencimiento()+")";
+        query = "INSERT INTO PALLET(idPallet,idProducto,indActivo,idUbicacion,idAlmacen,fechaVencimiento) VALUES("
+                + "'" +objPallet.getIdPallet()+"',"
+                + "'" +objPallet.getIdProducto()+"',"
+                + "'" +objPallet.getIndActivo()+"',"
+                + "'" +objPallet.getIdUbicacion()+"',"
+                + "'" +objPallet.getIdAlmacen()+"',"
+                +objPallet.getFechaVencimiento()+")";
                                 
         try{
             objConexion.EjecutarUID(query);
@@ -67,7 +67,7 @@ public class PalletDA {
     public void eliminar(String idPallet){
 
         objConexion = new conexion();
-        query = "DELETE PALLET WHERE idPallet ='" + idPallet + "'";
+        query = "DELETE FROM PALLET WHERE idPallet ='" + idPallet + "'";
         
         try{
             objConexion.EjecutarUID(query);
@@ -110,8 +110,8 @@ public class PalletDA {
             String strIdPallet = rs.getString("IdPallet");
             String strIdProducto = rs.getString("IdProducto");
             String strIndActivo= rs.getString("IndActivo");
-            String strIdUbicacion = rs.getString("Ubicacion");
-            String strIdAlmacen = rs.getString("Almacen");
+            String strIdUbicacion = rs.getString("idUbicacion");
+            String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             
             objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento);
@@ -135,8 +135,8 @@ public class PalletDA {
             String strIdPallet = rs.getString("IdPallet");
             String strIdProducto = rs.getString("IdProducto");
             String strIndActivo= rs.getString("IndActivo");
-            String strIdUbicacion = rs.getString("Ubicacion");
-            String strIdAlmacen = rs.getString("Almacen");
+            String strIdUbicacion = rs.getString("idUbicacion");
+            String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             
             arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
@@ -161,8 +161,8 @@ public class PalletDA {
             String strIdPallet = rs.getString("IdPallet");
             String strIdProducto = rs.getString("IdProducto");
             String strIndActivo= rs.getString("IndActivo");
-            String strIdUbicacion = rs.getString("Ubicacion");
-            String strIdAlmacen = rs.getString("Almacen");
+            String strIdUbicacion = rs.getString("idUbicacion");
+            String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             
             arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
@@ -190,15 +190,19 @@ public class PalletDA {
 
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
+        
+        Date dateFechaVencimiento = null;
+        
         try {
             while (rs.next()) {
                 
                 String strIdPallet = rs.getString("IdPallet");
                 String strIdProducto = rs.getString("IdProducto");
                 String strIndActivo= rs.getString("IndActivo");
-                String strIdUbicacion = rs.getString("Ubicacion");
-                String strIdAlmacen = rs.getString("Almacen");
-                Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                String strIdUbicacion = rs.getString("idUbicacion");
+                String strIdAlmacen = rs.getString("idAlmacen");
+                if (rs.getDate("FechaVencimiento") != null)
+                    dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 
                 arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
             }
@@ -222,8 +226,8 @@ public class PalletDA {
             String strIdPallet = rs.getString("IdPallet");
             String strIdProducto = rs.getString("IdProducto");
             String strIndActivo= rs.getString("IndActivo");
-            String strIdUbicacion = rs.getString("Ubicacion");
-            String strIdAlmacen = rs.getString("Almacen");
+            String strIdUbicacion = rs.getString("idUbicacion");
+            String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             
             objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento);

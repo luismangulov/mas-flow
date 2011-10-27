@@ -37,20 +37,21 @@ public class MantenimientoPallet extends javax.swing.JFrame {
     AlmacenBE objAlmacenBE;
     PalletBL objPalletBL;
     String idPalletSeleccionado;
-    char accion;
+    AdmPallet ventanaPadre;
     
-    public MantenimientoPallet(char accion) {
+    public MantenimientoPallet(AdmPallet ventanaPadre) {
         initComponents();
-        this.accion = accion;
+        this.ventanaPadre = ventanaPadre;
         this.cargarComboAlmacen();
     }
     
-    public MantenimientoPallet(char accion, String idPallet) {
-        initComponents();
-        this.accion = accion;
-        this.idPalletSeleccionado = idPallet;
-        this.cargarComboAlmacen();
-    }
+//    public MantenimientoPallet(char accion, String idPallet) {
+//        initComponents();
+//        this.accion = accion;
+//        this.idPalletSeleccionado = idPallet;
+//
+//        this.cargarComboAlmacen();
+//    }
     
     public void cargarComboAlmacen(){
         objAlmacenBL = new AlmacenBL();
@@ -77,29 +78,14 @@ public class MantenimientoPallet extends javax.swing.JFrame {
         objAlmacenBL = new AlmacenBL();
         strIdAlmacen = cbAlmacen.getSelectedItem().toString();
 //        strIdAlmacen = objAlmacenBL.ge(strNombreAlmacen).getIdAlmacen();
-        objPalletBE = new PalletBE("",null,strIndActivo,null,strIdAlmacen,null);
+        objPalletBE = new PalletBE("","",strIndActivo,"",strIdAlmacen,null);
         objPalletBL = new PalletBL();
         objPalletBL.insertar(objPalletBE); 
-    }
-    
-//    public void modificar(){
-//
-//        strIdPallet = idPalletSeleccionado;
-//        objAlmacenBL = new AlmacenBL();
-//        strNombreAlmacen = cbAlmacen.getSelectedObjects().toString();
-//        strIdAlmacen = objAlmacenBL.getAlmacenByNombre(strNombreAlmacen).getIdAlmacen();
-//        objPalletBE = new PalletBE(strIdPallet,null,strIndActivo,null,strIdAlmacen,null);
-//        objPalletBL = new PalletBL();
-//        objPalletBL.modificar(objPalletBE); 
-//        
-//    }
-    
-    public void eliminar(){
         
-        objPalletBL = new PalletBL();
-        objPalletBL.eliminar(idPalletSeleccionado); 
-        
+        ventanaPadre.actualizaDgv(objPalletBE);
+        this.dispose();
     }
+   
     
 
     /** This method is called from within the constructor to
@@ -180,12 +166,8 @@ public class MantenimientoPallet extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-    if (accion == 'R')
+
         this.insertar();
-//    else if (accion == 'M')
-//        this.modificar();
-    else
-        this.eliminar();
 }//GEN-LAST:event_btnGuardarMouseClicked
 
     /**
