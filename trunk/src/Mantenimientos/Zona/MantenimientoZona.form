@@ -253,6 +253,9 @@
           <Dimension value="[100, 23]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelarMousePressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombre">
     </Component>
@@ -290,6 +293,9 @@
           <Dimension value="[100, 23]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnGuardarMousePressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDelete">
       <Properties>
@@ -305,6 +311,9 @@
           <Color id="Cursor de mano"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblDeleteMousePressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbAlmacen">
       <Properties>

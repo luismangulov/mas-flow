@@ -314,9 +314,9 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
                     almacenBL.insertar(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
                     Double.parseDouble(txtAncho.getText()),txtDireccion.getText(),txtTelefono.getText(),
-                    distritos.get(cmbDistrito.getSelectedIndex()-1).getIdDistrito(),
-                    provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia(),
-                    departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),  indActivo );
+                    distritos.get(cmbDistrito.getSelectedIndex()).getIdDistrito(),
+                    provincias.get(cmbProvincia.getSelectedIndex()).getIdProvincia(),
+                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(),  indActivo );
                     AlmacenBE almacen = almacenBL.getAlmacen();
                     this.objPadre.recargaruno(almacen);
                     this.dispose();
@@ -416,7 +416,7 @@ private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GE
             if (distritos.size()>0)this.distritos.clear();
             if (provincias.size()>0)this.provincias.clear();
             provincias = DataAccess.ProvinciaDA.queryAllProvincia(
-                    departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento());
+                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento());
         cmbProvincia.addItem("Seleccione");
         for (ProvinciaBE Provincia : provincias){
             cmbProvincia.addItem((Provincia.getDescripcion()));
@@ -432,8 +432,8 @@ private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GE
 
              if (distritos.size()>0)this.distritos.clear();
             distritos = DataAccess.DistritoDA.queryAllDistrito(
-                departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),
-                provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia());
+                departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(),
+                provincias.get(cmbProvincia.getSelectedIndex()).getIdProvincia());
         cmbDistrito.addItem("Seleccione");
         for (DistritoBE Distrito : distritos){
             cmbDistrito.addItem((Distrito.getDescripcion()));

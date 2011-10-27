@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DIEGO
  */
-public class AyudaFamiliaProd extends javax.swing.JFrame {
+public class AyudaFamiliaProd extends javax.swing.JDialog {
     private MantenimientoZona objPadre;
     /** Creates new form AyudaFamiliaProd */
     public AyudaFamiliaProd(MantenimientoZona padre) {
@@ -50,7 +50,7 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Ayuda familia de productos");
         setBounds(new java.awt.Rectangle(0, 0, 300, 340));
 
@@ -212,7 +212,9 @@ public class AyudaFamiliaProd extends javax.swing.JFrame {
             FamiliaBL objFamiliaBL = new FamiliaBL();
             FamiliaBE familia = objFamiliaBL.queryByIdFamilia(codigo);
             
-            
+            this.objPadre.familias.add(familia);
+            this.objPadre.recargar(this.objPadre.familias);
+
             this.dispose();
         }
     }//GEN-LAST:event_btnAceptarMousePressed

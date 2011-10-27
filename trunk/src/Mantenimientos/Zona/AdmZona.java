@@ -10,6 +10,8 @@
  */
 package Mantenimientos.Zona;
 
+import BusinessEntity.ZonaBE;
+
 /**
  *
  * @author DIEGO
@@ -232,4 +234,14 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     private javax.swing.JLabel lblVerMapa;
     private javax.swing.JToolBar tlbZona;
     // End of variables declaration//GEN-END:variables
+
+    void recargaruno(ZonaBE zona) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public javax.swing.JTable getDgvZona() {
+        return dgvZona;
+    }
+
+
 }
