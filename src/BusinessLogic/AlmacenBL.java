@@ -25,7 +25,7 @@ public class AlmacenBL {
         almacen = new AlmacenBE(Utilitario.generaCodigo("almacen",6), nombre, largo, ancho,
                 direccion, telefono, idDistrito, idProvincia, idDepartamento, indActivo);
         AlmacenDA objAlmacenDA = new AlmacenDA();
-        exito = objAlmacenDA.insertar(almacen);
+        exito = objAlmacenDA.insertar(getAlmacen());
         return exito;
 
     }
@@ -69,4 +69,13 @@ public class AlmacenBL {
         AlmacenDA objAlmacenDA = new AlmacenDA();
         return objAlmacenDA.queryByIdAlmacen(codigo);
     }
+
+    /**
+     * @return the almacen
+     */
+    public AlmacenBE getAlmacen() {
+        return almacen;
+    }
+
+
 }

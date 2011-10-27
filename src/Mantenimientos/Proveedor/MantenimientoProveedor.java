@@ -34,7 +34,6 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         rdbEmpresa.setSelected(true);
-        this.setLocationRelativeTo(null);
         this.buttonGroup1.add(this.rdbEmpresa);
         this.buttonGroup1.add(this.rdbPersona);
         this.llenarCombo();
@@ -567,7 +566,7 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                     this.objPadre.recargaruno(cliente);
                     this.dispose();
             } else {
-                entidadBL.modificar(this.codigo, "C-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
+                entidadBL.modificar(this.codigo, "P-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
                         txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                         txtDNIContacto.getText(), txtTelfContacto.getText(),
                         txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,

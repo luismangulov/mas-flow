@@ -12,16 +12,77 @@ package Mantenimientos.Zona;
 
 import BusinessEntity.FamiliaBE;
 import Mantenimientos.Producto.AyudaProducto;
-
+import BusinessEntity.AlmacenBE;
+import BusinessLogic.AlmacenBL;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import BusinessEntity.ZonaBE;
+import BusinessLogic.ZonaBL;
 /**
  *
  * @author DIEGO
  */
 public class MantenimientoZona extends javax.swing.JFrame {
-    public static FamiliaBE familia = new FamiliaBE();
+    //private ArrayList<FamiliaBE> familia;
+    private ArrayList<AlmacenBE> almacenes;
     /** Creates new form MantenimientoZona */
-    public MantenimientoZona() {
+    private AdmZona objPadre;
+    private String accion;
+    private String codigo;
+
+
+     public MantenimientoZona(AdmZona padre) {
+        this.objPadre = padre;
+        accion = "registrar";
+
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.llenarComboAlmacen();
+        this.setTitle("+Flow - Registrar zona");
+        this.cbxActivo.setEnabled(false);
+        this.setVisible(true);
+    }
+
+     public MantenimientoZona(AdmZona padre,ZonaBE zona){
+
+        this.objPadre = padre;
+        this.codigo=zona.getIdZona();
+        accion = "modificar";
+
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        this.cbxActivo.setEnabled(true);
+        this.cbxActivo.setSelected(true);
+        this.setTitle("+Flow - Editar zona");
+
+        txtCodigo.setText(zona.getIdZona());
+        txtNombre.setText(zona.getNombre());
+        txtIdentificador.setText(zona.getIdentificador());
+        txtPosX.setText(String.valueOf(zona.getPosX()));
+        txtPosY.setText(String.valueOf(zona.getPosY()));
+        txtAncho.setText(String.valueOf(zona.getAncho()));
+        txtLargo.setText(String.valueOf(zona.getLargo()));
+
+        this.llenarComboAlmacen();
+        AlmacenBL almacenBL = new AlmacenBL();
+        AlmacenBE almacen = almacenBL.getAlmacen(zona.getIdAlmacen());
+        cmbAlmacen.setSelectedItem(almacen.getNombre());
+
+
+            if (zona.getIndActivo().equals("1")){
+                cbxActivo.setSelected(true);
+            } else{
+                cbxActivo.setSelected(false);
+            }
+
+            //txtIdDistrito.setText(cliente.getIdZona());
+
+            this.setVisible(true) ;
+
+
     }
 
     /** This method is called from within the constructor to
@@ -252,38 +313,9 @@ public class MantenimientoZona extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoZona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoZona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoZona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoZona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
+    
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new MantenimientoZona().setVisible(true);
-            }
-        });
-    }
+      
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
@@ -309,4 +341,17 @@ public class MantenimientoZona extends javax.swing.JFrame {
     private javax.swing.JTextField txtPosX;
     private javax.swing.JTextField txtPosY;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarComboAlmacen() {
+        try {
+            AlmacenBL almacenBL =new AlmacenBL();
+           almacenes = almacenBL.getAllAlmacen();
+        cmbAlmacen.addItem("Seleccione");
+        for (AlmacenBE Almacen : almacenes){
+            cmbAlmacen.addItem((Almacen.getNombre()));
+        }
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoZona.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

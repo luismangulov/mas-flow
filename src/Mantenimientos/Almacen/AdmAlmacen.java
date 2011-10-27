@@ -10,6 +10,8 @@
  */
 package Mantenimientos.Almacen;
 
+import BusinessEntity.AlmacenBE;
+
 /**
  *
  * @author DIEGO
@@ -156,7 +158,7 @@ public class AdmAlmacen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
-MantenimientoAlmacen m = new MantenimientoAlmacen();
+MantenimientoAlmacen m = new MantenimientoAlmacen(this);
 m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_lblAgregarMousePressed
@@ -215,4 +217,15 @@ m.setVisible(true);
     private javax.swing.JLabel lblVerMapa;
     private javax.swing.JToolBar tlbAlmacen;
     // End of variables declaration//GEN-END:variables
+
+
+public javax.swing.JTable getDgvAlmacen() {
+        return dgvAlmacen;
+    }
+
+    void recargaruno(AlmacenBE almacen) {
+        
+    }
+
+
 }

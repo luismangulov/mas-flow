@@ -168,8 +168,8 @@ public class AdmZona extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
-MantenimientoZona m = new MantenimientoZona();
-m.setVisible(true);
+     MantenimientoZona m = new MantenimientoZona(this);
+     m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_lblAgregarMousePressed
 
