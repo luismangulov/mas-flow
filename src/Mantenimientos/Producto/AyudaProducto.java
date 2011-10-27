@@ -195,16 +195,18 @@ public class AyudaProducto extends javax.swing.JDialog {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
-        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()))
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
             evt.consume();
-       if ((this.txtNombre.getText().length() + 1) > 6) {
+       if ((this.txtCodigo.getText().length() + 1) > 6) {
             evt.consume();
         }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
         // TODO add your handling code here:
-        if (!Utilitario.validarCadenaAlfaNumerica(evt.getKeyChar()))
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfaNumerica(evt.getKeyChar()) || (Character.isISOControl(c)))
             evt.consume();
        if ((this.txtNombre.getText().length() + 1) > 30) {
             evt.consume();

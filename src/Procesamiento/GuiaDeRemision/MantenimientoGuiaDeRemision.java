@@ -110,6 +110,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
             }
         });
 
+        txtCodigo.setEditable(false);
         txtCodigo.setEnabled(false);
 
         txtNombre.setEditable(false);
@@ -297,7 +298,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     GuiaRemisionBL objGuiaRemisionBL = new GuiaRemisionBL();
     //SimpleDateFormat df1 = new SimpleDateFormat( "dd/MM/yy" );
      GuiaRemisionBE objGuiaRemisionBE;  
-    try {
+   if(this.valida()){  
+     try {
         if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText().trim())){
             
             objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
@@ -321,7 +323,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
     }
-
+   }
        
     
 }//GEN-LAST:event_btnGuardarActionPerformed
@@ -444,5 +446,20 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
          tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
     }
 
+    
+    private boolean valida(){
+        boolean esValido = true;
 
+        if(this.tblProductos.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Debe elegir uno o varios productos", "Mensaje",1);
+            esValido = false;
+        }
+        
+              
+        
+
+        return esValido;
+    }
+    
+    
 }
