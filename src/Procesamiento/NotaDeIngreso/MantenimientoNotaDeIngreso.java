@@ -294,7 +294,18 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         // TODO add your handling code here:
        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.producto);
         m.setVisible(true);
-        recargaruno(this.producto);
+        boolean seleccion = false;
+        for(int i = 0;i<this.tblProductos.getRowCount();i++){
+            if(producto.getIdProducto().equals((String)this.tblProductos.getValueAt(i, 0))){
+                JOptionPane.showMessageDialog(null, "El producto ya ha sido seleccionado", "Mensaje",0);
+                seleccion = true;
+            }
+        }
+        if(seleccion == false){
+            if(producto.getIdProducto().equals("")){
+                JOptionPane.showMessageDialog(null, "No ha seleccionado un producto", "Mensaje",0);
+            }else recargaruno(this.producto);
+        }
     }//GEN-LAST:event_lblAddMousePressed
 
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed

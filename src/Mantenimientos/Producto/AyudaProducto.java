@@ -246,6 +246,7 @@ public class AyudaProducto extends javax.swing.JDialog {
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
         // TODO add your handling code here:
+        this.producto.setIdProducto("");
         this.dispose();
     }//GEN-LAST:event_btnCancelarMousePressed
 
