@@ -89,6 +89,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             new CheckBoxNode("Eliminar", false),
 
         };
+
         CheckBoxNode browsingOptions[] = {
             new CheckBoxNode("Consultar", false),
             new CheckBoxNode("Registrar", false),
@@ -246,11 +247,12 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                      this.objPadre.getDgvPerfil().removeRowSelectionInterval(fila, fila);
                      this.objPadre.getDgvPerfil().setValueAt(perfil.getIdPerfil(), fila, 0);
                      this.objPadre.getDgvPerfil().setValueAt(perfil.getDescripcion(), fila, 1);
-//                     if(perfil.getIndActivo().equals("1")){
-//                          this.objPadre.getDgvPerfil().setValueAt("Activo", fila, 2);
-//                      }else if(perfil.getIndActivo().equals("0")){
-//                         this.objPadre.getDgvPerfil().setValueAt("Inactivo", fila, 2);
-//                      }
+                   
+                     if(perfil.getIndActivo().equals("1")){
+                          this.objPadre.getDgvPerfil().setValueAt("Activo", fila, 2);
+                      }else if(perfil.getIndActivo().equals("0")){
+                         this.objPadre.getDgvPerfil().setValueAt("Inactivo", fila, 2);
+                      }
                      this.dispose();
                  }
             } catch (Exception ex) {

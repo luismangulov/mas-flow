@@ -289,7 +289,7 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
         dgvPerfil.setModel(modelo);
         modelo.addColumn("Código");
         modelo.addColumn("Descripcion");
-        modelo.addColumn("Detalle");
+        modelo.addColumn("Estado");
         
         dgvPerfil.getColumnModel().getColumn(0).setPreferredWidth(40);
         dgvPerfil.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -312,7 +312,7 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
         dgvPerfil.setModel(modelo);
         modelo.addColumn("Código");
         modelo.addColumn("Descripcion");
-        modelo.addColumn("Detalle");
+        modelo.addColumn("Estado");
         
         dgvPerfil.getColumnModel().getColumn(0).setPreferredWidth(40);
         dgvPerfil.getColumnModel().getColumn(1).setPreferredWidth(100);

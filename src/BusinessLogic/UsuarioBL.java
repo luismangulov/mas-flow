@@ -106,5 +106,7 @@ public class UsuarioBL {
         return arrUsuario;
     }
     
+
+    
     
 }
