@@ -191,7 +191,7 @@ m.setVisible(true);
 
     private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
         // TODO add your handling code here:
-        BuscarAlmacen b = new BuscarAlmacen();
+        BuscarAlmacen b = new BuscarAlmacen(this);
         b.setVisible(true);
     }//GEN-LAST:event_lblBuscarMousePressed
 
@@ -334,7 +334,7 @@ public javax.swing.JTable getDgvAlmacen() {
         }
     }
 
-    private void recargar(ArrayList<AlmacenBE> allAlmacen) {
+    public void recargar(ArrayList<AlmacenBE> allAlmacen) {
         DefaultTableModel modelo= new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
