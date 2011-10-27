@@ -35,6 +35,11 @@ public class GuiaRemisionBL {
         GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
         return objGuiaRemisionDA.queryAllGuiaRemision();
     }
+    
+    public ArrayList<GuiaRemisionBE> buscar(String codigo,String nombcliente,String codestado){
+        GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
+        return objGuiaRemisionDA.buscar(codigo, nombcliente, codestado);
+    }
 
     /**
      * @return the codigo

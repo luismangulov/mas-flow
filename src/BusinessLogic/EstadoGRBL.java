@@ -6,6 +6,7 @@ package BusinessLogic;
 
 import BusinessEntity.EstadoGRBE;
 import DataAccess.EstadoGRDA;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,4 +21,9 @@ public class EstadoGRBL {
         EstadoGRDA objEstadoGRDA = new EstadoGRDA();
         return objEstadoGRDA.queryByIdEstadoGRBE(codigo);
     }
+    
+     public ArrayList<EstadoGRBE> queryAllEstadoGRBE(){
+        EstadoGRDA objEstadoGRDA = new EstadoGRDA();
+        return objEstadoGRDA.queryAllEstadoGRBE();
+     }
 }

@@ -7,6 +7,7 @@ package DataAccess;
 import BusinessEntity.EstadoNIBE;
 import Util.conexion;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -69,5 +70,32 @@ public class EstadoNIDA {
          }
 
         return estado;
-     }    
+     } 
+     
+      public ArrayList<EstadoNIBE> queryAllEstadoNIBE(){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<EstadoNIBE> arrEstadoNIBE = new ArrayList<EstadoNIBE>();
+        String sql = "SELECT idestadoni,descripcion FROM estadoni order by 1";
+        try{
+            rs=objConexion.EjecutarS(sql);
+             String strCodigo;
+            String strDescripcion;
+            while (rs.next()){
+               strCodigo = rs.getString(1);
+               strDescripcion = rs.getString(2);
+                arrEstadoNIBE.add(new EstadoNIBE(strCodigo,strDescripcion));
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return arrEstadoNIBE;
+    }
+     
+     
 }
