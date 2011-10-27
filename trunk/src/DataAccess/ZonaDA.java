@@ -300,7 +300,7 @@ public class ZonaDA {
         arrZonas = new ArrayList<ZonaBE>();
 
         query = "SELECT idZona, nombre, identificador, indActivo,"
-                + " idAlmacen, posX, posY, ancho, largo FROM Zona order by 1";
+                + " idAlmacen, posX, posY, ancho, largo FROM Zona";
 
          boolean primero;
         primero = true;
@@ -311,7 +311,7 @@ public class ZonaDA {
                    query+= " WHERE";
                    primero = false;
                }else if(primero == false)query+= " AND ";
-               query +=  " idfamilia LIKE '%"+codigo+"%'";
+               query +=  " idzona LIKE '%"+codigo+"%'";
            }
            if (!nombre.equals("")){
                if(primero == true){

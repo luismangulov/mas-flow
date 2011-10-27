@@ -9,18 +9,29 @@
  * Created on Oct 2, 2011, 3:16:36 PM
  */
 package Mantenimientos.Zona;
-
+import BusinessEntity.ZonaBE;
+import BusinessLogic.ZonaBL;
+import BusinessEntity.AlmacenBE;
+import BusinessLogic.AlmacenBL;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author DIEGO
  */
 public class BuscarZona extends javax.swing.JFrame {
-
+private AdmZona ventanaPadre ;
+private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
     /** Creates new form BuscarZona */
-    public BuscarZona() {
+
+    public BuscarZona(AdmZona padre) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.ventanaPadre=padre;
+        this.llenarComboAlmacen();
     }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -55,17 +66,29 @@ public class BuscarZona extends javax.swing.JFrame {
         jButton1.setMaximumSize(new java.awt.Dimension(100, 23));
         jButton1.setMinimumSize(new java.awt.Dimension(100, 23));
         jButton1.setPreferredSize(new java.awt.Dimension(100, 23));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton1MousePressed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
         jButton2.setMaximumSize(new java.awt.Dimension(100, 23));
         jButton2.setMinimumSize(new java.awt.Dimension(100, 23));
         jButton2.setPreferredSize(new java.awt.Dimension(100, 23));
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton2MousePressed(evt);
+            }
+        });
 
         jLabel3.setText("Identificador:");
 
         jLabel4.setText("Almacén:");
 
         jLabel5.setText("Estado:");
+
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Activos", "Inactivos" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,41 +151,46 @@ public class BuscarZona extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
+    this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MousePressed
+
+    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+        ZonaBL a = new ZonaBL();
+        String indActivo="";
+        if (cmbEstado.getSelectedItem()=="Activos"){
+        indActivo="1";
+        }
+        if (cmbEstado.getSelectedItem()=="Inactivos"){
+        indActivo="0";
+        }
+        String al="";
+        if (cmbAlmacen.getSelectedIndex()!=0){
+        al=almacenes.get(cmbAlmacen.getSelectedIndex() -1).getIdAlmacen();
+        } 
+        this.ventanaPadre.recargar(a.buscar(txtCodigo.getText(), txtNombre.getText(), indActivo, al, txtIdentificador.getText()));
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MousePressed
+
+    private void llenarComboAlmacen() {
+        try {
+            AlmacenBL almacenBL =new AlmacenBL();
+           almacenes = almacenBL.getAllAlmacen();
+        cmbAlmacen.addItem("");
+        for (AlmacenBE Almacen : almacenes){
+            cmbAlmacen.addItem((Almacen.getNombre()));
+        }
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoZona.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarZona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarZona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarZona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarZona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new BuscarZona().setVisible(true);
-            }
-        });
-    }
+   
+       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbAlmacen;
     private javax.swing.JComboBox cmbEstado;

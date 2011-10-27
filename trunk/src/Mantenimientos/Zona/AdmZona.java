@@ -202,7 +202,7 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
     private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
         // TODO add your handling code here:
-        BuscarZona b = new BuscarZona();
+        BuscarZona b = new BuscarZona(this);
         b.setVisible(true);
     }//GEN-LAST:event_lblBuscarMousePressed
 
@@ -336,7 +336,7 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         return dgvZona;
     }
 
-    private void recargar(ArrayList<ZonaBE> allZona) {
+    public void recargar(ArrayList<ZonaBE> allZona) {
     
           DefaultTableModel modelo= new DefaultTableModel(){
             @Override
