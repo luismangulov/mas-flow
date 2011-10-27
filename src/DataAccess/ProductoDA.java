@@ -93,6 +93,7 @@ public class ProductoDA {
         objConexion = new conexion();
         query = "SELECT * FROM PRODUCTO WHERE indActivo = '1'";
         rs = objConexion.EjecutarS(query);
+        arrProductos = new ArrayList<ProductoBE>();
         try {
             while (rs.next()) {
                 String strIdProducto = rs.getString("IdProducto");
@@ -103,6 +104,7 @@ public class ProductoDA {
                 String strIdFamilia = rs.getString("idFamilia");
                 String strIndActivo = rs.getString("IndActivo");
                 
+  
                 arrProductos.add(new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,intMaxCantPorPallet,
                                   strIdUnidadMedida,strIdFamilia,strIndActivo));
             }
@@ -205,4 +207,5 @@ public class ProductoDA {
 
         return objProducto;
     }
+
 }

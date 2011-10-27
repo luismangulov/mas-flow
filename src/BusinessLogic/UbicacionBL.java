@@ -22,9 +22,9 @@ public class UbicacionBL {
         objUbicacionDA.insertar(objUbicacionBE);
     }
     
-    public void bloquearUbicacion(String idUbicacion){
+    public void bloquearUbicacion(String idUbicacion, String indActivo){
         objUbicacionDA = new UbicacionDA();
-        objUbicacionDA.bloquearUbicacion(idUbicacion);
+        objUbicacionDA.bloquearUbicacion(idUbicacion, indActivo);
     }
     
     public boolean eliminarUbicacionesByRack(String idRack){
@@ -56,6 +56,11 @@ public class UbicacionBL {
     public ArrayList<UbicacionBE> getUbicacionesByAlmacen(String strIdAlmacen, String indActivo) {
         objUbicacionDA = new UbicacionDA();
         return objUbicacionDA.queryUbicacionesByAlmacen(strIdAlmacen, indActivo);
+    }
+
+    public ArrayList<UbicacionBE> getAll() {
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryAll();
     }
             
 }

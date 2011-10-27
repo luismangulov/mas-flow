@@ -109,6 +109,11 @@ public class AdmUbicacion extends javax.swing.JFrame {
         jToolBar1.add(lblBuscar);
 
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRefrescarMouseClicked(evt);
+            }
+        });
         jToolBar1.add(lblRefrescar);
 
         jLabel7.setText("                                                                                                                                                               ");
@@ -126,7 +131,6 @@ public class AdmUbicacion extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,8 +151,18 @@ private void lblBloquearUbicacionMouseClicked(java.awt.event.MouseEvent evt) {//
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
         String strIdUbicacion = (String)dgvUbicaciones.getValueAt(fila, 0);
+        String strIndActivo = (String)dgvUbicaciones.getValueAt(fila, 4);
         UbicacionBL objUbicacionBL = new UbicacionBL();
-        objUbicacionBL.bloquearUbicacion(strIdUbicacion);
+        objUbicacionBL.bloquearUbicacion(strIdUbicacion,strIndActivo);
+        
+        if (strIndActivo.equals("1"))
+            removerFilaDgv(fila);
+        else{
+            arrUbicaciones = new ArrayList<UbicacionBE>();
+            arrUbicaciones.add(objUbicacionBL.getUbicacionById(strIdUbicacion));
+            llenarDgv(arrUbicaciones);
+        }
+            
     }
 }//GEN-LAST:event_lblBloquearUbicacionMouseClicked
 
@@ -156,6 +170,11 @@ private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     BuscarUbicacion ventana = new BuscarUbicacion(this);
     ventana.setVisible(true);
 }//GEN-LAST:event_lblBuscarMouseClicked
+
+private void lblRefrescarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMouseClicked
+    UbicacionBL objUbicacionBL = new UbicacionBL();
+    llenarDgv(objUbicacionBL.getAll());
+}//GEN-LAST:event_lblRefrescarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -236,6 +255,12 @@ private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         }
     }
     
+    public void removerFilaDgv(int fila){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvUbicaciones.getModel();    
+        modelo.removeRow(fila);
+        
+    }
 
 
 }

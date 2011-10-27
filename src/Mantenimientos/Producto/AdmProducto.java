@@ -71,11 +71,11 @@ public class AdmProducto extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nombre", "Descripción", "Familia", "Cant. Máx. por Pallet", "Unidad"
+                "Código", "Nombre", "Descripción", "Familia", "Unidad", "Cant. Máx. por Pallet"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Byte.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -97,15 +97,8 @@ public class AdmProducto extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(dgvProductos);
-        dgvProductos.getColumnModel().getColumn(0).setResizable(false);
         dgvProductos.getColumnModel().getColumn(0).setPreferredWidth(40);
-        dgvProductos.getColumnModel().getColumn(1).setResizable(false);
-        dgvProductos.getColumnModel().getColumn(2).setResizable(false);
-        dgvProductos.getColumnModel().getColumn(3).setResizable(false);
-        dgvProductos.getColumnModel().getColumn(4).setResizable(false);
         dgvProductos.getColumnModel().getColumn(4).setPreferredWidth(30);
-        dgvProductos.getColumnModel().getColumn(5).setResizable(false);
-        dgvProductos.getColumnModel().getColumn(5).setPreferredWidth(30);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -147,6 +140,11 @@ public class AdmProducto extends javax.swing.JFrame {
         jToolBar1.add(lblBuscar);
 
         lblActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblActualizarMouseClicked(evt);
+            }
+        });
         jToolBar1.add(lblActualizar);
 
         jLabel7.setText("                                                                                                   ");
@@ -159,9 +157,10 @@ public class AdmProducto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -176,9 +175,7 @@ public class AdmProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarMousePressed
-//MantenimientoProducto m = new MantenimientoProducto();
-//m.setVisible(true);
-// TODO add your handling code here:
+
 }//GEN-LAST:event_lblRegistrarMousePressed
 
     private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
@@ -220,6 +217,11 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
 
     }//GEN-LAST:event_dgvProductosMouseClicked
 
+private void lblActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblActualizarMouseClicked
+    ProductoBL objProductoBL = new ProductoBL();
+    llenarDgv(objProductoBL.getAllProductoActivo());
+}//GEN-LAST:event_lblActualizarMouseClicked
+
     public void llenarDgv(ArrayList<ProductoBE> arrProductos){
         
         DefaultTableModel modelo=(DefaultTableModel) dgvProductos.getModel();    
@@ -233,13 +235,14 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
         
         for (int i=0; i<arrProductos.size(); i++){
             
-            String strIdProducto = arrProductos.get(i).getIdProducto();
-            String strNombre = arrProductos.get(i).getNombre();
-            String strDescripcion = arrProductos.get(i).getDescripcion();
-            String strNombreFamilia = objFamiliaDA.queryByIdFamilia(arrProductos.get(i).getIdFamilia()).getNombre();
-            String strNombreUnidad = objUnidadMedidaDA.queryByIdUnidadMedida(arrProductos.get(i).getIdUnidadMedida()).getNombre();
+            String strIdProducto = arrProductos.get(i).getIdProducto().trim();
+            String strNombre = arrProductos.get(i).getNombre().trim();
+            String strDescripcion = arrProductos.get(i).getDescripcion().trim();
+            String strNombreFamilia = objFamiliaDA.queryByIdFamilia(arrProductos.get(i).getIdFamilia()).getNombre().trim();
+            String strNombreUnidad = objUnidadMedidaDA.queryByIdUnidadMedida(arrProductos.get(i).getIdUnidadMedida()).getNombre().trim();
+            int intCantMax = arrProductos.get(i).getMaxCantPorPallet();
             
-            modelo.addRow(new Object[]{strIdProducto,strNombre,strDescripcion,strNombreFamilia,strNombreUnidad});
+            modelo.addRow(new Object[]{strIdProducto,strNombre,strDescripcion,strNombreFamilia,strNombreUnidad,intCantMax});
             
         }
     }

@@ -45,18 +45,21 @@ public class MantenimientoProducto extends javax.swing.JFrame {
 
     public MantenimientoProducto(char c, String idProducto, AdmProducto ventanaPadre){
         initComponents();
+        this.setVisible(true);
         this.accion = c;
+        this.ventanaPadre = ventanaPadre;
+        this.txtIdProducto.setEnabled(false);
         ProductoBL objProductoBL = new ProductoBL();
         objProducto = objProductoBL.getByIdProducto(idProducto);
-        this.setVisible(true);
         this.cargarComponentes(objProducto);
+        this.setTitle("Modificar Producto");
         chbxActivo.setSelected(true);
-        this.ventanaPadre = ventanaPadre;
+        
     }
 
     public MantenimientoProducto(AdmProducto ventanaPadre) {
         initComponents();
-//            this.txtIdProducto bloquear
+        this.txtIdProducto.setEnabled(false);
         this.accion = 'R';
         this.cargarComboUnidadMedida();
         this.cargarComboFamilia();
