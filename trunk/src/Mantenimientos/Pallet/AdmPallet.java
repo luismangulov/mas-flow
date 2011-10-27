@@ -11,6 +11,7 @@
 package Mantenimientos.Pallet;
 
 import BusinessEntity.PalletBE;
+import BusinessEntity.ProductoBE;
 import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
 import BusinessLogic.RackBL;
@@ -33,6 +34,7 @@ public class AdmPallet extends javax.swing.JFrame {
     ProductoBL objProductoBL;
     UbicacionBL objUbicacionBL;
     RackBL objRackBL;
+    String idUbicacion;
     String idPallet;
     
     public AdmPallet() {
@@ -66,20 +68,20 @@ public class AdmPallet extends javax.swing.JFrame {
         dgvPallets.setAutoCreateRowSorter(true);
         dgvPallets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Producto", "Rack", "Cant. Máx.", "Unidad", "Fecha Vencimiento"
+                "Código", "Producto", "Rack", "Ubicación", "Cant. Máx.", "Unidad", "Fecha Vencimiento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Byte.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -100,9 +102,11 @@ public class AdmPallet extends javax.swing.JFrame {
         dgvPallets.getColumnModel().getColumn(3).setResizable(false);
         dgvPallets.getColumnModel().getColumn(3).setPreferredWidth(25);
         dgvPallets.getColumnModel().getColumn(4).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(4).setPreferredWidth(20);
+        dgvPallets.getColumnModel().getColumn(4).setPreferredWidth(25);
         dgvPallets.getColumnModel().getColumn(5).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(5).setPreferredWidth(40);
+        dgvPallets.getColumnModel().getColumn(5).setPreferredWidth(20);
+        dgvPallets.getColumnModel().getColumn(6).setResizable(false);
+        dgvPallets.getColumnModel().getColumn(6).setPreferredWidth(40);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -227,8 +231,20 @@ private void lblRefrescarPalletsMouseClicked(java.awt.event.MouseEvent evt) {//G
 }//GEN-LAST:event_lblRefrescarPalletsMouseClicked
 
 private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-    ReubicarPallet ventana = new ReubicarPallet(this);
-    ventana.setVisible(true);
+    DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel(); 
+    int fila;
+    fila = dgvPallets.getSelectedRow();
+    if (fila==-1)
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
+    else{
+
+        idUbicacion = (String)dgvPallets.getValueAt(fila, 3);
+        idPallet = (String)dgvPallets.getValueAt(fila, 0);
+        ReubicarPallet ventana = new ReubicarPallet(this,idUbicacion,idPallet);
+        ventana.setVisible(true);
+        
+    }
+
 }//GEN-LAST:event_jLabel1MouseClicked
 
     public void llenarDgv(ArrayList<PalletBE> arrPallets){
@@ -240,11 +256,17 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         objProductoBL = new ProductoBL();                
         objUbicacionBL = new UbicacionBL();
         objRackBL = new RackBL();
+        UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
         String strNombreProducto = "";
         int intMaxCantPallet = 0;
         int intFila = 0;
         int intColumna = 0;
         String strIdentificadorRack = "";
+        String fecha = "";
+        String strIdUnidadMedida = "";
+        String strNombreUnidadMedida = "";
+        PalletBE palletBE = new PalletBE();
+        ProductoBE objProductoBE = new ProductoBE();
         
         for (int i=0; i<arrPallets.size(); i++){
             
@@ -253,8 +275,11 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             String strIdProducto = arrPallets.get(i).getIdProducto().trim();
         
              if (!strIdProducto.equals("")){
-                strNombreProducto = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto()).getNombre();
-                intMaxCantPallet = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto()).getMaxCantPorPallet();
+                objProductoBE = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto());
+                strNombreProducto = objProductoBE.getNombre();
+                intMaxCantPallet = objProductoBE.getMaxCantPorPallet();
+                strIdUnidadMedida = objProductoBE.getIdUnidadMedida();
+                strNombreUnidadMedida = objUnidadMedidaBL.getUnidadMedida(strIdUnidadMedida).getNombre();
             }
             
             String strIdUbicacion = arrPallets.get(i).getIdUbicacion().trim();
@@ -264,9 +289,11 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
                 intColumna = objUbicacionBL.getUbicacionById(strIdUbicacion).getColumna();
                 strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
             }
-            
-            modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack,intMaxCantPallet,intFila,intColumna});
-            
+        
+            if (palletBE.getFechaVencimiento() != null)
+              fecha = palletBE.getFechaVencimiento().toString();
+       
+            modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidadMedida,fecha});
         }
     }
     
