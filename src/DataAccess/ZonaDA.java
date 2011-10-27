@@ -212,12 +212,12 @@ public class ZonaDA {
 
         String sql = "INSERT INTO zona(idZona, nombre, identificador, indActivo,"
                 + " idAlmacen, posX, posY, ancho, largo) "
-                + "VALUES('"+ zona.getIdZona() +"','"+ zona.getNombre()
+                + "VALUES('"+ zona.getIdZona() +"','"+ zona.getNombre() +"','"
                 + zona.getIdentificador() +"','"+ zona.getIndActivo()
-                + zona.getIdAlmacen() 
+                +"','"+ zona.getIdAlmacen()
                 +"',"+ zona.getPosX() +","+ zona.getPosY()
                 +","+ zona.getAncho()+","+ zona.getLargo() 
-                +"); ";
+                +") ";
         
         if (!zona.getFamilias().isEmpty()){
             int i=0;

@@ -26,9 +26,9 @@ public class AlmacenDA {
         String sql = "INSERT INTO almacen(idAlmacen, nombre, largo, ancho, direccion, "
                 + "telefono, idDistrito, idProvincia, idDepartamento, indActivo) "
                 + "VALUES('"+ objAlmacen.getIdAlmacen() +"','"+ objAlmacen.getNombre()
-                +"',"+ objAlmacen.getLargo() +","+ objAlmacen.getAncho()
-                + objAlmacen.getDireccion() +"','"+ objAlmacen.getTelefono()
-                + objAlmacen.getIdDistrito() +"','"+ objAlmacen.getIdProvincia()
+                +"',"+ objAlmacen.getLargo() +","+ objAlmacen.getAncho()+",'"
+                + objAlmacen.getDireccion() +"','"+ objAlmacen.getTelefono()+"','"
+                + objAlmacen.getIdDistrito() +"','"+ objAlmacen.getIdProvincia()+"','"
                 + objAlmacen.getIdDepartamento() +"','"+ objAlmacen.getIndActivo() +"')";
 
         try{

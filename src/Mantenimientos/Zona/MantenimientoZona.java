@@ -11,9 +11,10 @@
 package Mantenimientos.Zona;
 
 import BusinessEntity.FamiliaBE;
-import Mantenimientos.Producto.AyudaProducto;
+import Mantenimientos.FamiliaProd.AyudaFamiliaProd;
 import BusinessEntity.AlmacenBE;
 import BusinessLogic.AlmacenBL;
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +26,8 @@ import BusinessLogic.ZonaBL;
  * @author DIEGO
  */
 public class MantenimientoZona extends javax.swing.JFrame {
-    //private ArrayList<FamiliaBE> familia;
-    private ArrayList<AlmacenBE> almacenes;
+    public ArrayList<FamiliaBE> familias= new ArrayList<FamiliaBE>();
+    private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
     /** Creates new form MantenimientoZona */
     private AdmZona objPadre;
     private String accion;
@@ -177,6 +178,11 @@ public class MantenimientoZona extends javax.swing.JFrame {
         btnCancelar.setMaximumSize(new java.awt.Dimension(100, 23));
         btnCancelar.setMinimumSize(new java.awt.Dimension(100, 23));
         btnCancelar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
 
         cbxActivo.setSelected(true);
         cbxActivo.setText("Activo");
@@ -191,10 +197,20 @@ public class MantenimientoZona extends javax.swing.JFrame {
         btnGuardar.setMaximumSize(new java.awt.Dimension(100, 23));
         btnGuardar.setMinimumSize(new java.awt.Dimension(100, 23));
         btnGuardar.setPreferredSize(new java.awt.Dimension(100, 23));
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnGuardarMousePressed(evt);
+            }
+        });
 
         lblDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete24.png"))); // NOI18N
         lblDelete.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblDeleteMousePressed(evt);
+            }
+        });
 
         jLabel10.setText("Ancho*:");
 
@@ -306,9 +322,75 @@ public class MantenimientoZona extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
-        //AyudaProducto m = new AyudaProducto(this,true,producto);
-        //m.setVisible(true);// TODO add your handling code here:
+        AyudaFamiliaProd m = new AyudaFamiliaProd(this);
+        m.setVisible(true);
+        
 }//GEN-LAST:event_lblAddMousePressed
+
+    private void lblDeleteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteMousePressed
+        familias.remove(dgvFamilia.getSelectedRow());
+        recargar(this.familias);
+    }//GEN-LAST:event_lblDeleteMousePressed
+
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+    this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
+
+         String indActivo = new String();
+        if (cbxActivo.isSelected()) {indActivo="1";} else {indActivo="0";}
+
+
+
+        ZonaBL zonaBL = new ZonaBL();
+        try {
+            if (this.accion.equals("registrar")){
+                    zonaBL.insertar(txtCodigo.getText(),txtNombre.getText(),txtIdentificador.getText(),
+                    indActivo,almacenes.get(cmbAlmacen.getSelectedIndex() -1).getIdAlmacen(),
+                    Integer.parseInt(txtPosX.getText()), Integer.parseInt(txtPosY.getText()),
+                    Integer.parseInt(txtAncho.getText()), Integer.parseInt(txtLargo.getText()),
+                    familias  );
+                    ZonaBE zona= zonaBL.getZona();
+                    this.objPadre.recargaruno(zona);
+                    this.dispose();
+            } else {
+                 ZonaBE zona = new ZonaBE(txtCodigo.getText(),txtNombre.getText(),txtIdentificador.getText(),
+                    indActivo,almacenes.get(cmbAlmacen.getSelectedIndex()).getIdAlmacen(),
+                    Integer.parseInt(txtPosX.getText()), Integer.parseInt(txtPosY.getText()),
+                    Integer.parseInt(txtAncho.getText()), Integer.parseInt(txtLargo.getText()),
+                    familias);
+
+                    zonaBL.modificar(zona);
+                        int fila;
+                        fila = this.objPadre.getDgvZona().getSelectedRow();
+                        this.objPadre.getDgvZona().removeRowSelectionInterval(fila, fila);
+                        
+                        this.objPadre.getDgvZona().setValueAt(zona.getIdZona(), fila, 0);
+                        this.objPadre.getDgvZona().setValueAt(zona.getNombre(), fila, 1);
+                        AlmacenBL aBL = new AlmacenBL();
+                        AlmacenBE a = aBL.getAlmacen(zona.getIdAlmacen());
+                        this.objPadre.getDgvZona().setValueAt(a, fila,2);
+                        this.objPadre.getDgvZona().setValueAt(zona.getIdentificador(), fila, 3);
+                        if(zona.getIndActivo().equals("1")){
+                             this.objPadre.getDgvZona().setValueAt("Activo", fila, 4);
+                         }else if(zona.getIndActivo().equals("0")){
+                            this.objPadre.getDgvZona().setValueAt("Inactivo", fila, 4);
+                         }
+                        this.dispose();
+
+
+                    }
+
+
+
+        } catch (Exception ex) {
+            Logger.getLogger(MantenimientoZona.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarMousePressed
 
     /**
      * @param args the command line arguments
@@ -353,5 +435,34 @@ public class MantenimientoZona extends javax.swing.JFrame {
 } catch (Exception ex) {
             Logger.getLogger(MantenimientoZona.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * @return the familias
+     */
+    public ArrayList<FamiliaBE> getFamilias() {
+        return familias;
+    }
+
+    /**
+     * @param familias the familias to set
+     */
+    public void setFamilias(ArrayList<FamiliaBE> familias) {
+        this.familias = familias;
+    }
+
+    public void recargar(ArrayList<FamiliaBE> familias) {
+            DefaultTableModel modelo= new DefaultTableModel();
+            this.dgvFamilia.setModel(modelo);
+            modelo.addColumn("Código");
+            modelo.addColumn("Familia");
+
+
+            for(int i=0;i<familias.size();i++){
+                 modelo.addRow(new Object[4]);
+                dgvFamilia.setValueAt(familias.get(i).getIdFamilia(),i,0 );
+                dgvFamilia.setValueAt(familias.get(i).getNombre(),i,1 );
+
+            }
     }
 }
