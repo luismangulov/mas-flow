@@ -24,25 +24,13 @@ import java.util.ArrayList;
 public class MantenimientoPallet extends javax.swing.JFrame {
 
     /** Creates new form MantenimientoPallet */
-    String strIdPallet;
-    String strIdProducto;
-    String strIndActivo;
-    String strIdUbicacion;
-    String strIdAlmacen;
-    Date datfechaVencimiento;
-    String strNombreAlmacen;
-    ArrayList<AlmacenBE> arrAlmacenes;
-    PalletBE objPalletBE;
-    AlmacenBL objAlmacenBL;
-    AlmacenBE objAlmacenBE;
-    PalletBL objPalletBL;
-    String idPalletSeleccionado;
+
     AdmPallet ventanaPadre;
     
     public MantenimientoPallet(AdmPallet ventanaPadre) {
         this.setLocationRelativeTo(null); 
-        txtIdPallet.setEnabled(false);        
         initComponents();
+        txtIdPallet.setEnabled(false);   
         this.ventanaPadre = ventanaPadre;
         this.cargarComboAlmacen();
     }
@@ -56,8 +44,8 @@ public class MantenimientoPallet extends javax.swing.JFrame {
 //    }
     
     public void cargarComboAlmacen(){
-        objAlmacenBL = new AlmacenBL();
-        arrAlmacenes = new ArrayList<AlmacenBE>();
+        AlmacenBL objAlmacenBL = new AlmacenBL();
+        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
         
         arrAlmacenes= objAlmacenBL.getAllAlmacenActivo();
         for(AlmacenBE objAlmacen : arrAlmacenes)
@@ -76,12 +64,12 @@ public class MantenimientoPallet extends javax.swing.JFrame {
     
     public void insertar(){
         
-        strIndActivo = "1";
-        objAlmacenBL = new AlmacenBL();
-        strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+        String strIndActivo = "1";
+        AlmacenBL objAlmacenBL = new AlmacenBL();
+        String strIdAlmacen = cbAlmacen.getSelectedItem().toString();
 //        strIdAlmacen = objAlmacenBL.ge(strNombreAlmacen).getIdAlmacen();
-        objPalletBE = new PalletBE("","",strIndActivo,"",strIdAlmacen,null);
-        objPalletBL = new PalletBL();
+        PalletBE objPalletBE = new PalletBE("","",strIndActivo,"",strIdAlmacen,null);
+        PalletBL objPalletBL = new PalletBL();
         objPalletBL.insertar(objPalletBE); 
         
         ventanaPadre.actualizaDgv(objPalletBE);

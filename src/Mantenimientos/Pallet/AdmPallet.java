@@ -29,13 +29,13 @@ public class AdmPallet extends javax.swing.JFrame {
 
     /** Creates new form AdmPallet */
     ArrayList<PalletBE> arrPallets;
-    PalletBL objPalletBL;
-    String strIdPallet;
-    ProductoBL objProductoBL;
-    UbicacionBL objUbicacionBL;
-    RackBL objRackBL;
-    String idUbicacion;
-    String idPallet;
+//    PalletBL objPalletBL;
+//    String strIdPallet;
+//    ProductoBL objProductoBL;
+//    UbicacionBL objUbicacionBL;
+//    RackBL objRackBL;
+//    String idUbicacion;
+//    String idPallet;
     
     public AdmPallet() {
         this.setLocationRelativeTo(null); 
@@ -217,7 +217,7 @@ private void lblEliminarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
         if (JOptionPane.showConfirmDialog(null, "La eliminación será permanente, ¿realmente desea realizar la acción?") == 0){
-            idPallet = (String)dgvPallets.getValueAt(fila, 0);
+            String idPallet = (String)dgvPallets.getValueAt(fila, 0);
             PalletBL objPalletBL = new PalletBL();
             objPalletBL.eliminar(idPallet);
             eliminaFilaDgv(fila);
@@ -226,7 +226,7 @@ private void lblEliminarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
 }//GEN-LAST:event_lblEliminarPalletMouseClicked
 
 private void lblRefrescarPalletsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarPalletsMouseClicked
-    objPalletBL = new PalletBL();
+    PalletBL objPalletBL = new PalletBL();
     llenarDgv(objPalletBL.getAll());
 }//GEN-LAST:event_lblRefrescarPalletsMouseClicked
 
@@ -238,8 +238,8 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
 
-        idUbicacion = (String)dgvPallets.getValueAt(fila, 3);
-        idPallet = (String)dgvPallets.getValueAt(fila, 0);
+        String idUbicacion = (String)dgvPallets.getValueAt(fila, 3);
+        String idPallet = (String)dgvPallets.getValueAt(fila, 0);
         ReubicarPallet ventana = new ReubicarPallet(this,idUbicacion,idPallet);
         ventana.setVisible(true);
         
@@ -253,9 +253,9 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         limpiarDgv();
         this.arrPallets = arrPallets;
         dgvPallets.clearSelection();
-        objProductoBL = new ProductoBL();                
-        objUbicacionBL = new UbicacionBL();
-        objRackBL = new RackBL();
+        ProductoBL objProductoBL = new ProductoBL();                
+        UbicacionBL objUbicacionBL = new UbicacionBL();
+        RackBL objRackBL = new RackBL();
         UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
         String strNombreProducto = "";
         int intMaxCantPallet = 0;
@@ -270,7 +270,7 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         
         for (int i=0; i<arrPallets.size(); i++){
             
-            strIdPallet = arrPallets.get(i).getIdPallet();
+            String strIdPallet = arrPallets.get(i).getIdPallet();
             
             String strIdProducto = arrPallets.get(i).getIdProducto().trim();
         
@@ -318,9 +318,9 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             modelo.removeRow(i);
         }
         dgvPallets.clearSelection();
-        objProductoBL = new ProductoBL();                
-        objUbicacionBL = new UbicacionBL();
-        objRackBL = new RackBL();
+        ProductoBL objProductoBL = new ProductoBL();                
+        UbicacionBL objUbicacionBL = new UbicacionBL();
+        RackBL objRackBL = new RackBL();
         UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
         String strNombreProducto = "";
         int intMaxCantPallet = 0;
@@ -329,7 +329,7 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         String strIdentificadorRack = "";
         String strIdUnidad = "";
         String fecha = "";
-        strIdPallet = palletBE.getIdPallet();
+        String strIdPallet = palletBE.getIdPallet();
         String strNombreUnidad = "";
         
         String strIdProducto = palletBE.getIdProducto().trim();
