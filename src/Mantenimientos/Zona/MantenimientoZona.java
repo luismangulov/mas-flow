@@ -358,7 +358,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
                     this.dispose();
             } else {
                  ZonaBE zona = new ZonaBE(txtCodigo.getText(),txtNombre.getText(),txtIdentificador.getText(),
-                    indActivo,almacenes.get(cmbAlmacen.getSelectedIndex()).getIdAlmacen(),
+                    indActivo,almacenes.get(cmbAlmacen.getSelectedIndex()-1).getIdAlmacen(),
                     Integer.parseInt(txtPosX.getText()), Integer.parseInt(txtPosY.getText()),
                     Integer.parseInt(txtAncho.getText()), Integer.parseInt(txtLargo.getText()),
                     familias);
