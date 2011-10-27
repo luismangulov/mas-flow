@@ -79,7 +79,7 @@ public class ProductoDA {
     public void eliminar(String idProducto) {
         boolExito = false;
         objConexion = new conexion();
-        query = "UPDATE PRODUCTO set indActivo = '0' WHERE idProducto ='"+idProducto+"'";
+        query = "DELETE PRODUCTO WHERE idProducto ='"+idProducto+"'";
         try{
             objConexion.EjecutarUID(query);
         } catch (Exception e){
@@ -113,30 +113,19 @@ public class ProductoDA {
     }
 
     public ArrayList<ProductoBE> queryListSearch(String idProducto, String nombre, String idFamilia) {
-        boolean flagIdProd = false;
-        boolean flagNombre = false;
-        boolean flagFamilia = false;
+
         objConexion = new conexion();
         query = "SELECT * FROM PRODUCTO WHERE indActivo ='1'";
 
         if (!idProducto.equals("")){
             query = query + " AND idProducto LIKE '%" + idProducto + "%'";
-            flagIdProd = true;
+
         }
         if (!nombre.equals("")){
-            flagNombre = true;
-            if(flagIdProd == true)
-                query = query + "AND ";
-            else 
-                query = query + " WHERE ";
-            query = query + "nombre LIKE '%" + nombre + "%'";
+            query = query + " AND nombre LIKE '%" + nombre + "%'";
         }
         if (!idFamilia.equals("")){
-            if(flagIdProd == true || flagNombre == true)
-                query = query + "AND ";
-            else 
-                query = query + " WHERE ";
-            query = query + "idFamilia LIKE '%" + idFamilia + "%'";
+            query = query + " AND idFamilia LIKE '%" + idFamilia + "%'";
         }
         rs = objConexion.EjecutarS(query);
         arrProductos = new ArrayList<ProductoBE>();

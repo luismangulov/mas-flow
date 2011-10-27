@@ -40,22 +40,28 @@ public class MantenimientoProducto extends javax.swing.JFrame {
     private String indActivo;
     private double precio;
     private ProductoBE objProducto;
+    AdmProducto ventanaPadre;
+    ArrayList<ProductoBE> arrProductos;
 
-    public MantenimientoProducto(char c, String idProducto){
+    public MantenimientoProducto(char c, String idProducto, AdmProducto ventanaPadre){
         initComponents();
         this.accion = c;
         ProductoBL objProductoBL = new ProductoBL();
         objProducto = objProductoBL.getByIdProducto(idProducto);
         this.setVisible(true);
         this.cargarComponentes(objProducto);
+        chbxActivo.setSelected(true);
+        this.ventanaPadre = ventanaPadre;
     }
 
-    public MantenimientoProducto() {
+    public MantenimientoProducto(AdmProducto ventanaPadre) {
         initComponents();
 //            this.txtIdProducto bloquear
         this.accion = 'R';
         this.cargarComboUnidadMedida();
         this.cargarComboFamilia();
+        chbxActivo.setSelected(true);
+        this.ventanaPadre = ventanaPadre;
     }
 
     private void cargarComponentes(ProductoBE objProducto){
@@ -85,10 +91,6 @@ public class MantenimientoProducto extends javax.swing.JFrame {
                 break;
             }
         }    
-        if (accion=='M')
-            btnGuardar.setName("Modificar");
-        else
-            btnGuardar.setName("Eliminar");
 
     }
 
@@ -130,6 +132,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         cbUnidad = new javax.swing.JComboBox();
+        chbxActivo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar producto");
@@ -163,6 +166,8 @@ public class MantenimientoProducto extends javax.swing.JFrame {
 
         jLabel5.setText("Unidad:");
 
+        chbxActivo.setText("Activo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,17 +175,19 @@ public class MantenimientoProducto extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
+                        .addContainerGap()
+                        .addComponent(chbxActivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                         .addGap(44, 44, 44))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -191,10 +198,10 @@ public class MantenimientoProducto extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                    .addComponent(cbFamilia, 0, 201, Short.MAX_VALUE)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                    .addComponent(cbFamilia, 0, 229, Short.MAX_VALUE)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbUnidad, 0, 201, Short.MAX_VALUE)
+                                    .addComponent(cbUnidad, 0, 229, Short.MAX_VALUE)
                                     .addComponent(txtMaxCantPallet, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(57, 57, 57))
         );
@@ -229,7 +236,9 @@ public class MantenimientoProducto extends javax.swing.JFrame {
                                 .addComponent(cbUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtMaxCantPallet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(91, 91, 91))
+                        .addGap(18, 18, 18)
+                        .addComponent(chbxActivo)
+                        .addGap(53, 53, 53))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,10 +263,20 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         unidadMedida = unidadBL.getIdUnidadMedida(cbUnidad.getSelectedItem().toString());
         FamiliaBL familiaBL = new FamiliaBL();
         familia = familiaBL.getIdFamilia((String)cbFamilia.getSelectedItem());
-        indActivo = "1";
+        
+        if (chbxActivo.isSelected())
+            indActivo = "1";
+        else
+            indActivo = "0";
+        
         ProductoBE productoBE = new ProductoBE("",nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo);
         ProductoBL productoBL = new ProductoBL();
         productoBL.insertar(productoBE);
+        arrProductos = new ArrayList<ProductoBE>();
+        arrProductos.add(productoBE);
+        
+        this.ventanaPadre.llenarDgv(arrProductos);
+        this.dispose();
     }
     
     private void modificar(){
@@ -270,10 +289,20 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         unidadMedida = unidadBL.getIdUnidadMedida(cbUnidad.getSelectedItem().toString());
         FamiliaBL familiaBL = new FamiliaBL();
         familia = familiaBL.getIdFamilia((String)cbFamilia.getSelectedItem());
-        indActivo = "A";
+        
+        if (chbxActivo.isSelected())
+            indActivo = "1";
+        else
+            indActivo = "0";
+        
         ProductoBE productoBE = new ProductoBE(idProducto,nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo);
         ProductoBL productoBL = new ProductoBL();
         productoBL.modificar(productoBE);     
+        
+        arrProductos = new ArrayList<ProductoBE>();
+        arrProductos.add(productoBE);
+        this.ventanaPadre.llenarDgv(arrProductos);
+        this.dispose();
     }
     
     private void eliminar(){
@@ -337,6 +366,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbFamilia;
     private javax.swing.JComboBox cbUnidad;
+    private javax.swing.JCheckBox chbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
