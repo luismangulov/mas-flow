@@ -11,13 +11,12 @@ package BusinessEntity;
 public class DetalleNotaIngresoBE {
      private String codigo;
     private int cantidad;
-    private ProductoBE producto;
+    private ProductoBE producto = new ProductoBE();
 
     
      public  DetalleNotaIngresoBE(String codigo,int cantidad,String codProducto){
         this.codigo = codigo;
         this.cantidad = cantidad;
-        this.producto = null;
         this.producto.setIdProducto(codProducto);
      }
     /**
