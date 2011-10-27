@@ -176,6 +176,11 @@ public class BuscarUbicacion extends javax.swing.JFrame {
                 btnBuscarMouseClicked(evt);
             }
         });
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -326,6 +331,10 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     this.dispose();
     
 }//GEN-LAST:event_btnBuscarMouseClicked
+
+private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments

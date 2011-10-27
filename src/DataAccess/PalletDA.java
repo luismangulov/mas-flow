@@ -232,7 +232,7 @@ public class PalletDA {
             objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento);
                        
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
             objPalletBE = null;
         }
         return objPalletBE;

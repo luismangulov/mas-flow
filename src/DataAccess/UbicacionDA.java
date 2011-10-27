@@ -226,9 +226,13 @@ public class UbicacionDA {
 
     public ArrayList<UbicacionBE> queryUbicacionesByAlmacen(String strIdAlmacen, String indActivo) {
         objConexion = new conexion();
-        query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
-                + "FROM UBICACION A, RACK B, ZONA C "
-                + "WHERE A.indActivo = '"+ indActivo +"' AND C.idZona = B.idZona AND A.idRack = B.idRack AND C.idAlmacen= '" + strIdAlmacen +"'";
+        //select u.idubicacion from ubicacion u, rack r, zona z 
+        //where u.idrack = r.idrack and r.idzona = z.idzona and z.idalmacen = '000001'
+        
+        //
+        query = "SELECT U.idUbicacion, U.fila, U.columna, U.indActivo, U.idRack "
+                + "FROM UBICACION U, RACK R, ZONA Z "
+                + "WHERE U.indActivo = '"+ indActivo +"' AND Z.idZona = R.idZona AND U.idRack = R.idRack AND Z.idAlmacen= '" + strIdAlmacen +"'";
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
