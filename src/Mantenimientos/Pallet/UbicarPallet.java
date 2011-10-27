@@ -10,6 +10,16 @@
  */
 package Mantenimientos.Pallet;
 
+import BusinessEntity.AlmacenBE;
+import BusinessEntity.RackBE;
+import BusinessEntity.UbicacionBE;
+import BusinessEntity.ZonaBE;
+import BusinessLogic.AlmacenBL;
+import BusinessLogic.RackBL;
+import BusinessLogic.UbicacionBL;
+import BusinessLogic.ZonaBL;
+import java.util.ArrayList;
+
 /**
  *
  * @author DIEGO
@@ -17,8 +27,95 @@ package Mantenimientos.Pallet;
 public class UbicarPallet extends javax.swing.JFrame {
 
     /** Creates new form UbicarPallet */
+    String strIdAlmacen;
+    String strIdZona;
+    String strIdRack;
+    String strIdUbicacion;
+    
+    AlmacenBL objAlmacenBL = new AlmacenBL();   
+    ZonaBL objZonaBL = new ZonaBL();
+    RackBL objRackBL = new RackBL();    
+    UbicacionBL objUbicacionBL = new UbicacionBL();    
+    
+    UbicacionBE objUbicacionBE = new UbicacionBE();
+    
+    ArrayList<UbicacionBE> arrUbicaciones;
+    
     public UbicarPallet() {
         initComponents();
+    }
+    
+    public void cargarComboAlmacen(){
+        
+        cbAlmacen.removeAllItems();
+        cbZona.removeAllItems();
+        cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();
+//        cbZona.addItem("");
+//        cbRack.addItem("");
+//        cbUbicacion.addItem("");       
+        
+        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+        arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
+        
+        if (arrAlmacenes != null)
+            for(AlmacenBE almacen : arrAlmacenes)
+                cbAlmacen.addItem(almacen.getIdAlmacen());
+
+    }
+    
+    public void cargarComboZona(String idAlmacen){
+        
+        cbZona.removeAllItems();
+        cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();
+        cbZona.addItem("");
+        cbRack.addItem("");
+        cbUbicacion.addItem(""); 
+
+        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+        
+
+        
+        if (arrZonas != null)
+            for(ZonaBE zona : arrZonas)
+                cbZona.addItem(zona.getIdentificador());
+        
+    }
+    
+    public void cargarComboRack(String idZona){
+        
+        cbRack.removeAllItems();        
+        cbUbicacion.removeAllItems();
+        cbRack.addItem("");
+        cbUbicacion.addItem(""); 
+               
+        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+        arrRacks = objRackBL.getRacksByZona(idZona);
+        
+
+        
+        if (arrRacks != null)
+            for(RackBE rack : arrRacks)
+                cbRack.addItem(rack.getIdentificador());
+        
+    }
+    
+    public void cargarComboUbicacion(String idRack){
+       
+        
+        cbUbicacion.removeAllItems();
+        cbUbicacion.addItem(""); 
+        ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack);
+        
+
+        
+        if (arrUbicaciones != null)
+            for(UbicacionBE ubicacion : arrUbicaciones)
+                cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
+        
     }
 
     /** This method is called from within the constructor to
@@ -34,87 +131,142 @@ public class UbicarPallet extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
+        cbZona = new javax.swing.JComboBox();
+        cbRack = new javax.swing.JComboBox();
+        cbUbicacion = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        cbAlmacen = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Reubicar pallet");
+        getContentPane().setLayout(null);
 
         jLabel1.setText("Pallet:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(31, 26, 34, 15);
+        getContentPane().add(jTextField1);
+        jTextField1.setBounds(140, 20, 79, 25);
 
         jLabel2.setText("<html>Rack<br>destino:</html>");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(31, 143, 44, 30);
 
         jLabel3.setText("<html>Ubicación <br>destino:</html>");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(31, 179, 54, 30);
 
-        jButton1.setText("Guardar");
-        jButton1.setMaximumSize(new java.awt.Dimension(75, 23));
-        jButton1.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnGuardar.setText("Guardar");
+        btnGuardar.setMaximumSize(new java.awt.Dimension(75, 23));
+        btnGuardar.setMinimumSize(new java.awt.Dimension(75, 23));
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGuardar);
+        btnGuardar.setBounds(90, 260, 60, 31);
 
-        jButton2.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        getContentPane().add(btnCancelar);
+        btnCancelar.setBounds(180, 260, 64, 31);
 
-        jLabel4.setText("Zona:");
+        jLabel4.setText("<html>Zona<br>destino:</html>");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(31, 106, 44, 30);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(24, 24, 24))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, 122, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
-                .addGap(31, 31, 31))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
+        cbZona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbZonaMouseClicked(evt);
+            }
+        });
+        cbZona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbZonaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbZona);
+        cbZona.setBounds(140, 100, 115, 25);
+
+        cbRack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbRackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbRack);
+        cbRack.setBounds(140, 180, 115, 25);
+
+        cbUbicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbUbicacionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbUbicacion);
+        cbUbicacion.setBounds(140, 140, 115, 25);
+
+        jLabel5.setText("Almacén:");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(31, 69, 51, 15);
+
+        cbAlmacen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbAlmacenMouseClicked(evt);
+            }
+        });
+        cbAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAlmacenActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbAlmacen);
+        cbAlmacen.setBounds(140, 60, 115, 25);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+private void cbAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbAlmacenMouseClicked
+//NO
+}//GEN-LAST:event_cbAlmacenMouseClicked
+
+private void cbZonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbZonaMouseClicked
+//NO
+}//GEN-LAST:event_cbZonaMouseClicked
+
+private void cbUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUbicacionActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_cbUbicacionActionPerformed
+
+private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
+        strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+        cargarComboZona(strIdAlmacen);
+}//GEN-LAST:event_cbAlmacenActionPerformed
+
+private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
+    int intCantItem = cbZona.getItemCount() - 1;
+    if (intCantItem > 0){
+        if (!cbZona.getSelectedItem().equals("")){
+            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+            cargarComboRack(strIdZona);
+        }
+    }
+}//GEN-LAST:event_cbZonaActionPerformed
+
+private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRackActionPerformed
+    int intCantItem = cbRack.getItemCount() - 1;
+    if (intCantItem > 0){
+        if (!cbRack.getSelectedItem().equals("")){
+            String strIdentificador = cbRack.getSelectedItem().toString();
+            strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
+            cargarComboUbicacion(strIdRack);
+        }
+    }
+}//GEN-LAST:event_cbRackActionPerformed
+
+private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,15 +304,17 @@ public class UbicarPallet extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox cbAlmacen;
+    private javax.swing.JComboBox cbRack;
+    private javax.swing.JComboBox cbUbicacion;
+    private javax.swing.JComboBox cbZona;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

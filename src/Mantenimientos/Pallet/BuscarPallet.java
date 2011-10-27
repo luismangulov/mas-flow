@@ -12,8 +12,15 @@ package Mantenimientos.Pallet;
 
 import BusinessEntity.AlmacenBE;
 import BusinessEntity.PalletBE;
+import BusinessEntity.RackBE;
+import BusinessEntity.UbicacionBE;
+import BusinessEntity.ZonaBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.PalletBL;
+import BusinessLogic.ProductoBL;
+import BusinessLogic.RackBL;
+import BusinessLogic.UbicacionBL;
+import BusinessLogic.ZonaBL;
 import java.util.ArrayList;
 
 /**
@@ -26,14 +33,25 @@ public class BuscarPallet extends javax.swing.JFrame {
 
     /** Creates new form BuscarPallet */
     AdmPallet ventanaPadre;
-    AlmacenBL objAlmacenBL;
-    ArrayList<AlmacenBE> arrAlmacenes;
+    AlmacenBL objAlmacenBL = new AlmacenBL();
+
     ArrayList<PalletBE> arrPallets;
-    PalletBL objPalletBL;
+    PalletBL objPalletBL = new PalletBL();
     String strIdPallet;
     String strIdProducto;
     String strNombreAlmacen;
     String strIdAlmacen;
+    
+    String strIdZona;
+    String strIdRack;
+    String strIdUbicacion;
+    
+    ZonaBL objZonaBL = new ZonaBL();
+    RackBL objRackBL = new RackBL();    
+    UbicacionBL objUbicacionBL = new UbicacionBL();    
+    
+    UbicacionBE objUbicacionBE = new UbicacionBE();
+    
     
     public BuscarPallet(AdmPallet ventanaPadre) {
         initComponents();
@@ -41,15 +59,19 @@ public class BuscarPallet extends javax.swing.JFrame {
         cargarComboAlmacen();
     }
     
-    public void cargarComboAlmacen(){
-        objAlmacenBL = new AlmacenBL();
-        arrAlmacenes = new ArrayList<AlmacenBE>();
+public void cargarComboAlmacen(){
         
-        arrAlmacenes= objAlmacenBL.getAllAlmacenActivo();
-        for(AlmacenBE objAlmacen : arrAlmacenes)
-            cbAlmacen.addItem(objAlmacen.getIdAlmacen());
+        cbAlmacen.removeAllItems();     
+        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+        arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
+        
+        if (arrAlmacenes != null)
+            for(AlmacenBE almacen : arrAlmacenes)
+                cbAlmacen.addItem(almacen.getIdAlmacen());
+
     }
     
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -88,10 +110,21 @@ public class BuscarPallet extends javax.swing.JFrame {
                 btnBuscarMouseClicked(evt);
             }
         });
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
         jLabel2.setText("Almacén:");
+
+        cbAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAlmacenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,20 +132,23 @@ public class BuscarPallet extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2))
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
+                .addComponent(txtIdPallet, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtIdProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                    .addComponent(txtIdPallet, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbAlmacen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel2)
+                .addGap(19, 19, 19)
+                .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(73, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
-                .addGap(36, 36, 36)
+                .addGap(37, 37, 37)
                 .addComponent(btnCancelar)
                 .addGap(71, 71, 71))
         );
@@ -120,22 +156,28 @@ public class BuscarPallet extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel1))
                     .addComponent(txtIdPallet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel4))
                     .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel2))
+                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBuscar)
                     .addComponent(btnCancelar))
-                .addGap(24, 24, 24))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -153,11 +195,22 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 //    objAlmacenBL = new AlmacenBL();
 //    strIdAlmacen = objAlmacenBL.getAlmacen(strNombreAlmacen).getIdAlmacen();
     objPalletBL = new PalletBL();
+    ProductoBL objProductoBL = new ProductoBL();
+    if (objProductoBL.getByNombreProducto(strIdProducto) != null)
+        strIdProducto = "";
     arrPallets = objPalletBL.getListSearch(strIdPallet, strIdProducto, strIdAlmacen);
     this.ventanaPadre.llenarDgv(arrPallets);
     this.dispose();
             
 }//GEN-LAST:event_btnBuscarMouseClicked
+
+private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
+
+}//GEN-LAST:event_cbAlmacenActionPerformed
+
+private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_btnBuscarActionPerformed
 
 
     /**
