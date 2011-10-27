@@ -31,9 +31,9 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
     private AdmAlmacen objPadre;
     private String accion;
     private String codigo;
-    private ArrayList<DepartamentoBE> departamentos;
-    private ArrayList<ProvinciaBE> provincias;
-    private ArrayList<DistritoBE> distritos;
+    private ArrayList<DepartamentoBE> departamentos= new ArrayList<DepartamentoBE>();
+    private ArrayList<ProvinciaBE> provincias= new ArrayList<ProvinciaBE>();
+    private ArrayList<DistritoBE> distritos= new ArrayList<DistritoBE>();
 
      public MantenimientoAlmacen(AdmAlmacen padre) {
         this.objPadre = padre;
@@ -140,6 +140,11 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         txtCodigo.setEditable(false);
 
+        cmbDepartamento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDepartamentoItemStateChanged(evt);
+            }
+        });
         cmbDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbDepartamentoActionPerformed(evt);
@@ -352,12 +357,16 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_btnGuardarMousePressed
 
 private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
-    this.llenarComboProvincias();    // TODO add your handling code here:
+     this.llenarComboProvincias();  // TODO add your handling code here:
 }//GEN-LAST:event_cmbDepartamentoActionPerformed
 
 private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciaActionPerformed
     this.llenarComboDistritos();    // TODO add your handling code here:
 }//GEN-LAST:event_cmbProvinciaActionPerformed
+
+private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDepartamentoItemStateChanged
+    this.llenarComboProvincias();// TODO add your handling code here:
+}//GEN-LAST:event_cmbDepartamentoItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -404,8 +413,8 @@ private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     private void llenarComboProvincias() {
         try {
-
-            this.provincias.clear();
+            if (distritos.size()>0)this.distritos.clear();
+            if (provincias.size()>0)this.provincias.clear();
             provincias = DataAccess.ProvinciaDA.queryAllProvincia(
                     departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento());
         cmbProvincia.addItem("Seleccione");
@@ -421,7 +430,7 @@ private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private void llenarComboDistritos() {
         try {
 
-            this.distritos.clear();
+             if (distritos.size()>0)this.distritos.clear();
             distritos = DataAccess.DistritoDA.queryAllDistrito(
                 departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),
                 provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia());

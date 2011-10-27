@@ -23,7 +23,7 @@ public class DepartamentoDA {
         ResultSet rs = null;
         ArrayList<DepartamentoBE> arrDepartamento = new ArrayList<DepartamentoBE>();
         String sql = "SELECT idDepartamento, descripcion "
-                + "FROM distrito order by 2";
+                + "FROM departamento order by 2";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdDepartamento;
@@ -52,7 +52,7 @@ public class DepartamentoDA {
         ResultSet rs = null;
         DepartamentoBE departamento = new DepartamentoBE("","");
         String sql = "SELECT idDepartamento, descripcion "
-                + "FROM distrito where idDepartamento='"+idDepartamento+"'";
+                + "FROM departamento where idDepartamento='"+idDepartamento+"'";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdDepartamento;
