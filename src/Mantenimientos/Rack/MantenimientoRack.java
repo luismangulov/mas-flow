@@ -55,6 +55,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
     ZonaBL objZonaBL;
     
     public MantenimientoRack(char c, AdmRack ventanaPadre) {
+        this.setLocationRelativeTo(null); 
         initComponents();
         this.cargarComboAlmacen();
         this.accion = c;

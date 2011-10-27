@@ -35,6 +35,7 @@ public class BuscarProducto extends javax.swing.JFrame {
 
     /** Creates new form BuscarProducto */
     public BuscarProducto(AdmProducto ventanaPadre) {
+        this.setLocationRelativeTo(null); 
         initComponents();
         this.cargarComboFamilia();
         this.ventanaPadre = ventanaPadre;

@@ -40,6 +40,7 @@ public class MantenimientoPallet extends javax.swing.JFrame {
     AdmPallet ventanaPadre;
     
     public MantenimientoPallet(AdmPallet ventanaPadre) {
+        this.setLocationRelativeTo(null); 
         initComponents();
         this.ventanaPadre = ventanaPadre;
         this.cargarComboAlmacen();

@@ -36,6 +36,7 @@ public class AdmPallet extends javax.swing.JFrame {
     String idPallet;
     
     public AdmPallet() {
+        this.setLocationRelativeTo(null); 
         initComponents();
     }
 

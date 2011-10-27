@@ -48,7 +48,7 @@ public class BuscarUbicacion extends javax.swing.JFrame {
     AdmUbicacion ventanaPadre;
     
     public BuscarUbicacion(AdmUbicacion ventanaPadre) {
-        
+        this.setLocationRelativeTo(null); 
         initComponents();
         objAlmacenBL = new AlmacenBL();
         this.ventanaPadre = ventanaPadre;

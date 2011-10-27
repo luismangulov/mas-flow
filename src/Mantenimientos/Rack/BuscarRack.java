@@ -40,6 +40,7 @@ public class BuscarRack extends javax.swing.JFrame {
     
     
     public BuscarRack(AdmRack ventanaPadre) {
+        this.setLocationRelativeTo(null); 
         initComponents();
         this.cargarComboAlmacen();
         this.ventanaPadre = ventanaPadre;
