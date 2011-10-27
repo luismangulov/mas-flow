@@ -438,8 +438,8 @@ public class ZonaDA {
         
         objConexion = new conexion();
         ResultSet rs = null;
-        
-        query = "SELECT * FROM Zona WHERE identificador LIKE '%"+identificador+"%'";
+        // aquí cambié el código víctor
+        query = "SELECT * FROM Zona WHERE identificador = '"+identificador+"'";
         
         try{
             rs = objConexion.EjecutarS(query);
