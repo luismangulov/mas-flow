@@ -23,7 +23,8 @@ public class UbicacionBL {
     }
     
     public void bloquearUbicacion(String idUbicacion){
-        
+        objUbicacionDA = new UbicacionDA();
+        objUbicacionDA.bloquearUbicacion(idUbicacion);
     }
     
     public boolean eliminarUbicacionesByRack(String idRack){
@@ -41,20 +42,20 @@ public class UbicacionBL {
         return objUbicacionDA.queryUbicacionById(strIdUbicacion);
     }
 
-    public UbicacionBE getUbicacionByRackFilaColumna(String strIdRack, int intFila, int intColumna) {
+    public UbicacionBE getUbicacionByRackFilaColumna(String strIdRack, int intFila, int intColumna, String indActivo) {
         objUbicacionDA = new UbicacionDA();
-        return objUbicacionDA.queryUbicacionByRackFilaColumna(strIdRack,intFila,intColumna);
+        return objUbicacionDA.queryUbicacionByRackFilaColumna(strIdRack,intFila,intColumna, indActivo);
                 
     }
 
-    public ArrayList<UbicacionBE> getUbicacionesByZona(String strIdZona) {
+    public ArrayList<UbicacionBE> getUbicacionesByZona(String strIdZona, String indActivo) {
         objUbicacionDA = new UbicacionDA();
-        return objUbicacionDA.queryUbicacionesByZona(strIdZona);
+        return objUbicacionDA.queryUbicacionesByZona(strIdZona, indActivo);
     }
 
-    public ArrayList<UbicacionBE> getUbicacionesByAlmacen(String strIdAlmacen) {
+    public ArrayList<UbicacionBE> getUbicacionesByAlmacen(String strIdAlmacen, String indActivo) {
         objUbicacionDA = new UbicacionDA();
-        return objUbicacionDA.queryUbicacionesByAlmacen(strIdAlmacen);
+        return objUbicacionDA.queryUbicacionesByAlmacen(strIdAlmacen, indActivo);
     }
             
 }

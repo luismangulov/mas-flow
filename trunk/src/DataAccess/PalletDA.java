@@ -216,7 +216,9 @@ public class PalletDA {
         arrPallets = new ArrayList<PalletBE>();
         
         try {
-            rs.next();   
+            rs.next();
+            if (rs.isAfterLast()){
+                
             String strIdPallet = rs.getString("IdPallet");
             String strIdProducto = rs.getString("IdProducto");
             String strIndActivo= rs.getString("IndActivo");
@@ -225,6 +227,10 @@ public class PalletDA {
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             
             objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento);
+            
+            }
+            else 
+                objPalletBE = null;
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
