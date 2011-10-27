@@ -49,7 +49,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
          
         Date fechaActual = new Date();
         
-        //DateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         
        this.jdcFecha.setDate(fechaActual);
         this.setVisible(true);
@@ -366,7 +366,19 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         // TODO add your handling code here:
         Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.producto);
         m.setVisible(true);
-        recargaruno(this.producto);
+        boolean seleccion = false;
+        for(int i = 0;i<this.tblProductos.getRowCount();i++){
+            if(producto.getIdProducto().equals((String)this.tblProductos.getValueAt(i, 0))){
+                JOptionPane.showMessageDialog(null, "El producto ya ha sido seleccionado", "Mensaje",0);
+                seleccion = true;
+            }
+        }
+        if(seleccion == false){
+            if(producto.getIdProducto().equals("")){
+                JOptionPane.showMessageDialog(null, "No ha seleccionado un producto", "Mensaje",0);
+            }else recargaruno(this.producto);
+        }
+       
         
         
     }//GEN-LAST:event_lblAddMousePressed
