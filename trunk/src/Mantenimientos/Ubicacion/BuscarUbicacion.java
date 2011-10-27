@@ -62,7 +62,10 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         cbZona.removeAllItems();
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
-       
+//        cbZona.addItem("");
+//        cbRack.addItem("");
+//        cbUbicacion.addItem("");       
+        
         ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
@@ -77,11 +80,14 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         cbZona.removeAllItems();
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
+        cbZona.addItem("");
+        cbRack.addItem("");
+        cbUbicacion.addItem(""); 
 
         ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
         
-        cbZona.addItem("");
+
         
         if (arrZonas != null)
             for(ZonaBE zona : arrZonas)
@@ -93,11 +99,13 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         
         cbRack.removeAllItems();        
         cbUbicacion.removeAllItems();
-       
+        cbRack.addItem("");
+        cbUbicacion.addItem(""); 
+               
         ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
         arrRacks = objRackBL.getRacksByZona(idZona);
         
-        cbRack.addItem("");
+
         
         if (arrRacks != null)
             for(RackBE rack : arrRacks)
@@ -109,11 +117,11 @@ public class BuscarUbicacion extends javax.swing.JFrame {
        
         
         cbUbicacion.removeAllItems();
-        
+        cbUbicacion.addItem(""); 
         ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
         arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack);
         
-        cbUbicacion.addItem("");
+
         
         if (arrUbicaciones != null)
             for(UbicacionBE ubicacion : arrUbicaciones)
@@ -140,6 +148,7 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         cbAlmacen = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
+        chbxActivo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -178,6 +187,8 @@ public class BuscarUbicacion extends javax.swing.JFrame {
 
         jLabel5.setText("Almacén:");
 
+        chbxActivo.setText("Activo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,10 +210,13 @@ public class BuscarUbicacion extends javax.swing.JFrame {
                                 .addComponent(cbRack, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cbUbicacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
+                        .addGap(84, 84, 84)
                         .addComponent(btnBuscar)
                         .addGap(33, 33, 33)
-                        .addComponent(btnCancelar)))
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(chbxActivo)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -224,11 +238,13 @@ public class BuscarUbicacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(26, 26, 26)
+                .addComponent(chbxActivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnBuscar))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -248,8 +264,10 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
-        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
-        cargarComboRack(strIdZona);
+        if (!cbZona.getSelectedItem().equals("")){
+            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+            cargarComboRack(strIdZona);
+        }
     }
 
 }//GEN-LAST:event_cbZonaActionPerformed
@@ -258,9 +276,11 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     
     int intCantItem = cbRack.getItemCount() - 1;
     if (intCantItem > 0){
-        String strIdentificador = cbRack.getSelectedItem().toString();
-        strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
-        cargarComboUbicacion(strIdRack);
+        if (!cbRack.getSelectedItem().equals("")){
+            String strIdentificador = cbRack.getSelectedItem().toString();
+            strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
+            cargarComboUbicacion(strIdRack);
+        }
     }
 
 }//GEN-LAST:event_cbRackActionPerformed
@@ -268,14 +288,21 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
     
     arrUbicaciones = new ArrayList<UbicacionBE>();
+    String strIndActivo;
+    
+    if (chbxActivo.isSelected())
+        strIndActivo = "1";
+    else 
+        strIndActivo = "0";
     
     if (!cbUbicacion.getSelectedItem().toString().equals("")){
         
         strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
         int intFila = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
         int intColumna = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
-        objUbicacionBE = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack,intFila,intColumna);
+        objUbicacionBE = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack,intFila,intColumna,strIndActivo);
         arrUbicaciones.add(objUbicacionBE);
+        
     }
     else if (cbUbicacion.getSelectedItem().toString().equals("") && !cbRack.getSelectedItem().toString().equals("")){
         
@@ -285,17 +312,18 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     else if (cbRack.getSelectedItem().toString().equals("") && !cbZona.getSelectedItem().toString().equals("")){
         
         strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
-        arrUbicaciones = objUbicacionBL.getUbicacionesByZona(strIdZona);
+        arrUbicaciones = objUbicacionBL.getUbicacionesByZona(strIdZona,strIndActivo);
         
     }
     else if (cbZona.getSelectedItem().toString().equals("") && !cbAlmacen.getSelectedItem().toString().equals("")){
         
         strIdAlmacen = cbAlmacen.getSelectedItem().toString();
-        arrUbicaciones = objUbicacionBL.getUbicacionesByAlmacen(strIdAlmacen);
+        arrUbicaciones = objUbicacionBL.getUbicacionesByAlmacen(strIdAlmacen,strIndActivo);
         
     }
         
     ventanaPadre.llenarDgv(arrUbicaciones);
+    this.dispose();
     
 }//GEN-LAST:event_btnBuscarMouseClicked
 
@@ -341,6 +369,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JComboBox cbRack;
     private javax.swing.JComboBox cbUbicacion;
     private javax.swing.JComboBox cbZona;
+    private javax.swing.JCheckBox chbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -11,6 +11,7 @@
 package Mantenimientos.Rack;
 
 import BusinessEntity.RackBE;
+import BusinessLogic.ZonaBL;
 import DataAccess.RackDA;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -62,7 +63,7 @@ public class AdmRack extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Rack", "Posición X", "Posición Y", "Pisos", "Columnas", "Zona"
+                "Rack", "Posición X", "Posición Y", "Pisos", "Columnas", "Identificador Zona"
             }
         ) {
             Class[] types = new Class [] {
@@ -146,8 +147,8 @@ public class AdmRack extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,8 +222,10 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
             int intPisos = arrRacks.get(i).getPisos();
             int intColumnas = arrRacks.get(i).getColumnas();
             String strIdZona = arrRacks.get(i).getIdZona();
-            
-            modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdZona});
+            ZonaBL objZonaBL = new ZonaBL();
+            String strIdentificadorZona = objZonaBL.getZona(strIdZona).getIdentificador();
+
+            modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdentificadorZona});
             
         }
     }
@@ -246,8 +249,10 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
         int intPisos = rackBE.getPisos();
         int intColumnas = rackBE.getColumnas();
         String strIdZona = rackBE.getIdZona();
-
-        modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdZona});
+        ZonaBL objZonaBL = new ZonaBL();
+        String strIdentificadorZona = objZonaBL.getZona(strIdZona).getIdentificador();
+        
+        modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdentificadorZona});
         
     }
     /**
