@@ -20,6 +20,12 @@ public class UnidadMedidaBL {
             return "";
         return idUnidadMedida;
     }
+    
+    public UnidadMedidaBE getUnidadMedida(String idUnidadMedida){
+        UnidadMedidaDA objUnidadMedidaDA = new UnidadMedidaDA();
+        UnidadMedidaBE objMedidaBE = objUnidadMedidaDA.queryByIdUnidadMedida(idUnidadMedida);
+        return objMedidaBE;
+    }
 
     public ArrayList<UnidadMedidaBE> getAllUnidadMedida(){
         ArrayList<UnidadMedidaBE>  arrUnidadMedida = null;
