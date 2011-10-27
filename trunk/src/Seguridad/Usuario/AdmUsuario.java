@@ -209,7 +209,7 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 
 private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 // TODO add your handling code here:
-    BuscarUsuario m = new BuscarUsuario();
+    BuscarUsuario m = new BuscarUsuario(this);
     m.setVisible(true);
 }//GEN-LAST:event_lblBuscarMousePressed
 

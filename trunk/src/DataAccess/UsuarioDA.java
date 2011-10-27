@@ -40,7 +40,7 @@ public class UsuarioDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<UsuarioBE> arrUsuario = new ArrayList<UsuarioBE>();
-        String sql = "SELECT idUsuario,nombre,apellidopaterno,apellidomaterno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave FROM usuario WHERE idEstadoUsuario = '1' order by 1";
+        String sql = "SELECT idUsuario,nombre,apellidopaterno,apellidomaterno,password,idPerfil,idEstadoUsuario,limiteIntentos,fechaCambioClave FROM usuario  order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdUsuario;
@@ -208,6 +208,8 @@ public class UsuarioDA {
         
         return boolExito;
     }
+    
+
       
     public ArrayList<UsuarioBE> buscar(String idUsuario,String nombre,String paterno,String materno,String idPerfil, String idEstadoUsuario){
         conexion objConexion=new conexion();
@@ -379,5 +381,6 @@ public class UsuarioDA {
 //        return arrFamilia;
 //    }
 //    
+    
     
 }
