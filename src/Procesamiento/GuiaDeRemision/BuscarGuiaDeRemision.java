@@ -19,6 +19,7 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
     /** Creates new form BuscarGuiaDeRemision */
     public BuscarGuiaDeRemision() {
         initComponents();
+         this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

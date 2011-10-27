@@ -66,7 +66,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="txtProveedor" pref="64" max="32767" attributes="0"/>
+                                              <Component id="txtProveedor" pref="52" max="32767" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="lblAyuda" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
@@ -89,8 +89,8 @@
                                           <Component id="txtRuc" alignment="1" pref="107" max="32767" attributes="1"/>
                                       </Group>
                                   </Group>
-                                  <Component id="txtNombre" alignment="0" pref="312" max="32767" attributes="1"/>
-                                  <Component id="txtDireccion" alignment="0" pref="312" max="32767" attributes="1"/>
+                                  <Component id="txtNombre" alignment="0" pref="306" max="32767" attributes="1"/>
+                                  <Component id="txtDireccion" alignment="0" pref="306" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                           <Component id="jScrollPane2" pref="384" max="32767" attributes="1"/>
@@ -169,7 +169,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
+        <Property name="text" type="java.lang.String" value="C&#xf3;digo*:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
@@ -179,7 +179,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fecha:"/>
+        <Property name="text" type="java.lang.String" value="Fecha*:"/>
       </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jdcFecha">
@@ -189,10 +189,13 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Proveedor:"/>
+        <Property name="text" type="java.lang.String" value="Proveedor*:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtProveedor">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAyuda">
       <Properties>
@@ -210,10 +213,13 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtRuc">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre:"/>
+        <Property name="text" type="java.lang.String" value="Nombre*:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -222,8 +228,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombre">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDireccion">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
