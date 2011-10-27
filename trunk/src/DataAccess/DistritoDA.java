@@ -59,7 +59,7 @@ public class DistritoDA {
         DistritoBE distrito = new DistritoBE("","","","");
         String sql = "SELECT idDepartamento, idProvincia, idDistrito, descripcion "
                 + "FROM distrito where idDepartamento='"+idDepartamento+
-                "' and idProvincia='"+idProvincia+"' idDistrito='"+idDistrito+
+                "' and idProvincia='"+idProvincia+"' and idDistrito='"+idDistrito+
                 "' order by 4";
         try{
             rs=objConexion.EjecutarS(sql);

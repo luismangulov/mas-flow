@@ -71,6 +71,8 @@ public class MantenimientoZona extends javax.swing.JFrame {
         AlmacenBL almacenBL = new AlmacenBL();
         AlmacenBE almacen = almacenBL.getAlmacen(zona.getIdAlmacen());
         cmbAlmacen.setSelectedItem(almacen.getNombre());
+        familias=zona.getFamilias();
+        recargar(this.familias);
 
 
             if (zona.getIndActivo().equals("1")){
