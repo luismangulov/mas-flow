@@ -196,8 +196,6 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 //    strIdAlmacen = objAlmacenBL.getAlmacen(strNombreAlmacen).getIdAlmacen();
     objPalletBL = new PalletBL();
     ProductoBL objProductoBL = new ProductoBL();
-    if (objProductoBL.getByNombreProducto(strIdProducto) != null)
-        strIdProducto = "";
     arrPallets = objPalletBL.getListSearch(strIdPallet, strIdProducto, strIdAlmacen);
     this.ventanaPadre.llenarDgv(arrPallets);
     this.dispose();
