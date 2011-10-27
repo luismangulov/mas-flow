@@ -42,6 +42,7 @@ public class UbicarPallet extends javax.swing.JFrame {
     ArrayList<UbicacionBE> arrUbicaciones;
     
     public UbicarPallet() {
+        this.setLocationRelativeTo(null); 
         initComponents();
     }
     

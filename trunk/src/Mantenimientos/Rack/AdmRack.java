@@ -28,6 +28,7 @@ public class AdmRack extends javax.swing.JFrame {
     String idRack;
     
     public AdmRack() {
+        this.setLocationRelativeTo(null); 
         initComponents();
     }
 

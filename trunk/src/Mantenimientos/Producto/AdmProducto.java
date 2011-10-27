@@ -34,6 +34,7 @@ public class AdmProducto extends javax.swing.JFrame {
     private UnidadMedidaDA objUnidadMedidaDA;
     /** Creates new form AdmProducto */
     public AdmProducto() {
+        this.setLocationRelativeTo(null); 
         initComponents();
         
         

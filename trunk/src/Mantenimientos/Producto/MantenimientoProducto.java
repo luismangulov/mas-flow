@@ -44,6 +44,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
     ArrayList<ProductoBE> arrProductos;
 
     public MantenimientoProducto(char c, String idProducto, AdmProducto ventanaPadre){
+        this.setLocationRelativeTo(null); 
         initComponents();
         this.setVisible(true);
         this.accion = c;

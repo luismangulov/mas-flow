@@ -28,6 +28,7 @@ public class AdmUbicacion extends javax.swing.JFrame {
     ArrayList<UbicacionBE> arrUbicaciones;
     /** Creates new form AdmUbicacion */
     public AdmUbicacion() {
+        this.setLocationRelativeTo(null); 
         initComponents();
     }
 
