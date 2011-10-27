@@ -181,7 +181,7 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_lblBuscarMousePressed
 
     private void lblRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarMouseClicked
-        MantenimientoProducto mantenimientoProducto = new MantenimientoProducto();
+        MantenimientoProducto mantenimientoProducto = new MantenimientoProducto(this);
         mantenimientoProducto.setVisible(true);
     }//GEN-LAST:event_lblRegistrarMouseClicked
 
@@ -192,7 +192,7 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
             JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
         else{
             idProducto = (String)dgvProductos.getValueAt(fila, 0);
-            MantenimientoProducto mantenimientoProducto = new MantenimientoProducto('M',idProducto);
+            MantenimientoProducto mantenimientoProducto = new MantenimientoProducto('M',idProducto,this);
             mantenimientoProducto.setVisible(true);
         }
     }//GEN-LAST:event_lblModificarMouseClicked
@@ -204,8 +204,6 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
             JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
         else{
             idProducto = (String)dgvProductos.getValueAt(fila, 0);
-            MantenimientoProducto mantenimientoProducto = new MantenimientoProducto('E',idProducto);
-            mantenimientoProducto.setVisible(true);
         }
     }//GEN-LAST:event_lblEliminarMouseClicked
 
