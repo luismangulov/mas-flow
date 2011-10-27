@@ -11,6 +11,7 @@
   <Events>
     <EventHandler event="windowGainedFocus" listener="java.awt.event.WindowFocusListener" parameters="java.awt.event.WindowEvent" handler="formWindowGainedFocus"/>
     <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowActivated"/>
+    <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="formComponentShown"/>
   </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -27,8 +28,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
@@ -53,7 +54,12 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace pref="95" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="42" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="229" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,7 +76,9 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="273" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="208" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="cbxActivo" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -124,5 +132,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxActivoActionPerformed"/>
       </Events>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JScrollPane(tree)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="CheckBoxNode accessibilityOptions[] = {&#xa;        new CheckBoxNode(&quot;Consultar&quot;, false),&#xa;        new CheckBoxNode(&quot;Registrar&quot;, false),&#xa;        new CheckBoxNode(&quot;Modificar&quot;, false),&#xa;        new CheckBoxNode(&quot;Eliminar&quot;, false),&#xa;&#xa;        };&#xa;    CheckBoxNode browsingOptions[] = {&#xa;        new CheckBoxNode(&quot;Consultar&quot;, false),&#xa;        new CheckBoxNode(&quot;Registrar&quot;, false),&#xa;        new CheckBoxNode(&quot;Modificar&quot;, false),&#xa;        new CheckBoxNode(&quot;Eliminar&quot;, false),&#xa;        new CheckBoxNode(&quot;Aprobar&quot;, false),&#xa;        };&#xa;    &#xa;    Vector accessVector = new NamedVector(&quot;Rack&quot;,accessibilityOptions);&#xa;    Vector browseVector = new NamedVector(&quot;Guia de remision&quot;, browsingOptions);&#xa;    &#xa;    Object rootNodes[] = { accessVector, browseVector };&#xa; &#xa;      &#xa;    Vector rootVector = new NamedVector(&quot;Root&quot;, rootNodes);&#xa;    JTree tree = new JTree(rootVector);&#xa;    CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();&#xa;    tree.setCellRenderer(renderer);&#xa;    tree.setCellEditor(new CheckBoxNodeEditor(tree));&#xa;    tree.setEditable(true);"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+    </Container>
   </SubComponents>
 </Form>

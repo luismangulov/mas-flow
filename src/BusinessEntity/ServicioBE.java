@@ -12,6 +12,12 @@ public class ServicioBE {
     private String idServicio;
     private String idDescripcion;
 
+    public ServicioBE(String idServicio, String idDescripcion) {
+        this.idServicio = idServicio;
+        this.idDescripcion = idDescripcion;
+    }
+
+    
     public String getIdDescripcion() {
         return idDescripcion;
     }
