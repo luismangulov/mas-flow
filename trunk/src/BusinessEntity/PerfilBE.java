@@ -14,18 +14,39 @@ import java.util.ArrayList;
 public class PerfilBE {
     
     private String idPerfil;
-    private ArrayList<PerfilDetalleBE> listaPerfilDetalles = new ArrayList<PerfilDetalleBE>();
     private String descripcion;
+    private ArrayList<PerfilDetalleBE> listaPerfilDetalles = new ArrayList<PerfilDetalleBE>();
     private String indActivo;
 
     public PerfilBE() {
 
+    }
+    
+    public PerfilBE(String idPerfil,String descripcion,ArrayList<PerfilDetalleBE>listaPerfilDetalles){
+   
+        this.idPerfil=idPerfil;
+        this.descripcion=descripcion;
+        this.listaPerfilDetalles=listaPerfilDetalles;
+        
+    }
+
+    public PerfilBE(String descripcion, String indActivo) {
+        this.descripcion = descripcion;
+        this.indActivo = indActivo;
     }
 
     public PerfilBE(String idPerfil, String descripcion, String indActivo) {
         this.idPerfil = idPerfil;
         this.descripcion = descripcion;
         this.indActivo = indActivo;
+    } 
+
+    public ArrayList<PerfilDetalleBE> getListaPerfilDetalles() {
+        return listaPerfilDetalles;
+    }
+
+    public void setListaPerfilDetalles(ArrayList<PerfilDetalleBE> listaPerfilDetalles) {
+        this.listaPerfilDetalles = listaPerfilDetalles;
     }
 
     public String getDescripcion() {

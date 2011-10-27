@@ -15,12 +15,31 @@ import java.util.ArrayList;
  * @author Florencio
  */
 public class PerfilDA {
-        public boolean insertar(PerfilBE objPerfil) throws Exception{
+    
+    public boolean insertar(PerfilBE objPerfil) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
         String sql = "INSERT INTO perfil(idPerfil, descripcion, indactivo) VALUES('"+ objPerfil.getIdPerfil()+"','"+ objPerfil.getDescripcion() +"','"+ objPerfil.getIndActivo()+"')";
+        
+        try{
+            objConexion.EjecutarUID(sql);
+            boolExito=true;
+         }catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{objConexion.SalirUID();}
+        
+        return boolExito;
+    }
+    
+        public boolean insertarPerfil(PerfilBE objPerfil) throws Exception{
+        
+        boolean boolExito = false;
+        conexion objConexion = new conexion();
+       
+        String sql = "INSERT INTO perfil(idPerfil, descripcion, indactivo) VALUES('"+ objPerfil.getIdPerfil()+"','"+ objPerfil.getDescripcion() +"','1')";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -90,43 +109,40 @@ public class PerfilDA {
         return perfil;
     }
 
-//    public FamiliaBE queryByNombreFamilia(String nombreFamilia){
-//        conexion objConexion=new conexion();
-//        ResultSet rs = null;
-//        FamiliaBE familia = null;
-//        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia ";
-//           sql += " WHERE nombre='"+nombreFamilia+"'";
-//        try{
-//            rs=objConexion.EjecutarS(sql);
-//            String strCodigo;
-//            String strNombre;
-//            String strDescripcion;
-//            String strEstado;
-//            if (rs.next()){
-//
-//                strCodigo = rs.getString(1);
-//                strNombre = rs.getString(2);
-//                strDescripcion = rs.getString(3);
-//                strEstado = rs.getString(4);
-//                familia = new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado);
-//            }
-//
-//        }catch (Exception a){
-//            System.out.println(a.getMessage());
-//         }
-//         finally{
-//             objConexion.SalirS();
-//         }
-//
-//        return familia;
-//    }
-//    
+    public PerfilBE queryByNombre(String descripcion){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        PerfilBE perfil = null;
+        String sql = "SELECT idPerfil,descripcion,indactivo FROM Perfil ";
+           sql += " WHERE descripcion='"+descripcion+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdPerfil;
+            String strDescripcion;
+            String strIndActivo;
+            if (rs.next()){
+
+                strIdPerfil = rs.getString(1);
+                strDescripcion = rs.getString(2);
+                strIndActivo = rs.getString(3);
+                perfil = new PerfilBE(strIdPerfil,strDescripcion,strIndActivo);
+            }
+
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+        return perfil;
+    }
+    
      public boolean modificar(PerfilBE objPerfil) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "UPDATE perfil SET";
+        String sql = "UPDATE perfil SET ";
              sql += "descripcion='"+objPerfil.getDescripcion()+ "',"+
                      "indactivo='"+objPerfil.getIndActivo()+ "'"+ 
                     " WHERE idPerfil='"+objPerfil.getIdPerfil()+"'";
@@ -148,7 +164,7 @@ public class PerfilDA {
         conexion objConexion = new conexion();
        
         String sql = "DELETE FROM Perfil";
-             sql += " WHERE idfamilia='"+idPerfil+"'";
+             sql += " WHERE idPerfil='"+idPerfil+"'";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -282,6 +298,7 @@ public class PerfilDA {
 //        return arrFamilia;
 //    }
 //    
-
+ 
+    
     
 }

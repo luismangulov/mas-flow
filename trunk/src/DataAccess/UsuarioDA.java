@@ -53,7 +53,7 @@ public class UsuarioDA {
             int intLimiteIntentos;
             Date dateFechaCambioClave;
             
-            PerfilAD objPerfilDA=new PerfilAD();
+            PerfilDA objPerfilDA=new PerfilDA();
             PerfilBE objPerfilBE=new PerfilBE();
             EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
             EstadoUsuarioBE objEstadoUsuarioBE=new EstadoUsuarioBE();
@@ -101,7 +101,7 @@ public class UsuarioDA {
             String strIdEstadoUsuario;
             int intLimiteIntentos;
             Date dateFechaCambioClave;
-            PerfilAD objPerfilDA=new PerfilAD();
+            PerfilDA objPerfilDA=new PerfilDA();
             PerfilBE objPerfilBE=new PerfilBE();
             EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
             EstadoUsuarioBE objEstadoUsuarioBE=new EstadoUsuarioBE();
@@ -300,7 +300,7 @@ public class UsuarioDA {
             String strIdEstadoUsuario;
             int intLimiteIntentos;
             Date dateFechaCambioClave;
-            PerfilAD objPerfilDA=new PerfilAD();
+            PerfilDA objPerfilDA=new PerfilDA();
             PerfilBE objPerfilBE=new PerfilBE();
             EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
             EstadoUsuarioBE objEstadoUsuarioBE=new EstadoUsuarioBE();

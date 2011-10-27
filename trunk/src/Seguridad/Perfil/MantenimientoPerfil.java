@@ -39,7 +39,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
         this.txtCodigo.setEnabled(false);
-                            
+                       
         this.setVisible(true);
     }
 

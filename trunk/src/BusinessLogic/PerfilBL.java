@@ -5,8 +5,9 @@
 package BusinessLogic;
 
 import BusinessEntity.PerfilBE;
+import BusinessEntity.PerfilDetalleBE;
 import DataAccess.FamiliaDA;
-import DataAccess.PerfilAD;
+import DataAccess.PerfilDA;
 import Util.Utilitario;
 import java.util.ArrayList;
 
@@ -20,14 +21,22 @@ public class PerfilBL {
     public boolean insertar(String descripcion,String indEstado) throws Exception{
         boolean exito = false;
         perfil = new PerfilBE(Utilitario.generaCodigo("perfil",6),descripcion,indEstado);
-        PerfilAD objPerfilDA = new PerfilAD();
+        PerfilDA objPerfilDA = new PerfilDA();
         exito = objPerfilDA.insertar(getPerfil());
+        return exito;
+    }
+    
+    public boolean insertarPerfil(String descripcion,ArrayList <PerfilDetalleBE>listaDetallePerfiles)throws Exception{
+        boolean exito =false;
+        PerfilBE objPerfilBE=new PerfilBE(Utilitario.generaCodigo("perfil",6),descripcion,listaDetallePerfiles);
+        PerfilDA objPerfilDA =new PerfilDA();
+        exito=objPerfilDA.insertarPerfil(objPerfilBE);
         return exito;
     }
     
     public boolean eliminar(String idPerfil) throws Exception{
         boolean exito = false;
-        PerfilAD objPerfilDA = new PerfilAD();
+        PerfilDA objPerfilDA = new PerfilDA();
         exito = objPerfilDA.eliminar(idPerfil);
         return exito;
     }
@@ -41,18 +50,18 @@ public class PerfilBL {
 //    }
 
     public ArrayList<PerfilBE> queryAllPerfil(){
-        PerfilAD objPerfilDA = new PerfilAD();
+        PerfilDA objPerfilDA = new PerfilDA();
         return objPerfilDA.queryAllPerfil();
     }
     
     public PerfilBE queryByIdPerfil(String idPerfil){
-        PerfilAD objPerfilDA = new PerfilAD();
+        PerfilDA objPerfilDA = new PerfilDA();
         return objPerfilDA.queryByIdPerfil(idPerfil);
     }
     
      public boolean modificar(PerfilBE objPerfil) throws Exception{
           boolean exito = false;
-          PerfilAD objPerfilDA = new PerfilAD();
+          PerfilDA objPerfilDA = new PerfilDA();
           exito = objPerfilDA.modificar(objPerfil);
           return exito;
      }
@@ -84,7 +93,7 @@ public class PerfilBL {
 
     public ArrayList<PerfilBE> getAllPerfil() {
         ArrayList<PerfilBE>  arrPerfil = null;
-        PerfilAD objPerfilDA = new PerfilAD();
+        PerfilDA objPerfilDA = new PerfilDA();
         arrPerfil = objPerfilDA.queryAllPerfil();
         return arrPerfil;
     }

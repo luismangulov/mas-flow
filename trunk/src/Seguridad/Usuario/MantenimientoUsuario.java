@@ -13,7 +13,7 @@ package Seguridad.Usuario;
 import BusinessEntity.PerfilBE;
 import BusinessEntity.UsuarioBE;
 import BusinessLogic.UsuarioBL;
-import DataAccess.PerfilAD;
+import DataAccess.PerfilDA;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -196,7 +196,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                         estado = "1";
                     }else estado = "0";
                     //revisar porque esto solo funciona para perfiles menores a 10
-                    PerfilAD objPerfilDA = new PerfilAD();
+                    PerfilDA objPerfilDA = new PerfilDA();
                     PerfilBE objPerfilBE=objPerfilDA.queryByNombre((String)(this.cmbPerfil.getSelectedItem()));
                     objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"",objPerfilBE.getIdPerfil(),estado,3,fechaActual);
                     UsuarioBE usuario;
@@ -211,7 +211,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";   
-                    PerfilAD objPerfilDA = new PerfilAD();
+                    PerfilDA objPerfilDA = new PerfilDA();
                     PerfilBE objPerfilBE=objPerfilDA.queryByNombre((String)(this.cmbPerfil.getSelectedItem()));
                     usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"",objPerfilBE.getIdPerfil(),estado,3,fechaActual);
                      objUsuarioBL.modificar(usuario);
@@ -291,7 +291,7 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
         private void llenarCombo() {
             
-        PerfilAD objPerfilDA =new PerfilAD();
+        PerfilDA objPerfilDA =new PerfilDA();
         
 
        try { ArrayList<PerfilBE> arrPerfil= objPerfilDA.queryAllPerfil();
