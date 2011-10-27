@@ -38,37 +38,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
+        this.txtCodigo.setEnabled(false);
         
-//        JFrame frame = new JFrame("Perfil");  
-        CheckBoxNode accessibilityOptions[] = {
-        new CheckBoxNode("Move system caret with focus/selection changes", false),
-        new CheckBoxNode("Always expand alt text for images", true) };
-        CheckBoxNode browsingOptions[] = {
-        new CheckBoxNode("Notify when downloads complete", true),
-        new CheckBoxNode("Disable script debugging", true),
-        new CheckBoxNode("Use AutoComplete", true),
-        new CheckBoxNode("Browse in a new process", false) };
-    
-    Vector accessVector = new NamedVector("Guias de remision",accessibilityOptions);
-    Vector browseVector = new NamedVector("Proveedor", browsingOptions);
-    
-    Object rootNodes[] = { accessVector, browseVector };
-    
-    
-    Vector rootVector = new NamedVector("Root", rootNodes);
-    JTree tree = new JTree(rootVector);
-    CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
-    tree.setCellRenderer(renderer);
-    tree.setCellEditor(new CheckBoxNodeEditor(tree));
-    tree.setEditable(true);
-
-    JScrollPane scrollPane = new JScrollPane(tree);
-    this.getContentPane().add(scrollPane,BorderLayout.CENTER);
-    
-//    frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-//    frame.setSize(300, 150);
-//    frame.setVisible(true);
-//        
                         
         this.setVisible(true);
     }
@@ -81,6 +52,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.cbxActivo.setEnabled(true);
         this.setTitle("+Flow - Editar perfil");
+        this.txtCodigo.setEnabled(false);
         this.txtCodigo.setText(perfil.getIdPerfil());
         this.txtDescripcion.setText(perfil.getDescripcion());
         this.setVisible(true);
@@ -103,6 +75,33 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         cbxActivo = new javax.swing.JCheckBox();
+        CheckBoxNode accessibilityOptions[] = {
+            new CheckBoxNode("Consultar", false),
+            new CheckBoxNode("Registrar", false),
+            new CheckBoxNode("Modificar", false),
+            new CheckBoxNode("Eliminar", false),
+
+        };
+        CheckBoxNode browsingOptions[] = {
+            new CheckBoxNode("Consultar", false),
+            new CheckBoxNode("Registrar", false),
+            new CheckBoxNode("Modificar", false),
+            new CheckBoxNode("Eliminar", false),
+            new CheckBoxNode("Aprobar", false),
+        };
+
+        Vector accessVector = new NamedVector("Rack",accessibilityOptions);
+        Vector browseVector = new NamedVector("Guia de remision", browsingOptions);
+
+        Object rootNodes[] = { accessVector, browseVector };
+
+        Vector rootVector = new NamedVector("Root", rootNodes);
+        JTree tree = new JTree(rootVector);
+        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+        tree.setCellRenderer(renderer);
+        tree.setCellEditor(new CheckBoxNodeEditor(tree));
+        tree.setEditable(true);
+        jScrollPane1 = new javax.swing.JScrollPane(tree);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar perfil");
@@ -116,6 +115,11 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
             }
         });
 
@@ -155,13 +159,13 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -173,7 +177,11 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(cbxActivo))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +194,9 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(273, 273, 273)
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(cbxActivo)
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -269,6 +279,10 @@ private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:
 
 }//GEN-LAST:event_formWindowGainedFocus
 
+private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+// TODO add your handling code here:
+}//GEN-LAST:event_formComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -311,6 +325,7 @@ private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:
     private javax.swing.JCheckBox cbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables

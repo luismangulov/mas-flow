@@ -12,7 +12,12 @@ public class AplicacionBE {
     
     private String idAplicacion;
     private String descripcion;
-    private Modulo modulo;
+  
+
+    public AplicacionBE(String idAplicacion, String descripcion) {
+        this.idAplicacion = idAplicacion;
+        this.descripcion = descripcion;
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -30,14 +35,7 @@ public class AplicacionBE {
         this.idAplicacion = idAplicacion;
     }
 
-    public Modulo getModulo() {
-        return modulo;
-    }
 
-    public void setModulo(Modulo modulo) {
-        this.modulo = modulo;
-    }
-    
     
     
     

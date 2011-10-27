@@ -34,7 +34,8 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         accion = "registrar";       
         initComponents();
         this.setLocationRelativeTo(null); 
-        this.setTitle("+Flow - Registrar usuario");  
+        this.setTitle("+Flow - Registrar usuario"); 
+        this.txtIdUsuario.setEnabled(false);
         this.llenarCombo();
         this.setVisible(true);
     }
@@ -46,6 +47,7 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.ckbActivo.setEnabled(true);
         this.setTitle("+Flow - Editar Usuario");
+        this.txtIdUsuario.setEnabled(false);
         this.llenarCombo();
         this.txtIdUsuario.setText(usuario.getIdUsuario());
         this.txtNombre.setText(usuario.getNombre());
@@ -59,8 +61,7 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         }else{
             this.ckbActivo.setSelected(false);
         }
-        
-        //this.cbxPerfil.setSelectedIndex(usuario.getIdPerfil());               
+        this.cmbPerfil.setSelectedIndex(Integer.parseInt(usuario.getPerfil().getIdPerfil().trim())); 
         this.setVisible(true);
     }
 
@@ -194,9 +195,10 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";
-                    
-                    
-                    objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"","000001",estado,3,fechaActual);
+                    //revisar porque esto solo funciona para perfiles menores a 10
+                    PerfilAD objPerfilDA = new PerfilAD();
+                    PerfilBE objPerfilBE=objPerfilDA.queryByNombre((String)(this.cmbPerfil.getSelectedItem()));
+                    objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"",objPerfilBE.getIdPerfil(),estado,3,fechaActual);
                     UsuarioBE usuario;
                     usuario = objUsuarioBL.getUsuario();
                     this.objPadre.recargaruno(usuario);
@@ -209,7 +211,9 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";   
-                    usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"","000001",estado,3,fechaActual);
+                    PerfilAD objPerfilDA = new PerfilAD();
+                    PerfilBE objPerfilBE=objPerfilDA.queryByNombre((String)(this.cmbPerfil.getSelectedItem()));
+                    usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"",objPerfilBE.getIdPerfil(),estado,3,fechaActual);
                      objUsuarioBL.modificar(usuario);
                      int fila;
                      fila = this.objPadre.getDgvUsuario().getSelectedRow();
