@@ -12,8 +12,14 @@ package Seguridad.Perfil;
 
 import BusinessEntity.PerfilBE;
 import BusinessLogic.PerfilBL;
+import java.awt.BorderLayout;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JTree;
+import javax.swing.JScrollPane;
+
 
 /**
  *
@@ -30,8 +36,39 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         accion = "registrar";
        
         initComponents();
-         this.setLocationRelativeTo(null); 
+        this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
+        
+//        JFrame frame = new JFrame("Perfil");  
+        CheckBoxNode accessibilityOptions[] = {
+        new CheckBoxNode("Move system caret with focus/selection changes", false),
+        new CheckBoxNode("Always expand alt text for images", true) };
+        CheckBoxNode browsingOptions[] = {
+        new CheckBoxNode("Notify when downloads complete", true),
+        new CheckBoxNode("Disable script debugging", true),
+        new CheckBoxNode("Use AutoComplete", true),
+        new CheckBoxNode("Browse in a new process", false) };
+    
+    Vector accessVector = new NamedVector("Guias de remision",accessibilityOptions);
+    Vector browseVector = new NamedVector("Proveedor", browsingOptions);
+    
+    Object rootNodes[] = { accessVector, browseVector };
+    
+    
+    Vector rootVector = new NamedVector("Root", rootNodes);
+    JTree tree = new JTree(rootVector);
+    CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+    tree.setCellRenderer(renderer);
+    tree.setCellEditor(new CheckBoxNodeEditor(tree));
+    tree.setEditable(true);
+
+    JScrollPane scrollPane = new JScrollPane(tree);
+    this.getContentPane().add(scrollPane,BorderLayout.CENTER);
+    
+//    frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+//    frame.setSize(300, 150);
+//    frame.setVisible(true);
+//        
                         
         this.setVisible(true);
     }
@@ -65,12 +102,22 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         txtDescripcion = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
         cbxActivo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar perfil");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setText("Código:");
 
@@ -95,33 +142,6 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Servicios");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Almacen");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Agregar");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Modificar");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Eliminar");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Producto");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Agregar");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Modificar");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Eliminar");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Orden suministro");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Agregar");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Aprobar");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTree1.setToolTipText("");
-        jScrollPane1.setViewportView(jTree1);
 
         cbxActivo.setText("Activo");
         cbxActivo.addActionListener(new java.awt.event.ActionListener() {
@@ -152,9 +172,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxActivo))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,9 +186,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(273, 273, 273)
                 .addComponent(cbxActivo)
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -239,6 +256,19 @@ private void cbxActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 // TODO add your handling code here:
 }//GEN-LAST:event_cbxActivoActionPerformed
 
+private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+// TODO add your handling code here:
+    
+  
+}//GEN-LAST:event_formWindowActivated
+
+private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+// TODO add your handling code here:
+    
+
+
+}//GEN-LAST:event_formWindowGainedFocus
+
     /**
      * @param args the command line arguments
      */
@@ -274,15 +304,16 @@ private void cbxActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 //            }
 //        });
 //    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JCheckBox cbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTree jTree1;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables
+
+
 }
