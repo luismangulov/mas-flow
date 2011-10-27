@@ -90,9 +90,13 @@ public class AdmRack extends javax.swing.JFrame {
         dgvRacks.getColumnModel().getColumn(4).setResizable(false);
         dgvRacks.getColumnModel().getColumn(5).setResizable(false);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         lblRegistrarRack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblRegistrarRack.setToolTipText("Agregar");
+        lblRegistrarRack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRegistrarRack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRegistrarRack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblRegistrarRackMouseClicked(evt);
@@ -104,6 +108,9 @@ public class AdmRack extends javax.swing.JFrame {
         jToolBar1.add(lblRegistrarRack);
 
         lblModificarRack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
+        lblModificarRack.setToolTipText("Editar");
+        lblModificarRack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblModificarRack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblModificarRack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblModificarRackMouseClicked(evt);
@@ -112,6 +119,9 @@ public class AdmRack extends javax.swing.JFrame {
         jToolBar1.add(lblModificarRack);
 
         lblEliminarRack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminarRack.setToolTipText("Eliminar");
+        lblEliminarRack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblEliminarRack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblEliminarRack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEliminarRackMouseClicked(evt);
@@ -120,6 +130,9 @@ public class AdmRack extends javax.swing.JFrame {
         jToolBar1.add(lblEliminarRack);
 
         lblBuscarRack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscarRack.setToolTipText("Buscar");
+        lblBuscarRack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblBuscarRack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBuscarRack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBuscarRackMouseClicked(evt);
@@ -131,6 +144,9 @@ public class AdmRack extends javax.swing.JFrame {
         jToolBar1.add(lblBuscarRack);
 
         lblCargarRacks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblCargarRacks.setToolTipText("Refrescar");
+        lblCargarRacks.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblCargarRacks.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCargarRacks.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCargarRacksMouseClicked(evt);
@@ -156,7 +172,7 @@ public class AdmRack extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
         );
 
         pack();

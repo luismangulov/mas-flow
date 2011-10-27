@@ -80,6 +80,7 @@ public class AdmUbicacion extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvUbicaciones.setToolTipText("Reubicar Pallet");
         jScrollPane1.setViewportView(dgvUbicaciones);
         dgvUbicaciones.getColumnModel().getColumn(0).setResizable(false);
         dgvUbicaciones.getColumnModel().getColumn(1).setResizable(false);
@@ -88,9 +89,13 @@ public class AdmUbicacion extends javax.swing.JFrame {
         dgvUbicaciones.getColumnModel().getColumn(4).setResizable(false);
         dgvUbicaciones.getColumnModel().getColumn(5).setResizable(false);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         lblBloquearUbicacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/lock.png"))); // NOI18N
+        lblBloquearUbicacion.setToolTipText("Bloquear/Desbloquear");
+        lblBloquearUbicacion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblBloquearUbicacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBloquearUbicacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBloquearUbicacionMouseClicked(evt);
@@ -99,6 +104,9 @@ public class AdmUbicacion extends javax.swing.JFrame {
         jToolBar1.add(lblBloquearUbicacion);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.setToolTipText("Buscar");
+        lblBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBuscarMouseClicked(evt);
@@ -110,6 +118,9 @@ public class AdmUbicacion extends javax.swing.JFrame {
         jToolBar1.add(lblBuscar);
 
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.setToolTipText("Refrescar");
+        lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblRefrescarMouseClicked(evt);
@@ -117,6 +128,7 @@ public class AdmUbicacion extends javax.swing.JFrame {
         });
         jToolBar1.add(lblRefrescar);
 
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("                                                                                                                                                               ");
         jToolBar1.add(jLabel7);
 
@@ -127,15 +139,15 @@ public class AdmUbicacion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
         );
 
         pack();
