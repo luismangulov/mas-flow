@@ -209,7 +209,7 @@ public class ProductoDA {
 
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
             objProducto = null;
         }
 

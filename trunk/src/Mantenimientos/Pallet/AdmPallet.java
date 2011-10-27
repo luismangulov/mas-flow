@@ -186,9 +186,7 @@ private void lblEliminarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
     public void llenarDgv(ArrayList<PalletBE> arrPallets){
         
         DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
-        for(int i=modelo.getRowCount()-1; i>=0; i--){
-            modelo.removeRow(i);
-        }
+        limpiarDgv();
         this.arrPallets = arrPallets;
         dgvPallets.clearSelection();
         objProductoBL = new ProductoBL();                
@@ -219,7 +217,7 @@ private void lblEliminarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
                 strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
             }
             
-            modelo.addRow(new Object[]{strIdPallet,strNombreProducto,intMaxCantPallet,strIdentificadorRack,intFila,intColumna});
+            modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack,intMaxCantPallet,intFila,intColumna});
             
         }
     }
