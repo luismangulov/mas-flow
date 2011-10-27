@@ -11,6 +11,7 @@
 package Mantenimientos.Producto;
 
 import BusinessEntity.ProductoBE;
+import BusinessLogic.ProductoBL;
 import DataAccess.FamiliaDA;
 import DataAccess.ProductoDA;
 import DataAccess.UnidadMedidaDA;
@@ -204,6 +205,8 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
             JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
         else{
             idProducto = (String)dgvProductos.getValueAt(fila, 0);
+            ProductoBL objProductoBL = new ProductoBL();
+            objProductoBL.eliminar(idProducto);
         }
     }//GEN-LAST:event_lblEliminarMouseClicked
 
