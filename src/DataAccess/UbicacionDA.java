@@ -182,9 +182,9 @@ public class UbicacionDA {
         return arrUbicaciones;
     }
 
-    public UbicacionBE queryUbicacionByRackFilaColumna(String strIdRack, int intFila, int intColumna) {
+    public UbicacionBE queryUbicacionByRackFilaColumna(String strIdRack, int intFila, int intColumna, String indActivo) {
         objConexion = new conexion();
-        query = "SELECT * FROM UBICACION WHERE indActivo = '1' AND idRack = '" +strIdRack+ 
+        query = "SELECT * FROM UBICACION WHERE indActivo = '"+indActivo+"' AND idRack = '" +strIdRack+ 
                 "' AND fila ="+intFila+" AND columna ="+intColumna+"";
         rs = objConexion.EjecutarS(query);
         try {
@@ -201,10 +201,10 @@ public class UbicacionDA {
         return objUbicacion;
     }
 
-    public ArrayList<UbicacionBE> queryUbicacionesByZona(String strIdZona) {
+    public ArrayList<UbicacionBE> queryUbicacionesByZona(String strIdZona, String indActivo) {
         objConexion = new conexion();
         query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
-                + "FROM UBICACION A, RACK B WHERE A.idRack = B.idRack AND B.idZona = '" + strIdZona +"'";
+                + "FROM UBICACION A, RACK B WHERE A.indActivo = '"+indActivo+"' AND A.idRack = B.idRack AND B.idZona = '" + strIdZona +"'";
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
@@ -222,11 +222,11 @@ public class UbicacionDA {
         return arrUbicaciones;
     }
 
-    public ArrayList<UbicacionBE> queryUbicacionesByAlmacen(String strIdAlmacen) {
+    public ArrayList<UbicacionBE> queryUbicacionesByAlmacen(String strIdAlmacen, String indActivo) {
         objConexion = new conexion();
         query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
                 + "FROM UBICACION A, RACK B, ZONA C "
-                + "WHERE C.idZona = B.idZona AND A.idRack = B.idRack AND B.idZona AND C.idAlmacen= '" + strIdAlmacen +"'";
+                + "WHERE A.indActivo = '"+ indActivo +"' AND C.idZona = B.idZona AND A.idRack = B.idRack AND C.idAlmacen= '" + strIdAlmacen +"'";
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
