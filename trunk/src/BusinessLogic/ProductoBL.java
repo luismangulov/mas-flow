@@ -46,5 +46,10 @@ public class ProductoBL {
         objProductoDA = new ProductoDA();
         return objProductoDA.queryListSearch(idProducto, nombre, familia);
     }
+    
+    public ProductoBE getByNombreProducto(String nombreProducto){
+        objProductoDA = new ProductoDA();
+        return objProductoDA.queryByNombreProducto(nombreProducto);
+    }
 
 }
