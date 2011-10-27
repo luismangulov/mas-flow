@@ -176,11 +176,13 @@ private void lblEliminarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
     if (fila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
-        idPallet = (String)dgvPallets.getValueAt(fila, 0);
-        PalletBL objPalletBL = new PalletBL();
-        objPalletBL.eliminar(idPallet);
+        if (JOptionPane.showConfirmDialog(null, "La eliminación será permanente, ¿realmente desea realizar la acción?") == 0){
+            idPallet = (String)dgvPallets.getValueAt(fila, 0);
+            PalletBL objPalletBL = new PalletBL();
+            objPalletBL.eliminar(idPallet);
+            eliminaFilaDgv(fila);
+        }
     }
-    this.limpiarDgv();
 }//GEN-LAST:event_lblEliminarPalletMouseClicked
 
     public void llenarDgv(ArrayList<PalletBE> arrPallets){
@@ -228,6 +230,11 @@ private void lblEliminarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
         for(int i=modelo.getRowCount()-1; i>=0; i--){
             modelo.removeRow(i);
         }
+    }
+    
+    public void eliminaFilaDgv(int fila){
+        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();  
+        modelo.removeRow(fila);
     }
     
     

@@ -78,7 +78,7 @@ public class AdmProducto extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -90,7 +90,6 @@ public class AdmProducto extends javax.swing.JFrame {
             }
         });
         dgvProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        dgvProductos.setRowSelectionAllowed(true);
         dgvProductos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -98,8 +97,14 @@ public class AdmProducto extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(dgvProductos);
+        dgvProductos.getColumnModel().getColumn(0).setResizable(false);
         dgvProductos.getColumnModel().getColumn(0).setPreferredWidth(40);
+        dgvProductos.getColumnModel().getColumn(1).setResizable(false);
+        dgvProductos.getColumnModel().getColumn(2).setResizable(false);
+        dgvProductos.getColumnModel().getColumn(3).setResizable(false);
+        dgvProductos.getColumnModel().getColumn(4).setResizable(false);
         dgvProductos.getColumnModel().getColumn(4).setPreferredWidth(30);
+        dgvProductos.getColumnModel().getColumn(5).setResizable(false);
         dgvProductos.getColumnModel().getColumn(5).setPreferredWidth(30);
 
         jToolBar1.setFloatable(false);
@@ -107,11 +112,11 @@ public class AdmProducto extends javax.swing.JFrame {
 
         lblRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
         lblRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblRegistrarMousePressed(evt);
-            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblRegistrarMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRegistrarMousePressed(evt);
             }
         });
         jToolBar1.add(lblRegistrar);
