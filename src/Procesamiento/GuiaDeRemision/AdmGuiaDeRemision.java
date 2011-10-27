@@ -11,6 +11,7 @@
 package Procesamiento.GuiaDeRemision;
 
 import BusinessEntity.GuiaRemisionBE;
+import BusinessLogic.GuiaRemisionBL;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -37,9 +38,9 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGuiaRemision = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblAgregar = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
+        lblRefrescar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -77,24 +78,29 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel1MousePressed(evt);
+                lblAgregarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel1);
+        jToolBar1.add(lblAgregar);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel4MousePressed(evt);
+                lblBuscarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel4);
+        jToolBar1.add(lblBuscar);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
-        jToolBar1.add(jLabel5);
+        lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRefrescarMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblRefrescar);
 
         jLabel7.setText("                                                                                                                                  ");
         jToolBar1.add(jLabel7);
@@ -120,17 +126,23 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
 MantenimientoGuiaDeRemision m = new MantenimientoGuiaDeRemision(this);
 m.setVisible(true);
 // TODO add your handling code here:
-}//GEN-LAST:event_jLabel1MousePressed
+}//GEN-LAST:event_lblAgregarMousePressed
 
-private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
+private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 // TODO add your handling code here:
     BuscarGuiaDeRemision m = new BuscarGuiaDeRemision();
     m.setVisible(true);
-}//GEN-LAST:event_jLabel4MousePressed
+}//GEN-LAST:event_lblBuscarMousePressed
+
+    private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
+        // TODO add your handling code here:
+        GuiaRemisionBL objGuiaRemisionBL = new GuiaRemisionBL();
+        this.recargar(objGuiaRemisionBL.queryAllGuiaRemision());
+    }//GEN-LAST:event_lblRefrescarMousePressed
 
     /**
      * @param args the command line arguments
@@ -168,18 +180,18 @@ private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblAgregar;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblRefrescar;
     private javax.swing.JTable tblGuiaRemision;
     // End of variables declaration//GEN-END:variables
 
 
-    public void recargaruno(GuiaRemisionBE guiaRemision,String direccion){
+    public void recargaruno(GuiaRemisionBE guiaRemision,String razonSocial,String direccion){
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
@@ -200,7 +212,7 @@ private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
          modelo.addRow(new Object[5]);
         tblGuiaRemision.setValueAt(guiaRemision.getCodigo(),0,0 );
-        tblGuiaRemision.setValueAt(guiaRemision.getCliente().getIdEntidad(),0,1 );
+        tblGuiaRemision.setValueAt(razonSocial,0,1 );
         tblGuiaRemision.setValueAt(direccion,0,2 );
         //tblGuiaRemision.setValueAt(contacto,0,3 );
         tblGuiaRemision.setValueAt(guiaRemision.getFecha(),0,3 );
@@ -229,12 +241,12 @@ private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         
         for(int i = 0;i<guiaRemisiones.size();i++){
             modelo.addRow(new Object[5]);
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCodigo(),0,0 );
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getRazonSocial(),0,1 );
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getDireccion(),0,2 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCodigo(),i,0 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getRazonSocial(),i,1 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getDireccion(),i,2 );
             //tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getNombreContacto(),0,3 );
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getFecha(),0,3 );
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getEstado().getDescripcion(),0,4 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getFecha(),i,3 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getEstado().getDescripcion(),i,4 );
         }
         
     }

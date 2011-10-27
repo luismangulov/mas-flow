@@ -28,19 +28,20 @@ public class GuiaRemisionBE {
     public GuiaRemisionBE(String codigo,Date fecha,EntidadBE objCliente,EstadoGRBE estado){
         this.codigo = codigo;
         this.fecha = fecha;
-        this.cliente = null;
-        this.cliente.setIdEntidad(objCliente.getIdEntidad());
-        this.cliente.setNroDocumento(objCliente.getNroDocumento()) ;
-        this.cliente.setDireccion(objCliente.getDireccion());
-        this.cliente.setTelefono(objCliente.getTelefono());
-        this.cliente.setEmail(objCliente.getEmail());
-        this.cliente.setNombreContacto(objCliente.getNombreContacto());
-        this.cliente.setDniContacto(objCliente.getDniContacto());
-        this.cliente.setTelefonoContacto(objCliente.getTelefonoContacto());
-        this.cliente.setRazonSocial(objCliente.getRazonSocial());
-        this.cliente.setPaginaWeb(objCliente.getPaginaWeb());
-        this.cliente.setIndActivo(objCliente.getIndActivo());
-        this.cliente.setIdCIUU(objCliente.getIdCIUU());
+//        this.cliente = null;
+//        this.cliente.setIdEntidad(objCliente.getIdEntidad());
+//        this.cliente.setNroDocumento(objCliente.getNroDocumento()) ;
+//        this.cliente.setDireccion(objCliente.getDireccion());
+//        this.cliente.setTelefono(objCliente.getTelefono());
+//        this.cliente.setEmail(objCliente.getEmail());
+//        this.cliente.setNombreContacto(objCliente.getNombreContacto());
+//        this.cliente.setDniContacto(objCliente.getDniContacto());
+//        this.cliente.setTelefonoContacto(objCliente.getTelefonoContacto());
+//        this.cliente.setRazonSocial(objCliente.getRazonSocial());
+//        this.cliente.setPaginaWeb(objCliente.getPaginaWeb());
+//        this.cliente.setIndActivo(objCliente.getIndActivo());
+//        this.cliente.setIdCIUU(objCliente.getIdCIUU());
+        this.cliente = objCliente;
         this.estado = estado;
     }
     

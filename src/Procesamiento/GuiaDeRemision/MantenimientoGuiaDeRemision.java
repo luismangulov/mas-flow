@@ -313,7 +313,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
-        this.objPadre.recargaruno(objGuiaRemisionBE, cliente.getDireccion());
+        this.objPadre.recargaruno(objGuiaRemisionBE, cliente.getRazonSocial(),cliente.getDireccion());
         this.dispose();
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
