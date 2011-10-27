@@ -51,10 +51,10 @@ public class GuiaRemisionDA {
             
             while (rs.next()){
               
-                strCodigo = rs.getString(1);
+                strCodigo = rs.getString(1).trim();
                 fecha = rs.getDate(2);
-                strIdEntidad = rs.getString(3);
-                strCodEstado = rs.getString(4);
+                strIdEntidad = rs.getString(3).trim();
+                strCodEstado = rs.getString(4).trim();
                 EntidadBL objEntidadBL = new EntidadBL();
                 EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
                
@@ -109,10 +109,10 @@ public class GuiaRemisionDA {
             String strCodEstado;
             while (rs.next()){
               
-                strCodigo = rs.getString(1);
+                strCodigo = rs.getString(1).trim();
                 fecha = rs.getDate(2);
-                strIdEntidad = rs.getString(3);
-                strCodEstado = rs.getString(4);
+                strIdEntidad = rs.getString(3).trim();
+                strCodEstado = rs.getString(4).trim();
                 EntidadBL objEntidadBL = new EntidadBL();
                 EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
                

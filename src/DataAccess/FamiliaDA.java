@@ -48,10 +48,10 @@ public class FamiliaDA {
             String strEstado;
             while (rs.next()){
               
-                strCodigo = rs.getString(1);
-                strNombre = rs.getString(2);
-                strDescripcion = rs.getString(3);
-                strEstado = rs.getString(4);
+                strCodigo = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strDescripcion = rs.getString(3).trim();
+                strEstado = rs.getString(4).trim();
                 arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
             }
              
@@ -79,10 +79,10 @@ public class FamiliaDA {
             String strEstado;
             if (rs.next()){
               
-                strCodigo = rs.getString(1);
-                strNombre = rs.getString(2);
-                strDescripcion = rs.getString(3);
-                strEstado = rs.getString(4);
+                 strCodigo = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strDescripcion = rs.getString(3).trim();
+                strEstado = rs.getString(4).trim();
                 familia = new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado);
             }
              
@@ -110,10 +110,10 @@ public class FamiliaDA {
             String strEstado;
             if (rs.next()){
 
-                strCodigo = rs.getString(1);
-                strNombre = rs.getString(2);
-                strDescripcion = rs.getString(3);
-                strEstado = rs.getString(4);
+                 strCodigo = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strDescripcion = rs.getString(3).trim();
+                strEstado = rs.getString(4).trim();
                 familia = new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado);
             }
 
@@ -225,10 +225,10 @@ public class FamiliaDA {
             String strEstado;
             while (rs.next()){
               
-                strCodigo = rs.getString(1);
-                strNombre = rs.getString(2);
-                strDescripcion = rs.getString(3);
-                strEstado = rs.getString(4);
+                strCodigo = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strDescripcion = rs.getString(3).trim();
+                strEstado = rs.getString(4).trim();
                 arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
             }
              
