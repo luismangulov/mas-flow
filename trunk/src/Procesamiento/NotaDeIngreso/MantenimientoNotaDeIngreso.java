@@ -184,6 +184,11 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         lblRemover.setText("jLabel9");
         lblRemover.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRemover.setPreferredSize(new java.awt.Dimension(30, 30));
+        lblRemover.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRemoverMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -345,6 +350,18 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void lblRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverMousePressed
+        // TODO add your handling code here:
+        DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
+        if((tblProductos.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un producto", "Mensaje",0);
+        } else if((tblProductos.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de un producto", "Mensaje",0);
+        }else{
+            modelo.removeRow(tblProductos.getSelectedRow());
+        }
+    }//GEN-LAST:event_lblRemoverMousePressed
 
     /**
      * @param args the command line arguments

@@ -385,8 +385,14 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     private void lblRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverMousePressed
         // TODO add your handling code here:
-        //recargaruno(this.producto);
-        
+        DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
+        if((tblProductos.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un producto", "Mensaje",0);
+        } else if((tblProductos.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de un producto", "Mensaje",0);
+        }else{
+            modelo.removeRow(tblProductos.getSelectedRow());
+        }
     }//GEN-LAST:event_lblRemoverMousePressed
 
     /**
