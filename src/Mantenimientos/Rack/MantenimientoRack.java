@@ -58,6 +58,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); 
         initComponents();
         this.cargarComboAlmacen();
+        txtIdRack.setEnabled(false);
         this.accion = c;
         this.ventanaPadre = ventanaPadre;
         txtIdRack.setEnabled(false);
@@ -68,14 +69,13 @@ public class MantenimientoRack extends javax.swing.JFrame {
         this.accion = c;
         strIdRackObjetivo = idRack;
         this.ventanaPadre = ventanaPadre;
-        if (c=='M'){
-            initComponents();
-            objRackBL = new RackBL();
-            objRackBE = objRackBL.getByIdRack(strIdRackObjetivo);
-            this.setVisible(true);
-            this.cargarComponentes(objRackBE);
-        }
-        else eliminar();
+        initComponents();
+        objRackBL = new RackBL();
+        objRackBE = objRackBL.getByIdRack(strIdRackObjetivo);
+        this.setVisible(true);
+        this.cargarComponentes(objRackBE);
+        txtIdRack.setEnabled(false);
+
     }
     
     private void insertar(){
