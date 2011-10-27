@@ -39,8 +39,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
         this.txtCodigo.setEnabled(false);
-        
-                        
+                            
         this.setVisible(true);
     }
 
@@ -55,6 +54,14 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.txtCodigo.setEnabled(false);
         this.txtCodigo.setText(perfil.getIdPerfil());
         this.txtDescripcion.setText(perfil.getDescripcion());
+        String idIndPerfil=perfil.getIndActivo().trim();
+        if (idIndPerfil.equals("1"))
+        {
+            this.cbxActivo.setSelected(true);
+         
+        }else{
+            this.cbxActivo.setSelected(false);
+        }
         this.setVisible(true);
     }
 
