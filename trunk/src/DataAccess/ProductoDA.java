@@ -79,7 +79,7 @@ public class ProductoDA {
     public void eliminar(String idProducto) {
         boolExito = false;
         objConexion = new conexion();
-        query = "DELETE PRODUCTO WHERE idProducto ='"+idProducto+"'";
+        query = "DELETE FROM PRODUCTO WHERE idProducto ='"+idProducto+"'";
         try{
             objConexion.EjecutarUID(query);
         } catch (Exception e){
