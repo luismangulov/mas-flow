@@ -11,6 +11,7 @@
 package Procesamiento.NotaDeIngreso;
 
 import BusinessEntity.NotaIngresoBE;
+import BusinessLogic.NotaIngresoBL;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -37,9 +38,9 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNotaIngreso = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblAgregar = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
+        lblRefrescar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -49,20 +50,20 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         tblNotaIngreso.setAutoCreateRowSorter(true);
         tblNotaIngreso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Código", "Proveedor", "Direccion", "Contacto", "Fecha", "Estado"
+                "Código", "Proveedor", "Direccion", "Fecha", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -77,24 +78,29 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel1MousePressed(evt);
+                lblAgregarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel1);
+        jToolBar1.add(lblAgregar);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel4MousePressed(evt);
+                lblBuscarMousePressed(evt);
             }
         });
-        jToolBar1.add(jLabel4);
+        jToolBar1.add(lblBuscar);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
-        jToolBar1.add(jLabel5);
+        lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRefrescarMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblRefrescar);
 
         jLabel7.setText("                                                                                                                                  ");
         jToolBar1.add(jLabel7);
@@ -111,8 +117,6 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -122,17 +126,23 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-MantenimientoNotaDeIngreso m = new MantenimientoNotaDeIngreso(this);
-m.setVisible(true);
+private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
+    MantenimientoNotaDeIngreso m = new MantenimientoNotaDeIngreso(this);
+    m.setVisible(true);
 // TODO add your handling code here:
-}//GEN-LAST:event_jLabel1MousePressed
+}//GEN-LAST:event_lblAgregarMousePressed
 
-private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
+private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 // TODO add your handling code here:
     BuscarNotaDeIngreso m = new BuscarNotaDeIngreso();
-m.setVisible(true);
-}//GEN-LAST:event_jLabel4MousePressed
+    m.setVisible(true);
+}//GEN-LAST:event_lblBuscarMousePressed
+
+    private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
+        // TODO add your handling code here:
+        NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
+        this.recargar(objNotaIngresoBL.queryAllNotaIngreso());
+    }//GEN-LAST:event_lblRefrescarMousePressed
 
     /**
      * @param args the command line arguments
@@ -170,17 +180,17 @@ m.setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblAgregar;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblRefrescar;
     private javax.swing.JTable tblNotaIngreso;
     // End of variables declaration//GEN-END:variables
 
-public void recargaruno(NotaIngresoBE notaIngreso,String direccion,String contacto){
+public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String direccion){
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
@@ -193,7 +203,7 @@ public void recargaruno(NotaIngresoBE notaIngreso,String direccion,String contac
         modelo.addColumn("Código");
         modelo.addColumn("Cliente");
         modelo.addColumn("Dirección");
-        modelo.addColumn("Contacto");
+        
         modelo.addColumn("Fecha");
         modelo.addColumn("Estado");
 //        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -202,11 +212,11 @@ public void recargaruno(NotaIngresoBE notaIngreso,String direccion,String contac
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
          modelo.addRow(new Object[5]);
          tblNotaIngreso.setValueAt(notaIngreso.getCodigo(),0,0 );
-         tblNotaIngreso.setValueAt(notaIngreso.getProveedor().getIdEntidad(),0,1 );
+         tblNotaIngreso.setValueAt(razonSocial,0,1 );
          tblNotaIngreso.setValueAt(direccion,0,2 );
-         tblNotaIngreso.setValueAt(contacto,0,3 );
-         tblNotaIngreso.setValueAt(notaIngreso.getFecha(),0,4 );
-         tblNotaIngreso.setValueAt(notaIngreso.getEstado().getDescripcion(),0,5 );
+         
+         tblNotaIngreso.setValueAt(notaIngreso.getFecha(),0,3 );
+         tblNotaIngreso.setValueAt(notaIngreso.getEstado().getDescripcion(),0,4 );
     }
 
     public void recargar(ArrayList<NotaIngresoBE> notasIngreso){
@@ -222,7 +232,7 @@ public void recargaruno(NotaIngresoBE notaIngreso,String direccion,String contac
         modelo.addColumn("Código");
         modelo.addColumn("Cliente");
         modelo.addColumn("Dirección");
-        modelo.addColumn("Contacto");
+        
         modelo.addColumn("Fecha");
         modelo.addColumn("Estado");
 //        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -232,12 +242,12 @@ public void recargaruno(NotaIngresoBE notaIngreso,String direccion,String contac
         
         for(int i = 0;i<notasIngreso.size();i++){
             modelo.addRow(new Object[5]);
-             tblNotaIngreso.setValueAt(notasIngreso.get(i).getCodigo(),0,0 );
-             tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getIdEntidad(),0,1 );
-             tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getDireccion(),0,2 );
-             tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getNombreContacto(),0,3 );
-             tblNotaIngreso.setValueAt(notasIngreso.get(i).getFecha(),0,4 );
-             tblNotaIngreso.setValueAt(notasIngreso.get(i).getEstado().getDescripcion(),0,5 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getCodigo(),i,0 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getRazonSocial(),i,1 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getDireccion(),i,2 );
+             
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getFecha(),i,3 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getEstado().getDescripcion(),i,4 );
         }
         
     }

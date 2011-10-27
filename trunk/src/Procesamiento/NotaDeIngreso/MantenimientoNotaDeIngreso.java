@@ -119,17 +119,14 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nombre", "Cantidad", "Unidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Byte.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false
@@ -154,6 +151,11 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
 
         lblAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add24.png"))); // NOI18N
         lblAdd.setText("jLabel8");
@@ -269,6 +271,10 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         // TODO add your handling code here:
         Mantenimientos.Proveedor.AyudaProveedor m = new Mantenimientos.Proveedor.AyudaProveedor(this,true,this.proveedor);
         m.setVisible(true);
+        this.txtProveedor.setText(proveedor.getIdEntidad());
+        this.txtRuc.setText(proveedor.getNroDocumento());
+        this.txtNombre.setText(proveedor.getRazonSocial());
+        this.txtDireccion.setText(proveedor.getDireccion());
     }//GEN-LAST:event_lblAyudaMousePressed
 
     private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
@@ -301,7 +307,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
             }
         }
         objNotaIngresoBE = objNotaIngresoBL.getObjNotaIngresoBE();
-        this.objPadre.recargaruno(objNotaIngresoBE, null, null);
+        this.objPadre.recargaruno(objNotaIngresoBE, proveedor.getRazonSocial(), proveedor.getDireccion());
         this.dispose();
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
@@ -310,6 +316,11 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnGuardarMousePressed
+
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMousePressed
 
     /**
      * @param args the command line arguments
