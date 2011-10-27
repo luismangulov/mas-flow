@@ -15,6 +15,7 @@ import BusinessLogic.EntidadBL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -126,6 +127,11 @@ public class AdmCliente extends javax.swing.JFrame {
         lblEliminar.setToolTipText("Eliminar");
         lblEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarMousePressed(evt);
+            }
+        });
         tlbCliente.add(lblEliminar);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
@@ -237,6 +243,25 @@ private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST
     // TODO add your handling code here:
 }//GEN-LAST:event_formPropertyChange
 
+private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+    int respuesta = 0;
+        respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este cliente? Esta acción no podrá deshacerse.", "Eliminar cliente", 0);
+        if(respuesta == 0){
+            int fila;
+            String codigo;
+            fila = dgvCliente.getSelectedRow();
+            codigo = (String)dgvCliente.getValueAt(fila, 0);
+            EntidadBL objClienteBL = new EntidadBL();
+            try {
+                objClienteBL.eliminar(codigo);
+                this.lblRefrescarMousePressed(evt);
+            } catch (Exception ex) {
+                Logger.getLogger(AdmCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+// TODO add your handling code here:
+    }
+}//GEN-LAST:event_lblEliminarMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -294,34 +319,71 @@ private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST
     }
     
     public void recargaruno(EntidadBE cliente){
-        
-        DefaultTableModel modelo=(DefaultTableModel) dgvCliente.getModel();
-        modelo.addRow(new Object[6]);
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        dgvCliente.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Contacto");
+        modelo.addColumn("Teléfono");
+
+
+        modelo.addRow(new Object[5]);
         dgvCliente.clearSelection();
         dgvCliente.setValueAt(cliente.getIdEntidad(),0,0 );
-        dgvCliente.setValueAt(cliente.getNroDocumento(),0,1 );
-        dgvCliente.setValueAt(cliente.getRazonSocial(),0,2 );
-        dgvCliente.setValueAt(cliente.getTelefono(),0,3);
-        dgvCliente.setValueAt(cliente.getEmail(),0,4 );
-        dgvCliente.setValueAt(cliente.getNombreContacto(),0,5 );
-    }
-    
-    public void recargar(ArrayList<EntidadBE> clientes){
-        
-        
-        
-        DefaultTableModel modelo=(DefaultTableModel) dgvCliente.getModel();
-        dgvCliente.clearSelection();
-        
-        for(int i=0;i<clientes.size();i++){
-            modelo.addRow(new Object[6]);
-            dgvCliente.setValueAt(clientes.get(i).getIdEntidad(),i,0 );
-            dgvCliente.setValueAt(clientes.get(i).getNroDocumento(),i,1 );
-            dgvCliente.setValueAt(clientes.get(i).getRazonSocial(),i,2 );
-            dgvCliente.setValueAt(clientes.get(i).getTelefono(),i,3 );
-            dgvCliente.setValueAt(clientes.get(i).getEmail(),i,4 );
-            dgvCliente.setValueAt(clientes.get(i).getNombreContacto(),i,5 );
+        dgvCliente.setValueAt(cliente.getRazonSocial(),0,1 );
+        //dgvCliente.setValueAt(cliente.getIndActivo(),0,2 );
+
+        if(cliente.getIndActivo().equals("1")){
+                dgvCliente.setValueAt("Activo",0,2 );
+            }else if(cliente.getIndActivo().equals("0")){
+                dgvCliente.setValueAt("Inactivo",0,2 );
         }
+        dgvCliente.setValueAt(cliente.getNombreContacto(),0,3);
+        dgvCliente.setValueAt(cliente.getTelefonoContacto(),0,4 );
+
+    }
+
+    public void recargar(ArrayList<EntidadBE> clientes){
+
+
+
+        DefaultTableModel modelo= new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
+        dgvCliente.setModel(modelo);
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Contacto");
+        modelo.addColumn("Teléfono");
+
+        for(int i=0;i<clientes.size();i++){
+        modelo.addRow(new Object[5]);
+        dgvCliente.clearSelection();
+        dgvCliente.setValueAt(clientes.get(i).getIdEntidad(),i,0 );
+        dgvCliente.setValueAt(clientes.get(i).getRazonSocial(),i,1 );
+        //dgvCliente.setValueAt(clientes.get(i).getIndActivo(),i,2 );
+
+        if(clientes.get(i).getIndActivo().equals("1")){
+                dgvCliente.setValueAt("Activo",i,2 );
+            }else if(clientes.get(i).getIndActivo().equals("0")){
+                dgvCliente.setValueAt("Inactivo",i,2 );
+        }
+
+        dgvCliente.setValueAt(clientes.get(i).getNombreContacto(),i,3);
+        dgvCliente.setValueAt(clientes.get(i).getTelefonoContacto(),i,4 );
+
+
+             }
     }
 
 
