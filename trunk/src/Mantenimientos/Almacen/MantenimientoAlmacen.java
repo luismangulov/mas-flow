@@ -41,7 +41,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
-        this.llenarComboDepartamentos();
+        /*this.llenarComboDepartamentos();*/
         this.setTitle("+Flow - Registrar almacén");
         this.cbxActivo.setEnabled(false);
         this.setVisible(true);
@@ -67,7 +67,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         txtLargo.setText(String.valueOf(almacen.getLargo()));
         txtAncho.setText(String.valueOf(almacen.getAncho()));
 
-        this.llenarComboDepartamentos();
+        /*this.llenarComboDepartamentos();
         DepartamentoBE departamento = DepartamentoDA.queryDepartamento(almacen.getIdDepartamento());
         cmbDepartamento.setSelectedItem(departamento.getDescripcion());
         this.llenarComboProvincias();
@@ -76,7 +76,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         this.llenarComboDistritos();
         DistritoBE distrito = DistritoDA.queryDistrito(almacen.getIdDepartamento(), almacen.getIdProvincia(), almacen.getIdDistrito());
         cmbDistrito.setSelectedItem(distrito.getDescripcion());
-
+        */
             if (almacen.getIndActivo().equals("1")){
                 cbxActivo.setSelected(true);
             } else{
@@ -108,8 +108,6 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         txtLargo = new javax.swing.JTextField();
         txtAncho = new javax.swing.JTextField();
-        cmbDepartamento = new javax.swing.JComboBox();
-        cmbProvincia = new javax.swing.JComboBox();
         cmbDistrito = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -122,6 +120,8 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         cbxActivo = new javax.swing.JCheckBox();
+        cmbDepartamento = new javax.swing.JComboBox();
+        cmbProvincia = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar almacén");
@@ -139,23 +139,6 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         jLabel6.setText("Distrito:");
 
         txtCodigo.setEditable(false);
-
-        cmbDepartamento.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbDepartamentoItemStateChanged(evt);
-            }
-        });
-        cmbDepartamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbDepartamentoActionPerformed(evt);
-            }
-        });
-
-        cmbProvincia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbProvinciaActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("mts.");
 
@@ -191,6 +174,18 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         cbxActivo.setSelected(true);
         cbxActivo.setText("Activo");
 
+        cmbDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDepartamentoActionPerformed(evt);
+            }
+        });
+
+        cmbProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProvinciaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -217,12 +212,11 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
                                             .addComponent(cbxActivo))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbProvincia, 0, 196, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtDireccion)
                                 .addComponent(cmbDistrito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
                                 .addComponent(txtTelefono))
                             .addGroup(layout.createSequentialGroup()
@@ -232,7 +226,8 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
-                                    .addComponent(jLabel7)))))
+                                    .addComponent(jLabel7)))
+                            .addComponent(cmbDepartamento, 0, 196, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,7 +282,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                .addGap(46, 46, 46))
         );
 
         pack();
@@ -314,18 +309,18 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
                     almacenBL.insertar(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
                     Double.parseDouble(txtAncho.getText()),txtDireccion.getText(),txtTelefono.getText(),
-                    distritos.get(cmbDistrito.getSelectedIndex()).getIdDistrito(),
+                    /*distritos.get(cmbDistrito.getSelectedIndex()).getIdDistrito(),
                     provincias.get(cmbProvincia.getSelectedIndex()).getIdProvincia(),
-                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(),  indActivo );
+                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(), */ "","","", indActivo );
                     AlmacenBE almacen = almacenBL.getAlmacen();
                     this.objPadre.recargaruno(almacen);
                     this.dispose();
             } else {
                 AlmacenBE almacen = new AlmacenBE(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
                     Double.parseDouble(txtAncho.getText()),txtDireccion.getText(),txtTelefono.getText(),
-                    distritos.get(cmbDistrito.getSelectedIndex()).getIdDistrito(),
+                    /*distritos.get(cmbDistrito.getSelectedIndex()).getIdDistrito(),
                     provincias.get(cmbProvincia.getSelectedIndex()).getIdProvincia(),
-                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(),  indActivo);
+                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(),*/"","","",  indActivo);
 
                     almacenBL.modificar(almacen);
                         int fila;
@@ -357,16 +352,16 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_btnGuardarMousePressed
 
 private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
-     this.llenarComboProvincias();  // TODO add your handling code here:
+    if (cmbDepartamento.getSelectedIndex()!=0){
+        this.llenarComboProvincias();
+    }// TODO add your handling code here:
 }//GEN-LAST:event_cmbDepartamentoActionPerformed
 
 private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciaActionPerformed
-    this.llenarComboDistritos();    // TODO add your handling code here:
+    if (cmbProvincia.getSelectedIndex()!=0){
+        this.llenarComboDistritos();
+    }// TODO add your handling code here:
 }//GEN-LAST:event_cmbProvinciaActionPerformed
-
-private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDepartamentoItemStateChanged
-    this.llenarComboProvincias();// TODO add your handling code here:
-}//GEN-LAST:event_cmbDepartamentoItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -399,7 +394,10 @@ private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GE
     // End of variables declaration//GEN-END:variables
 
     private void llenarComboDepartamentos() {
-       try {
+       
+        cmbDepartamento.removeAllItems();
+        
+        try {
 
            departamentos = DataAccess.DepartamentoDA.queryAllDepartamento();
         cmbDepartamento.addItem("Seleccione");
@@ -412,10 +410,12 @@ private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GE
     }
 
     private void llenarComboProvincias() {
-        try {
+        
             if (distritos.size()>0)this.distritos.clear();
             if (provincias.size()>0)this.provincias.clear();
-            provincias = DataAccess.ProvinciaDA.queryAllProvincia(
+            this.cmbProvincia.removeAllItems();
+            this.cmbDistrito.removeAllItems();
+         try {   provincias = DataAccess.ProvinciaDA.queryAllProvincia(
                     departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento());
         cmbProvincia.addItem("Seleccione");
         for (ProvinciaBE Provincia : provincias){
@@ -428,10 +428,11 @@ private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GE
     }
 
     private void llenarComboDistritos() {
-        try {
+        
 
              if (distritos.size()>0)this.distritos.clear();
-            distritos = DataAccess.DistritoDA.queryAllDistrito(
+             this.cmbDistrito.removeAllItems();
+        try {    distritos = DataAccess.DistritoDA.queryAllDistrito(
                 departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(),
                 provincias.get(cmbProvincia.getSelectedIndex()).getIdProvincia());
         cmbDistrito.addItem("Seleccione");

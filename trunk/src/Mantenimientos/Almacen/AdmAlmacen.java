@@ -197,7 +197,9 @@ m.setVisible(true);
 
     private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
         AlmacenBL objAlmacenBL = new AlmacenBL();
+        try{
         this.recargar(objAlmacenBL.getAllAlmacenActivo());
+        } catch (Exception e){}
         // TODO add your handling code here:
     }//GEN-LAST:event_lblRefrescarMousePressed
 
@@ -317,13 +319,14 @@ public javax.swing.JTable getDgvAlmacen() {
         modelo.addRow(new Object[6]);
         dgvAlmacen.setValueAt(almacen.getIdAlmacen(),0,0 );
         dgvAlmacen.setValueAt(almacen.getNombre(),0,1 );
+        try{
         DistritoDA a= new DistritoDA();
         dgvAlmacen.setValueAt(a.queryDistrito(almacen.getIdDepartamento(), almacen.getIdProvincia(), almacen.getIdDistrito()).getDescripcion(),0,3 );
         ProvinciaDA b= new ProvinciaDA();
         dgvAlmacen.setValueAt(b.queryProvincia(almacen.getIdDepartamento(), almacen.getIdProvincia()).getDescripcion(),0,4 );
         DepartamentoDA c= new DepartamentoDA();
         dgvAlmacen.setValueAt(c.queryDepartamento(almacen.getIdDepartamento()).getDescripcion(),0,5 );
-
+        } catch (Exception e){}
         if(almacen.getIndActivo().equals("1")){
              dgvAlmacen.setValueAt("Activo",0,2 );
         }else if(almacen.getIndActivo().equals("0")){
@@ -349,19 +352,21 @@ public javax.swing.JTable getDgvAlmacen() {
          for(int i=0;i<allAlmacen.size();i++){
 
             modelo.addRow(new Object[6]);
-            dgvAlmacen.setValueAt(allAlmacen.get(i).getIdAlmacen(),0,0 );
-            dgvAlmacen.setValueAt(allAlmacen.get(i).getNombre(),0,1 );
+            dgvAlmacen.setValueAt(allAlmacen.get(i).getIdAlmacen(),i,0 );
+            dgvAlmacen.setValueAt(allAlmacen.get(i).getNombre(),i,1 );
             DistritoDA a= new DistritoDA();
-            dgvAlmacen.setValueAt(a.queryDistrito(allAlmacen.get(i).getIdDepartamento(), allAlmacen.get(i).getIdProvincia(), allAlmacen.get(i).getIdDistrito()).getDescripcion(),0,3 );
+            try{
+            dgvAlmacen.setValueAt(a.queryDistrito(allAlmacen.get(i).getIdDepartamento(), allAlmacen.get(i).getIdProvincia(), allAlmacen.get(i).getIdDistrito()).getDescripcion(),i,3 );
             ProvinciaDA b= new ProvinciaDA();
-            dgvAlmacen.setValueAt(b.queryProvincia(allAlmacen.get(i).getIdDepartamento(), allAlmacen.get(i).getIdProvincia()).getDescripcion(),0,4 );
+            dgvAlmacen.setValueAt(b.queryProvincia(allAlmacen.get(i).getIdDepartamento(), allAlmacen.get(i).getIdProvincia()).getDescripcion(),i,4 );
             DepartamentoDA c= new DepartamentoDA();
-            dgvAlmacen.setValueAt(c.queryDepartamento(allAlmacen.get(i).getIdDepartamento()).getDescripcion(),0,5 );
-
+            dgvAlmacen.setValueAt(c.queryDepartamento(allAlmacen.get(i).getIdDepartamento()).getDescripcion(),i,5 );
+             } catch (Exception e) {
+             }
             if(allAlmacen.get(i).getIndActivo().equals("1")){
-                 dgvAlmacen.setValueAt("Activo",0,2 );
+                 dgvAlmacen.setValueAt("Activo",i,2 );
             }else if(allAlmacen.get(i).getIndActivo().equals("0")){
-                 dgvAlmacen.setValueAt("Inactivo",0,2 );
+                 dgvAlmacen.setValueAt("Inactivo",i,2 );
             }
 
         }
