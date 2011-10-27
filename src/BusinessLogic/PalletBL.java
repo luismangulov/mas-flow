@@ -42,5 +42,9 @@ public class PalletBL {
         return objPalletDA.queryByIdUbicacion(strIdUbicacion);
     }
     
+    public void reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino){
+        objPalletDA = new PalletDA();
+        objPalletDA.reubicarPallet(strIdPallet,strIdUbicacionOrigen,strIdUbicacionDestino);
+    }
     
 }
