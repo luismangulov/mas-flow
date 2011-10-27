@@ -204,17 +204,20 @@ public class RackDA {
         
     } 
     
-    public ArrayList<RackBE> queryListSearch(String idRack, String idZona, String indActivos) {
+    public ArrayList<RackBE> queryListSearch(String idAlmacen, String idRack, String idZona, String indActivos) {
         
         objConexion = new conexion();
-        query = "SELECT * FROM RACK WHERE indActivo ='" +indActivos+"'";
+        //SELECT r.idrack, r.posx, r.posy, r.pisos, r.columnas, r.indactivo, r.idzona, r.identificador FROM RACK r, ZONA z 
+        //WHERE r.idzona = z.idzona AND z.idAlmacen = '000001' AND r.indActivo ='1'
+        query = "SELECT r.idrack, r.posx, r.posy, r.pisos, r.columnas, r.indactivo, r.idzona, r.identificador"
+                + " FROM RACK r, ZONA z WHERE r.idzona = z.idzona AND z.idAlmacen = '" + idAlmacen + "' AND r.indActivo ='" +indActivos+"'";
 
         if (!idRack.equals(""))
-            query = query + " AND idRack LIKE '%" + idRack + "%'";
+            query = query + " AND r.idRack LIKE '%" + idRack + "%'";
         
         
         if (!idZona.equals(""))
-                query = query + " AND idZona LIKE '%" + idZona + "%'";
+                query = query + " AND z.idZona LIKE '%" + idZona + "%'";
         
 
         rs = objConexion.EjecutarS(query);

@@ -160,8 +160,15 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         
+        objAlmacenBL = new AlmacenBL();
+        String strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+    
         objZonaBL = new ZonaBL();
-        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+        if (!cbZona.getSelectedItem().toString().equals(""))
+            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+        else
+            strIdZona = "";
+        
         strIdRack = txtIdRack.getText();
         
         if (chbxActivos.isSelected())
@@ -170,7 +177,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             strIndActivo = "0";
             
         objRackBL = new RackBL();
-        arrRacks = objRackBL.getListSearch(strIdRack, strIdZona, strIndActivo);
+        arrRacks = objRackBL.getListSearch(strIdAlmacen, strIdRack, strIdZona, strIndActivo);
         
         if (arrRacks.size()!=0){
             ventanaPadre.llenarDgv(arrRacks);

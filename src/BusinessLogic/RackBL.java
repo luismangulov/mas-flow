@@ -40,9 +40,9 @@ public class RackBL {
         return objRackDA.queryAllActivo();
     }    
     
-    public ArrayList<RackBE> getListSearch(String idRack, String idZona, String indActivos){
+    public ArrayList<RackBE> getListSearch(String idAlmacen, String idRack, String idZona, String indActivos){
         objRackDA = new RackDA();
-        return objRackDA.queryListSearch(idRack, idZona, indActivos);
+        return objRackDA.queryListSearch(idAlmacen, idRack, idZona, indActivos);
     }
 
     public ArrayList<RackBE> getRacksByZona(String idZona) {
