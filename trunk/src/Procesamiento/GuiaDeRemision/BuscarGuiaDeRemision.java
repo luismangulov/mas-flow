@@ -14,6 +14,7 @@ import BusinessEntity.EstadoGRBE;
 import BusinessEntity.GuiaRemisionBE;
 import BusinessLogic.EstadoGRBL;
 import BusinessLogic.GuiaRemisionBL;
+import Util.Utilitario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -84,6 +85,17 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoActionPerformed(evt);
+            }
+        });
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
+
+        txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClienteKeyTyped(evt);
             }
         });
 
@@ -185,6 +197,26 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        // TODO add your handling code here:
+         char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtCodigo.getText().length() + 1) > 6) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyTyped
+        // TODO add your handling code here:
+         char c = (char)evt.getKeyChar();
+       if (!Utilitario.validarCadenaAlfaNumerica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtCliente.getText().length() + 1) > 60) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtClienteKeyTyped
 
     /**
      * @param args the command line arguments

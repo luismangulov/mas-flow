@@ -14,6 +14,7 @@ import BusinessEntity.EstadoNIBE;
 import BusinessEntity.NotaIngresoBE;
 import BusinessLogic.EstadoNIBL;
 import BusinessLogic.NotaIngresoBL;
+import Util.Utilitario;
 import java.util.ArrayList;
 
 /**
@@ -57,6 +58,11 @@ public class BuscarNotaDeIngreso extends javax.swing.JFrame {
                 txtCodigoActionPerformed(evt);
             }
         });
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("Proveedor:");
 
@@ -84,6 +90,12 @@ public class BuscarNotaDeIngreso extends javax.swing.JFrame {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProveedorKeyTyped(evt);
             }
         });
 
@@ -178,6 +190,26 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        // TODO add your handling code here:
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtCodigo.getText().length() + 1) > 6) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProveedorKeyTyped
+        // TODO add your handling code here:
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfaNumerica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtProveedor.getText().length() + 1) > 60) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtProveedorKeyTyped
 
     /**
      * @param args the command line arguments

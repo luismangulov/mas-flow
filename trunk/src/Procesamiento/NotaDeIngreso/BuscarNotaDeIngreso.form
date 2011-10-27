@@ -82,6 +82,7 @@
     <Component class="javax.swing.JTextField" name="txtCodigo">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCodigoActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -116,6 +117,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtProveedor">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtProveedorKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbxEstado">
       <Properties>

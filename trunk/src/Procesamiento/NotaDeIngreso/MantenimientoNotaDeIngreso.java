@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -99,6 +100,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
 
         jLabel1.setText("Código*:");
 
+        jTextField1.setEditable(false);
         jTextField1.setEnabled(false);
 
         jLabel2.setText("Fecha*:");
@@ -299,7 +301,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         // TODO add your handling code here:
         NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
         NotaIngresoBE objNotaIngresoBE;
-       
+   if(this.valida()){     
     try {
         if(objNotaIngresoBL.insertar(this.jdcFecha.getDate(),this.txtProveedor.getText())){
             
@@ -323,7 +325,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
     }
-
+   }
         
         
     }//GEN-LAST:event_btnGuardarMousePressed
@@ -405,5 +407,18 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
          tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
     }
 
+    private boolean valida(){
+        boolean esValido = true;
 
+        if(this.tblProductos.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Debe elegir uno o varios productos", "Mensaje",1);
+            esValido = false;
+        }
+
+        
+
+        return esValido;
+    }
+    
+    
 }

@@ -32,7 +32,7 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
        
         initComponents();
          this.setLocationRelativeTo(null); 
-        this.setTitle("+Flow - Registrar cliente");
+        this.setTitle("+Flow - Registrar familia de productos");
                         
         this.setVisible(true);
     }
@@ -44,7 +44,7 @@ public class MantenimientoFamiliaProd extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.cbxActivo.setEnabled(true);
-        this.setTitle("+Flow - Editar cliente");
+        this.setTitle("+Flow - Editar familia de productos");
         this.txtCodigo.setText(familia.getIdFamilia());
         this.txtNombre.setText(familia.getNombre());
         this.txtDescripcion.setText(familia.getDescripcion());
