@@ -301,7 +301,6 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
                 try {
-                    
                    objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBE.getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)this.tblProductos.getValueAt(i, 2)));
                    
                 } catch (FileNotFoundException ex) {
