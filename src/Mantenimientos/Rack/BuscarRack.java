@@ -10,8 +10,10 @@
  */
 package Mantenimientos.Rack;
 
+import BusinessEntity.AlmacenBE;
 import BusinessEntity.RackBE;
 import BusinessEntity.ZonaBE;
+import BusinessLogic.AlmacenBL;
 import BusinessLogic.RackBL;
 import BusinessLogic.ZonaBL;
 import DataAccess.ZonaDA;
@@ -34,24 +36,18 @@ public class BuscarRack extends javax.swing.JFrame {
     String strIdRack;
     AdmRack ventanaPadre;
     String strIndActivo;
+    AlmacenBL objAlmacenBL;
     
     
     public BuscarRack(AdmRack ventanaPadre) {
         initComponents();
-        this.cargarComboZona();
+        this.cargarComboAlmacen();
         this.ventanaPadre = ventanaPadre;
         chbxActivos.setSelected(true);
     }
 
-    private void cargarComboZona(){
-        
-        objZonaDA = new ZonaDA();
-        arrZonas = new ArrayList<ZonaBE>();
-        arrZonas = objZonaDA.queryAllZona();
-        for(ZonaBE zona : arrZonas)
-            cbZona.addItem(zona.getIdentificador());
-        
-    }
+
+
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -69,6 +65,8 @@ public class BuscarRack extends javax.swing.JFrame {
         txtIdRack = new javax.swing.JTextField();
         cbZona = new javax.swing.JComboBox();
         chbxActivos = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        cbAlmacen = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar rack");
@@ -96,51 +94,61 @@ public class BuscarRack extends javax.swing.JFrame {
 
         chbxActivos.setText("Activos");
 
+        jLabel3.setText("Almacén:");
+
+        cbAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAlmacenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+                        .addGap(37, 37, 37)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chbxActivos)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(chbxActivos)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel3)
+                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(chbxActivos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar))
-                .addGap(25, 25, 25))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -172,6 +180,12 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         else
             JOptionPane.showMessageDialog(null, "No existen productos de dicho criterio", "Advertencia", 0);
 }//GEN-LAST:event_btnBuscarMouseClicked
+
+private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
+        String strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+        cargarComboZona(strIdAlmacen);
+        
+}//GEN-LAST:event_cbAlmacenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,10 +225,43 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox cbAlmacen;
     private javax.swing.JComboBox cbZona;
     private javax.swing.JCheckBox chbxActivos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtIdRack;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarComboZona(String idAlmacen){
+        
+        cbZona.removeAllItems();
+
+        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+        objZonaBL = new ZonaBL();
+        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+        
+        cbZona.addItem("");
+        
+        if (arrZonas != null)
+            for(ZonaBE zona : arrZonas)
+                cbZona.addItem(zona.getIdentificador());
+        
+    }
+    
+    private void cargarComboAlmacen(){
+        
+        cbAlmacen.removeAllItems();
+        cbZona.removeAllItems();
+       
+        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+        objAlmacenBL = new AlmacenBL();
+        arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
+        
+        if (arrAlmacenes != null)
+            for(AlmacenBE almacen : arrAlmacenes)
+                cbAlmacen.addItem(almacen.getIdAlmacen());
+
+    }
 }
