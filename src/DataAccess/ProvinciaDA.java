@@ -23,7 +23,7 @@ public class ProvinciaDA {
         ResultSet rs = null;
         ArrayList<ProvinciaBE> arrProvincia = new ArrayList<ProvinciaBE>();
         String sql = "SELECT idDepartamento, idProvincia, descripcion "
-                + "FROM distrito where idDepartamento='"+idDepartamento+"' order by 3";
+                + "FROM provincia where idDepartamento='"+idDepartamento+"' order by 3";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdDepartamento;
@@ -55,7 +55,7 @@ public class ProvinciaDA {
         ResultSet rs = null;
         ProvinciaBE provincia = new ProvinciaBE("","","");
         String sql = "SELECT idDepartamento, idProvincia, descripcion "
-                + "FROM distrito where idDepartamento='"+idDepartamento+"' and idProvincia='"+idProvincia+"' ";
+                + "FROM provincia where idDepartamento='"+idDepartamento+"' and idProvincia='"+idProvincia+"' ";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdDepartamento;
