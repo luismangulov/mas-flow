@@ -11,18 +11,31 @@
 package Mantenimientos.Almacen;
 import BusinessEntity.AlmacenBE;
 import BusinessLogic.AlmacenBL;
+import java.util.ArrayList;
+import BusinessEntity.DepartamentoBE;
+import DataAccess.DepartamentoDA;
+import BusinessEntity.ProvinciaBE;
+import DataAccess.ProvinciaDA;
+import BusinessEntity.DistritoBE;
+import DataAccess.DistritoDA;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author DIEGO
  */
 public class BuscarAlmacen extends javax.swing.JFrame {
     private AdmAlmacen ventanaPadre ;
+    private ArrayList<DepartamentoBE> departamentos= new ArrayList<DepartamentoBE>();
+    private ArrayList<ProvinciaBE> provincias= new ArrayList<ProvinciaBE>();
+    private ArrayList<DistritoBE> distritos= new ArrayList<DistritoBE>();
     /** Creates new form BuscarAlmacen */
     
     public BuscarAlmacen(AdmAlmacen padre) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventanaPadre=padre;
+        this.llenarComboDepartamentos();
     }
 
     /** This method is called from within the constructor to
@@ -53,6 +66,18 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         setTitle("+Flow - Buscar almacén");
 
         jLabel1.setText("Código:");
+
+        cmbProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProvinciaActionPerformed(evt);
+            }
+        });
+
+        cmbDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDepartamentoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Distrito:");
 
@@ -170,9 +195,28 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         if (cmbEstado.getSelectedItem()=="Inactivos"){
         indActivo="0";
         }
-        this.ventanaPadre.recargar(a.buscar(txtCodigo.getText(), txtNombre.getText(), indActivo, "", "", ""));
+
+        String dep="";
+        String prov="";
+        String dist="";
+
+        this.ventanaPadre.recargar(a.buscar(txtCodigo.getText(), txtNombre.getText(), indActivo, dep, prov, dist));
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarMousePressed
+
+    private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
+
+        if (cmbDepartamento.getSelectedIndex()!=0){
+        this.llenarComboProvincias();
+    }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDepartamentoActionPerformed
+
+    private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciaActionPerformed
+    if (cmbProvincia.getSelectedIndex()!=0){
+        this.llenarComboDistritos();
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbProvinciaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,4 +238,54 @@ public class BuscarAlmacen extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+    private void llenarComboDepartamentos() {
+
+        cmbDepartamento.removeAllItems();
+
+        try {
+
+           departamentos = DataAccess.DepartamentoDA.queryAllDepartamento();
+        cmbDepartamento.addItem("Seleccione");
+        for (DepartamentoBE Departamento : departamentos){
+            cmbDepartamento.addItem((Departamento.getDescripcion()));
+        }
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void llenarComboProvincias() {
+
+            if (distritos.size()>0)this.distritos.clear();
+            if (provincias.size()>0)this.provincias.clear();
+            this.cmbProvincia.removeAllItems();
+            this.cmbDistrito.removeAllItems();
+         try {   provincias = DataAccess.ProvinciaDA.queryAllProvincia(
+                    departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento());
+        cmbProvincia.addItem("Seleccione");
+        for (ProvinciaBE Provincia : provincias){
+            cmbProvincia.addItem((Provincia.getDescripcion()));
+
+        }
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void llenarComboDistritos() {
+
+
+             if (distritos.size()>0)this.distritos.clear();
+             this.cmbDistrito.removeAllItems();
+        try {    distritos = DataAccess.DistritoDA.queryAllDistrito(
+                departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),
+                provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia());
+        cmbDistrito.addItem("Seleccione");
+        for (DistritoBE Distrito : distritos){
+            cmbDistrito.addItem((Distrito.getDescripcion()));
+        }
+} catch (Exception ex) {
+            Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
