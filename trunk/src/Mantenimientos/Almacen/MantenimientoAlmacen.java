@@ -41,7 +41,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
-        /*this.llenarComboDepartamentos();*/
+        this.llenarComboDepartamentos();
         this.setTitle("+Flow - Registrar almacén");
         this.cbxActivo.setEnabled(false);
         this.setVisible(true);
@@ -67,7 +67,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         txtLargo.setText(String.valueOf(almacen.getLargo()));
         txtAncho.setText(String.valueOf(almacen.getAncho()));
 
-        /*this.llenarComboDepartamentos();
+        this.llenarComboDepartamentos();
         DepartamentoBE departamento = DepartamentoDA.queryDepartamento(almacen.getIdDepartamento());
         cmbDepartamento.setSelectedItem(departamento.getDescripcion());
         this.llenarComboProvincias();
@@ -76,7 +76,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         this.llenarComboDistritos();
         DistritoBE distrito = DistritoDA.queryDistrito(almacen.getIdDepartamento(), almacen.getIdProvincia(), almacen.getIdDistrito());
         cmbDistrito.setSelectedItem(distrito.getDescripcion());
-        */
+        
             if (almacen.getIndActivo().equals("1")){
                 cbxActivo.setSelected(true);
             } else{
@@ -309,18 +309,18 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
                     almacenBL.insertar(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
                     Double.parseDouble(txtAncho.getText()),txtDireccion.getText(),txtTelefono.getText(),
-                    /*distritos.get(cmbDistrito.getSelectedIndex()).getIdDistrito(),
-                    provincias.get(cmbProvincia.getSelectedIndex()).getIdProvincia(),
-                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(), */ "","","", indActivo );
+                    distritos.get(cmbDistrito.getSelectedIndex()-1).getIdDistrito(),
+                    provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia(),
+                    departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(), indActivo );
                     AlmacenBE almacen = almacenBL.getAlmacen();
                     this.objPadre.recargaruno(almacen);
                     this.dispose();
             } else {
                 AlmacenBE almacen = new AlmacenBE(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
                     Double.parseDouble(txtAncho.getText()),txtDireccion.getText(),txtTelefono.getText(),
-                    /*distritos.get(cmbDistrito.getSelectedIndex()).getIdDistrito(),
-                    provincias.get(cmbProvincia.getSelectedIndex()).getIdProvincia(),
-                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(),*/"","","",  indActivo);
+                    distritos.get(cmbDistrito.getSelectedIndex()-1).getIdDistrito(),
+                    provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia(),
+                    departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),  indActivo);
 
                     almacenBL.modificar(almacen);
                         int fila;
@@ -416,7 +416,7 @@ private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             this.cmbProvincia.removeAllItems();
             this.cmbDistrito.removeAllItems();
          try {   provincias = DataAccess.ProvinciaDA.queryAllProvincia(
-                    departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento());
+                    departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento());
         cmbProvincia.addItem("Seleccione");
         for (ProvinciaBE Provincia : provincias){
             cmbProvincia.addItem((Provincia.getDescripcion()));
@@ -433,8 +433,8 @@ private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
              if (distritos.size()>0)this.distritos.clear();
              this.cmbDistrito.removeAllItems();
         try {    distritos = DataAccess.DistritoDA.queryAllDistrito(
-                departamentos.get(cmbDepartamento.getSelectedIndex()).getIdDepartamento(),
-                provincias.get(cmbProvincia.getSelectedIndex()).getIdProvincia());
+                departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),
+                provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia());
         cmbDistrito.addItem("Seleccione");
         for (DistritoBE Distrito : distritos){
             cmbDistrito.addItem((Distrito.getDescripcion()));
