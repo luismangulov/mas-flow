@@ -32,10 +32,10 @@ public class DistritoDA {
             String strIdDistrito;
             String strDescripcion;
             while (rs.next()){
-                strIdDepartamento = rs.getString(1);
-                strIdProvincia = rs.getString(2);
-                strIdDistrito = rs.getString(3);
-                strDescripcion = rs.getString(4);
+                strIdDepartamento = rs.getString(1).trim();
+                strIdProvincia = rs.getString(2).trim();
+                strIdDistrito = rs.getString(3).trim();
+                strDescripcion = rs.getString(4).trim();
 
                 arrDistrito.add(new DistritoBE( strIdDepartamento, strIdProvincia,strIdDistrito, strDescripcion));
             }
@@ -68,10 +68,10 @@ public class DistritoDA {
             String strIdDistrito;
             String strDescripcion;
             if (rs.next()){
-                strIdDepartamento = rs.getString(1);
-                strIdProvincia = rs.getString(2);
-                strIdDistrito = rs.getString(3);
-                strDescripcion = rs.getString(4);
+                strIdDepartamento = rs.getString(1).trim();
+                strIdProvincia = rs.getString(2).trim();
+                strIdDistrito = rs.getString(3).trim();
+                strDescripcion = rs.getString(4).trim();
 
                 distrito=new DistritoBE( strIdDepartamento, strIdProvincia,strIdDistrito, strDescripcion);
             }

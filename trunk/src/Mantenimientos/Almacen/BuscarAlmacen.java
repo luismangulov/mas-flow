@@ -199,7 +199,15 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         String dep="";
         String prov="";
         String dist="";
-
+        if (cmbDepartamento.getSelectedIndex()!=0){
+        dep=departamentos.get(cmbDepartamento.getSelectedIndex() -1).getIdDepartamento();
+        }
+        if (cmbProvincia.getSelectedIndex()!=0){
+        prov=provincias.get(cmbProvincia.getSelectedIndex() -1).getIdProvincia();
+        }
+        if (cmbDistrito.getSelectedIndex()!=0){
+        dist=distritos.get(cmbDistrito.getSelectedIndex() -1).getIdDistrito();
+        }
         this.ventanaPadre.recargar(a.buscar(txtCodigo.getText(), txtNombre.getText(), indActivo, dep, prov, dist));
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarMousePressed
