@@ -11,15 +11,15 @@ package Algoritmos.Mapa;
  */
 public class Nodo {
 
-   protected int x;
+   private int x;
 
-   protected int y;
+   private int y;
 
-   protected int id;
+   private int id;
 
-   protected boolean nodoInicial=false;
+   private boolean nodoInicial=false;
 
-   protected Object item;
+   private Object item;
    
    public Nodo(int id, int x, int y, Object item) {
     this.id=id;
@@ -62,5 +62,47 @@ public class Nodo {
    public int getId() {
       return id;
    }
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * @param y the y to set
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @param nodoInicial the nodoInicial to set
+     */
+    public void setNodoInicial(boolean nodoInicial) {
+        this.nodoInicial = nodoInicial;
+    }
+
+    /**
+     * @param item the item to set
+     */
+    public void setItem(Object item) {
+        this.item = item;
+    }
+
+    /**
+     * @return the nodoInicial
+     */
+    public boolean isNodoInicial() {
+        return nodoInicial;
+    }
 
 }
