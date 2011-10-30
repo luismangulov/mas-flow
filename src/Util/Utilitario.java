@@ -57,6 +57,48 @@ public class Utilitario {
         return strId;
     }
      
+      public static String generaCodigoDetalle(String strNombreTabla, String strTablaBase, String codigo, int intCantidadCaracteres) throws FileNotFoundException, IOException {
+        conexion objConexion = new conexion();
+        String strSentencia = "SELECT MAX(id"+strNombreTabla+") FROM "+strNombreTabla;
+               strSentencia += " WHERE '"+strTablaBase+"' = '"+codigo+"'";
+        String strId = "";
+
+
+        try {
+            ResultSet rs = objConexion.EjecutarS(strSentencia);
+
+            if (rs.next()) {
+                strId = rs.getString(1);
+                if (strId!=null && !strId.equals("")) {
+                    int intId = Integer.parseInt(strId);
+                    intId++;
+                    strId = "" + intId;
+                    while (strId.length() < intCantidadCaracteres)
+                        strId = "0" + strId;
+                }
+                else{
+                    strId="";
+                    for( int i=1; i<intCantidadCaracteres;i++) strId +="0";
+                    strId +=1;   
+                }
+             }
+             else{
+                 strId="";
+                 for( int i=1; i<intCantidadCaracteres;i++) strId +="0";
+                 strId +=1;
+             }
+                            
+        }
+        catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{
+            objConexion.SalirS();
+        }
+        return strId;
+    }
+     
+     
      public static boolean validarCadenaNumerica(String strCadena) {
         try {
             Integer.parseInt(strCadena);
