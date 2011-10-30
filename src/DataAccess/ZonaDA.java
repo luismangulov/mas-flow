@@ -132,7 +132,7 @@ public class ZonaDA {
         arrZonas = new ArrayList<ZonaBE>();
 
         query = "SELECT idZona, nombre, identificador, indActivo,"
-                + " idAlmacen, posX, posY, ancho, largo FROM Zona WHERE IndActivo = '1' and idZona = '"+idZona+"' order by 1";
+                + " idAlmacen, posX, posY, ancho, largo FROM Zona WHERE idZona = '"+idZona+"' order by 1";
 
         try{
             rs = objConexion.EjecutarS(query);
