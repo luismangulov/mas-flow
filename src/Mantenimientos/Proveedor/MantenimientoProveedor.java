@@ -50,7 +50,11 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
+        if (proveedor.getNroDocumento().length()==8){
+        rdbPersona.setSelected(true);
+        } else {
         rdbEmpresa.setSelected(true);
+        }
         this.setLocationRelativeTo(null);
         this.buttonGroup1.add(this.rdbEmpresa);
         this.buttonGroup1.add(this.rdbPersona);

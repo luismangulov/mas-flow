@@ -202,10 +202,10 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         if (cmbDepartamento.getSelectedIndex()!=0){
         dep=departamentos.get(cmbDepartamento.getSelectedIndex() -1).getIdDepartamento();
         }
-        if (cmbProvincia.getSelectedIndex()!=0){
+        if (cmbProvincia.getSelectedIndex()!=0 && cmbProvincia.getSelectedIndex()!=-1){
         prov=provincias.get(cmbProvincia.getSelectedIndex() -1).getIdProvincia();
         }
-        if (cmbDistrito.getSelectedIndex()!=0){
+        if (cmbDistrito.getSelectedIndex()!=0 &&  cmbDistrito.getSelectedIndex()!=-1){
         dist=distritos.get(cmbDistrito.getSelectedIndex() -1).getIdDistrito();
         }
         this.ventanaPadre.recargar(a.buscar(txtCodigo.getText(), txtNombre.getText(), indActivo, dep, prov, dist));
@@ -282,16 +282,18 @@ public class BuscarAlmacen extends javax.swing.JFrame {
 
     private void llenarComboDistritos() {
 
-
+      try {
+          if(cmbProvincia.getSelectedIndex()!=0 && cmbProvincia.getSelectedIndex()!=-1){
              if (distritos.size()>0)this.distritos.clear();
              this.cmbDistrito.removeAllItems();
-        try {    distritos = DataAccess.DistritoDA.queryAllDistrito(
+            distritos = DataAccess.DistritoDA.queryAllDistrito(
                 departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),
                 provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia());
         cmbDistrito.addItem("Seleccione");
         for (DistritoBE Distrito : distritos){
             cmbDistrito.addItem((Distrito.getDescripcion()));
         }
+          }
 } catch (Exception ex) {
             Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
         }

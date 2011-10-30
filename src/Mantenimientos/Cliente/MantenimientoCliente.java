@@ -51,7 +51,12 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        if (cliente.getNroDocumento().length()==8){
+        rdbPersona.setSelected(true);
+        } else {
         rdbEmpresa.setSelected(true);
+        }
         this.buttonGroup1.add(this.rdbEmpresa);
         this.buttonGroup1.add(this.rdbPersona);
         this.llenarCombo();
