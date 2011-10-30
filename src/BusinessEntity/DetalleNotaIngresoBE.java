@@ -19,6 +19,12 @@ public class DetalleNotaIngresoBE {
         this.cantidad = cantidad;
         this.producto.setIdProducto(codProducto);
      }
+     
+     public DetalleNotaIngresoBE(String codigo,int cantidad,ProductoBE producto){
+        this.codigo = codigo;
+        this.cantidad = cantidad;
+        this.producto = producto;
+    }
     /**
      * @return the codigo
      */

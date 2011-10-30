@@ -9,6 +9,7 @@ import BusinessEntity.DetalleGuiaRemisionBE;
 import DataAccess.DetalleGuiaRemisionDA;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,6 +26,10 @@ public class DetalleGuiaRemisionBL {
         exito = objDetalleGuiaRemisionDA.insertar(objDetalleGuiaRemisionBE,idGuiaRemision);
         return exito;
     }
-
+    
+     public ArrayList<DetalleGuiaRemisionBE> queryAllDetalleGuiaRemision(String codGuiaRemision){
+          DetalleGuiaRemisionDA objDetalleGuiaRemisionDA = new DetalleGuiaRemisionDA();
+          return objDetalleGuiaRemisionDA.queryAllDetalleGuiaRemision(codGuiaRemision);
+      }
     
 }

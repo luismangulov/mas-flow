@@ -24,6 +24,12 @@ public class DetalleGuiaRemisionBE {
         this.producto.setIdProducto(codProducto);
     }
     
+    public DetalleGuiaRemisionBE(String codigo,int cantidad,ProductoBE producto){
+        this.codigo = codigo;
+        this.cantidad = cantidad;
+        this.producto = producto;
+    }
+    
     public String getCodigo() {
         return codigo;
     }
