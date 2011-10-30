@@ -232,6 +232,7 @@ public class AyudaProducto extends javax.swing.JDialog {
             int fila;
             String codigo;
             fila = tblProductos.getSelectedRow();
+            
             codigo = (String)tblProductos.getValueAt(fila, 0);
             ProductoBL objProductoBL = new ProductoBL();
             ProductoBE objProductoBE = objProductoBL.getByIdProducto(codigo);
