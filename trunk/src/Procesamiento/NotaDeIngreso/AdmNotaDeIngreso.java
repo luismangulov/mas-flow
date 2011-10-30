@@ -13,6 +13,7 @@ package Procesamiento.NotaDeIngreso;
 import BusinessEntity.NotaIngresoBE;
 import BusinessLogic.NotaIngresoBL;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,6 +43,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         lblAgregar = new javax.swing.JLabel();
         lblBuscar = new javax.swing.JLabel();
         lblRefrescar = new javax.swing.JLabel();
+        lblDetalle = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -109,6 +111,18 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         });
         jToolBar1.add(lblRefrescar);
 
+        lblDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/detalle2.png"))); // NOI18N
+        lblDetalle.setText("jLabel1");
+        lblDetalle.setToolTipText("VisualizarDetalle");
+        lblDetalle.setMaximumSize(new java.awt.Dimension(54, 54));
+        lblDetalle.setPreferredSize(new java.awt.Dimension(54, 54));
+        lblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblDetalleMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblDetalle);
+
         jLabel7.setText("                                                                                                                                  ");
         jToolBar1.add(jLabel7);
 
@@ -121,8 +135,8 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,6 +166,23 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
         this.recargar(objNotaIngresoBL.queryAllNotaIngreso());
     }//GEN-LAST:event_lblRefrescarMousePressed
+
+    private void lblDetalleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDetalleMousePressed
+        // TODO add your handling code here:
+         if((tblNotaIngreso.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una nota de ingreso", "Mensaje",0);
+        } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una nota de ingreso", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = tblNotaIngreso.getSelectedRow();
+            codigo = (String)tblNotaIngreso.getValueAt(fila, 0);
+                    
+           DetalleNotaIngreso m = new DetalleNotaIngreso(this, codigo);
+           m.setVisible(true);
+        }    
+    }//GEN-LAST:event_lblDetalleMousePressed
 
     /**
      * @param args the command line arguments
@@ -195,6 +226,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblAgregar;
     private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblDetalle;
     private javax.swing.JLabel lblRefrescar;
     private javax.swing.JTable tblNotaIngreso;
     // End of variables declaration//GEN-END:variables
