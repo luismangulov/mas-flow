@@ -215,8 +215,8 @@ public class EntidadDA {
                 + "indActivo, idCIUU FROM Entidad WHERE idEntidad like '"+tipoEntidad+"%'";
 
         if (tipoPersona == null ? "" != null : !tipoPersona.equals("")){
-            if (tipoPersona.equals("E")){sql= sql + "and  nroDocumento like '___________' ";}
-            else if (tipoPersona.equals("P")){sql= sql + "and  nroDocumento like '________' ";}
+            if (tipoPersona.equals("E")){sql= sql + "and  length(nroDocumento)=11  ";}
+            else if (tipoPersona.equals("P")){sql= sql + "and  length(nroDocumento)=8 ";}
         }
 
         if (nroDocumento == null ? "" != null : !nroDocumento.equals("")){
