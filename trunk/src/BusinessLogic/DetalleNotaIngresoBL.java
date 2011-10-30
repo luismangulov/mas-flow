@@ -21,7 +21,7 @@ public class DetalleNotaIngresoBL {
         boolean exito = false;
         DetalleNotaIngresoBE objDetalleNotaIngresoBE;
         
-        objDetalleNotaIngresoBE = new DetalleNotaIngresoBE(Utilitario.generaCodigo("detalleguiaremision",6),cantidad,idProducto);
+        objDetalleNotaIngresoBE = new DetalleNotaIngresoBE(Utilitario.generaCodigoDetalle("detallenotaingreso","idnotaingreso",idNotaIngreso,6),cantidad,idProducto);
         DetalleNotaIngresoDA objDetalleNotaIngresoDA = new DetalleNotaIngresoDA();
         exito = objDetalleNotaIngresoDA.insertar(objDetalleNotaIngresoBE,idNotaIngreso);
         return exito;
