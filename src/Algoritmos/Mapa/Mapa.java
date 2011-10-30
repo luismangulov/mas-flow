@@ -10,6 +10,7 @@ import BusinessEntity.AlmacenBE;
 import BusinessEntity.RackBE;
 import BusinessEntity.UbicacionBE;
 import BusinessEntity.ZonaBE;
+import Util.Configuracion;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class Mapa {
     
     private Nodo[][] mapa;
+    private AlmacenBE almacen;
     private double AL; //largo almacen
     private double AA; //ancho almacen
     private double PL; //largo pallet
@@ -29,23 +31,63 @@ public class Mapa {
     private int posPuertaY; //posicion puerta y
 
     private ArrayList<ZonaBE> listaZonas;
-    private ArrayList<ArrayList<RackBE>> listaRacks; //lista de racks por cada zona
+    private ArrayList<RackBE> listaRacks; //lista de racks por cada zona
 
     public Mapa(AlmacenBE almacen)
     {
-        
+        //almacen = Almacen.obtenerAlmacen(idAlmacen)
+        //listaZonas = Zona.obtenerZonas(idAlmacen)
+        //listaRacks = Rack.obtenerRacks(zona.getIdZona())
 
+        PL = Configuracion.getLargoPallet();
+        PA = Configuracion.getAnchoPallet();
 
-        //listaZonas()=AlmacenDA.obtenerZonas(idAlmacen)
+        AL = almacen.getLargo();
+        AA = almacen.getAncho();
 
-        listaRacks = new ArrayList<ArrayList<RackBE>>();
-        for (ZonaBE zona : listaZonas)
+        numX = (int)(AL/PL);
+        numY = (int)(AA/PA);
+
+        mapa = new Nodo[numX][numY];
+
+        inicializarMapa();
+
+        for (RackBE rack : listaRacks)
         {
-            ArrayList<RackBE> temp = new ArrayList<RackBE>();
-            //temp = ZonaDA.obtenerRacks(zona.getIdZona())
-            listaRacks.add(temp);
+            llenarUbicacionesRack(rack);
         }
 
+    }
+
+
+    private void inicializarMapa()
+    {
+        int id=0;
+        for (int i=0;i<numX;i++)
+        {
+            for (int j=0;j<numY;j++)
+            {
+                //Nodo nodo = new Nodo(id,x,y,item);
+                Nodo nodo = new Nodo(id,i,j,null);
+                mapa[i][j]=nodo;
+                id++;
+            }
+        }
+    }
+
+
+    private void llenarUbicacionesRack(RackBE rack)
+    {
+        //ArrayList<UbicacionBE> listaUbicacion = RackDA.ObtenerUbicaciones(rack.getIdRack());
+        ArrayList<UbicacionBE> listaUbicacion = null;
+
+        for (UbicacionBE ubicacion : listaUbicacion)
+        {
+                //if (rack.esVertical())
+                    mapa[rack.getPosX()][rack.getPosY()+ubicacion.getColumna()].setItem(ubicacion);
+                //else
+                //  mapa[rack.getPosX()+ubicacion.getColumna()][rack.getPosY()].setItem(ubicacion);
+        }
     }
 
 
@@ -87,7 +129,7 @@ public class Mapa {
     }
 
 
-    public ArrayList<ArrayList<RackBE>> getListaRacks() {
+    public ArrayList<RackBE> getListaRacks() {
         return listaRacks;
     }
 
