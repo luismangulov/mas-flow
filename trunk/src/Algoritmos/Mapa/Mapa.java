@@ -5,8 +5,10 @@
 
 package Algoritmos.Mapa;
 
+import Algoritmos.RecorridoOptimo.Cromosoma;
 import BusinessEntity.AlmacenBE;
 import BusinessEntity.RackBE;
+import BusinessEntity.UbicacionBE;
 import BusinessEntity.ZonaBE;
 import java.util.ArrayList;
 
@@ -47,10 +49,23 @@ public class Mapa {
     }
 
 
-    public void mostrarGraficoMapa()
+    public void mostrarGraficoMapa(String idAlmacen)
     {
     
     }
+
+
+    public void mostrarGraficoMapa(ArrayList<UbicacionBE> mejoresUbicaciones)
+    {
+
+    }
+
+
+    public void mostrarGraficoMapa(Cromosoma mejorCromosoma)
+    {
+
+    }
+
 
     public Nodo[][] getMapa() {
         return mapa;
