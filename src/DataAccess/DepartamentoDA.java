@@ -29,8 +29,8 @@ public class DepartamentoDA {
             String strIdDepartamento;
             String strDescripcion;
             while (rs.next()){
-                strIdDepartamento = rs.getString(1);
-                strDescripcion = rs.getString(2);
+                strIdDepartamento = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
 
                 arrDepartamento.add(new DepartamentoBE( strIdDepartamento, strDescripcion));
             }
@@ -58,8 +58,8 @@ public class DepartamentoDA {
             String strIdDepartamento;
             String strDescripcion;
             if (rs.next()){
-                strIdDepartamento = rs.getString(1);
-                strDescripcion = rs.getString(2);
+                strIdDepartamento = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
 
                 departamento =new DepartamentoBE( strIdDepartamento, strDescripcion);
             }

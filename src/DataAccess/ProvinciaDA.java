@@ -30,9 +30,9 @@ public class ProvinciaDA {
             String strIdProvincia;
             String strDescripcion;
             while (rs.next()){
-                strIdDepartamento = rs.getString(1);
-                strIdProvincia = rs.getString(2);
-                strDescripcion = rs.getString(3);
+                strIdDepartamento = rs.getString(1).trim();
+                strIdProvincia = rs.getString(2).trim();
+                strDescripcion = rs.getString(3).trim();
 
                 arrProvincia.add(new ProvinciaBE( strIdDepartamento, strIdProvincia, strDescripcion));
             }
@@ -62,9 +62,9 @@ public class ProvinciaDA {
             String strIdProvincia;
             String strDescripcion;
             if (rs.next()){
-                strIdDepartamento = rs.getString(1);
-                strIdProvincia = rs.getString(2);
-                strDescripcion = rs.getString(3);
+                strIdDepartamento = rs.getString(1).trim();
+                strIdProvincia = rs.getString(2).trim();
+                strDescripcion = rs.getString(3).trim();
 
                 provincia= new ProvinciaBE(strIdDepartamento, strIdProvincia, strDescripcion);
             }

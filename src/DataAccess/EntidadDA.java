@@ -69,18 +69,18 @@ public class EntidadDA {
             String strIndActivo;
             String strIdCIUU;
             while (rs.next()){
-                strIdEntidad = rs.getString(1);
-                strNroDocumento = rs.getString(2);
-                strDireccion = rs.getString(3);
-                strTelefono = rs.getString(4);
-                strEmail = rs.getString(5);
-                strNombreContacto = rs.getString(6);
-                strDniContacto = rs.getString(7);
-                strTelefonoContacto = rs.getString(8);
-                strRazonSocial = rs.getString(9);
-                strPaginaWeb = rs.getString(10);
-                strIndActivo = rs.getString(11);
-                strIdCIUU = rs.getString(12);
+                strIdEntidad = rs.getString(1).trim();
+                strNroDocumento = rs.getString(2).trim();
+                strDireccion = rs.getString(3).trim();
+                strTelefono = rs.getString(4).trim();
+                strEmail = rs.getString(5).trim();
+                strNombreContacto = rs.getString(6).trim();
+                strDniContacto = rs.getString(7).trim();
+                strTelefonoContacto = rs.getString(8).trim();
+                strRazonSocial = rs.getString(9).trim();
+                strPaginaWeb = rs.getString(10).trim();
+                strIndActivo = rs.getString(11).trim();
+                strIdCIUU = rs.getString(12).trim();
 
                 arrEntidad.add(new EntidadBE( strIdEntidad,  strNroDocumento,  strDireccion,
                 strTelefono,  strEmail,  strNombreContacto,  strDniContacto, strTelefonoContacto,
@@ -252,18 +252,18 @@ public class EntidadDA {
             String strIndActivo;
             String strIdCIUU;
             while (rs.next()){
-                strIdEntidad = rs.getString(1);
-                strNroDocumento = rs.getString(2);
-                strDireccion = rs.getString(3);
-                strTelefono = rs.getString(4);
-                strEmail = rs.getString(5);
-                strNombreContacto = rs.getString(6);
-                strDniContacto = rs.getString(7);
-                strTelefonoContacto = rs.getString(8);
-                strRazonSocial = rs.getString(9);
-                strPaginaWeb = rs.getString(10);
-                strIndActivo = rs.getString(11);
-                strIdCIUU = rs.getString(12);
+                strIdEntidad = rs.getString(1).trim();
+                strNroDocumento = rs.getString(2).trim();
+                strDireccion = rs.getString(3).trim();
+                strTelefono = rs.getString(4).trim();
+                strEmail = rs.getString(5).trim();
+                strNombreContacto = rs.getString(6).trim();
+                strDniContacto = rs.getString(7).trim();
+                strTelefonoContacto = rs.getString(8).trim();
+                strRazonSocial = rs.getString(9).trim();
+                strPaginaWeb = rs.getString(10).trim();
+                strIndActivo = rs.getString(11).trim();
+                strIdCIUU = rs.getString(12).trim();
 
                 arrEntidad.add(new EntidadBE( strIdEntidad,  strNroDocumento,  strDireccion,
                 strTelefono,  strEmail,  strNombreContacto,  strDniContacto, strTelefonoContacto,

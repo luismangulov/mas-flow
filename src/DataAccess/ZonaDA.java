@@ -47,11 +47,11 @@ public class ZonaDA {
 
             while (rs.next()){
 
-                strIdZona = rs.getString(1);
-                strNombre = rs.getString(2);
-                strIdentificador = rs.getString(3);
-                strIndActivo = rs.getString(4);
-                strIdAlmacen = rs.getString(5);
+                strIdZona = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strIdentificador = rs.getString(3).trim();
+                strIndActivo = rs.getString(4).trim();
+                strIdAlmacen = rs.getString(5).trim();
                 intX = rs.getInt(6);
                 intY= rs.getInt(7);
                 intAncho= rs.getInt(8);
@@ -97,11 +97,11 @@ public class ZonaDA {
 
             while (rs.next()){
 
-                strIdZona = rs.getString(1);
-                strNombre = rs.getString(2);
-                strIdentificador = rs.getString(3);
-                strIndActivo = rs.getString(4);
-                strIdAlmacen = rs.getString(5);
+                strIdZona = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strIdentificador = rs.getString(3).trim();
+                strIndActivo = rs.getString(4).trim();
+                strIdAlmacen = rs.getString(5).trim();
                 intX = rs.getInt(6);
                 intY= rs.getInt(7);
                 intAncho= rs.getInt(8);
@@ -149,11 +149,11 @@ public class ZonaDA {
 
             if (rs.next()){
 
-                strIdZona = rs.getString(1);
-                strNombre = rs.getString(2);
-                strIdentificador = rs.getString(3);
-                strIndActivo = rs.getString(4);
-                strIdAlmacen = rs.getString(5);
+                strIdZona = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strIdentificador = rs.getString(3).trim();
+                strIndActivo = rs.getString(4).trim();
+                strIdAlmacen = rs.getString(5).trim();
                 intX = rs.getInt(6);
                 intY= rs.getInt(7);
                 intAncho= rs.getInt(8);
@@ -189,10 +189,10 @@ public class ZonaDA {
             String strIndActivo;
 
             while (rs.next()){
-            strIdFamilia = rs.getString(1);
-            strNombre = rs.getString(2);
-            strDescripcion = rs.getString(3);
-            strIndActivo = rs.getString(4);
+            strIdFamilia = rs.getString(1).trim();
+            strNombre = rs.getString(2).trim();
+            strDescripcion = rs.getString(3).trim();
+            strIndActivo = rs.getString(4).trim();
             arrFamilia.add(new FamiliaBE(strIdFamilia,strNombre,strDescripcion,strIndActivo));
             }
 
@@ -369,11 +369,11 @@ public class ZonaDA {
 
             while (rs.next()){
 
-                strIdZona = rs.getString(1);
-                strNombre = rs.getString(2);
-                strIdentificador = rs.getString(3);
-                strIndActivo = rs.getString(4);
-                strIdAlmacen = rs.getString(5);
+                strIdZona = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strIdentificador = rs.getString(3).trim();
+                strIndActivo = rs.getString(4).trim();
+                strIdAlmacen = rs.getString(5).trim();
                 intX = rs.getInt(6);
                 intY= rs.getInt(7);
                 intAncho= rs.getInt(8);

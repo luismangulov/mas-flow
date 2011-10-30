@@ -20,11 +20,16 @@ public class AlmacenBE {
     private String idProvincia;//6
     private String idDepartamento;//6
     private String indActivo;//1
+    private int puertaX;
+    private int puertaY;
+
 
     public AlmacenBE() {
     }
 
-    public AlmacenBE(String idAlmacen, String nombre, double largo, double ancho, String direccion, String telefono, String idDistrito, String idProvincia, String idDepartamento, String indActivo) {
+    public AlmacenBE(String idAlmacen, String nombre, double largo, double ancho, String direccion,
+            String telefono, String idDistrito, String idProvincia, String idDepartamento,
+            String indActivo, int puertaX, int puertaY) {
         this.idAlmacen = idAlmacen;
         this.nombre = nombre;
         this.largo = largo;
@@ -35,6 +40,8 @@ public class AlmacenBE {
         this.idProvincia = idProvincia;
         this.idDepartamento = idDepartamento;
         this.indActivo = indActivo;
+        this.puertaX = puertaX;
+        this.puertaY = puertaY;
     }
 
     public double getAncho() {
@@ -115,6 +122,34 @@ public class AlmacenBE {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    /**
+     * @return the puertaX
+     */
+    public int getPuertaX() {
+        return puertaX;
+    }
+
+    /**
+     * @param puertaX the puertaX to set
+     */
+    public void setPuertaX(int puertaX) {
+        this.puertaX = puertaX;
+    }
+
+    /**
+     * @return the puertaY
+     */
+    public int getPuertaY() {
+        return puertaY;
+    }
+
+    /**
+     * @param puertaY the puertaY to set
+     */
+    public void setPuertaY(int puertaY) {
+        this.puertaY = puertaY;
     }
 
 }

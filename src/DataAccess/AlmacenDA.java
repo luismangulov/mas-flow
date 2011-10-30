@@ -24,12 +24,13 @@ public class AlmacenDA {
         conexion objConexion = new conexion();
 
         String sql = "INSERT INTO almacen(idAlmacen, nombre, largo, ancho, direccion, "
-                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo) "
+                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo, puertaX, puertaY) "
                 + "VALUES('"+ objAlmacen.getIdAlmacen() +"','"+ objAlmacen.getNombre()
                 +"',"+ objAlmacen.getLargo() +","+ objAlmacen.getAncho()+",'"
                 + objAlmacen.getDireccion() +"','"+ objAlmacen.getTelefono()+"','"
                 + objAlmacen.getIdDistrito() +"','"+ objAlmacen.getIdProvincia()+"','"
-                + objAlmacen.getIdDepartamento() +"','"+ objAlmacen.getIndActivo() +"')";
+                + objAlmacen.getIdDepartamento() +"','"+ objAlmacen.getIndActivo() +"', "
+                + objAlmacen.getPuertaX() +","+ objAlmacen.getPuertaY()+ ")";
 
         try{
             objConexion.EjecutarUID(sql);
@@ -47,7 +48,7 @@ public class AlmacenDA {
         ResultSet rs = null;
         ArrayList<AlmacenBE> arrAlmacen = new ArrayList<AlmacenBE>();
         String sql = "SELECT idAlmacen, nombre, largo, ancho, direccion, "
-                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo"
+                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo, puertaX, puertaY"
                 + " FROM Almacen order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
@@ -61,22 +62,26 @@ public class AlmacenDA {
             String strIdProvincia;
             String strIdDepartamento;
             String strIndActivo;
+            int intPuertaX;
+            int intPuertaY;
 
             while (rs.next()){
 
-                strIdAlmacen = rs.getString(1);
-                strNombre = rs.getString(2);
+                strIdAlmacen = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
                 fltLargo = rs.getFloat(3);
                 fltAncho = rs.getFloat(4);
-                strDireccion= rs.getString(5);
-                strTelefono= rs.getString(6);
-                strIdDistrito= rs.getString(7);
-                strIdProvincia= rs.getString(8);
-                strIdDepartamento= rs.getString(9);
-                strIndActivo= rs.getString(10);
+                strDireccion= rs.getString(5).trim();
+                strTelefono= rs.getString(6).trim();
+                strIdDistrito= rs.getString(7).trim();
+                strIdProvincia= rs.getString(8).trim();
+                strIdDepartamento= rs.getString(9).trim();
+                strIndActivo= rs.getString(10).trim();
+                intPuertaX = rs.getInt(11);
+                intPuertaY = rs.getInt(12);
 
                 arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
-                strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo));
+                strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY));
             }
 
         }catch (Exception a){
@@ -95,7 +100,7 @@ public class AlmacenDA {
         ResultSet rs = null;
         ArrayList<AlmacenBE> arrAlmacen = new ArrayList<AlmacenBE>();
         String sql = "SELECT idAlmacen, nombre, largo, ancho, direccion, "
-                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo"
+                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo, puertaX, puertaY"
                 + " FROM Almacen WHERE IndActivo = '1' order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
@@ -109,22 +114,26 @@ public class AlmacenDA {
             String strIdProvincia;
             String strIdDepartamento;
             String strIndActivo;
+            int intPuertaX;
+            int intPuertaY;
 
             while (rs.next()){
 
-                strIdAlmacen = rs.getString(1);
-                strNombre = rs.getString(2);
+                strIdAlmacen = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
                 fltLargo = rs.getFloat(3);
                 fltAncho = rs.getFloat(4);
-                strDireccion= rs.getString(5);
-                strTelefono= rs.getString(6);
-                strIdDistrito= rs.getString(7);
-                strIdProvincia= rs.getString(8);
-                strIdDepartamento= rs.getString(9);
-                strIndActivo= rs.getString(10);
+                strDireccion= rs.getString(5).trim();
+                strTelefono= rs.getString(6).trim();
+                strIdDistrito= rs.getString(7).trim();
+                strIdProvincia= rs.getString(8).trim();
+                strIdDepartamento= rs.getString(9).trim();
+                strIndActivo= rs.getString(10).trim();
+                intPuertaX = rs.getInt(11);
+                intPuertaY = rs.getInt(12);
 
                 arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
-                strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo));
+                strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY));
             }
 
         }catch (Exception a){
@@ -143,7 +152,7 @@ public class AlmacenDA {
         ResultSet rs = null;
         AlmacenBE almacen = null;
         String sql = "SELECT idAlmacen, nombre, largo, ancho, direccion, "
-                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo FROM Almacen ";
+                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo, puertaX, puertaY FROM Almacen ";
            sql += " WHERE idalmacen='"+codigo+"'";
         try{
             rs=objConexion.EjecutarS(sql);
@@ -157,20 +166,27 @@ public class AlmacenDA {
             String strIdProvincia;
             String strIdDepartamento;
             String strIndActivo;
+
+            int intPuertaX;
+            int intPuertaY;
+
             if (rs.next()){
 
-                strIdAlmacen = rs.getString(1);
-                strNombre = rs.getString(2);
+                strIdAlmacen = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
                 fltLargo = rs.getFloat(3);
                 fltAncho = rs.getFloat(4);
-                strDireccion= rs.getString(5);
-                strTelefono= rs.getString(6);
-                strIdDistrito= rs.getString(7);
-                strIdProvincia= rs.getString(8);
-                strIdDepartamento= rs.getString(9);
-                strIndActivo= rs.getString(10);
+                strDireccion= rs.getString(5).trim();
+                strTelefono= rs.getString(6).trim();
+                strIdDistrito= rs.getString(7).trim();
+                strIdProvincia= rs.getString(8).trim();
+                strIdDepartamento= rs.getString(9).trim();
+                strIndActivo= rs.getString(10).trim();
+                intPuertaX = rs.getInt(11);
+                intPuertaY = rs.getInt(12);
+
                 almacen = new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
-                strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo);
+                strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY);
             }
 
         }catch (Exception a){
@@ -198,7 +214,9 @@ public class AlmacenDA {
                     "idDistrito='"+objAlmacen.getIdDistrito()+ "',"+
                     "idProvincia='"+objAlmacen.getIdProvincia()+ "',"+
                     "idDepartamento='"+objAlmacen.getIdDepartamento()+ "',"+
-                    "indactivo='"+objAlmacen.getIndActivo()+ "'"+
+                    "indactivo='"+objAlmacen.getIndActivo()+ "', "+
+                    "puertaX="+objAlmacen.getPuertaX()+ ", "+
+                    "puertaY="+objAlmacen.getPuertaY()+ " "+
                     " WHERE idalmacen='"+objAlmacen.getIdAlmacen()+"'";
 
         try{
@@ -239,7 +257,7 @@ public class AlmacenDA {
         
 
         String sql = "SELECT idAlmacen, nombre, largo, ancho, direccion, "
-                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo FROM Almacen";
+                + "telefono, idDistrito, idProvincia, idDepartamento, indActivo, puertaX, puertaY FROM Almacen";
               
        boolean primero;
         primero = true;
@@ -311,22 +329,26 @@ public class AlmacenDA {
             String strIdProvincia;
             String strIdDepartamento;
             String strIndActivo;
+            int intPuertaX;
+            int intPuertaY;
 
             while (rs.next()){
 
-                strIdAlmacen = rs.getString(1);
-                strNombre = rs.getString(2);
+                strIdAlmacen = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
                 fltLargo = rs.getFloat(3);
                 fltAncho = rs.getFloat(4);
-                strDireccion= rs.getString(5);
-                strTelefono= rs.getString(6);
-                strIdDistrito= rs.getString(7);
-                strIdProvincia= rs.getString(8);
-                strIdDepartamento= rs.getString(9);
-                strIndActivo= rs.getString(10);
+                strDireccion= rs.getString(5).trim();
+                strTelefono= rs.getString(6).trim();
+                strIdDistrito= rs.getString(7).trim();
+                strIdProvincia= rs.getString(8).trim();
+                strIdDepartamento= rs.getString(9).trim();
+                strIndActivo= rs.getString(10).trim();
+                intPuertaX = rs.getInt(11);
+                intPuertaY = rs.getInt(12);
 
                 arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
-                strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo));
+                strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY));
             }
 
         }catch (Exception a){
