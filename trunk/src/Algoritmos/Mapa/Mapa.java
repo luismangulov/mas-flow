@@ -57,6 +57,8 @@ public class Mapa {
             llenarUbicacionesRack(rack);
         }
 
+        //para la puerta mapa[][].setItem(ubicacion);
+        
     }
 
 
@@ -83,6 +85,7 @@ public class Mapa {
 
         for (UbicacionBE ubicacion : listaUbicacion)
         {
+            //solo posiciones que esten activas
                 //if (rack.esVertical())
                     mapa[rack.getPosX()][rack.getPosY()+ubicacion.getColumna()].setItem(ubicacion);
                 //else
