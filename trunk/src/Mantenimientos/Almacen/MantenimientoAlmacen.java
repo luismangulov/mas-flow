@@ -519,18 +519,21 @@ private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     private void llenarComboDistritos() {
         
-
+ try {
+          if(cmbProvincia.getSelectedIndex()!=0 && cmbProvincia.getSelectedIndex()!=-1){
              if (distritos.size()>0)this.distritos.clear();
              this.cmbDistrito.removeAllItems();
-        try {    distritos = DataAccess.DistritoDA.queryAllDistrito(
+            distritos = DataAccess.DistritoDA.queryAllDistrito(
                 departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),
                 provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia());
         cmbDistrito.addItem("Seleccione");
         for (DistritoBE Distrito : distritos){
             cmbDistrito.addItem((Distrito.getDescripcion()));
         }
+          }
 } catch (Exception ex) {
             Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
+
