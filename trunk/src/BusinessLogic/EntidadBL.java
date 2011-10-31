@@ -28,7 +28,7 @@ public class EntidadBL {
         return exito;
         }
 
-         public boolean modificar(String idEntidadAnterior, String idEntidad, String nroDocumento, String direccion,
+         public boolean modificar( String idEntidad, String nroDocumento, String direccion,
     String telefono, String email, String nombreContacto, String dniContacto,
     String telefonoContacto, String razonSocial,
     String paginaWeb,  String indActivo, String idCIUU) throws Exception{
@@ -37,7 +37,7 @@ public class EntidadBL {
             telefono, email, nombreContacto, dniContacto, telefonoContacto, razonSocial,
             paginaWeb, indActivo, idCIUU);
         EntidadDA objEntidadDA = new EntidadDA();
-        exito = objEntidadDA.modificar(idEntidadAnterior, Entidad);
+        exito = objEntidadDA.modificar(Entidad);
         return exito;
         }
 

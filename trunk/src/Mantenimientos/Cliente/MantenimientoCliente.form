@@ -56,16 +56,15 @@
                               <Component id="rdbEmpresa" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="rdbPersona" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="77" max="32767" attributes="0"/>
+                              <Component id="lblDocumento" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtDoc" pref="131" max="32767" attributes="0"/>
+                              <Component id="txtDoc" min="-2" pref="142" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="txtCodigo" min="-2" pref="95" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="txtCodigo" min="-2" pref="132" max="-2" attributes="0"/>
                           </Group>
                           <Component id="cbxActivo" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -94,7 +93,7 @@
                   <Component id="rdbPersona" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtDoc" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rdbEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDocumento" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -250,20 +249,26 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="lblDocumento">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Documento*:"/>
+        <Property name="text" type="java.lang.String" value="Doc*:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rdbEmpresa">
       <Properties>
         <Property name="text" type="java.lang.String" value="Empresa"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdbEmpresaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rdbPersona">
       <Properties>
         <Property name="text" type="java.lang.String" value="Persona"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdbPersonaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

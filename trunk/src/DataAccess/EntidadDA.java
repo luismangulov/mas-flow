@@ -281,14 +281,14 @@ public class EntidadDA {
     }
 
 
-     public boolean modificar(String idEntidadAnterior, EntidadBE objEntidad) throws Exception{
+     public boolean modificar( EntidadBE objEntidad) throws Exception{
 
         boolean boolExito = false;
         conexion objConexion = new conexion();
 
         String sql = "update Entidad set  "
-                +" idEntidad='" + objEntidad.getIdEntidad()+"', nrodocumento='" + objEntidad.getNroDocumento()
-                +"', direccion='" + objEntidad.getDireccion() +"', telefono='" + objEntidad.getTelefono()
+                
+                +" direccion='" + objEntidad.getDireccion() +"', telefono='" + objEntidad.getTelefono()
                 +"', email='" + objEntidad.getEmail() +"', nombrecontacto='" + objEntidad.getNombreContacto()
                 +"', dnicontacto='" + objEntidad.getDniContacto() +"',telefonocontacto='" + objEntidad.getTelefonoContacto()
                 +"', razonsocial='" + objEntidad.getRazonSocial()+"', paginaweb='" + objEntidad.getPaginaWeb() 
