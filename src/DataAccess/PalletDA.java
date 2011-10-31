@@ -254,42 +254,73 @@ public class PalletDA {
         
         boolean exito = false;
         objConexion = new conexion();
-        query = "UPDATE PALLET SET idUbicacion = '" + strIdUbicacionDestino + "' WHERE idPallet ='" +strIdPallet +"'";
+        // se setea la disponibilidad de la ubicacion anterior
+        query = "UPDATE UBICACION SET indActivo = '1' WHERE idUbicacion = '" + strIdUbicacionOrigen + "'";
         
         try{
             objConexion.EjecutarUID(query);
             exito = true;
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+            exito = false;
         }
         finally{objConexion.SalirUID();}
         
-        objUtilitario = new Utilitario();
-        String strIdHistorialPallet = "";
-        
-        try {
-            strIdHistorialPallet = objUtilitario.generaCodigo("historialpallet", 8);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         if (exito){
-            
-            query = "INSERT INTO HISTORIALPALLET(idHistorialPallet, idPallet, idUbicacionOrigen,idUbicacionDestino,fechamovimiento) "
-                    + "VALUES('"+strIdHistorialPallet+"',"
-                    + "'"+strIdPallet+"',"
-                    + "'"+strIdUbicacionOrigen+"',"
-                    + "'"+strIdUbicacionDestino+"',"
-                    + null +")";
+            // se asocia el pallet a la ubicacion destino
+            query = "UPDATE PALLET SET idUbicacion = '" + strIdUbicacionDestino + "' WHERE idPallet ='" +strIdPallet +"'";
 
             try{
                 objConexion.EjecutarUID(query);
+                exito = true;
             }catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+                exito = false;
             }
             finally{objConexion.SalirUID();}
+
+            // se cambia el estado de la ubicacion destino a en uso
+            query = "UPDATE UBICACION SET indActivo = '2' WHERE idUbicacion ='" + strIdUbicacionDestino +"'";
+
+            try{
+                objConexion.EjecutarUID(query);
+                exito = true;
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+                exito = false;
+            }
+            finally{objConexion.SalirUID();}
+            
+            objUtilitario = new Utilitario();
+            String strIdHistorialPallet = "";
+
+            try {
+                strIdHistorialPallet = objUtilitario.generaCodigo("historialpallet", 8);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            query = "UPDATE UBICACION SET indActivo = '1' WHERE idUbicacion ='" +strIdUbicacionOrigen + "'";
+
+            if (exito){
+
+                query = "INSERT INTO HISTORIALPALLET(idHistorialPallet, idPallet, idUbicacionOrigen,idUbicacionDestino,fechamovimiento) "
+                        + "VALUES('"+strIdHistorialPallet+"',"
+                        + "'"+strIdPallet+"',"
+                        + "'"+strIdUbicacionOrigen+"',"
+                        + "'"+strIdUbicacionDestino+"',"
+                        + null +")";
+
+                try{
+                    objConexion.EjecutarUID(query);
+                }catch (Exception e){
+                    JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+                }
+                finally{objConexion.SalirUID();}
+
+            }
         }
     }
 
@@ -360,8 +391,9 @@ public class PalletDA {
         objConexion = new conexion();
         
         query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento "
-                + "FROM PALLET p, ZONA z, RACK r, UBICACION u"
-                + " WHERE p.idUbicacion = u.idUbicacion AND u.idRack = r.idRack AND r.idZona = '" +strIdZona+"'";
+                + "FROM PALLET p, UBICACION u, RACK r, ZONA z"
+                + " WHERE p.idUbicacion = u.idUbicacion AND u.idRack = r.idRack AND "
+                + " r.idZona = z.idZona AND z.idZona = '" +strIdZona+"'";
 
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
