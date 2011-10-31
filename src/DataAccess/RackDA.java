@@ -174,6 +174,8 @@ public class RackDA {
                 
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            objConexion.SalirS();
         }
         return objRackBE;
         
@@ -199,6 +201,8 @@ public class RackDA {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            objConexion.SalirS();
         }
         return arrRacks;
         
@@ -236,6 +240,8 @@ public class RackDA {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            objConexion.SalirS();
         }
         return arrRacks;
     }
@@ -260,6 +266,8 @@ public class RackDA {
         
         } catch (SQLException ex) {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            objConexion.SalirS();
         }
         
         return objRackBE;
@@ -285,6 +293,8 @@ public class RackDA {
         
         } catch (SQLException ex) {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            objConexion.SalirS();
         }
         
         return objRackBE;
@@ -310,8 +320,13 @@ public class RackDA {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            objConexion.SalirS();
         }
         return arrRacks;
         
     }
+    
+    
+    
 }

@@ -4,12 +4,13 @@
  */
 
 /*
- * AdmPallet.java
+ * AdmMovimientosInternos.java
  *
  * Created on Oct 2, 2011, 3:27:56 PM
  */
-package Mantenimientos.Pallet;
+package Procesamiento.MovimientosInternos;
 
+import Procesamiento.MovimientosInternos.ReubicarPallet;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
 import BusinessLogic.PalletBL;
@@ -25,9 +26,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DIEGO
  */
-public class AdmPallet extends javax.swing.JFrame {
+public class AdmMovimientosInternos extends javax.swing.JFrame {
 
-    /** Creates new form AdmPallet */
+    /** Creates new form AdmMovimientosInternos */
     ArrayList<PalletBE> arrPallets;
 //    PalletBL objPalletBL;
 //    String strIdPallet;
@@ -37,7 +38,7 @@ public class AdmPallet extends javax.swing.JFrame {
 //    String idUbicacion;
 //    String idPallet;
     
-    public AdmPallet() {
+    public AdmMovimientosInternos() {
         this.setLocationRelativeTo(null); 
         initComponents();
     }
@@ -201,12 +202,11 @@ private void lblRegistrarPalletMousePressed(java.awt.event.MouseEvent evt) {//GE
 }//GEN-LAST:event_lblRegistrarPalletMousePressed
 
     private void lblBuscarPalletMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarPalletMousePressed
-        BuscarPallet ventana = new BuscarPallet(this);
-        ventana.setVisible(true);
+
     }//GEN-LAST:event_lblBuscarPalletMousePressed
 
 private void lblRegistrarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarPalletMouseClicked
-    MantenimientoPallet ventana = new MantenimientoPallet(this);
+    DesecharPalletsPorCaducidad ventana = new DesecharPalletsPorCaducidad(this);
     ventana.setVisible(true);
 }//GEN-LAST:event_lblRegistrarPalletMouseClicked
 
@@ -220,143 +220,34 @@ private void lblEliminarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
             String idPallet = (String)dgvPallets.getValueAt(fila, 0);
             PalletBL objPalletBL = new PalletBL();
             objPalletBL.eliminar(idPallet);
-            eliminaFilaDgv(fila);
+//            eliminaFilaDgv(fila);
         }
     }
 }//GEN-LAST:event_lblEliminarPalletMouseClicked
 
 private void lblRefrescarPalletsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarPalletsMouseClicked
     PalletBL objPalletBL = new PalletBL();
-    llenarDgv(objPalletBL.getAll());
+//    llenarDgv(objPalletBL.getAll());
 }//GEN-LAST:event_lblRefrescarPalletsMouseClicked
 
 private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-    DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel(); 
-    int fila;
-    fila = dgvPallets.getSelectedRow();
-    if (fila==-1)
-        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
-    else{
-
-        String idUbicacion = (String)dgvPallets.getValueAt(fila, 3);
-        String idPallet = (String)dgvPallets.getValueAt(fila, 0);
-        ReubicarPallet ventana = new ReubicarPallet(this,idUbicacion,idPallet);
+//    DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel(); 
+//    int fila;
+//    fila = dgvPallets.getSelectedRow();
+//    if (fila==-1)
+//        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
+//    else{
+//
+//        String idUbicacion = (String)dgvPallets.getValueAt(fila, 3);
+//        String idPallet = (String)dgvPallets.getValueAt(fila, 0);
+        ReubicarPallet ventana = new ReubicarPallet(this);
         ventana.setVisible(true);
         
-    }
+//    }
 
 }//GEN-LAST:event_jLabel1MouseClicked
 
-    public void llenarDgv(ArrayList<PalletBE> arrPallets){
-        
-        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
-        limpiarDgv();
-        this.arrPallets = arrPallets;
-        dgvPallets.clearSelection();
-        ProductoBL objProductoBL = new ProductoBL();                
-        UbicacionBL objUbicacionBL = new UbicacionBL();
-        RackBL objRackBL = new RackBL();
-        UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
-        String strNombreProducto = "";
-        int intMaxCantPallet = 0;
-        int intFila = 0;
-        int intColumna = 0;
-        String strIdentificadorRack = "";
-        String fecha = "";
-        String strIdUnidadMedida = "";
-        String strNombreUnidadMedida = "";
-        PalletBE palletBE = new PalletBE();
-        ProductoBE objProductoBE = new ProductoBE();
-        
-        for (int i=0; i<arrPallets.size(); i++){
-            
-            String strIdPallet = arrPallets.get(i).getIdPallet();
-            
-            String strIdProducto = arrPallets.get(i).getIdProducto().trim();
-        
-             if (!strIdProducto.equals("")){
-                objProductoBE = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto());
-                strNombreProducto = objProductoBE.getNombre();
-                intMaxCantPallet = objProductoBE.getMaxCantPorPallet();
-                strIdUnidadMedida = objProductoBE.getIdUnidadMedida();
-                strNombreUnidadMedida = objUnidadMedidaBL.getUnidadMedida(strIdUnidadMedida).getNombre();
-            }
-            
-            String strIdUbicacion = arrPallets.get(i).getIdUbicacion().trim();
-            
-            if (!strIdUbicacion.equals("")){
-                intFila = objUbicacionBL.getUbicacionById(strIdUbicacion).getFila();
-                intColumna = objUbicacionBL.getUbicacionById(strIdUbicacion).getColumna();
-                strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
-            }
-        
-            if (palletBE.getFechaVencimiento() != null)
-              fecha = palletBE.getFechaVencimiento().toString();
-       
-            modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidadMedida,fecha});
-        }
-    }
-    
-    public void limpiarDgv(){
-                
-        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
-        for(int i=modelo.getRowCount()-1; i>=0; i--){
-            modelo.removeRow(i);
-        }
-    }
-    
-    public void eliminaFilaDgv(int fila){
-        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();  
-        modelo.removeRow(fila);
-    }
-    
-    
-    public void actualizaDgv(PalletBE palletBE){
 
-       DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
-        for(int i=modelo.getRowCount()-1; i>=0; i--){
-            modelo.removeRow(i);
-        }
-        dgvPallets.clearSelection();
-        ProductoBL objProductoBL = new ProductoBL();                
-        UbicacionBL objUbicacionBL = new UbicacionBL();
-        RackBL objRackBL = new RackBL();
-        UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
-        String strNombreProducto = "";
-        int intMaxCantPallet = 0;
-        int intFila = 0;
-        int intColumna = 0;
-        String strIdentificadorRack = "";
-        String strIdUnidad = "";
-        String fecha = "";
-        String strIdPallet = palletBE.getIdPallet();
-        String strNombreUnidad = "";
-        
-        String strIdProducto = palletBE.getIdProducto().trim();
-        
-        if (!strIdProducto.equals("")){
-            strNombreProducto = objProductoBL.getByIdProducto(strIdProducto).getNombre();
-            intMaxCantPallet = objProductoBL.getByIdProducto(strIdProducto).getMaxCantPorPallet();
-            strIdUnidad = objProductoBL.getByIdProducto(strIdProducto).getIdUnidadMedida();
-            strNombreUnidad = objUnidadMedidaBL.getUnidadMedida(strIdUnidad).getNombre();
-            
-        }
-
-        String strIdUbicacion = palletBE.getIdUbicacion().trim();
-
-        if (!strIdUbicacion.equals("")){
-            intFila = objUbicacionBL.getUbicacionById(strIdUbicacion).getFila();
-            intColumna = objUbicacionBL.getUbicacionById(strIdUbicacion).getColumna();
-            strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
-        }
-        
-        if (palletBE.getFechaVencimiento() != null)
-            fecha = palletBE.getFechaVencimiento().toString();
-       
-        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, intMaxCantPallet,strNombreUnidad,fecha});
-
-
-}
     /**
      * @param args the command line arguments
      */
@@ -374,13 +265,13 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdmPallet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmMovimientosInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdmPallet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmMovimientosInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdmPallet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmMovimientosInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdmPallet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmMovimientosInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -388,7 +279,7 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new AdmPallet().setVisible(true);
+                new AdmMovimientosInternos().setVisible(true);
             }
         });
     }
