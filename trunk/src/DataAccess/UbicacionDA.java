@@ -61,9 +61,11 @@ public class UbicacionDA {
         
         boolExito = false;
         objConexion = new conexion();
-        if (indActivo.equals("1"))            
+        // 0 bloqueada, 1 disponible, 2 en uso
+        
+        if (indActivo.equals("1"))     
             query = "UPDATE UBICACION set indActivo = '0' WHERE idUbicacion = '" + idUbicacion + "'";
-        else
+        else //if (indActivo.equals("0"))
             query = "UPDATE UBICACION set indActivo = '1' WHERE idUbicacion = '" + idUbicacion + "'";
         try{
             objConexion.EjecutarUID(query);
@@ -143,6 +145,8 @@ public class UbicacionDA {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }finally{
+            objConexion.SalirS();
         }
         return arrUbicaciones;
     }
@@ -163,6 +167,8 @@ public class UbicacionDA {
 
         } catch (SQLException ex) {
             objUbicacion = null;
+        }finally{
+            objConexion.SalirS();
         }
         return objUbicacion;
     }
@@ -183,6 +189,8 @@ public class UbicacionDA {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }finally{
+            objConexion.SalirS();
         }
         return arrUbicaciones;
     }
@@ -201,7 +209,9 @@ public class UbicacionDA {
             String idRack = rs.getString("idRack");
             objUbicacion = new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,idRack);
         } catch (SQLException ex) {
-            Logger.getLogger(UbicacionDA.class.getName()).log(Level.SEVERE, null, ex);
+            objUbicacion = null;
+        }finally{
+            objConexion.SalirS();
         }
         return objUbicacion;
     }
@@ -223,6 +233,8 @@ public class UbicacionDA {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }finally{
+            objConexion.SalirS();
         }
         return arrUbicaciones;
     }
@@ -249,6 +261,8 @@ public class UbicacionDA {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }finally{
+            objConexion.SalirS();
         }
         return arrUbicaciones;
     }
@@ -270,8 +284,12 @@ public class UbicacionDA {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        }finally{
+            objConexion.SalirS();
         }
         return arrUbicaciones;
     }
+    
+    
     
 }

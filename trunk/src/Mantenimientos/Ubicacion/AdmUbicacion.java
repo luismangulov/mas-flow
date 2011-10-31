@@ -164,18 +164,30 @@ private void lblBloquearUbicacionMouseClicked(java.awt.event.MouseEvent evt) {//
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
         String strIdUbicacion = (String)dgvUbicaciones.getValueAt(fila, 0);
-        String strIndActivo = (String)dgvUbicaciones.getValueAt(fila, 4);
-        UbicacionBL objUbicacionBL = new UbicacionBL();
-        objUbicacionBL.bloquearUbicacion(strIdUbicacion,strIndActivo);
-        
-        if (strIndActivo.equals("1"))
-            removerFilaDgv(fila);
-        else{
-            arrUbicaciones = new ArrayList<UbicacionBE>();
-            arrUbicaciones.add(objUbicacionBL.getUbicacionById(strIdUbicacion));
-            llenarDgv(arrUbicaciones);
+        String strEstado = (String)dgvUbicaciones.getValueAt(fila, 4);
+        String strIndActivo;
+        // 0 bloqueada, 1 disponible, 2 en uso
+        if (strEstado.equals("Disponible"))
+            strIndActivo = "1";
+        else if (strEstado.equals("Bloqueada"))
+            strIndActivo = "0";
+        else 
+            strIndActivo = "2";
+                    
+        if (!strIndActivo.equals("2")){
+            UbicacionBL objUbicacionBL = new UbicacionBL();
+            objUbicacionBL.bloquearUbicacion(strIdUbicacion,strIndActivo);
+
+            if (strIndActivo.equals("1"))
+                removerFilaDgv(fila);
+            else{
+                arrUbicaciones = new ArrayList<UbicacionBE>();
+                arrUbicaciones.add(objUbicacionBL.getUbicacionById(strIdUbicacion));
+                llenarDgv(arrUbicaciones);
+            }
         }
-            
+        else
+            JOptionPane.showMessageDialog(null, "No se puede bloquear la ubicación porque tiene un producto asociado");
     }
 }//GEN-LAST:event_lblBloquearUbicacionMouseClicked
 
@@ -242,21 +254,34 @@ private void lblRefrescarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
         this.limpiarDgv();
         this.arrUbicaciones = arrUbicaciones;
         
-        for (int i=0; i<arrUbicaciones.size(); i++){
+        if (arrUbicaciones != null){
             
-            String strIdUbicacion = arrUbicaciones.get(i).getIdUbicacion();
-            String strIdRack = arrUbicaciones.get(i).getIdRack();
-            int intFila = arrUbicaciones.get(i).getFila();
-            int intColumna = arrUbicaciones.get(i).getColumna();
-            String strIndActivo = arrUbicaciones.get(i).getIndActivo();
-            String strIdPallet;
-            PalletBL objPalletBL = new PalletBL();
-            if (objPalletBL.getPalletByIdUbicacion(strIdUbicacion) != null)
-                strIdPallet = objPalletBL.getPalletByIdUbicacion(strIdUbicacion).getIdPallet();
-            else
-                strIdPallet = "";
-            
-            modelo.addRow(new Object[]{strIdUbicacion,strIdRack, intFila,intColumna,strIndActivo,strIdPallet});
+        
+            for (int i=0; i<arrUbicaciones.size(); i++){
+
+                String strIdUbicacion = arrUbicaciones.get(i).getIdUbicacion();
+                String strIdRack = arrUbicaciones.get(i).getIdRack();
+                int intFila = arrUbicaciones.get(i).getFila();
+                int intColumna = arrUbicaciones.get(i).getColumna();
+                String strIndActivo = arrUbicaciones.get(i).getIndActivo();
+                String strIdPallet;
+                PalletBL objPalletBL = new PalletBL();
+                if (objPalletBL.getPalletByIdUbicacion(strIdUbicacion) != null)
+                    strIdPallet = objPalletBL.getPalletByIdUbicacion(strIdUbicacion).getIdPallet();
+                else
+                    strIdPallet = "";
+
+                String strEstado;
+                // 0 bloqueada, 1 disponible, 2 en uso
+                if (strIndActivo.equals("0"))
+                    strEstado = "Bloqueada";
+                else if (strIndActivo.equals("1"))
+                    strEstado = "Disponible";
+                else
+                    strEstado = "En uso";
+
+                modelo.addRow(new Object[]{strIdUbicacion,strIdRack, intFila,intColumna,strEstado,strIdPallet});
+            }
         }
     }
     

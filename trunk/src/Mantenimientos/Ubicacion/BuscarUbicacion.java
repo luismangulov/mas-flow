@@ -52,6 +52,7 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         initComponents();
         objAlmacenBL = new AlmacenBL();
         this.ventanaPadre = ventanaPadre;
+        chbxActivo.setSelected(true);
         cargarComboAlmacen();
         
     }
@@ -61,10 +62,7 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         cbAlmacen.removeAllItems();
         cbZona.removeAllItems();
         cbRack.removeAllItems();
-        cbUbicacion.removeAllItems();
-//        cbZona.addItem("");
-//        cbRack.addItem("");
-//        cbUbicacion.addItem("");       
+        cbUbicacion.removeAllItems();    
         
         ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
@@ -87,8 +85,6 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
         
-
-        
         if (arrZonas != null)
             for(ZonaBE zona : arrZonas)
                 cbZona.addItem(zona.getIdentificador());
@@ -105,8 +101,6 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
         arrRacks = objRackBL.getRacksByZona(idZona);
         
-
-        
         if (arrRacks != null)
             for(RackBE rack : arrRacks)
                 cbRack.addItem(rack.getIdentificador());
@@ -120,8 +114,6 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         cbUbicacion.addItem(""); 
         ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
         arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack);
-        
-
         
         if (arrUbicaciones != null)
             for(UbicacionBE ubicacion : arrUbicaciones)
@@ -183,6 +175,11 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         cbAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,7 +303,8 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         int intFila = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
         int intColumna = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
         objUbicacionBE = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack,intFila,intColumna,strIndActivo);
-        arrUbicaciones.add(objUbicacionBE);
+        if (objUbicacionBE != null)
+            arrUbicaciones.add(objUbicacionBE);
         
     }
     else if (cbUbicacion.getSelectedItem().toString().equals("") && !cbRack.getSelectedItem().toString().equals("")){
@@ -326,7 +324,6 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         arrUbicaciones = objUbicacionBL.getUbicacionesByAlmacen(strIdAlmacen,strIndActivo);
         
     }
-        
     ventanaPadre.llenarDgv(arrUbicaciones);
     this.dispose();
     
@@ -335,6 +332,10 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_btnBuscarActionPerformed
+
+private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    this.dispose();
+}//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments

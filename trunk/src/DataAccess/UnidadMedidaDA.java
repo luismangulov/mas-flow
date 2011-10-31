@@ -43,8 +43,7 @@ public class UnidadMedidaDA {
 
         }catch (Exception a){
             System.out.println(a.getMessage());
-         }
-         finally{
+         }finally{
              objConexion.SalirS();
          }
 

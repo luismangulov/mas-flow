@@ -16,6 +16,7 @@ public class PalletBL {
 
     PalletDA objPalletDA;
     ArrayList<PalletBE> arrPallets;
+    private String strIdZona;
     
     public void insertar(PalletBE objPalletBE) {
         objPalletDA = new PalletDA();
@@ -45,6 +46,21 @@ public class PalletBL {
     public void reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino){
         objPalletDA = new PalletDA();
         objPalletDA.reubicarPallet(strIdPallet,strIdUbicacionOrigen,strIdUbicacionDestino);
+    }
+
+    public ArrayList<PalletBE> getPalletsByRack(String strIdRack) {
+        objPalletDA = new PalletDA();
+        return objPalletDA.queryPalletsByRack(strIdRack);
+    }
+
+    public ArrayList<PalletBE> getPalletsByZona(String strIdZona) {
+        objPalletDA = new PalletDA();
+        return objPalletDA.queryPalletsByIdZona(strIdZona);
+    }
+
+    public ArrayList<PalletBE> getPalletsByAlmacen(String strIdAlmacen) {
+        objPalletDA = new PalletDA();
+        return objPalletDA.queryPalletsByIdAlmacen(strIdAlmacen);
     }
     
 }

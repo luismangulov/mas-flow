@@ -324,4 +324,100 @@ public class PalletDA {
         return arrPallets;
     }
 
+    public ArrayList<PalletBE> queryPalletsByRack(String strIdRack) {
+        
+        objConexion = new conexion();
+        
+        query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento FROM PALLET p, UBICACION u WHERE p.idUbicacion = u.idUbicacion AND u.idrack = '" +strIdRack + "'";
+
+        rs = objConexion.EjecutarS(query);
+        arrPallets = new ArrayList<PalletBE>();
+        
+        Date dateFechaVencimiento = null;
+        
+        try {
+            while (rs.next()) {
+                
+                String strIdPallet = rs.getString("IdPallet");
+                String strIdProducto = rs.getString("IdProducto");
+                String strIndActivo= rs.getString("IndActivo");
+                String strIdUbicacion = rs.getString("idUbicacion");
+                String strIdAlmacen = rs.getString("idAlmacen");
+                if (rs.getDate("FechaVencimiento") != null)
+                    dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            objConexion.SalirS();
+        }
+        return arrPallets;
+    }
+
+    public ArrayList<PalletBE> queryPalletsByIdZona(String strIdZona) {
+        objConexion = new conexion();
+        
+        query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento "
+                + "FROM PALLET p, ZONA z, RACK r, UBICACION u"
+                + " WHERE p.idUbicacion = u.idUbicacion AND u.idRack = r.idRack AND r.idZona = '" +strIdZona+"'";
+
+        rs = objConexion.EjecutarS(query);
+        arrPallets = new ArrayList<PalletBE>();
+        
+        Date dateFechaVencimiento = null;
+        
+        try {
+            while (rs.next()) {
+                
+                String strIdPallet = rs.getString("IdPallet");
+                String strIdProducto = rs.getString("IdProducto");
+                String strIndActivo= rs.getString("IndActivo");
+                String strIdUbicacion = rs.getString("idUbicacion");
+                String strIdAlmacen = rs.getString("idAlmacen");
+                if (rs.getDate("FechaVencimiento") != null)
+                    dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            objConexion.SalirS();
+        }
+        return arrPallets;
+    }
+
+    public ArrayList<PalletBE> queryPalletsByIdAlmacen(String idAlmacen) {
+       objConexion = new conexion();
+        
+        query = "SELECT * FROM PALLET WHERE idAlmacen = '" + idAlmacen + "'";
+
+        rs = objConexion.EjecutarS(query);
+        arrPallets = new ArrayList<PalletBE>();
+        
+        Date dateFechaVencimiento = null;
+        
+        try {
+            while (rs.next()) {
+                
+                String strIdPallet = rs.getString("IdPallet");
+                String strIdProducto = rs.getString("IdProducto");
+                String strIndActivo= rs.getString("IndActivo");
+                String strIdUbicacion = rs.getString("idUbicacion");
+                String strIdAlmacen = rs.getString("idAlmacen");
+                if (rs.getDate("FechaVencimiento") != null)
+                    dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            objConexion.SalirS();
+        }
+        return arrPallets;
+    }
+
 }
