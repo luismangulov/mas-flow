@@ -11,13 +11,15 @@
 package Procesamiento.OrdenDeSuministro;
 
 import BusinessEntity.ProductoBE;
+import java.util.ArrayList;
 
 /**
  *
  * @author DIEGO
  */
 public class MantenimientoOrdenDeSuministro extends javax.swing.JFrame {
-    private ProductoBE producto;
+    //private ProductoBE producto;
+    private ArrayList<ProductoBE> arrProducto = new ArrayList<ProductoBE>();
     /** Creates new form MantenimientoOrdenDeSuministro */
     public MantenimientoOrdenDeSuministro() {
         initComponents();
@@ -201,7 +203,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton2ActionPerformed
 
 private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
-Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.producto);
+Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.arrProducto);
         m.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_lblAddMousePressed
 
