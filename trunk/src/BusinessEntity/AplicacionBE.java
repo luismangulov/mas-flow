@@ -12,6 +12,9 @@ public class AplicacionBE {
     
     private String idAplicacion;
     private String descripcion;
+
+    public AplicacionBE() {
+    }
   
 
     public AplicacionBE(String idAplicacion, String descripcion) {

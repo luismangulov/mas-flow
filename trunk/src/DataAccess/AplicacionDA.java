@@ -16,10 +16,11 @@ import java.util.ArrayList;
 public class AplicacionDA {
     
         public ArrayList<AplicacionBE> queryAllAplicacion(){
+            
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<AplicacionBE> arrAplicacion= new ArrayList<AplicacionBE>();
-        String sql = "SELECT idAplicacion,descripcion FROM Aplicacion order by 1";
+        String sql = "SELECT distinct A.idAplicacion ,A.descripcion  FROM Aplicacion A, AplicacionxServicio AXS where A.idAplicacion=AXS.idAplicacion order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdAplicacion;
@@ -41,5 +42,35 @@ public class AplicacionDA {
          }
         return arrAplicacion;
     }
+        
+   public AplicacionBE queryByIdAplicacion(String idAplicacion){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        AplicacionBE perfil = null;
+        String sql = "SELECT idAplicacion,descripcion FROM Aplicacion ";
+           sql += " WHERE idAplicacion='"+idAplicacion+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdAplicacion;
+            String strDescripcion;
+         
+            if (rs.next()){
+              
+                strIdAplicacion = rs.getString(1);
+                strDescripcion = rs.getString(2);
+      
+                perfil = new AplicacionBE(strIdAplicacion,strDescripcion);
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return perfil;
+    }
+  
 
 }
