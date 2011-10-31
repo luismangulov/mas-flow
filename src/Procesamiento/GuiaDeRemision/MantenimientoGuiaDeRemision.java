@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
     private AdmGuiaDeRemision objPadre;
-    private ProductoBE producto =new ProductoBE();
+    //private ProductoBE producto =new ProductoBE();
     private ArrayList<ProductoBE> arrProducto = new ArrayList<ProductoBE>();
     private EntidadBE cliente = new EntidadBE();
     
@@ -366,19 +366,22 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
         // TODO add your handling code here:
-        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.producto);
+        Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.arrProducto);
         m.setVisible(true);
         boolean seleccion = false;
-        for(int i = 0;i<this.tblProductos.getRowCount();i++){
-            if(producto.getIdProducto().equals((String)this.tblProductos.getValueAt(i, 0))){
-                JOptionPane.showMessageDialog(null, "El producto ya ha sido seleccionado", "Mensaje",0);
-                seleccion = true;
-            }
+        for(int j = 0;j<this.arrProducto.size();j++){
+            for( int i = 0;i<this.tblProductos.getRowCount();i++){
+               
+                if(arrProducto.get(j).getIdProducto().equals((String)this.tblProductos.getValueAt(i, 0))){
+                    JOptionPane.showMessageDialog(null, "El producto ya ha sido seleccionado", "Mensaje",0);
+                    seleccion = true;
+                }
+            }    
         }
         if(seleccion == false){
-            if(producto.getIdProducto().equals("")){
-                JOptionPane.showMessageDialog(null, "No ha seleccionado un producto", "Mensaje",0);
-            }else recargaruno(this.producto);
+            if(arrProducto.get(0).getIdProducto().equals("")){
+                JOptionPane.showMessageDialog(null, "No ha seleccionado uno o mas producto", "Mensaje",0);
+            }else recargar(this.arrProducto);
         }
        
         
@@ -466,6 +469,20 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
          tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
     }
 
+    public void recargar(ArrayList<ProductoBE> arrProductos){
+        DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
+        
+        for(int i = 0;i<this.arrProducto.size();i++){
+             modelo.addRow(new Object[4]);
+            tblProductos.setValueAt(arrProducto.get(i).getIdProducto(),tblProductos.getRowCount()-1,0 );
+            tblProductos.setValueAt(arrProducto.get(i).getNombre(),tblProductos.getRowCount()-1,1 );
+            UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
+            UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
+            objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(arrProducto.get(i).getIdUnidadMedida());
+             tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
+        } 
+    }
+    
     
     private boolean valida(){
         boolean esValido = true;

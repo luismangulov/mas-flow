@@ -24,13 +24,15 @@ import javax.swing.table.DefaultTableModel;
  * @author Giuliana
  */
 public class AyudaProducto extends javax.swing.JDialog {
-    ProductoBE producto;
+    //ProductoBE producto;
+    ArrayList<ProductoBE> arrProducto = new ArrayList<ProductoBE>();
     /** Creates new form AyudaProducto */
-    public AyudaProducto(java.awt.Frame parent, boolean modal,ProductoBE producto) {
+    public AyudaProducto(java.awt.Frame parent, boolean modal,ArrayList<ProductoBE> arrProducto) {
         super(parent, modal);
         initComponents();
         this.cargarComboFamilia();
-        this.producto = producto;
+        this.arrProducto = arrProducto;
+        this.arrProducto.clear();
 //        producto.setIdProducto("000001");
 //        producto.setNombre("dsas");
         this.setLocationRelativeTo(null); 
@@ -59,6 +61,14 @@ public class AyudaProducto extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Ayuda Producto");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,8 +104,6 @@ public class AyudaProducto extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tblProductos.setCellSelectionEnabled(false);
-        tblProductos.setRowSelectionAllowed(true);
         jScrollPane1.setViewportView(tblProductos);
         tblProductos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblProductos.getColumnModel().getColumn(0).setPreferredWidth(10);
@@ -226,20 +234,23 @@ public class AyudaProducto extends javax.swing.JDialog {
         // TODO add your handling code here:
          if((tblProductos.getSelectedRowCount() == 0)){
            JOptionPane.showMessageDialog(null, "No ha seleccionado un producto", "Mensaje",0);
-        } else if((tblProductos.getSelectedRowCount() > 1)){
-            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de un producto", "Mensaje",0);
         }else{
             int fila;
             String codigo;
-            fila = tblProductos.getSelectedRow();
+            //fila = tblProductos.getSelectedRow();
+            int arrFilas[];
+            arrFilas = tblProductos.getSelectedRows();
+            for(int i = 0;i< arrFilas.length;i++){
+                codigo = (String)tblProductos.getValueAt(arrFilas[i], 0);
+                ProductoBL objProductoBL = new ProductoBL();
+                ProductoBE objProductoBE = objProductoBL.getByIdProducto(codigo);
+
+                this.arrProducto.add(objProductoBE);
+//                this.producto.setIdProducto(objProductoBE.getIdProducto());
+//                this.producto.setNombre(objProductoBE.getNombre());
+//                this.producto.setIdUnidadMedida(objProductoBE.getIdUnidadMedida());
+            }
             
-            codigo = (String)tblProductos.getValueAt(fila, 0);
-            ProductoBL objProductoBL = new ProductoBL();
-            ProductoBE objProductoBE = objProductoBL.getByIdProducto(codigo);
-            
-            this.producto.setIdProducto(objProductoBE.getIdProducto());
-            this.producto.setNombre(objProductoBE.getNombre());
-            this.producto.setIdUnidadMedida(objProductoBE.getIdUnidadMedida());
             //JOptionPane.showMessageDialog(null, producto.getIdProducto(), "Error", 0);
             this.dispose();
         }
@@ -247,9 +258,23 @@ public class AyudaProducto extends javax.swing.JDialog {
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
         // TODO add your handling code here:
-        this.producto.setIdProducto("");
+        ProductoBE objProductoBE = new ProductoBE();
+        objProductoBE.setIdProducto("");
+        this.arrProducto.add(objProductoBE);
         this.dispose();
     }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        ProductoBE objProductoBE = new ProductoBE();
+        objProductoBE.setIdProducto("");
+        this.arrProducto.add(objProductoBE);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

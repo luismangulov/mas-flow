@@ -19,6 +19,7 @@ import BusinessLogic.NotaIngresoBL;
 import BusinessLogic.UnidadMedidaBL;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +31,8 @@ import javax.swing.table.DefaultTableModel;
  * @author DIEGO
  */
 public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
-    private ProductoBE producto =new ProductoBE();
+    //private ProductoBE producto =new ProductoBE();
+    private ArrayList<ProductoBE> arrProducto = new ArrayList<ProductoBE>();
     private EntidadBE proveedor = new EntidadBE();
     private AdmNotaDeIngreso objPadre;
     /** Creates new form MantenimientoNotaDeIngreso */
@@ -297,19 +299,22 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
 
     private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
         // TODO add your handling code here:
-       Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.producto);
+       Mantenimientos.Producto.AyudaProducto m = new Mantenimientos.Producto.AyudaProducto(this,true,this.arrProducto);
         m.setVisible(true);
         boolean seleccion = false;
-        for(int i = 0;i<this.tblProductos.getRowCount();i++){
-            if(producto.getIdProducto().equals((String)this.tblProductos.getValueAt(i, 0))){
-                JOptionPane.showMessageDialog(null, "El producto ya ha sido seleccionado", "Mensaje",0);
-                seleccion = true;
-            }
+         for(int j = 0;j<this.arrProducto.size();j++){
+            for( int i = 0;i<this.tblProductos.getRowCount();i++){
+               
+                if(arrProducto.get(j).getIdProducto().equals((String)this.tblProductos.getValueAt(i, 0))){
+                    JOptionPane.showMessageDialog(null, "El producto ya ha sido seleccionado", "Mensaje",0);
+                    seleccion = true;
+                }
+            }    
         }
         if(seleccion == false){
-            if(producto.getIdProducto().equals("")){
-                JOptionPane.showMessageDialog(null, "No ha seleccionado un producto", "Mensaje",0);
-            }else recargaruno(this.producto);
+            if(arrProducto == null){
+                JOptionPane.showMessageDialog(null, "No ha seleccionado uno o mas producto", "Mensaje",0);
+            }else recargar(this.arrProducto);
         }
     }//GEN-LAST:event_lblAddMousePressed
 
@@ -433,6 +438,20 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
         objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(producto.getIdUnidadMedida());
          tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
+    }
+    
+    public void recargar(ArrayList<ProductoBE> arrProductos){
+        DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
+        
+        for(int i = 0;i<this.arrProducto.size();i++){
+             modelo.addRow(new Object[4]);
+            tblProductos.setValueAt(arrProducto.get(i).getIdProducto(),tblProductos.getRowCount()-1,0 );
+            tblProductos.setValueAt(arrProducto.get(i).getNombre(),tblProductos.getRowCount()-1,1 );
+            UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
+            UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
+            objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(arrProducto.get(i).getIdUnidadMedida());
+             tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
+        } 
     }
 
     private boolean valida(){
