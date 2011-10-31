@@ -10,9 +10,13 @@
  */
 package Seguridad.Perfil;
 
+import BusinessEntity.AplicacionxServicioBE;
 import BusinessEntity.PerfilBE;
 import BusinessLogic.PerfilBL;
+import DataAccess.AplicacionDA;
+import DataAccess.AplicacionxServicioDA;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,29 +86,56 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         cbxActivo = new javax.swing.JCheckBox();
+        ArrayList <AplicacionxServicioBE> lista = new ArrayList<AplicacionxServicioBE>();
+        AplicacionxServicioDA objAplicacionxServicio =new AplicacionxServicioDA();
+        lista=objAplicacionxServicio.queryAllAplicacionxServicio();
+
+        /*
         CheckBoxNode accessibilityOptions[] = {
-            new CheckBoxNode("Consultar", false),
-            new CheckBoxNode("Registrar", false),
-            new CheckBoxNode("Modificar", false),
-            new CheckBoxNode("Eliminar", false),
+            new CheckBoxNode("Move system caret with focus/selection changes", false),
+            new CheckBoxNode("Always expand alt text for images", true),
+            new CheckBoxNode("Always expand alt text for images", true),
+            new CheckBoxNode("Always expand alt text for images", true)
 
         };
-
         CheckBoxNode browsingOptions[] = {
-            new CheckBoxNode("Consultar", false),
-            new CheckBoxNode("Registrar", false),
-            new CheckBoxNode("Modificar", false),
-            new CheckBoxNode("Eliminar", false),
-            new CheckBoxNode("Aprobar", false),
+            new CheckBoxNode("Notify when downloads complete", true),
+            new CheckBoxNode("Disable script debugging", true),
+            new CheckBoxNode("Use AutoComplete", true),
+            new CheckBoxNode("Browse in a new process", false) };
+        CheckBoxNode usuarioOptions[]={
+            new CheckBoxNode("Notify when downloads complete", true),
+            new CheckBoxNode("Notify when downloads complete", true),
+            new CheckBoxNode("Notify when downloads complete", true),
+            new CheckBoxNode("Notify when downloads complete", true)
         };
 
-        Vector accessVector = new NamedVector("Rack",accessibilityOptions);
-        Vector browseVector = new NamedVector("Guia de remision", browsingOptions);
+        Vector accessVector = new NamedVector("Guias de remision",accessibilityOptions);
+        Vector browseVector = new NamedVector("Proveedor", browsingOptions);
+        Vector newVector=new NamedVector("Usuario",usuarioOptions);
 
-        Object rootNodes[] = { accessVector, browseVector };
+        Object rootNodes[] = { accessVector, browseVector,newVector };
+        */
 
+        AplicacionDA objAplicacionDA =new AplicacionDA();
+        int numAplicaciones= objAplicacionDA.queryAllAplicacion().size();
+        Object[] rootNodes =new Vector[numAplicaciones];
+
+        for(int i = 0; i < numAplicaciones; i++) {
+            int numServicios=lista.get(i).getListaServicios().size();
+            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
+            for(int j = 0; j < numServicios; j++) {
+                checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+            }
+            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
+            rootNodes[i]=vectorAplicacion;
+        }
         Vector rootVector = new NamedVector("Root", rootNodes);
         JTree tree = new JTree(rootVector);
+
+        // Object rootNodes[] = { accessVector, browseVector };
+        // Vector rootVector = new NamedVector("Root", rootNodes);
+        // JTree tree = new JTree(rootVector);
         CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
         tree.setCellRenderer(renderer);
         tree.setCellEditor(new CheckBoxNodeEditor(tree));

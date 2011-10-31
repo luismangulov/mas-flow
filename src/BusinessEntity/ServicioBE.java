@@ -10,20 +10,20 @@ package BusinessEntity;
  */
 public class ServicioBE {
     private String idServicio;
-    private String idDescripcion;
+    private String Descripcion;
 
-    public ServicioBE(String idServicio, String idDescripcion) {
+    public ServicioBE(String idServicio, String Descripcion) {
         this.idServicio = idServicio;
-        this.idDescripcion = idDescripcion;
+        this.Descripcion = Descripcion;
     }
 
     
     public String getIdDescripcion() {
-        return idDescripcion;
+        return Descripcion;
     }
 
-    public void setIdDescripcion(String idDescripcion) {
-        this.idDescripcion = idDescripcion;
+    public void setIdDescripcion(String Descripcion) {
+        this.Descripcion = Descripcion;
     }
 
     public String getIdServicio() {
