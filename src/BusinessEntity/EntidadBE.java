@@ -11,18 +11,18 @@ package BusinessEntity;
  */
 public class EntidadBE {
 
-    private String idEntidad;
-    private String nroDocumento;
-    private String direccion;
-    private String telefono;
-    private String email;
-    private String nombreContacto;
-    private String dniContacto;
-    private String telefonoContacto;
-    private String razonSocial;
-    private String paginaWeb;
-    private String indActivo;
-    private String idCIUU;
+    private String idEntidad;//13
+    private String nroDocumento;//11
+    private String direccion;//60
+    private String telefono;//12
+    private String email;//30
+    private String nombreContacto;//30
+    private String dniContacto;//8
+    private String telefonoContacto;//12
+    private String razonSocial;//60
+    private String paginaWeb;//30
+    private String indActivo;//1
+    private String idCIUU;//1
 
     public EntidadBE(){}
 

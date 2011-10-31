@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public class MantenimientoCliente extends javax.swing.JFrame {
     private AdmCliente objPadre;
     private String accion;
-    private String codigo;
+    //private String codigo;
     
      public MantenimientoCliente(AdmCliente padre) {
         this.objPadre = padre;
@@ -34,6 +34,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         rdbEmpresa.setSelected(true);
+        empresaSeleccionada();
         this.setLocationRelativeTo(null);
         this.buttonGroup1.add(this.rdbEmpresa);
         this.buttonGroup1.add(this.rdbPersona);
@@ -46,7 +47,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
      public MantenimientoCliente(AdmCliente padre,EntidadBE cliente){
 
          this.objPadre = padre;
-         this.codigo=cliente.getIdEntidad();
+       //  this.codigo=cliente.getIdEntidad();
         accion = "modificar";
 
         initComponents();
@@ -54,8 +55,10 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         
         if (cliente.getNroDocumento().length()==8){
         rdbPersona.setSelected(true);
+        personaSeleccionada();
         } else {
         rdbEmpresa.setSelected(true);
+        empresaSeleccionada();
         }
         this.buttonGroup1.add(this.rdbEmpresa);
         this.buttonGroup1.add(this.rdbPersona);
@@ -78,17 +81,17 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         //txtIdTipoEntidad.setText(cliente.getIdEntidad());
         //CIUUDA ciuuDa = new CIUUDA();
         CIUUBE CIUU = CIUUDA.getCIUU(cliente.getIdCIUU());
-        cmbCIUU.setSelectedItem(CIUU.getIdCIUU() + " - " + CIUU.getDescripcion());
-        
-            if (cliente.getIndActivo().equals("1")){
-                cbxActivo.setSelected(true);
-            } else{
-                cbxActivo.setSelected(false);
-            }
+        if (cliente.getIdCIUU() == null ? "" != null : !cliente.getIdCIUU().equals(""))
+                cmbCIUU.setSelectedItem(CIUU.getIdCIUU() + " - " + CIUU.getDescripcion());
+        else cmbCIUU.setSelectedIndex(0);
 
-            //txtIdCIUU.setText(cliente.getIdEntidad());
+        if (cliente.getIndActivo().equals("1")){
+            cbxActivo.setSelected(true);
+        } else{
+            cbxActivo.setSelected(false);
+        }
 
-            this.setVisible(true) ;
+        this.setVisible(true) ;
         
                
     }
@@ -115,7 +118,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         txtDNIContacto = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtTelfContacto = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        lblDocumento = new javax.swing.JLabel();
         rdbEmpresa = new javax.swing.JRadioButton();
         rdbPersona = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
@@ -227,11 +230,21 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel2.setText("Documento*:");
+        lblDocumento.setText("Doc*:");
 
         rdbEmpresa.setText("Empresa");
+        rdbEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbEmpresaActionPerformed(evt);
+            }
+        });
 
         rdbPersona.setText("Persona");
+        rdbPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbPersonaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Código:");
 
@@ -298,14 +311,14 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel6)
@@ -319,29 +332,25 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                                     .addComponent(txtPaginaWeb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(rdbEmpresa)
                                 .addGap(18, 18, 18)
                                 .addComponent(rdbPersona)
-                                .addGap(33, 33, 33)
-                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                                .addComponent(lblDocumento)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(txtDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(37, 37, 37)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)))
-                        .addContainerGap())
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxActivo)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxActivo)
-                        .addContainerGap(400, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                        .addGap(124, 124, 124)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +364,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                     .addComponent(rdbPersona)
                     .addComponent(txtDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdbEmpresa)
-                    .addComponent(jLabel2))
+                    .addComponent(lblDocumento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -404,9 +413,10 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Falta indicar tipo de cliente.", "Error", 0);
             return;
         }
-
-        String tipoPersona = new String();
-        if ((txtDoc.getText().length())==8) {tipoPersona="N";} else if ((txtDoc.getText().length())==11) {tipoPersona="J";} else {JOptionPane.showMessageDialog(null, "DNI/RUC incorrecto.", "Error", 0);
+        
+        if ((txtDoc.getText().length()==8) && rdbPersona.isSelected()) {
+        } else if ((txtDoc.getText().length()==11) && rdbEmpresa.isSelected()) {
+        } else {JOptionPane.showMessageDialog(null, "Documento incorrecto.", "Error", 0);
         return;
         }
 
@@ -415,7 +425,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             return;
         }
 
-        if ((cmbCIUU.getSelectedIndex()==0) && txtDoc.getText().length()!=8) {
+        if ((cmbCIUU.getSelectedIndex()==0) && rdbEmpresa.isSelected()) {
             JOptionPane.showMessageDialog(null, "Falta indicar CIUU.", "Error", 0);
             return;
         }
@@ -430,7 +440,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             return;
         }
 
-        if ((txtPaginaWeb.getText().length()==0)&& txtDoc.getText().length()!=8) {
+        if ((txtPaginaWeb.getText().length()==0)&& rdbEmpresa.isSelected()) {
             JOptionPane.showMessageDialog(null, "Falta indicar página web.", "Error", 0);
             return;
         }
@@ -440,17 +450,20 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             return;
         }
 
-        if ((txtNombreContacto.getText().length()==0)&& txtDoc.getText().length()!=8) {
+        if ((txtNombreContacto.getText().length()==0)&& rdbEmpresa.isSelected()) {
             JOptionPane.showMessageDialog(null, "Falta indicar nombre del contacto.", "Error", 0);
             return;
         }
 
-        if ((txtDNIContacto.getText().length()==0)&& txtDoc.getText().length()!=8) {
+        if ((txtDNIContacto.getText().length()==0)&& rdbEmpresa.isSelected()) {
             JOptionPane.showMessageDialog(null, "Falta indicar DNI del contacto.", "Error", 0);
+            return;
+        } else if(txtDNIContacto.getText().length()<8){
+            JOptionPane.showMessageDialog(null, "DNI del contacto incorrecto.", "Error", 0);
             return;
         }
 
-        if ((txtTelfContacto.getText().length()==0)&& txtDoc.getText().length()!=8) {
+        if ((txtTelfContacto.getText().length()==0)&& rdbEmpresa.isSelected()) {
             JOptionPane.showMessageDialog(null, "Falta indicar teléfono del contacto.", "Error", 0);
             return;
         }
@@ -458,7 +471,10 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         String indActivo = new String();
         if (cbxActivo.isSelected()) {indActivo="1";} else {indActivo="0";}
 
-
+        String ciuu = "";
+        if (cmbCIUU.getSelectedIndex()!=0 && cmbCIUU.getSelectedIndex()!=-1){
+            ciuu=cmbCIUU.getSelectedItem().toString().substring(0,1);
+        }
 
         EntidadBL entidadBL = new EntidadBL();
         try {
@@ -467,31 +483,21 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                     txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                     txtDNIContacto.getText(), txtTelfContacto.getText(),
                     txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
-                    cmbCIUU.getSelectedItem().toString().substring(0,1) );
+                    ciuu );
                     EntidadBE cliente = entidadBL.getCliente("C-"+txtDoc.getText());
                     this.objPadre.recargaruno(cliente);
                     this.dispose();
             } else {
-                entidadBL.modificar(this.codigo, "C-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
+                entidadBL.modificar(txtCodigo.getText(),txtDoc.getText(),txtDireccion.getText(),
                         txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                         txtDNIContacto.getText(), txtTelfContacto.getText(),
                         txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
-                        cmbCIUU.getSelectedItem().toString().substring(0,1) );
-                        int fila;
-                        fila = this.objPadre.getDgvCliente().getSelectedRow();
-                        this.objPadre.getDgvCliente().removeRowSelectionInterval(fila, fila);
+                        ciuu );
+                        
                         EntidadBE cliente = entidadBL.getCliente("C-"+txtDoc.getText());
 
-                        this.objPadre.getDgvCliente().setValueAt(cliente.getIdEntidad(), fila, 0);
-                        this.objPadre.getDgvCliente().setValueAt(cliente.getRazonSocial(), fila, 1);
-                        this.objPadre.getDgvCliente().setValueAt(cliente.getNombreContacto(), fila, 3);
-                        this.objPadre.getDgvCliente().setValueAt(cliente.getTelefonoContacto(), fila, 4);
-                        
-                        if(cliente.getIndActivo().equals("1")){
-                             this.objPadre.getDgvCliente().setValueAt("Activo", fila, 2);
-                         }else if(cliente.getIndActivo().equals("0")){
-                            this.objPadre.getDgvCliente().setValueAt("Inactivo", fila, 2);
-                         }
+                        this.objPadre.recargaruno(cliente);
+                        this.dispose();
                         this.dispose();
                 
 
@@ -532,28 +538,14 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         } else {
             evt.consume();
         }
-        if ((this.txtDoc.getText().length() + 1) > 11) {
-            evt.consume();
+         if ((((this.txtDoc.getText().length() + 1) > 8) && rdbPersona.isSelected()) ||
+            (((this.txtDoc.getText().length() + 1) > 8) && rdbPersona.isSelected())) {
+        evt.consume();
         }
 }//GEN-LAST:event_txtDocKeyTyped
 
     private void txtDocFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDocFocusLost
-        if ((this.txtDoc.getText().length() ) == 8){
-            this.cmbCIUU.setEnabled(false);
-            this.txtPaginaWeb.setEnabled(false);
-            this.txtNombreContacto.setEnabled(false);
-            this.txtDNIContacto.setEnabled(false);
-            this.txtTelfContacto.setEnabled(false);
-        } else{
-            this.cmbCIUU.setEnabled(true);
-            this.txtPaginaWeb.setEnabled(true);
-            this.txtNombreContacto.setEnabled(true);
-            this.txtDNIContacto.setEnabled(true);
-            this.txtTelfContacto.setEnabled(true);
-        }
-
-
-        // TODO add your handling code here:
+              txtCodigo.setText("C-"+this.txtDoc.getText()); // TODO add your handling code here:
 }//GEN-LAST:event_txtDocFocusLost
 
     private void txtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyTyped
@@ -600,7 +592,42 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         if ((this.txtNombreContacto.getText().length() + 1) > 30) {
             evt.consume();}// TODO add your handling code here:
 }//GEN-LAST:event_txtNombreContactoKeyTyped
+
+    private void rdbPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbPersonaActionPerformed
+        personaSeleccionada();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbPersonaActionPerformed
+
+    private void personaSeleccionada(){
+         if (rdbPersona.isSelected() ){
+            this.cmbCIUU.setEnabled(false);
+            this.txtPaginaWeb.setEnabled(false);
+            this.txtNombreContacto.setEnabled(false);
+            this.txtDNIContacto.setEnabled(false);
+            this.txtTelfContacto.setEnabled(false);
+            this.lblDocumento.setText("DNI*:");
+         }
+    }
+
+    private void rdbEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbEmpresaActionPerformed
+             // TODO add your handling code here:
+       empresaSeleccionada();
+
+    }//GEN-LAST:event_rdbEmpresaActionPerformed
     
+    
+    private void empresaSeleccionada(){    
+        if (rdbEmpresa.isSelected())  {
+            this.cmbCIUU.setEnabled(true);
+            this.txtPaginaWeb.setEnabled(true);
+            this.txtNombreContacto.setEnabled(true);
+            this.txtDNIContacto.setEnabled(true);
+            this.txtTelfContacto.setEnabled(true);
+            this.lblDocumento.setText("RUC*:");
+        } 
+}
+
+
     /**
      * @param args the command line arguments
      */
@@ -645,7 +672,6 @@ public class MantenimientoCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -654,6 +680,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblDocumento;
     private javax.swing.JRadioButton rdbEmpresa;
     private javax.swing.JRadioButton rdbPersona;
     private javax.swing.JTextField txtCodigo;
