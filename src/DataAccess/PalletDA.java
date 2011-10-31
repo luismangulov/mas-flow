@@ -119,6 +119,8 @@ public class PalletDA {
                 
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            objConexion.SalirS();
         }
         return objPalletBE;
         
@@ -145,6 +147,8 @@ public class PalletDA {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        } finally {
+            objConexion.SalirS();
         }
         return arrPallets;
         
@@ -171,6 +175,8 @@ public class PalletDA {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
+        } finally {
+            objConexion.SalirS();
         }
         return arrPallets;
         
@@ -209,6 +215,8 @@ public class PalletDA {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            objConexion.SalirS();
         }
         return arrPallets;
     }
@@ -235,6 +243,8 @@ public class PalletDA {
         } catch (SQLException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
             objPalletBE = null;
+        } finally {
+            objConexion.SalirS();
         }
         return objPalletBE;
         
@@ -308,6 +318,8 @@ public class PalletDA {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            objConexion.SalirS();
         }
         return arrPallets;
     }
