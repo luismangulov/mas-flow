@@ -79,6 +79,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblGuiaRemision);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
@@ -123,6 +124,8 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jToolBar1.add(lblDetalle);
 
         jLabel7.setText("                                                                                                                                  ");
+        jLabel7.setMaximumSize(new java.awt.Dimension(500, 14));
+        jLabel7.setPreferredSize(new java.awt.Dimension(500, 14));
         jToolBar1.add(jLabel7);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
