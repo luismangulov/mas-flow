@@ -79,6 +79,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblNotaIngreso);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
@@ -112,7 +113,6 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         jToolBar1.add(lblRefrescar);
 
         lblDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/detalle2.png"))); // NOI18N
-        lblDetalle.setText("jLabel1");
         lblDetalle.setToolTipText("VisualizarDetalle");
         lblDetalle.setMaximumSize(new java.awt.Dimension(54, 54));
         lblDetalle.setPreferredSize(new java.awt.Dimension(54, 54));
@@ -124,6 +124,8 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         jToolBar1.add(lblDetalle);
 
         jLabel7.setText("                                                                                                                                  ");
+        jLabel7.setMaximumSize(new java.awt.Dimension(500, 14));
+        jLabel7.setPreferredSize(new java.awt.Dimension(500, 14));
         jToolBar1.add(jLabel7);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
