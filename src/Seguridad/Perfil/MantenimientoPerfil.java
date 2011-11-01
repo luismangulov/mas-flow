@@ -15,7 +15,9 @@ import BusinessEntity.PerfilBE;
 import BusinessLogic.PerfilBL;
 import DataAccess.AplicacionDA;
 import DataAccess.AplicacionxServicioDA;
+import DataAccess.PerfilDA;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -34,16 +36,41 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
     /** Creates new form MantenimientoPerfil */
     private AdmPerfil objPadre;
     private String accion;
-    /** Creates new form MantenimientoFamiliaProd */
+    private JTree tree=new JTree();
+    
+    AplicacionxServicioDA objAplicacionxServicio =new AplicacionxServicioDA();
+    ArrayList <AplicacionxServicioBE> lista = objAplicacionxServicio.queryAllAplicacionxServicio();   
+    AplicacionDA objAplicacionDA =new AplicacionDA();
+    int numAplicaciones= objAplicacionDA.queryAllAplicacion().size();
+    Object[] rootNodes =new Vector[numAplicaciones];
+  
+       
+    
     public MantenimientoPerfil(AdmPerfil padre) {
         this.objPadre = padre;
         accion = "registrar";
-        initComponents();
         
+        for(int i = 0; i < numAplicaciones; i++) {
+            int numServicios=lista.get(i).getListaServicios().size();
+            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
+            for(int j = 0; j < numServicios; j++) {
+            checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+            }
+            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
+            rootNodes[i]=vectorAplicacion;   
+        }
+        
+        Vector rootVector = new NamedVector("Root", rootNodes);
+        tree = new JTree(rootVector);  
+        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+        tree.setCellRenderer(renderer);
+        tree.setCellEditor(new CheckBoxNodeEditor(tree));
+        tree.setEditable(true);   
+        
+        initComponents();
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
         this.txtCodigo.setEnabled(false);
-                       
         this.setVisible(true);
     }
 
@@ -51,7 +78,49 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.objPadre = padre;
         accion = "modificar";
         
+       
+        for(int i = 0; i < numAplicaciones; i++) {
+            int numServicios=lista.get(i).getListaServicios().size();
+            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
+            for(int j = 0; j < numServicios; j++) {
+            checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+            }
+            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
+            rootNodes[i]=vectorAplicacion;   
+        }
+        
+        Vector rootVector = new NamedVector("Root", rootNodes);
+        tree = new JTree(rootVector);  
+        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+        tree.setCellRenderer(renderer);
+        tree.setCellEditor(new CheckBoxNodeEditor(tree));
+        tree.setEditable(true); 
+    
+        
         initComponents();
+             
+//        PerfilDA objPerfilDA =new PerfilDA();
+//        PerfilBE objPerfilBE=new PerfilBE();
+//        objPerfilBE=objPerfilDA.queryByIdPerfil(perfil.getIdPerfil());
+//              
+//        for(int i = 0; i <4 ; i++) {
+//        //int numServicios=lista.get(i).getListaServicios().size();
+//        //CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
+//        
+//            String aplicacion=rootNodes[i].toString();
+//            if(aplicacion.equals(""))
+//                for(int j = 0; j < 3; j++) {
+//          //checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+//            
+//            
+//            
+//   
+//        //Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
+//        //rootNodes[i]=vectorAplicacion;   
+//                 }
+//        }
+        
+       
         
         this.setLocationRelativeTo(null);
         this.cbxActivo.setEnabled(true);
@@ -87,66 +156,6 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         cbxActivo = new javax.swing.JCheckBox();
-        JTree tree=new JTree();
-
-        if (accion.equals("registrar")){
-            ArrayList <AplicacionxServicioBE> lista = new ArrayList<AplicacionxServicioBE>();
-            AplicacionxServicioDA objAplicacionxServicio =new AplicacionxServicioDA();
-            lista=objAplicacionxServicio.queryAllAplicacionxServicio();
-
-            /*
-            CheckBoxNode accessibilityOptions[] = {
-                new CheckBoxNode("Move system caret with focus/selection changes", false),
-                new CheckBoxNode("Always expand alt text for images", true),
-                new CheckBoxNode("Always expand alt text for images", true),
-                new CheckBoxNode("Always expand alt text for images", true)
-
-            };
-            CheckBoxNode browsingOptions[] = {
-                new CheckBoxNode("Notify when downloads complete", true),
-                new CheckBoxNode("Disable script debugging", true),
-                new CheckBoxNode("Use AutoComplete", true),
-                new CheckBoxNode("Browse in a new process", false) };
-            CheckBoxNode usuarioOptions[]={
-                new CheckBoxNode("Notify when downloads complete", true),
-                new CheckBoxNode("Notify when downloads complete", true),
-                new CheckBoxNode("Notify when downloads complete", true),
-                new CheckBoxNode("Notify when downloads complete", true)
-            };
-
-            Vector accessVector = new NamedVector("Guias de remision",accessibilityOptions);
-            Vector browseVector = new NamedVector("Proveedor", browsingOptions);
-            Vector newVector=new NamedVector("Usuario",usuarioOptions);
-
-            Object rootNodes[] = { accessVector, browseVector,newVector };
-            */
-
-            AplicacionDA objAplicacionDA =new AplicacionDA();
-            int numAplicaciones= objAplicacionDA.queryAllAplicacion().size();
-            Object[] rootNodes =new Vector[numAplicaciones];
-
-            for(int i = 0; i < numAplicaciones; i++) {
-                int numServicios=lista.get(i).getListaServicios().size();
-                CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
-                for(int j = 0; j < numServicios; j++) {
-                    checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
-                }
-                Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
-                rootNodes[i]=vectorAplicacion;
-            }
-            Vector rootVector = new NamedVector("Root", rootNodes);
-
-            tree = new JTree(rootVector);
-
-            // Object rootNodes[] = { accessVector, browseVector };
-            // Vector rootVector = new NamedVector("Root", rootNodes);
-            // JTree tree = new JTree(rootVector);
-            CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
-            tree.setCellRenderer(renderer);
-            tree.setCellEditor(new CheckBoxNodeEditor(tree));
-            tree.setEditable(true);
-
-        }
         jScrollPane1 = new javax.swing.JScrollPane(tree);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -377,5 +386,6 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables
 
+ 
 
 }
