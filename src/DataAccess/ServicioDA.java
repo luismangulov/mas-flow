@@ -42,4 +42,32 @@ public class ServicioDA {
          }
         return arrServicio;
     }
+        
+        
+   public ServicioBE queryByIdServicio(String idServicio){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ServicioBE servicio = null;
+        String sql = "SELECT idServicio,descripcion FROM Servicio ";
+           sql += " WHERE idServicio='"+idServicio+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdServicio;
+            String strDescripcion;
+         
+            if (rs.next()){
+                strIdServicio= rs.getString(1);
+                strDescripcion = rs.getString(2);
+                servicio = new ServicioBE(strIdServicio,strDescripcion);
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return servicio;
+    }
 }

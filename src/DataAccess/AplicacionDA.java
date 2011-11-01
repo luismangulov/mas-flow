@@ -46,7 +46,7 @@ public class AplicacionDA {
    public AplicacionBE queryByIdAplicacion(String idAplicacion){
         conexion objConexion=new conexion();
         ResultSet rs = null;
-        AplicacionBE perfil = null;
+        AplicacionBE aplicacion = null;
         String sql = "SELECT idAplicacion,descripcion FROM Aplicacion ";
            sql += " WHERE idAplicacion='"+idAplicacion+"'";
         try{
@@ -58,8 +58,7 @@ public class AplicacionDA {
               
                 strIdAplicacion = rs.getString(1);
                 strDescripcion = rs.getString(2);
-      
-                perfil = new AplicacionBE(strIdAplicacion,strDescripcion);
+                aplicacion = new AplicacionBE(strIdAplicacion,strDescripcion);
             }
              
         }catch (Exception a){
@@ -69,7 +68,7 @@ public class AplicacionDA {
              objConexion.SalirS();
          }
       
-        return perfil;
+        return aplicacion;
     }
   
 

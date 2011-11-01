@@ -12,14 +12,24 @@ public class PerfilDetalleBE {
     
     private PerfilBE perfil;
     private String indDetalle;
-    private AplicacionxServicioBE aplicacionxservicio;
+    private AplicacionBE aplicacion;
+    private ServicioBE servicio;
 
-    public AplicacionxServicioBE getAplicacionxservicio() {
-        return aplicacionxservicio;
+    public PerfilDetalleBE(PerfilBE perfil, String indDetalle, AplicacionBE aplicacion, ServicioBE servicio) {
+        this.perfil = perfil;
+        this.indDetalle = indDetalle;
+        this.aplicacion = aplicacion;
+        this.servicio = servicio;
     }
 
-    public void setAplicacionxservicio(AplicacionxServicioBE aplicacionxservicio) {
-        this.aplicacionxservicio = aplicacionxservicio;
+    
+    
+    public AplicacionBE getAplicacion() {
+        return aplicacion;
+    }
+
+    public void setAplicacion(AplicacionBE aplicacion) {
+        this.aplicacion = aplicacion;
     }
 
     public String getIndDetalle() {
@@ -37,8 +47,18 @@ public class PerfilDetalleBE {
     public void setPerfil(PerfilBE perfil) {
         this.perfil = perfil;
     }
+
+    public ServicioBE getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(ServicioBE servicio) {
+        this.servicio = servicio;
+    }
     
     
+
+ 
     
     
 }

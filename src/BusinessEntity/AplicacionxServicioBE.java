@@ -11,6 +11,10 @@ public class AplicacionxServicioBE {
     private AplicacionBE aplicacion;
     private ArrayList<ServicioBE> listaServicios = new ArrayList<ServicioBE>();
 
+    public AplicacionxServicioBE() {
+    }
+
+    
     public AplicacionxServicioBE(AplicacionBE aplicacion, ArrayList<ServicioBE> listaServicios) {
         this.aplicacion = aplicacion;
         this.listaServicios=listaServicios;

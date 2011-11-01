@@ -6,6 +6,7 @@ package DataAccess;
 
 
 import BusinessEntity.PerfilBE;
+import BusinessEntity.PerfilDetalleBE;
 import Util.conexion;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -16,8 +17,7 @@ import java.util.ArrayList;
  */
 public class PerfilDA {
     
-    public boolean insertar(PerfilBE objPerfil) throws Exception{
-        
+    public boolean insertar(PerfilBE objPerfil) throws Exception{        
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
@@ -34,24 +34,7 @@ public class PerfilDA {
         return boolExito;
     }
     
-        public boolean insertarPerfil(PerfilBE objPerfil) throws Exception{
-        
-        boolean boolExito = false;
-        conexion objConexion = new conexion();
-       
-        String sql = "INSERT INTO perfil(idPerfil, descripcion, indactivo) VALUES('"+ objPerfil.getIdPerfil()+"','"+ objPerfil.getDescripcion() +"','1')";
-        
-        try{
-            objConexion.EjecutarUID(sql);
-            boolExito=true;
-         }catch (Exception a){
-            System.out.println(a.getMessage());
-        }
-        finally{objConexion.SalirUID();}
-        
-        return boolExito;
-    }
-    
+   
     public ArrayList<PerfilBE> queryAllPerfil(){
         conexion objConexion=new conexion();
         ResultSet rs = null;
@@ -84,6 +67,8 @@ public class PerfilDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         PerfilBE perfil = null;
+        ArrayList<PerfilDetalleBE> arrPerfilDetalle = new ArrayList<PerfilDetalleBE>();
+        PerfilDetalleDA objPerfilDetalleDA= new PerfilDetalleDA();
         String sql = "SELECT idPerfil,descripcion,indactivo FROM Perfil ";
            sql += " WHERE idPerfil='"+idPerfil+"'";
         try{
@@ -96,7 +81,8 @@ public class PerfilDA {
                 strIdPerfil = rs.getString(1);
                 strDescripcion = rs.getString(2);
                 strIndActivo = rs.getString(3);
-                perfil = new PerfilBE(strIdPerfil,strDescripcion,strIndActivo);
+                arrPerfilDetalle= objPerfilDetalleDA.queryAllByIdPerfil(idPerfil);
+                perfil = new PerfilBE(strIdPerfil,strDescripcion,arrPerfilDetalle,strIndActivo);
             }
              
         }catch (Exception a){
