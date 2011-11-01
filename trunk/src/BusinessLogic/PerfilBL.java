@@ -28,9 +28,9 @@ public class PerfilBL {
     
     public boolean insertarPerfil(String descripcion,ArrayList <PerfilDetalleBE>listaDetallePerfiles)throws Exception{
         boolean exito =false;
-        PerfilBE objPerfilBE=new PerfilBE(Utilitario.generaCodigo("perfil",6),descripcion,listaDetallePerfiles);
-        PerfilDA objPerfilDA =new PerfilDA();
-        exito=objPerfilDA.insertarPerfil(objPerfilBE);
+//        PerfilBE objPerfilBE=new PerfilBE(Utilitario.generaCodigo("perfil",6),descripcion,listaDetallePerfiles);
+//        PerfilDA objPerfilDA =new PerfilDA();
+//        exito=objPerfilDA.insertarPerfil(objPerfilBE);
         return exito;
     }
     

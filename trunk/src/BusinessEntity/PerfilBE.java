@@ -15,24 +15,22 @@ public class PerfilBE {
     
     private String idPerfil;
     private String descripcion;
-    private ArrayList<PerfilDetalleBE> listaPerfilDetalles = new ArrayList<PerfilDetalleBE>();
+    private ArrayList<PerfilDetalleBE> listaPerfilDetalle = new ArrayList<PerfilDetalleBE>();
     private String indActivo;
 
     public PerfilBE() {
 
     }
     
-    public PerfilBE(String idPerfil,String descripcion,ArrayList<PerfilDetalleBE>listaPerfilDetalles){
+   public PerfilBE(String idPerfil,String descripcion,ArrayList<PerfilDetalleBE>listaPerfilDetalle,String indActivo){
+   //public PerfilBE(String idPerfil,String descripcion,PerfilDetalleBE perfilDetalle,String indActivo){
    
         this.idPerfil=idPerfil;
         this.descripcion=descripcion;
-        this.listaPerfilDetalles=listaPerfilDetalles;
+        //this.listaPerfilDetalles=listaPerfilDetalles;
+        this.listaPerfilDetalle=listaPerfilDetalle;
+        this.indActivo=indActivo;
         
-    }
-
-    public PerfilBE(String descripcion, String indActivo) {
-        this.descripcion = descripcion;
-        this.indActivo = indActivo;
     }
 
     public PerfilBE(String idPerfil, String descripcion, String indActivo) {
@@ -41,14 +39,22 @@ public class PerfilBE {
         this.indActivo = indActivo;
     } 
 
-    public ArrayList<PerfilDetalleBE> getListaPerfilDetalles() {
-        return listaPerfilDetalles;
+    public ArrayList<PerfilDetalleBE> getListaPerfilDetalle() {
+        return listaPerfilDetalle;
     }
 
-    public void setListaPerfilDetalles(ArrayList<PerfilDetalleBE> listaPerfilDetalles) {
-        this.listaPerfilDetalles = listaPerfilDetalles;
+    public void setListaPerfilDetalle(ArrayList<PerfilDetalleBE> listaPerfilDetalles) {
+        this.listaPerfilDetalle = listaPerfilDetalles;
     }
 
+//    public PerfilDetalleBE getPerfilDetalle() {
+//        return perfilDetalle;
+//    }
+//
+//    public void setPerfilDetalle(PerfilDetalleBE perfilDetalle) {
+//        this.perfilDetalle = perfilDetalle;
+//    }
+    
     public String getDescripcion() {
         return descripcion;
     }

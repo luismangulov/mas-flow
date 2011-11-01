@@ -12,6 +12,10 @@ public class ServicioBE {
     private String idServicio;
     private String Descripcion;
 
+    public ServicioBE() {
+    }
+    
+
     public ServicioBE(String idServicio, String Descripcion) {
         this.idServicio = idServicio;
         this.Descripcion = Descripcion;
