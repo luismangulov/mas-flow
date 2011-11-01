@@ -32,6 +32,13 @@ public class NotaIngresoBL {
         return exito;
     }
     
+     public boolean cambiarEstado(String strCodigo,String codEstado) throws Exception{
+         boolean exito = false;
+         NotaIngresoDA objNotaIngresoDA = new NotaIngresoDA();
+         exito = objNotaIngresoDA.cambiarEstado(strCodigo, codEstado);
+         return exito;
+     }
+    
     public ArrayList<NotaIngresoBE> queryAllNotaIngreso(){
         NotaIngresoDA objGuiaRemisionDA = new NotaIngresoDA();
         return objGuiaRemisionDA.queryAllNotaIngreso();

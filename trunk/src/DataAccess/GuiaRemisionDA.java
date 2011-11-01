@@ -37,6 +37,27 @@ public class GuiaRemisionDA {
         return boolExito;
     }
      
+    public boolean cambiarEstado(String strCodigo,String codEstado) throws Exception{
+        
+        boolean boolExito = false;
+        conexion objConexion = new conexion();
+       
+        String sql = "UPDATE guiaremision SET";
+             sql += "idestadogr='"+codEstado+ "'"+ 
+                    " WHERE idguiaremision='"+strCodigo+"'";
+        
+        try{
+            objConexion.EjecutarUID(sql);
+            boolExito=true;
+         }catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{objConexion.SalirUID();}
+        
+        return boolExito;
+    }
+     
+     
      public ArrayList<GuiaRemisionBE> queryAllGuiaRemision(){
         conexion objConexion=new conexion();
         ResultSet rs = null;
