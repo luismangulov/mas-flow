@@ -19,14 +19,14 @@ import java.util.Date;
 public class NotaIngresoBL {
     private NotaIngresoBE objNotaIngresoBE;
     
-    public boolean insertar(Date fecha,String codCliente) throws Exception{
+    public boolean insertar(Date fecha,String codCliente,String codAlmacen) throws Exception{
         boolean exito = false;
         EstadoNIDA objEstadoNIDA = new EstadoNIDA();
         EstadoNIBE objEstadoNIBE = new EstadoNIBE();
         objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Registrado");
         
         
-        objNotaIngresoBE =new NotaIngresoBE(Utilitario.generaCodigo("notaingreso",6),fecha,codCliente,objEstadoNIBE);
+        objNotaIngresoBE =new NotaIngresoBE(Utilitario.generaCodigo("notaingreso",6),fecha,codCliente,codAlmacen,objEstadoNIBE);
         NotaIngresoDA objNotaIngresoDA = new NotaIngresoDA();
         exito = objNotaIngresoDA.insertar(objNotaIngresoBE);
         return exito;
@@ -44,9 +44,9 @@ public class NotaIngresoBL {
         return objGuiaRemisionDA.queryAllNotaIngreso();
     }
     
-    public ArrayList<NotaIngresoBE> buscar(String codigo,String nombproveedor,String codestado){
+    public ArrayList<NotaIngresoBE> buscar(String codigo,String nombproveedor,String codestado,String idAlmacen){
         NotaIngresoDA objGuiaRemisionDA = new NotaIngresoDA();
-        return objGuiaRemisionDA.buscar(codigo, nombproveedor, codestado);
+        return objGuiaRemisionDA.buscar(codigo, nombproveedor, codestado, idAlmacen);
     }
 
     /**

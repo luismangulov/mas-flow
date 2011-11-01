@@ -4,10 +4,12 @@
  */
 package DataAccess;
 
+import BusinessEntity.AlmacenBE;
 import Util.conexion;
 import BusinessEntity.EntidadBE;
 import BusinessEntity.EstadoGRBE;
 import BusinessEntity.GuiaRemisionBE;
+import BusinessLogic.AlmacenBL;
 import BusinessLogic.EntidadBL;
 import BusinessLogic.EstadoGRBL;
 import java.sql.ResultSet;
@@ -24,7 +26,7 @@ public class GuiaRemisionDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO guiaremision(idguiaremision, fecha, identidad, idestadogr) VALUES('"+ objGuiaRemision.getCodigo() +"','"+ objGuiaRemision.getFecha() +"','"+ objGuiaRemision.getCliente().getIdEntidad() +"','"+ objGuiaRemision.getEstado().getCodigo() +"')";
+        String sql = "INSERT INTO guiaremision(idguiaremision, fecha, identidad, idestadogr, idalmacen) VALUES('"+ objGuiaRemision.getCodigo() +"','"+ objGuiaRemision.getFecha() +"','"+ objGuiaRemision.getCliente().getIdEntidad() +"','"+ objGuiaRemision.getEstado().getCodigo() +"','"+ objGuiaRemision.getAlmacen().getIdAlmacen() +"')";
         
         try{
             objConexion.EjecutarUID(sql);
@@ -62,13 +64,14 @@ public class GuiaRemisionDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<GuiaRemisionBE> arrGuiaRemision = new ArrayList<GuiaRemisionBE>();
-        String sql = "SELECT idguiaremision,fecha,identidad,idestadogr FROM guiaremision order by 1";
+        String sql = "SELECT idguiaremision,fecha,identidad,idestadogr,idalmacen FROM guiaremision order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
             String strCodigo;
             Date fecha;
             String strIdEntidad;
             String strCodEstado;
+            String strIdAlmacen;
             
             while (rs.next()){
               
@@ -76,14 +79,19 @@ public class GuiaRemisionDA {
                 fecha = rs.getDate(2);
                 strIdEntidad = rs.getString(3).trim();
                 strCodEstado = rs.getString(4).trim();
+                strIdAlmacen = rs.getString(5).trim();
+                
                 EntidadBL objEntidadBL = new EntidadBL();
                 EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
+                
+                AlmacenBL objAlmacenBL = new AlmacenBL();
+                AlmacenBE objAlmacenBE = objAlmacenBL.getAlmacen(strIdAlmacen);
                
                 EstadoGRBL objEstadoGRBL = new EstadoGRBL();
                 EstadoGRBE objEstadoGRBE = new EstadoGRBE();
                 objEstadoGRBE = objEstadoGRBL.queryByIdEstadoGRBE(strCodEstado);
                 
-                arrGuiaRemision.add(new GuiaRemisionBE(strCodigo,fecha,objEntidadBE,objEstadoGRBE));
+                arrGuiaRemision.add(new GuiaRemisionBE(strCodigo,fecha,objEntidadBE,objAlmacenBE,objEstadoGRBE));
             }
              
         }catch (Exception a){
@@ -97,19 +105,24 @@ public class GuiaRemisionDA {
     }
      
      
-      public ArrayList<GuiaRemisionBE> buscar(String codigo,String nombcliente,String codestado){
+      public ArrayList<GuiaRemisionBE> buscar(String codigo,String nombcliente,String codestado,String idAlmacen){
         conexion objConexion=new conexion();
         ResultSet rs = null;
          ArrayList<GuiaRemisionBE> arrGuiaRemision = new ArrayList<GuiaRemisionBE>();
                 
-        String sql = "SELECT g.idguiaremision, g.fecha, g.identidad, g.idestadogr FROM  guiaremision g, entidad e";
+        String sql = "SELECT g.idguiaremision, g.fecha, g.identidad, g.idestadogr, g.idalmacen FROM  guiaremision g, entidad e";
                
         sql  +=" WHERE g.idestadogr LIKE '%"+codestado+"%'";
         sql +=  " AND g.identidad = e.identidad";
        
         //sql+= " WHERE";
-        if(!(codigo.equals("")) || !(nombcliente.equals(""))){
-           if (!codigo.equals("")){           
+        if(!(codigo.equals("")) || !(nombcliente.equals("")) || !(idAlmacen.equals(""))){
+           if (!idAlmacen.equals("")){           
+               
+               sql +=  " AND g.idalmacen LIKE '%"+idAlmacen+"%'";
+           }
+            
+            if (!codigo.equals("")){           
                
                sql +=  " AND g.idguiaremision LIKE '%"+codigo+"%'";
            }
@@ -128,20 +141,26 @@ public class GuiaRemisionDA {
             Date fecha;
             String strIdEntidad;
             String strCodEstado;
+            String strIdAlmacen;
             while (rs.next()){
               
                 strCodigo = rs.getString(1).trim();
                 fecha = rs.getDate(2);
                 strIdEntidad = rs.getString(3).trim();
                 strCodEstado = rs.getString(4).trim();
+                 strIdAlmacen = rs.getString(5).trim();
+                
                 EntidadBL objEntidadBL = new EntidadBL();
                 EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
+                
+                 AlmacenBL objAlmacenBL = new AlmacenBL();
+                AlmacenBE objAlmacenBE = objAlmacenBL.getAlmacen(strIdAlmacen);
                
                 EstadoGRBL objEstadoGRBL = new EstadoGRBL();
                 EstadoGRBE objEstadoGRBE = new EstadoGRBE();
                 objEstadoGRBE = objEstadoGRBL.queryByIdEstadoGRBE(strCodEstado);
                 
-                arrGuiaRemision.add(new GuiaRemisionBE(strCodigo,fecha,objEntidadBE,objEstadoGRBE));
+                arrGuiaRemision.add(new GuiaRemisionBE(strCodigo,fecha,objEntidadBE, objAlmacenBE,objEstadoGRBE));
             }
              
         }catch (Exception a){

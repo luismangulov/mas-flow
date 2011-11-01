@@ -19,13 +19,13 @@ import java.util.Date;
 public class GuiaRemisionBL {
     private GuiaRemisionBE objGuiaRemisionBE;
     private String codigo;
-    public boolean insertar(Date fecha,String codCliente) throws Exception{
+    public boolean insertar(Date fecha,String codCliente, String codAlmacen) throws Exception{
         boolean exito = false;
         EstadoGRDA objEstadoGRDA = new EstadoGRDA();
         EstadoGRBE objEstadoGRBE = new EstadoGRBE();
         objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Registrado");
         
-        objGuiaRemisionBE = new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente,objEstadoGRBE);
+        objGuiaRemisionBE = new GuiaRemisionBE(Utilitario.generaCodigo("guiaremision",6),fecha,codCliente,codAlmacen, objEstadoGRBE);
         GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
         exito = objGuiaRemisionDA.insertar(objGuiaRemisionBE);
         return exito;
@@ -43,9 +43,9 @@ public class GuiaRemisionBL {
         return objGuiaRemisionDA.queryAllGuiaRemision();
     }
     
-    public ArrayList<GuiaRemisionBE> buscar(String codigo,String nombcliente,String codestado){
+    public ArrayList<GuiaRemisionBE> buscar(String codigo,String nombcliente,String codestado,String idAlmacen){
         GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
-        return objGuiaRemisionDA.buscar(codigo, nombcliente, codestado);
+        return objGuiaRemisionDA.buscar(codigo, nombcliente, codestado, idAlmacen);
     }
 
     /**

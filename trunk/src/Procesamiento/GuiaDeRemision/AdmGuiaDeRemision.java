@@ -54,20 +54,20 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         tblGuiaRemision.setAutoCreateRowSorter(true);
         tblGuiaRemision.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Cliente", "Dirección", "Fecha", "Estado"
+                "CodAlmacen", "Código", "Cliente", "Dirección", "Fecha", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -143,7 +143,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -185,7 +185,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             int fila;
             String codigo;
             fila = tblGuiaRemision.getSelectedRow();
-            codigo = (String)tblGuiaRemision.getValueAt(fila, 0);
+            codigo = (String)tblGuiaRemision.getValueAt(fila, 1);
                     
            DetalleGuiaDeRemision m = new DetalleGuiaDeRemision(this, codigo);
            m.setVisible(true);
@@ -251,6 +251,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             }
         };
         tblGuiaRemision.setModel(modelo);
+        modelo.addColumn("CodAlmacen");
         modelo.addColumn("Código");
         modelo.addColumn("Cliente");
         modelo.addColumn("Dirección");
@@ -261,12 +262,13 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 //        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
          modelo.addRow(new Object[5]);
-        tblGuiaRemision.setValueAt(guiaRemision.getCodigo(),0,0 );
-        tblGuiaRemision.setValueAt(razonSocial,0,1 );
-        tblGuiaRemision.setValueAt(direccion,0,2 );
+        tblGuiaRemision.setValueAt(guiaRemision.getAlmacen().getIdAlmacen(),0,0 ); 
+        tblGuiaRemision.setValueAt(guiaRemision.getCodigo(),0,1 );
+        tblGuiaRemision.setValueAt(razonSocial,0,2 );
+        tblGuiaRemision.setValueAt(direccion,0,3 );
         //tblGuiaRemision.setValueAt(contacto,0,3 );
-        tblGuiaRemision.setValueAt(guiaRemision.getFecha(),0,3 );
-        tblGuiaRemision.setValueAt(guiaRemision.getEstado().getDescripcion(),0,4 );
+        tblGuiaRemision.setValueAt(guiaRemision.getFecha(),0,4 );
+        tblGuiaRemision.setValueAt(guiaRemision.getEstado().getDescripcion(),0,5 );
     }
 
     public void recargar(ArrayList<GuiaRemisionBE> guiaRemisiones){
@@ -279,6 +281,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             }
         };
         tblGuiaRemision.setModel(modelo);
+        modelo.addColumn("CodAlmacen");
         modelo.addColumn("Código");
         modelo.addColumn("Cliente");
         modelo.addColumn("Dirección");
@@ -291,12 +294,13 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         
         for(int i = 0;i<guiaRemisiones.size();i++){
             modelo.addRow(new Object[5]);
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCodigo(),i,0 );
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getRazonSocial(),i,1 );
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getDireccion(),i,2 );
+             tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getAlmacen().getIdAlmacen(),i,0 ); 
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCodigo(),i,1 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getRazonSocial(),i,2 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getDireccion(),i,3 );
             //tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getNombreContacto(),0,3 );
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getFecha(),i,3 );
-            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getEstado().getDescripcion(),i,4 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getFecha(),i,4 );
+            tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getEstado().getDescripcion(),i,5 );
         }
         
     }
