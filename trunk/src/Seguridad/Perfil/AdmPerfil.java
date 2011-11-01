@@ -172,7 +172,7 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             fila = dgvPerfil.getSelectedRow();
             codigo = (String)dgvPerfil.getValueAt(fila, 0);
             PerfilBL objPerfilBL = new PerfilBL();
-            PerfilBE perfil = objPerfilBL.queryByIdPerfil(codigo);
+            PerfilBE perfil = objPerfilBL.queryById(codigo);
             MantenimientoPerfil m = new MantenimientoPerfil(this,perfil);
             m.setVisible(true);
         }

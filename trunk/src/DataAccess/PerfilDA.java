@@ -34,6 +34,33 @@ public class PerfilDA {
         return boolExito;
     }
     
+     public PerfilBE queryById(String codigo){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        PerfilBE perfil = null;
+        String sql = "SELECT idPerfil,descripcion,indactivo FROM Perfil ";
+           sql += " WHERE idPerfil='"+codigo+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdPerfil;
+            String strDescripcion;
+            String strIndActivo;
+            if (rs.next()){
+                strIdPerfil = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                strIndActivo = rs.getString(3).trim();
+                perfil = new PerfilBE(strIdPerfil,strDescripcion,strIndActivo);
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }      
+        return perfil;
+    }
+    
    
     public ArrayList<PerfilBE> queryAllPerfil(){
         conexion objConexion=new conexion();

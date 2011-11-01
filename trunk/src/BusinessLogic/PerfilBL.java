@@ -59,6 +59,11 @@ public class PerfilBL {
         return objPerfilDA.queryByIdPerfil(idPerfil);
     }
     
+   public PerfilBE queryById(String idPerfil){
+        PerfilDA objPerfilDA = new PerfilDA();
+        return objPerfilDA.queryById(idPerfil);       
+   }
+    
      public boolean modificar(PerfilBE objPerfil) throws Exception{
           boolean exito = false;
           PerfilDA objPerfilDA = new PerfilDA();
