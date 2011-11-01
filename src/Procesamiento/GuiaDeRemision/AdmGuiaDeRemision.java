@@ -44,6 +44,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         lblBuscar = new javax.swing.JLabel();
         lblRefrescar = new javax.swing.JLabel();
         lblDetalle = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -123,8 +124,15 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         });
         jToolBar1.add(lblDetalle);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
+        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.setMaximumSize(new java.awt.Dimension(54, 54));
+        jLabel1.setPreferredSize(new java.awt.Dimension(54, 54));
+        jToolBar1.add(jLabel1);
+
         jLabel7.setText("                                                                                                                                  ");
-        jLabel7.setMaximumSize(new java.awt.Dimension(500, 14));
+        jLabel7.setMaximumSize(new java.awt.Dimension(520, 14));
         jLabel7.setPreferredSize(new java.awt.Dimension(500, 14));
         jToolBar1.add(jLabel7);
 
@@ -222,6 +230,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;

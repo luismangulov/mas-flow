@@ -31,6 +31,13 @@ public class GuiaRemisionBL {
         return exito;
     }
     
+     public boolean cambiarEstado(String strCodigo,String codEstado) throws Exception{
+        boolean exito = false;
+        GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
+        exito = objGuiaRemisionDA.cambiarEstado(strCodigo, codEstado);
+        return exito;
+     }
+    
     public ArrayList<GuiaRemisionBE> queryAllGuiaRemision(){
         GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
         return objGuiaRemisionDA.queryAllGuiaRemision();

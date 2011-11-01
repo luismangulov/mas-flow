@@ -37,6 +37,28 @@ public class NotaIngresoDA {
         return boolExito;
     }
      
+    
+    public boolean cambiarEstado(String strCodigo,String codEstado) throws Exception{
+        
+        boolean boolExito = false;
+        conexion objConexion = new conexion();
+       
+        String sql = "UPDATE guiaremision SET";
+             sql += "idestadoni='"+codEstado+ "'"+ 
+                    " WHERE idnotaingreso='"+strCodigo+"'";
+        
+        try{
+            objConexion.EjecutarUID(sql);
+            boolExito=true;
+         }catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{objConexion.SalirUID();}
+        
+        return boolExito;
+    }
+    
+    
      public ArrayList<NotaIngresoBE> queryAllNotaIngreso(){
         conexion objConexion=new conexion();
         ResultSet rs = null;
