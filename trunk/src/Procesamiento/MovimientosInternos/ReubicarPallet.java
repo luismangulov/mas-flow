@@ -24,6 +24,7 @@ import BusinessLogic.UbicacionBL;
 import BusinessLogic.UnidadMedidaBL;
 import BusinessLogic.ZonaBL;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -57,12 +58,8 @@ public class ReubicarPallet extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); 
         initComponents();
         this.ventanaPadre = ventanaPadre;
-//        this.strIdUbicacionOrigen = idUbicacionOrigen;
-//        this.strIdPallet = idPallet;
-//        txtIdPallet.setText(idPallet);
-//        txtIdUbicacionOrigen.setText(idUbicacionOrigen);
-//        txtIdUbicacionOrigen.setEnabled(false);
-//        txtIdPallet.setEnabled(false);
+        Date fechaActual = new Date();
+        this.jdcFecha.setDate(fechaActual);
         cargarComboAlmacen();
     }
     
@@ -374,14 +371,14 @@ public class ReubicarPallet extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jButton1)
                         .addGap(279, 279, 279)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jdcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -487,18 +484,10 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
     
-//    String strIdentificador = cbRack.getSelectedItem().toString();
-//    String strIdRackDestino = objRackBL.getByIdentificador(strIdentificador).getIdRack();
-//    int intFilaDestino = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
-//    int intColumnaDestino = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
-//    strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRackDestino, intFilaDestino, intColumnaDestino,"1").getIdUbicacion();
-//    PalletBL objPalletBL = new PalletBL();
-//    objPalletBL.reubicarPallet(strIdPallet, strIdUbicacionOrigen, strIdUbicacionDestino);
-    
     int intFila;
     intFila = dgvPallets.getSelectedRow();
     if (intFila==-1)
-        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila", "Error", 0);
     else{
         String strIdPallet = (String)dgvPallets.getValueAt(intFila, 0);
         strIdUbicacionOrigen = (String)dgvPallets.getValueAt(intFila, 3);
@@ -508,7 +497,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         strIdRack = objRackBL.getByIdentificador(strIdentificadorRack).getIdRack();
         strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacion, intColumnaUbicacion,"1").getIdUbicacion();
         PalletBL objPalletBL = new PalletBL();
-        objPalletBL.reubicarPallet(strIdPallet, strIdUbicacionOrigen, strIdUbicacionDestino);
+        objPalletBL.reubicarPallet(strIdPallet, strIdUbicacionOrigen, strIdUbicacionDestino,jdcFecha.getDate());
     }
     
 }//GEN-LAST:event_btnGuardarActionPerformed
