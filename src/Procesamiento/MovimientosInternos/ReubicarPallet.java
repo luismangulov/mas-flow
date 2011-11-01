@@ -235,7 +235,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
         if (palletBE.getFechaVencimiento() != null)
             fecha = palletBE.getFechaVencimiento().toString();
        
-        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, intMaxCantPallet,strNombreUnidad,fecha});
+        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidad,fecha});
 
 
 }
@@ -485,6 +485,7 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
     
     int intFila;
+    boolean boolExito = false;
     intFila = dgvPallets.getSelectedRow();
     if (intFila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila", "Error", 0);
@@ -497,7 +498,16 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         strIdRack = objRackBL.getByIdentificador(strIdentificadorRack).getIdRack();
         strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacion, intColumnaUbicacion,"1").getIdUbicacion();
         PalletBL objPalletBL = new PalletBL();
-        objPalletBL.reubicarPallet(strIdPallet, strIdUbicacionOrigen, strIdUbicacionDestino,jdcFecha.getDate());
+        boolExito = objPalletBL.reubicarPallet(strIdPallet, strIdUbicacionOrigen, strIdUbicacionDestino,jdcFecha.getDate());
+        
+        if (boolExito){
+            
+            PalletBE objPallet = objPalletBL.getPallet(strIdPallet);
+            actualizaDgv(objPallet);
+            
+        }
+            
+        
     }
     
 }//GEN-LAST:event_btnGuardarActionPerformed

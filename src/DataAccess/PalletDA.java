@@ -98,17 +98,17 @@ public class PalletDA {
 //        return strMaxId;   
 //    }
     
-    public PalletBE queryByIdPallet(String idPallet){
+    public PalletBE queryByIdPallet(String strIdPallet){
         
         objConexion = new conexion();
-        String query = "SELECT * FROM PALLET WHERE IDPALLET = '" + idPallet + "'";
+        String query = "SELECT * FROM PALLET WHERE IDPALLET = '" + strIdPallet + "'";
         
         rs =objConexion.EjecutarS(query);
         objPalletBE = null;
         
         try {
             rs.next();
-            String strIdPallet = rs.getString("IdPallet");
+//            String strIdPallet = rs.getString("IdPallet");
             String strIdProducto = rs.getString("IdProducto");
             String strIndActivo= rs.getString("IndActivo");
             String strIdUbicacion = rs.getString("idUbicacion");
@@ -250,7 +250,7 @@ public class PalletDA {
         
     }
 
-    public void reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino, Date dateMovimiento) {
+    public boolean reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino, Date dateMovimiento) {
         
         boolean exito = false;
         objConexion = new conexion();
@@ -291,37 +291,38 @@ public class PalletDA {
             }
             finally{objConexion.SalirUID();}
             
-            objUtilitario = new Utilitario();
-            String strIdHistorialPallet = "";
-
-            try {
-                strIdHistorialPallet = objUtilitario.generaCodigo("historialpallet", 8);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            query = "UPDATE UBICACION SET indActivo = '1' WHERE idUbicacion ='" +strIdUbicacionOrigen + "'";
-
             if (exito){
+            
+                objUtilitario = new Utilitario();
+                String strIdHistorialPallet = "";
+
+                try {
+                    strIdHistorialPallet = objUtilitario.generaCodigo("historialpallet", 8);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 query = "INSERT INTO HISTORIALPALLET(idHistorialPallet, idPallet, idUbicacionOrigen,idUbicacionDestino,fechamovimiento) "
                         + "VALUES('"+strIdHistorialPallet+"',"
                         + "'"+strIdPallet+"',"
                         + "'"+strIdUbicacionOrigen+"',"
-                        + "'"+strIdUbicacionDestino+"',"
-                        + dateMovimiento +")";
+                        + "'"+strIdUbicacionDestino+"','"
+                        + dateMovimiento +"')";
 
                 try{
                     objConexion.EjecutarUID(query);
+                    exito = true;
                 }catch (Exception e){
                     JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+                    exito = false;
                 }
                 finally{objConexion.SalirUID();}
 
             }
         }
+        return exito;
     }
 
     public ArrayList<PalletBE> queryList() {
