@@ -7,6 +7,7 @@ package BusinessLogic;
 import BusinessEntity.PalletBE;
 import DataAccess.PalletDA;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -43,9 +44,9 @@ public class PalletBL {
         return objPalletDA.queryByIdUbicacion(strIdUbicacion);
     }
     
-    public void reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino){
+    public void reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino, Date dateMovimiento){
         objPalletDA = new PalletDA();
-        objPalletDA.reubicarPallet(strIdPallet,strIdUbicacionOrigen,strIdUbicacionDestino);
+        objPalletDA.reubicarPallet(strIdPallet,strIdUbicacionOrigen,strIdUbicacionDestino, dateMovimiento);
     }
 
     public ArrayList<PalletBE> getPalletsByRack(String strIdRack) {
