@@ -10,8 +10,10 @@
  */
 package Procesamiento.GuiaDeRemision;
 
+import BusinessEntity.AlmacenBE;
 import BusinessEntity.EstadoGRBE;
 import BusinessEntity.GuiaRemisionBE;
+import BusinessLogic.AlmacenBL;
 import BusinessLogic.EstadoGRBL;
 import BusinessLogic.GuiaRemisionBL;
 import Util.Utilitario;
@@ -30,6 +32,7 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
         
         initComponents();
         this.cargarComboEstado();
+        this.cargarComboAlmacen();
          this.setLocationRelativeTo(null);
          this.setVisible(true);
     }
@@ -51,6 +54,8 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cbxEstado = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cbAlmacen = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar guía de remisión");
@@ -103,55 +108,60 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
 
         jLabel3.setText("Estado:");
 
+        jLabel4.setText("Almacen:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(70, 70, 70)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCancelar)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(btnCancelar))
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(23, 23, 23)
+                        .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(23, 23, 23)
+                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(23, 23, 23)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                        .addContainerGap(28, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(btnCancelar)))
         );
 
         pack();
@@ -188,7 +198,7 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         }
         
         GuiaRemisionBL objGuiaRemisionBL = new GuiaRemisionBL();
-        ArrayList<GuiaRemisionBE> arrGuiaRemision = objGuiaRemisionBL.buscar(this.txtCodigo.getText(), this.txtCliente.getText(), codEstado);
+        ArrayList<GuiaRemisionBE> arrGuiaRemision = objGuiaRemisionBL.buscar(this.txtCodigo.getText(), this.txtCliente.getText(), codEstado, (String)this.cbAlmacen.getSelectedItem());
         this.objPadre.recargar(arrGuiaRemision);
         this.dispose();
     }//GEN-LAST:event_btnGuardarMousePressed
@@ -256,16 +266,18 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox cbAlmacen;
     private javax.swing.JComboBox cbxEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 
 
-     public void cargarComboEstado(){
+     public final void cargarComboEstado(){
         
         EstadoGRBL objEstadoGRBL;    
         objEstadoGRBL = new EstadoGRBL();
@@ -277,5 +289,18 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
        
     }
     
+     public final void cargarComboAlmacen(){
+        
+        cbAlmacen.removeAllItems();
+        AlmacenBL objAlmacenBL = new AlmacenBL();          
+        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+        arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
+        
+        if (arrAlmacenes != null)
+            for(AlmacenBE almacen : arrAlmacenes)
+                cbAlmacen.addItem(almacen.getIdAlmacen());
+
+    }
+     
 
 }

@@ -15,15 +15,17 @@ public class NotaIngresoBE {
     private Date fecha;
     private EntidadBE proveedor = new EntidadBE();
     private EstadoNIBE estado = new EstadoNIBE();
+    private AlmacenBE almacen = new AlmacenBE();
     
-    public NotaIngresoBE(String codigo,Date fecha,String codProveedor,EstadoNIBE estado){
+    public NotaIngresoBE(String codigo,Date fecha,String codProveedor,String codAlmacen,EstadoNIBE estado){
         this.codigo = codigo;
         this.fecha = fecha;
         this.proveedor.setIdEntidad(codProveedor);
+        this.almacen.setIdAlmacen(codAlmacen);
         this.estado = estado;
     }
     
-     public NotaIngresoBE(String codigo,Date fecha,EntidadBE objProveedor,EstadoNIBE estado){
+     public NotaIngresoBE(String codigo,Date fecha,EntidadBE objProveedor,AlmacenBE objAlmacen,EstadoNIBE estado){
         this.codigo = codigo;
         this.fecha = fecha;
 //        this.proveedor.setIdEntidad(objProveedor.getIdEntidad());
@@ -38,6 +40,7 @@ public class NotaIngresoBE {
 //        this.proveedor.setPaginaWeb(objProveedor.getPaginaWeb());
 //        this.proveedor.setIndActivo(objProveedor.getIndActivo());
 //        this.proveedor.setIdCIUU(objProveedor.getIdCIUU());
+        this.almacen =objAlmacen;
         this.proveedor = objProveedor;
         this.estado = estado;
     }
@@ -97,6 +100,20 @@ public class NotaIngresoBE {
      */
     public void setEstado(EstadoNIBE estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the almacen
+     */
+    public AlmacenBE getAlmacen() {
+        return almacen;
+    }
+
+    /**
+     * @param almacen the almacen to set
+     */
+    public void setAlmacen(AlmacenBE almacen) {
+        this.almacen = almacen;
     }
 
     
