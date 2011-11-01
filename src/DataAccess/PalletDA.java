@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import Util.conexion;
 import Util.Utilitario;
-import java.sql.*;
+import java.util.Date;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -250,7 +250,7 @@ public class PalletDA {
         
     }
 
-    public void reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino) {
+    public void reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino, Date dateMovimiento) {
         
         boolean exito = false;
         objConexion = new conexion();
@@ -311,7 +311,7 @@ public class PalletDA {
                         + "'"+strIdPallet+"',"
                         + "'"+strIdUbicacionOrigen+"',"
                         + "'"+strIdUbicacionDestino+"',"
-                        + null +")";
+                        + dateMovimiento +")";
 
                 try{
                     objConexion.EjecutarUID(query);
