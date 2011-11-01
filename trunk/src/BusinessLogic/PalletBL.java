@@ -44,9 +44,9 @@ public class PalletBL {
         return objPalletDA.queryByIdUbicacion(strIdUbicacion);
     }
     
-    public void reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino, Date dateMovimiento){
+    public boolean reubicarPallet(String strIdPallet, String strIdUbicacionOrigen, String strIdUbicacionDestino, Date dateMovimiento){
         objPalletDA = new PalletDA();
-        objPalletDA.reubicarPallet(strIdPallet,strIdUbicacionOrigen,strIdUbicacionDestino, dateMovimiento);
+        return objPalletDA.reubicarPallet(strIdPallet,strIdUbicacionOrigen,strIdUbicacionDestino, dateMovimiento);
     }
 
     public ArrayList<PalletBE> getPalletsByRack(String strIdRack) {
@@ -63,5 +63,11 @@ public class PalletBL {
         objPalletDA = new PalletDA();
         return objPalletDA.queryPalletsByIdAlmacen(strIdAlmacen);
     }
+    
+    public PalletBE getPallet(String strIdPallet) {
+        objPalletDA = new PalletDA();
+        return objPalletDA.queryByIdPallet(strIdPallet);
+    }
+    
     
 }
