@@ -48,6 +48,12 @@ public class GuiaRemisionBL {
         return objGuiaRemisionDA.buscar(codigo, nombcliente, codestado, idAlmacen);
     }
 
+     public ArrayList<GuiaRemisionBE> buscarbyCodigoEntidad(String codigo){
+          GuiaRemisionDA objGuiaRemisionDA = new GuiaRemisionDA();
+        return objGuiaRemisionDA.buscarbyCodigoEntidad(codigo);
+     }
+    
+    
     /**
      * @return the codigo
      */
