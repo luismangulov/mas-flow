@@ -94,8 +94,8 @@ public class EstadoUsuarioDA {
             if (rs.next()){    
                 
                 
-                strIdEstadoUsuario = rs.getString(1);
-                strDescripcion = rs.getString(2);
+                strIdEstadoUsuario = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
                 estadoUsuario = new EstadoUsuarioBE(strIdEstadoUsuario,strDescripcion);
             }
              

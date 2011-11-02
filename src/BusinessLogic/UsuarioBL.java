@@ -11,6 +11,8 @@ import BusinessEntity.UsuarioBE;
 import DataAccess.EstadoUsuarioDA;
 import DataAccess.PerfilDA;
 import DataAccess.UsuarioDA;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,18 +25,19 @@ public class UsuarioBL {
     
     private UsuarioBE usuario;
     
-    public boolean insertar(String nombre,String paterno,String materno, String password,String idPerfil, String idEstadoUsuario,int limiteIntentos, Date fechaCambioClave ) throws Exception{
+    public boolean insertar(String nombre,String paterno,String materno,String idPerfil, String idEstadoUsuario,int limiteIntentos) throws FileNotFoundException, IOException  
+    {
         boolean exito = false;
 //        Dim odaPerfil As New PerfilDA()
 //        Dim obePerfil As PerfilBE = odaPerfil.queryByIdPerfilSinDetalle(perfil)
 //        Dim obeUsuario As New UsuarioBE("", codigo, obeEmpleado, obePerfil)
         PerfilDA objPerfilDA=new PerfilDA();
-        PerfilBE objPerfilBE = objPerfilDA.queryByIdPerfil(idPerfil);
+        PerfilBE objPerfilBE = objPerfilDA.queryById(idPerfil);
         
         EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
         EstadoUsuarioBE objEstadoUsuarioBE = objEstadoUsuarioDA.queryByIdEstadoUsuario(idEstadoUsuario);
         
-        usuario = new UsuarioBE(Utilitario.generaCodigo("usuario",6),nombre,paterno,materno, password, objPerfilBE,objEstadoUsuarioBE,limiteIntentos,fechaCambioClave);
+        usuario = new UsuarioBE(Utilitario.generaCodigo("usuario",6),nombre,paterno,materno,objPerfilBE,objEstadoUsuarioBE,limiteIntentos);
         UsuarioDA objUsuarioDA = new UsuarioDA();
         exito = objUsuarioDA.insertar(getUsuario());
         return exito;
@@ -71,7 +74,7 @@ public class UsuarioBL {
           exito = objUsuarioDA.modificar(objUsuario);
           return exito;
      }
-    
+        
      public ArrayList<UsuarioBE> buscar(String idUsuario,String nombre, String paterno,String materno,String idPerfil, String idEstado){
           UsuarioDA objUsuarioDA = new UsuarioDA();
           return objUsuarioDA.buscar(idUsuario, nombre,paterno,materno,idPerfil,idEstado);
@@ -94,7 +97,7 @@ public class UsuarioBL {
         EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
         EstadoUsuarioBE objEstadoUsuarioBE = objEstadoUsuarioDA.queryByIdEstadoUsuario(idEstadoUsuario);
         
-        usuario = new UsuarioBE(idUsuario,nombre,paterno,materno,password,objPerfilBE,objEstadoUsuarioBE,limiteIntentos,fechaCambioClave);
+        usuario = new UsuarioBE(idUsuario,nombre,paterno,materno,objPerfilBE,objEstadoUsuarioBE,limiteIntentos);
         return usuario;
     }
 

@@ -45,7 +45,7 @@ public class PerfilDetalleDA {
                 strIndDetalle = rs.getString(2).trim();
                 strIdAplicacion = rs.getString(3).trim();
                 strIdServicio = rs.getString(4).trim();
-                objPerfilBE=objPerfilDA.queryByIdPerfil(strIdPerfil);
+                objPerfilBE=objPerfilDA.queryById(strIdPerfil);
                 objServicioBE=objServicioDA.queryByIdServicio(strIdServicio);
                 objAplicacionBE=objAplicacionDA.queryByIdAplicacion(strIdAplicacion);
                 arrPerfilDetalle.add(new PerfilDetalleBE(objPerfilBE,strIndDetalle,objAplicacionBE,objServicioBE));
@@ -64,39 +64,6 @@ public class PerfilDetalleDA {
     }
         
         
-    public ArrayList<PerfilDetalleBE> queryByIdPerfilDetalle(String codigo){
-        conexion objConexion=new conexion();
-        ResultSet rs = null;
-        ArrayList<PerfilDetalleBE> arrPerfilDetalle = new ArrayList<PerfilDetalleBE>();
-//        PerfilBE objPerfilBE=new PerfilBE();
-//        PerfilDA objPerfilDA=new PerfilDA();
-//        String sql = "SELECT idPerfil,indDetalle,idAplicacion,idServicio FROM PerfilDetalle";
-//           sql += " WHERE idPerfil='"+codigo+"'";
-//        try{
-//            rs=objConexion.EjecutarS(sql);
-//            String strIdPerfil;
-//            String strIndDetalle;
-//            String strIdAplicacion;
-//            String strIdServicio;
-//            while (rs.next()){
-//              
-//                strIdPerfil = rs.getString(1).trim();
-//                strIndDetalle = rs.getString(2).trim();
-//                strIdAplicacion = rs.getString(3).trim();
-//                strIdServicio = rs.getString(4).trim();
-//                objPerfilBE=objPerfilDA.queryByIdPerfil(strIdPerfil);
-//                arrPerfilDetalle.add(new PerfilDetalleBE(strCodigo,strNombre,strDescripcion,strEstado));
-//            }
-//             
-//        }catch (Exception a){
-//            System.out.println(a.getMessage());
-//         }
-//         finally{
-//             objConexion.SalirS();
-//         }
-      
-        return arrPerfilDetalle;
-    }
 
 
     
