@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import DataAccess.CIUUDA;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -449,6 +451,15 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         if ((txtEmail.getText().length())==0) {
             JOptionPane.showMessageDialog(null, "Falta indicar email.", "Error", 0);
+            return;
+        }
+
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
+        mat = pat.matcher(txtEmail.getText());
+        if (!mat.find()) {
+            JOptionPane.showMessageDialog(null, "Email incorrecto.", "Error", 0);
             return;
         }
 

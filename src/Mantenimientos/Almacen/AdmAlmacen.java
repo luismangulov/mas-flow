@@ -296,25 +296,12 @@ public javax.swing.JTable getDgvAlmacen() {
     }
 
     void recargaruno(AlmacenBE almacen) {
-        DefaultTableModel modelo= new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;
-            }
-        };
-        dgvAlmacen.setModel(modelo);
-        modelo.addColumn("Código");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Estado");
-        modelo.addColumn("Distrito");
-        modelo.addColumn("Provincia");
-        modelo.addColumn("Departamento");
+        DefaultTableModel modelo=(DefaultTableModel) dgvAlmacen.getModel();
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
 
-//        dgvAlmacen.getColumnModel().getColumn(0).setPreferredWidth(40);
-//        dgvAlmacen.getColumnModel().getColumn(1).setPreferredWidth(60);
-//        dgvAlmacen.getColumnModel().getColumn(2).setPreferredWidth(50);
-//        dgvAlmacen.getColumnModel().getColumn(3).setPreferredWidth(50);
-//        dgvAlmacen.getColumnModel().getColumn(3).setPreferredWidth(40);
+        dgvAlmacen.clearSelection();
 
         modelo.addRow(new Object[6]);
         dgvAlmacen.setValueAt(almacen.getIdAlmacen(),0,0 );
@@ -335,20 +322,14 @@ public javax.swing.JTable getDgvAlmacen() {
     }
 
     public void recargar(ArrayList<AlmacenBE> allAlmacen) {
-        DefaultTableModel modelo= new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;
-            }
-        };
-        dgvAlmacen.setModel(modelo);
-        modelo.addColumn("Código");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Estado");
-        modelo.addColumn("Distrito");
-        modelo.addColumn("Provincia");
-        modelo.addColumn("Departamento");
 
+        DefaultTableModel modelo=(DefaultTableModel) dgvAlmacen.getModel();
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+
+        dgvAlmacen.clearSelection();
+        
          for(int i=0;i<allAlmacen.size();i++){
 
             modelo.addRow(new Object[6]);

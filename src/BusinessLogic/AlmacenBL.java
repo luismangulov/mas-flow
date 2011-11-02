@@ -20,10 +20,10 @@ public class AlmacenBL {
 
     public boolean insertar(String idAlmacen, String nombre, double largo, double ancho,
             String direccion, String telefono, String idDistrito, String idProvincia, 
-            String idDepartamento, String indActivo, int puertaX, int puertaY) throws Exception{
+            String idDepartamento, String indActivo, int puertaX, int puertaY,String identificador) throws Exception{
         boolean exito = false;
         almacen = new AlmacenBE(Utilitario.generaCodigo("almacen",6), nombre, largo, ancho,
-                direccion, telefono, idDistrito, idProvincia, idDepartamento, indActivo, puertaX, puertaY);
+                direccion, telefono, idDistrito, idProvincia, idDepartamento, indActivo, puertaX, puertaY, identificador);
         AlmacenDA objAlmacenDA = new AlmacenDA();
         exito = objAlmacenDA.insertar(getAlmacen());
         return exito;
