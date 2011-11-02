@@ -206,6 +206,9 @@ private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-
 }//GEN-LAST:event_lblModificarRackMouseClicked
 
 private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarRackMouseClicked
+    int answer = JOptionPane.showConfirmDialog(null, "La eliminación será irreversible. ¿Desea continuar?");
+    if (answer != 0)
+        return;
     int fila;
     boolean boolExito;
     fila = dgvRacks.getSelectedRow();

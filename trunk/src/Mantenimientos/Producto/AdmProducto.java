@@ -217,6 +217,9 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_lblModificarMouseClicked
 
     private void lblEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMouseClicked
+        int answer = JOptionPane.showConfirmDialog(null, "La eliminación será irreversible. ¿Desea continuar?");
+        if (answer != 0)
+            return;
         int fila;
         fila = dgvProductos.getSelectedRow();
         if (fila==-1)
