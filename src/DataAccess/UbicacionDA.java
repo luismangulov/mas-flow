@@ -370,5 +370,24 @@ public class UbicacionDA {
         }
         return boolExito;
     }
+
+    public boolean queryDesbloquearUbicacionesByRack(String strIdRack) {
+           
+        boolExito = false;
+        objConexion = new conexion();
+        // 0 bloqueada, 1 disponible, 2 en uso
+
+        query = "UPDATE UBICACION set indActivo = '1' WHERE idRack= '" + strIdRack + "'";
+        try{
+            objConexion.EjecutarUID(query);
+            boolExito = true;
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
+                boolExito = false;
+        }finally{
+            objConexion.SalirUID();
+        }
+        return boolExito;
+    }
     
 }

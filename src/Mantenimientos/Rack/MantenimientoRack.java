@@ -144,9 +144,12 @@ public class MantenimientoRack extends javax.swing.JFrame {
         else 
             strIndActivo = "0";
    
-        String strIdentificador = cbZona.getSelectedItem().toString();
+        String strIdentificador = cbZona.getSelectedItem().toString().trim();
         strIdZona = objZonaBL.getByIdentificadorZona(strIdentificador).getIdZona();
         objRackBL = new RackBL();
+        
+        if (!cambioZona)
+            strIdentificador = objRackBE.getIdentificador();
         objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, strIdentificador);
 
         UbicacionBL objUbicacionBL = new UbicacionBL();
@@ -159,6 +162,8 @@ public class MantenimientoRack extends javax.swing.JFrame {
                 objUbicacionBL.bloquearUbicacionByRack(strIdRack);
             }
         }
+        else
+            objUbicacionBL.desbloquearUbicacionByRack(strIdRack);
         boolExito = objRackBL.modificar(objRackBE,cambioZona);
         if (boolExito)
             ventanaPadre.actualizaDgv(objRackBE);
@@ -537,7 +542,7 @@ private void txtColumnasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:ev
         
         if (arrZonas != null)
             for(ZonaBE zona : arrZonas)
-                cbZona.addItem(zona.getIdentificador());
+                cbZona.addItem(zona.getIdentificador().trim());
     }
     
     private void cargarComponentes(RackBE objRackBE){

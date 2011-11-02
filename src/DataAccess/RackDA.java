@@ -289,7 +289,7 @@ public class RackDA {
     public RackBE queryRackByIdentificador(String identificador) {
 
         objConexion = new conexion();
-        query = "SELECT * FROM RACK WHERE indActivo ='1' AND identificador ='"+identificador +"'";
+        query = "SELECT * FROM RACK WHERE  identificador ='"+identificador +"'";
         rs = objConexion.EjecutarS(query);
         
         try {
