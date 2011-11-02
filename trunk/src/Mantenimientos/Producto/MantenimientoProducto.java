@@ -94,6 +94,12 @@ public class MantenimientoProducto extends javax.swing.JFrame {
 
         jLabel1.setText("Código:");
 
+        txtIdProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdProductoKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Nombre:");
 
         jLabel3.setText("Descripción:");
@@ -341,6 +347,16 @@ private void txtMaxCantPalletKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:
 private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
     this.dispose();
 }//GEN-LAST:event_btnCancelarMouseClicked
+
+private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdProductoKeyTyped
+    char c = (char)evt.getKeyChar();
+    if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+    evt.consume();
+    if ((this.txtIdProducto.getText().length() + 1) > 6) {
+    evt.consume();
+    
+    }
+}//GEN-LAST:event_txtIdProductoKeyTyped
 
     /**
      * @param args the command line arguments
