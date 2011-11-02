@@ -297,22 +297,23 @@ public class MantenimientoZona extends javax.swing.JFrame {
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(95, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
                     .addComponent(jLabel6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(42, 42, 42))
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbAlmacen, 0, 220, Short.MAX_VALUE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                    .addComponent(txtIdentificador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbAlmacen, 0, 283, Short.MAX_VALUE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,8 +332,8 @@ public class MantenimientoZona extends javax.swing.JFrame {
                     .addComponent(cmbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -420,14 +421,14 @@ public class MantenimientoZona extends javax.swing.JFrame {
          String indActivo = new String();
         if (cbxActivo.isSelected()) {indActivo="1";} else {indActivo="0";}
 
-        String indicador ="";
+        String identificador ="";
 
-        indicador=cmbAlmacen.getSelectedItem()+ " - " + txtNombre.getText();
+        identificador=cmbAlmacen.getSelectedItem()+ " - " + txtNombre.getText().trim();
 
         ZonaBL zonaBL = new ZonaBL();
         try {
             if (this.accion.equals("registrar")){
-                    zonaBL.insertar(txtCodigo.getText(),txtNombre.getText(),indicador,
+                    zonaBL.insertar(txtCodigo.getText(),txtNombre.getText(),identificador,
                     indActivo,almacenes.get(cmbAlmacen.getSelectedIndex() -1).getIdAlmacen(),
                     Integer.parseInt(txtPosX.getText()), Integer.parseInt(txtPosY.getText()),
                     Integer.parseInt(txtAncho.getText()), Integer.parseInt(txtLargo.getText()),
@@ -436,7 +437,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
                     this.objPadre.recargaruno(zona);
                     this.dispose();
             } else {
-                 ZonaBE zona = new ZonaBE(txtCodigo.getText(),txtNombre.getText(),indicador,
+                 ZonaBE zona = new ZonaBE(txtCodigo.getText(),txtNombre.getText(),identificador,
                     indActivo,almacenes.get(cmbAlmacen.getSelectedIndex()-1).getIdAlmacen(),
                     Integer.parseInt(txtPosX.getText()), Integer.parseInt(txtPosY.getText()),
                     Integer.parseInt(txtAncho.getText()), Integer.parseInt(txtLargo.getText()),
@@ -459,7 +460,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarMousePressed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-    if ((this.txtNombre.getText().length() + 1) > 30) {
+    if ((this.txtNombre.getText().length() + 1) > 10) {
             evt.consume();}        // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreKeyTyped
 
@@ -536,7 +537,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
            almacenes = almacenBL.getAllAlmacen();
         cmbAlmacen.addItem("Seleccione");
         for (AlmacenBE Almacen : almacenes){
-            cmbAlmacen.addItem((Almacen.getNombre()));
+            cmbAlmacen.addItem((Almacen.getIdentificador()));
         }
 } catch (Exception ex) {
             Logger.getLogger(MantenimientoZona.class.getName()).log(Level.SEVERE, null, ex);

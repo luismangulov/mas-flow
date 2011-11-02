@@ -11,7 +11,7 @@ package BusinessEntity;
 public class AlmacenBE {
     
     private String idAlmacen;//6
-    private String nombre;//30
+    private String nombre;//10
     private double largo;//6,2
     private double ancho;//6,2
     private String direccion;//30
@@ -22,6 +22,7 @@ public class AlmacenBE {
     private String indActivo;//1
     private int puertaX;
     private int puertaY;
+    private String identificador;
 
 
     public AlmacenBE() {
@@ -29,7 +30,7 @@ public class AlmacenBE {
 
     public AlmacenBE(String idAlmacen, String nombre, double largo, double ancho, String direccion,
             String telefono, String idDistrito, String idProvincia, String idDepartamento,
-            String indActivo, int puertaX, int puertaY) {
+            String indActivo, int puertaX, int puertaY, String identificador) {
         this.idAlmacen = idAlmacen;
         this.nombre = nombre;
         this.largo = largo;
@@ -42,6 +43,7 @@ public class AlmacenBE {
         this.indActivo = indActivo;
         this.puertaX = puertaX;
         this.puertaY = puertaY;
+        this.identificador = identificador;
     }
 
     public double getAncho() {
@@ -150,6 +152,20 @@ public class AlmacenBE {
      */
     public void setPuertaY(int puertaY) {
         this.puertaY = puertaY;
+    }
+
+    /**
+     * @return the identificador
+     */
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    /**
+     * @param identificador the identificador to set
+     */
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
     }
 
 }

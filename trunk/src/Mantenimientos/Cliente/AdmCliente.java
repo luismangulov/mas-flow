@@ -319,18 +319,12 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
     }
     
     public void recargaruno(EntidadBE cliente){
-        DefaultTableModel modelo= new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;
-            }
-        };
-        dgvCliente.setModel(modelo);
-        modelo.addColumn("Código");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Estado");
-        modelo.addColumn("Contacto");
-        modelo.addColumn("Teléfono");
+        DefaultTableModel modelo=(DefaultTableModel) dgvCliente.getModel();
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+
+        dgvCliente.clearSelection();
 
 
         modelo.addRow(new Object[5]);
@@ -350,21 +344,13 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
     }
 
     public void recargar(ArrayList<EntidadBE> clientes){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvCliente.getModel();
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
 
-
-
-        DefaultTableModel modelo= new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;
-            }
-        };
-        dgvCliente.setModel(modelo);
-        modelo.addColumn("Código");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Estado");
-        modelo.addColumn("Contacto");
-        modelo.addColumn("Teléfono");
+        dgvCliente.clearSelection();
 
         for(int i=0;i<clientes.size();i++){
         modelo.addRow(new Object[5]);

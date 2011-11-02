@@ -109,14 +109,14 @@ private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
                             .addComponent(cmbEstado, 0, 150, Short.MAX_VALUE)
                             .addComponent(cmbAlmacen, 0, 150, Short.MAX_VALUE)
                             .addComponent(txtIdentificador)
-                            .addComponent(txtNombre)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(56, 56, 56)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,11 +141,11 @@ private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -180,7 +180,7 @@ private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
            almacenes = almacenBL.getAllAlmacen();
         cmbAlmacen.addItem("");
         for (AlmacenBE Almacen : almacenes){
-            cmbAlmacen.addItem((Almacen.getNombre()));
+            cmbAlmacen.addItem((Almacen.getIdentificador()));
         }
 } catch (Exception ex) {
             Logger.getLogger(MantenimientoZona.class.getName()).log(Level.SEVERE, null, ex);

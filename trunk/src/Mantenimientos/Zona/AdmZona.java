@@ -299,25 +299,15 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     // End of variables declaration//GEN-END:variables
 
     void recargaruno(ZonaBE zona) {
-         DefaultTableModel modelo= new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;  
-            }
-        };
-        dgvZona.setModel(modelo);
-        modelo.addColumn("Código");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Almacén");
-        modelo.addColumn("Identificador");
-        modelo.addColumn("Estado");
+
+        DefaultTableModel modelo=(DefaultTableModel) dgvZona.getModel();
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+
+        dgvZona.clearSelection();
         
-        dgvZona.getColumnModel().getColumn(0).setPreferredWidth(40);
-        dgvZona.getColumnModel().getColumn(1).setPreferredWidth(60);
-        dgvZona.getColumnModel().getColumn(2).setPreferredWidth(50);
-        dgvZona.getColumnModel().getColumn(3).setPreferredWidth(50);
-        dgvZona.getColumnModel().getColumn(3).setPreferredWidth(40);
-        modelo.addRow(new Object[4]);
+        modelo.addRow(new Object[5]);
         dgvZona.setValueAt(zona.getIdZona(),0,0 );
         dgvZona.setValueAt(zona.getNombre(),0,1 );
         AlmacenBL a= new AlmacenBL();
@@ -338,41 +328,26 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
     public void recargar(ArrayList<ZonaBE> allZona) {
     
-          DefaultTableModel modelo= new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;
-            }
-        };
-        dgvZona.setModel(modelo);
-        modelo.addColumn("Código");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Almacén");
-        modelo.addColumn("Identificador");
-        modelo.addColumn("Estado");
+        DefaultTableModel modelo=(DefaultTableModel) dgvZona.getModel();
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
 
-        dgvZona.getColumnModel().getColumn(0).setPreferredWidth(40);
-        dgvZona.getColumnModel().getColumn(1).setPreferredWidth(60);
-        dgvZona.getColumnModel().getColumn(2).setPreferredWidth(50);
-        dgvZona.getColumnModel().getColumn(3).setPreferredWidth(50);
-        dgvZona.getColumnModel().getColumn(3).setPreferredWidth(40);
+        dgvZona.clearSelection();
 
-
-
-
-            for(int i=0;i<allZona.size();i++){
-            modelo.addRow(new Object[5]);
-            dgvZona.setValueAt(allZona.get(i).getIdZona(),i,0 );
-            dgvZona.setValueAt(allZona.get(i).getNombre(),i,1 );
-            AlmacenBL a= new AlmacenBL();
-            try{
-            dgvZona.setValueAt(a.getAlmacen(allZona.get(i).getIdAlmacen()).getNombre(),i,2 );
-                } catch(Exception e){}
-                dgvZona.setValueAt(allZona.get(i).getIdentificador(), i, 3);
-            if(allZona.get(i).getIndActivo().equals("1")){
-                dgvZona.setValueAt("Activo",i,4 );
-            }else if(allZona.get(i).getIndActivo().equals("0")){
-                dgvZona.setValueAt("Inactivo",i,4 );
+        for(int i=0;i<allZona.size();i++){
+        modelo.addRow(new Object[5]);
+        dgvZona.setValueAt(allZona.get(i).getIdZona(),i,0 );
+        dgvZona.setValueAt(allZona.get(i).getNombre(),i,1 );
+        AlmacenBL a= new AlmacenBL();
+        try{
+        dgvZona.setValueAt(a.getAlmacen(allZona.get(i).getIdAlmacen()).getNombre(),i,2 );
+            } catch(Exception e){}
+            dgvZona.setValueAt(allZona.get(i).getIdentificador(), i, 3);
+        if(allZona.get(i).getIndActivo().equals("1")){
+            dgvZona.setValueAt("Activo",i,4 );
+        }else if(allZona.get(i).getIndActivo().equals("0")){
+            dgvZona.setValueAt("Inactivo",i,4 );
         }
 
         }
