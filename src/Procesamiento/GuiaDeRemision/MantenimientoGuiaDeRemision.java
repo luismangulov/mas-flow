@@ -152,6 +152,11 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblProductos.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tblProductosPropertyChange(evt);
+            }
+        });
         tblProductos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tblProductosKeyTyped(evt);
@@ -334,7 +339,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
                 try {
-                   objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBE.getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)this.tblProductos.getValueAt(i, 2)));
+                   objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBE.getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)(this.tblProductos.getValueAt(i, 2))));
                    
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
@@ -430,6 +435,11 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         // TODO add your handling code here:
       
     }//GEN-LAST:event_tblProductosKeyTyped
+
+    private void tblProductosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tblProductosPropertyChange
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tblProductosPropertyChange
 
     /**
      * @param args the command line arguments
@@ -535,15 +545,16 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         for(int i = 0;i<this.tblProductos.getRowCount();i++){
             ProductoBL objProductoBL = new ProductoBL();
             ProductoBE objProductoBE = objProductoBL.getByIdProducto(this.tblProductos.getValueAt(i, 0).toString());
-            String cantProd = (String)this.tblProductos.getValueAt(i, 2);
+            //int cantProd = Integer.parseInt(this.tblProductos.getValueAt(i, 2).toString());
             
-            if(cantProd == null){
+            if(this.tblProductos.getValueAt(i, 2) == null){
                 JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de producto", "Mensaje",1);
                 esValido = false;
                 break;
             }
             
             if((Integer.parseInt((String)this.tblProductos.getValueAt(i, 2))%objProductoBE.getMaxCantPorPallet()) != 0){
+             
                 JOptionPane.showMessageDialog(null, "La cantidad debe ser múltiplo de la maxcantidadenpallet", "Mensaje",1);
                 esValido = false;
                 break;
