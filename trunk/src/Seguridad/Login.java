@@ -144,7 +144,7 @@ private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_txtUsuarioActionPerformed
 
 private void lblCambiarContraseñaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCambiarContraseñaMousePressed
-CambiarContraseña c= new CambiarContraseña();
+CambiarContrasena c= new CambiarContrasena();
 c.setVisible(true);
 }//GEN-LAST:event_lblCambiarContraseñaMousePressed
 
