@@ -226,7 +226,7 @@ public class AyudaProducto extends javax.swing.JDialog {
         FamiliaBL objFamiliaBL = new FamiliaBL();
         String strIdFamilia = objFamiliaBL.getIdFamilia(cbFamilia.getSelectedItem().toString());
         ProductoBL objProductoBL = new ProductoBL();
-        ArrayList<ProductoBE> productos = objProductoBL.getListSearch(this.txtCodigo.getText(), this.txtNombre.getText(),strIdFamilia);
+        ArrayList<ProductoBE> productos = objProductoBL.getListSearch(this.txtCodigo.getText(), this.txtNombre.getText(),strIdFamilia, "1");
         this.recargar(productos);
     }//GEN-LAST:event_btnBuscarMousePressed
 

@@ -58,35 +58,56 @@ public class ProductoDA {
         finally{objConexion.SalirUID();}
     }
 
-    public void modificar(ProductoBE productoBE) {
+    public boolean modificar(ProductoBE objProductoBE) {
         boolExito = false;
         objConexion = new conexion();
-        query = "UPDATE PRODUCTO set nombre = '"+ productoBE.getNombre() +"',"
-                             + " descripcion ='"+ productoBE.getDescripcion() + "', "
-                             + "maxCantPorPallet = '"+ productoBE.getMaxCantPorPallet() + "', "
-                             + "idUnidadMedida ='" + productoBE.getIdUnidadMedida() +"', "
-                             + " idFamilia = '" + productoBE.getIdFamilia() + "' "
-                             +" WHERE idProducto ='" + productoBE.getIdProducto() +"'";
+        
+        if (objProductoBE.getEstado().equals("0"))
+            if (queryCantidadProducto(objProductoBE.getIdProducto())>0){
+                JOptionPane.showMessageDialog(null, "No se puede inactivar el producto, existen pallets asociados a éste");
+                boolExito = false;
+                return boolExito;
+            }
+        
+        query = "UPDATE PRODUCTO set nombre = '"+ objProductoBE.getNombre() +"',"
+                             + " descripcion ='"+ objProductoBE.getDescripcion() + "', "
+                             + "maxCantPorPallet = '"+ objProductoBE.getMaxCantPorPallet() + "', "
+                             + "idUnidadMedida ='" + objProductoBE.getIdUnidadMedida() +"', "
+                             + " idFamilia = '" + objProductoBE.getIdFamilia() + "', "
+                             + " indActivo = '" +objProductoBE.getEstado() + "' "
+                             +" WHERE idProducto ='" + objProductoBE.getIdProducto() +"'";
         try{
             objConexion.EjecutarUID(query);
+            boolExito = true;
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "No se pudo modificar el registro", "Error", 0);
+                boolExito = false;
         }finally{
             objConexion.SalirUID();
         }
+        return boolExito;
     }
 
-    public void eliminar(String idProducto) {
-        boolExito = false;
+    public boolean eliminar(String idProducto) {
+        boolean boolExito = false;
         objConexion = new conexion();
-        query = "DELETE FROM PRODUCTO WHERE idProducto ='"+idProducto+"'";
-        try{
-            objConexion.EjecutarUID(query);
-        } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
-        }finally{
-            objConexion.SalirUID();
+        
+        if (queryCantidadProducto(idProducto)>0){
+            JOptionPane.showMessageDialog(null, "No se puede eliminar el producto, existen pallets asociados a éste");
         }
+        else{
+            query = "DELETE FROM PRODUCTO WHERE idProducto ='"+idProducto+"'";
+            try{
+                objConexion.EjecutarUID(query);
+                boolExito = true;
+            } catch (Exception e){
+                    JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
+                    boolExito = false;
+            }finally{
+                objConexion.SalirUID();
+            }
+        }
+        return boolExito;
     }
 
     public ArrayList<ProductoBE> queryAllProductoActivo(){
@@ -116,10 +137,10 @@ public class ProductoDA {
         return arrProductos;
     }
 
-    public ArrayList<ProductoBE> queryListSearch(String idProducto, String nombre, String idFamilia) {
+    public ArrayList<ProductoBE> queryListSearch(String idProducto, String nombre, String idFamilia, String strIndActivo) {
 
         objConexion = new conexion();
-        query = "SELECT * FROM PRODUCTO WHERE indActivo ='1'";
+        query = "SELECT * FROM PRODUCTO WHERE indActivo ='"+strIndActivo+"'";
 
         if (!idProducto.equals("")){
             query = query + " AND idProducto LIKE '%" + idProducto + "%'";
@@ -141,7 +162,7 @@ public class ProductoDA {
                 int intMaxCantPorPallet = rs.getInt("MaxCantPorPallet");
                 String strIdUnidadMedida = rs.getString("idUnidadMedida");
                 String strIdFamilia = rs.getString("idFamilia");
-                String strIndActivo = rs.getString("IndActivo");
+                strIndActivo = rs.getString("IndActivo");
                 
                 arrProductos.add(new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,intMaxCantPorPallet,
                                   strIdUnidadMedida,strIdFamilia,strIndActivo));
@@ -214,6 +235,26 @@ public class ProductoDA {
 
 
         return objProducto;
+    }
+    
+    public int queryCantidadProducto(String strIdProducto){
+        
+        int intCantProd = 0;
+        objConexion = new conexion();
+        
+        query = "SELECT COUNT(idPallet) as cuenta FROM PALLET WHERE idProducto = '" +strIdProducto+"'";
+        rs = objConexion.EjecutarS(query);
+        
+        try{
+            rs.next();
+            intCantProd = rs.getInt("cuenta");
+        }catch(SQLException ex){
+            
+        }finally{
+            objConexion.SalirS();
+        };
+
+        return intCantProd;
     }
 
 }

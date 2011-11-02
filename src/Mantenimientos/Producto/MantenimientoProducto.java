@@ -301,12 +301,14 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         
         ProductoBE productoBE = new ProductoBE(idProducto,nombre,descripcion,maxCantPorPallet,unidadMedida,familia,indActivo);
         ProductoBL productoBL = new ProductoBL();
-        productoBL.modificar(productoBE);     
-        
-        arrProductos = new ArrayList<ProductoBE>();
-        arrProductos.add(productoBE);
-        this.ventanaPadre.llenarDgv(arrProductos);
-        this.dispose();
+        boolExito = productoBL.modificar(productoBE);     
+       
+        if (boolExito){
+            arrProductos = new ArrayList<ProductoBE>();
+            arrProductos.add(productoBE);
+            this.ventanaPadre.llenarDgv(arrProductos);
+            this.dispose();
+        }
     }
     
     private void eliminar(){

@@ -22,14 +22,14 @@ public class ProductoBL {
         objProductoDA.insertar(producto);
     }
 
-    public void modificar(ProductoBE productoBE) {
+    public boolean modificar(ProductoBE productoBE) {
         objProductoDA = new ProductoDA();
-        objProductoDA.modificar(productoBE);
+        return objProductoDA.modificar(productoBE);
     }
     
-    public void eliminar(String idProducto) {
+    public boolean eliminar(String idProducto) {
         objProductoDA = new ProductoDA();
-        objProductoDA.eliminar(idProducto);
+        return objProductoDA.eliminar(idProducto);
     }
     
     public ProductoBE getByIdProducto(String idProducto) {
@@ -42,9 +42,9 @@ public class ProductoBL {
         return objProductoDA.queryAllProductoActivo();
     }
 
-    public ArrayList<ProductoBE> getListSearch(String idProducto, String nombre, String familia){
+    public ArrayList<ProductoBE> getListSearch(String idProducto, String nombre, String familia, String strIndActivo){
         objProductoDA = new ProductoDA();
-        return objProductoDA.queryListSearch(idProducto, nombre, familia);
+        return objProductoDA.queryListSearch(idProducto, nombre, familia, strIndActivo);
     }
     
     public ProductoBE getByNombreProducto(String nombreProducto){
