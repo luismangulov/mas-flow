@@ -197,8 +197,14 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     }else estado = "0";
                     //revisar porque esto solo funciona para perfiles menores a 10
                     PerfilDA objPerfilDA = new PerfilDA();
-                    PerfilBE objPerfilBE=objPerfilDA.queryByNombre((String)(this.cmbPerfil.getSelectedItem()));
-                    objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"",objPerfilBE.getIdPerfil(),estado,3,fechaActual);
+                    
+                    String nombrePerfil=((String)(this.cmbPerfil.getSelectedItem())).trim();
+                    
+                    PerfilBE objPerfilBE=objPerfilDA.queryByNombre(nombrePerfil);
+                    
+                    
+                    objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
+                                            
                     UsuarioBE usuario;
                     usuario = objUsuarioBL.getUsuario();
                     this.objPadre.recargaruno(usuario);
@@ -294,7 +300,7 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         PerfilDA objPerfilDA =new PerfilDA();
         
 
-       try { ArrayList<PerfilBE> arrPerfil= objPerfilDA.queryAllPerfil();
+       try { ArrayList<PerfilBE> arrPerfil= objPerfilDA.queryAll();
         cmbPerfil.addItem("Seleccione");
         for (PerfilBE perfil : arrPerfil){
             cmbPerfil.addItem(perfil.getDescripcion());

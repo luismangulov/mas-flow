@@ -18,14 +18,7 @@ import java.util.ArrayList;
 public class PerfilBL {
     
     private PerfilBE perfil;
-    public boolean insertar(String descripcion,String indEstado) throws Exception{
-        boolean exito = false;
-        perfil = new PerfilBE(Utilitario.generaCodigo("perfil",6),descripcion,indEstado);
-        PerfilDA objPerfilDA = new PerfilDA();
-        exito = objPerfilDA.insertar(getPerfil());
-        return exito;
-    }
-    
+
     public boolean insertarPerfil(String descripcion,ArrayList <PerfilDetalleBE>listaDetallePerfiles)throws Exception{
         boolean exito =false;
 //        PerfilBE objPerfilBE=new PerfilBE(Utilitario.generaCodigo("perfil",6),descripcion,listaDetallePerfiles);
@@ -34,12 +27,7 @@ public class PerfilBL {
         return exito;
     }
     
-    public boolean eliminar(String idPerfil) throws Exception{
-        boolean exito = false;
-        PerfilDA objPerfilDA = new PerfilDA();
-        exito = objPerfilDA.eliminar(idPerfil);
-        return exito;
-    }
+
 //    public String getIdFamilia(String nombreFamilia){
 //        FamiliaDA familiaDA = new FamiliaDA();
 //        familia = new FamiliaBE();
@@ -48,10 +36,18 @@ public class PerfilBL {
 //            return "";
 //        return familia.getIdFamilia();
 //    }
-
-    public ArrayList<PerfilBE> queryAllPerfil(){
+    
+    public PerfilBE queryByNombre(String nombre){// sin detalle
         PerfilDA objPerfilDA = new PerfilDA();
-        return objPerfilDA.queryAllPerfil();
+        return objPerfilDA.queryByNombre(nombre);
+        
+        
+    }
+
+    
+   public ArrayList<PerfilBE> queryAll(){
+        PerfilDA objPerfilDA = new PerfilDA();
+        return objPerfilDA.queryAll();
     }
     
     public PerfilBE queryByIdPerfil(String idPerfil){
@@ -64,12 +60,7 @@ public class PerfilBL {
         return objPerfilDA.queryById(idPerfil);       
    }
     
-     public boolean modificar(PerfilBE objPerfil) throws Exception{
-          boolean exito = false;
-          PerfilDA objPerfilDA = new PerfilDA();
-          exito = objPerfilDA.modificar(objPerfil);
-          return exito;
-     }
+
     
 //     public ArrayList<PerfilBE> buscar(String idPerfil,String descripcion, String indEstado){
 //          PerfilAD objPerfilDA = new PerfilAD();
@@ -96,11 +87,6 @@ public class PerfilBL {
         return perfil;
     }
 
-    public ArrayList<PerfilBE> getAllPerfil() {
-        ArrayList<PerfilBE>  arrPerfil = null;
-        PerfilDA objPerfilDA = new PerfilDA();
-        arrPerfil = objPerfilDA.queryAllPerfil();
-        return arrPerfil;
-    }
+
     
 }

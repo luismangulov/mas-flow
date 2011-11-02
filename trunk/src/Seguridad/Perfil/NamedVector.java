@@ -11,8 +11,8 @@ import java.util.Vector;
  * @author Florencio
  */
 public class NamedVector extends Vector {
-  String name;
- 
+    
+    String name;
 
 
   public NamedVector(String name) {
@@ -27,8 +27,19 @@ public class NamedVector extends Vector {
   }
 
   public String toString() {
-    return "[" + name + "]";
+    //return "[" + name + "]";
+      return name;
   }
+
+  
+  //agregado
+    public int getElementCount() {
+        return elementCount;
+    }
+
+    public void setElementCount(int elementCount) {
+        this.elementCount = elementCount;
+    }
 
   
   

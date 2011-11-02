@@ -34,7 +34,13 @@ public class CheckBoxNode {
     text = newValue;
   }
 
-  public String toString() {
-    return getClass().getName() + "[" + text + "/" + selected + "]";
+//  public String toString() {
+//    return getClass().getName() + "[" + text + "/" + selected + "]";
+//  }
+  
+
+  public String toString(){
+      return text;
   }
+  
 }

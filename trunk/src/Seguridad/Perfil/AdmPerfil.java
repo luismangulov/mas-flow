@@ -192,7 +192,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
 // TODO add your handling code here:
     PerfilBL objPerfilBL = new PerfilBL();
-    this.recargar(objPerfilBL.getAllPerfil());
+    this.recargar(objPerfilBL.queryAll());
 }//GEN-LAST:event_lblRefrescarMousePressed
 
 private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
@@ -207,7 +207,7 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             codigo = (String)dgvPerfil.getValueAt(fila, 0);
             PerfilBL objFamiliaBL = new PerfilBL();
             try {
-                objFamiliaBL.eliminar(codigo);
+ //               objFamiliaBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {
                 Logger.getLogger(AdmPerfil.class.getName()).log(Level.SEVERE, null, ex);
@@ -298,7 +298,14 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
         modelo.addRow(new Object[3]);
         dgvPerfil.setValueAt(perfil.getIdPerfil(),0,0 );
         dgvPerfil.setValueAt(perfil.getDescripcion(),0,1 );
-
+        
+        if (perfil.getIndActivo().equals("1")){
+            dgvPerfil.setValueAt("Activo",0,2 );
+        }
+        else
+        {
+            dgvPerfil.setValueAt("Inactivo",0,2 );
+        }
 
     }
     
@@ -332,8 +339,13 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             dgvPerfil.setValueAt(perfiles.get(i).getIdPerfil(),i,0 );
             dgvPerfil.setValueAt(perfiles.get(i).getDescripcion(),i,1 );
             
-
-   
+            if (perfiles.get(i).getIndActivo().equals("1")){
+            dgvPerfil.setValueAt("Activo",i,2 );
+            }
+           else
+            {
+            dgvPerfil.setValueAt("Inactivo",i,2 );
+             }  
         }
     }
 

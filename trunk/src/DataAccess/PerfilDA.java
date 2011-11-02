@@ -17,24 +17,8 @@ import java.util.ArrayList;
  */
 public class PerfilDA {
     
-    public boolean insertar(PerfilBE objPerfil) throws Exception{        
-        boolean boolExito = false;
-        conexion objConexion = new conexion();
-       
-        String sql = "INSERT INTO perfil(idPerfil, descripcion, indactivo) VALUES('"+ objPerfil.getIdPerfil()+"','"+ objPerfil.getDescripcion() +"','"+ objPerfil.getIndActivo()+"')";
-        
-        try{
-            objConexion.EjecutarUID(sql);
-            boolExito=true;
-         }catch (Exception a){
-            System.out.println(a.getMessage());
-        }
-        finally{objConexion.SalirUID();}
-        
-        return boolExito;
-    }
     
-     public PerfilBE queryById(String codigo){
+     public PerfilBE queryById(String codigo){ //sin detalle
         conexion objConexion=new conexion();
         ResultSet rs = null;
         PerfilBE perfil = null;
@@ -62,11 +46,11 @@ public class PerfilDA {
     }
     
    
-    public ArrayList<PerfilBE> queryAllPerfil(){
+    public ArrayList<PerfilBE> queryAll(){ // sin detalle perfil
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<PerfilBE> arrPerfil = new ArrayList<PerfilBE>();
-        String sql = "SELECT idPerfil,descripcion,indactivo FROM Perfil WHERE IndActivo = '1' order by 1";
+        String sql = "SELECT idPerfil,descripcion,indactivo FROM Perfil order by 1";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdPerfil;
@@ -90,7 +74,7 @@ public class PerfilDA {
         return arrPerfil;
     }
 
-     public PerfilBE queryByIdPerfil(String idPerfil){
+     public PerfilBE queryByIdPerfil(String idPerfil){ //con detalle
         conexion objConexion=new conexion();
         ResultSet rs = null;
         PerfilBE perfil = null;
@@ -122,12 +106,13 @@ public class PerfilDA {
         return perfil;
     }
 
-    public PerfilBE queryByNombre(String descripcion){
+     
+      public PerfilBE queryByNombre(String nombre){ //sin detalle perfil
         conexion objConexion=new conexion();
         ResultSet rs = null;
         PerfilBE perfil = null;
         String sql = "SELECT idPerfil,descripcion,indactivo FROM Perfil ";
-           sql += " WHERE descripcion='"+descripcion+"'";
+           sql += " WHERE descripcion='"+nombre+"'";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdPerfil;
@@ -135,9 +120,9 @@ public class PerfilDA {
             String strIndActivo;
             if (rs.next()){
 
-                strIdPerfil = rs.getString(1);
-                strDescripcion = rs.getString(2);
-                strIndActivo = rs.getString(3);
+                strIdPerfil = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                strIndActivo = rs.getString(3).trim();
                 perfil = new PerfilBE(strIdPerfil,strDescripcion,strIndActivo);
             }
 
@@ -147,48 +132,13 @@ public class PerfilDA {
          finally{
              objConexion.SalirS();
          }
+
         return perfil;
     }
-    
-     public boolean modificar(PerfilBE objPerfil) throws Exception{
-        
-        boolean boolExito = false;
-        conexion objConexion = new conexion();
-       
-        String sql = "UPDATE perfil SET ";
-             sql += "descripcion='"+objPerfil.getDescripcion()+ "',"+
-                     "indactivo='"+objPerfil.getIndActivo()+ "'"+ 
-                    " WHERE idPerfil='"+objPerfil.getIdPerfil()+"'";
-        
-        try{
-            objConexion.EjecutarUID(sql);
-            boolExito=true;
-         }catch (Exception a){
-            System.out.println(a.getMessage());
-        }
-        finally{objConexion.SalirUID();}
-        
-        return boolExito;
-    }
+
+   
      
-      public boolean eliminar(String idPerfil) throws Exception{
-        
-        boolean boolExito = false;
-        conexion objConexion = new conexion();
-       
-        String sql = "DELETE FROM Perfil";
-             sql += " WHERE idPerfil='"+idPerfil+"'";
-        
-        try{
-            objConexion.EjecutarUID(sql);
-            boolExito=true;
-         }catch (Exception a){
-            System.out.println(a.getMessage());
-        }
-        finally{objConexion.SalirUID();}
-        
-        return boolExito;
-    }
+
       
 //    public ArrayList<FamiliaBE> buscar(String codigo,String nombre,String estado){
 //        conexion objConexion=new conexion();

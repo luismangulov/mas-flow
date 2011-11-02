@@ -12,6 +12,7 @@ package Seguridad.Perfil;
 
 import BusinessEntity.AplicacionxServicioBE;
 import BusinessEntity.PerfilBE;
+import BusinessEntity.PerfilDetalleBE;
 import BusinessLogic.PerfilBL;
 import DataAccess.AplicacionDA;
 import DataAccess.AplicacionxServicioDA;
@@ -81,12 +82,12 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
        
         for(int i = 0; i < numAplicaciones; i++) {
             int numServicios=lista.get(i).getListaServicios().size();
-            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
+            CheckBoxNode[] servicios =new CheckBoxNode[numServicios];
             for(int j = 0; j < numServicios; j++) {
-            checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+            servicios[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
             }
-            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
-            rootNodes[i]=vectorAplicacion;   
+            Vector aplicaciones = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),servicios);
+            rootNodes[i]=aplicaciones;   
         }
         
         Vector rootVector = new NamedVector("Root", rootNodes);
@@ -99,26 +100,35 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         
         initComponents();
              
-//        PerfilDA objPerfilDA =new PerfilDA();
-//        PerfilBE objPerfilBE=new PerfilBE();
-//        objPerfilBE=objPerfilDA.queryByIdPerfil(perfil.getIdPerfil());
-//              
-//        for(int i = 0; i <4 ; i++) {
-//        //int numServicios=lista.get(i).getListaServicios().size();
-//        //CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
-//        
-//            String aplicacion=rootNodes[i].toString();
-//            if(aplicacion.equals(""))
-//                for(int j = 0; j < 3; j++) {
-//          //checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
-//            
-//            
-//            
-//   
-//        //Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
-//        //rootNodes[i]=vectorAplicacion;   
-//                 }
-//        }
+        PerfilDA objPerfilDA =new PerfilDA();
+        PerfilBE objPerfilBE=new PerfilBE();
+        objPerfilBE=objPerfilDA.queryByIdPerfil(perfil.getIdPerfil());
+        ArrayList <PerfilDetalleBE> listaDetallePerfil=objPerfilBE.getListaPerfilDetalle();
+              
+        for(int i = 0; i <numAplicaciones; i++) {
+        //int numServicios=lista.get(i).getListaServicios().size();
+        //CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];        
+            String aplicacion=rootNodes[i].toString().trim();
+            System.out.println(aplicacion);
+            
+            Object servicios[]=new CheckBoxNode[rootNodes.length];
+            
+            for(int j = 0; j < 3; j++) {
+                
+                String servicio =servicios[j].toString().trim();
+                
+                System.out.println(aplicacion);
+             //   String servicio = rootNodes[i][j].toString();
+                
+          //checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+                        
+            
+            
+   
+        //Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
+        //rootNodes[i]=vectorAplicacion;   
+             }
+        }
         
        
         
@@ -273,7 +283,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     if(this.cbxActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";       
-                    objPerfilBL.insertar(this.txtDescripcion.getText(),estado);
+//                    objPerfilBL.insertar(this.txtDescripcion.getText(),estado);
                     PerfilBE perfil;
                     perfil = objPerfilBL.getPerfil();
                     this.objPadre.recargaruno(perfil);
@@ -288,7 +298,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     }else estado = "0";   
                      perfil = objPerfilBL.setPerfil(this.txtCodigo.getText(),this.txtDescripcion.getText(),estado);
                      //familia = new FamiliaBE(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),"1");
-                     objPerfilBL.modificar(perfil);
+//                     objPerfilBL.modificar(perfil);
                      int fila;
                      fila = this.objPadre.getDgvPerfil().getSelectedRow();
                      this.objPadre.getDgvPerfil().removeRowSelectionInterval(fila, fila);
