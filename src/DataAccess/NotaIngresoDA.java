@@ -45,9 +45,9 @@ public class NotaIngresoDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "UPDATE guiaremision SET";
-             sql += "idestadoni='"+codEstado+ "'"+ 
-                    " WHERE idnotaingreso='"+strCodigo+"'";
+        String sql = "UPDATE notaingreso SET";
+             sql += " idestadoni = '"+codEstado+"'";
+             sql+= " WHERE idnotaingreso='"+strCodigo+"'";
         
         try{
             objConexion.EjecutarUID(sql);
