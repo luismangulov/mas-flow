@@ -10,9 +10,18 @@
  */
 package Procesamiento.GuiaDeRemision;
 
+import BusinessEntity.DetalleGuiaRemisionBE;
+import BusinessEntity.EstadoGRBE;
 import BusinessEntity.GuiaRemisionBE;
+import BusinessEntity.ProductoBE;
+import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
+import BusinessLogic.ProductoBL;
+import BusinessLogic.UbicacionBL;
+import DataAccess.EstadoGRDA;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,7 +53,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         lblBuscar = new javax.swing.JLabel();
         lblRefrescar = new javax.swing.JLabel();
         lblDetalle = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblAprobar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -124,10 +133,15 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         });
         jToolBar1.add(lblDetalle);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
-        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jToolBar1.add(jLabel1);
+        lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
+        lblAprobar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAprobar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAprobarMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblAprobar);
 
         jLabel7.setText("                                                                                                                                  ");
         jLabel7.setMaximumSize(new java.awt.Dimension(520, 14));
@@ -192,6 +206,73 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         }    
     }//GEN-LAST:event_lblDetalleMousePressed
 
+    private void lblAprobarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAprobarMousePressed
+        // TODO add your handling code here:
+        
+        if((tblGuiaRemision.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una guia de remision", "Mensaje",0);
+        } else if((tblGuiaRemision.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una guia de remision", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            String idAlmacen;
+            fila = tblGuiaRemision.getSelectedRow();
+            codigo = (String)tblGuiaRemision.getValueAt(fila, 1);
+            
+            idAlmacen = (String)tblGuiaRemision.getValueAt(fila, 0);
+            
+            DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
+            ArrayList<DetalleGuiaRemisionBE> arrDetalleGuiaRemisionBE = new ArrayList<DetalleGuiaRemisionBE>();
+            arrDetalleGuiaRemisionBE = objDetalleGuiaRemisionBL.queryAllDetalleGuiaRemision(codigo);
+            
+            ArrayList<String> arrCodFamilia = new ArrayList<String>();
+             ArrayList<Integer> arrCantUbicaciones = new ArrayList<Integer>();
+           boolean ocupados = true;
+             for(int i=0;i<arrDetalleGuiaRemisionBE .size();i++){
+                ProductoBL objProductoBL = new ProductoBL();
+                ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrDetalleGuiaRemisionBE .get(i).getProducto().getIdProducto());
+                UbicacionBL objUbicacionBL = new UbicacionBL();
+                int ubicaOcupadas = objUbicacionBL.queryCantUbicacionesOcupadas(objProductoBE.getIdFamilia(), idAlmacen, objProductoBE.getIdProducto());
+                int cantUbicaRequeridas = arrDetalleGuiaRemisionBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
+               if(cantUbicaRequeridas>ubicaOcupadas){
+                   ocupados = false;
+                   break;
+               }
+                   
+            }
+            
+             if(ocupados == false){
+                   EstadoGRDA objEstadoGRDA = new EstadoGRDA();
+                   EstadoGRBE objEstadoGRBE = new EstadoGRBE();
+                   objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Pendiente");
+                   GuiaRemisionBL objGuiaRemisionBL = new GuiaRemisionBL();
+                    try {
+                        objGuiaRemisionBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
+                        tblGuiaRemision.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
+                    } catch (Exception ex) {
+                        Logger.getLogger(AdmGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                   
+                   
+               }else{
+                   EstadoGRDA objEstadoGRDA = new EstadoGRDA();
+                   EstadoGRBE objEstadoGRBE = new EstadoGRBE();
+                   objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Aprobado");
+                   GuiaRemisionBL objGuiaRemisionBL = new GuiaRemisionBL();
+                    try {
+                        objGuiaRemisionBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
+                         tblGuiaRemision.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
+                    } catch (Exception ex) {
+                        Logger.getLogger(AdmGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                  
+               }
+             
+            
+        }    
+    }//GEN-LAST:event_lblAprobarMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -228,12 +309,12 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblAgregar;
+    private javax.swing.JLabel lblAprobar;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblDetalle;
     private javax.swing.JLabel lblRefrescar;

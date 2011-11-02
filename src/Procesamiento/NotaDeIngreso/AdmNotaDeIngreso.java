@@ -12,6 +12,7 @@ package Procesamiento.NotaDeIngreso;
 
 import BusinessEntity.DetalleNotaIngresoBE;
 import BusinessEntity.EstadoGRBE;
+import BusinessEntity.EstadoNIBE;
 import BusinessEntity.NotaIngresoBE;
 import BusinessEntity.ProductoBE;
 import BusinessLogic.DetalleNotaIngresoBL;
@@ -19,6 +20,7 @@ import BusinessLogic.NotaIngresoBL;
 import BusinessLogic.ProductoBL;
 import BusinessLogic.UbicacionBL;
 import DataAccess.EstadoGRDA;
+import DataAccess.EstadoNIDA;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -251,27 +253,29 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 }
             }
             if(libres == false){
-                EstadoGRDA objEstadoGRDA = new EstadoGRDA();
-                EstadoGRBE objEstadoGRBE = new EstadoGRBE();
-                objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Pendiente");
+                EstadoNIDA objEstadoNIDA = new EstadoNIDA();
+                EstadoNIBE objEstadoNIBE = new EstadoNIBE();
+                objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Pendiente");
                 NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
                 try {
-                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
+                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
+                    tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
                 } catch (Exception ex) {
                     Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                 tblNotaIngreso.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
+                 
             }else{
-                EstadoGRDA objEstadoGRDA = new EstadoGRDA();
-                EstadoGRBE objEstadoGRBE = new EstadoGRBE();
-                objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Aprobado");
+                EstadoNIDA objEstadoNIDA = new EstadoNIDA();
+                EstadoNIBE objEstadoNIBE = new EstadoNIBE();
+                objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Aprobado");
                 NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
                 try {
-                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
+                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
+                     tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
                 } catch (Exception ex) {
                     Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                tblNotaIngreso.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
+               
             }
             
         }    
