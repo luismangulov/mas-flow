@@ -31,6 +31,7 @@ public class RackDA {
     ResultSet rs;
     ArrayList<RackBE> arrRacks;
     RackBE objRackBE;
+    boolean boolExito;
     
     public void insertar(RackBE objRack){
         
@@ -65,43 +66,55 @@ public class RackDA {
         finally{objConexion.SalirUID();}
     }
     
-    public void modificar(RackBE objRack, boolean cambioZona){
+    public boolean modificar(RackBE objRackBE, boolean cambioZona){
         
+        boolExito = false;
         objConexion = new conexion();
         
+            
         if (cambioZona)
-            objRack.setIdentificador(generaIdentificador(objRack.getIdZona()));
+            objRackBE.setIdentificador(generaIdentificador(objRackBE.getIdZona()));
         
         
-        query = "UPDATE RACK set posX = '"+String.valueOf(objRack.getPosX())+"', "
-                                + "posY='"+String.valueOf(objRack.getPosY())+"', "
-//                                + "pisos = '"+String.valueOf(objRack.getPisos())+"',"
-//                                + "columnas ='"+String.valueOf(objRack.getColumnas())+"', "
-                                + "indActivo = '" +objRack.getIndActivo()+ "',"
-                                + "idZona ='"+objRack.getIdZona()+"',"
-                                + "identificador='"+objRack.getIdentificador()+"'"
-                                + " WHERE idRack = '"+objRack.getIdRack()+"'";
+        query = "UPDATE RACK set posX = '"+String.valueOf(objRackBE.getPosX())+"', "
+                                + "posY='"+String.valueOf(objRackBE.getPosY())+"', "
+                                + "indActivo = '" +objRackBE.getIndActivo()+ "',"
+                                + "idZona ='"+objRackBE.getIdZona()+"',"
+                                + "identificador='"+objRackBE.getIdentificador()+"'"
+                                + " WHERE idRack = '"+objRackBE.getIdRack()+"'";
             
         try{
             objConexion.EjecutarUID(query);
+            boolExito = true;
         } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "No se pudo modificar la modificacion", "Error", 0);
+                boolExito = false;
         }finally{
             objConexion.SalirUID();
         }
+        
+        return boolExito;
     }
         
-    public void eliminar(String idRack){
+    public boolean eliminar(String idRack){
 
+        boolExito = false;
         objConexion = new conexion();
+        
+
         query = "DELETE FROM RACK WHERE idRack ='"+idRack+"'";
         try{
             objConexion.EjecutarUID(query);
+            boolExito = true;
         } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
+            boolExito = false;
         }finally{
             objConexion.SalirUID();
         }
+
+        return boolExito;
+        
     }
     
     public String generaIdentificador(String idZona){
@@ -326,7 +339,5 @@ public class RackDA {
         return arrRacks;
         
     }
-    
-    
     
 }

@@ -11,6 +11,8 @@
 package Mantenimientos.Rack;
 
 import BusinessEntity.RackBE;
+import BusinessLogic.RackBL;
+import BusinessLogic.UbicacionBL;
 import BusinessLogic.ZonaBL;
 import DataAccess.RackDA;
 import java.util.ArrayList;
@@ -25,11 +27,11 @@ public class AdmRack extends javax.swing.JFrame {
 
     /** Creates new form AdmRack */
     ArrayList<RackBE> arrRacks;
-    String idRack;
+    String strIdRack;
     
     public AdmRack() {
-        this.setLocationRelativeTo(null); 
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -83,12 +85,6 @@ public class AdmRack extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(dgvRacks);
-        dgvRacks.getColumnModel().getColumn(0).setResizable(false);
-        dgvRacks.getColumnModel().getColumn(1).setResizable(false);
-        dgvRacks.getColumnModel().getColumn(2).setResizable(false);
-        dgvRacks.getColumnModel().getColumn(3).setResizable(false);
-        dgvRacks.getColumnModel().getColumn(4).setResizable(false);
-        dgvRacks.getColumnModel().getColumn(5).setResizable(false);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -125,6 +121,9 @@ public class AdmRack extends javax.swing.JFrame {
         lblEliminarRack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEliminarRackMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblEliminarRackMouseEntered(evt);
             }
         });
         jToolBar1.add(lblEliminarRack);
@@ -197,21 +196,36 @@ private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-
     if (fila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
-        idRack = (String)dgvRacks.getValueAt(fila, 0);
-        MantenimientoRack frmManteminiento = new MantenimientoRack('M',idRack,this);
+        strIdRack = (String)dgvRacks.getValueAt(fila, 0);
+        MantenimientoRack frmManteminiento = new MantenimientoRack('M',strIdRack,this);
         frmManteminiento.setVisible(true);
     }
 }//GEN-LAST:event_lblModificarRackMouseClicked
 
 private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarRackMouseClicked
     int fila;
+    boolean boolExito;
     fila = dgvRacks.getSelectedRow();
     if (fila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
-        idRack = (String)dgvRacks.getValueAt(fila, 0);
-        MantenimientoRack frmManteminiento = new MantenimientoRack('E',idRack,this);
-        frmManteminiento.setVisible(true);
+        strIdRack = (String)dgvRacks.getValueAt(fila, 0);
+
+        UbicacionBL objUbicacionBL = new UbicacionBL();
+        
+        if (objUbicacionBL.getCantUbicacionesOcupadas(strIdRack) > 0){
+            JOptionPane.showMessageDialog(null, "No se puede eliminar el rack. Existen ubicaciones en uso o bloqueadas");
+            return;       
+        }
+        
+        objUbicacionBL.eliminarUbicacionesByRack(strIdRack);
+        
+        RackBL objRackBL = new RackBL();
+        boolExito = objRackBL.eliminar(strIdRack);
+        
+        if (boolExito){
+            borrarFilaDgv(fila);
+        }
     }
 }//GEN-LAST:event_lblEliminarRackMouseClicked
 
@@ -221,9 +235,14 @@ private void lblBuscarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
 }//GEN-LAST:event_lblBuscarRackMouseClicked
 
 private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCargarRacksMouseClicked
-    RackDA objRackDA = new RackDA();
-    ArrayList<RackBE> arrRacks = objRackDA.queryAllActivo();
+    RackBL objRackBL = new RackBL();
+    ArrayList<RackBE> arrRacks = objRackBL.getAllRack();
+    llenarDgv(arrRacks);
 }//GEN-LAST:event_lblCargarRacksMouseClicked
+
+private void lblEliminarRackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarRackMouseEntered
+
+}//GEN-LAST:event_lblEliminarRackMouseEntered
 
     public void llenarDgv(ArrayList<RackBE> arrRacks){
         
@@ -245,6 +264,13 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
             modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdentificadorZona});
             
         }
+    }
+    
+    public void borrarFilaDgv(int intFila){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvRacks.getModel();   
+        modelo.removeRow(intFila);
+        
     }
     
     public void limpiarDgv(){

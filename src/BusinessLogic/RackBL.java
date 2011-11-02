@@ -20,14 +20,14 @@ public class RackBL {
         objRackDA.insertar(objRack);
     }
     
-    public void modificar(RackBE objRack, boolean cambioZona){
+    public boolean modificar(RackBE objRack, boolean cambioZona){
         objRackDA = new RackDA();
-        objRackDA.modificar(objRack, cambioZona);
+        return objRackDA.modificar(objRack, cambioZona);
     }
         
-    public void eliminar(String idRack){
+    public boolean eliminar(String idRack){
         objRackDA = new RackDA();
-        objRackDA.eliminar(idRack);
+        return objRackDA.eliminar(idRack);
     }
      
     public RackBE getByIdRack(String idRack){

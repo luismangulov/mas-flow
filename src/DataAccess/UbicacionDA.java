@@ -331,5 +331,25 @@ public class UbicacionDA {
         }
         return cantUbicacinesLibres;
     }
+     
+     public int queryCantidadUbicacionesOcupadasEnRack(String strIdRack){
+        
+        int intCantUbicaciones = 0;
+        objConexion = new conexion();
+        query = "SELECT COUNT(idUbicacion) as contador FROM UBICACION WHERE indActivo = '2' OR indActivo = '0' AND idRack = '" +strIdRack + "'";
+        
+        rs = objConexion.EjecutarS(query);
+        
+        try{
+            rs.next();
+            intCantUbicaciones = rs.getInt("contador");
+        }catch (SQLException ex){
+            
+        }finally{
+            objConexion.SalirS();
+        }
+        
+        return intCantUbicaciones;
+    }
     
 }
