@@ -16,6 +16,7 @@ import BusinessLogic.PerfilBL;
 import BusinessLogic.UsuarioBL;
 import DataAccess.PerfilDA;
 import DataAccess.UsuarioDA;
+import Util.Utilitario;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -83,6 +84,12 @@ public class BuscarUsuario extends javax.swing.JFrame {
 
         jLabel4.setText("Estado");
 
+        txtIdUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdUsuarioKeyTyped(evt);
+            }
+        });
+
         jLabel5.setText("Nombre:");
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -90,8 +97,25 @@ public class BuscarUsuario extends javax.swing.JFrame {
                 txtNombreActionPerformed(evt);
             }
         });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Apellido Paterno:");
+
+        txtPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPaternoKeyTyped(evt);
+            }
+        });
+
+        txtMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMaternoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Apellido Materno:");
 
@@ -199,6 +223,46 @@ private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 // TODO add your handling code here:
     this.dispose();
 }//GEN-LAST:event_BtnCancelarActionPerformed
+
+private void txtIdUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdUsuarioKeyTyped
+// TODO add your handling code here:
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtIdUsuario.getText().length() + 1) > 6) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtIdUsuarioKeyTyped
+
+private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+// TODO add your handling code here:
+       char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtNombre.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtNombreKeyTyped
+
+private void txtPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaternoKeyTyped
+// TODO add your handling code here:
+       char c = (char)evt.getKeyChar();
+       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtPaterno.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtPaternoKeyTyped
+
+private void txtMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaternoKeyTyped
+// TODO add your handling code here:
+       char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtMaterno.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtMaternoKeyTyped
 
     /**
      * @param args the command line arguments

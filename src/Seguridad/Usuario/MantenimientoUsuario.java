@@ -14,10 +14,12 @@ import BusinessEntity.PerfilBE;
 import BusinessEntity.UsuarioBE;
 import BusinessLogic.UsuarioBL;
 import DataAccess.PerfilDA;
+import Util.Utilitario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,6 +38,7 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar usuario"); 
         this.txtIdUsuario.setEnabled(false);
+        this.ckbActivo.setSelected(true);
         this.llenarCombo();
         this.setVisible(true);
     }
@@ -91,7 +94,13 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar  usuario");
 
-        jLabel1.setText("Usuario:");
+        txtIdUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdUsuarioKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setText("Usuario :");
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,13 +116,31 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Perfil:");
+        jLabel3.setText("Perfil*:");
 
-        jLabel2.setText("Apellido Materno:");
+        jLabel2.setText("Apellido Materno*:");
 
-        jLabel4.setText("Apellido Paterno:");
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
-        jLabel5.setText("Nombres:");
+        jLabel4.setText("Apellido Paterno*:");
+
+        txtPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPaternoKeyTyped(evt);
+            }
+        });
+
+        jLabel5.setText("Nombres*:");
+
+        txtMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMaternoKeyTyped(evt);
+            }
+        });
 
         ckbActivo.setText("Activo");
 
@@ -132,14 +159,14 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(ckbActivo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE))
                             .addComponent(txtMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                             .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
@@ -185,8 +212,32 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 // TODO add your handling code here:
-    UsuarioBL objUsuarioBL = new UsuarioBL();    
     
+    if ((txtNombre.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar nombre.", "Error", 0);
+            return;
+    }
+    if ((txtPaterno.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar Apellido Paterno.", "Error", 0);
+            return;
+    }
+    if ((txtMaterno.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar Apellido Materno.", "Error", 0);
+            return;
+    }
+    if ((txtNombre.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar nombre.", "Error", 0);
+            return;
+    }
+    
+    if (((cmbPerfil.getSelectedIndex()==0)|| (cmbPerfil.getSelectedIndex()==-1))) {
+            JOptionPane.showMessageDialog(null, "Falta indicar Perfil.", "Error", 0);
+            return;
+    }
+        
+    
+    
+    UsuarioBL objUsuarioBL = new UsuarioBL();    
     try {
            
         Date fechaActual = new Date();
@@ -243,6 +294,43 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 // TODO add your handling code here:
      this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
+
+private void txtIdUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdUsuarioKeyTyped
+// TODO add your handling code here:
+
+}//GEN-LAST:event_txtIdUsuarioKeyTyped
+
+private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+// TODO add your handling code here:
+       char c = (char)evt.getKeyChar();
+       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtNombre.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtNombreKeyTyped
+
+private void txtPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaternoKeyTyped
+// TODO add your handling code here:
+       char c = (char)evt.getKeyChar();
+       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtPaterno.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtPaternoKeyTyped
+
+private void txtMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaternoKeyTyped
+// TODO add your handling code here:
+    
+       char c = (char)evt.getKeyChar();
+       if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtMaterno.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+       
+}//GEN-LAST:event_txtMaternoKeyTyped
 
     /**
      * @param args the command line arguments

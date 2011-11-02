@@ -17,6 +17,10 @@ public class UsuarioContrasenaBE {
     private Date fechaInicio;
     private Date fechaFin;
 
+    public UsuarioContrasenaBE() {
+    }
+    
+
     public UsuarioContrasenaBE(String indDetalle, String idUsuario, String contrasena, Date fechaInicio, Date fechaFin) {
         this.indDetalle = indDetalle;
         this.idUsuario = idUsuario;
