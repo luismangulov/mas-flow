@@ -10,6 +10,7 @@
  */
 package Procesamiento.MovimientosInternos;
 
+import BusinessEntity.MovimientoInternoBE;
 import Procesamiento.MovimientosInternos.ReubicarPallet;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
@@ -30,17 +31,12 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
 
     /** Creates new form AdmMovimientosInternos */
     ArrayList<PalletBE> arrPallets;
-//    PalletBL objPalletBL;
-//    String strIdPallet;
-//    ProductoBL objProductoBL;
-//    UbicacionBL objUbicacionBL;
-//    RackBL objRackBL;
-//    String idUbicacion;
-//    String idPallet;
-    
+    private ArrayList<MovimientoInternoBE> arrMovimientoInterno;
+
     public AdmMovimientosInternos() {
         this.setLocationRelativeTo(null); 
         initComponents();
+        this.setTitle(null);
     }
 
     /** This method is called from within the constructor to
@@ -53,36 +49,36 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        dgvPallets = new javax.swing.JTable();
+        dgvMovimientoInterno = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         lblRegistrarPallet = new javax.swing.JLabel();
-        lblEliminarPallet = new javax.swing.JLabel();
-        lblBuscarPallet = new javax.swing.JLabel();
-        lblRefrescarPallets = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblEliminarMovimientos = new javax.swing.JLabel();
+        lblBuscarMovimientos = new javax.swing.JLabel();
+        lblRefrescarMovimientos = new javax.swing.JLabel();
+        lblReubicarPallet = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Administrar pallet");
+        setTitle("+Flow - Administrar Movimientos");
 
-        dgvPallets.setAutoCreateRowSorter(true);
-        dgvPallets.setModel(new javax.swing.table.DefaultTableModel(
+        dgvMovimientoInterno.setAutoCreateRowSorter(true);
+        dgvMovimientoInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Producto", "Rack", "Ubicación", "Cant. Máx.", "Unidad", "Fecha Vencimiento"
+                "Código", "Ubicación Origen", "Ubicación Destino", "Fecha Movimiento", "Descripción", "Cantidad", "Pallet", "Producto"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -93,21 +89,14 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(dgvPallets);
-        dgvPallets.getColumnModel().getColumn(0).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(0).setPreferredWidth(20);
-        dgvPallets.getColumnModel().getColumn(1).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(1).setPreferredWidth(40);
-        dgvPallets.getColumnModel().getColumn(2).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(2).setPreferredWidth(30);
-        dgvPallets.getColumnModel().getColumn(3).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(3).setPreferredWidth(25);
-        dgvPallets.getColumnModel().getColumn(4).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(4).setPreferredWidth(25);
-        dgvPallets.getColumnModel().getColumn(5).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(5).setPreferredWidth(20);
-        dgvPallets.getColumnModel().getColumn(6).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(6).setPreferredWidth(40);
+        jScrollPane1.setViewportView(dgvMovimientoInterno);
+        dgvMovimientoInterno.getColumnModel().getColumn(0).setPreferredWidth(20);
+        dgvMovimientoInterno.getColumnModel().getColumn(1).setPreferredWidth(40);
+        dgvMovimientoInterno.getColumnModel().getColumn(2).setPreferredWidth(30);
+        dgvMovimientoInterno.getColumnModel().getColumn(3).setPreferredWidth(25);
+        dgvMovimientoInterno.getColumnModel().getColumn(4).setPreferredWidth(25);
+        dgvMovimientoInterno.getColumnModel().getColumn(5).setPreferredWidth(20);
+        dgvMovimientoInterno.getColumnModel().getColumn(6).setPreferredWidth(40);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -126,49 +115,49 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
         });
         jToolBar1.add(lblRegistrarPallet);
 
-        lblEliminarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
-        lblEliminarPallet.setToolTipText("Editar");
-        lblEliminarPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblEliminarPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblEliminarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblEliminarMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminarMovimientos.setToolTipText("Editar");
+        lblEliminarMovimientos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblEliminarMovimientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEliminarMovimientos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEliminarPalletMouseClicked(evt);
+                lblEliminarMovimientosMouseClicked(evt);
             }
         });
-        jToolBar1.add(lblEliminarPallet);
+        jToolBar1.add(lblEliminarMovimientos);
 
-        lblBuscarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
-        lblBuscarPallet.setToolTipText("Buscar");
-        lblBuscarPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblBuscarPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblBuscarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBuscarMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscarMovimientos.setToolTipText("Buscar");
+        lblBuscarMovimientos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblBuscarMovimientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblBuscarMovimientos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblBuscarPalletMousePressed(evt);
+                lblBuscarMovimientosMousePressed(evt);
             }
         });
-        jToolBar1.add(lblBuscarPallet);
+        jToolBar1.add(lblBuscarMovimientos);
 
-        lblRefrescarPallets.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
-        lblRefrescarPallets.setToolTipText("Refrescar");
-        lblRefrescarPallets.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblRefrescarPallets.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblRefrescarPallets.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblRefrescarMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescarMovimientos.setToolTipText("Refrescar");
+        lblRefrescarMovimientos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRefrescarMovimientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRefrescarMovimientos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblRefrescarPalletsMouseClicked(evt);
+                lblRefrescarMovimientosMouseClicked(evt);
             }
         });
-        jToolBar1.add(lblRefrescarPallets);
+        jToolBar1.add(lblRefrescarMovimientos);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/back.png"))); // NOI18N
-        jLabel1.setToolTipText("Reubicar Pallet");
-        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblReubicarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/back.png"))); // NOI18N
+        lblReubicarPallet.setToolTipText("Reubicar Pallet");
+        lblReubicarPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblReubicarPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblReubicarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                lblReubicarPalletMouseClicked(evt);
             }
         });
-        jToolBar1.add(jLabel1);
+        jToolBar1.add(lblReubicarPallet);
 
         jLabel7.setText("                                                                                                   ");
         jLabel7.setMaximumSize(new java.awt.Dimension(0, 0));
@@ -182,8 +171,8 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,51 +190,41 @@ private void lblRegistrarPalletMousePressed(java.awt.event.MouseEvent evt) {//GE
 
 }//GEN-LAST:event_lblRegistrarPalletMousePressed
 
-    private void lblBuscarPalletMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarPalletMousePressed
+    private void lblBuscarMovimientosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMovimientosMousePressed
 
-    }//GEN-LAST:event_lblBuscarPalletMousePressed
+    }//GEN-LAST:event_lblBuscarMovimientosMousePressed
 
 private void lblRegistrarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarPalletMouseClicked
     DesecharPalletsPorCaducidad ventana = new DesecharPalletsPorCaducidad(this);
     ventana.setVisible(true);
 }//GEN-LAST:event_lblRegistrarPalletMouseClicked
 
-private void lblEliminarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarPalletMouseClicked
+private void lblEliminarMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMovimientosMouseClicked
     int fila;
-    fila = dgvPallets.getSelectedRow();
+    fila = dgvMovimientoInterno.getSelectedRow();
     if (fila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
         if (JOptionPane.showConfirmDialog(null, "La eliminación será permanente, ¿realmente desea realizar la acción?") == 0){
-            String idPallet = (String)dgvPallets.getValueAt(fila, 0);
+            String idPallet = (String)dgvMovimientoInterno.getValueAt(fila, 0);
             PalletBL objPalletBL = new PalletBL();
             objPalletBL.eliminar(idPallet);
 //            eliminaFilaDgv(fila);
         }
     }
-}//GEN-LAST:event_lblEliminarPalletMouseClicked
+}//GEN-LAST:event_lblEliminarMovimientosMouseClicked
 
-private void lblRefrescarPalletsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarPalletsMouseClicked
+private void lblRefrescarMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMovimientosMouseClicked
     PalletBL objPalletBL = new PalletBL();
 //    llenarDgv(objPalletBL.getAll());
-}//GEN-LAST:event_lblRefrescarPalletsMouseClicked
+}//GEN-LAST:event_lblRefrescarMovimientosMouseClicked
 
-private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-//    DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel(); 
-//    int fila;
-//    fila = dgvPallets.getSelectedRow();
-//    if (fila==-1)
-//        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
-//    else{
-//
-//        String idUbicacion = (String)dgvPallets.getValueAt(fila, 3);
-//        String idPallet = (String)dgvPallets.getValueAt(fila, 0);
-        ReubicarPallet ventana = new ReubicarPallet(this);
-        ventana.setVisible(true);
-        
-//    }
+private void lblReubicarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReubicarPalletMouseClicked
 
-}//GEN-LAST:event_jLabel1MouseClicked
+    ReubicarPallet ventana = new ReubicarPallet(this);
+    ventana.setVisible(true);
+
+}//GEN-LAST:event_lblReubicarPalletMouseClicked
 
 
     /**
@@ -284,15 +263,84 @@ private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable dgvPallets;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTable dgvMovimientoInterno;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JLabel lblBuscarPallet;
-    private javax.swing.JLabel lblEliminarPallet;
-    private javax.swing.JLabel lblRefrescarPallets;
+    private javax.swing.JLabel lblBuscarMovimientos;
+    private javax.swing.JLabel lblEliminarMovimientos;
+    private javax.swing.JLabel lblRefrescarMovimientos;
     private javax.swing.JLabel lblRegistrarPallet;
+    private javax.swing.JLabel lblReubicarPallet;
     // End of variables declaration//GEN-END:variables
+
+    public void llenarDgv(ArrayList<MovimientoInternoBE> arrMovimientoInterno){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvMovimientoInterno.getModel();    
+        limpiarDgv();
+        this.arrMovimientoInterno = arrMovimientoInterno;
+        
+        PalletBL objPalletBL = new PalletBL();
+        ProductoBL objProductoBL = new ProductoBL();
+
+        for (int i=0; i<arrMovimientoInterno.size(); i++){
+
+            String strIdMovimientoInterno = arrMovimientoInterno.get(i).getIdMovimiento();
+            String strIdUbicacionOrigen = arrMovimientoInterno.get(i).getIdUbicacionOrigen();
+            String strIdUbicacionDestino = arrMovimientoInterno.get(i).getIdUbicacionDestino();
+            String strFecha = arrMovimientoInterno.get(i).getFecha().toString();
+            String strDescripcion = arrMovimientoInterno.get(i).getDescripcion();
+            String strIdPallet = arrMovimientoInterno.get(i).getIdPallet();
+
+            String strIdProducto = objPalletBL.getPallet(strIdPallet).getIdProducto();
+
+            ProductoBE objProductoBE = objProductoBL.getByIdProducto(strIdProducto);
+            String strNombreProducto = objProductoBE.getNombre();
+            int intCantidad = objProductoBE.getMaxCantPorPallet();
+
+            modelo.addRow(new Object[]{strIdMovimientoInterno,strIdUbicacionOrigen,strIdUbicacionDestino,strFecha,strDescripcion,intCantidad,strNombreProducto,strIdPallet});
+        }
+        
+    }
+    
+    public void limpiarDgv(){
+                
+        DefaultTableModel modelo=(DefaultTableModel) dgvMovimientoInterno.getModel();    
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+    }
+    
+    public void eliminaFilaDgv(int fila){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvMovimientoInterno.getModel();  
+        modelo.removeRow(fila);
+        
+    }
+    
+    public void actualizarDgv(MovimientoInternoBE objMovimientoInternoBE){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvMovimientoInterno.getModel();    
+        limpiarDgv();
+       
+        PalletBL objPalletBL = new PalletBL();
+        ProductoBL objProductoBL = new ProductoBL();
+       
+        String strIdMovimientoInterno = objMovimientoInternoBE.getIdMovimiento();
+        String strIdUbicacionOrigen = objMovimientoInternoBE.getIdUbicacionOrigen();
+        String strIdUbicacionDestino = objMovimientoInternoBE.getIdUbicacionDestino();
+        String strFecha = objMovimientoInternoBE.getFecha().toString();
+        String strDescripcion = objMovimientoInternoBE.getDescripcion();
+        String strIdPallet = objMovimientoInternoBE.getIdPallet();
+
+        String strIdProducto = objPalletBL.getPallet(strIdPallet).getIdProducto();
+
+        ProductoBE objProductoBE = objProductoBL.getByIdProducto(strIdProducto);
+        String strNombreProducto = objProductoBE.getNombre();
+        int intCantidad = objProductoBE.getMaxCantPorPallet();
+
+        modelo.addRow(new Object[]{strIdMovimientoInterno,strIdUbicacionOrigen,strIdUbicacionDestino,strFecha,strDescripcion,intCantidad,strNombreProducto,strIdPallet});
+
+    }
 }

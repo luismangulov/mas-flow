@@ -173,9 +173,14 @@ public class UbicacionDA {
         return objUbicacion;
     }
 
-    public ArrayList<UbicacionBE> queryUbicacionesByRack(String idRack) {
+    public ArrayList<UbicacionBE> queryUbicacionesByRack(String idRack, String indActivo) {
         objConexion = new conexion();
-        query = "SELECT * FROM UBICACION WHERE indActivo = '1' AND idRack ='" +idRack+"'";
+        
+        if (indActivo.equals("3"))
+            query = "SELECT * FROM UBICACION WHERE idRack ='" +idRack+"'";
+        else
+            query = "SELECT * FROM UBICACION WHERE indActivo = '"+indActivo+"' AND idRack ='" +idRack+"'";
+        
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
@@ -197,8 +202,14 @@ public class UbicacionDA {
 
     public UbicacionBE queryUbicacionByRackFilaColumna(String strIdRack, int intFila, int intColumna, String indActivo) {
         objConexion = new conexion();
-        query = "SELECT * FROM UBICACION WHERE indActivo = '"+indActivo+"' AND idRack = '" +strIdRack+ 
+        
+        if (indActivo.equals("3"))
+            query = "SELECT * FROM UBICACION WHERE idRack = '" +strIdRack+ 
                 "' AND fila ="+intFila+" AND columna ="+intColumna+"";
+        else
+            query = "SELECT * FROM UBICACION WHERE indActivo = '"+indActivo+"' AND idRack = '" +strIdRack+ 
+                "' AND fila ="+intFila+" AND columna ="+intColumna+"";
+        
         rs = objConexion.EjecutarS(query);
         try {
             rs.next();
@@ -218,8 +229,14 @@ public class UbicacionDA {
 
     public ArrayList<UbicacionBE> queryUbicacionesByZona(String strIdZona, String indActivo) {
         objConexion = new conexion();
-        query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
+        
+        if (indActivo.equals("3"))
+            query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
+                + "FROM UBICACION A, RACK B WHERE A.idRack = B.idRack AND B.idZona = '" + strIdZona +"'";
+        else
+            query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
                 + "FROM UBICACION A, RACK B WHERE A.indActivo = '"+indActivo+"' AND A.idRack = B.idRack AND B.idZona = '" + strIdZona +"'";
+        
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
@@ -241,13 +258,16 @@ public class UbicacionDA {
 
     public ArrayList<UbicacionBE> queryUbicacionesByAlmacen(String strIdAlmacen, String indActivo) {
         objConexion = new conexion();
-        //select u.idubicacion from ubicacion u, rack r, zona z 
-        //where u.idrack = r.idrack and r.idzona = z.idzona and z.idalmacen = '000001'
-        
-        //
-        query = "SELECT U.idUbicacion, U.fila, U.columna, U.indActivo, U.idRack "
+
+        if (indActivo.equals("3"))
+            query = "SELECT U.idUbicacion, U.fila, U.columna, U.indActivo, U.idRack "
+                + "FROM UBICACION U, RACK R, ZONA Z "
+                + "WHERE Z.idZona = R.idZona AND U.idRack = R.idRack AND Z.idAlmacen= '" + strIdAlmacen +"'";
+        else 
+            query = "SELECT U.idUbicacion, U.fila, U.columna, U.indActivo, U.idRack "
                 + "FROM UBICACION U, RACK R, ZONA Z "
                 + "WHERE U.indActivo = '"+ indActivo +"' AND Z.idZona = R.idZona AND U.idRack = R.idRack AND Z.idAlmacen= '" + strIdAlmacen +"'";
+        
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
