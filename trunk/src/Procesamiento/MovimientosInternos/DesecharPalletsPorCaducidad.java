@@ -36,8 +36,8 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
     ArrayList<PalletBE> arrPallets;
     
     public DesecharPalletsPorCaducidad(AdmMovimientosInternos ventanaPadre) {
-        this.setLocationRelativeTo(null); 
         initComponents();
+        this.setLocationRelativeTo(null);
         txtIdPallet.setEnabled(false);   
         this.ventanaPadre = ventanaPadre;
         this.cargarComboAlmacen();

@@ -34,9 +34,8 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
     private ArrayList<MovimientoInternoBE> arrMovimientoInterno;
 
     public AdmMovimientosInternos() {
-        this.setLocationRelativeTo(null); 
         initComponents();
-        this.setTitle(null);
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
