@@ -189,6 +189,11 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         jLabel11.setText("Nombre*:");
 
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreFocusLost(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreKeyTyped(evt);
@@ -509,10 +514,7 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                     this.objPadre.recargaruno(almacen);
                     this.dispose();
 
-
                     }
-
-
 
         } catch (Exception ex) {
             Logger.getLogger(MantenimientoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
@@ -607,6 +609,10 @@ private void txtPuertaYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
 private void txtIdentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificadorKeyTyped
     // TODO add your handling code here:
 }//GEN-LAST:event_txtIdentificadorKeyTyped
+
+private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+    this.txtNombre.setText(txtNombre.getText().toUpperCase());    // TODO add your handling code here:
+}//GEN-LAST:event_txtNombreFocusLost
 
 
     /**
