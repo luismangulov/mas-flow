@@ -85,6 +85,7 @@ public class AdmRack extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(dgvRacks);
+        dgvRacks.getColumnModel().getColumn(0).setPreferredWidth(50);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -196,7 +197,9 @@ private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-
     if (fila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
-        strIdRack = (String)dgvRacks.getValueAt(fila, 0);
+        String strIdentificador = (String)dgvRacks.getValueAt(fila, 0);
+        RackBL objRackBL = new RackBL();
+        strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
         MantenimientoRack frmManteminiento = new MantenimientoRack('M',strIdRack,this);
         frmManteminiento.setVisible(true);
     }
@@ -209,8 +212,10 @@ private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
     if (fila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
     else{
-        strIdRack = (String)dgvRacks.getValueAt(fila, 0);
 
+        String strIdentificador = (String)dgvRacks.getValueAt(fila, 0);
+        RackBL objRackBL = new RackBL();
+        strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
         UbicacionBL objUbicacionBL = new UbicacionBL();
         
         if (objUbicacionBL.getCantUbicacionesOcupadas(strIdRack) > 0){
@@ -220,7 +225,6 @@ private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
         
         objUbicacionBL.eliminarUbicacionesByRack(strIdRack);
         
-        RackBL objRackBL = new RackBL();
         boolExito = objRackBL.eliminar(strIdRack);
         
         if (boolExito){
@@ -252,7 +256,7 @@ private void lblEliminarRackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-F
         
         for (int i=0; i<arrRacks.size(); i++){
             
-            String strIdRack = arrRacks.get(i).getIdRack();
+            String strIdentificador = arrRacks.get(i).getIdentificador();
             int intPosX = arrRacks.get(i).getPosX();
             int intPosY = arrRacks.get(i).getPosY();
             int intPisos = arrRacks.get(i).getPisos();
@@ -261,7 +265,7 @@ private void lblEliminarRackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-F
             ZonaBL objZonaBL = new ZonaBL();
             String strIdentificadorZona = objZonaBL.getZona(strIdZona).getIdentificador();
 
-            modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdentificadorZona});
+            modelo.addRow(new Object[]{strIdentificador,intPosX, intPosY,intPisos,intColumnas,strIdentificadorZona});
             
         }
     }
@@ -286,7 +290,7 @@ private void lblEliminarRackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-F
 
         DefaultTableModel modelo=(DefaultTableModel) dgvRacks.getModel();  
         this.limpiarDgv();
-        String strIdRack = rackBE.getIdRack();
+        String strIdentificador = rackBE.getIdentificador();
         int intPosX = rackBE.getPosX();
         int intPosY = rackBE.getPosY();
         int intPisos = rackBE.getPisos();
@@ -295,7 +299,7 @@ private void lblEliminarRackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-F
         ZonaBL objZonaBL = new ZonaBL();
         String strIdentificadorZona = objZonaBL.getZona(strIdZona).getIdentificador();
         
-        modelo.addRow(new Object[]{strIdRack,intPosX, intPosY,intPisos,intColumnas,strIdentificadorZona});
+        modelo.addRow(new Object[]{strIdentificador,intPosX, intPosY,intPisos,intColumnas,strIdentificadorZona});
         
     }
     /**

@@ -129,10 +129,8 @@ public class MantenimientoRack extends javax.swing.JFrame {
         
         boolean cambioZona = false;
         ZonaBL objZonaBL = new ZonaBL();
-        objZonaBE = new ZonaBE();
-        objZonaBE = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString());
         
-        if (!guardaIdZona.equals(objZonaBE.getIdZona()))
+        if (!guardaIdZona.equals(cbZona.getSelectedItem().toString().trim()))
             cambioZona = true;
         
         strIdRack = txtIdRack.getText();
@@ -146,9 +144,10 @@ public class MantenimientoRack extends javax.swing.JFrame {
         else 
             strIndActivo = "0";
    
-        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+        String strIdentificador = cbZona.getSelectedItem().toString();
+        strIdZona = objZonaBL.getByIdentificadorZona(strIdentificador).getIdZona();
         objRackBL = new RackBL();
-        objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "");
+        objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, strIdentificador);
 
         UbicacionBL objUbicacionBL = new UbicacionBL();
         
@@ -156,13 +155,16 @@ public class MantenimientoRack extends javax.swing.JFrame {
             int intCantUbicacionesOcupadas = objUbicacionBL.getCantUbicacionesOcupadas(strIdRack);
             if (intCantUbicacionesOcupadas > 0)
                 JOptionPane.showMessageDialog(null, "No se puede inactivar. Hay ubicaciones en uso o bloqueadas en el rack");
+            else{
+                objUbicacionBL.bloquearUbicacionByRack(strIdRack);
+            }
         }
-        else{
-            boolExito = objRackBL.modificar(objRackBE,cambioZona);
-            if (boolExito)
-                ventanaPadre.actualizaDgv(objRackBE);
-            this.dispose();
-        }
+        boolExito = objRackBL.modificar(objRackBE,cambioZona);
+        if (boolExito)
+            ventanaPadre.actualizaDgv(objRackBE);
+
+        this.dispose();
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -569,7 +571,9 @@ private void txtColumnasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:ev
                 break;
             }
         }
-        guardaIdZona = cbZona.getSelectedItem().toString();
+        String strIdZona = objRackBE.getIdZona();
+        objZonaBL = new ZonaBL();
+        guardaIdZona = objZonaBL.getZona(strIdZona).getIdentificador();
     }
     
     
