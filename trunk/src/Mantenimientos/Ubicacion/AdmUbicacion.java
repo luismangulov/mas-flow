@@ -12,6 +12,7 @@ package Mantenimientos.Ubicacion;
 
 import BusinessEntity.UbicacionBE;
 import BusinessLogic.PalletBL;
+import BusinessLogic.RackBL;
 import BusinessLogic.UbicacionBL;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -82,11 +83,6 @@ public class AdmUbicacion extends javax.swing.JFrame {
         });
         dgvUbicaciones.setToolTipText("Reubicar Pallet");
         jScrollPane1.setViewportView(dgvUbicaciones);
-        dgvUbicaciones.getColumnModel().getColumn(0).setResizable(false);
-        dgvUbicaciones.getColumnModel().getColumn(1).setResizable(false);
-        dgvUbicaciones.getColumnModel().getColumn(2).setResizable(false);
-        dgvUbicaciones.getColumnModel().getColumn(3).setResizable(false);
-        dgvUbicaciones.getColumnModel().getColumn(4).setResizable(false);
         dgvUbicaciones.getColumnModel().getColumn(5).setResizable(false);
 
         jToolBar1.setFloatable(false);
@@ -261,6 +257,10 @@ private void lblRefrescarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
 
                 String strIdUbicacion = arrUbicaciones.get(i).getIdUbicacion();
                 String strIdRack = arrUbicaciones.get(i).getIdRack();
+                
+                RackBL objRackBL = new RackBL();
+                String strIdentificadorRack = objRackBL.getByIdRack(strIdRack).getIdentificador();
+                
                 int intFila = arrUbicaciones.get(i).getFila();
                 int intColumna = arrUbicaciones.get(i).getColumna();
                 String strIndActivo = arrUbicaciones.get(i).getIndActivo();
@@ -280,7 +280,7 @@ private void lblRefrescarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
                 else
                     strEstado = "En uso";
 
-                modelo.addRow(new Object[]{strIdUbicacion,strIdRack, intFila,intColumna,strEstado,strIdPallet});
+                modelo.addRow(new Object[]{strIdUbicacion,strIdentificadorRack, intFila,intColumna,strEstado,strIdPallet});
             }
         }
     }

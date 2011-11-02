@@ -150,7 +150,7 @@ public class RackDA {
             
         }else{
             strMaxId = "001";
-            query = "SELECT TRIM(nombre) FROM ZONA WHERE idZona ='" + idZona + "'";
+            query = "SELECT TRIM(identificador) FROM ZONA WHERE idZona ='" + idZona + "'";
         }
         rs = objConexion.EjecutarS(query);
 
@@ -175,14 +175,14 @@ public class RackDA {
         objRackBE = null;
         try {
             rs.next();
-            String strIdRack = rs.getString("IdRack");
+            String strIdRack = rs.getString("IdRack").trim();
                 int posX = rs.getInt("PosX");
                 int posY = rs.getInt("PosY");
                 int intPisos = rs.getInt("Pisos");
                 int intColumnas = rs.getInt("Columnas");
-                String strIndActivo = rs.getString("IndActivo");
-                String strIdZona = rs.getString("IdZona");
-                String strIdentificador = rs.getString("Identificador");
+                String strIndActivo = rs.getString("IndActivo").trim();
+                String strIdZona = rs.getString("IdZona").trim();
+                String strIdentificador = rs.getString("Identificador").trim();
                 objRackBE = new RackBE(strIdRack,posX,posY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador);
                 
         } catch (SQLException ex) {
@@ -202,14 +202,14 @@ public class RackDA {
         arrRacks = new ArrayList<RackBE>();
         try {
             while (rs.next()) {
-                String strIdRack = rs.getString("IdRack");
+                String strIdRack = rs.getString("IdRack").trim();
                 int intPosX = rs.getInt("PosX");
                 int intPosY = rs.getInt("PosY");
                 int intPisos = rs.getInt("Pisos");
                 int intColumnas = rs.getInt("Columnas");
-                String strIndActivo = rs.getString("IndActivo");
-                String strIdZona = rs.getString("IdZona");
-                String strIdentificador = rs.getString("Identificador");                
+                String strIndActivo = rs.getString("IndActivo").trim();
+                String strIdZona = rs.getString("IdZona").trim();
+                String strIdentificador = rs.getString("Identificador").trim();                
                 arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona, strIdentificador));
             }
         } catch (SQLException ex) {
@@ -241,14 +241,14 @@ public class RackDA {
         arrRacks = new ArrayList<RackBE>();
         try {
             while (rs.next()) {
-                String strIdRack = rs.getString("IdRack");
+                String strIdRack = rs.getString("IdRack").trim();
                 int intPosX = rs.getInt("PosX");
                 int intPosY = rs.getInt("PosY");
                 int intPisos = rs.getInt("Pisos");
                 int intColumnas = rs.getInt("Columnas");
-                String strIndActivo = rs.getString("IndActivo");
-                String strIdZona = rs.getString("IdZona");
-                String strIdentificador = rs.getString("Identificador");
+                String strIndActivo = rs.getString("IndActivo").trim();
+                String strIdZona = rs.getString("IdZona").trim();
+                String strIdentificador = rs.getString("Identificador").trim();
                 arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador));
             }
         } catch (SQLException ex) {
@@ -267,14 +267,14 @@ public class RackDA {
         
         try {
             rs.next();
-            String strIdRack = rs.getString("IdRack");
+            String strIdRack = rs.getString("IdRack").trim();
             int intPosX = rs.getInt("PosX");
             int intPosY = rs.getInt("PosY");
             int intPisos = rs.getInt("Pisos");
             int intColumnas = rs.getInt("Columnas");
-            String strIndActivo = rs.getString("IndActivo");
-            String strIdZona = rs.getString("IdZona");
-            String strIdentificador = rs.getString("Identificador");
+            String strIndActivo = rs.getString("IndActivo").trim();
+            String strIdZona = rs.getString("IdZona").trim();
+            String strIdentificador = rs.getString("Identificador").trim();
             objRackBE = new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador);
         
         } catch (SQLException ex) {
@@ -294,14 +294,14 @@ public class RackDA {
         
         try {
             rs.next();
-            String strIdRack = rs.getString("IdRack");
+            String strIdRack = rs.getString("IdRack").trim();
             int intPosX = rs.getInt("PosX");
             int intPosY = rs.getInt("PosY");
             int intPisos = rs.getInt("Pisos");
             int intColumnas = rs.getInt("Columnas");
-            String strIndActivo = rs.getString("IndActivo");
-            String strIdZona = rs.getString("IdZona");
-            String strIdentificador = rs.getString("Identificador");
+            String strIndActivo = rs.getString("IndActivo").trim();
+            String strIdZona = rs.getString("IdZona").trim();
+            String strIdentificador = rs.getString("Identificador").trim();
             objRackBE = new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador);
         
         } catch (SQLException ex) {
@@ -321,14 +321,14 @@ public class RackDA {
         arrRacks = new ArrayList<RackBE>();
         try {
             while (rs.next()) {
-                String strIdRack = rs.getString("IdRack");
+                String strIdRack = rs.getString("IdRack").trim();
                 int intPosX = rs.getInt("PosX");
                 int intPosY = rs.getInt("PosY");
                 int intPisos = rs.getInt("Pisos");
                 int intColumnas = rs.getInt("Columnas");
-                String strIndActivo = rs.getString("IndActivo");
-                String strIdZona = rs.getString("IdZona");
-                String strIdentificador = rs.getString("Identificador");
+                String strIndActivo = rs.getString("IndActivo").trim();
+                String strIdZona = rs.getString("IdZona").trim();
+                String strIdentificador = rs.getString("Identificador").trim();
                 arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador));
             }
         } catch (SQLException ex) {
