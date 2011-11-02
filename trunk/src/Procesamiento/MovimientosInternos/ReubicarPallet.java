@@ -11,6 +11,7 @@
 package Procesamiento.MovimientosInternos;
 
 import BusinessEntity.AlmacenBE;
+import BusinessEntity.MovimientoInternoBE;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
 import BusinessEntity.RackBE;
@@ -118,7 +119,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
         cbUbicacion.removeAllItems();
         cbUbicacion.addItem(""); 
         ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
-        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack);
+        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"1"); //"1" porque se buscarán ubicaciones libres
         
         if (arrUbicaciones != null)
             for(UbicacionBE ubicacion : arrUbicaciones)
@@ -131,30 +132,26 @@ public class ReubicarPallet extends javax.swing.JFrame {
         DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
         limpiarDgv();
         this.arrPallets = arrPallets;
-        dgvPallets.clearSelection();
+        
         ProductoBL objProductoBL = new ProductoBL();                
         UbicacionBL objUbicacionBL = new UbicacionBL();
         RackBL objRackBL = new RackBL();
         UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
-        String strNombreProducto = "";
-        int intMaxCantPallet = 0;
-        int intFila = 0;
-        int intColumna = 0;
-        String strIdentificadorRack = "";
-        String fecha = "";
-        String strIdUnidadMedida = "";
-        String strNombreUnidadMedida = "";
+
         PalletBE palletBE = new PalletBE();
-        ProductoBE objProductoBE = new ProductoBE();
+        ProductoBE objProductoBE;
         
         if(arrPallets != null){
         
             for (int i=0; i<arrPallets.size(); i++){
 
                 String strIdPallet = arrPallets.get(i).getIdPallet();
-
                 String strIdProducto = arrPallets.get(i).getIdProducto().trim();
-
+                String strNombreProducto = "";
+                int intMaxCantPallet = 0;
+                String strIdUnidadMedida = "";
+                String strNombreUnidadMedida = "";
+                
                  if (!strIdProducto.equals("")){
                     objProductoBE = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto());
                     strNombreProducto = objProductoBE.getNombre();
@@ -164,17 +161,22 @@ public class ReubicarPallet extends javax.swing.JFrame {
                 }
 
                 String strIdUbicacion = arrPallets.get(i).getIdUbicacion().trim();
-
+                int intFila = 0;
+                int intColumna = 0;
+                String strIdentificadorRack = "";
+        
                 if (!strIdUbicacion.equals("")){
                     intFila = objUbicacionBL.getUbicacionById(strIdUbicacion).getFila();
                     intColumna = objUbicacionBL.getUbicacionById(strIdUbicacion).getColumna();
                     strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
                 }
-
+                
+                String strFecha = "";
+                
                 if (palletBE.getFechaVencimiento() != null)
-                  fecha = palletBE.getFechaVencimiento().toString();
+                    strFecha = palletBE.getFechaVencimiento().toString();
 
-                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidadMedida,fecha});
+                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidadMedida,strFecha});
             }
         }
     }
@@ -193,52 +195,54 @@ public class ReubicarPallet extends javax.swing.JFrame {
     }
     
     
-    public void actualizaDgv(PalletBE palletBE){
+    public void actualizaDgv(PalletBE objPalletBE){
 
        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
         for(int i=modelo.getRowCount()-1; i>=0; i--){
             modelo.removeRow(i);
         }
-        dgvPallets.clearSelection();
+
         ProductoBL objProductoBL = new ProductoBL();                
         UbicacionBL objUbicacionBL = new UbicacionBL();
         RackBL objRackBL = new RackBL();
         UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
+        
+        ProductoBE objProductoBE;
+
+        String strIdPallet = objPalletBE.getIdPallet();
+        String strIdProducto = objPalletBE.getIdProducto().trim();
         String strNombreProducto = "";
         int intMaxCantPallet = 0;
+        String strIdUnidadMedida = "";
+        String strNombreUnidadMedida = "";
+
+         if (!strIdProducto.equals("")){
+            objProductoBE = objProductoBL.getByIdProducto(objPalletBE.getIdProducto());
+            strNombreProducto = objProductoBE.getNombre();
+            intMaxCantPallet = objProductoBE.getMaxCantPorPallet();
+            strIdUnidadMedida = objProductoBE.getIdUnidadMedida();
+            strNombreUnidadMedida = objUnidadMedidaBL.getUnidadMedida(strIdUnidadMedida).getNombre();
+        }
+
+        String strIdUbicacion = objPalletBE.getIdUbicacion().trim();
         int intFila = 0;
         int intColumna = 0;
         String strIdentificadorRack = "";
-        String strIdUnidad = "";
-        String fecha = "";
-        String strIdPallet = palletBE.getIdPallet();
-        String strNombreUnidad = "";
-        
-        String strIdProducto = palletBE.getIdProducto().trim();
-        
-        if (!strIdProducto.equals("")){
-            strNombreProducto = objProductoBL.getByIdProducto(strIdProducto).getNombre();
-            intMaxCantPallet = objProductoBL.getByIdProducto(strIdProducto).getMaxCantPorPallet();
-            strIdUnidad = objProductoBL.getByIdProducto(strIdProducto).getIdUnidadMedida();
-            strNombreUnidad = objUnidadMedidaBL.getUnidadMedida(strIdUnidad).getNombre();
-            
-        }
-
-        String strIdUbicacion = palletBE.getIdUbicacion().trim();
 
         if (!strIdUbicacion.equals("")){
             intFila = objUbicacionBL.getUbicacionById(strIdUbicacion).getFila();
             intColumna = objUbicacionBL.getUbicacionById(strIdUbicacion).getColumna();
             strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
         }
-        
-        if (palletBE.getFechaVencimiento() != null)
-            fecha = palletBE.getFechaVencimiento().toString();
-       
-        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidad,fecha});
 
+        String strFecha = "";
 
-}
+        if (objPalletBE.getFechaVencimiento() != null)
+            strFecha = objPalletBE.getFechaVencimiento().toString();
+
+        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidadMedida,strFecha});
+    }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -498,16 +502,15 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         strIdRack = objRackBL.getByIdentificador(strIdentificadorRack).getIdRack();
         strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacion, intColumnaUbicacion,"1").getIdUbicacion();
         PalletBL objPalletBL = new PalletBL();
-        boolExito = objPalletBL.reubicarPallet(strIdPallet, strIdUbicacionOrigen, strIdUbicacionDestino,jdcFecha.getDate());
+        
+        MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet);
+        
+        boolExito = objPalletBL.reubicarPallet(objMovimientoInternoBE);
         
         if (boolExito){
-            
-            PalletBE objPallet = objPalletBL.getPallet(strIdPallet);
-            actualizaDgv(objPallet);
-            
+            PalletBE objPalletBE = objPalletBL.getPallet(strIdPallet);
+            ventanaPadre.actualizarDgv(objMovimientoInternoBE);
         }
-            
-        
     }
     
 }//GEN-LAST:event_btnGuardarActionPerformed

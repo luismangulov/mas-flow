@@ -32,9 +32,9 @@ public class UbicacionBL {
         return objUbicacionDA.eliminarUbicacionesRack(idRack);
     }
 
-    public ArrayList<UbicacionBE> getUbicacionesByRack(String idRack) {
+    public ArrayList<UbicacionBE> getUbicacionesByRack(String strIdRack, String strIndActivo) {
         objUbicacionDA = new UbicacionDA();
-        return objUbicacionDA.queryUbicacionesByRack(idRack);
+        return objUbicacionDA.queryUbicacionesByRack(strIdRack,strIndActivo);
     }
 
     public UbicacionBE getUbicacionById(String strIdUbicacion) {
