@@ -18,6 +18,7 @@ import BusinessEntity.UnidadMedidaBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
+import BusinessLogic.ProductoBL;
 import BusinessLogic.UnidadMedidaBL;
 import Util.Utilitario;
 import java.io.FileNotFoundException;
@@ -133,11 +134,11 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nombre", "Cantidad", "Unidad"
+                "Código", "Nombre", "Cantidad", "MaxCantEnPallet"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false
@@ -158,9 +159,9 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblProductos);
         tblProductos.getColumnModel().getColumn(0).setPreferredWidth(20);
-        tblProductos.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tblProductos.getColumnModel().getColumn(1).setPreferredWidth(65);
         tblProductos.getColumnModel().getColumn(2).setPreferredWidth(25);
-        tblProductos.getColumnModel().getColumn(3).setPreferredWidth(25);
+        tblProductos.getColumnModel().getColumn(3).setPreferredWidth(60);
 
         jLabel3.setText("Nombre*:");
 
@@ -495,10 +496,10 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
          modelo.addRow(new Object[4]);
         tblProductos.setValueAt(producto.getIdProducto(),tblProductos.getRowCount()-1,0 );
         tblProductos.setValueAt(producto.getNombre(),tblProductos.getRowCount()-1,1 );
-        UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
-        UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
-        objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(producto.getIdUnidadMedida());
-         tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
+//        UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
+//        UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
+//        objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(producto.getIdUnidadMedida());
+         tblProductos.setValueAt(producto.getMaxCantPorPallet(),tblProductos.getRowCount()-1,3 );
     }
 
     public void recargar(ArrayList<ProductoBE> arrProductos){
@@ -508,10 +509,10 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
              modelo.addRow(new Object[4]);
             tblProductos.setValueAt(arrProducto.get(i).getIdProducto(),tblProductos.getRowCount()-1,0 );
             tblProductos.setValueAt(arrProducto.get(i).getNombre(),tblProductos.getRowCount()-1,1 );
-            UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
-            UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
-            objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(arrProducto.get(i).getIdUnidadMedida());
-             tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
+//            UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
+//            UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
+//            objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(arrProducto.get(i).getIdUnidadMedida());
+             tblProductos.setValueAt(arrProducto.get(i).getMaxCantPorPallet(),tblProductos.getRowCount()-1,3 );
         } 
     }
     
@@ -526,6 +527,15 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
             esValido = false;
         }
         
+        for(int i = 0;i<this.tblProductos.getRowCount();i++){
+            ProductoBL objProductoBL = new ProductoBL();
+            ProductoBE objProductoBE = objProductoBL.getByIdProducto(this.tblProductos.getValueAt(i, 0).toString());
+            if((Integer.parseInt((String)this.tblProductos.getValueAt(i, 2))%objProductoBE.getMaxCantPorPallet()) != 0){
+                JOptionPane.showMessageDialog(null, "La cantidad debe ser múltiplo de la maxcantidadenpallet", "Mensaje",1);
+                esValido = false;
+                break;
+            }
+        }
               
         
 

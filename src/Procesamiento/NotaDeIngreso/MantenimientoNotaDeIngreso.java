@@ -18,6 +18,7 @@ import BusinessEntity.UnidadMedidaBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleNotaIngresoBL;
 import BusinessLogic.NotaIngresoBL;
+import BusinessLogic.ProductoBL;
 import BusinessLogic.UnidadMedidaBL;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -142,11 +143,11 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nombre", "Cantidad", "Unidad"
+                "Código", "Nombre", "Cantidad", "MaxCantEnPallet"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false
@@ -161,6 +162,10 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tblProductos);
+        tblProductos.getColumnModel().getColumn(0).setPreferredWidth(20);
+        tblProductos.getColumnModel().getColumn(1).setPreferredWidth(65);
+        tblProductos.getColumnModel().getColumn(2).setPreferredWidth(25);
+        tblProductos.getColumnModel().getColumn(3).setPreferredWidth(60);
 
         btnGuardar.setText("Guardar");
         btnGuardar.setPreferredSize(new java.awt.Dimension(75, 23));
@@ -204,53 +209,55 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3)
-                .addGap(20, 20, 20)
-                .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(lblAyuda)
-                .addGap(46, 46, 46)
-                .addComponent(jLabel5)
-                .addGap(25, 25, 25)
-                .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel6)
-                .addGap(33, 33, 33)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel7)
-                .addGap(33, 33, 33)
-                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(btnCancelar))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel2)
-                        .addGap(11, 11, 11)
-                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(63, 63, 63))
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel3)
+                        .addGap(20, 20, 20)
+                        .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblAyuda)
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel5)
+                        .addGap(25, 25, 25)
+                        .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel6)
+                        .addGap(33, 33, 33)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel7)
+                        .addGap(33, 33, 33)
+                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(jLabel2)
+                                .addGap(11, 11, 11)
+                                .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,10 +463,10 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
          modelo.addRow(new Object[4]);
         tblProductos.setValueAt(producto.getIdProducto(),tblProductos.getRowCount()-1,0 );
         tblProductos.setValueAt(producto.getNombre(),tblProductos.getRowCount()-1,1 );
-       UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
-        UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
-        objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(producto.getIdUnidadMedida());
-         tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
+//       UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
+//        UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
+//        objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(producto.getIdUnidadMedida());
+        tblProductos.setValueAt(producto.getMaxCantPorPallet(),tblProductos.getRowCount()-1,3 );
     }
     
     public void recargar(ArrayList<ProductoBE> arrProductos){
@@ -469,10 +476,10 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
              modelo.addRow(new Object[4]);
             tblProductos.setValueAt(arrProducto.get(i).getIdProducto(),tblProductos.getRowCount()-1,0 );
             tblProductos.setValueAt(arrProducto.get(i).getNombre(),tblProductos.getRowCount()-1,1 );
-            UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
-            UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
-            objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(arrProducto.get(i).getIdUnidadMedida());
-             tblProductos.setValueAt(objUnidadMedidadBE.getNombre(),tblProductos.getRowCount()-1,3 );
+//            UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
+//            UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
+//            objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(arrProducto.get(i).getIdUnidadMedida());
+             tblProductos.setValueAt(arrProducto.get(i).getMaxCantPorPallet(),tblProductos.getRowCount()-1,3 );
         } 
     }
 
@@ -484,7 +491,16 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
             esValido = false;
         }
 
-        
+         for(int i = 0;i<this.tblProductos.getRowCount();i++){
+            ProductoBL objProductoBL = new ProductoBL();
+            ProductoBE objProductoBE = objProductoBL.getByIdProducto(this.tblProductos.getValueAt(i, 0).toString());
+            if((Integer.parseInt((String)this.tblProductos.getValueAt(i, 2))%objProductoBE.getMaxCantPorPallet()) != 0){
+                JOptionPane.showMessageDialog(null, "La cantidad debe ser múltiplo de la maxcantidadenpallet", "Mensaje",1);
+                esValido = false;
+                break;
+            }
+        }
+           
 
         return esValido;
     }

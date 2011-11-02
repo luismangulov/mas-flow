@@ -325,7 +325,7 @@ public class AyudaProducto extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    public void cargarComboFamilia(){
+    public final void cargarComboFamilia(){
         
         FamiliaBL objFamiliaBL;    
         objFamiliaBL = new FamiliaBL();
