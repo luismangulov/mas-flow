@@ -213,7 +213,10 @@ public class AyudaFamiliaProd extends javax.swing.JDialog {
             codigo = (String)dgvFamilia.getValueAt(fila, 0);
             FamiliaBL objFamiliaBL = new FamiliaBL();
             FamiliaBE familia = objFamiliaBL.queryByIdFamilia(codigo);
-            
+            if(this.objPadre.familias.contains(familia)){
+            JOptionPane.showMessageDialog(null, "Esta familia ya se encuentra en la zona.", "Mensaje",0);
+            return;
+            }
             this.objPadre.familias.add(familia);
             this.objPadre.recargar(this.objPadre.familias);
 
