@@ -320,7 +320,7 @@ public class UbicacionDA {
         try{
             rs = objConexion.EjecutarS(query);
             
-            if (!rs.next()){
+            if (rs.next()){
                 cantUbicacinesLibres  = rs.getInt(1);
             }
                
