@@ -69,8 +69,6 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         this.ventanaPadre = ventanaPadre;
     }
 
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -375,6 +373,12 @@ private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
         txtNombre.setText(objProducto.getNombre());
         txtDescripcion.setText(objProducto.getDescripcion());
         txtMaxCantPallet.setText(String.valueOf(objProducto.getMaxCantPorPallet()));
+        
+        if (objProducto.getEstado().equals("0"))
+            chbxActivo.setSelected(false);
+        else
+            chbxActivo.setSelected(true);
+        
         cargarComboFamilia();
         cargarComboUnidadMedida();
         

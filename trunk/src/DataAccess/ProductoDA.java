@@ -117,13 +117,13 @@ public class ProductoDA {
         arrProductos = new ArrayList<ProductoBE>();
         try {
             while (rs.next()) {
-                String strIdProducto = rs.getString("IdProducto");
-                String strNombreProducto = rs.getString("Nombre");
-                String strDescripcion = rs.getString("Descripcion");
+                String strIdProducto = rs.getString("IdProducto").trim();
+                String strNombreProducto = rs.getString("Nombre").trim();
+                String strDescripcion = rs.getString("Descripcion").trim();
                 int intMaxCantPorPallet = rs.getInt("MaxCantPorPallet");
-                String strIdUnidadMedida = rs.getString("idUnidadMedida");
-                String strIdFamilia = rs.getString("idFamilia");
-                String strIndActivo = rs.getString("IndActivo");
+                String strIdUnidadMedida = rs.getString("idUnidadMedida").trim();
+                String strIdFamilia = rs.getString("idFamilia").trim();
+                String strIndActivo = rs.getString("IndActivo").trim();
                 
   
                 arrProductos.add(new ProductoBE(strIdProducto,strNombreProducto,strDescripcion,intMaxCantPorPallet,
@@ -157,8 +157,8 @@ public class ProductoDA {
         try {
             while (rs.next()) {
                 String strIdProducto = rs.getString("IdProducto");
-                String strNombreProducto = rs.getString("Nombre");
-                String strDescripcion = rs.getString("Descripcion");
+                String strNombreProducto = rs.getString("Nombre").trim();
+                String strDescripcion = rs.getString("Descripcion").trim();
                 int intMaxCantPorPallet = rs.getInt("MaxCantPorPallet");
                 String strIdUnidadMedida = rs.getString("idUnidadMedida");
                 String strIdFamilia = rs.getString("idFamilia");
@@ -185,8 +185,8 @@ public class ProductoDA {
             rs.next();
 
                 String strIdProducto = rs.getString("IdProducto");
-                String strNombreProducto = rs.getString("Nombre");
-                String strDescripcion = rs.getString("Descripcion");
+                String strNombreProducto = rs.getString("Nombre").trim();
+                String strDescripcion = rs.getString("Descripcion").trim();
                 int intMaxCantPorPallet = rs.getInt("MaxCantPorPallet");
                 String strIdUnidadMedida = rs.getString("idUnidadMedida");
                 String strIdFamilia = rs.getString("idFamilia");
@@ -215,8 +215,8 @@ public class ProductoDA {
             rs.next();
 
                 String strIdProducto = rs.getString("IdProducto");
-                String strNombreProducto = rs.getString("Nombre");
-                String strDescripcion = rs.getString("Descripcion");
+                String strNombreProducto = rs.getString("Nombre").trim();
+                String strDescripcion = rs.getString("Descripcion").trim();
                 int intMaxCantPorPallet = rs.getInt("MaxCantPorPallet");
                 String strIdUnidadMedida = rs.getString("idUnidadMedida");
                 String strIdFamilia = rs.getString("idFamilia");
