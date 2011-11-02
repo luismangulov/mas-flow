@@ -68,6 +68,13 @@ public class UbicacionBL {
         return objUbicacionDA.queryCantUbicacionesLibres(idFamilia, idAlmacen);
     }
     
+    public int queryCantUbicacionesOcupadas(String idFamilia, String idAlmacen,String idProducto){
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryCantUbicacionesOcupadas(idFamilia, idAlmacen, idProducto);
+    }
+    
+    
+    
     public int getCantUbicacionesOcupadas(String strIdRack){
         objUbicacionDA = new UbicacionDA();
         return objUbicacionDA.queryCantidadUbicacionesOcupadasEnRack(strIdRack);
