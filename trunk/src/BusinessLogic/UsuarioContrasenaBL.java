@@ -16,5 +16,10 @@ public class UsuarioContrasenaBL {
         UsuarioContrasenaDA objUsuarioContrasenaDA = new UsuarioContrasenaDA();
         return objUsuarioContrasenaDA.corroborarContrasena(idUsuario,password);
     }
+
+    public String actualizarContrasena(String idUsuario, String nuevoPassword) {
+        UsuarioContrasenaDA objUsuarioContrasenaDA = new UsuarioContrasenaDA();
+        return objUsuarioContrasenaDA.actualizarContrasena(idUsuario,nuevoPassword);
+    }
     
 }
