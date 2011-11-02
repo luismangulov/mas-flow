@@ -57,8 +57,8 @@ public class BuscarPallet extends javax.swing.JFrame {
     
     
     public BuscarPallet(ReubicarPallet ventanaPadre) {
-        this.setLocationRelativeTo(null); 
         initComponents();
+        this.setLocationRelativeTo(null);
         this.ventanaPadreReubicar = ventanaPadre;
         cargarComboAlmacen();
     }

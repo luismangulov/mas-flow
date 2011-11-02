@@ -56,8 +56,8 @@ public class ReubicarPallet extends javax.swing.JFrame {
     AdmMovimientosInternos ventanaPadre;
     
     public ReubicarPallet(AdmMovimientosInternos ventanaPadre) {
-        this.setLocationRelativeTo(null); 
         initComponents();
+        this.setLocationRelativeTo(null);
         this.ventanaPadre = ventanaPadre;
         Date fechaActual = new Date();
         this.jdcFecha.setDate(fechaActual);
