@@ -27,7 +27,7 @@ public class DetalleNotaIngreso extends javax.swing.JFrame {
         this.padre = objPadre;
         this.codNotaIngreso = codigo;
         initComponents();
-        
+        this.setLocationRelativeTo(null); 
         DetalleNotaIngresoBL objDetalleNotaIngresoBL = new DetalleNotaIngresoBL();
         ArrayList<DetalleNotaIngresoBE> arrDetalleNotaIngresoBE = new ArrayList<DetalleNotaIngresoBE>();
         arrDetalleNotaIngresoBE = objDetalleNotaIngresoBL.queryAllDetalleNotaIngreso(codNotaIngreso);
