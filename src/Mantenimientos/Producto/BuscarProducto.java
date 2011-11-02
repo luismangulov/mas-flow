@@ -39,6 +39,7 @@ public class BuscarProducto extends javax.swing.JFrame {
     public BuscarProducto(AdmProducto ventanaPadre) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.chbxActivo.setSelected(true);
         this.cargarComboFamilia();
         this.ventanaPadre = ventanaPadre;
     }
