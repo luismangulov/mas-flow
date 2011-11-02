@@ -32,6 +32,7 @@ public class AdmProducto extends javax.swing.JFrame {
     public ArrayList<ProductoBE> arrProductos;
     private FamiliaDA objFamiliaDA;
     private UnidadMedidaDA objUnidadMedidaDA;
+    boolean boolExito;
     /** Creates new form AdmProducto */
     public AdmProducto() {
         this.setLocationRelativeTo(null); 
@@ -224,8 +225,9 @@ private void lblRegistrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
         else{
             idProducto = (String)dgvProductos.getValueAt(fila, 0);
             ProductoBL objProductoBL = new ProductoBL();
-            objProductoBL.eliminar(idProducto);
-            borrarFilaDgv(fila);
+            boolExito = objProductoBL.eliminar(idProducto);
+            if (boolExito)
+                borrarFilaDgv(fila);
         }
     }//GEN-LAST:event_lblEliminarMouseClicked
 

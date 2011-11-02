@@ -32,6 +32,7 @@ public class BuscarProducto extends javax.swing.JFrame {
     private FamiliaBL objFamiliaBL;
     private ArrayList<ProductoBE> arrProductos;
     private AdmProducto ventanaPadre;
+    String strIndActivo;
 
     /** Creates new form BuscarProducto */
     public BuscarProducto(AdmProducto ventanaPadre) {
@@ -69,6 +70,7 @@ public class BuscarProducto extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         cbFamilia = new javax.swing.JComboBox();
         btnCancelar = new javax.swing.JButton();
+        chbxActivo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar producto");
@@ -103,6 +105,8 @@ public class BuscarProducto extends javax.swing.JFrame {
             }
         });
 
+        chbxActivo.setText("Activo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,7 +130,10 @@ public class BuscarProducto extends javax.swing.JFrame {
                         .addGap(68, 68, 68)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
-                        .addComponent(btnCancelar)))
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(chbxActivo)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -149,7 +156,9 @@ public class BuscarProducto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(chbxActivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -169,7 +178,13 @@ public class BuscarProducto extends javax.swing.JFrame {
         strIdProducto = txtIdProducto.getText();
         strNombre = txtNombre.getText();
         objProductoBL = new ProductoBL();
-        arrProductos = objProductoBL.getListSearch(strIdProducto, strNombre, strIdFamilia);
+        
+        if (chbxActivo.isSelected())
+            strIndActivo = "1";
+        else
+            strIndActivo = "0";
+        
+        arrProductos = objProductoBL.getListSearch(strIdProducto, strNombre, strIdFamilia, strIndActivo);
         
         if (arrProductos.size()!=0){
             ventanaPadre.llenarDgv(arrProductos);
@@ -223,6 +238,7 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox cbFamilia;
+    private javax.swing.JCheckBox chbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
