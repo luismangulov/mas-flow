@@ -492,8 +492,8 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
          for(int i = 0;i<this.tblProductos.getRowCount();i++){
             ProductoBL objProductoBL = new ProductoBL();
             ProductoBE objProductoBE = objProductoBL.getByIdProducto(this.tblProductos.getValueAt(i, 0).toString());
-           String cantProd = (String)this.tblProductos.getValueAt(i, 2);
-            if(cantProd == null){
+           //String cantProd = (String)this.tblProductos.getValueAt(i, 2);
+            if(this.tblProductos.getValueAt(i, 2) == null){
                 JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de producto", "Mensaje",1);
                 esValido = false;
                 break;
