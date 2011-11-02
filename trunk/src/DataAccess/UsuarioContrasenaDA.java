@@ -42,9 +42,11 @@ public class UsuarioContrasenaDA {
         String indDetalle="";
         try{
             rs=objConexion.EjecutarS(sql);
+            
             if (rs.next()){
-                indDetalle=String.valueOf(Integer.parseInt(rs.getString(1))+1);
-                sql = "INSERT INTO UsuarioContrasena( indDetalle,idUsuario,contrasena,fechaInicio,fechaFin) VALUES('"+indDetalle+"','"+idUsuario+"','"+nuevoPassword+"','','')";
+                int ind=rs.getInt(1)+1;
+                indDetalle=String.valueOf(ind);
+                sql = "INSERT INTO UsuarioContrasena( indDetalle,idUsuario,contrasena) VALUES('"+indDetalle+"','"+idUsuario+"','"+nuevoPassword+"')";
           
                 try{
                     rs=objConexion.EjecutarS(sql);

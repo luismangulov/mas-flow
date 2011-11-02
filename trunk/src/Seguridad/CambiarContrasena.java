@@ -85,16 +85,31 @@ public class CambiarContrasena extends javax.swing.JFrame {
                 txtAnteriorActionPerformed(evt);
             }
         });
+        txtAnterior.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnteriorKeyTyped(evt);
+            }
+        });
 
         txtNueva1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNueva1ActionPerformed(evt);
             }
         });
+        txtNueva1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNueva1KeyTyped(evt);
+            }
+        });
 
         txtNueva2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNueva2ActionPerformed(evt);
+            }
+        });
+        txtNueva2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNueva2KeyTyped(evt);
             }
         });
 
@@ -181,34 +196,36 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 // TODO add your handling code here:
     
         String idUsuario=this.txtIdUsuario.getText();
-//        String contrasena=this.txtAnterior.getPassword();
+        String anterior=this.txtAnterior.getText();
+        String nueva1=this.txtNueva1.getText();
+        String nueva2=this.txtNueva2.getText();
     
         if(idUsuario.trim().equals("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar su usuario", "Error",0);
             return ;
         }
     
-        if(this.txtAnterior.getPassword().equals("")){
+        if(anterior.equals("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar su contraseña anterior", "Error",0);
             return ;
         }
         
-        if(this.txtNueva1.getPassword().equals("")){
+        if(nueva1.equals("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar su nueva contraseña", "Error",0);
             return ;
         }
-        if(this.txtNueva2.getPassword().equals("")){
+        if(nueva2.equals("")){
             JOptionPane.showMessageDialog(null, "Debe repetir su nueva contraseña", "Error",0);
             return ;
         }
         
-        if(!(this.txtNueva1.getPassword().equals(this.txtNueva1.getPassword())))
+        if(!(nueva1.equals(nueva2)))
         {
-           JOptionPane.showMessageDialog(null, "Su nueva contraseña debe ser iguales", "Error",0);
+           JOptionPane.showMessageDialog(null, "Los campos nueva contraseña y repetir contraseña deben ser iguales", "Error",0);
             return ; 
         }
         
-        if(this.txtAnterior.getPassword()==this.txtNueva1.getPassword()){
+        if( anterior.equals(nueva1)){
            JOptionPane.showMessageDialog(null, "Su contraseña nueva debe ser diferente a la anterior", "Error",0);
             return ; 
         }
@@ -224,17 +241,19 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             JOptionPane.showMessageDialog(null, "El usuario no existe", "Error",0);            
         }else
         {
-           res=objUCBL.corroborarContrasena(idUsuario, txtAnterior.getPassword().toString());
+           res=objUCBL.corroborarContrasena(idUsuario, anterior);
            if(res.equals("1")){ //contraseña correcta
-               objUCBL.actualizarContrasena(idUsuario,txtNueva1.getPassword().toString());
-               
+               objUCBL.actualizarContrasena(idUsuario,nueva1);
+               JOptionPane.showMessageDialog(null, "Su nueva contrasena es "+ nueva1, "Mensaje",0);
                
            }else{
                JOptionPane.showMessageDialog(null, "Su contraseña anterior es incorrecta", "Error",0);
                 return ;
            }
             
-        }    
+        }
+        
+        this.dispose();
         
     
 }//GEN-LAST:event_btnGuardarActionPerformed
@@ -242,6 +261,27 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void txtNueva2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNueva2ActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_txtNueva2ActionPerformed
+
+private void txtAnteriorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnteriorKeyTyped
+// TODO add your handling code here:
+         if ((this.txtAnterior.getText().length() + 1) > 8) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtAnteriorKeyTyped
+
+private void txtNueva1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNueva1KeyTyped
+// TODO add your handling code here:
+        if ((this.txtNueva1.getText().length() + 1) > 8) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtNueva1KeyTyped
+
+private void txtNueva2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNueva2KeyTyped
+// TODO add your handling code here:
+        if ((this.txtNueva2.getText().length() + 1) > 8) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtNueva2KeyTyped
 
     /**
      * @param args the command line arguments
