@@ -128,6 +128,19 @@ public class MantenimientoZona extends javax.swing.JFrame {
         jLabel8.setText("Y*:");
 
         txtCodigo.setEditable(false);
+        txtCodigo.setEnabled(false);
+
+        txtLargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLargoKeyTyped(evt);
+            }
+        });
+
+        txtPosX.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPosXKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Almacén*:");
 
@@ -164,6 +177,12 @@ public class MantenimientoZona extends javax.swing.JFrame {
         dgvFamilia.getColumnModel().getColumn(0).setPreferredWidth(20);
         dgvFamilia.getColumnModel().getColumn(1).setPreferredWidth(100);
 
+        txtPosY.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPosYKeyTyped(evt);
+            }
+        });
+
         jLabel9.setText("Largo*:");
 
         jLabel1.setText("Código*:");
@@ -177,6 +196,12 @@ public class MantenimientoZona extends javax.swing.JFrame {
             }
         });
 
+        txtAncho.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnchoKeyTyped(evt);
+            }
+        });
+
         btnCancelar.setText("Cancelar");
         btnCancelar.setMaximumSize(new java.awt.Dimension(100, 23));
         btnCancelar.setMinimumSize(new java.awt.Dimension(100, 23));
@@ -184,6 +209,12 @@ public class MantenimientoZona extends javax.swing.JFrame {
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnCancelarMousePressed(evt);
+            }
+        });
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
             }
         });
 
@@ -215,6 +246,8 @@ public class MantenimientoZona extends javax.swing.JFrame {
             }
         });
 
+        txtIdentificador.setEnabled(false);
+
         jLabel10.setText("Ancho*:");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
@@ -225,22 +258,8 @@ public class MantenimientoZona extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdentificador, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                    .addComponent(txtNombre)
-                    .addComponent(cmbAlmacen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(81, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +267,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
                     .addComponent(lblAdd, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jLabel7))
@@ -268,20 +287,37 @@ public class MantenimientoZona extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(55, 55, 55)
                 .addComponent(cbxActivo)
                 .addContainerGap(304, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addGap(104, 104, 104)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(42, 42, 42))
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbAlmacen, 0, 220, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                    .addComponent(txtIdentificador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -291,13 +327,13 @@ public class MantenimientoZona extends javax.swing.JFrame {
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cmbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -350,15 +386,48 @@ public class MantenimientoZona extends javax.swing.JFrame {
 
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
 
+        if ((txtNombre.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar nombre.", "Error", 0);
+            return;
+        }
+
+        if ((cmbAlmacen.getSelectedIndex()==0)|| (cmbAlmacen.getSelectedIndex()==-1)) {
+            JOptionPane.showMessageDialog(null, "Falta indicar almacén.", "Error", 0);
+            return;
+        }
+
+        if ((txtPosX.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar coordenada X de inicio.", "Error", 0);
+            return;
+        }
+
+        if ((txtPosY.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar coordenada Y de inicio.", "Error", 0);
+            return;
+        }
+
+        if ((txtAncho.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar ancho.", "Error", 0);
+            return;
+        }
+
+
+        if ((txtLargo.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar largo.", "Error", 0);
+            return;
+        }
+        
          String indActivo = new String();
         if (cbxActivo.isSelected()) {indActivo="1";} else {indActivo="0";}
 
+        String indicador ="";
 
+        indicador=cmbAlmacen.getSelectedItem()+ " - " + txtNombre.getText();
 
         ZonaBL zonaBL = new ZonaBL();
         try {
             if (this.accion.equals("registrar")){
-                    zonaBL.insertar(txtCodigo.getText(),txtNombre.getText(),txtIdentificador.getText(),
+                    zonaBL.insertar(txtCodigo.getText(),txtNombre.getText(),indicador,
                     indActivo,almacenes.get(cmbAlmacen.getSelectedIndex() -1).getIdAlmacen(),
                     Integer.parseInt(txtPosX.getText()), Integer.parseInt(txtPosY.getText()),
                     Integer.parseInt(txtAncho.getText()), Integer.parseInt(txtLargo.getText()),
@@ -367,30 +436,15 @@ public class MantenimientoZona extends javax.swing.JFrame {
                     this.objPadre.recargaruno(zona);
                     this.dispose();
             } else {
-                 ZonaBE zona = new ZonaBE(txtCodigo.getText(),txtNombre.getText(),txtIdentificador.getText(),
+                 ZonaBE zona = new ZonaBE(txtCodigo.getText(),txtNombre.getText(),indicador,
                     indActivo,almacenes.get(cmbAlmacen.getSelectedIndex()-1).getIdAlmacen(),
                     Integer.parseInt(txtPosX.getText()), Integer.parseInt(txtPosY.getText()),
                     Integer.parseInt(txtAncho.getText()), Integer.parseInt(txtLargo.getText()),
                     familias);
 
                     zonaBL.modificar(zona);
-                        int fila;
-                        fila = this.objPadre.getDgvZona().getSelectedRow();
-                        this.objPadre.getDgvZona().removeRowSelectionInterval(fila, fila);
-                        
-                        this.objPadre.getDgvZona().setValueAt(zona.getIdZona(), fila, 0);
-                        this.objPadre.getDgvZona().setValueAt(zona.getNombre(), fila, 1);
-                        AlmacenBL aBL = new AlmacenBL();
-                        AlmacenBE a = aBL.getAlmacen(zona.getIdAlmacen());
-                        this.objPadre.getDgvZona().setValueAt(a, fila,2);
-                        this.objPadre.getDgvZona().setValueAt(zona.getIdentificador(), fila, 3);
-                        if(zona.getIndActivo().equals("1")){
-                             this.objPadre.getDgvZona().setValueAt("Activo", fila, 4);
-                         }else if(zona.getIndActivo().equals("0")){
-                            this.objPadre.getDgvZona().setValueAt("Inactivo", fila, 4);
-                         }
-                        this.dispose();
-
+                    this.objPadre.recargaruno(zona);
+                    this.dispose();
 
                     }
 
@@ -403,6 +457,45 @@ public class MantenimientoZona extends javax.swing.JFrame {
         
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarMousePressed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+    if ((this.txtNombre.getText().length() + 1) > 30) {
+            evt.consume();}        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtPosXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPosXKeyTyped
+    char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+        if ((this.txtPosX.getText().length() + 1) > 5) {
+            evt.consume();}        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPosXKeyTyped
+
+    private void txtPosYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPosYKeyTyped
+    char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+        if ((this.txtPosY.getText().length() + 1) > 5) {
+            evt.consume();}        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtPosYKeyTyped
+
+    private void txtAnchoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnchoKeyTyped
+    char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+        if ((this.txtAncho.getText().length() + 1) > 5) {
+            evt.consume();}        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtAnchoKeyTyped
+
+    private void txtLargoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLargoKeyTyped
+    char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+        if ((this.txtLargo.getText().length() + 1) > 5) {
+            evt.consume();}        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLargoKeyTyped
 
     /**
      * @param args the command line arguments

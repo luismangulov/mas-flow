@@ -120,11 +120,11 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         cmbProvincia = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         txtLargo = new javax.swing.JTextField();
-        txtAncho = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtAncho = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -138,13 +138,14 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         jLabel1.setText("Código:");
 
-        jLabel4.setText("Departamento:");
+        jLabel4.setText("Departamento*:");
 
-        jLabel5.setText("Provincia:");
+        jLabel5.setText("Provincia*:");
 
-        jLabel6.setText("Distrito:");
+        jLabel6.setText("Distrito*:");
 
         txtCodigo.setEditable(false);
+        txtCodigo.setEnabled(false);
 
         btnGuardar.setText("Guardar");
         btnGuardar.setPreferredSize(new java.awt.Dimension(100, 23));
@@ -167,11 +168,29 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Dirección:");
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+
+        jLabel9.setText("Dirección*:");
 
         jLabel10.setText("Teléfono:");
 
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
+            }
+        });
+
         jLabel11.setText("Nombre*:");
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         cbxActivo.setSelected(true);
         cbxActivo.setText("Activo");
@@ -192,11 +211,23 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         jLabel3.setText("Ancho*:");
 
-        jLabel2.setText("Largo*:");
+        txtLargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLargoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("mts.");
 
         jLabel8.setText("mts.");
+
+        jLabel2.setText("Largo*:");
+
+        txtAncho.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnchoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -208,10 +239,10 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtAncho, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtLargo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtAncho)
+                    .addComponent(txtLargo, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(jLabel7))
@@ -221,14 +252,14 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtLargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel3)
+                    .addComponent(txtAncho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtAncho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel2)
+                    .addComponent(txtLargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -237,6 +268,18 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         jLabel12.setText("Y*:");
 
         jLabel13.setText("X*:");
+
+        txtPuertaX.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPuertaXKeyTyped(evt);
+            }
+        });
+
+        txtPuertaY.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPuertaYKeyTyped(evt);
+            }
+        });
 
         jLabel14.setText("mts.");
 
@@ -273,7 +316,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(txtPuertaY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -281,41 +324,42 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel1))
+                                .addGap(13, 13, 13)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbProvincia, 0, 290, Short.MAX_VALUE)
+                                    .addComponent(cmbDistrito, 0, 290, Short.MAX_VALUE)
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                                    .addComponent(cmbDepartamento, 0, 290, Short.MAX_VALUE)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel1))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .addComponent(cmbProvincia, 0, 270, Short.MAX_VALUE)
-                            .addComponent(cmbDistrito, 0, 270, Short.MAX_VALUE)
-                            .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .addComponent(cmbDepartamento, 0, 270, Short.MAX_VALUE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(86, 86, 86)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cbxActivo)
-                .addContainerGap(359, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(363, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,7 +406,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)))
-                .addGap(23, 23, 23))
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -378,7 +422,53 @@ private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_btnCancelarMousePressed
 
 private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
-     String indActivo = new String();
+
+    if ((txtNombre.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar nombre.", "Error", 0);
+            return;
+        }
+
+    if ((cmbDepartamento.getSelectedIndex()==0)|| (cmbDepartamento.getSelectedIndex()==-1)) {
+            JOptionPane.showMessageDialog(null, "Falta indicar departamento.", "Error", 0);
+            return;
+        }
+
+    if ((cmbProvincia.getSelectedIndex()==0)|| (cmbProvincia.getSelectedIndex()==-1)) {
+            JOptionPane.showMessageDialog(null, "Falta indicar provincia.", "Error", 0);
+            return;
+        }
+
+    if ((cmbDistrito.getSelectedIndex()==0)|| (cmbDistrito.getSelectedIndex()==-1)) {
+            JOptionPane.showMessageDialog(null, "Falta indicar distrito.", "Error", 0);
+            return;
+        }
+
+    if ((txtDireccion.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar dirección.", "Error", 0);
+            return;
+        }
+
+     if ((txtLargo.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar largo.", "Error", 0);
+            return;
+        }
+
+    if ((txtAncho.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar ancho.", "Error", 0);
+            return;
+        }
+
+    if ((txtPuertaX.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar coordenada X de la puerta.", "Error", 0);
+            return;
+        }
+
+    if ((txtPuertaX.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar coordenada X de la puerta.", "Error", 0);
+            return;
+        }
+
+    String indActivo = new String();
         if (cbxActivo.isSelected()) {indActivo="1";} else {indActivo="0";}
 
 
@@ -405,21 +495,8 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                     Integer.parseInt(txtPuertaX.getText()), Integer.parseInt(txtPuertaY.getText()));
 
                     almacenBL.modificar(almacen);
-                        int fila;
-                        fila = this.objPadre.getDgvAlmacen().getSelectedRow();
-                        this.objPadre.getDgvAlmacen().removeRowSelectionInterval(fila, fila);
-                        
-                        this.objPadre.getDgvAlmacen().setValueAt(almacen.getIdAlmacen(), fila, 0);
-                        this.objPadre.getDgvAlmacen().setValueAt(almacen.getNombre(), fila, 1);
-                        this.objPadre.getDgvAlmacen().setValueAt((String)cmbDistrito.getSelectedItem(), fila, 3);
-                        this.objPadre.getDgvAlmacen().setValueAt((String)cmbProvincia.getSelectedItem(), fila, 4);
-                        this.objPadre.getDgvAlmacen().setValueAt((String)cmbDepartamento.getSelectedItem(), fila, 5);
-                        if(almacen.getIndActivo().equals("1")){
-                             this.objPadre.getDgvAlmacen().setValueAt("Activo", fila, 2);
-                         }else if(almacen.getIndActivo().equals("0")){
-                            this.objPadre.getDgvAlmacen().setValueAt("Inactivo", fila, 2);
-                         }
-                        this.dispose();
+                    this.objPadre.recargaruno(almacen);
+                    this.dispose();
 
 
                     }
@@ -444,6 +521,51 @@ private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         this.llenarComboDistritos();
     }// TODO add your handling code here:
 }//GEN-LAST:event_cmbProvinciaActionPerformed
+
+private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+    if ((this.txtNombre.getText().length() + 1) > 30) {
+            evt.consume();}     // TODO add your handling code here:
+}//GEN-LAST:event_txtNombreKeyTyped
+
+private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+    if ((this.txtDireccion.getText().length() + 1) > 30) {
+            evt.consume();}     // TODO add your handling code here:
+}//GEN-LAST:event_txtDireccionKeyTyped
+
+private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+
+        if ((this.txtTelefono.getText().length() + 1) > 12) {
+            evt.consume();
+        }    // TODO add your handling code here:
+}//GEN-LAST:event_txtTelefonoKeyTyped
+
+private void txtAnchoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnchoKeyTyped
+    // TODO add your handling code here:
+}//GEN-LAST:event_txtAnchoKeyTyped
+
+private void txtLargoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLargoKeyTyped
+    // TODO add your handling code here:
+}//GEN-LAST:event_txtLargoKeyTyped
+
+private void txtPuertaXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPuertaXKeyTyped
+    char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+        if ((this.txtPuertaX.getText().length() + 1) > 5) {
+            evt.consume();}  // TODO add your handling code here:
+}//GEN-LAST:event_txtPuertaXKeyTyped
+
+private void txtPuertaYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPuertaYKeyTyped
+        char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+        if ((this.txtPuertaY.getText().length() + 1) > 5) {
+            evt.consume();}      // TODO add your handling code here:
+}//GEN-LAST:event_txtPuertaYKeyTyped
+
 
     /**
      * @param args the command line arguments

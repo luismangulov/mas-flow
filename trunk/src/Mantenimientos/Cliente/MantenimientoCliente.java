@@ -69,6 +69,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         txtCodigo.setText(cliente.getIdEntidad());
         txtDoc.setText(cliente.getNroDocumento());
+        txtDoc.setEnabled(false);
         txtDireccion.setText(cliente.getDireccion());
         txtTelefono.setText(cliente.getTelefono());
         txtEmail.setText(cliente.getEmail());
@@ -90,7 +91,8 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         } else{
             cbxActivo.setSelected(false);
         }
-
+        rdbEmpresa.setEnabled(false);
+        rdbPersona.setEnabled(false);
         this.setVisible(true) ;
         
                
@@ -139,7 +141,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar cliente");
 
-        jLabel10.setText("E-mail:");
+        jLabel10.setText("E-mail*:");
 
         txtRazonSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +171,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contacto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contacto*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jLabel9.setText("Nombre:");
 
@@ -260,7 +262,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Teléfono:");
+        jLabel5.setText("Teléfono*:");
 
         jLabel3.setText("Razón Social*:");
 
@@ -275,11 +277,11 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Dirección:");
+        jLabel4.setText("Dirección*:");
 
-        jLabel7.setText("CIUU:");
+        jLabel7.setText("CIUU*:");
 
-        jLabel6.setText("Página Web:");
+        jLabel6.setText("Página Web*:");
 
         txtCodigo.setEnabled(false);
 
@@ -425,7 +427,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             return;
         }
 
-        if ((cmbCIUU.getSelectedIndex()==0) && rdbEmpresa.isSelected()) {
+        if (((cmbCIUU.getSelectedIndex()==0)|| (cmbCIUU.getSelectedIndex()==-1))&& rdbEmpresa.isSelected()) {
             JOptionPane.showMessageDialog(null, "Falta indicar CIUU.", "Error", 0);
             return;
         }
@@ -479,14 +481,20 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         EntidadBL entidadBL = new EntidadBL();
         try {
             if (this.accion.equals("registrar")){
+                EntidadBE cliente = entidadBL.getCliente("C-"+txtDoc.getText());
+                if (cliente.getNroDocumento() == null ? "" != null : !cliente.getNroDocumento().equals("")){
                 entidadBL.insertar("C-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
                     txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                     txtDNIContacto.getText(), txtTelfContacto.getText(),
                     txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
                     ciuu );
-                    EntidadBE cliente = entidadBL.getCliente("C-"+txtDoc.getText());
+                    cliente = entidadBL.getCliente("C-"+txtDoc.getText());
                     this.objPadre.recargaruno(cliente);
                     this.dispose();
+                } else {
+                JOptionPane.showMessageDialog(null, "Este cliente ya existe.", "Error", 0);
+                return;
+                }
             } else {
                 entidadBL.modificar(txtCodigo.getText(),txtDoc.getText(),txtDireccion.getText(),
                         txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
