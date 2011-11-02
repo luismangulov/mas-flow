@@ -243,8 +243,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 UbicacionBL objUbicacionBL = new UbicacionBL();
                int ubicaLibres = objUbicacionBL.queryCantUbicacionesLibres(arrCodFamilia.get(i), idAlmacen);
                 
-                JOptionPane.showMessageDialog(null, cantUbicacion, "Mensaje",1); 
-                JOptionPane.showMessageDialog(null, ubicaLibres, "Mensaje",1);
+                //JOptionPane.showMessageDialog(null, cantUbicacion, "Mensaje",1); 
+                //JOptionPane.showMessageDialog(null, ubicaLibres, "Mensaje",1);
                 if(cantUbicacion> ubicaLibres){
                     libres = false;
                     break;
@@ -256,22 +256,22 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Pendiente");
                 NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
                 try {
-                    //objNotaIngresoBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
+                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
                 } catch (Exception ex) {
                     Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                 //tblNotaIngreso.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
+                 tblNotaIngreso.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
             }else{
                 EstadoGRDA objEstadoGRDA = new EstadoGRDA();
                 EstadoGRBE objEstadoGRBE = new EstadoGRBE();
                 objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Aprobado");
                 NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
                 try {
-                    //objNotaIngresoBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
+                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
                 } catch (Exception ex) {
                     Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               // tblNotaIngreso.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
+                tblNotaIngreso.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
             }
             
         }    
