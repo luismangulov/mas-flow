@@ -249,6 +249,9 @@ public class MantenimientoRack extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtColumnasKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtColumnasKeyTyped(evt);
+            }
         });
 
         btnGuardar.setText("Guardar");
@@ -481,13 +484,17 @@ private void txtPisosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tx
 }//GEN-LAST:event_txtPisosKeyTyped
 
 private void txtColumnasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColumnasKeyReleased
+
+}//GEN-LAST:event_txtColumnasKeyReleased
+
+private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColumnasKeyTyped
     char c = (char)evt.getKeyChar();
     if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
        evt.consume();
     if ((this.txtColumnas.getText().length() + 1) > 6) {
        evt.consume();
     }
-}//GEN-LAST:event_txtColumnasKeyReleased
+}//GEN-LAST:event_txtColumnasKeyTyped
 
     /**
      * @param args the command line arguments
