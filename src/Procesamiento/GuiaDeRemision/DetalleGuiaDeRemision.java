@@ -27,7 +27,7 @@ public class DetalleGuiaDeRemision extends javax.swing.JFrame {
         this.padre = objPadre;
         this.codGuiaRemision = codigo;
         initComponents();
-        
+        this.setLocationRelativeTo(null); 
         DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
         ArrayList<DetalleGuiaRemisionBE> arrDetalleGuiaRemisionBE = new ArrayList<DetalleGuiaRemisionBE>();
         arrDetalleGuiaRemisionBE = objDetalleGuiaRemisionBL.queryAllDetalleGuiaRemision(codGuiaRemision);
