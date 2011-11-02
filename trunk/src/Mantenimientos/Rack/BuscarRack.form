@@ -40,10 +40,10 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cbAlmacen" min="-2" pref="102" max="-2" attributes="0"/>
-                          <Component id="txtIdRack" min="-2" pref="76" max="-2" attributes="0"/>
-                          <Component id="cbZona" min="-2" pref="148" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="cbZona" alignment="0" pref="148" max="32767" attributes="1"/>
+                          <Component id="cbRack" alignment="0" max="32767" attributes="1"/>
+                          <Component id="cbAlmacen" alignment="0" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>
@@ -67,7 +67,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtIdRack" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbRack" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Component id="chbxActivos" min="-2" max="-2" attributes="0"/>
@@ -76,7 +76,7 @@
                   <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -111,8 +111,6 @@
         <Property name="text" type="java.lang.String" value="Rack:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtIdRack">
-    </Component>
     <Component class="javax.swing.JComboBox" name="cbZona">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -137,6 +135,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbAlmacenActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbRack">
     </Component>
   </SubComponents>
 </Form>

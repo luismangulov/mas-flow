@@ -19,6 +19,7 @@ import BusinessLogic.UnidadMedidaBL;
 import DataAccess.FamiliaDA;
 import DataAccess.ProductoDA;
 import DataAccess.UnidadMedidaDA;
+import Util.Utilitario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -44,8 +45,8 @@ public class MantenimientoProducto extends javax.swing.JFrame {
     ArrayList<ProductoBE> arrProductos;
 
     public MantenimientoProducto(char c, String idProducto, AdmProducto ventanaPadre){
-        this.setLocationRelativeTo(null); 
         initComponents();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.accion = c;
         this.ventanaPadre = ventanaPadre;
@@ -68,55 +69,7 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         this.ventanaPadre = ventanaPadre;
     }
 
-    private void cargarComponentes(ProductoBE objProducto){
-        
-        FamiliaDA objFamiliaDA = new FamiliaDA();
-        UnidadMedidaDA objUnidadMedidaDA = new UnidadMedidaDA();
-        
-        txtIdProducto.setText(objProducto.getIdProducto());
-        txtNombre.setText(objProducto.getNombre());
-        txtDescripcion.setText(objProducto.getDescripcion());
-        txtMaxCantPallet.setText(String.valueOf(objProducto.getMaxCantPorPallet()));
-        cargarComboFamilia();
-        cargarComboUnidadMedida();
-        
-        for(int i=0; i<cbFamilia.getSize().width; i++){
-//            JOptionPane.showMessageDialog(null, cbFamilia.getItemAt(i).toString(),"wa",0);
-            String strNombreFamilia = objFamiliaDA.queryByIdFamilia(objProducto.getIdFamilia()).getNombre();
-            if(cbFamilia.getItemAt(i).toString().equals(strNombreFamilia)){
-                cbFamilia.setSelectedIndex(i);
-                break;
-            }
-        }
-        for(int i=0; i<cbUnidad.getSize().width-1; i++){
-            String strUnidadMedida = objUnidadMedidaDA.queryByIdUnidadMedida(objProducto.getIdUnidadMedida()).getNombre();
-            if(cbUnidad.getItemAt(i).toString().equals(strUnidadMedida)){
-                cbUnidad.setSelectedIndex(i);
-                break;
-            }
-        }    
 
-    }
-
-    public void cargarComboUnidadMedida(){
-        
-        UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
-        ArrayList<UnidadMedidaBE> arrUnidadMedida = new ArrayList<UnidadMedidaBE>();
-        arrUnidadMedida = objUnidadMedidaBL.getAllUnidadMedida();
-        
-        for(UnidadMedidaBE unidadMedida : arrUnidadMedida)
-            cbUnidad.addItem(unidadMedida.getNombre());
-    }
-
-    public void cargarComboFamilia(){
-            
-        FamiliaBL objFamiliaBL = new FamiliaBL();
-        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
-        
-        arrFamilia = objFamiliaBL.getAllFamilia();
-        for(FamiliaBE objFamilia : arrFamilia)
-            cbFamilia.addItem(objFamilia.getNombre());
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -149,7 +102,25 @@ public class MantenimientoProducto extends javax.swing.JFrame {
 
         jLabel4.setText("Familia:");
 
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
         jLabel6.setText("<html>Máx. Cant.<br>por pallet</html>");
+
+        txtMaxCantPallet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMaxCantPalletKeyTyped(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.setMaximumSize(new java.awt.Dimension(75, 23));
@@ -162,6 +133,11 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -332,41 +308,46 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+
+    char c = (char)evt.getKeyChar();
+    if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+    evt.consume();
+    if ((this.txtNombre.getText().length() + 1) > 30) {
+    evt.consume();
+    }
+    
+}//GEN-LAST:event_txtNombreKeyTyped
+
+private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+       
+    char c = (char)evt.getKeyChar();
+    if (!Utilitario.validarCadenaAlfaNumerica(evt.getKeyChar()) || (Character.isISOControl(c)))
+       evt.consume();
+    if ((this.txtDescripcion.getText().length() + 1) > 30) {
+       evt.consume();
+    }
+}//GEN-LAST:event_txtDescripcionKeyTyped
+
+private void txtMaxCantPalletKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxCantPalletKeyTyped
+
+    char c = (char)evt.getKeyChar();
+    if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+       evt.consume();
+    if ((this.txtMaxCantPallet.getText().length() + 1) > 6) {
+       evt.consume();
+    }
+   
+}//GEN-LAST:event_txtMaxCantPalletKeyTyped
+
+private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+    this.dispose();
+}//GEN-LAST:event_btnCancelarMouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-//                new MantenimientoProducto().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
@@ -384,4 +365,54 @@ public class MantenimientoProducto extends javax.swing.JFrame {
     private javax.swing.JTextField txtMaxCantPallet;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+   
+    private void cargarComponentes(ProductoBE objProducto){
+        
+        FamiliaDA objFamiliaDA = new FamiliaDA();
+        UnidadMedidaDA objUnidadMedidaDA = new UnidadMedidaDA();
+        
+        txtIdProducto.setText(objProducto.getIdProducto());
+        txtNombre.setText(objProducto.getNombre());
+        txtDescripcion.setText(objProducto.getDescripcion());
+        txtMaxCantPallet.setText(String.valueOf(objProducto.getMaxCantPorPallet()));
+        cargarComboFamilia();
+        cargarComboUnidadMedida();
+        
+        for(int i=0; i<cbFamilia.getSize().width; i++){
+//            JOptionPane.showMessageDialog(null, cbFamilia.getItemAt(i).toString(),"wa",0);
+            String strNombreFamilia = objFamiliaDA.queryByIdFamilia(objProducto.getIdFamilia()).getNombre();
+            if(cbFamilia.getItemAt(i).toString().equals(strNombreFamilia)){
+                cbFamilia.setSelectedIndex(i);
+                break;
+            }
+        }
+        for(int i=0; i<cbUnidad.getSize().width-1; i++){
+            String strUnidadMedida = objUnidadMedidaDA.queryByIdUnidadMedida(objProducto.getIdUnidadMedida()).getNombre();
+            if(cbUnidad.getItemAt(i).toString().equals(strUnidadMedida)){
+                cbUnidad.setSelectedIndex(i);
+                break;
+            }
+        }    
+
+    }
+
+    public void cargarComboUnidadMedida(){
+        
+        UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
+        ArrayList<UnidadMedidaBE> arrUnidadMedida = new ArrayList<UnidadMedidaBE>();
+        arrUnidadMedida = objUnidadMedidaBL.getAllUnidadMedida();
+        
+        for(UnidadMedidaBE unidadMedida : arrUnidadMedida)
+            cbUnidad.addItem(unidadMedida.getNombre());
+    }
+
+    public void cargarComboFamilia(){
+            
+        FamiliaBL objFamiliaBL = new FamiliaBL();
+        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
+        
+        arrFamilia = objFamiliaBL.getAllFamilia();
+        for(FamiliaBE objFamilia : arrFamilia)
+            cbFamilia.addItem(objFamilia.getNombre());
+    }
 }

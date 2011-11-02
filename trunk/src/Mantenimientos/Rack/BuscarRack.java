@@ -40,16 +40,13 @@ public class BuscarRack extends javax.swing.JFrame {
     
     
     public BuscarRack(AdmRack ventanaPadre) {
-        this.setLocationRelativeTo(null); 
         initComponents();
+        this.setLocationRelativeTo(null);
         this.cargarComboAlmacen();
         this.ventanaPadre = ventanaPadre;
         chbxActivos.setSelected(true);
     }
 
-
-
-    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -63,11 +60,11 @@ public class BuscarRack extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtIdRack = new javax.swing.JTextField();
         cbZona = new javax.swing.JComboBox();
         chbxActivos = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         cbAlmacen = new javax.swing.JComboBox();
+        cbRack = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar rack");
@@ -122,10 +119,10 @@ public class BuscarRack extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel1))
                         .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbZona, 0, 148, Short.MAX_VALUE)
+                            .addComponent(cbRack, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbAlmacen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -142,21 +139,27 @@ public class BuscarRack extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(chbxActivos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar))
-                .addGap(16, 16, 16))
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
-// TODO add your handling code here:
+    int intCantItem = cbZona.getItemCount() - 1;
+    if (intCantItem > 0){
+        if (!cbZona.getSelectedItem().equals("")){
+            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+            cargarComboRack(strIdZona);
+        }
+    }
 }//GEN-LAST:event_cbZonaActionPerformed
 
 private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
@@ -170,7 +173,11 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         else
             strIdZona = "";
         
-        strIdRack = txtIdRack.getText();
+        objRackBL = new RackBL();
+        if (!cbRack.getSelectedItem().toString().equals(""))
+            strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
+        else 
+            strIdRack = "";
         
         if (chbxActivos.isSelected())
             strIndActivo = "1";
@@ -198,71 +205,27 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarRack.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarRack.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarRack.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarRack.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-//                new BuscarRack().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox cbAlmacen;
+    private javax.swing.JComboBox cbRack;
     private javax.swing.JComboBox cbZona;
     private javax.swing.JCheckBox chbxActivos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtIdRack;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarComboZona(String idAlmacen){
-        
-        cbZona.removeAllItems();
-
-        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
-        objZonaBL = new ZonaBL();
-        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
-        
-        cbZona.addItem("");
-        
-        if (arrZonas != null)
-            for(ZonaBE zona : arrZonas)
-                cbZona.addItem(zona.getIdentificador());
-        
-    }
-    
-    private void cargarComboAlmacen(){
+    public void cargarComboAlmacen(){
         
         cbAlmacen.removeAllItems();
         cbZona.removeAllItems();
-       
+        cbRack.removeAllItems();
+        cbZona.addItem("");
+        cbRack.addItem("");
+        
         ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
         objAlmacenBL = new AlmacenBL();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
@@ -271,5 +234,37 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             for(AlmacenBE almacen : arrAlmacenes)
                 cbAlmacen.addItem(almacen.getIdAlmacen());
 
+    }
+    
+    public void cargarComboZona(String idAlmacen){
+        
+        cbZona.removeAllItems();
+        cbRack.removeAllItems();
+        cbZona.addItem("");
+        cbRack.addItem("");
+
+        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+        objZonaBL = new ZonaBL();
+        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+        
+        if (arrZonas != null)
+            for(ZonaBE zona : arrZonas)
+                cbZona.addItem(zona.getIdentificador());
+        
+    }
+    
+    public void cargarComboRack(String idZona){
+        
+        cbRack.removeAllItems();        
+        cbRack.addItem("");
+               
+        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+        objRackBL = new RackBL();
+        arrRacks = objRackBL.getRacksByZona(idZona);
+        
+        if (arrRacks != null)
+            for(RackBE rack : arrRacks)
+                cbRack.addItem(rack.getIdentificador());
+        
     }
 }

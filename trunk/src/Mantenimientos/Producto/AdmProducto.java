@@ -35,10 +35,9 @@ public class AdmProducto extends javax.swing.JFrame {
     boolean boolExito;
     /** Creates new form AdmProducto */
     public AdmProducto() {
-        this.setLocationRelativeTo(null); 
         initComponents();
-        
-        
+        this.setLocationRelativeTo(null);
+
     }
 
     /** This method is called from within the constructor to
