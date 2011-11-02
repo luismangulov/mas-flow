@@ -211,10 +211,14 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 
     private void lblAprobarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAprobarMousePressed
         // TODO add your handling code here:
+        int fila1 = tblNotaIngreso.getSelectedRow();
+        String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();
          if((tblNotaIngreso.getSelectedRowCount() == 0)){
            JOptionPane.showMessageDialog(null, "No ha seleccionado una nota de ingreso", "Mensaje",0);
         } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
             JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una nota de ingreso", "Mensaje",0);
+        }else if(estado.equals("Aprobado")){
+            JOptionPane.showMessageDialog(null, "La nota de ingreso ya ha sido aprobada", "Mensaje",0);
         }else{
             int fila;
             String codigo;
