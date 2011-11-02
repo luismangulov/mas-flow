@@ -37,7 +37,8 @@ public class BuscarPallet extends javax.swing.JFrame {
     ReubicarPallet ventanaPadreReubicar = null;
     DesecharPalletsPorCaducidad ventanaPadreMant = null;
     AlmacenBL objAlmacenBL = new AlmacenBL();
-
+    
+    ArrayList<String> arrIdAlmacenes = new ArrayList<String>();
     ArrayList<PalletBE> arrPallets;
     
     PalletBL objPalletBL = new PalletBL();
@@ -82,9 +83,10 @@ public class BuscarPallet extends javax.swing.JFrame {
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
         if (arrAlmacenes != null)
-            for(AlmacenBE almacen : arrAlmacenes)
-                cbAlmacen.addItem(almacen.getIdAlmacen());
-
+            for(AlmacenBE almacen : arrAlmacenes){
+                arrIdAlmacenes.add(almacen.getIdAlmacen());
+                cbAlmacen.addItem(almacen.getIdentificador().trim());
+            }
     }
     
     public void cargarComboZona(String idAlmacen){
@@ -405,7 +407,10 @@ private void cbAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 }//GEN-LAST:event_cbAlmacenMouseClicked
 
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
-    strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+    AlmacenBL objAlmacenBL = new AlmacenBL();
+    int i;
+    i = cbAlmacen.getSelectedIndex();
+    String strIdAlmacen = arrIdAlmacenes.get(i);
     cargarComboZona(strIdAlmacen);
 }//GEN-LAST:event_cbAlmacenActionPerformed
 
