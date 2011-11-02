@@ -81,7 +81,7 @@ public class AlmacenDA {
                 strIndActivo= rs.getString(10).trim();
                 intPuertaX = rs.getInt(11);
                 intPuertaY = rs.getInt(12);
-                strIdentificador = rs.getString(13);
+                strIdentificador = rs.getString(13).trim();
 
                 arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
                 strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY, strIdentificador));
@@ -135,7 +135,7 @@ public class AlmacenDA {
                 strIndActivo= rs.getString(10).trim();
                 intPuertaX = rs.getInt(11);
                 intPuertaY = rs.getInt(12);
-                strIdentificador = rs.getString(13);
+                strIdentificador = rs.getString(13).trim();
 
                 arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
                 strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY, strIdentificador));
@@ -189,7 +189,7 @@ public class AlmacenDA {
                 strIndActivo= rs.getString(10).trim();
                 intPuertaX = rs.getInt(11);
                 intPuertaY = rs.getInt(12);
-                strIdentificador = rs.getString(13);
+                strIdentificador = rs.getString(13).trim();
 
                 almacen = new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
                 strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY, strIdentificador);
@@ -257,7 +257,7 @@ public class AlmacenDA {
     }
 
     public ArrayList<AlmacenBE> buscar(String codigo,String nombre,String indActivo, String idDepartamento,
-              String idProvincia, String idDistrito){
+              String idProvincia, String idDistrito, String identificador){
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<AlmacenBE> arrAlmacen = new ArrayList<AlmacenBE>();
@@ -270,7 +270,7 @@ public class AlmacenDA {
         primero = true;
         //sql+= " WHERE";
         if(!(codigo.equals("")) || !(nombre.equals("")) || !indActivo.equals("")
-                || !idDepartamento.equals("") || !idProvincia.equals("") || !idDistrito.equals("")){
+                || !idDepartamento.equals("") || !idProvincia.equals("") || !idDistrito.equals("") || !identificador.equals("")){
            if (!codigo.equals("")){
                if(primero == true){
                    sql+= " WHERE";
@@ -298,6 +298,13 @@ public class AlmacenDA {
                    primero = false;
                }else if(primero == false)sql+= " AND ";
                sql +=  " iddepartamento LIKE '%"+idDepartamento+"%'";
+           }
+           if (!identificador.equals("")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql +=  " identificador LIKE '%"+identificador+"%'";
            }
            if (!idProvincia.equals("")){
                if(primero == true){
@@ -354,7 +361,7 @@ public class AlmacenDA {
                 strIndActivo= rs.getString(10).trim();
                 intPuertaX = rs.getInt(11);
                 intPuertaY = rs.getInt(12);
-                strIdentificador = rs.getString(13);
+                strIdentificador = rs.getString(13).trim();
 
                 arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
                 strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY, strIdentificador));

@@ -202,6 +202,11 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
             }
         });
 
+        txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDireccionFocusLost(evt);
+            }
+        });
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDireccionKeyTyped(evt);
@@ -230,6 +235,11 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
                 txtRazonSocialActionPerformed(evt);
             }
         });
+        txtRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRazonSocialFocusLost(evt);
+            }
+        });
         txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtRazonSocialKeyTyped(evt);
@@ -242,6 +252,11 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
 
         jLabel9.setText("Nombre:");
 
+        txtNombreContacto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreContactoFocusLost(evt);
+            }
+        });
         txtNombreContacto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreContactoKeyTyped(evt);
@@ -440,9 +455,10 @@ private void txtDocKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtD
         evt.consume();
     }
     if ((((this.txtDoc.getText().length() + 1) > 8) && rdbPersona.isSelected()) ||
-            (((this.txtDoc.getText().length() + 1) > 8) && rdbPersona.isSelected())) {
+            (((this.txtDoc.getText().length() + 1) > 11) && rdbEmpresa.isSelected())) {
         evt.consume();
     }
+
 }//GEN-LAST:event_txtDocKeyTyped
 
 private void txtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyTyped
@@ -471,7 +487,7 @@ private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
 
 private void txtPaginaWebKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaginaWebKeyTyped
     char c = (char)evt.getKeyChar();
-        if((c>='a' && c<='z') || (Character.isISOControl(c))||(c=='.')){
+        if((c>='a' && c<='z') ||  (c>='A' && c<='Z') || (c>='0' && c<='9') ||(Character.isISOControl(c))||(c=='.')){
         } else { evt.consume(); }
     if ((this.txtPaginaWeb.getText().length() + 1) > 30) {
         evt.consume();}
@@ -595,30 +611,40 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
                 EntidadBE proveedor = entidadBL.getProveedor("P-"+txtDoc.getText());
                 if (proveedor.getNroDocumento() == null ? "" != null : !proveedor.getNroDocumento().equals("")){
-                entidadBL.insertar("P-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
+                boolean ok=entidadBL.insertar("P-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
                     txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                     txtDNIContacto.getText(), txtTelfContacto.getText(),
                     txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
                      ciuu);
-                    proveedor = entidadBL.getCliente("P-"+txtDoc.getText());
-                    this.objPadre.recargaruno(proveedor);
-                    this.dispose();
+                     if (ok==true){
+                        proveedor = entidadBL.getCliente("P-"+txtDoc.getText());
+                        this.objPadre.recargaruno(proveedor);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                return;
+                    }
+
                      } else {
                 JOptionPane.showMessageDialog(null, "Este cliente ya existe.", "Error", 0);
                 return;
                 }
             }
             else {
-                entidadBL.modificar(txtCodigo.getText(), txtDoc.getText(),txtDireccion.getText(),
+                boolean ok=entidadBL.modificar(txtCodigo.getText(), txtDoc.getText(),txtDireccion.getText(),
                         txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                         txtDNIContacto.getText(), txtTelfContacto.getText(),
                         txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
                         ciuu );
-                        
+                if (ok==true){
                         EntidadBE proveedor = entidadBL.getProveedor("P-"+txtDoc.getText());
                         this.objPadre.recargaruno(proveedor);
                         
                         this.dispose();
+               } else {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                return;
+                    }
             }
                     
         } catch (Exception ex) {
@@ -652,6 +678,11 @@ private void personaSeleccionada(){
             this.txtDNIContacto.setEnabled(false);
             this.txtTelfContacto.setEnabled(false);
             this.lblDocumento.setText("DNI*:");
+            this.cmbCIUU.setSelectedIndex(0);
+            this.txtPaginaWeb.setText("");
+            this.txtNombreContacto.setText("");
+            this.txtDNIContacto.setText("");
+            this.txtTelfContacto.setText("");
          }
     }
 
@@ -659,6 +690,18 @@ private void rdbEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        empresaSeleccionada();
       // TODO add your handling code here:
 }//GEN-LAST:event_rdbEmpresaActionPerformed
+
+private void txtRazonSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRazonSocialFocusLost
+        txtRazonSocial.setText( txtRazonSocial.getText().toUpperCase());     // TODO add your handling code here:
+}//GEN-LAST:event_txtRazonSocialFocusLost
+
+private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+        txtDireccion.setText( txtDireccion.getText().toUpperCase());    // TODO add your handling code here:
+}//GEN-LAST:event_txtDireccionFocusLost
+
+private void txtNombreContactoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreContactoFocusLost
+        txtNombreContacto.setText( txtNombreContacto.getText().toUpperCase());     // TODO add your handling code here:
+}//GEN-LAST:event_txtNombreContactoFocusLost
 
 private void empresaSeleccionada(){
         if (rdbEmpresa.isSelected())  {

@@ -60,7 +60,24 @@ private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
 
         jLabel2.setText("Nombre:");
 
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
+
         jLabel1.setText("Código:");
+
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreFocusLost(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jButton1.setText("Buscar");
         jButton1.setMaximumSize(new java.awt.Dimension(100, 23));
@@ -83,6 +100,17 @@ private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
         });
 
         jLabel3.setText("Identificador:");
+
+        txtIdentificador.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIdentificadorFocusLost(evt);
+            }
+        });
+        txtIdentificador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdentificadorKeyTyped(evt);
+            }
+        });
 
         jLabel4.setText("Almacén:");
 
@@ -168,11 +196,39 @@ private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
         if (cmbAlmacen.getSelectedIndex()!=0){
         al=almacenes.get(cmbAlmacen.getSelectedIndex() -1).getIdAlmacen();
         } 
-        this.ventanaPadre.recargar(a.buscar(txtCodigo.getText(), txtNombre.getText(), indActivo, al, txtIdentificador.getText()));
-
+        this.ventanaPadre.recargar(a.buscar(txtCodigo.getText(), txtNombre.getText().trim(), indActivo, al, txtIdentificador.getText().trim()));
+        this.dispose();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1MousePressed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+
+        if ((this.txtCodigo.getText().length() + 1) > 6) {
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        if ((this.txtNombre.getText().length() + 1) > 10) {
+            evt.consume();}        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+        this.txtNombre.setText(txtNombre.getText().toUpperCase());         // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreFocusLost
+
+    private void txtIdentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificadorKeyTyped
+        if ((this.txtIdentificador.getText().length() + 1) > 33) {
+            evt.consume();}   // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificadorKeyTyped
+
+    private void txtIdentificadorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdentificadorFocusLost
+        this.txtIdentificador.setText(txtIdentificador.getText().toUpperCase());      // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificadorFocusLost
 
     private void llenarComboAlmacen() {
         try {

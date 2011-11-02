@@ -46,9 +46,9 @@ public class AlmacenBL {
 
 
       public ArrayList<AlmacenBE> buscar(String codigo,String nombre, String indActivo, String idDepartamento,
-              String idProvincia, String idDistrito){
+              String idProvincia, String idDistrito, String identificador){
           AlmacenDA objAlmacenDA = new AlmacenDA();
-          return objAlmacenDA.buscar(codigo, nombre, indActivo,idDepartamento, idProvincia, idDistrito);
+          return objAlmacenDA.buscar(codigo, nombre, indActivo,idDepartamento, idProvincia, idDistrito, identificador);
      }
 
 

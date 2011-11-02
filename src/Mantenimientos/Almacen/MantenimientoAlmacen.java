@@ -11,6 +11,7 @@
 package Mantenimientos.Almacen;
 import BusinessEntity.AlmacenBE;
 import BusinessLogic.AlmacenBL;
+import BusinessLogic.ZonaBL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -181,6 +182,11 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         jLabel10.setText("Teléfono:");
 
+        txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDireccionFocusLost(evt);
+            }
+        });
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDireccionKeyTyped(evt);
@@ -342,36 +348,32 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cbxActivo)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel16))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel16))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                                            .addComponent(txtDireccion)
-                                            .addComponent(txtIdentificador)
-                                            .addComponent(cmbDistrito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cmbProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cmbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNombre)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(11, 11, 11)))
-                .addContainerGap())
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                                    .addComponent(txtDireccion)
+                                    .addComponent(txtIdentificador)
+                                    .addComponent(cmbDistrito, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNombre))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(11, 11, 11))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,22 +489,47 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         identificador=cmbDepartamento.getSelectedItem().toString().substring(0, 3)+"-"+
                 cmbProvincia.getSelectedItem().toString().substring(0, 3)+"-"+
                 cmbDistrito.getSelectedItem().toString().substring(0, 3)+"-"+
-                txtNombre.getText();
+                txtNombre.getText().trim();
+
 
         AlmacenBL almacenBL = new AlmacenBL();
         try {
+            ArrayList<AlmacenBE>  almacenes= almacenBL.buscar("","","","","","", identificador);
+
             if (this.accion.equals("registrar")){
 
-                    almacenBL.insertar(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
+                if (!almacenes.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "El identificador formado ya existe. Cambiar nombre.", "Error", 0);
+                return;
+                }
+                    boolean ok =almacenBL.insertar(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
                     Double.parseDouble(txtAncho.getText()),txtDireccion.getText(),txtTelefono.getText(),
                     distritos.get(cmbDistrito.getSelectedIndex()-1).getIdDistrito(),
                     provincias.get(cmbProvincia.getSelectedIndex()-1).getIdProvincia(),
                     departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(), indActivo,
                     Integer.parseInt(txtPuertaX.getText()), Integer.parseInt(txtPuertaY.getText()),identificador );
+                    if (ok==true){
                     AlmacenBE almacen = almacenBL.getAlmacen();
                     this.objPadre.recargaruno(almacen);
                     this.dispose();
+                     } else {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                return;
+                    }
             } else {
+                if (!almacenes.isEmpty() && (almacenes.get(0).getIdAlmacen() == null ? txtCodigo.getText() == null : almacenes.get(0).getIdAlmacen().equals(txtCodigo.getText()))){
+                    JOptionPane.showMessageDialog(null, "El identificador formado ya existe. Cambiar nombre.", "Error", 0);
+                return;
+                }
+
+                if (indActivo.equals("0")){
+                    ZonaBL objRackBL = new ZonaBL();
+                    if(!objRackBL.buscar("","", "1",txtCodigo.getText(), "").isEmpty()){
+                         JOptionPane.showMessageDialog(null, "El almacén no se puede desactivar porque hay zonas activas asociadas.", "Error", 0);
+                return;
+
+                    }
+                }
                 AlmacenBE almacen = new AlmacenBE(txtCodigo.getText(),txtNombre.getText(),Double.parseDouble(txtLargo.getText()),
                     Double.parseDouble(txtAncho.getText()),txtDireccion.getText(),txtTelefono.getText(),
                     distritos.get(cmbDistrito.getSelectedIndex()-1).getIdDistrito(),
@@ -510,10 +537,14 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                     departamentos.get(cmbDepartamento.getSelectedIndex()-1).getIdDepartamento(),  indActivo,
                     Integer.parseInt(txtPuertaX.getText()), Integer.parseInt(txtPuertaY.getText()), identificador);
 
-                    almacenBL.modificar(almacen);
+                    boolean ok =almacenBL.modificar(almacen);
+                    if (ok==true){
                     this.objPadre.recargaruno(almacen);
                     this.dispose();
-
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                return;
+                    }
                     }
 
         } catch (Exception ex) {
@@ -613,6 +644,10 @@ private void txtIdentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:
 private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
     this.txtNombre.setText(txtNombre.getText().toUpperCase());    // TODO add your handling code here:
 }//GEN-LAST:event_txtNombreFocusLost
+
+private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+    this.txtDireccion.setText(txtDireccion.getText().toUpperCase()); // TODO add your handling code here:
+}//GEN-LAST:event_txtDireccionFocusLost
 
 
     /**

@@ -56,6 +56,11 @@ public class BuscarProveedor extends javax.swing.JFrame {
                 txtDocActionPerformed(evt);
             }
         });
+        txtDoc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("Tipo:");
 
@@ -73,6 +78,17 @@ public class BuscarProveedor extends javax.swing.JFrame {
             }
         });
 
+        txtRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRazonSocialFocusLost(evt);
+            }
+        });
+        txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRazonSocialKeyTyped(evt);
+            }
+        });
+
         btnBuscar.setText("Buscar");
         btnBuscar.setMaximumSize(new java.awt.Dimension(100, 23));
         btnBuscar.setMinimumSize(new java.awt.Dimension(100, 23));
@@ -80,6 +96,17 @@ public class BuscarProveedor extends javax.swing.JFrame {
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnBuscarMousePressed(evt);
+            }
+        });
+
+        txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDireccionFocusLost(evt);
+            }
+        });
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
             }
         });
 
@@ -176,10 +203,33 @@ public class BuscarProveedor extends javax.swing.JFrame {
         if (cmbTipo.getSelectedItem()=="Personas"){
         tipo="P";
         }
-        this.ventanaPadre.recargar(a.buscarProveedor(tipo,txtDoc.getText(), txtRazonSocial.getText(),txtDireccion.getText(), indActivo));
-
+        this.ventanaPadre.recargar(a.buscarProveedor(tipo,txtDoc.getText(), txtRazonSocial.getText().trim(),txtDireccion.getText().trim(), indActivo));
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarMousePressed
+
+    private void txtDocKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocKeyTyped
+        if ((this.txtDoc.getText().length() + 1) > 11) {
+            evt.consume();}          // TODO add your handling code here:
+    }//GEN-LAST:event_txtDocKeyTyped
+
+    private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
+        if ((this.txtRazonSocial.getText().length() + 1) > 60) {
+            evt.consume();}          // TODO add your handling code here:
+    }//GEN-LAST:event_txtRazonSocialKeyTyped
+
+    private void txtRazonSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRazonSocialFocusLost
+        txtRazonSocial.setText( txtRazonSocial.getText().toUpperCase());        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRazonSocialFocusLost
+
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        if ((this.txtDireccion.getText().length() + 1) > 60) {
+            evt.consume();        }          // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionKeyTyped
+
+    private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+        txtDireccion.setText( txtDireccion.getText().toUpperCase());             // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionFocusLost
 
     /**
      * @param args the command line arguments
