@@ -201,7 +201,11 @@ m.setVisible(true);// TODO add your handling code here:
 
 private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
 // TODO add your handling code here:
-    
+    if((dgvCliente.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un cliente.", "Mensaje",0);
+        } else if((dgvCliente.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un cliente.", "Mensaje",0);
+        }else{
             int fila;
             String codigo;
             fila = dgvCliente.getSelectedRow();
@@ -219,7 +223,8 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 //            EntidadBE cliente = objClienteBL.getCliente(codigo);
 //            MantenimientoCliente m = new MantenimientoCliente(this,cliente);
 //            m.setVisible(true);
-    
+    }
+
 }//GEN-LAST:event_lblEditarMousePressed
 
 private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed
@@ -245,7 +250,12 @@ private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_formPropertyChange
 
 private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
-    int respuesta = 0;
+    if((dgvCliente.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un cliente.", "Mensaje",0);
+        } else if((dgvCliente.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un cliente.", "Mensaje",0);
+        }else{
+        int respuesta = 0;
         respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este cliente? Esta acción no podrá deshacerse.", "Eliminar cliente", 0);
         if(respuesta == 0){
             int fila;
@@ -262,14 +272,13 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
 //
 //                    }
 
-
-
                 objClienteBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {
                 Logger.getLogger(AdmCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
 // TODO add your handling code here:
+        }
     }
 }//GEN-LAST:event_lblEliminarMousePressed
 
