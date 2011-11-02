@@ -176,4 +176,55 @@ public class NotaIngresoDA {
       }     
      
      
+      public ArrayList<NotaIngresoBE> buscarbyCodigoEntidad(String codigo){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+         ArrayList<NotaIngresoBE> arrNotaIngreso = new ArrayList<NotaIngresoBE>();
+                
+        String sql = "SELECT idnotaingreso, fecha, identidad, idestadoni, idalmacen FROM  notaingreso";
+               
+        sql  +=" WHERE identidad = '"+codigo+"'";
+       
+              
+        
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strCodigo;
+            Date fecha;
+            String strIdEntidad;
+            String strCodEstado;
+            String strIdAlmacen;
+            while (rs.next()){
+              
+                strCodigo = rs.getString(1).trim();
+                fecha = rs.getDate(2);
+                strIdEntidad = rs.getString(3).trim();
+                strCodEstado = rs.getString(4).trim();
+                 strIdAlmacen = rs.getString(5).trim();
+                EntidadBL objEntidadBL = new EntidadBL();
+                EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
+                
+                AlmacenBL objAlmacenBL = new AlmacenBL();
+                AlmacenBE objAlmacenBE = objAlmacenBL.getAlmacen(strIdAlmacen);
+               
+                EstadoNIBL objEstadoNIBL = new EstadoNIBL();
+                EstadoNIBE objEstadoNIBE = new EstadoNIBE();
+                objEstadoNIBE = objEstadoNIBL.queryByIdEstadoNI(strCodEstado);
+                
+                
+                arrNotaIngreso.add(new NotaIngresoBE(strCodigo,fecha,objEntidadBE,objAlmacenBE, objEstadoNIBE));
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return arrNotaIngreso;
+        
+      }     
+     
+     
 }

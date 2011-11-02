@@ -49,6 +49,12 @@ public class NotaIngresoBL {
         return objGuiaRemisionDA.buscar(codigo, nombproveedor, codestado, idAlmacen);
     }
 
+    public ArrayList<NotaIngresoBE> buscarbyCodigoEntidad(String codigo){
+         NotaIngresoDA objGuiaRemisionDA = new NotaIngresoDA();
+        return objGuiaRemisionDA.buscarbyCodigoEntidad(codigo);
+    }
+    
+    
     /**
      * @return the objNotaIngresoBE
      */
