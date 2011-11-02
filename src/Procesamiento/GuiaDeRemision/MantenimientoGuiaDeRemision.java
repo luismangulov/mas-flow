@@ -193,9 +193,9 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Dirección:");
+        jLabel8.setText("Dirección*:");
 
-        jLabel9.setText("RUC/DNI:");
+        jLabel9.setText("RUC/DNI*:");
 
         lblAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add24.png"))); // NOI18N
         lblAdd.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -527,9 +527,22 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
             esValido = false;
         }
         
+        if(this.txtCliente.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe elegir un cliente", "Error",0);
+            esValido = false;
+        }
+        
         for(int i = 0;i<this.tblProductos.getRowCount();i++){
             ProductoBL objProductoBL = new ProductoBL();
             ProductoBE objProductoBE = objProductoBL.getByIdProducto(this.tblProductos.getValueAt(i, 0).toString());
+            String cantProd = (String)this.tblProductos.getValueAt(i, 2);
+            
+            if(cantProd == null){
+                JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de producto", "Mensaje",1);
+                esValido = false;
+                break;
+            }
+            
             if((Integer.parseInt((String)this.tblProductos.getValueAt(i, 2))%objProductoBE.getMaxCantPorPallet()) != 0){
                 JOptionPane.showMessageDialog(null, "La cantidad debe ser múltiplo de la maxcantidadenpallet", "Mensaje",1);
                 esValido = false;

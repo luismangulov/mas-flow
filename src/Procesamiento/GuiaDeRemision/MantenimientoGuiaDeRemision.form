@@ -296,12 +296,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
+        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n*:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="RUC/DNI:"/>
+        <Property name="text" type="java.lang.String" value="RUC/DNI*:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAdd">
