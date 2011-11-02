@@ -77,5 +77,10 @@ public class UbicacionBL {
         objUbicacionDA = new UbicacionDA();
         return objUbicacionDA.queryBloquearUbicacionesByRack(strIdRack);
     }
+
+    public boolean desbloquearUbicacionByRack(String strIdRack) {
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryDesbloquearUbicacionesByRack(strIdRack);
+    }
     
 }
