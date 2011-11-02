@@ -65,6 +65,12 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar almacén");
 
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
+
         jLabel1.setText("Código:");
 
         cmbProvincia.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +102,17 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         });
 
         jLabel7.setText("Nombre:");
+
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreFocusLost(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("Estado:");
 
@@ -208,7 +225,8 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         if (cmbDistrito.getSelectedIndex()!=0 &&  cmbDistrito.getSelectedIndex()!=-1){
         dist=distritos.get(cmbDistrito.getSelectedIndex() -1).getIdDistrito();
         }
-        this.ventanaPadre.recargar(a.buscar(txtCodigo.getText(), txtNombre.getText(), indActivo, dep, prov, dist));
+        this.ventanaPadre.recargar(a.buscar(txtCodigo.getText().trim(), txtNombre.getText().trim(), indActivo, dep, prov, dist,""));
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarMousePressed
 
@@ -225,6 +243,26 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         this.llenarComboDistritos();
     }        // TODO add your handling code here:
     }//GEN-LAST:event_cmbProvinciaActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        if ((this.txtNombre.getText().length() + 1) > 10) {
+            evt.consume();}            // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))){
+        } else { evt.consume(); }
+
+        if ((this.txtCodigo.getText().length() + 1) > 6) {
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+        this.txtNombre.setText(txtNombre.getText().toUpperCase());        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreFocusLost
 
     /**
      * @param args the command line arguments

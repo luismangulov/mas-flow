@@ -12,6 +12,7 @@ package Mantenimientos.Almacen;
 
 import BusinessEntity.AlmacenBE;
 import BusinessLogic.AlmacenBL;
+import BusinessLogic.ZonaBL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -229,7 +230,15 @@ m.setVisible(true);
             fila = dgvAlmacen.getSelectedRow();
             codigo = (String)dgvAlmacen.getValueAt(fila, 0);
             AlmacenBL objAlmacenBL = new AlmacenBL();
+            ZonaBL objRackBL = new ZonaBL();
             try {
+              
+                    if(!objRackBL.buscar("","", "1",codigo, "").isEmpty()){
+                         JOptionPane.showMessageDialog(null, "El almacén no se puede eliminar porque hay zonas activas asociadas.", "Error", 0);
+                return;
+
+                    }
+                
                 objAlmacenBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {

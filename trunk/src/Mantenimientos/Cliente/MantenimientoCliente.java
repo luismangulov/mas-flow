@@ -150,6 +150,11 @@ public class MantenimientoCliente extends javax.swing.JFrame {
                 txtRazonSocialActionPerformed(evt);
             }
         });
+        txtRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRazonSocialFocusLost(evt);
+            }
+        });
         txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtRazonSocialKeyTyped(evt);
@@ -177,6 +182,11 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         jLabel9.setText("Nombre:");
 
+        txtNombreContacto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreContactoFocusLost(evt);
+            }
+        });
         txtNombreContacto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreContactoKeyTyped(evt);
@@ -252,6 +262,11 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         jLabel1.setText("Código:");
 
+        txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDireccionFocusLost(evt);
+            }
+        });
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDireccionKeyTyped(evt);
@@ -494,14 +509,19 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             if (this.accion.equals("registrar")){
                 EntidadBE cliente = entidadBL.getCliente("C-"+txtDoc.getText());
                 if (cliente.getNroDocumento() == null ? "" != null : !cliente.getNroDocumento().equals("")){
-                entidadBL.insertar("C-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
+                boolean ok=entidadBL.insertar("C-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
                     txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                     txtDNIContacto.getText(), txtTelfContacto.getText(),
                     txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
                     ciuu );
+                if (ok==true){
                     cliente = entidadBL.getCliente("C-"+txtDoc.getText());
                     this.objPadre.recargaruno(cliente);
                     this.dispose();
+                } else {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                return;
+                    }
                 } else {
                 JOptionPane.showMessageDialog(null, "Este cliente ya existe.", "Error", 0);
                 return;
@@ -545,7 +565,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
     private void txtPaginaWebKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaginaWebKeyTyped
         char c = (char)evt.getKeyChar();
-        if((c>='a' && c<='z') || (Character.isISOControl(c))||(c=='.')){
+        if((c>='a' && c<='z') || (c>='A' && c<='Z') || (c>='0' && c<='9') ||(Character.isISOControl(c))||(c=='.')){
         } else { evt.consume(); }
         if ((this.txtPaginaWeb.getText().length() + 1) > 30) {
             evt.consume();}
@@ -561,9 +581,10 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             evt.consume();
         }
          if ((((this.txtDoc.getText().length() + 1) > 8) && rdbPersona.isSelected()) ||
-            (((this.txtDoc.getText().length() + 1) > 8) && rdbPersona.isSelected())) {
+            (((this.txtDoc.getText().length() + 1) > 11) && rdbEmpresa.isSelected())) {
         evt.consume();
         }
+
 }//GEN-LAST:event_txtDocKeyTyped
 
     private void txtDocFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDocFocusLost
@@ -628,6 +649,11 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             this.txtDNIContacto.setEnabled(false);
             this.txtTelfContacto.setEnabled(false);
             this.lblDocumento.setText("DNI*:");
+            this.cmbCIUU.setSelectedIndex(0);
+            this.txtPaginaWeb.setText("");
+            this.txtNombreContacto.setText("");
+            this.txtDNIContacto.setText("");
+            this.txtTelfContacto.setText("");
          }
     }
 
@@ -636,6 +662,19 @@ public class MantenimientoCliente extends javax.swing.JFrame {
        empresaSeleccionada();
 
     }//GEN-LAST:event_rdbEmpresaActionPerformed
+
+    private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+        txtDireccion.setText( txtDireccion.getText().toUpperCase());        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionFocusLost
+
+    private void txtRazonSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRazonSocialFocusLost
+        txtRazonSocial.setText( txtRazonSocial.getText().toUpperCase());
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRazonSocialFocusLost
+
+    private void txtNombreContactoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreContactoFocusLost
+        txtNombreContacto.setText( txtNombreContacto.getText().toUpperCase());         // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreContactoFocusLost
     
     
     private void empresaSeleccionada(){    

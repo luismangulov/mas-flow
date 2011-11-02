@@ -52,9 +52,26 @@ EntidadBE proveedor;
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Ayuda Proveedor");
 
+        txtRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRazonSocialFocusLost(evt);
+            }
+        });
+        txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRazonSocialKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Documento:");
 
         jLabel3.setText("Razón Social:");
+
+        txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocumentoKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,6 +115,7 @@ EntidadBE proveedor;
                 return canEdit [columnIndex];
             }
         });
+        dgvProveedor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvProveedor);
         dgvProveedor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvProveedor.getColumnModel().getColumn(0).setPreferredWidth(10);
@@ -180,6 +198,20 @@ EntidadBE proveedor;
             this.dispose();  // TODO add your handling code here:
     }//GEN-LAST:event_btnAceptarMousePressed
     }
+       private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
+           if ((this.txtDocumento.getText().length() + 1) > 11) {
+            evt.consume();}  // TODO add your handling code here:
+       }//GEN-LAST:event_txtDocumentoKeyTyped
+
+       private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
+          if ((this.txtRazonSocial.getText().length() + 1) > 60) {
+            evt.consume();}             // TODO add your handling code here:
+       }//GEN-LAST:event_txtRazonSocialKeyTyped
+
+       private void txtRazonSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRazonSocialFocusLost
+            txtRazonSocial.setText( txtRazonSocial.getText().toUpperCase());             // TODO add your handling code here:
+       }//GEN-LAST:event_txtRazonSocialFocusLost
+    
     /**
      * @param args the command line arguments
      */
@@ -197,11 +229,12 @@ EntidadBE proveedor;
     // End of variables declaration//GEN-END:variables
 
 public void recargar(ArrayList<EntidadBE> proveedores){
-            DefaultTableModel modelo= new DefaultTableModel();
-            dgvProveedor.setModel(modelo);
-            modelo.addColumn("Código");
-            modelo.addColumn("Razón Social");
+            DefaultTableModel modelo=(DefaultTableModel) dgvProveedor.getModel();
+            for(int i=modelo.getRowCount()-1; i>=0; i--){
+                modelo.removeRow(i);
+            }
 
+            dgvProveedor.clearSelection();
 
             for(int i=0;i<proveedores.size();i++){
                  modelo.addRow(new Object[4]);

@@ -49,6 +49,17 @@ public class BuscarCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar cliente");
 
+        txtRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRazonSocialFocusLost(evt);
+            }
+        });
+        txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRazonSocialKeyTyped(evt);
+            }
+        });
+
         btnCancelar.setText("Cancelar");
         btnCancelar.setPreferredSize(new java.awt.Dimension(100, 23));
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -80,12 +91,28 @@ public class BuscarCliente extends javax.swing.JFrame {
                 txtDocActionPerformed(evt);
             }
         });
+        txtDoc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("Estado:");
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Activos", "Inactivos" }));
 
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Empresas", "Personas" }));
+
+        txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDireccionFocusLost(evt);
+            }
+        });
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDireccionKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,10 +203,33 @@ public class BuscarCliente extends javax.swing.JFrame {
         if (cmbTipo.getSelectedItem()=="Personas"){
         tipo="P";
         }
-        this.ventanaPadre.recargar(a.buscarCliente(tipo,txtDoc.getText(), txtRazonSocial.getText(),txtDireccion.getText(), indActivo));
-
+        this.ventanaPadre.recargar(a.buscarCliente(tipo,txtDoc.getText(), txtRazonSocial.getText().trim(),txtDireccion.getText().trim(), indActivo));
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarMousePressed
+
+    private void txtDocKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocKeyTyped
+        if ((this.txtDoc.getText().length() + 1) > 11) {
+            evt.consume();}        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDocKeyTyped
+
+    private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
+        if ((this.txtRazonSocial.getText().length() + 1) > 60) {
+            evt.consume();}        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRazonSocialKeyTyped
+
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        if ((this.txtDireccion.getText().length() + 1) > 60) {
+            evt.consume();        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionKeyTyped
+
+    private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+        txtDireccion.setText( txtDireccion.getText().toUpperCase());         // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionFocusLost
+
+    private void txtRazonSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRazonSocialFocusLost
+        txtRazonSocial.setText( txtRazonSocial.getText().toUpperCase());        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRazonSocialFocusLost
 
     /**
      * @param args the command line arguments

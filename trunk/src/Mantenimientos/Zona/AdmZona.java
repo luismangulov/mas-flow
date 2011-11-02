@@ -13,6 +13,7 @@ package Mantenimientos.Zona;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.ZonaBL;
 import BusinessLogic.AlmacenBL;
+import BusinessLogic.RackBL;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -83,7 +84,6 @@ public class AdmZona extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        dgvZona.setColumnSelectionAllowed(true);
         dgvZona.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 dgvZonaMousePressed(evt);
@@ -178,8 +178,6 @@ public class AdmZona extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tlbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -240,6 +238,15 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
             codigo = (String)dgvZona.getValueAt(fila, 0);
             ZonaBL objZonaBL = new ZonaBL();
             try {
+                    ZonaBE zona = objZonaBL.getZona(codigo);
+                    RackBL objRackBL = new RackBL();
+                    if(!objRackBL.getListSearch(zona.getIdAlmacen(),"",codigo ,"1" ).isEmpty()){
+                         JOptionPane.showMessageDialog(null, "La zona no se puede eliminar porque hay racks activos asociados.", "Error", 0);
+                return;
+
+                    }
+
+
                 objZonaBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {

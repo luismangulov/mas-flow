@@ -87,6 +87,7 @@ public class AyudaCliente extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        dgvCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvCliente);
         dgvCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvCliente.getColumnModel().getColumn(0).setPreferredWidth(10);
@@ -94,7 +95,24 @@ public class AyudaCliente extends javax.swing.JDialog {
 
         jLabel3.setText("Razón Social:");
 
+        txtRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRazonSocialFocusLost(evt);
+            }
+        });
+        txtRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRazonSocialKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Documento:");
+
+        txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocumentoKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -112,7 +130,7 @@ public class AyudaCliente extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -120,7 +138,7 @@ public class AyudaCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)))
+                                    .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(115, 115, 115)
                                 .addComponent(btnAceptar))))
@@ -184,6 +202,21 @@ public class AyudaCliente extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAceptarMousePressed
 
+    private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
+        if ((this.txtDocumento.getText().length() + 1) > 11) {
+            evt.consume();}         // TODO add your handling code here:
+    }//GEN-LAST:event_txtDocumentoKeyTyped
+
+    private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRazonSocialKeyTyped
+        if ((this.txtRazonSocial.getText().length() + 1) > 60) {
+            evt.consume();}          // TODO add your handling code here:
+}//GEN-LAST:event_txtRazonSocialKeyTyped
+
+    private void txtRazonSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRazonSocialFocusLost
+        txtRazonSocial.setText( txtRazonSocial.getText().toUpperCase());
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRazonSocialFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
@@ -197,11 +230,12 @@ public class AyudaCliente extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
  public void recargar(ArrayList<EntidadBE> clientes){
-            DefaultTableModel modelo= new DefaultTableModel();
-            dgvCliente.setModel(modelo);
-            modelo.addColumn("Código");
-            modelo.addColumn("Razón Social");
+            DefaultTableModel modelo=(DefaultTableModel) dgvCliente.getModel();
+            for(int i=modelo.getRowCount()-1; i>=0; i--){
+                modelo.removeRow(i);
+            }
 
+            dgvCliente.clearSelection();
 
             for(int i=0;i<clientes.size();i++){
                  modelo.addRow(new Object[4]);

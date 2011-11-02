@@ -12,6 +12,7 @@ package Mantenimientos.Proveedor;
 
 import BusinessEntity.EntidadBE;
 import BusinessLogic.EntidadBL;
+import BusinessLogic.NotaIngresoBL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,6 +81,7 @@ public class AdmProveedor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvProveedor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvProveedor);
         dgvProveedor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvProveedor.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -207,7 +209,13 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             fila = dgvProveedor.getSelectedRow();
             codigo = (String)dgvProveedor.getValueAt(fila, 0);
             EntidadBL objProveedorBL = new EntidadBL();
+            NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
             try {
+//                if(!objNotaIngresoBL.buscar("","", "1",codigo, "").isEmpty()){
+//                         JOptionPane.showMessageDialog(null, "El proveedor no se puede eliminar porque aparece en notas de ingreso.", "Error", 0);
+//                return;
+//
+//                    }
                 objProveedorBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {

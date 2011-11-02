@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import BusinessLogic.GuiaRemisionBL;
 
 /**
  *
@@ -88,8 +89,8 @@ public class AdmCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        dgvCliente.setColumnSelectionAllowed(true);
         dgvCliente.setName("dgvCliente"); // NOI18N
+        dgvCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvCliente);
         dgvCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvCliente.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -252,7 +253,17 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             fila = dgvCliente.getSelectedRow();
             codigo = (String)dgvCliente.getValueAt(fila, 0);
             EntidadBL objClienteBL = new EntidadBL();
+            GuiaRemisionBL objGuiaRemisionBL= new GuiaRemisionBL();
             try {
+
+//                if(!objGuiaRemisionBL.buscar("","", "1",codigo, "").isEmpty()){
+//                         JOptionPane.showMessageDialog(null, "El cliente no se puede eliminar porque aparece en guías de remisión.", "Error", 0);
+//                return;
+//
+//                    }
+
+
+
                 objClienteBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {

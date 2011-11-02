@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.ZonaBL;
+import BusinessLogic.RackBL;
 /**
  *
  * @author DIEGO
@@ -70,7 +71,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
         this.llenarComboAlmacen();
         AlmacenBL almacenBL = new AlmacenBL();
         AlmacenBE almacen = almacenBL.getAlmacen(zona.getIdAlmacen());
-        cmbAlmacen.setSelectedItem(almacen.getNombre());
+        cmbAlmacen.setSelectedItem(almacen.getIdentificador());
         familias=zona.getFamilias();
         recargar(this.familias);
 
@@ -428,30 +429,61 @@ public class MantenimientoZona extends javax.swing.JFrame {
 
         String identificador ="";
 
-        identificador=cmbAlmacen.getSelectedItem()+ " - " + txtNombre.getText().trim();
+        identificador=cmbAlmacen.getSelectedItem()+ "-" + txtNombre.getText().trim();
 
         ZonaBL zonaBL = new ZonaBL();
+
+        ArrayList<ZonaBE>  zonas= zonaBL.buscar("","","","", identificador);
+
         try {
             if (this.accion.equals("registrar")){
-                    zonaBL.insertar(txtCodigo.getText(),txtNombre.getText(),identificador,
+                if (!zonas.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "El identificador formado ya existe. Cambiar nombre.", "Error", 0);
+                return;
+                }
+                    boolean ok =zonaBL.insertar(txtCodigo.getText(),txtNombre.getText(),identificador,
                     indActivo,almacenes.get(cmbAlmacen.getSelectedIndex() -1).getIdAlmacen(),
                     Integer.parseInt(txtPosX.getText()), Integer.parseInt(txtPosY.getText()),
                     Integer.parseInt(txtAncho.getText()), Integer.parseInt(txtLargo.getText()),
                     familias  );
+                    if (ok==true){
                     ZonaBE zona= zonaBL.getZona();
                     this.objPadre.recargaruno(zona);
                     this.dispose();
+                     } else {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                return;
+                    }
             } else {
+                if (!zonas.isEmpty() && (zonas.get(0).getIdAlmacen() == null ? txtCodigo.getText() == null : zonas.get(0).getIdZona().equals(txtCodigo.getText()))){
+                    JOptionPane.showMessageDialog(null, "El identificador formado ya existe. Cambiar nombre.", "Error", 0);
+                return;
+                }
+                if (indActivo.equals("0")){
+                    RackBL objRackBL = new RackBL();
+                    if(!objRackBL.getListSearch(
+                            almacenes.get(cmbAlmacen.getSelectedIndex()-1).getIdAlmacen(),
+                            "",txtCodigo.getText() ,"1" ).isEmpty()){
+                         JOptionPane.showMessageDialog(null, "La zona no se puede desactivar porque hay racks activos asociados.", "Error", 0);
+                return;
+
+                    }
+
+                }
                  ZonaBE zona = new ZonaBE(txtCodigo.getText(),txtNombre.getText(),identificador,
                     indActivo,almacenes.get(cmbAlmacen.getSelectedIndex()-1).getIdAlmacen(),
                     Integer.parseInt(txtPosX.getText()), Integer.parseInt(txtPosY.getText()),
                     Integer.parseInt(txtAncho.getText()), Integer.parseInt(txtLargo.getText()),
                     familias);
 
-                    zonaBL.modificar(zona);
+                    boolean ok =zonaBL.modificar(zona);
+                    if (ok==true){
                     this.objPadre.recargaruno(zona);
                     this.dispose();
-
+                     } else {
+                        JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                return;
+                    }
                     }
 
 
