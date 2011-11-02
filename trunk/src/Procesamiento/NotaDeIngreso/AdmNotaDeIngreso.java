@@ -10,8 +10,12 @@
  */
 package Procesamiento.NotaDeIngreso;
 
+import BusinessEntity.DetalleNotaIngresoBE;
 import BusinessEntity.NotaIngresoBE;
+import BusinessEntity.ProductoBE;
+import BusinessLogic.DetalleNotaIngresoBL;
 import BusinessLogic.NotaIngresoBL;
+import BusinessLogic.ProductoBL;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -200,7 +204,29 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 
     private void lblAprobarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAprobarMousePressed
         // TODO add your handling code here:
-        
+         if((tblNotaIngreso.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una nota de ingreso", "Mensaje",0);
+        } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una nota de ingreso", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = tblNotaIngreso.getSelectedRow();
+            codigo = (String)tblNotaIngreso.getValueAt(fila, 1);
+            DetalleNotaIngresoBL objDetalleNotaIngresoBL = new DetalleNotaIngresoBL();        
+            ArrayList<DetalleNotaIngresoBE> arrDetalleNotaIngresoBE = new ArrayList<DetalleNotaIngresoBE>();
+            arrDetalleNotaIngresoBE = objDetalleNotaIngresoBL.queryAllDetalleNotaIngreso(codigo);
+            
+            ArrayList<String> arrCodFamilia = new ArrayList<String>();
+            for(int i=0;i<arrDetalleNotaIngresoBE.size();i++){
+                ProductoBL objProductoBL = new ProductoBL();
+                ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrDetalleNotaIngresoBE.get(i).getProducto().getIdProducto());
+                arrCodFamilia.add(objProductoBE.getIdFamilia());
+            }
+            
+            
+            
+        }    
     }//GEN-LAST:event_lblAprobarMousePressed
 
     /**

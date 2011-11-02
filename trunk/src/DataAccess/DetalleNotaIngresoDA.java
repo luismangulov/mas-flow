@@ -52,11 +52,11 @@ public class DetalleNotaIngresoDA {
                         
             while (rs.next()){
               
-                strIdNotaIngreso = rs.getString(1).trim();;
-                strIdDetalleNotaIngreso = rs.getString(2).trim();;
+                strIdNotaIngreso = rs.getString(1).trim();
+                strIdDetalleNotaIngreso = rs.getString(2).trim();
                 cantidad = rs.getInt(3);
-                strIdProducto = rs.getString(4).trim();;
-                strNombre = rs.getString(5).trim();;
+                strIdProducto = rs.getString(4).trim();
+                strNombre = rs.getString(5).trim();
                 ProductoBE objProducto = new ProductoBE();
                 objProducto.setIdProducto(strIdProducto);
                 objProducto.setNombre(strNombre);
