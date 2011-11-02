@@ -62,5 +62,10 @@ public class UbicacionBL {
         objUbicacionDA = new UbicacionDA();
         return objUbicacionDA.queryAll();
     }
-            
+      
+    public int queryCantUbicacionesLibres(String idFamilia, String idAlmacen){
+         objUbicacionDA = new UbicacionDA();
+          return objUbicacionDA.queryCantUbicacionesLibres(idFamilia, idAlmacen);
+    }
+    
 }

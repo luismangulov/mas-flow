@@ -290,6 +290,26 @@ public class UbicacionDA {
         return arrUbicaciones;
     }
     
-    
+     public int queryCantUbicacionesLibres(String idFamilia, String idAlmacen){
+       
+        rs = null;
+        objConexion = new conexion();
+        query = "SELECT count(u.idUbicacion) FROM almacen a, zona z, familia f, zonaxfamilia zxf, rack r, ubicacion u WHERE a.idalmacen = z.idalmacen ANd z.idzona = zxf.idzona AND zxf.idfamilia = f.idfamilia AND z.idzona = r.idzona AND u.idrack = r.idrack AND u.indactivo = '1'";
+                query+= " AND f.idfamilia = '"+idFamilia+"' AND a.idalmacen = '"+idAlmacen+"'";
+        int cantUbicacinesLibres = 0;
+        try{
+            rs = objConexion.EjecutarS(query);
+            
+            if (!rs.next()){
+                cantUbicacinesLibres  = rs.getInt(1);
+            }
+               
+        } catch (Exception e){
+                System.out.println(e.getMessage());
+        }finally{
+            objConexion.SalirS();
+        }
+        return cantUbicacinesLibres;
+    }
     
 }
