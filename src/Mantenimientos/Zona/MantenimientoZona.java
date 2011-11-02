@@ -600,14 +600,16 @@ public class MantenimientoZona extends javax.swing.JFrame {
     }
 
     public void recargar(ArrayList<FamiliaBE> familias) {
-            DefaultTableModel modelo= new DefaultTableModel();
-            this.dgvFamilia.setModel(modelo);
-            modelo.addColumn("Código");
-            modelo.addColumn("Familia");
+            DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+
+        dgvFamilia.clearSelection();
 
 
             for(int i=0;i<familias.size();i++){
-                 modelo.addRow(new Object[4]);
+                modelo.addRow(new Object[2]);
                 dgvFamilia.setValueAt(familias.get(i).getIdFamilia(),i,0 );
                 dgvFamilia.setValueAt(familias.get(i).getNombre(),i,1 );
 
