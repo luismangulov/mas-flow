@@ -212,6 +212,11 @@ public class MantenimientoZona extends javax.swing.JFrame {
             }
         });
 
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreFocusLost(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreKeyTyped(evt);
@@ -497,6 +502,10 @@ public class MantenimientoZona extends javax.swing.JFrame {
         if ((this.txtLargo.getText().length() + 1) > 5) {
             evt.consume();}        // TODO add your handling code here:
     }//GEN-LAST:event_txtLargoKeyTyped
+
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+    this.txtNombre.setText(txtNombre.getText().toUpperCase());        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreFocusLost
 
     /**
      * @param args the command line arguments

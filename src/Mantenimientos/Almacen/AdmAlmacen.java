@@ -88,7 +88,6 @@ public class AdmAlmacen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        dgvAlmacen.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(dgvAlmacen);
         dgvAlmacen.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
