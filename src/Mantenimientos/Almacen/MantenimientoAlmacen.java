@@ -21,6 +21,8 @@ import BusinessEntity.ProvinciaBE;
 import DataAccess.ProvinciaDA;
 import BusinessEntity.DistritoBE;
 import DataAccess.DistritoDA;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  *
  * @author DIEGO
@@ -30,7 +32,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
     /** Creates new form MantenimientoAlmacen */
     private AdmAlmacen objPadre;
     private String accion;
-    private String codigo;
+    //private String codigo;
     private ArrayList<DepartamentoBE> departamentos= new ArrayList<DepartamentoBE>();
     private ArrayList<ProvinciaBE> provincias= new ArrayList<ProvinciaBE>();
     private ArrayList<DistritoBE> distritos= new ArrayList<DistritoBE>();
@@ -50,7 +52,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
      public MantenimientoAlmacen(AdmAlmacen padre,AlmacenBE almacen){
 
         this.objPadre = padre;
-        this.codigo=almacen.getIdAlmacen();
+        //this.codigo=almacen.getIdAlmacen();
         accion = "modificar";
 
         initComponents();
@@ -552,11 +554,38 @@ private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
 }//GEN-LAST:event_txtTelefonoKeyTyped
 
 private void txtAnchoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnchoKeyTyped
+        char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))||(c=='.')){
+        } else { evt.consume(); }
+        if((txtAncho.getText().contains("."))&&(c=='.')){
+        evt.consume(); }
+        
+        if (txtAncho.getText().contains(".")){
+        if((txtAncho.getCaretPosition()<=txtAncho.getText().indexOf(".")) && txtAncho.getText().indexOf(".")==4)
+            evt.consume();
+        else if ((txtAncho.getCaretPosition()>txtAncho.getText().indexOf(".")) && ((txtAncho.getText().length()-txtAncho.getText().indexOf("."))==3))
+            evt.consume();
+        } else if (txtAncho.getText().length()==4 && (c!='.') )  evt.consume();
+        if (txtAncho.getText().length()==0 && (c=='.')) evt.consume();
+        
     // TODO add your handling code here:
 }//GEN-LAST:event_txtAnchoKeyTyped
 
 private void txtLargoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLargoKeyTyped
-    // TODO add your handling code here:
+    char c = (char)evt.getKeyChar();
+        if((c>='0' && c<='9') || (Character.isISOControl(c))||(c=='.')){
+        } else { evt.consume(); }
+        if((txtLargo.getText().contains("."))&&(c=='.')){
+        evt.consume(); }
+
+        if (txtLargo.getText().contains(".")){
+        if((txtLargo.getCaretPosition()<=txtLargo.getText().indexOf(".")) && txtLargo.getText().indexOf(".")==4)
+            evt.consume();
+        else if ((txtLargo.getCaretPosition()>txtLargo.getText().indexOf(".")) && ((txtLargo.getText().length()-txtLargo.getText().indexOf("."))==3))
+            evt.consume();
+        } else if (txtLargo.getText().length()==4 && (c!='.') )  evt.consume();
+        if (txtLargo.getText().length()==0 && (c=='.')) evt.consume();
+        // TODO add your handling code here:
 }//GEN-LAST:event_txtLargoKeyTyped
 
 private void txtPuertaXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPuertaXKeyTyped

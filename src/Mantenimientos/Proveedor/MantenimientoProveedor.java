@@ -470,6 +470,9 @@ private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
 }//GEN-LAST:event_txtTelefonoKeyTyped
 
 private void txtPaginaWebKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaginaWebKeyTyped
+    char c = (char)evt.getKeyChar();
+        if((c>='a' && c<='z') || (Character.isISOControl(c))||(c=='.')){
+        } else { evt.consume(); }
     if ((this.txtPaginaWeb.getText().length() + 1) > 30) {
         evt.consume();}
 
