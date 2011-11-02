@@ -38,6 +38,8 @@ public class BuscarRack extends javax.swing.JFrame {
     String strIndActivo;
     AlmacenBL objAlmacenBL;
     
+    ArrayList<String> arrIdAlmacenes = new ArrayList<String>();
+    
     
     public BuscarRack(AdmRack ventanaPadre) {
         initComponents();
@@ -197,9 +199,11 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 }//GEN-LAST:event_btnBuscarMouseClicked
 
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
-        String strIdAlmacen = cbAlmacen.getSelectedItem().toString();
-        cargarComboZona(strIdAlmacen);
-        
+    AlmacenBL objAlmacenBL = new AlmacenBL();
+    int i;
+    i = cbAlmacen.getSelectedIndex();
+    String strIdAlmacen = arrIdAlmacenes.get(i);
+    cargarComboZona(strIdAlmacen);
 }//GEN-LAST:event_cbAlmacenActionPerformed
 
     /**
@@ -231,9 +235,10 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
         if (arrAlmacenes != null)
-            for(AlmacenBE almacen : arrAlmacenes)
-                cbAlmacen.addItem(almacen.getIdAlmacen().trim());
-
+            for(AlmacenBE almacen : arrAlmacenes){
+                arrIdAlmacenes.add(almacen.getIdAlmacen());
+                cbAlmacen.addItem(almacen.getIdentificador().trim());
+            }
     }
     
     public void cargarComboZona(String idAlmacen){
