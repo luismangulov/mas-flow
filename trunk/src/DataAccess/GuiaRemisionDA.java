@@ -45,8 +45,8 @@ public class GuiaRemisionDA {
         conexion objConexion = new conexion();
        
         String sql = "UPDATE guiaremision SET";
-             sql += "idestadogr='"+codEstado+ "'"+ 
-                    " WHERE idguiaremision='"+strCodigo+"'";
+             sql += " idestadogr='"+codEstado+"'"; 
+             sql+=  " WHERE idguiaremision='"+strCodigo+"'";
         
         try{
             objConexion.EjecutarUID(sql);
