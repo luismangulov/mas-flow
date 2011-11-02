@@ -13,10 +13,16 @@ package Procesamiento.MovimientosInternos;
 
 import BusinessEntity.AlmacenBE;
 import BusinessEntity.PalletBE;
+import BusinessEntity.ProductoBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.PalletBL;
+import BusinessLogic.ProductoBL;
+import BusinessLogic.RackBL;
+import BusinessLogic.UbicacionBL;
+import BusinessLogic.UnidadMedidaBL;
 import java.sql.Date;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,6 +33,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
     /** Creates new form DesecharPalletsPorCaducidad */
 
     AdmMovimientosInternos ventanaPadre;
+    ArrayList<PalletBE> arrPallets;
     
     public DesecharPalletsPorCaducidad(AdmMovimientosInternos ventanaPadre) {
         this.setLocationRelativeTo(null); 
@@ -35,15 +42,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         this.ventanaPadre = ventanaPadre;
         this.cargarComboAlmacen();
     }
-    
-//    public DesecharPalletsPorCaducidad(char accion, String idPallet) {
-//        initComponents();
-//        this.accion = accion;
-//        this.idPalletSeleccionado = idPallet;
-//
-//        this.cargarComboAlmacen();
-//    }
-    
+
     public void cargarComboAlmacen(){
         AlmacenBL objAlmacenBL = new AlmacenBL();
         ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
@@ -51,33 +50,9 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         arrAlmacenes= objAlmacenBL.getAllAlmacenActivo();
         for(AlmacenBE objAlmacen : arrAlmacenes)
             cbAlmacen.addItem(objAlmacen.getIdAlmacen());
-        
-//        if (accion == 'M'){
-//            for(int i=0; i<cbAlmacen.getSize().width-1; i++){
-//                String strAlmacen = objAlmacenBL.getAlmacenById(objPalletBE.getIdAlmacen()).getNombre();
-//                if(cbAlmacen.getItemAt(i).toString().equals(strAlmacen)){
-//                    cbAlmacen.setSelectedIndex(i);
-//                    break;
-//                }
-//            }    
-//        }
     }
-    
-//    public void insertar(){
-//        
-//        String strIndActivo = "1";
-//        AlmacenBL objAlmacenBL = new AlmacenBL();
-//        String strIdAlmacen = cbAlmacen.getSelectedItem().toString();
-////        strIdAlmacen = objAlmacenBL.ge(strNombreAlmacen).getIdAlmacen();
-//        PalletBE objPalletBE = new PalletBE("","",strIndActivo,"",strIdAlmacen,null);
-//        PalletBL objPalletBL = new PalletBL();
-//        objPalletBL.insertar(objPalletBE); 
-//        
-//        ventanaPadre.actualizaDgv(objPalletBE);
-//        this.dispose();
-//    }
-//   
-    
+
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -99,12 +74,12 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         lblAdd = new javax.swing.JLabel();
         lblRemover = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblProductos = new javax.swing.JTable();
+        dgvPallets = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Registrar pallet");
+        setTitle("+Flow - Desechar Pallets");
 
         jLabel1.setText("Código:");
 
@@ -147,7 +122,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
             }
         });
 
-        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
+        dgvPallets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -170,7 +145,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblProductos);
+        jScrollPane2.setViewportView(dgvPallets);
 
         jLabel4.setText("Motivo:");
 
@@ -251,8 +226,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-
-//        this.insertar();
+    
 }//GEN-LAST:event_btnGuardarMouseClicked
 
 private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
@@ -274,48 +248,15 @@ private void lblRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
     
     BuscarPallet ventana = new BuscarPallet(this);
+    ventana.setVisible(true);
     
 }//GEN-LAST:event_lblAddMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DesecharPalletsPorCaducidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DesecharPalletsPorCaducidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DesecharPalletsPorCaducidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DesecharPalletsPorCaducidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-//                new DesecharPalletsPorCaducidad().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbAlmacen;
+    private javax.swing.JTable dgvPallets;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -325,7 +266,123 @@ private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel lblAdd;
     private javax.swing.JLabel lblRemover;
-    private javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtIdPallet;
     // End of variables declaration//GEN-END:variables
+    
+    public void llenarDgv(ArrayList<PalletBE> arrPallets){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
+        limpiarDgv();
+        this.arrPallets = arrPallets;
+        
+        ProductoBL objProductoBL = new ProductoBL();                
+        UbicacionBL objUbicacionBL = new UbicacionBL();
+        RackBL objRackBL = new RackBL();
+        UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
+
+        PalletBE palletBE = new PalletBE();
+        ProductoBE objProductoBE;
+        
+        if(arrPallets != null){
+        
+            for (int i=0; i<arrPallets.size(); i++){
+
+                String strIdPallet = arrPallets.get(i).getIdPallet();
+                String strIdProducto = arrPallets.get(i).getIdProducto().trim();
+                String strNombreProducto = "";
+                int intMaxCantPallet = 0;
+                String strIdUnidadMedida = "";
+                String strNombreUnidadMedida = "";
+                
+                 if (!strIdProducto.equals("")){
+                    objProductoBE = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto());
+                    strNombreProducto = objProductoBE.getNombre();
+                    intMaxCantPallet = objProductoBE.getMaxCantPorPallet();
+                    strIdUnidadMedida = objProductoBE.getIdUnidadMedida();
+                    strNombreUnidadMedida = objUnidadMedidaBL.getUnidadMedida(strIdUnidadMedida).getNombre();
+                }
+
+                String strIdUbicacion = arrPallets.get(i).getIdUbicacion().trim();
+                int intFila = 0;
+                int intColumna = 0;
+                String strIdentificadorRack = "";
+        
+                if (!strIdUbicacion.equals("")){
+                    intFila = objUbicacionBL.getUbicacionById(strIdUbicacion).getFila();
+                    intColumna = objUbicacionBL.getUbicacionById(strIdUbicacion).getColumna();
+                    strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
+                }
+                
+                String strFecha = "";
+                
+                if (palletBE.getFechaVencimiento() != null)
+                    strFecha = palletBE.getFechaVencimiento().toString();
+
+                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidadMedida,strFecha});
+            }
+        }
+    }
+    
+    public void limpiarDgv(){
+                
+        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+    }
+    
+    public void eliminaFilaDgv(int fila){
+        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();  
+        modelo.removeRow(fila);
+    }
+    
+    
+    public void actualizaDgv(PalletBE objPalletBE){
+
+       DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
+        for(int i=modelo.getRowCount()-1; i>=0; i--){
+            modelo.removeRow(i);
+        }
+
+        ProductoBL objProductoBL = new ProductoBL();                
+        UbicacionBL objUbicacionBL = new UbicacionBL();
+        RackBL objRackBL = new RackBL();
+        UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
+        
+        ProductoBE objProductoBE;
+
+        String strIdPallet = objPalletBE.getIdPallet();
+        String strIdProducto = objPalletBE.getIdProducto().trim();
+        String strNombreProducto = "";
+        int intMaxCantPallet = 0;
+        String strIdUnidadMedida = "";
+        String strNombreUnidadMedida = "";
+
+         if (!strIdProducto.equals("")){
+            objProductoBE = objProductoBL.getByIdProducto(objPalletBE.getIdProducto());
+            strNombreProducto = objProductoBE.getNombre();
+            intMaxCantPallet = objProductoBE.getMaxCantPorPallet();
+            strIdUnidadMedida = objProductoBE.getIdUnidadMedida();
+            strNombreUnidadMedida = objUnidadMedidaBL.getUnidadMedida(strIdUnidadMedida).getNombre();
+        }
+
+        String strIdUbicacion = objPalletBE.getIdUbicacion().trim();
+        int intFila = 0;
+        int intColumna = 0;
+        String strIdentificadorRack = "";
+
+        if (!strIdUbicacion.equals("")){
+            intFila = objUbicacionBL.getUbicacionById(strIdUbicacion).getFila();
+            intColumna = objUbicacionBL.getUbicacionById(strIdUbicacion).getColumna();
+            strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
+        }
+
+        String strFecha = "";
+
+        if (objPalletBE.getFechaVencimiento() != null)
+            strFecha = objPalletBE.getFechaVencimiento().toString();
+
+        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidadMedida,strFecha});
+    }
+
 }
