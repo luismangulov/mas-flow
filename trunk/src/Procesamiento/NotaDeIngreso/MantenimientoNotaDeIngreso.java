@@ -126,13 +126,13 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("RUC:");
+        jLabel5.setText("RUC*:");
 
         txtRuc.setEditable(false);
 
         jLabel6.setText("Nombre*:");
 
-        jLabel7.setText("Dirección:");
+        jLabel7.setText("Dirección*:");
 
         txtNombre.setEditable(false);
 
@@ -215,7 +215,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(20, 20, 20)
                         .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblAyuda)
                         .addGap(46, 46, 46)
                         .addComponent(jLabel5)
@@ -272,22 +272,14 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblAyuda)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5)
+                    .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAyuda))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -491,14 +483,27 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
             esValido = false;
         }
 
+        if(this.txtProveedor.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe elegir un proveedor", "Error",0);
+            esValido = false;
+        }
+        
+        
          for(int i = 0;i<this.tblProductos.getRowCount();i++){
             ProductoBL objProductoBL = new ProductoBL();
             ProductoBE objProductoBE = objProductoBL.getByIdProducto(this.tblProductos.getValueAt(i, 0).toString());
+           String cantProd = (String)this.tblProductos.getValueAt(i, 2);
+            if(cantProd == null){
+                JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de producto", "Mensaje",1);
+                esValido = false;
+                break;
+            }
             if((Integer.parseInt((String)this.tblProductos.getValueAt(i, 2))%objProductoBE.getMaxCantPorPallet()) != 0){
                 JOptionPane.showMessageDialog(null, "La cantidad debe ser múltiplo de la maxcantidadenpallet", "Mensaje",1);
                 esValido = false;
                 break;
             }
+            
         }
            
 
