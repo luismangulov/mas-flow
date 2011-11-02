@@ -68,6 +68,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
 
         txtCodigo.setText(proveedor.getIdEntidad());
         txtDoc.setText(proveedor.getNroDocumento());
+        txtDoc.setEnabled(false);
         txtDireccion.setText(proveedor.getDireccion());
         txtTelefono.setText(proveedor.getTelefono());
         txtEmail.setText(proveedor.getEmail());
@@ -90,7 +91,8 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
         } else{
             cbxActivo.setSelected(false);
         }
-
+        rdbEmpresa.setEnabled(false);
+        rdbPersona.setEnabled(false);
 
         this.setVisible(true) ;
 
@@ -158,11 +160,11 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
 
         txtCodigo.setEnabled(false);
 
-        jLabel7.setText("CIUU:");
+        jLabel7.setText("CIUU*:");
 
         jLabel5.setText("Teléfono*:");
 
-        jLabel6.setText("Página Web:");
+        jLabel6.setText("Página Web*:");
 
         jLabel3.setText("Razón Social*:");
 
@@ -234,7 +236,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
 
         jLabel10.setText("E-mail*:");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contacto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contacto*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
         jLabel9.setText("Nombre:");
 
@@ -522,7 +524,7 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
             return;
         }
 
-        if ((cmbCIUU.getSelectedIndex()==0) && rdbEmpresa.isSelected()) {
+        if (((cmbCIUU.getSelectedIndex()==0)|| (cmbCIUU.getSelectedIndex()==-1))&& rdbEmpresa.isSelected()) {
             JOptionPane.showMessageDialog(null, "Falta indicar CIUU.", "Error", 0);
             return;
         }
@@ -576,15 +578,23 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
        EntidadBL entidadBL = new EntidadBL();
         try {
             if (this.accion.equals("registrar")){
+
+                EntidadBE proveedor = entidadBL.getProveedor("P-"+txtDoc.getText());
+                if (proveedor.getNroDocumento() == null ? "" != null : !proveedor.getNroDocumento().equals("")){
                 entidadBL.insertar("P-"+txtDoc.getText(),txtDoc.getText(),txtDireccion.getText(),
                     txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                     txtDNIContacto.getText(), txtTelfContacto.getText(),
                     txtRazonSocial.getText(), txtPaginaWeb.getText(),  indActivo,
                      ciuu);
-                    EntidadBE proveedor = entidadBL.getCliente("P-"+txtDoc.getText());
+                    proveedor = entidadBL.getCliente("P-"+txtDoc.getText());
                     this.objPadre.recargaruno(proveedor);
                     this.dispose();
-            } else {
+                     } else {
+                JOptionPane.showMessageDialog(null, "Este cliente ya existe.", "Error", 0);
+                return;
+                }
+            }
+            else {
                 entidadBL.modificar(txtCodigo.getText(), txtDoc.getText(),txtDireccion.getText(),
                         txtTelefono.getText(),txtEmail.getText(),txtNombreContacto.getText(),
                         txtDNIContacto.getText(), txtTelfContacto.getText(),
