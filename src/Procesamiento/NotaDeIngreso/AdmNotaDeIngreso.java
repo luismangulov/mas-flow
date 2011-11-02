@@ -11,12 +11,17 @@
 package Procesamiento.NotaDeIngreso;
 
 import BusinessEntity.DetalleNotaIngresoBE;
+import BusinessEntity.EstadoGRBE;
 import BusinessEntity.NotaIngresoBE;
 import BusinessEntity.ProductoBE;
 import BusinessLogic.DetalleNotaIngresoBL;
 import BusinessLogic.NotaIngresoBL;
 import BusinessLogic.ProductoBL;
+import BusinessLogic.UbicacionBL;
+import DataAccess.EstadoGRDA;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -211,20 +216,57 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         }else{
             int fila;
             String codigo;
+            String idAlmacen;
             fila = tblNotaIngreso.getSelectedRow();
             codigo = (String)tblNotaIngreso.getValueAt(fila, 1);
+            idAlmacen = (String)tblNotaIngreso.getValueAt(fila, 0);
             DetalleNotaIngresoBL objDetalleNotaIngresoBL = new DetalleNotaIngresoBL();        
             ArrayList<DetalleNotaIngresoBE> arrDetalleNotaIngresoBE = new ArrayList<DetalleNotaIngresoBE>();
             arrDetalleNotaIngresoBE = objDetalleNotaIngresoBL.queryAllDetalleNotaIngreso(codigo);
             
             ArrayList<String> arrCodFamilia = new ArrayList<String>();
+             ArrayList<Integer> arrCantUbicaciones = new ArrayList<Integer>();
             for(int i=0;i<arrDetalleNotaIngresoBE.size();i++){
                 ProductoBL objProductoBL = new ProductoBL();
                 ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrDetalleNotaIngresoBE.get(i).getProducto().getIdProducto());
                 arrCodFamilia.add(objProductoBE.getIdFamilia());
+                arrCantUbicaciones.add(arrDetalleNotaIngresoBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet());
             }
-            
-            
+            boolean libres = true;
+            for(int i=0;i<arrCodFamilia.size();i++){
+                int cantUbicacion = 0;
+                for(int j=0;j<arrCodFamilia.size();j++){
+                    if(arrCodFamilia.get(j).equals(arrCodFamilia.get(i))){
+                        cantUbicacion += arrCantUbicaciones.get(j);
+                    }
+                }
+                UbicacionBL objUbicacionBL = new UbicacionBL();
+                int ubicaLibres = objUbicacionBL.queryCantUbicacionesLibres(arrCodFamilia.get(i), idAlmacen);
+                if(cantUbicacion> ubicaLibres){
+                    libres = false;
+                }
+            }
+            if(libres == false){
+                EstadoGRDA objEstadoGRDA = new EstadoGRDA();
+                EstadoGRBE objEstadoGRBE = new EstadoGRBE();
+                objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Pendiente");
+                NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
+                try {
+                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
+                } catch (Exception ex) {
+                    Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                EstadoGRDA objEstadoGRDA = new EstadoGRDA();
+                EstadoGRBE objEstadoGRBE = new EstadoGRBE();
+                objEstadoGRBE = objEstadoGRDA.queryByDescripcionEstadoGR("Aprobado");
+                NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
+                try {
+                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
+                } catch (Exception ex) {
+                    Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             
         }    
     }//GEN-LAST:event_lblAprobarMousePressed
