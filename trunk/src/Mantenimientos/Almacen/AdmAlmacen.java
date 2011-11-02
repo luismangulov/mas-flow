@@ -222,6 +222,11 @@ m.setVisible(true);
     }//GEN-LAST:event_lblEditarMousePressed
 
     private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+    if((dgvAlmacen.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un almacén.", "Mensaje",0);
+        } else if((dgvAlmacen.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un almacén.", "Mensaje",0);
+        }else{
         int respuesta = 0;
         respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este almacen? Esta acción no podrá deshacerse.", "Eliminar almacén", 0);
         if(respuesta == 0){
@@ -247,7 +252,7 @@ m.setVisible(true);
 
         }         // TODO add your handling code here:
     }//GEN-LAST:event_lblEliminarMousePressed
-
+    }
 
     /**
      * @param args the command line arguments

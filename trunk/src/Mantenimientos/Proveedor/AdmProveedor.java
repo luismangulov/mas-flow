@@ -189,6 +189,11 @@ m.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_lblBuscarMousePressed
 
 private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
+    if((dgvProveedor.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un proveedor.", "Mensaje",0);
+        } else if((dgvProveedor.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un proveedor.", "Mensaje",0);
+        }else{
             int fila;
             String codigo;
             fila = dgvProveedor.getSelectedRow();
@@ -198,10 +203,16 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 
             MantenimientoProveedor m = new MantenimientoProveedor(this, proveedor);
             m.setVisible(true);    // TODO add your handling code here:
+    }
 }//GEN-LAST:event_lblEditarMousePressed
 
 private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
-          int respuesta = 0;
+    if((dgvProveedor.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un proveedor.", "Mensaje",0);
+        } else if((dgvProveedor.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un proveedor.", "Mensaje",0);
+        }else{
+        int respuesta = 0;
         respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este proveedor? Esta acción no podrá deshacerse.", "Eliminar proveedor", 0);
         if(respuesta == 0){
             int fila;
@@ -223,6 +234,7 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             }
 
         }     //  TODO add your handling code here:
+    }
 }//GEN-LAST:event_lblEliminarMousePressed
 
 private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMousePressed

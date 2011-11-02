@@ -22,6 +22,8 @@ import javax.swing.JOptionPane;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.ZonaBL;
 import BusinessLogic.RackBL;
+import BusinessLogic.UbicacionBL;
+import BusinessEntity.UbicacionBE;
 /**
  *
  * @author DIEGO
@@ -383,8 +385,10 @@ public class MantenimientoZona extends javax.swing.JFrame {
 }//GEN-LAST:event_lblAddMousePressed
 
     private void lblDeleteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteMousePressed
+
         familias.remove(dgvFamilia.getSelectedRow());
         recargar(this.familias);
+
     }//GEN-LAST:event_lblDeleteMousePressed
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed

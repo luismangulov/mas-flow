@@ -212,9 +212,9 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
     private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
         if((dgvZona.getSelectedRowCount() == 0)){
-           JOptionPane.showMessageDialog(null, "No ha seleccionado una zona", "Mensaje",0);
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una zona.", "Mensaje",0);
         } else if((dgvZona.getSelectedRowCount() > 1)){
-            JOptionPane.showMessageDialog(null, "Ha seleccionado más de una zona", "Mensaje",0);
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de una zona.", "Mensaje",0);
         }else{
             int fila;
             String codigo;
@@ -229,7 +229,12 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     }//GEN-LAST:event_lblEditarMousePressed
 
     private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
- int respuesta = 0;
+    if((dgvZona.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una zona.", "Mensaje",0);
+        } else if((dgvZona.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de una zona.", "Mensaje",0);
+        }else{
+        int respuesta = 0;
         respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar esta zona? Esta acción no podrá deshacerse.", "Eliminar zona", 0); 
         if(respuesta == 0){
             int fila;
@@ -255,7 +260,7 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
             
         }        // TODO add your handling code here:
     }//GEN-LAST:event_lblEliminarMousePressed
-
+    }
     /**
      * @param args the command line arguments
      */
