@@ -190,7 +190,7 @@ private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
     String res=objUsuarioContrasenaBL.corroborarContrasena(this.txtUsuario.getText(),this.txtPassword.getText());
     if (res.equals("1")){             
-        masflow.MenuPrincipal m = new masflow.MenuPrincipal();
+        masflow.MenuPrincipal2 m = new masflow.MenuPrincipal2();
         m.setVisible(true);
         this.dispose();
     }else
