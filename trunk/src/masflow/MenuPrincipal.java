@@ -19,6 +19,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /** Creates new form MenuPrincipal */
     public MenuPrincipal() {
         initComponents();
+         this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -103,17 +104,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Mantenimientos");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
         jLabel2.setText("Procesos");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel3.setForeground(new java.awt.Color(0, 0, 102));
         jLabel3.setText("Seguridad");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel4.setForeground(new java.awt.Color(0, 0, 102));
         jLabel4.setText("Reportes");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -286,7 +287,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel26.setBounds(50, 50, 140, 17);
         jLayeredPane2.add(jLabel26, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel28.setForeground(new java.awt.Color(0, 0, 102));
         jLabel28.setText("Despachar Productos");
         jLabel28.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -322,7 +323,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel35.setBounds(40, 50, 50, 17);
         jLayeredPane3.add(jLabel35, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel36.setForeground(new java.awt.Color(0, 0, 102));
         jLabel36.setText("Historial de Pallet");
         jLabel36.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -394,13 +395,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel42.setBounds(40, 50, 60, 17);
         jLayeredPane4.add(jLabel42, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36));
         jLabel44.setText("<html>Sistemas<br>+Flow</html>");
 
-        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel45.setText("GESTIÓN DE ALMACENES");
 
-        jLabel27.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Droid Sans", 0, 14));
         jLabel27.setForeground(new java.awt.Color(0, 0, 100));
         jLabel27.setText("Movimientos Internos");
         jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -499,7 +500,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6)
                         .addComponent(jLabel45)))
-                .addGap(11, 11, 11))
+                .addGap(85, 85, 85))
         );
 
         pack();
