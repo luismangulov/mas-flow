@@ -28,7 +28,7 @@ public class MovimientoInternoDA {
     String query;
     String strFechaInicio;
     String strFechaFin;
-    ArrayList<MovimientoInternoBE> arrMovimientosInternos;
+    ArrayList<MovimientoInternoBE> arrMovimientosInternos = new ArrayList<MovimientoInternoBE>();
     ResultSet rs;
     SimpleDateFormat df;
     Utilitario objUtilitario;
@@ -39,7 +39,6 @@ public class MovimientoInternoDA {
         objConexion = new conexion();
         boolean flagProducto = false;
         boolean flagAlmacen = false;
-        arrMovimientosInternos = new ArrayList<MovimientoInternoBE>();
         df = new SimpleDateFormat("yyyy-MM-dd");
         strFechaInicio = df.format(fechaInicio).toString();
         strFechaFin = df.format(fechaFin).toString();
@@ -193,6 +192,35 @@ public class MovimientoInternoDA {
             }
         }
         return exito;
+    }
+
+    public ArrayList<MovimientoInternoBE> queryAll() {
+        objConexion = new conexion();
+        
+        query = "SELECT * FROM MOVIMIENTOINTERNO";
+                
+        rs = objConexion.EjecutarS(query);
+        
+        try{
+            while(rs.next()){
+                
+                String strIdMovimientoInterno = rs.getString("IdMovimientoInterno");
+                String strIdUbicacionOrigen = rs.getString("IdUbicacionOrigen");
+                String strIdUbicacionDestino = rs.getString("IdUbicacionDestino");
+                Date dateFecha = rs.getDate("Fecha");
+                String strDescripcion = rs.getString("Descripcion");
+                String strIdPallet = rs.getString("IdPallet");
+                String strIdAlmacen = rs.getString("IdAlmacen");
+                
+                arrMovimientosInternos.add(new MovimientoInternoBE(strIdMovimientoInterno,strIdUbicacionOrigen,strIdUbicacionDestino,dateFecha,strDescripcion,strIdPallet,strIdAlmacen));
+            }
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
+        }finally{
+            objConexion.SalirS();
+        }
+        
+        return arrMovimientosInternos;
     }
     
     
