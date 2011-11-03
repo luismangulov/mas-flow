@@ -60,12 +60,12 @@ public class Mapa {
         for (RackBE rack : listaRacks)
         {
             llenarUbicacionesRack(rack);
-        }
-
-        llenarUbicaciones();
+        }        
 
         posPuertaX=almacen.getPuertaX();
         posPuertaY=almacen.getPuertaY();
+
+        llenarUbicaciones();
 
     }
 
@@ -77,7 +77,7 @@ public class Mapa {
             for (int j=0;j<numY;j++)
             {
                 //Nodo nodo = new Nodo(id,x,y,item);
-                if ((numX == posPuertaX) && (numY == posPuertaY))
+                if ((i == posPuertaX) && (j == posPuertaY))
                 {
                     Nodo nodo = new Nodo(id,i,j,null);
                     nodo.setNodoInicial(true);
