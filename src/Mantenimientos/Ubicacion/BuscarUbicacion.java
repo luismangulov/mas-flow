@@ -57,77 +57,7 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         cargarComboEstado();
     }
     
-    public void cargarComboAlmacen(){
-        
-        cbAlmacen.removeAllItems();
-        cbZona.removeAllItems();
-        cbRack.removeAllItems();
-        cbUbicacion.removeAllItems();    
-        
-        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
-        arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
-        
-        if (arrAlmacenes != null)
-            for(AlmacenBE almacen : arrAlmacenes){
-                arrIdAlmacenes.add(almacen.getIdAlmacen());
-                cbAlmacen.addItem(almacen.getIdentificador().trim());
-            }
-    }
-    
-    public void cargarComboZona(String idAlmacen){
-        
-        cbZona.removeAllItems();
-        cbRack.removeAllItems();
-        cbUbicacion.removeAllItems();
-        cbZona.addItem("");
-        cbRack.addItem("");
-        cbUbicacion.addItem(""); 
 
-        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
-        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
-        
-        if (arrZonas != null)
-            for(ZonaBE zona : arrZonas)
-                cbZona.addItem(zona.getIdentificador().trim());
-        
-    }
-    
-    public void cargarComboRack(String idZona){
-        
-        cbRack.removeAllItems();        
-        cbUbicacion.removeAllItems();
-        cbRack.addItem("");
-        cbUbicacion.addItem(""); 
-               
-        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
-        arrRacks = objRackBL.getRacksByZona(idZona);
-        
-        if (arrRacks != null)
-            for(RackBE rack : arrRacks)
-                cbRack.addItem(rack.getIdentificador().trim());
-        
-    }
-    
-    public void cargarComboUbicacion(String idRack){
-          
-        cbUbicacion.removeAllItems();
-        cbUbicacion.addItem(""); 
-        ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
-        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"3");
-        
-        if (arrUbicaciones != null)
-            for(UbicacionBE ubicacion : arrUbicaciones)
-                cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
-        
-    }
-    
-    public void cargarComboEstado(){
-        
-        cbEstado.addItem("Todos");
-        cbEstado.addItem("En uso");
-        cbEstado.addItem("Disponible");
-        cbEstado.addItem("Bloqueado");
-    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -353,7 +283,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     }
     else if (cbZona.getSelectedItem().toString().equals("") && !cbAlmacen.getSelectedItem().toString().equals("")){
         
-        strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+        strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         arrUbicaciones = objUbicacionBL.getUbicacionesByAlmacen(strIdAlmacen,strIndActivo);
         
     }
@@ -387,4 +317,75 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
+    public void cargarComboAlmacen(){
+        
+        cbAlmacen.removeAllItems();
+        cbZona.removeAllItems();
+        cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();    
+        
+        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+        arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
+        
+        if (arrAlmacenes != null)
+            for(AlmacenBE almacen : arrAlmacenes){
+                arrIdAlmacenes.add(almacen.getIdAlmacen());
+                cbAlmacen.addItem(almacen.getIdentificador().trim());
+            }
+    }
+    
+    public void cargarComboZona(String idAlmacen){
+        
+        cbZona.removeAllItems();
+        cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();
+        cbZona.addItem("");
+        cbRack.addItem("");
+        cbUbicacion.addItem(""); 
+
+        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+        
+        if (arrZonas != null)
+            for(ZonaBE zona : arrZonas)
+                cbZona.addItem(zona.getIdentificador().trim());
+        
+    }
+    
+    public void cargarComboRack(String idZona){
+        
+        cbRack.removeAllItems();        
+        cbUbicacion.removeAllItems();
+        cbRack.addItem("");
+        cbUbicacion.addItem(""); 
+               
+        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+        arrRacks = objRackBL.getRacksByZona(idZona);
+        
+        if (arrRacks != null)
+            for(RackBE rack : arrRacks)
+                cbRack.addItem(rack.getIdentificador().trim());
+        
+    }
+    
+    public void cargarComboUbicacion(String idRack){
+          
+        cbUbicacion.removeAllItems();
+        cbUbicacion.addItem(""); 
+        arrUbicaciones = new ArrayList<UbicacionBE>();
+        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"3");
+        
+        if (arrUbicaciones != null)
+            for(UbicacionBE ubicacion : arrUbicaciones)
+                cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
+        
+    }
+    
+    public void cargarComboEstado(){
+        
+        cbEstado.addItem("Todos");
+        cbEstado.addItem("En uso");
+        cbEstado.addItem("Disponible");
+        cbEstado.addItem("Bloqueado");
+    }
 }
