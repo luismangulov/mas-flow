@@ -32,7 +32,7 @@ import Util.Configuracion;
  */
 public class MantenimientoZona extends javax.swing.JFrame {
     public ArrayList<FamiliaBE> familias= new ArrayList<FamiliaBE>();
-    private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
+    private ArrayList<AlmacenBE> almacenes=  new ArrayList<AlmacenBE>();
     /** Creates new form MantenimientoZona */
     private AdmZona objPadre;
     private String accion;
@@ -473,14 +473,33 @@ public class MantenimientoZona extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Largo mayor a lo permitido.", "Error", 0);
             return;
         }
-         
+        
+//        AlmacenBL objAlmacenBL = new AlmacenBL();
+//        AlmacenBE almacen = objAlmacenBL.getAlmacen(almacenes.get(cmbAlmacen.getSelectedIndex() -1).getIdAlmacen());
+        
+        ZonaBL zonaBL = new ZonaBL();
+        ArrayList<ZonaBE>  zonas1=zonaBL.buscar("", "", "", almacenes.get(cmbAlmacen.getSelectedIndex() -1).getIdAlmacen(), "");
+
+        boolean intersecaOtraZona=false;
+
+        if (zonas1.size()>0) for (ZonaBE zona : zonas1){
+
+        intersecaOtraZona= intersecaOtraZona || interseccion(x,y, Integer.parseInt(txtAncho.getText()),Integer.parseInt(txtLargo.getText()),zona.getPosX(), zona.getPosY(),zona.getAncho(),zona.getLargo());
+
+        }
+        
+        if (intersecaOtraZona){
+            JOptionPane.showMessageDialog(null, "Zona intereseca otra zona en el mismo almacen.", "Error", 0);
+            return;
+        }
+
         String identificador ="";
 
         identificador=cmbAlmacen.getSelectedItem()+ "-" + txtNombre.getText().trim();
 
         
         
-        ZonaBL zonaBL = new ZonaBL();
+        
 
         ArrayList<ZonaBE>  zonas= zonaBL.buscar("","","","", identificador);
 
@@ -594,9 +613,10 @@ public class MantenimientoZona extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void lblVerMapaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMapaMousePressed
-
+    if (cmbAlmacen.getSelectedIndex()==0 ||cmbAlmacen.getSelectedIndex()==-1){
             Mapa mapa = new Mapa(almacenes.get(cmbAlmacen.getSelectedIndex()-1));
             mapa.mostrarGraficoMapa();        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_lblVerMapaMousePressed
 
     /**
@@ -684,25 +704,25 @@ public class MantenimientoZona extends javax.swing.JFrame {
 
         boolean valor = false;
 
-        if ((x2>=x1 &&x2<=ancho1+x1 && y2>=y1 && y2<=largo1+y1)||
-            (x2>=x1 &&x2<=ancho1+x1 && largo2+y2>=y1 && largo2+y2<=largo1+y1)||
-            (ancho2+x2>=x1 &&ancho2+x2<=ancho1+x1 && largo2+y2>=y1 && largo2+y2<=largo1+y1)||
-            (ancho2+x2>=x1 &&ancho2+x2<=ancho1+x1 && y2>=y1 && y2<=largo1+y1)||
+        if ((x2>x1 &&x2<ancho1+x1 && y2>y1 && y2<largo1+y1)||
+            (x2>x1 &&x2<ancho1+x1 && largo2+y2>y1 && largo2+y2<largo1+y1)||
+            (ancho2+x2>x1 &&ancho2+x2<ancho1+x1 && largo2+y2>y1 && largo2+y2<largo1+y1)||
+            (ancho2+x2>x1 &&ancho2+x2<ancho1+x1 && y2>y1 && y2<largo1+y1)||
 
-            (x1>=x2 &&x1<=ancho2+x2 && y1>=y2 && y1<=largo2+y2)||
-            (x1>=x1 &&x1<=ancho2+x2 && largo1+y1>=y2 && largo1+y1<=largo2+y2)||
-            (ancho1+x1>=x2 &&ancho1+x1<=ancho2+x2 && largo1+y1>=y2 && largo1+y1<=largo2+y2)||
-            (ancho1+x1>=x2 &&ancho1+x1<=ancho2+x2 && y1>=y2 && y1<=largo2+y2)||
+            (x1>x2 &&x1<ancho2+x2 && y1>y2 && y1<largo2+y2)||
+            (x1>x1 &&x1<ancho2+x2 && largo1+y1>y2 && largo1+y1<largo2+y2)||
+            (ancho1+x1>x2 &&ancho1+x1<ancho2+x2 && largo1+y1>y2 && largo1+y1<largo2+y2)||
+            (ancho1+x1>x2 &&ancho1+x1<ancho2+x2 && y1>y2 && y1<largo2+y2)||
 
-            (x1<x2 &&ancho1+x1>ancho2+x2 && y1>=y2 && y1<=largo2+y2)||
-            (x1<x2 &&ancho1+x1>ancho2+x2 && largo1+y1>=y2 && largo1+y1<=largo2+y2)||
-            (x1>=x1 &&x1<=ancho2+x2 && y1<y2 && largo1+y1>largo2+y2)||
-            (ancho1+x1>=x2 &&ancho1+x1<=ancho2+x2 && y1<y2 && largo1+y1>largo2+y2)||
+            (x1<x2 &&ancho1+x1>ancho2+x2 && y1>y2 && y1<largo2+y2)||
+            (x1<x2 &&ancho1+x1>ancho2+x2 && largo1+y1>y2 && largo1+y1<largo2+y2)||
+            (x1>x1 &&x1<ancho2+x2 && y1<y2 && largo1+y1>largo2+y2)||
+            (ancho1+x1>x2 &&ancho1+x1<ancho2+x2 && y1<y2 && largo1+y1>largo2+y2)||
 
-            (x2<x1 &&ancho2+x2>ancho1+x1 && y2>=y1 && y2<=largo1+y1)||
-            (x2<x1 &&ancho2+x2>ancho1+x1 && largo2+y2>=y1 && largo2+y2<=largo1+y1)||
-            (x2>=x2 &&x2<=ancho1+x1 && y2<y1 && largo2+y2>largo1+y1)||
-            (ancho2+x2>=x1 &&ancho2+x2<=ancho1+x1 && y2<y1 && largo2+y2>largo1+y1)
+            (x2<x1 &&ancho2+x2>ancho1+x1 && y2>y1 && y2<largo1+y1)||
+            (x2<x1 &&ancho2+x2>ancho1+x1 && largo2+y2>y1 && largo2+y2<largo1+y1)||
+            (x2>x2 &&x2<ancho1+x1 && y2<y1 && largo2+y2>largo1+y1)||
+            (ancho2+x2>x1 &&ancho2+x2<ancho1+x1 && y2<y1 && largo2+y2>largo1+y1)
 
 
                 ){ valor=true;}
