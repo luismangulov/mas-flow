@@ -77,6 +77,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("+Flow - Menú Principal");
+        getContentPane().setLayout(null);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Mantenimientos.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -85,40 +86,58 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel5MousePressed(evt);
             }
         });
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(262, 28, 128, 128);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/procesos.png"))); // NOI18N
         jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(51, 28, 128, 128);
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reportes.png"))); // NOI18N
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(444, 28, 128, 128);
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/seguridad.png"))); // NOI18N
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(633, 28, 128, 128);
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logoMasFlow.png"))); // NOI18N
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(513, 348, 130, 105);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setText("Mantenimientos");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(243, 162, 146, 22);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
         jLabel2.setText("Procesos");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(75, 162, 81, 22);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 102));
         jLabel3.setText("Seguridad");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(653, 162, 91, 22);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 102));
         jLabel4.setText("Reportes");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(474, 162, 81, 22);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel10.setForeground(new java.awt.Color(0, 0, 102));
         jLabel10.setText("Familias de Productos");
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -127,7 +146,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel10MousePressed(evt);
             }
         });
-        jLabel10.setBounds(20, 170, 160, -1);
+        jLabel10.setBounds(20, 170, 160, 17);
         jLayeredPane1.add(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -139,7 +158,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel11MousePressed(evt);
             }
         });
-        jLabel11.setBounds(20, 260, 60, -1);
+        jLabel11.setBounds(20, 260, 60, 17);
         jLayeredPane1.add(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -151,10 +170,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel12MousePressed(evt);
             }
         });
-        jLabel12.setBounds(20, 20, 80, -1);
+        jLabel12.setBounds(20, 20, 80, 17);
         jLayeredPane1.add(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel13.setForeground(new java.awt.Color(0, 0, 102));
         jLabel13.setText("Pallets");
         jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -163,7 +182,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel13MousePressed(evt);
             }
         });
-        jLabel13.setBounds(20, 140, 60, -1);
+        jLabel13.setBounds(20, 140, 60, 17);
         jLayeredPane1.add(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -175,7 +194,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel14MousePressed(evt);
             }
         });
-        jLabel14.setBounds(20, 110, 90, -1);
+        jLabel14.setBounds(20, 110, 90, 17);
         jLayeredPane1.add(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -187,7 +206,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel15MousePressed(evt);
             }
         });
-        jLabel15.setBounds(20, 230, 90, -1);
+        jLabel15.setBounds(20, 230, 90, 17);
         jLayeredPane1.add(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -199,7 +218,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel16MousePressed(evt);
             }
         });
-        jLabel16.setBounds(20, 200, 90, -1);
+        jLabel16.setBounds(20, 200, 90, 17);
         jLayeredPane1.add(jLabel16, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -211,7 +230,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel17MousePressed(evt);
             }
         });
-        jLabel17.setBounds(20, 50, 60, -1);
+        jLabel17.setBounds(20, 50, 60, 17);
         jLayeredPane1.add(jLabel17, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -223,19 +242,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel21MousePressed(evt);
             }
         });
-        jLabel21.setBounds(20, 80, 50, -1);
+        jLabel21.setBounds(20, 80, 50, 17);
         jLayeredPane1.add(jLabel21, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        getContentPane().add(jLayeredPane1);
+        jLayeredPane1.setBounds(244, 196, 178, 291);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel18.setForeground(new java.awt.Color(0, 0, 102));
         jLabel18.setText("Familias de Productos");
-        jLabel18.setBounds(30, 170, 150, -1);
+        jLabel18.setBounds(30, 170, 150, 17);
         jLayeredPane2.add(jLabel18, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel19.setForeground(new java.awt.Color(0, 0, 102));
         jLabel19.setText("Clientes");
-        jLabel19.setBounds(30, 260, 80, -1);
+        jLabel19.setBounds(30, 260, 80, 17);
         jLayeredPane2.add(jLabel19, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -247,34 +269,34 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel20MousePressed(evt);
             }
         });
-        jLabel20.setBounds(50, 20, 140, -1);
+        jLabel20.setBounds(50, 20, 140, 17);
         jLayeredPane2.add(jLabel20, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel22.setForeground(new java.awt.Color(0, 0, 102));
         jLabel22.setText("Pallets");
-        jLabel22.setBounds(30, 140, 80, -1);
+        jLabel22.setBounds(30, 140, 80, 17);
         jLayeredPane2.add(jLabel22, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(0, 0, 102));
         jLabel23.setText("Ubicaciones");
-        jLabel23.setBounds(30, 110, 80, -1);
+        jLabel23.setBounds(30, 110, 80, 17);
         jLayeredPane2.add(jLabel23, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel24.setForeground(new java.awt.Color(0, 0, 102));
         jLabel24.setText("Proveedores");
-        jLabel24.setBounds(30, 230, 80, -1);
+        jLabel24.setBounds(30, 230, 80, 17);
         jLayeredPane2.add(jLabel24, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel25.setForeground(new java.awt.Color(0, 0, 102));
         jLabel25.setText("Productos");
-        jLabel25.setBounds(30, 200, 80, -1);
+        jLabel25.setBounds(30, 200, 80, 17);
         jLayeredPane2.add(jLabel25, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(0, 0, 102));
         jLabel26.setText("Ingresar Productos");
         jLabel26.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -283,7 +305,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel26MousePressed(evt);
             }
         });
-        jLabel26.setBounds(50, 50, 140, -1);
+        jLabel26.setBounds(50, 50, 140, 17);
         jLayeredPane2.add(jLabel26, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -295,8 +317,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel28MousePressed(evt);
             }
         });
-        jLabel28.setBounds(50, 80, 150, -1);
+        jLabel28.setBounds(50, 80, 150, 17);
         jLayeredPane2.add(jLabel28, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        getContentPane().add(jLayeredPane2);
+        jLayeredPane2.setBounds(23, 196, 201, 112);
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel30.setForeground(new java.awt.Color(0, 0, 102));
@@ -307,7 +332,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel30MousePressed(evt);
             }
         });
-        jLabel30.setBounds(40, 20, 130, -1);
+        jLabel30.setBounds(40, 20, 130, 17);
         jLayeredPane3.add(jLabel30, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -319,7 +344,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel35MousePressed(evt);
             }
         });
-        jLabel35.setBounds(40, 50, 50, -1);
+        jLabel35.setBounds(40, 50, 50, 17);
         jLayeredPane3.add(jLabel35, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -331,7 +356,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel36MousePressed(evt);
             }
         });
-        jLabel36.setBounds(40, 80, 130, -1);
+        jLabel36.setBounds(40, 80, 130, 17);
         jLayeredPane3.add(jLabel36, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -343,13 +368,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel43MousePressed(evt);
             }
         });
-        jLabel43.setBounds(40, 110, 120, -1);
+        jLabel43.setBounds(40, 110, 120, 17);
         jLayeredPane3.add(jLabel43, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        getContentPane().add(jLayeredPane3);
+        jLayeredPane3.setBounds(429, 196, 176, 134);
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel37.setForeground(new java.awt.Color(0, 0, 102));
         jLabel37.setText("Clientes");
-        jLabel37.setBounds(30, 260, 80, -1);
+        jLabel37.setBounds(30, 260, 80, 17);
         jLayeredPane4.add(jLabel37, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -361,25 +389,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel38MousePressed(evt);
             }
         });
-        jLabel38.setBounds(40, 20, 50, -1);
+        jLabel38.setBounds(40, 20, 50, 17);
         jLayeredPane4.add(jLabel38, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel39.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel39.setForeground(new java.awt.Color(0, 0, 102));
         jLabel39.setText("Pallets");
-        jLabel39.setBounds(30, 140, 80, -1);
+        jLabel39.setBounds(30, 140, 80, 17);
         jLayeredPane4.add(jLabel39, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel40.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel40.setForeground(new java.awt.Color(0, 0, 102));
         jLabel40.setText("Proveedores");
-        jLabel40.setBounds(30, 230, 80, -1);
+        jLabel40.setBounds(30, 230, 80, 17);
         jLayeredPane4.add(jLabel40, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel41.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel41.setForeground(new java.awt.Color(0, 0, 102));
         jLabel41.setText("Productos");
-        jLabel41.setBounds(30, 200, 80, -1);
+        jLabel41.setBounds(30, 200, 80, 17);
         jLayeredPane4.add(jLabel41, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -391,14 +419,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel42MousePressed(evt);
             }
         });
-        jLabel42.setBounds(40, 50, 60, -1);
+        jLabel42.setBounds(40, 50, 60, 17);
         jLayeredPane4.add(jLabel42, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        getContentPane().add(jLayeredPane4);
+        jLayeredPane4.setBounds(633, 195, 170, 101);
 
         jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36));
         jLabel44.setText("<html>Sistemas<br>+Flow</html>");
+        getContentPane().add(jLabel44);
+        jLabel44.setBounds(649, 367, 157, 94);
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel45.setText("GESTIÓN DE ALMACENES");
+        getContentPane().add(jLabel45);
+        jLabel45.setBounds(584, 467, 207, 22);
 
         jLabel27.setFont(new java.awt.Font("Droid Sans", 0, 14));
         jLabel27.setForeground(new java.awt.Color(0, 0, 100));
@@ -408,99 +443,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel27MouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel6)
-                .addGap(83, 83, 83)
-                .addComponent(jLabel5)
-                .addGap(54, 54, 54)
-                .addComponent(jLabel7)
-                .addGap(61, 61, 61)
-                .addComponent(jLabel8))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jLabel2)
-                .addGap(87, 87, 87)
-                .addComponent(jLabel1)
-                .addGap(85, 85, 85)
-                .addComponent(jLabel4)
-                .addGap(98, 98, 98)
-                .addComponent(jLabel3)
-                .addGap(59, 59, 59))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addComponent(jLabel45)))
-                        .addGap(23, 23, 23))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel3)))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel27))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel45)))
-                .addGap(12, 12, 12))
-        );
+        getContentPane().add(jLabel27);
+        jLabel27.setBounds(70, 310, 160, 19);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
