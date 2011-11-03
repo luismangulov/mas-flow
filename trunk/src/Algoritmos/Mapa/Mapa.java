@@ -51,8 +51,11 @@ public class Mapa {
             }
         }
 
-        numX = (int)(almacen.getLargo()/Configuracion.getLargoPallet());
-        numY = (int)(almacen.getAncho()/Configuracion.getAnchoPallet());
+//        numX = (int)(almacen.getLargo()/Configuracion.getLargoPallet());
+//        numY = (int)(almacen.getAncho()/Configuracion.getAnchoPallet());
+
+        numX = (int)(almacen.getAncho()/Configuracion.getLargoPallet());
+        numY = (int)(almacen.getLargo()/Configuracion.getAnchoPallet());
 
         listaNodos = new ArrayList<Nodo>();
 
