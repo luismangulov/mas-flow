@@ -54,11 +54,15 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
     //listaAplicacionxServicio obttiene la lista de aplicaciones del sistema con su listas de servicios
     ArrayList <AplicacionxServicioBE> listaAplicacionxServicio = objAplicacionxServicio.queryAllAplicacionxServicio();  
     //solo para el Jtree
-    ArrayList <AplicacionxServicioBE> lista = objAplicacionxServicio.queryAllAplicacionxServicio();  
+    ArrayList <AplicacionxServicioBE> lista = objAplicacionxServicio.queryAllAplicacionxServicio();
+    
 
     //numAplicaciones tiene todos las aplicaciones del sistema
     AplicacionDA objAplicacionDA =new AplicacionDA();
     int numAplicaciones= objAplicacionDA.queryAllAplicacion().size();
+    
+    //Solammente para el jTree
+    Object[] rootNodes =new Object[numAplicaciones];
     
     private String[] listaAplicaciones=new String[numAplicaciones];//de todo el sistema
     private String[] listaServicio;
@@ -69,6 +73,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.objPadre = padre;
         accion = "registrar";
         primero=true;
+        
         
         int cont=0;           
         for (cont = 0; cont<numAplicaciones; cont++) {            
@@ -86,26 +91,25 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 return listaLocal[index];
             }
             
-        };
-       
+        };     
         
         
-//        for(int i = 0; i < numAplicaciones; i++) {
-//            int numServicios=lista.get(i).getListaServicios().size();
-//            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
-//            for(int j = 0; j < numServicios; j++) {
-//            checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
-//            }
-//            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
-//            rootNodes[i]=vectorAplicacion;   
-//        }
-//        
-//        Vector rootVector = new NamedVector("Root", rootNodes);
-//        tree = new JTree(rootVector);  
-//        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
-//        tree.setCellRenderer(renderer);
-//        tree.setCellEditor(new CheckBoxNodeEditor(tree));
-//        tree.setEditable(true);   
+        for(int i = 0; i < numAplicaciones; i++) {
+            int numServicios=lista.get(i).getListaServicios().size();
+            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
+            for(int j = 0; j < numServicios; j++) {
+            checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+            }
+            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
+            rootNodes[i]=vectorAplicacion;   
+        }
+        
+        Vector rootVector = new NamedVector("Root", rootNodes);
+        tree = new JTree(rootVector);  
+        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+        tree.setCellRenderer(renderer);
+        tree.setCellEditor(new CheckBoxNodeEditor(tree));
+        tree.setEditable(true);   
         
         initComponents();
         jListAplicacion.setModel(modeloAplicacion);
@@ -140,25 +144,25 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             
         };
         
-       ///
-//        for(int i = 0; i < numAplicaciones; i++) {
-//            int numServicios=lista.get(i).getListaServicios().size();
-//            CheckBoxNode[] servicios =new CheckBoxNode[numServicios];
-//            for(int j = 0; j < numServicios; j++) {
-//            servicios[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
-//            }
-//            Vector aplicaciones = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),servicios);
-//            rootNodes[i]=aplicaciones;   
-//        }
-//        
-//        ///
-//        Vector rootVector = new NamedVector("Root", rootNodes);
-//        tree = new JTree(rootVector);  
-//        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
-//        tree.setCellRenderer(renderer);
-//        tree.setCellEditor(new CheckBoxNodeEditor(tree));
-//        tree.setEditable(true); 
-//          
+       
+        for(int i = 0; i < numAplicaciones; i++) {
+            int numServicios=lista.get(i).getListaServicios().size();
+            CheckBoxNode[] servicios =new CheckBoxNode[numServicios];
+            for(int j = 0; j < numServicios; j++) {
+            servicios[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+            }
+            Vector aplicaciones = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),servicios);
+            rootNodes[i]=aplicaciones;   
+        }
+        
+        ///
+        Vector rootVector = new NamedVector("Root", rootNodes);
+        tree = new JTree(rootVector);  
+        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+        tree.setCellRenderer(renderer);
+        tree.setCellEditor(new CheckBoxNodeEditor(tree));
+        tree.setEditable(true); 
+          
         
         
         initComponents();        
@@ -203,7 +207,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         cbxActivo = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane(tree);
         jScrollPane2 = new javax.swing.JScrollPane();
         jListAplicacion = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
