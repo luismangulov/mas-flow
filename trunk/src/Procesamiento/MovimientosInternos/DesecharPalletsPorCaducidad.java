@@ -22,6 +22,7 @@ import BusinessLogic.ProductoBL;
 import BusinessLogic.RackBL;
 import BusinessLogic.UbicacionBL;
 import BusinessLogic.UnidadMedidaBL;
+import Util.Utilitario;
 import java.util.Date;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -29,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author DIEGO
+ * @author VICTOR
  */
 public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
 
@@ -110,6 +111,11 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
         jLabel3.setText("Fecha:");
 
@@ -123,9 +129,6 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAddMouseClicked(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblAddMousePressed(evt);
-            }
         });
 
         lblRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete24.png"))); // NOI18N
@@ -133,8 +136,8 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         lblRemover.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRemover.setPreferredSize(new java.awt.Dimension(30, 30));
         lblRemover.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblRemoverMousePressed(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRemoverMouseClicked(evt);
             }
         });
 
@@ -161,50 +164,52 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvPallets.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        dgvPallets.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(dgvPallets);
-        dgvPallets.getColumnModel().getColumn(0).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(1).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(2).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(3).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(4).setResizable(false);
-        dgvPallets.getColumnModel().getColumn(5).setResizable(false);
 
         jLabel4.setText("Motivo:");
+
+        txtMotivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMotivoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(29, 29, 29)
-                        .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(209, 209, 209)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(29, 29, 29)
+                                .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(209, 209, 209)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(40, 40, 40)
+                                .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(btnGuardar)
                         .addGap(40, 40, 40)
-                        .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(235, 235, 235)
-                .addComponent(btnGuardar)
-                .addGap(40, 40, 40)
-                .addComponent(btnCancelar)
-                .addContainerGap(251, Short.MAX_VALUE))
+                        .addComponent(btnCancelar)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,6 +250,9 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+
+    if (!validar())
+        return;
     
     strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
     strMotivo = txtMotivo.getText();
@@ -281,20 +289,31 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     
 }//GEN-LAST:event_btnGuardarMouseClicked
 
-private void lblAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMousePressed
-
-}//GEN-LAST:event_lblAddMousePressed
-
-private void lblRemoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverMousePressed
-
-}//GEN-LAST:event_lblRemoverMousePressed
-
 private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
     
     BuscarPallet ventana = new BuscarPallet(this);
     ventana.setVisible(true);
     
 }//GEN-LAST:event_lblAddMouseClicked
+
+    private void txtMotivoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMotivoKeyTyped
+    char c = (char)evt.getKeyChar();
+    if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+       evt.consume();
+    if ((this.txtMotivo.getText().length() + 1) > 6) {
+       evt.consume();
+    }
+    }//GEN-LAST:event_txtMotivoKeyTyped
+
+    private void lblRemoverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverMouseClicked
+        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();
+        int intFila = dgvPallets.getSelectedRow();
+        modelo.removeRow(intFila);
+    }//GEN-LAST:event_lblRemoverMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -367,6 +386,25 @@ private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
     public void eliminaFilaDgv(int fila){
         DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();  
         modelo.removeRow(fila);
+    }
+    
+    /*
+     * VALIDACIÓN
+     */
+    public boolean validar(){
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();
+        if (modelo.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún pallet");
+            return false;
+        }
+        
+        if (txtMotivo.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe indicar el motivo de la operación");
+            return false;
+        }
+        
+        return true;
     }
     
 }

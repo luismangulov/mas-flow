@@ -58,7 +58,6 @@ public class AdmProducto extends javax.swing.JFrame {
         lblBuscar = new javax.swing.JLabel();
         lblActualizar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar producto");
@@ -66,10 +65,7 @@ public class AdmProducto extends javax.swing.JFrame {
         dgvProductos.setAutoCreateRowSorter(true);
         dgvProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nombre", "Descripción", "Familia", "Unidad", "Cant. Máx. por Pallet"
@@ -92,6 +88,7 @@ public class AdmProducto extends javax.swing.JFrame {
         });
         dgvProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         dgvProductos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        dgvProductos.getTableHeader().setReorderingAllowed(false);
         dgvProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dgvProductosMouseClicked(evt);
@@ -166,9 +163,6 @@ public class AdmProducto extends javax.swing.JFrame {
         jLabel7.setText("                                                                                                   ");
         jToolBar1.add(jLabel7);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
-        jToolBar1.add(jLabel6);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,7 +170,7 @@ public class AdmProducto extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -319,7 +313,6 @@ private void lblActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dgvProductos;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;

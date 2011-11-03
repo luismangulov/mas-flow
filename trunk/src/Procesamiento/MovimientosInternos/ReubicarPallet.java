@@ -55,6 +55,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
     PalletBL objPalletBL = new PalletBL();
     ProductoBL objProductoBL = new ProductoBL();                
     UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
+    MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
 
     ArrayList<PalletBE> arrPallets = new ArrayList<PalletBE>();
 
@@ -298,6 +299,8 @@ public class ReubicarPallet extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvPallets.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        dgvPallets.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(dgvPallets);
 
         jLabel6.setText("Fecha:");
@@ -421,12 +424,16 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
  */
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
     
+    if (!validar())
+        return;
+    
     int intFila;
     boolean boolExito = false;
     intFila = dgvPallets.getSelectedRow();
     if (intFila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila", "Error", 0);
     else{
+        
         strIdPallet = (String)dgvPallets.getValueAt(intFila, 0);
         strIdUbicacionOrigen = (String)dgvPallets.getValueAt(intFila, 3);
         int intFilaUbicacion = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
@@ -438,7 +445,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
         MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen);
         
-        boolExito = objPalletBL.reubicarPallet(objMovimientoInternoBE);
+        boolExito = objMovimientoInternoBL.reubicarPallet(objMovimientoInternoBE);
         
         if (boolExito){
             PalletBE objPalletBE = objPalletBL.getPallet(strIdPallet);
@@ -558,6 +565,20 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
             for(UbicacionBE ubicacion : arrUbicaciones)
                 cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
         
+    }
+
+    private boolean validar() {
+        
+        if (cbUbicacion.getItemCount() != 0){
+            if (cbUbicacion.getSelectedItem().toString().equals("")){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino");
+                return false;
+            }else
+                return true;
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino");
+            return false;
+        }
     }
 
 }

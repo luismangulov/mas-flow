@@ -57,10 +57,7 @@ public class AdmUbicacion extends javax.swing.JFrame {
         dgvUbicaciones.setAutoCreateRowSorter(true);
         dgvUbicaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Ubicación", "Rack", "Fila", "Columna", "Estado", "Pallet"
@@ -82,8 +79,9 @@ public class AdmUbicacion extends javax.swing.JFrame {
             }
         });
         dgvUbicaciones.setToolTipText("Reubicar Pallet");
+        dgvUbicaciones.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        dgvUbicaciones.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(dgvUbicaciones);
-        dgvUbicaciones.getColumnModel().getColumn(5).setResizable(false);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);

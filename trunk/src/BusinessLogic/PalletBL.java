@@ -45,11 +45,6 @@ public class PalletBL {
         return objPalletDA.queryByIdUbicacion(strIdUbicacion);
     }
     
-    public boolean reubicarPallet(MovimientoInternoBE objMovimientoInternoBE){
-        objPalletDA = new PalletDA();
-        return objPalletDA.reubicarPallet(objMovimientoInternoBE);
-    }
-
     public ArrayList<PalletBE> getPalletsByRack(String strIdRack) {
         objPalletDA = new PalletDA();
         return objPalletDA.queryPalletsByRack(strIdRack);

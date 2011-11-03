@@ -88,6 +88,16 @@ public class PalletDA {
             objConexion.SalirUID();
         }
         
+        //se setea en 0 la ubicacion del pallet
+        query = "UPDATE PALLET SET idUbicacion = '000000' WHERE idPallet ='" + objPalletBE.getIdPallet() + "'";
+        
+        try{
+            objConexion.EjecutarUID(query);
+        } catch (Exception e){
+
+        }finally{
+            objConexion.SalirUID();
+        }
     }
     
     public PalletBE queryByIdPallet(String strIdPallet){
@@ -242,89 +252,10 @@ public class PalletDA {
         
     }
 
-    public boolean reubicarPallet(MovimientoInternoBE objMovimientoInternoBE) {
-        
-        boolean exito = false;
-        objConexion = new conexion();
-        
-        // se setea la disponibilidad "1" de la ubicacion anterior
-        query = "UPDATE UBICACION SET indActivo = '1' WHERE idUbicacion = '" + objMovimientoInternoBE.getIdUbicacionOrigen() + "'";
-        
-        try{
-            objConexion.EjecutarUID(query);
-            exito = true;
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
-            exito = false;
-        }
-        finally{objConexion.SalirUID();}
-        
-        if (exito){
-            // se asocia el pallet a la ubicacion destino
-            query = "UPDATE PALLET SET idUbicacion = '" + objMovimientoInternoBE.getIdUbicacionDestino() + "' WHERE idPallet ='" +objMovimientoInternoBE.getIdPallet() +"'";
-
-            try{
-                objConexion.EjecutarUID(query);
-                exito = true;
-            }catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
-                exito = false;
-            }
-            finally{objConexion.SalirUID();}
-
-            // se cambia el estado de la ubicacion destino a en uso
-            query = "UPDATE UBICACION SET indActivo = '2' WHERE idUbicacion ='" + objMovimientoInternoBE.getIdUbicacionDestino() +"'";
-
-            try{
-                objConexion.EjecutarUID(query);
-                exito = true;
-            }catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
-                exito = false;
-            }
-            finally{objConexion.SalirUID();}
-            
-            if (exito){
-            
-                objUtilitario = new Utilitario();
-                String strIdMovimientoInterno = "";
-                try {
-                    strIdMovimientoInterno = objUtilitario.generaCodigo("movimientointerno", 8);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(PalletDA.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(PalletDA.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                    
-                objMovimientoInternoBE.setIdMovimiento(strIdMovimientoInterno);
-
-                query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idUbicacionOrigen,idUbicacionDestino, fecha ,descripcion, idPallet, idAlmacen) "
-                        + "VALUES('"+strIdMovimientoInterno+"',"
-                        + "'"+objMovimientoInternoBE.getIdUbicacionOrigen()+"',"
-                        + "'"+objMovimientoInternoBE.getIdUbicacionDestino()+"',"
-                        + "'"+objMovimientoInternoBE.getFecha() +"',"
-                        + "'"+objMovimientoInternoBE.getDescripcion()+"',"
-                        + "'"+objMovimientoInternoBE.getIdPallet() + "',"
-                        + "'"+objMovimientoInternoBE.getIdAlmacen() + "')";
-
-                try{
-                    objConexion.EjecutarUID(query);
-                    exito = true;
-                }catch (Exception e){
-                    JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
-                    exito = false;
-                }
-                finally{objConexion.SalirUID();}
-
-            }
-        }
-        return exito;
-    }
-
     public ArrayList<PalletBE> queryList() {
         objConexion = new conexion();
         
-        query = "SELECT * FROM PALLET";
+        query = "SELECT * FROM PALLET WHERE indActivo = '1'";
 
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
@@ -356,7 +287,8 @@ public class PalletDA {
         
         objConexion = new conexion();
         
-        query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento FROM PALLET p, UBICACION u WHERE p.idUbicacion = u.idUbicacion AND u.idrack = '" +strIdRack + "'";
+        query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento "
+                + "FROM PALLET p, UBICACION u WHERE p.indActivo = '1' AND p.idUbicacion = u.idUbicacion AND u.idrack = '" +strIdRack + "'";
 
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
@@ -389,7 +321,7 @@ public class PalletDA {
         
         query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento "
                 + "FROM PALLET p, UBICACION u, RACK r, ZONA z"
-                + " WHERE p.idUbicacion = u.idUbicacion AND u.idRack = r.idRack AND "
+                + " WHERE p.indactivo = '1' AND p.idUbicacion = u.idUbicacion AND u.idRack = r.idRack AND "
                 + " r.idZona = z.idZona AND z.idZona = '" +strIdZona+"'";
 
         rs = objConexion.EjecutarS(query);
@@ -421,7 +353,7 @@ public class PalletDA {
     public ArrayList<PalletBE> queryPalletsByIdAlmacen(String idAlmacen) {
        objConexion = new conexion();
         
-        query = "SELECT * FROM PALLET WHERE idAlmacen = '" + idAlmacen + "'";
+        query = "SELECT * FROM PALLET WHERE indActivo = '1' AND idAlmacen = '" + idAlmacen + "'";
 
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();

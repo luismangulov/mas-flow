@@ -17,11 +17,12 @@ public class RackBE {
     private String indActivo;
     private String idZona;
     private String identificador;
+    private String orientacion; // 'V': vertical, 'H': horizontal
 
     public RackBE() {
     }
 
-    public RackBE(String idRack, int posX, int posY, int pisos, int columnas, String indActivo, String idZona, String identificador) {
+    public RackBE(String idRack, int posX, int posY, int pisos, int columnas, String indActivo, String idZona, String identificador, String orientacion) {
         this.idRack = idRack;
         this.posX = posX;
         this.posY = posY;
@@ -30,6 +31,8 @@ public class RackBE {
         this.indActivo = indActivo;
         this.idZona = idZona;
         this.identificador = identificador;
+        this.orientacion = orientacion;
+        
     }
     
         public int getPosY() {
@@ -94,5 +97,13 @@ public class RackBE {
 
     public void setIdentificador(String identificador) {
         this.identificador = identificador;
+    }
+    
+    public String getOrientacion() {
+        return orientacion;
+    }
+
+    public void setOrientacion(String orientacion) {
+        this.orientacion = orientacion;
     }
 }
