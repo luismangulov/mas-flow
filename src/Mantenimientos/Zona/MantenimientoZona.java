@@ -469,7 +469,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
             return;
         }
         
-        if (y+Integer.parseInt(txtLargo.getText())>anchoMax) {
+        if (y+Integer.parseInt(txtLargo.getText())>largoMax) {
             JOptionPane.showMessageDialog(null, "Largo mayor a lo permitido.", "Error", 0);
             return;
         }
