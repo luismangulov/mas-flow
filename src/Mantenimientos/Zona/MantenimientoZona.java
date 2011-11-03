@@ -183,7 +183,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        dgvFamilia.setColumnSelectionAllowed(true);
+        dgvFamilia.setCellSelectionEnabled(false);
         jScrollPane1.setViewportView(dgvFamilia);
         dgvFamilia.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvFamilia.getColumnModel().getColumn(0).setPreferredWidth(20);

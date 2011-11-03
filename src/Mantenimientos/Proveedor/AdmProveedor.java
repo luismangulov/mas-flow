@@ -77,7 +77,6 @@ public class AdmProveedor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        dgvProveedor.setColumnSelectionAllowed(true);
         dgvProveedor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvProveedor);
         dgvProveedor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

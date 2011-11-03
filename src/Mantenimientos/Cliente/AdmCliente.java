@@ -85,9 +85,7 @@ public class AdmCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        dgvCliente.setColumnSelectionAllowed(true);
         dgvCliente.setName("dgvCliente"); // NOI18N
-        dgvCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvCliente);
         dgvCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvCliente.getColumnModel().getColumn(0).setPreferredWidth(40);

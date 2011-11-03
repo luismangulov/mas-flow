@@ -84,8 +84,6 @@ public class AyudaCliente extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        dgvCliente.setColumnSelectionAllowed(true);
-        dgvCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvCliente);
         dgvCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvCliente.getColumnModel().getColumn(0).setPreferredWidth(10);
