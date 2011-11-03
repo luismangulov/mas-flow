@@ -436,13 +436,13 @@ public class MantenimientoZona extends javax.swing.JFrame {
             return;
         }
 
-        if ((txtAncho.getText().length())==0) {
+        if ((txtAncho.getText().length())==0 || Integer.parseInt(txtAncho.getText())==0) {
             JOptionPane.showMessageDialog(null, "Falta indicar ancho.", "Error", 0);
             return;
         }
 
 
-        if ((txtLargo.getText().length())==0) {
+        if ((txtLargo.getText().length())==0 || Integer.parseInt(txtLargo.getText())==0) {
             JOptionPane.showMessageDialog(null, "Falta indicar largo.", "Error", 0);
             return;
         }
