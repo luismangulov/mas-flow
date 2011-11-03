@@ -92,7 +92,7 @@ public class AlgoritmoBestFirst {
         double dx= mapa.getPosPuertaX()- rack.getPosX();
         double dy= mapa.getPosPuertaY() - rack.getPosY()+u.getColumna()-1;
         double distanciaALaPuerta=Math.sqrt(dx * dx + dy * dy);
-        return distanciaALaPuerta+u.getFila();
+        return distanciaALaPuerta;
     }
 
 
