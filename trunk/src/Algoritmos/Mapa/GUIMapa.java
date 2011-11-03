@@ -13,6 +13,7 @@ package Algoritmos.Mapa;
 
 import Algoritmos.RecorridoOptimo.Cromosoma;
 import BusinessEntity.UbicacionBE;
+import BusinessEntity.ZonaBE;
 import Util.Configuracion;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -96,6 +97,8 @@ public class GUIMapa extends javax.swing.JFrame {
            super.paint(g);
 
            dibujaUbicaciones(g);
+
+           dibujaZonas(g);
            
     }
 
@@ -107,36 +110,48 @@ public class GUIMapa extends javax.swing.JFrame {
             if (nodo.isNodoInicial())
             {
                 g.setColor(Color.YELLOW);
-                g.drawRect(convertirX(nodo.getX())+20, convertirY(nodo.getY())+20,factorX, factorY);
+                g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
             }
             else if (nodo.getItem()==null)
             {
                 g.setColor(Color.BLACK);
-                g.drawRect(convertirX(nodo.getX())+20, convertirY(nodo.getY())+20, factorX, factorY);
+                g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
             }
             else
             {
-                g.setColor(Color.RED);
-                g.drawRect(convertirX(nodo.getX())+20, convertirY(nodo.getY())+20, factorX, factorY);
+                g.setColor(Color.RED);                
+                g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
             }
+        }
+    }
+
+
+    private void dibujaZonas(Graphics g)
+    {
+        for (ZonaBE zona : mapa.getListaZonas())
+        {
+                g.setColor(Color.BLUE);
+                g.drawRect(convertirX(zona.getPosX()), convertirY(zona.getPosY()), factorX*zona.getAncho(), factorY*zona.getLargo());
         }
     }
 
 
     private void calcularFactores()
     {
-        factorX = pixelesLargo/mapa.getNumX();
-        factorY = pixelesAncho/mapa.getNumY();
+        factorX = (pixelesLargo/mapa.getNumX());
+        factorY = (pixelesAncho/mapa.getNumY());
     }
 
     private int convertirX(int x)
     {
-        return x*factorX;
+        return x*factorX+20;
     }
 
     private int convertirY(int y)
     {
-        return y*factorY;
+        return y*factorY+50;
     }
 
 
@@ -144,8 +159,8 @@ public class GUIMapa extends javax.swing.JFrame {
     private ArrayList<UbicacionBE> mejoresUbicaciones;
     private Cromosoma mejorCromosoma;
 
-    private int pixelesLargo=1024;
-    private int pixelesAncho=768;
+    private int pixelesLargo=800;
+    private int pixelesAncho=600;
 
     private int factorX;
     private int factorY;
