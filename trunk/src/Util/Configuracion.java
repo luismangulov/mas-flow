@@ -11,8 +11,8 @@ package Util;
  */
 public class Configuracion {
 
-    private static double largoPallet;
-    private static double anchoPallet;
+    private static double largoPallet=1.2;
+    private static double anchoPallet=1.2;
 
 
 
