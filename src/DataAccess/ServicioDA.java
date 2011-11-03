@@ -70,4 +70,34 @@ public class ServicioDA {
       
         return servicio;
     }
+   
+      public ServicioBE queryByNombreServicio(String nombre){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ServicioBE servicio = null;
+        String sql = "SELECT idServicio,descripcion FROM Servicio ";
+           sql += " WHERE descripcion='"+nombre+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdServicio;
+            String strDescripcion;
+         
+            if (rs.next()){
+                strIdServicio= rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                servicio = new ServicioBE(strIdServicio,strDescripcion);
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return servicio;
+    }
+   
+   
+   
 }

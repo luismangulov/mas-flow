@@ -17,7 +17,9 @@ import java.util.ArrayList;
  */
 public class AplicacionxServicioDA {
     
-        public ArrayList<AplicacionxServicioBE> queryAllAplicacionxServicio(){
+    
+    //obtiene todos la lista de aplicaciones con todos sus respectivos servicios del sistema
+    public ArrayList<AplicacionxServicioBE> queryAllAplicacionxServicio(){
             
         conexion objConexion=new conexion();
         ResultSet rs = null;
@@ -48,13 +50,14 @@ public class AplicacionxServicioDA {
         return arrAplicacionxServicios;
     }
 
-    private ArrayList<ServicioBE> queryServiciosByAplicacion(String idAplicacion) {
+    //obtiene la lista de servicios que tiene el SISTEMA para una determinada aplicacion
+    public ArrayList<ServicioBE> queryServiciosByAplicacion(String idAplicacion) {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<ServicioBE> arrServicios= new ArrayList<ServicioBE>();
         
         String sql = "SELECT AXS.idServicio, S.descripcion FROM aplicacionxservicio AXS, servicio S where S.idservicio = AXS.idservicio ";
-           sql += " AND AXS.idaplicacion='"+idAplicacion+"'";
+           sql += " AND AXS.idaplicacion LIKE '%"+idAplicacion+"'";
         try{
             rs=objConexion.EjecutarS(sql);
             String strIdServicio;
@@ -77,6 +80,39 @@ public class AplicacionxServicioDA {
       
         return arrServicios;
     }
+    
+    
+    //obtiene la lista de aplicaciones que tiene el SISTEMA 
+    public ArrayList<AplicacionBE> queryAllAplicaciones() {
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<AplicacionBE> arrAplicaciones= new ArrayList<AplicacionBE>();
+        
+        String sql = "SELECT DISTINCT AXS.idAplicacion, A.descripcion FROM aplicacionxservicio AXS, Aplicacion A where A.idAplicacion = AXS.idAplicacion";
+
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdAplicacion;
+            String strDescripcion;
+     
+            while (rs.next()){
+                
+                strIdAplicacion = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                arrAplicaciones.add(new AplicacionBE(strIdAplicacion, strDescripcion));
+                
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return arrAplicaciones;
+    }   
+ 
 
     
 }

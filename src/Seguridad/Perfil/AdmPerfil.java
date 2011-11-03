@@ -191,7 +191,7 @@ private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 
 private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 // TODO add your handling code here:
-        BuscarPerfil m = new BuscarPerfil();
+        BuscarPerfil m = new BuscarPerfil(this);
         m.setVisible(true);
 
 

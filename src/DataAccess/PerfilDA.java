@@ -136,84 +136,99 @@ public class PerfilDA {
         return perfil;
     }
 
-   
-     
+    
 
       
-//    public ArrayList<FamiliaBE> buscar(String codigo,String nombre,String estado){
-//        conexion objConexion=new conexion();
-//        ResultSet rs = null;
-//        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
+    public ArrayList<PerfilBE> buscar(String idPerfil, String descripcion, String idAplicacion, String idServicio, String indActivo) {
+        
+ 
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<PerfilBE> arrPerfil = new ArrayList<PerfilBE>();
 //        String indActivo = "";
 //        if(estado.equals("Activo")){
 //            indActivo = "1";
 //        }else if(estado.equals("Inactivo")){
 //             indActivo = "0";
 //        }
-//        
-//        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia";
-//                //" WHERE indactivo ='"+indActivo+"'";
-//       boolean primero;
-//        primero = true;
-//        //sql+= " WHERE";
-//        if(!(codigo.equals("")) || !(nombre.equals("")) || !estado.equals("")){
-//           if (!codigo.equals("")){           
-//               if(primero == true){
-//                   sql+= " WHERE";
-//                   primero = false;
-//               }else if(primero == false)sql+= " AND ";
-//               sql +=  " idfamilia LIKE '%"+codigo+"%'";
-//           }
-//           if (!nombre.equals("")){
-//               if(primero == true){
-//                   sql+= " WHERE";
-//                   primero = false;
-//               }else if(primero == false)sql+= " AND ";
-//               sql += " nombre LIKE '%"+nombre+"%'";
-//           }
-//           if(estado.equals("Activo")){
-//               if(primero == true){
-//                   sql+= " WHERE";
-//                   primero = false;
-//               }else if(primero == false)sql+= " AND ";
-//               sql += " indactivo = '1'";
-//           }    
-//           if(estado.equals("Inactivo")){
-//               if(primero == true){
-//                   sql+= " WHERE";
-//                   primero = false;
-//               }else if(primero == false)sql+= " AND ";
-//               sql += " indactivo = '0'";
-//           } 
-//        }
-//        sql +=" order by 1";
-//              
-//        
-//        try{
-//            rs=objConexion.EjecutarS(sql);
-//            String strCodigo;
-//            String strNombre;
-//            String strDescripcion;
-//            String strEstado;
-//            while (rs.next()){
-//              
-//                strCodigo = rs.getString(1);
-//                strNombre = rs.getString(2);
-//                strDescripcion = rs.getString(3);
-//                strEstado = rs.getString(4);
-//                arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
-//            }
-//             
-//        }catch (Exception a){
-//            System.out.println(a.getMessage());
-//         }
-//         finally{
-//             objConexion.SalirS();
-//         }
-//      
-//        return arrFamilia;
-//    }
-//
+        
+        String sql = "SELECT DISTINCT P.idPerfil,P.descripcion,P.indactivo FROM Perfil P,PerfilDetalle PD ";
+                
+                //" WHERE indactivo ='"+indActivo+"'";
+       boolean primero;
+        primero = true;
+        //sql+= " WHERE";
+        if(!(idPerfil.equals("")) || !(descripcion.equals("")) || !idAplicacion.equals("")|| !idServicio.equals("")|| !indActivo.equals("")){
+           if (!idPerfil.equals("")){           
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql +=  " P.idPerfil LIKE '%"+idPerfil+"%'";
+           }
+           if (!descripcion.equals("")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " P.descripcion LIKE '%"+descripcion+"%'";
+           }
+           if (!idAplicacion.equals("")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " PD.idAplicacion LIKE '%"+idAplicacion+"%'";
+           }
+           if (!idServicio.equals("")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " PD.idServicio LIKE '%"+idServicio+"%'";
+           }
+                     
+           if(indActivo.equals("1")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " P.indactivo = '1'";
+           }    
+           if(indActivo.equals("0")){
+               if(primero == true){
+                   sql+= " WHERE";
+                   primero = false;
+               }else if(primero == false)sql+= " AND ";
+               sql += " P.indactivo = '0'";
+           } 
+        }
+        sql +=" order by 1";
+              
+        
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdPerfil;
+            String strDescripcion;
+            String strIndActivo;
+            while (rs.next()){
+              
+                strIdPerfil = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                strIndActivo = rs.getString(3).trim();
+                arrPerfil.add(new PerfilBE(strIdPerfil,strDescripcion,strIndActivo));
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return arrPerfil;
+    }
+
 //    
 //    public ArrayList<FamiliaBE> buscarAyuda(String codigo,String nombre){
 //        conexion objConexion=new conexion();
@@ -261,6 +276,8 @@ public class PerfilDA {
 //        return arrFamilia;
 //    }
 //    
+
+    
  
     
     
