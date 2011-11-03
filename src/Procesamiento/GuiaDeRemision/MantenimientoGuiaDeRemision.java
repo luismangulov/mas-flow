@@ -43,6 +43,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
     //private ProductoBE producto =new ProductoBE();
     private ArrayList<ProductoBE> arrProducto = new ArrayList<ProductoBE>();
     private EntidadBE cliente = new EntidadBE();
+    ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
     
     /** Creates new form MantenimientoGuiaDeRemision */
     public MantenimientoGuiaDeRemision(AdmGuiaDeRemision padre){
@@ -333,7 +334,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
      GuiaRemisionBE objGuiaRemisionBE;  
    if(this.valida()){  
      try {
-        if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText().trim(),(String)this.cbAlmacen.getSelectedItem())){
+        if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText().trim(),this.arrAlmacenes.get(cbAlmacen.getSelectedIndex()).getIdAlmacen())){
             
             objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
@@ -351,7 +352,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
         objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
-        this.objPadre.recargaruno(objGuiaRemisionBE, cliente.getRazonSocial(),cliente.getDireccion());
+        this.objPadre.recargaruno(objGuiaRemisionBE, cliente.getRazonSocial(),cliente.getDireccion(),(String)this.cbAlmacen.getSelectedItem());
         this.dispose();
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
@@ -571,12 +572,12 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         
         cbAlmacen.removeAllItems();
         AlmacenBL objAlmacenBL = new AlmacenBL();          
-        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+        arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
         if (arrAlmacenes != null)
             for(AlmacenBE almacen : arrAlmacenes)
-                cbAlmacen.addItem(almacen.getIdAlmacen());
+                cbAlmacen.addItem(almacen.getIdentificador());
 
     }
     

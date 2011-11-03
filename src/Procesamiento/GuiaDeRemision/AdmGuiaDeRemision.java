@@ -10,10 +10,12 @@
  */
 package Procesamiento.GuiaDeRemision;
 
+import BusinessEntity.AlmacenBE;
 import BusinessEntity.DetalleGuiaRemisionBE;
 import BusinessEntity.EstadoGRBE;
 import BusinessEntity.GuiaRemisionBE;
 import BusinessEntity.ProductoBE;
+import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
 import BusinessLogic.ProductoBL;
@@ -69,7 +71,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "CodAlmacen", "Código", "Cliente", "Dirección", "Fecha", "Estado"
+                "Almacen", "Código", "Cliente", "Dirección", "Fecha", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -216,11 +218,17 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         }else{
             int fila;
             String codigo;
+            String identificador;
             String idAlmacen;
             fila = tblGuiaRemision.getSelectedRow();
             codigo = (String)tblGuiaRemision.getValueAt(fila, 1);
             
-            idAlmacen = (String)tblGuiaRemision.getValueAt(fila, 0);
+            identificador = (String)tblGuiaRemision.getValueAt(fila, 0);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>(); 
+            arrAlmacenes = objAlmacenBL.buscar("", "", "1", "", "", "", identificador);
+            
+            idAlmacen = arrAlmacenes.get(0).getIdAlmacen();
             
             DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
             ArrayList<DetalleGuiaRemisionBE> arrDetalleGuiaRemisionBE = new ArrayList<DetalleGuiaRemisionBE>();
@@ -322,7 +330,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     // End of variables declaration//GEN-END:variables
 
 
-    public void recargaruno(GuiaRemisionBE guiaRemision,String razonSocial,String direccion){
+    public void recargaruno(GuiaRemisionBE guiaRemision,String razonSocial,String direccion,String identificador){
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
@@ -332,7 +340,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             }
         };
         tblGuiaRemision.setModel(modelo);
-        modelo.addColumn("CodAlmacen");
+        modelo.addColumn("Almacen");
         modelo.addColumn("Código");
         modelo.addColumn("Cliente");
         modelo.addColumn("Dirección");
@@ -343,7 +351,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 //        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
          modelo.addRow(new Object[5]);
-        tblGuiaRemision.setValueAt(guiaRemision.getAlmacen().getIdAlmacen(),0,0 ); 
+        tblGuiaRemision.setValueAt(identificador,0,0 ); 
         tblGuiaRemision.setValueAt(guiaRemision.getCodigo(),0,1 );
         tblGuiaRemision.setValueAt(razonSocial,0,2 );
         tblGuiaRemision.setValueAt(direccion,0,3 );
@@ -362,7 +370,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             }
         };
         tblGuiaRemision.setModel(modelo);
-        modelo.addColumn("CodAlmacen");
+        modelo.addColumn("Almacen");
         modelo.addColumn("Código");
         modelo.addColumn("Cliente");
         modelo.addColumn("Dirección");
@@ -375,7 +383,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         
         for(int i = 0;i<guiaRemisiones.size();i++){
             modelo.addRow(new Object[5]);
-             tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getAlmacen().getIdAlmacen(),i,0 ); 
+             tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getAlmacen().getIdentificador(),i,0 ); 
             tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCodigo(),i,1 );
             tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getRazonSocial(),i,2 );
             tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getCliente().getDireccion(),i,3 );

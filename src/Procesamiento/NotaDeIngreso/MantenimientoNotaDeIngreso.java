@@ -38,6 +38,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
     private ArrayList<ProductoBE> arrProducto = new ArrayList<ProductoBE>();
     private EntidadBE proveedor = new EntidadBE();
     private AdmNotaDeIngreso objPadre;
+    ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
     /** Creates new form MantenimientoNotaDeIngreso */
     public MantenimientoNotaDeIngreso(AdmNotaDeIngreso padre) {
         this.objPadre = padre;
@@ -343,7 +344,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         NotaIngresoBE objNotaIngresoBE;
    if(this.valida()){     
     try {
-        if(objNotaIngresoBL.insertar(this.jdcFecha.getDate(),this.txtProveedor.getText(),(String)this.cbAlmacen.getSelectedItem())){
+        if(objNotaIngresoBL.insertar(this.jdcFecha.getDate(),this.txtProveedor.getText(),this.arrAlmacenes.get(cbAlmacen.getSelectedIndex()).getIdAlmacen())){
             
            
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
@@ -360,7 +361,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
             }
         }
         objNotaIngresoBE = objNotaIngresoBL.getObjNotaIngresoBE();
-        this.objPadre.recargaruno(objNotaIngresoBE, proveedor.getRazonSocial(), proveedor.getDireccion());
+        this.objPadre.recargaruno(objNotaIngresoBE, proveedor.getRazonSocial(), proveedor.getDireccion(),(String)this.cbAlmacen.getSelectedItem());
         this.dispose();
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
@@ -514,12 +515,12 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         
         cbAlmacen.removeAllItems();
         AlmacenBL objAlmacenBL = new AlmacenBL();          
-        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+         arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
         if (arrAlmacenes != null)
             for(AlmacenBE almacen : arrAlmacenes)
-                cbAlmacen.addItem(almacen.getIdAlmacen());
+                cbAlmacen.addItem(almacen.getIdentificador());
 
     }
 }
