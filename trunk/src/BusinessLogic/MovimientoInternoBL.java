@@ -31,5 +31,10 @@ public class MovimientoInternoBL {
         objMovimientoInternoDA = new MovimientoInternoDA();
         return objMovimientoInternoDA.reubicarPallet(objMovimientoInternoBE);
     }
+
+    public ArrayList<MovimientoInternoBE> getAll() {
+        objMovimientoInternoDA = new MovimientoInternoDA();
+        return objMovimientoInternoDA.queryAll();
+    }
     
 }

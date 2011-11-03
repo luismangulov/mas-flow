@@ -14,6 +14,7 @@ import BusinessEntity.MovimientoInternoBE;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
 import BusinessLogic.AlmacenBL;
+import BusinessLogic.MovimientoInternoBL;
 import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
     PalletBL objPalletBL = new PalletBL();
     ProductoBL objProductoBL = new ProductoBL();
     AlmacenBL objAlmacenBL = new AlmacenBL();
+    MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
     
     String strIdMovimientoInterno;
     String strIdUbicacionOrigen;
@@ -75,7 +77,6 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
         lblRefrescarMovimientos = new javax.swing.JLabel();
         lblReubicarPallet = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Administrar Movimientos");
@@ -167,9 +168,6 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
         jLabel7.setMinimumSize(new java.awt.Dimension(0, 0));
         jToolBar1.add(jLabel7);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
-        jToolBar1.add(jLabel6);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,7 +196,9 @@ private void lblEliminarMovimientosMouseClicked(java.awt.event.MouseEvent evt) {
 }//GEN-LAST:event_lblEliminarMovimientosMouseClicked
 
 private void lblRefrescarMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMovimientosMouseClicked
-
+    arrMovimientoInterno = objMovimientoInternoBL.getAll();
+    llenarDgv(arrMovimientoInterno);
+    
 }//GEN-LAST:event_lblRefrescarMovimientosMouseClicked
 
 private void lblReubicarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReubicarPalletMouseClicked
@@ -252,7 +252,6 @@ private void lblReubicarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dgvMovimientoInterno;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
