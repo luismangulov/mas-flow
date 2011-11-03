@@ -11,12 +11,9 @@
 package Mantenimientos.Producto;
 
 import BusinessEntity.ProductoBE;
+import BusinessLogic.FamiliaBL;
 import BusinessLogic.ProductoBL;
-import DataAccess.FamiliaDA;
-import DataAccess.ProductoDA;
-import DataAccess.UnidadMedidaDA;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import BusinessLogic.UnidadMedidaBL;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,10 +26,20 @@ public class AdmProducto extends javax.swing.JFrame {
 
     private String idProducto;
     private boolean seleccionCliente = false;
-    public ArrayList<ProductoBE> arrProductos;
-    private FamiliaDA objFamiliaDA;
-    private UnidadMedidaDA objUnidadMedidaDA;
+    ArrayList<ProductoBE> arrProductos = new ArrayList<ProductoBE>();
+    private FamiliaBL objFamiliaBL = new FamiliaBL();
+    private UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
+    
     boolean boolExito;
+    
+    String strIdProducto;
+    String strNombre;
+    String strDescripcion;
+    String strNombreFamilia;
+    String strNombreUnidad;
+    String strIndActivo;
+    String strEstado;
+    
     /** Creates new form AdmProducto */
     public AdmProducto() {
         initComponents();
@@ -68,14 +75,14 @@ public class AdmProducto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nombre", "Descripción", "Familia", "Unidad", "Cant. Máx. por Pallet"
+                "Código", "Nombre", "Descripción", "Familia", "Cant. Máx. por Pallet", "Unidad", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Byte.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -96,7 +103,7 @@ public class AdmProducto extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(dgvProductos);
         dgvProductos.getColumnModel().getColumn(0).setPreferredWidth(40);
-        dgvProductos.getColumnModel().getColumn(4).setPreferredWidth(30);
+        dgvProductos.getColumnModel().getColumn(5).setPreferredWidth(30);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -243,20 +250,24 @@ private void lblActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
             modelo.removeRow(i);
         }
         this.arrProductos = arrProductos;
-        dgvProductos.clearSelection();
-        objUnidadMedidaDA = new UnidadMedidaDA();                
-        objFamiliaDA = new FamiliaDA();
         
         for (int i=0; i<arrProductos.size(); i++){
             
-            String strIdProducto = arrProductos.get(i).getIdProducto().trim();
-            String strNombre = arrProductos.get(i).getNombre().trim();
-            String strDescripcion = arrProductos.get(i).getDescripcion().trim();
-            String strNombreFamilia = objFamiliaDA.queryByIdFamilia(arrProductos.get(i).getIdFamilia()).getNombre().trim();
-            String strNombreUnidad = objUnidadMedidaDA.queryByIdUnidadMedida(arrProductos.get(i).getIdUnidadMedida()).getNombre().trim();
+            strIdProducto = arrProductos.get(i).getIdProducto().trim();
+            strNombre = arrProductos.get(i).getNombre().trim();
+            strDescripcion = arrProductos.get(i).getDescripcion().trim();
+            strNombreFamilia = objFamiliaBL.queryByIdFamilia(arrProductos.get(i).getIdFamilia()).getNombre().trim();
+            strNombreUnidad = objUnidadMedidaBL.getUnidadMedida(arrProductos.get(i).getIdUnidadMedida()).getNombre().trim();
+            strIndActivo = arrProductos.get(i).getEstado().trim();
+            
+            if (strIndActivo.equals("1"))
+                strEstado = "Activo";
+            else
+                strEstado = "Inactivo";
+            
             int intCantMax = arrProductos.get(i).getMaxCantPorPallet();
             
-            modelo.addRow(new Object[]{strIdProducto,strNombre,strDescripcion,strNombreFamilia,strNombreUnidad,intCantMax});
+            modelo.addRow(new Object[]{strIdProducto,strNombre,strDescripcion,strNombreFamilia,intCantMax,strNombreUnidad,strEstado});
             
         }
     }
