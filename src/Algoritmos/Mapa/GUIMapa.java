@@ -13,7 +13,13 @@ package Algoritmos.Mapa;
 
 import Algoritmos.RecorridoOptimo.Cromosoma;
 import BusinessEntity.UbicacionBE;
+import Util.Configuracion;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  *
@@ -28,17 +34,20 @@ public class GUIMapa extends javax.swing.JFrame {
 
     public GUIMapa(Mapa mapa) {
         this.mapa = mapa;
+        calcularFactores();
         initComponents();
     }
 
     public GUIMapa(Mapa mapa, ArrayList<UbicacionBE> mejoresUbicaciones) {
         this.mapa = mapa;
+        calcularFactores();
         this.mejoresUbicaciones= mejoresUbicaciones;
         initComponents();        
     }
         
     public GUIMapa(Mapa mapa, Cromosoma mejorCromosoma) {
         this.mapa = mapa;
+        calcularFactores();
         this.mejorCromosoma = mejorCromosoma;
         initComponents();
     }
@@ -53,59 +62,10 @@ public class GUIMapa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 600));
-        setResizable(false);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setName("graficoMapa"); // NOI18N
-        jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
-        );
-
-        jMenu1.setText("Archivo");
-
-        jMenuItem1.setText("Imprimir");
-        jMenu1.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Salir");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        setTitle("Mapa del almacén");
+        setBounds(new java.awt.Rectangle(400, 400, 800, 600));
+        setName("mapaFrame"); // NOI18N
+        getContentPane().setLayout(null);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -122,16 +82,72 @@ public class GUIMapa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+
+    @Override
+    public void paint(Graphics g) {
+
+           Graphics2D g2 = (Graphics2D)g;
+           g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                 RenderingHints.VALUE_ANTIALIAS_ON);
+           g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+           super.paint(g);
+
+           dibujaUbicaciones(g);
+           
+    }
+
+
+    private void dibujaUbicaciones(Graphics g)
+    {
+        for (Nodo nodo : mapa.getListaNodos())
+        {
+            if (nodo.isNodoInicial())
+            {
+                g.setColor(Color.YELLOW);
+                g.drawRect(convertirX(nodo.getX())+20, convertirY(nodo.getY())+20,factorX, factorY);
+            }
+            else if (nodo.getItem()==null)
+            {
+                g.setColor(Color.BLACK);
+                g.drawRect(convertirX(nodo.getX())+20, convertirY(nodo.getY())+20, factorX, factorY);
+            }
+            else
+            {
+                g.setColor(Color.RED);
+                g.drawRect(convertirX(nodo.getX())+20, convertirY(nodo.getY())+20, factorX, factorY);
+            }
+        }
+    }
+
+
+    private void calcularFactores()
+    {
+        factorX = pixelesLargo/mapa.getNumX();
+        factorY = pixelesAncho/mapa.getNumY();
+    }
+
+    private int convertirX(int x)
+    {
+        return x*factorX;
+    }
+
+    private int convertirY(int y)
+    {
+        return y*factorY;
+    }
 
 
     private Mapa mapa;
     private ArrayList<UbicacionBE> mejoresUbicaciones;
     private Cromosoma mejorCromosoma;
+
+    private int pixelesLargo=1024;
+    private int pixelesAncho=768;
+
+    private int factorX;
+    private int factorY;
 
 }
