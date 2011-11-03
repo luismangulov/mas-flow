@@ -497,13 +497,13 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
          
         Double ancho= Double.parseDouble(txtAncho.getText())/Configuracion.getAnchoPallet();
-        if (Integer.getInteger(ancho.toString())==null) {
+        if ((ancho - ancho.intValue() )!=0) {
             JOptionPane.showMessageDialog(null, "Ancho no es múltiplo de ancho de paleta.", "Error", 0);
             return;
         }
         
         Double largo= Double.parseDouble(txtLargo.getText())/Configuracion.getLargoPallet();
-        if (Integer.getInteger(largo.toString())==null) {
+        if ((largo - largo.intValue() )!=0) {
             JOptionPane.showMessageDialog(null, "Largo no es múltiplo de largo de paleta.", "Error", 0);
             return;
         }

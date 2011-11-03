@@ -10,6 +10,7 @@
  */
 package Mantenimientos.Zona;
 
+import Algoritmos.Mapa.Mapa;
 import BusinessEntity.FamiliaBE;
 import Mantenimientos.FamiliaProd.AyudaFamiliaProd;
 import BusinessEntity.AlmacenBE;
@@ -135,7 +136,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
         cmbAlmacen = new javax.swing.JComboBox();
         txtIdentificador = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblVerMapa = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar zona");
@@ -184,7 +185,6 @@ public class MantenimientoZona extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        dgvFamilia.setCellSelectionEnabled(false);
         jScrollPane1.setViewportView(dgvFamilia);
         dgvFamilia.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvFamilia.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -268,9 +268,14 @@ public class MantenimientoZona extends javax.swing.JFrame {
 
         jLabel10.setText("Ancho*:");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
-        jLabel4.setToolTipText("Ver mapa del almacén");
-        jLabel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblVerMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
+        lblVerMapa.setToolTipText("Ver mapa del almacén");
+        lblVerMapa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblVerMapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblVerMapaMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -302,7 +307,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
                     .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addComponent(jLabel4)
+                .addComponent(lblVerMapa)
                 .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
@@ -366,7 +371,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(txtAncho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtLargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel4))
+                    .addComponent(lblVerMapa))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -583,6 +588,12 @@ public class MantenimientoZona extends javax.swing.JFrame {
     this.txtNombre.setText(txtNombre.getText().toUpperCase());        // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreFocusLost
 
+    private void lblVerMapaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMapaMousePressed
+
+            Mapa mapa = new Mapa(almacenes.get(cmbAlmacen.getSelectedIndex()-1));
+            mapa.mostrarGraficoMapa();        // TODO add your handling code here:
+    }//GEN-LAST:event_lblVerMapaMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -599,7 +610,6 @@ public class MantenimientoZona extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -607,6 +617,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAdd;
     private javax.swing.JLabel lblDelete;
+    private javax.swing.JLabel lblVerMapa;
     private javax.swing.JTextField txtAncho;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtIdentificador;
