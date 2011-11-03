@@ -334,7 +334,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
             }    
         }
         if(seleccion == false){
-            if(arrProducto == null){
+           if(arrProducto.get(0).getIdProducto().equals("")){
                 JOptionPane.showMessageDialog(null, "No ha seleccionado uno o mas producto", "Mensaje",0);
             }else recargar(this.arrProducto);
         }
