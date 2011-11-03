@@ -161,7 +161,7 @@ public class GUIMapa extends javax.swing.JFrame {
         for (ZonaBE zona : mapa.getListaZonas())
         {
                 g.setColor(Color.BLUE);
-                g.drawRect(convertirX(zona.getPosX()), convertirY(zona.getPosY()), factorX*zona.getAncho(), factorY*zona.getLargo());
+                g.drawRect(convertirX(zona.getPosX()), convertirY(zona.getPosY()), factorX*zona.getLargo(), factorY*zona.getAncho());
         }
     }
 
