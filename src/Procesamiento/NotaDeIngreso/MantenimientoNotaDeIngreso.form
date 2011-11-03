@@ -85,9 +85,9 @@
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="140" pref="140" max="140" attributes="0"/>
+                      <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                       <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="15" pref="15" max="15" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -159,10 +159,10 @@
                       <Component id="lblRemover" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="25" pref="25" max="25" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
