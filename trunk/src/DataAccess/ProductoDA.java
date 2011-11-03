@@ -140,7 +140,7 @@ public class ProductoDA {
     public ArrayList<ProductoBE> queryListSearch(String idProducto, String nombre, String idFamilia, String strIndActivo) {
 
         objConexion = new conexion();
-        query = "SELECT * FROM PRODUCTO WHERE indActivo ='"+strIndActivo+"'";
+        query = "SELECT * FROM PRODUCTO WHERE indActivo LIKE '%"+strIndActivo+"%'";
 
         if (!idProducto.equals("")){
             query = query + " AND idProducto LIKE '%" + idProducto + "%'";

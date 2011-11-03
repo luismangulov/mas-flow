@@ -199,6 +199,8 @@ private void lblInsertarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
            JOptionPane.showMessageDialog(null, "No ha seleccionado una familia de producto", "Mensaje",0);
         } else if((dgvFamilia.getSelectedRowCount() > 1)){
             JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
+        }else if((dgvFamilia.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
         }else{
             int fila;
             String codigo;
