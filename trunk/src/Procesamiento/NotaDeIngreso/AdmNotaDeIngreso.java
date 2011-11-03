@@ -10,15 +10,21 @@
  */
 package Procesamiento.NotaDeIngreso;
 
+import Algoritmos.Mapa.GUIMapa;
+import Algoritmos.Mapa.Mapa;
+import Algoritmos.MejorUbicacion.AlgoritmoBestFirst;
 import BusinessEntity.AlmacenBE;
 import BusinessEntity.DetalleNotaIngresoBE;
 import BusinessEntity.EstadoGRBE;
 import BusinessEntity.EstadoNIBE;
 import BusinessEntity.NotaIngresoBE;
+import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
+import BusinessEntity.UbicacionBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleNotaIngresoBL;
 import BusinessLogic.NotaIngresoBL;
+import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
 import BusinessLogic.UbicacionBL;
 import DataAccess.EstadoGRDA;
@@ -58,6 +64,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         lblRefrescar = new javax.swing.JLabel();
         lblDetalle = new javax.swing.JLabel();
         lblAprobar = new javax.swing.JLabel();
+        lblIngresar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -145,6 +152,19 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         });
         jToolBar1.add(lblAprobar);
 
+        lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/accept.png"))); // NOI18N
+        lblIngresar.setText("jLabel1");
+        lblIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblIngresar.setMaximumSize(new java.awt.Dimension(54, 54));
+        lblIngresar.setPreferredSize(new java.awt.Dimension(54, 54));
+        lblIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblIngresarMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblIngresar);
+
         jLabel7.setText("                                                                                                                                  ");
         jLabel7.setMaximumSize(new java.awt.Dimension(500, 14));
         jLabel7.setPreferredSize(new java.awt.Dimension(500, 14));
@@ -160,7 +180,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,6 +317,70 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         }  
     }//GEN-LAST:event_lblAprobarMousePressed
 
+    private void lblIngresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIngresarMousePressed
+        // TODO add your handling code here:
+         int fila1 = 0;
+         if((tblNotaIngreso.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una nota de ingreso", "Mensaje",0);
+         } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una nota de ingreso", "Mensaje",0);
+         }else{
+          fila1 = tblNotaIngreso.getSelectedRow();
+          String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();  
+         if(estado.equals("Ingresado")){
+            JOptionPane.showMessageDialog(null, "Los productos de la nota de ingreso ya han sido ingresados", "Mensaje",0);
+         }else{
+              int fila;
+            String codigo;
+            String identificador;
+            String idAlmacen;
+            fila = tblNotaIngreso.getSelectedRow();
+            codigo = (String)tblNotaIngreso.getValueAt(fila, 1);
+            
+            
+            identificador = (String)tblNotaIngreso.getValueAt(fila, 0);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>(); 
+            arrAlmacenes = objAlmacenBL.buscar("", "", "1", "", "", "", identificador);
+            
+            idAlmacen = arrAlmacenes.get(0).getIdAlmacen();
+            
+            
+            DetalleNotaIngresoBL objDetalleNotaIngresoBL = new DetalleNotaIngresoBL();        
+            ArrayList<DetalleNotaIngresoBE> arrDetalleNotaIngresoBE = new ArrayList<DetalleNotaIngresoBE>();
+            arrDetalleNotaIngresoBE = objDetalleNotaIngresoBL.queryAllDetalleNotaIngreso(codigo);
+             
+            
+            ArrayList<PalletBE> arrPallet = new ArrayList<PalletBE>();
+            for(int i=0;i<arrDetalleNotaIngresoBE.size();i++){
+                ProductoBL objProductoBL = new ProductoBL();
+                ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrDetalleNotaIngresoBE.get(i).getProducto().getIdProducto());
+                
+                int cantidadPallet = arrDetalleNotaIngresoBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
+                for(int j=0;j<cantidadPallet;j++){
+                    PalletBL objPalletBL = new PalletBL();
+                    PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen,null);
+                    objPalletBL.insertar(objPalletBE);
+                    arrPallet.add(objPalletBE);
+                }
+                
+                
+                
+            }
+            ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+            Mapa mapa = new Mapa(arrAlmacenes.get(0));
+            for(PalletBE pallet : arrPallet){
+              
+                arrUbicaciones.add(AlgoritmoBestFirst.ejecutar(mapa, pallet));
+                
+            }
+            
+            mapa.mostrarGraficoMapa(arrUbicaciones);
+            
+            
+         }
+    }//GEN-LAST:event_lblIngresarMousePressed
+    }
     /**
      * @param args the command line arguments
      */
@@ -341,6 +425,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel lblAprobar;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblDetalle;
+    private javax.swing.JLabel lblIngresar;
     private javax.swing.JLabel lblRefrescar;
     private javax.swing.JTable tblNotaIngreso;
     // End of variables declaration//GEN-END:variables
