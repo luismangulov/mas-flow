@@ -214,6 +214,9 @@ private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
     }//GEN-LAST:event_txtCodigoKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))){
+        } else { evt.consume(); }
         if ((this.txtNombre.getText().length() + 1) > 10) {
             evt.consume();}        // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreKeyTyped
@@ -223,6 +226,9 @@ private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void txtIdentificadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificadorKeyTyped
+        char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))||(c=='-')){
+        } else { evt.consume(); }
         if ((this.txtIdentificador.getText().length() + 1) > 33) {
             evt.consume();}   // TODO add your handling code here:
     }//GEN-LAST:event_txtIdentificadorKeyTyped

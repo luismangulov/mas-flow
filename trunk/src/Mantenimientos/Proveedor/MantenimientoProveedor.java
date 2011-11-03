@@ -468,7 +468,10 @@ private void txtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tx
 }//GEN-LAST:event_txtEmailKeyTyped
 
 private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
-    if ((this.txtDireccion.getText().length() + 1) > 60) { evt.consume();        }
+        char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))||(c=='.')||(c=='-')){
+        } else { evt.consume(); }
+        if ((this.txtDireccion.getText().length() + 1) > 60) { evt.consume();        }
     // TODO add your handling code here:
 }//GEN-LAST:event_txtDireccionKeyTyped
 
@@ -488,7 +491,7 @@ private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
 
 private void txtPaginaWebKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaginaWebKeyTyped
     char c = (char)evt.getKeyChar();
-        if((c>='a' && c<='z') ||  (c>='A' && c<='Z') || (c>='0' && c<='9') ||(Character.isISOControl(c))||(c=='.')){
+        if((c>='a' && c<='z') || (c>='A' && c<='Z') || (c>='0' && c<='9') ||(Character.isISOControl(c))||(c=='.')||(c=='-')||(c=='_')){
         } else { evt.consume(); }
     if ((this.txtPaginaWeb.getText().length() + 1) > 30) {
         evt.consume();}
@@ -508,7 +511,10 @@ private void txtRazonSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:ev
 }//GEN-LAST:event_txtRazonSocialKeyTyped
 
 private void txtNombreContactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreContactoKeyTyped
-    if ((this.txtNombreContacto.getText().length() + 1) > 30) {
+        char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))){
+        } else { evt.consume(); }
+        if ((this.txtNombreContacto.getText().length() + 1) > 30) {
         evt.consume();}// TODO add your handling code here:
 }//GEN-LAST:event_txtNombreContactoKeyTyped
 

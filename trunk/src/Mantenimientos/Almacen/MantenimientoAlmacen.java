@@ -600,11 +600,17 @@ private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_cmbProvinciaActionPerformed
 
 private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+    char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))){
+        } else { evt.consume(); }
     if ((this.txtNombre.getText().length() + 1) > 10) {
             evt.consume();}     // TODO add your handling code here:
 }//GEN-LAST:event_txtNombreKeyTyped
 
 private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+    char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))){
+        } else { evt.consume(); }
     if ((this.txtDireccion.getText().length() + 1) > 30) {
             evt.consume();}     // TODO add your handling code here:
 }//GEN-LAST:event_txtDireccionKeyTyped
