@@ -10,15 +10,35 @@
  */
 package Seguridad.Perfil;
 
+import BusinessEntity.AplicacionBE;
+import BusinessEntity.PerfilBE;
+import BusinessEntity.ServicioBE;
+import BusinessLogic.PerfilBL;
+import DataAccess.AplicacionDA;
+import DataAccess.AplicacionxServicioDA;
+import DataAccess.ServicioDA;
+import Util.Utilitario;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author DIEGO
  */
 public class BuscarPerfil extends javax.swing.JFrame {
-
+    private AdmPerfil ventanaPadre ;
     /** Creates new form BuscarPerfil */
-    public BuscarPerfil() {
+    public BuscarPerfil(AdmPerfil padre) {
+        
+        
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.ventanaPadre=padre;
+        this.llenarComboAplicacion();
+    
+        
+        
     }
 
     /** This method is called from within the constructor to
@@ -34,12 +54,14 @@ public class BuscarPerfil extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtIdPerfil = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        cmbAplicacion = new javax.swing.JComboBox();
+        cmbServicio = new javax.swing.JComboBox();
+        btnBuscar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        cmbEstado = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar perfil");
@@ -52,141 +74,286 @@ public class BuscarPerfil extends javax.swing.JFrame {
 
         jLabel4.setText("Servicio:");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        txtIdPerfil.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdPerfilKeyTyped(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
             }
         });
+
+        cmbAplicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAplicacionActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Estado");
+
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Activos", "Inactivos" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(41, 41, 41)
+                .addComponent(btnBuscar)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar)
+                .addContainerGap(93, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(txtIdPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbAplicacion, 0, 129, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, 0, 122, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(22, 22, 22)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(24, 24, 24))))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbEstado, 0, 131, Short.MAX_VALUE)
+                            .addComponent(cmbServicio, 0, 131, Short.MAX_VALUE))))
+                .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(26, 26, 26))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnBuscar))
+                .addGap(36, 36, 36))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 // TODO add your handling code here:
-    this.hide();
+   
+    PerfilBL objPerfilBL=new PerfilBL();
+    String indActivo="";
+    if (cmbEstado.getSelectedItem()=="Activos"){
+        indActivo="1";
+    }
+    if (cmbEstado.getSelectedItem()=="Inactivos"){
+        indActivo="0";
+    }
     
-}//GEN-LAST:event_jButton1ActionPerformed
+    
+    AplicacionDA objAplicacionDA=new AplicacionDA();
+    ServicioDA objServicioDA=new ServicioDA();
+    String txtidAplicacion;
+    String idAplicacion;
+    if(this.cmbAplicacion.getSelectedIndex()!=-1){
+        txtidAplicacion=this.cmbAplicacion.getSelectedItem().toString();
+        if(objAplicacionDA.queryByNombreAplicacion(txtidAplicacion)==null){
+            idAplicacion="";
+        }
+        else
+        {
+            idAplicacion=objAplicacionDA.queryByNombreAplicacion(txtidAplicacion).getIdAplicacion();
+        }
+    }else
+    {
+        idAplicacion="";
+    }
+    
+    
+    String txtidServicio;
+    String idServicio;
+    if(this.cmbServicio.getSelectedIndex()!=-1){
+        txtidServicio=this.cmbServicio.getSelectedItem().toString();
+        
+        if(objServicioDA.queryByNombreServicio(txtidServicio)==null){
+            idServicio="";
+         }else
+        {
+            idServicio=objServicioDA.queryByNombreServicio(txtidServicio).getIdServicio();
+        }       
+    }else
+    {
+        idServicio="";
+    }
 
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-// TODO add your handling code here:
-     this.hide();
-
-
+    
+    ArrayList <PerfilBE> listaPerfilBE=new ArrayList<PerfilBE>();
      
-}//GEN-LAST:event_jButton2ActionPerformed
+    listaPerfilBE=objPerfilBL.buscar(txtIdPerfil.getText().trim(),txtNombre.getText().trim(),idAplicacion,idServicio,indActivo);
+    this.ventanaPadre.recargar(listaPerfilBE);
+    this.dispose();
+    
+    
+    
+    
+}//GEN-LAST:event_btnBuscarActionPerformed
+
+private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+// TODO add your handling code here:
+     this.dispose();     
+}//GEN-LAST:event_btnCancelarActionPerformed
+
+private void txtIdPerfilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdPerfilKeyTyped
+// TODO add your handling code here:
+    
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtIdPerfil.getText().length() + 1) > 6) {
+            evt.consume();
+       }
+    
+}//GEN-LAST:event_txtIdPerfilKeyTyped
+
+private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+// TODO add your handling code here:
+       char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtNombre.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtNombreKeyTyped
+
+private void cmbAplicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAplicacionActionPerformed
+// TODO add your handling code here:
+    if (this.cmbAplicacion.getSelectedIndex()!=0){
+        this.llenarComboServicios();
+    }
+}//GEN-LAST:event_cmbAplicacionActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new BuscarPerfil().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(BuscarPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(BuscarPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(BuscarPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(BuscarPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//
+//            public void run() {
+//                new BuscarPerfil().setVisible(true);
+//            }
+//        });
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox cmbAplicacion;
+    private javax.swing.JComboBox cmbEstado;
+    private javax.swing.JComboBox cmbServicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField txtIdPerfil;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarComboAplicacion() {
+            
+        AplicacionxServicioDA objAplicacionxServicioDA =new AplicacionxServicioDA();
+        this.cmbAplicacion.removeAllItems();
+        
+        try { ArrayList<AplicacionBE> arrAplicacion= objAplicacionxServicioDA.queryAllAplicaciones();
+            this.cmbAplicacion.addItem("Seleccione");
+        for (AplicacionBE aplicacion : arrAplicacion){
+            cmbAplicacion.addItem(aplicacion.getDescripcion());
+        }
+        } catch (Exception ex) {
+            Logger.getLogger(BuscarPerfil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    private void llenarComboServicios(){
+            
+        AplicacionxServicioDA objAplicacionxServicioDA =new AplicacionxServicioDA();
+        this.cmbServicio.removeAllItems(); 
+        String idAplicacion=String.valueOf(this.cmbAplicacion.getSelectedIndex());
+        
+        try { ArrayList<ServicioBE> arrServicio= objAplicacionxServicioDA.queryServiciosByAplicacion(idAplicacion);
+            this.cmbServicio.addItem("Seleccione");
+        for (ServicioBE servicio : arrServicio){
+            cmbServicio.addItem(servicio.getIdDescripcion());
+        }
+        } catch (Exception ex) {
+            Logger.getLogger(BuscarPerfil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+
 }

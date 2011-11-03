@@ -70,6 +70,34 @@ public class AplicacionDA {
       
         return aplicacion;
     }
+   
+      public AplicacionBE queryByNombreAplicacion(String nombre){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        AplicacionBE aplicacion = null;
+        String sql = "SELECT idAplicacion,descripcion FROM Aplicacion ";
+           sql += " WHERE descripcion='"+nombre+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdAplicacion;
+            String strDescripcion;
+         
+            if (rs.next()){
+              
+                strIdAplicacion = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                aplicacion = new AplicacionBE(strIdAplicacion,strDescripcion);
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return aplicacion;
+    }
   
 
 }

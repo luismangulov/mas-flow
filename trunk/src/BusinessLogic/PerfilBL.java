@@ -87,6 +87,11 @@ public class PerfilBL {
         return perfil;
     }
 
+    public ArrayList<PerfilBE> buscar(String idPerfil, String descripcion, String idAplicacion, String idServicio, String indActivo) {
+        PerfilDA objPerfilDA = new PerfilDA();
+        return objPerfilDA.buscar(idPerfil,descripcion,idAplicacion,idServicio,indActivo);
+    }
+
 
     
 }
