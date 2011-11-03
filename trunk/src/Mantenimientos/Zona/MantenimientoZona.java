@@ -613,7 +613,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void lblVerMapaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMapaMousePressed
-    if (cmbAlmacen.getSelectedIndex()==0 ||cmbAlmacen.getSelectedIndex()==-1){
+    if (cmbAlmacen.getSelectedIndex()!=0 &&cmbAlmacen.getSelectedIndex()!=-1){
             Mapa mapa = new Mapa(almacenes.get(cmbAlmacen.getSelectedIndex()-1));
             mapa.mostrarGraficoMapa();        // TODO add your handling code here:
         }
