@@ -24,6 +24,7 @@ import BusinessEntity.DistritoBE;
 import DataAccess.DistritoDA;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import Util.Configuracion;
 /**
  *
  * @author DIEGO
@@ -480,8 +481,8 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
             return;
         }
 
-    if ((txtPuertaX.getText().length())==0) {
-            JOptionPane.showMessageDialog(null, "Falta indicar coordenada X de la puerta.", "Error", 0);
+    if ((txtPuertaY.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar coordenada Y de la puerta.", "Error", 0);
             return;
         }
 
@@ -494,6 +495,35 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                 cmbDistrito.getSelectedItem().toString().substring(0, 3)+"-"+
                 txtNombre.getText().trim();
 
+         
+        Double ancho= Double.parseDouble(txtAncho.getText())/Configuracion.getAnchoPallet();
+        if (Integer.getInteger(ancho.toString())==null) {
+            JOptionPane.showMessageDialog(null, "Ancho no es múltiplo de ancho de paleta.", "Error", 0);
+            return;
+        }
+        
+        Double largo= Double.parseDouble(txtLargo.getText())/Configuracion.getLargoPallet();
+        if (Integer.getInteger(largo.toString())==null) {
+            JOptionPane.showMessageDialog(null, "Largo no es múltiplo de largo de paleta.", "Error", 0);
+            return;
+        }
+       
+        int x =Integer.parseInt(txtPuertaX.getText());
+        if (x>ancho) {
+            JOptionPane.showMessageDialog(null, "Cordenada X de la puerta mayor a lo permitido.", "Error", 0);
+            return;
+        }
+        int y=Integer.parseInt(txtPuertaY.getText());
+        if (y>largo) {
+            JOptionPane.showMessageDialog(null, "Cordenada Y de la puerta mayor a lo permitido.", "Error", 0);
+            return;
+        }
+        
+        if ((x!=1 &&x!=ancho) && (y!=1 &&y!=largo)){
+            JOptionPane.showMessageDialog(null, "Cordenada de la puerta no colinda con las paredes.", "Error", 0);
+            return;
+        }
+        
 
         AlmacenBL almacenBL = new AlmacenBL();
         try {
