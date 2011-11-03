@@ -12,8 +12,10 @@
 package Algoritmos.Mapa;
 
 import Algoritmos.RecorridoOptimo.Cromosoma;
+import BusinessEntity.RackBE;
 import BusinessEntity.UbicacionBE;
 import BusinessEntity.ZonaBE;
+import BusinessLogic.RackBL;
 import Util.Configuracion;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -106,12 +108,34 @@ public class GUIMapa extends javax.swing.JFrame {
 
            super.paint(g);
 
+           dibujaCoordenadas(g);
+
            dibujaUbicaciones(g);
 
            dibujaZonas(g);
+
+           if (mejoresUbicaciones != null) dibujaMejoresUbicaciones(g);
+
            
     }
 
+
+    private void dibujaCoordenadas(Graphics g)
+    {
+        g.setColor(Color.BLACK);
+
+        for (int i=0;i<mapa.getNumX();i++)
+        {
+            g.drawString(String.valueOf(i), factorX*i+50, pixelesAncho+factorY+20 );
+        }
+
+        for (int j=0;j<mapa.getNumY();j++)
+        {
+            g.drawString(String.valueOf(j), 50, factorY*j+50);
+        }
+
+    }
+    
 
     private void dibujaUbicaciones(Graphics g)
     {
@@ -119,7 +143,7 @@ public class GUIMapa extends javax.swing.JFrame {
         {
             if (nodo.isNodoInicial())
             {
-                g.setColor(Color.YELLOW);
+                g.setColor(Color.BLUE);
                 g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
                 g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
             }
@@ -130,7 +154,7 @@ public class GUIMapa extends javax.swing.JFrame {
             }
             else
             {
-                g.setColor(Color.RED);                
+                g.setColor(Color.BLACK);
                 g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
                 g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
             }
@@ -148,6 +172,21 @@ public class GUIMapa extends javax.swing.JFrame {
     }
 
 
+    private void dibujaMejoresUbicaciones(Graphics g)
+    {
+        for (UbicacionBE ubicacion : mejoresUbicaciones)
+        {
+                RackBL rackBL = new RackBL();
+                RackBE rack = rackBL.getByIdRack(ubicacion.getIdRack());
+                
+                g.setColor(Color.RED);
+
+                g.fillRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
+                g.drawRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
+        }
+    }
+
+
     private void calcularFactores()
     {
         factorX = (pixelesLargo/mapa.getNumX());
@@ -156,7 +195,7 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private int convertirX(int x)
     {
-        return x*factorX+20;
+        return x*factorX+50;
     }
 
     private int convertirY(int y)
