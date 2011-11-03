@@ -92,6 +92,18 @@ public class PerfilBL {
         return objPerfilDA.buscar(idPerfil,descripcion,idAplicacion,idServicio,indActivo);
     }
 
+    public boolean eliminar(String codigo) {
+        PerfilDA objPerfilDA = new PerfilDA();
+        return objPerfilDA.eliminar(codigo);
+    }
+
+    public boolean insertar(String descripcion,String estado) throws Exception{
+        boolean exito = false;
+        perfil = new PerfilBE(Utilitario.generaCodigo("perfil",6),descripcion,estado);
+        PerfilDA objPerfilDA = new PerfilDA();
+        exito = objPerfilDA.insertar(getPerfil());
+        return exito;
+    }
 
     
 }

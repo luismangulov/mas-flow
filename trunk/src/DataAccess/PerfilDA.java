@@ -17,6 +17,24 @@ import java.util.ArrayList;
  */
 public class PerfilDA {
     
+
+    public boolean insertar(PerfilBE objPerfil) throws Exception{
+        
+        boolean boolExito = false;
+        conexion objConexion = new conexion();
+       
+        String sql = "INSERT INTO perfil(idperfil, descripcion, indactivo) VALUES('"+ objPerfil.getIdPerfil() +"','"+ objPerfil.getDescripcion() +"','"+ objPerfil.getIndActivo() +"')";
+        
+        try{
+            objConexion.EjecutarUID(sql);
+            boolExito=true;
+         }catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{objConexion.SalirUID();}
+        
+        return boolExito;
+    }
     
      public PerfilBE queryById(String codigo){ //sin detalle
         conexion objConexion=new conexion();
@@ -276,6 +294,41 @@ public class PerfilDA {
 //        return arrFamilia;
 //    }
 //    
+
+    public boolean eliminar(String codigo) {
+        
+        boolean boolExito = false;
+        conexion objConexion = new conexion();
+
+        String sql = "DELETE FROM perfilDetalle";
+             sql += " WHERE idPerfil='"+codigo+"'";
+        
+//        try{
+//            objConexion.EjecutarUID(sql);
+//
+//         }catch (Exception a){
+//            System.out.println(a.getMessage());
+//        }
+//        finally{objConexion.SalirUID();}        
+//        
+        
+       
+        sql = "DELETE FROM perfil";
+             sql += " WHERE idPerfil='"+codigo+"'";
+        
+        try{
+            objConexion.EjecutarUID(sql);
+            boolExito=true;
+         }catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{objConexion.SalirUID();}
+        
+        return boolExito;   
+        
+        
+    
+    }
 
     
  

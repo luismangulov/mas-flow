@@ -5,8 +5,10 @@
 
 package masflow;
 
+import Mantenimientos.Almacen.AdmAlmacen;
 import Seguridad.Login;
 import Seguridad.Perfil.AdmPerfil;
+import Seguridad.Usuario.AdmUsuario;
 
 
 /**
@@ -20,7 +22,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Login L = new Login();
+        AdmPerfil L = new AdmPerfil();
         L.setVisible(true);
       
     }
