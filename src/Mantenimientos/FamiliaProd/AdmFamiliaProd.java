@@ -221,21 +221,37 @@ private void lblInsertarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
 
     private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
         // TODO add your handling code here:
-        int respuesta = 0;
-        respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar esta familia de productos? Esta acción no podrá deshacerse.", "Eliminar familia de productos", 0); 
-        if(respuesta == 0){
-            int fila;
-            String codigo;
-            fila = dgvFamilia.getSelectedRow();
-            codigo = (String)dgvFamilia.getValueAt(fila, 0);
-            FamiliaBL objFamiliaBL = new FamiliaBL();
-            try {
-                objFamiliaBL.eliminar(codigo);
-                this.lblRefrescarMousePressed(evt);
-            } catch (Exception ex) {
-                Logger.getLogger(AdmFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);
+       
+        
+        ProductoBL objProductoBL = new ProductoBL();
+       
+        if((dgvFamilia.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una familia de producto", "Mensaje",0);
+        } else if((dgvFamilia.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
+       
+        }else{
+             int respuesta = 0;
+            respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar esta familia de productos? Esta acción no podrá deshacerse.", "Eliminar familia de productos", 0); 
+            if(respuesta == 0){
+                int fila;
+                String codigo;
+                fila = dgvFamilia.getSelectedRow();
+                codigo = (String)dgvFamilia.getValueAt(fila, 0);
+                FamiliaBL objFamiliaBL = new FamiliaBL();
+                try {
+                    if(!objProductoBL.getListSearch("", "", codigo, "").isEmpty()){
+                       JOptionPane.showMessageDialog(null, "La familia de producto no se puede eliminar porque aparece en productos", "Mensaje",0);
+                    } else {
+                    objFamiliaBL.eliminar(codigo);
+                    this.lblRefrescarMousePressed(evt);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(AdmFamiliaProd.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-            
+        
         }
     }//GEN-LAST:event_lblEliminarMousePressed
 
