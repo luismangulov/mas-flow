@@ -4,22 +4,22 @@
  */
 
 /*
- * MenuPrincipal.java
+ * MenuPrincipal2.java
  *
- * Created on Oct 2, 2011, 5:10:59 PM
+ * Created on 03-nov-2011, 17:41:03
  */
 package masflow;
 
 /**
  *
- * @author DIEGO
+ * @author Florencio
  */
-public class MenuPrincipal extends javax.swing.JFrame {
+public class MenuPrincipal2 extends javax.swing.JFrame {
 
-    /** Creates new form MenuPrincipal */
-    public MenuPrincipal() {
+    /** Creates new form MenuPrincipal2 */
+    public MenuPrincipal2() {
         initComponents();
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -31,15 +31,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -50,16 +41,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jLabel20 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jLabel30 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLayeredPane4 = new javax.swing.JLayeredPane();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
@@ -67,51 +66,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("+Flow - Menú Principal");
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Mantenimientos.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel5MousePressed(evt);
-            }
-        });
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/procesos.png"))); // NOI18N
-        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reportes.png"))); // NOI18N
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/seguridad.png"))); // NOI18N
-        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logoMasFlow.png"))); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18));
-        jLabel1.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel1.setText("Mantenimientos");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel2.setText("Procesos");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18));
-        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel3.setText("Seguridad");
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18));
-        jLabel4.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel4.setText("Reportes");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel10.setForeground(new java.awt.Color(0, 0, 102));
@@ -137,7 +96,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel11.setBounds(20, 260, 60, 17);
         jLayeredPane1.add(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 102));
         jLabel12.setText("Almacenes");
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -221,6 +180,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel21.setBounds(20, 80, 50, 17);
         jLayeredPane1.add(jLabel21, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel1.setText("Mantenimientos");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Mantenimientos.png"))); // NOI18N
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel5MousePressed(evt);
+            }
+        });
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/procesos.png"))); // NOI18N
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel2.setText("Procesos");
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel20.setForeground(new java.awt.Color(0, 0, 102));
         jLabel20.setText("Ordenar Productos");
@@ -268,6 +248,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel27.setBounds(50, 110, 160, 19);
         jLayeredPane2.add(jLabel27, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reportes.png"))); // NOI18N
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel4.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel4.setText("Reportes");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel30.setForeground(new java.awt.Color(0, 0, 102));
         jLabel30.setText("Reporte de Stock");
@@ -304,7 +292,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel36.setBounds(40, 80, 130, 17);
         jLayeredPane3.add(jLabel36, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(0, 0, 102));
         jLabel43.setText("Log de Auditoría");
         jLabel43.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -315,6 +303,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jLabel43.setBounds(40, 110, 120, 17);
         jLayeredPane3.add(jLabel43, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/seguridad.png"))); // NOI18N
+        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel3.setText("Seguridad");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel37.setForeground(new java.awt.Color(0, 0, 102));
@@ -364,10 +360,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel42.setBounds(40, 50, 60, 17);
         jLayeredPane4.add(jLabel42, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logoMasFlow.png"))); // NOI18N
+
         jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
         jLabel44.setText("<html>Sistemas<br>+Flow</html>");
 
-        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel45.setText("GESTIÓN DE ALMACENES");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -375,84 +374,148 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel6)
-                .addGap(83, 83, 83)
-                .addComponent(jLabel5)
-                .addGap(54, 54, 54)
-                .addComponent(jLabel7)
-                .addGap(61, 61, 61)
-                .addComponent(jLabel8))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jLabel2)
-                .addGap(87, 87, 87)
-                .addComponent(jLabel1)
-                .addGap(85, 85, 85)
-                .addComponent(jLabel4)
-                .addGap(98, 98, 98)
-                .addComponent(jLabel3))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel1))
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel6)
+                        .addGap(45, 45, 45))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel9)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabel2)
+                        .addGap(68, 68, 68))
+                    .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel45))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel7)
+                                .addGap(27, 27, 27))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel4)
+                                .addGap(44, 44, 44))
+                            .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel8))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel3))
+                            .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(71, 71, 71)
+                                .addComponent(jLabel45)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel45))
+                        .addComponent(jLabel2)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLayeredPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLayeredPane2)
-                            .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))))
-                .addGap(29, 29, 29))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel3)
+                                .addGap(11, 11, 11)
+                                .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel4)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel45)
+                        .addGap(8, 8, 8)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
+   Mantenimientos.FamiliaProd.AdmFamiliaProd a = new Mantenimientos.FamiliaProd.AdmFamiliaProd();
+   a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel10MousePressed
+
+private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+   Mantenimientos.Cliente.AdmCliente a = new Mantenimientos.Cliente.AdmCliente();
+   a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel11MousePressed
+
+private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
+    Mantenimientos.Almacen.AdmAlmacen a = new Mantenimientos.Almacen.AdmAlmacen();
+    a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel12MousePressed
+
+private void jLabel13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MousePressed
+        Procesamiento.MovimientosInternos.AdmMovimientosInternos a = new Procesamiento.MovimientosInternos.AdmMovimientosInternos();
+   a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel13MousePressed
+
+private void jLabel14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MousePressed
+   Mantenimientos.Ubicacion.AdmUbicacion a = new Mantenimientos.Ubicacion.AdmUbicacion();
+   a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel14MousePressed
+
+private void jLabel15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MousePressed
+   Mantenimientos.Proveedor.AdmProveedor a = new Mantenimientos.Proveedor.AdmProveedor();
+   a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel15MousePressed
+
+private void jLabel16MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MousePressed
+   Mantenimientos.Producto.AdmProducto a = new Mantenimientos.Producto.AdmProducto();
+   a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel16MousePressed
+
+private void jLabel17MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MousePressed
+   Mantenimientos.Zona.AdmZona a = new Mantenimientos.Zona.AdmZona();
+   a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel17MousePressed
+
+private void jLabel21MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MousePressed
+    Mantenimientos.Rack.AdmRack a = new Mantenimientos.Rack.AdmRack();
+    a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel21MousePressed
 
 private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
     // TODO add your handling code here:
@@ -463,55 +526,21 @@ private void jLabel20MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     a.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_jLabel20MousePressed
 
-private void jLabel21MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MousePressed
-    Mantenimientos.Rack.AdmRack a = new Mantenimientos.Rack.AdmRack();
-    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel21MousePressed
-
 private void jLabel26MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MousePressed
     Procesamiento.NotaDeIngreso.AdmNotaDeIngreso a = new Procesamiento.NotaDeIngreso.AdmNotaDeIngreso();
     a.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_jLabel26MousePressed
 
-private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
-    Mantenimientos.Almacen.AdmAlmacen a = new Mantenimientos.Almacen.AdmAlmacen();
-    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel12MousePressed
+private void jLabel28MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MousePressed
+// TODO add your handling code here:
+    Procesamiento.GuiaDeRemision.AdmGuiaDeRemision a = new Procesamiento.GuiaDeRemision.AdmGuiaDeRemision();
+    a.setVisible(true);
+}//GEN-LAST:event_jLabel28MousePressed
 
-private void jLabel17MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MousePressed
-   Mantenimientos.Zona.AdmZona a = new Mantenimientos.Zona.AdmZona();
-   a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel17MousePressed
-
-private void jLabel14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MousePressed
-   Mantenimientos.Ubicacion.AdmUbicacion a = new Mantenimientos.Ubicacion.AdmUbicacion();
-   a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel14MousePressed
-
-private void jLabel13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MousePressed
-        Procesamiento.MovimientosInternos.AdmMovimientosInternos a = new Procesamiento.MovimientosInternos.AdmMovimientosInternos();
-   a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel13MousePressed
-
-private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
-   Mantenimientos.FamiliaProd.AdmFamiliaProd a = new Mantenimientos.FamiliaProd.AdmFamiliaProd();
-   a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel10MousePressed
-
-private void jLabel16MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MousePressed
-   Mantenimientos.Producto.AdmProducto a = new Mantenimientos.Producto.AdmProducto();
-   a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel16MousePressed
-
-private void jLabel15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MousePressed
-   Mantenimientos.Proveedor.AdmProveedor a = new Mantenimientos.Proveedor.AdmProveedor();
-   a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel15MousePressed
-
-private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
-   Mantenimientos.Cliente.AdmCliente a = new Mantenimientos.Cliente.AdmCliente();
-   a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel11MousePressed
+private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
+    Procesamiento.MovimientosInternos.AdmMovimientosInternos a = new Procesamiento.MovimientosInternos.AdmMovimientosInternos();
+    a.setVisible(true);
+}//GEN-LAST:event_jLabel27MouseClicked
 
 private void jLabel30MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MousePressed
    Reportes.Stock a = new Reportes.Stock();
@@ -528,6 +557,11 @@ private void jLabel36MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
    a.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_jLabel36MousePressed
 
+private void jLabel43MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MousePressed
+   Reportes.LogDeAuditoria a = new Reportes.LogDeAuditoria();
+   a.setVisible(true);// TODO add your handling code here:
+}//GEN-LAST:event_jLabel43MousePressed
+
 private void jLabel38MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MousePressed
    Seguridad.Perfil.AdmPerfil a = new Seguridad.Perfil.AdmPerfil();
    a.setVisible(true);// TODO add your handling code here:
@@ -537,22 +571,6 @@ private void jLabel42MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
    Seguridad.Usuario.AdmUsuario a = new Seguridad.Usuario.AdmUsuario();
    a.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_jLabel42MousePressed
-
-private void jLabel43MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MousePressed
-   Reportes.LogDeAuditoria a = new Reportes.LogDeAuditoria();
-   a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel43MousePressed
-
-private void jLabel28MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MousePressed
-// TODO add your handling code here:
-    Procesamiento.GuiaDeRemision.AdmGuiaDeRemision a = new Procesamiento.GuiaDeRemision.AdmGuiaDeRemision();
-    a.setVisible(true);
-}//GEN-LAST:event_jLabel28MousePressed
-
-private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
-    Procesamiento.MovimientosInternos.AdmMovimientosInternos a = new Procesamiento.MovimientosInternos.AdmMovimientosInternos();
-    a.setVisible(true);
-}//GEN-LAST:event_jLabel27MouseClicked
 
     /**
      * @param args the command line arguments
@@ -571,13 +589,13 @@ private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuPrincipal2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -585,7 +603,7 @@ private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new MenuPrincipal().setVisible(true);
+                new MenuPrincipal2().setVisible(true);
             }
         });
     }

@@ -26,8 +26,9 @@ public class AdmUsuario extends javax.swing.JFrame {
 
     /** Creates new form AdmUsuario */
     public AdmUsuario() {
-        this.setLocationRelativeTo(null); 
+        
         initComponents();
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to

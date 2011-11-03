@@ -28,6 +28,7 @@ public class CambiarContrasena extends javax.swing.JFrame {
     /** Creates new form CambiarContraseña */
     public CambiarContrasena() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
