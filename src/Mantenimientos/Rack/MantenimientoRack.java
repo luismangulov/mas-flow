@@ -29,7 +29,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author DIEGO
+ * @author VICTOR
  */
 public class MantenimientoRack extends javax.swing.JFrame {
 
@@ -46,6 +46,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
     String strIdZona;
     char accion;
     String idRack;
+    String strOrientacion;
     
     RackBL objRackBL;
     RackBE objRackBE;
@@ -85,6 +86,9 @@ public class MantenimientoRack extends javax.swing.JFrame {
     
     private void insertar(){
         
+        if (!validar())
+            return;
+        
         strIdRack = txtIdRack.getText();
         intPosX = Integer.valueOf(txtPosX.getText());
         intPosY = Integer.valueOf(txtPosY.getText());
@@ -96,10 +100,15 @@ public class MantenimientoRack extends javax.swing.JFrame {
         else 
             strIndActivo = "0";
         
+        if (cbOrientacion.getSelectedItem().toString().equals("V"))
+            strOrientacion = "V";
+        else
+            strOrientacion = "H";
+        
         ZonaBL objZonaBL = new ZonaBL();
         strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
-        objRackBE = new RackBE("",intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "");
+        objRackBE = new RackBE("",intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "", strOrientacion);
         objRackBL.insertar(objRackBE);
         
         UbicacionBL objUbicacionBL = new UbicacionBL();
@@ -127,6 +136,9 @@ public class MantenimientoRack extends javax.swing.JFrame {
     
     private void modificar(){
         
+        if (!validar())
+            return;
+        
         boolean cambioZona = false;
         ZonaBL objZonaBL = new ZonaBL();
         
@@ -143,14 +155,19 @@ public class MantenimientoRack extends javax.swing.JFrame {
             strIndActivo = "1";
         else 
             strIndActivo = "0";
-   
+        
+        if (cbOrientacion.getSelectedItem().equals("Vertical"))
+            strOrientacion = "V";
+        else
+            strOrientacion = "H";
+        
         String strIdentificador = cbZona.getSelectedItem().toString().trim();
         strIdZona = objZonaBL.getByIdentificadorZona(strIdentificador).getIdZona();
         objRackBL = new RackBL();
         
         if (!cambioZona)
             strIdentificador = objRackBE.getIdentificador();
-        objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, strIdentificador);
+        objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, strIdentificador,strOrientacion);
 
         UbicacionBL objUbicacionBL = new UbicacionBL();
         
@@ -193,62 +210,41 @@ public class MantenimientoRack extends javax.swing.JFrame {
         chbxActivo = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         cbAlmacen = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        cbOrientacion = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow -  Registrar rack");
 
         jLabel1.setText("Código:");
 
-        jLabel2.setText("Posición X:");
+        jLabel2.setText("Posición X*:");
 
-        txtPosX.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPosXActionPerformed(evt);
-            }
-        });
         txtPosX.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPosXKeyTyped(evt);
             }
         });
 
-        jLabel4.setText("Posición Y:");
+        jLabel4.setText("Posición Y*:");
 
-        txtPosY.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPosYActionPerformed(evt);
-            }
-        });
         txtPosY.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPosYKeyTyped(evt);
             }
         });
 
-        jLabel6.setText("Pisos:");
+        jLabel6.setText("Pisos*:");
 
-        txtPisos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPisosActionPerformed(evt);
-            }
-        });
         txtPisos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPisosKeyTyped(evt);
             }
         });
 
-        jLabel8.setText("Columnas:");
+        jLabel8.setText("Columnas*:");
 
-        txtColumnas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtColumnasActionPerformed(evt);
-            }
-        });
         txtColumnas.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtColumnasKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtColumnasKeyTyped(evt);
             }
@@ -269,33 +265,12 @@ public class MantenimientoRack extends javax.swing.JFrame {
                 btnCancelarMouseClicked(evt);
             }
         });
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
 
-        jLabel7.setText("Zona:");
-
-        cbZona.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbZonaActionPerformed(evt);
-            }
-        });
+        jLabel7.setText("Zona*:");
 
         chbxActivo.setText("Activo");
-        chbxActivo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                chbxActivoMouseClicked(evt);
-            }
-        });
-        chbxActivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbxActivoActionPerformed(evt);
-            }
-        });
 
-        jLabel3.setText("Almacén:");
+        jLabel3.setText("Almacén*:");
 
         cbAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,96 +278,104 @@ public class MantenimientoRack extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Orientación*:");
+
+        cbOrientacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Horizontal", "Vertical" }));
+        cbOrientacion.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnCancelar)
+                .addContainerGap(145, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chbxActivo)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnCancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel7))
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbZona, 0, 207, Short.MAX_VALUE)))
+                        .addComponent(chbxActivo)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
                                 .addGap(41, 41, 41)
-                                .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(27, 27, 27)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel8))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(13, 13, 13))
+                                    .addComponent(cbOrientacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(68, 68, 68)
-                                .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(11, 11, 11)
-                                .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(12, 12, 12)
-                                .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(47, 47, 47))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel3))
+                                .addGap(49, 49, 49)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbZona, 0, 246, Short.MAX_VALUE)
+                                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(37, 37, 37))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3))
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel2))
-                            .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(chbxActivo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel4))
-                            .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel8))
-                            .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(10, 10, 10)
+                            .addComponent(jLabel6)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cbOrientacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addComponent(chbxActivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar))
@@ -400,28 +383,8 @@ public class MantenimientoRack extends javax.swing.JFrame {
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-394)/2, (screenSize.height-338)/2, 394, 338);
+        setBounds((screenSize.width-419)/2, (screenSize.height-373)/2, 419, 373);
     }// </editor-fold>//GEN-END:initComponents
-
-private void txtPosXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPosXActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_txtPosXActionPerformed
-
-private void txtPosYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPosYActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_txtPosYActionPerformed
-
-private void txtPisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPisosActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_txtPisosActionPerformed
-
-private void txtColumnasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColumnasActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_txtColumnasActionPerformed
-
-private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_btnCancelarActionPerformed
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
     
@@ -432,29 +395,9 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     
 }//GEN-LAST:event_btnGuardarActionPerformed
 
-private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_cbZonaActionPerformed
-
 private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
     this.dispose();
 }//GEN-LAST:event_btnCancelarMouseClicked
-
-private void chbxActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbxActivoActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_chbxActivoActionPerformed
-
-private void chbxActivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chbxActivoMouseClicked
-// TODO add your handling code here:
-}//GEN-LAST:event_chbxActivoMouseClicked
-
-private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
-    AlmacenBL objAlmacenBL = new AlmacenBL();
-    int i;
-    i = cbAlmacen.getSelectedIndex();
-    String strIdAlmacen = arrIdAlmacenes.get(i);
-    cargarComboZona(strIdAlmacen);
-}//GEN-LAST:event_cbAlmacenActionPerformed
 
 private void txtPosXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPosXKeyTyped
     char c = (char)evt.getKeyChar();
@@ -483,10 +426,6 @@ private void txtPisosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tx
     }
 }//GEN-LAST:event_txtPisosKeyTyped
 
-private void txtColumnasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColumnasKeyReleased
-
-}//GEN-LAST:event_txtColumnasKeyReleased
-
 private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColumnasKeyTyped
     char c = (char)evt.getKeyChar();
     if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
@@ -496,6 +435,14 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     }
 }//GEN-LAST:event_txtColumnasKeyTyped
 
+    private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
+    objAlmacenBL = new AlmacenBL();
+    int i;
+    i = cbAlmacen.getSelectedIndex();
+    String strIdAlmacen = arrIdAlmacenes.get(i);
+    cargarComboZona(strIdAlmacen);
+    }//GEN-LAST:event_cbAlmacenActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -504,12 +451,14 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbAlmacen;
+    private javax.swing.JComboBox cbOrientacion;
     private javax.swing.JComboBox cbZona;
     private javax.swing.JCheckBox chbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -544,8 +493,6 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
         objZonaBL = new ZonaBL();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
-        
-//        cbZona.addItem("");
         
         if (arrZonas != null)
             for(ZonaBE zona : arrZonas)
@@ -588,5 +535,44 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         guardaIdZona = objZonaBL.getZona(strIdZona).getIdentificador();
     }
     
+    public boolean validar(){
+        
+        if(cbOrientacion.getItemCount()==0){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un almacén");
+            return false;            
+        }
+        
+        if (cbAlmacen.getItemCount()==0){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un almacén");
+            return false;
+        }
+        
+        if (cbZona.getItemCount()==0){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una zona");
+            return false;
+        }
+        
+        if (txtPosX.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe ingresar la posición X del rack");
+            return false;
+        }
+        
+        if (txtPosY.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe ingresar la posición Y del rack");
+            return false;
+        }
+         
+        if (txtPisos.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de pisos del rack");
+            return false;
+        }
+            
+        if (txtColumnas.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de columnas del rack");
+            return false;
+        }
+        
+        return true;
+    }
     
 }

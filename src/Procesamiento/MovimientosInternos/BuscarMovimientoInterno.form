@@ -114,6 +114,9 @@
     <Component class="com.toedter.calendar.JDateChooser" name="jdcFechaInicio">
     </Component>
     <Component class="javax.swing.JTextField" name="txtIdProducto">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdProductoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbAlmacen">
     </Component>

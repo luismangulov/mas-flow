@@ -104,29 +104,22 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvMovimientoInterno.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        dgvMovimientoInterno.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(dgvMovimientoInterno);
-        dgvMovimientoInterno.getColumnModel().getColumn(0).setResizable(false);
         dgvMovimientoInterno.getColumnModel().getColumn(0).setPreferredWidth(20);
-        dgvMovimientoInterno.getColumnModel().getColumn(1).setResizable(false);
         dgvMovimientoInterno.getColumnModel().getColumn(1).setPreferredWidth(25);
-        dgvMovimientoInterno.getColumnModel().getColumn(2).setResizable(false);
         dgvMovimientoInterno.getColumnModel().getColumn(2).setPreferredWidth(25);
-        dgvMovimientoInterno.getColumnModel().getColumn(3).setResizable(false);
-        dgvMovimientoInterno.getColumnModel().getColumn(4).setResizable(false);
         dgvMovimientoInterno.getColumnModel().getColumn(4).setPreferredWidth(40);
-        dgvMovimientoInterno.getColumnModel().getColumn(5).setResizable(false);
         dgvMovimientoInterno.getColumnModel().getColumn(5).setPreferredWidth(30);
-        dgvMovimientoInterno.getColumnModel().getColumn(6).setResizable(false);
         dgvMovimientoInterno.getColumnModel().getColumn(6).setPreferredWidth(40);
-        dgvMovimientoInterno.getColumnModel().getColumn(7).setResizable(false);
-        dgvMovimientoInterno.getColumnModel().getColumn(8).setResizable(false);
         dgvMovimientoInterno.getColumnModel().getColumn(8).setPreferredWidth(20);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         lblEliminarMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete.png"))); // NOI18N
-        lblEliminarMovimientos.setToolTipText("Editar");
+        lblEliminarMovimientos.setToolTipText("Desechar Pallet");
         lblEliminarMovimientos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEliminarMovimientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblEliminarMovimientos.addMouseListener(new java.awt.event.MouseAdapter() {

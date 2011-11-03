@@ -48,7 +48,7 @@ public class RackDA {
         
         objRack.setIdentificador(generaIdentificador(objRack.getIdZona()));
         
-        query = "INSERT INTO RACK(idRack,posX,posY,pisos,columnas,indActivo,idZona,identificador) VALUES('"
+        query = "INSERT INTO RACK(idRack,posX,posY,pisos,columnas,indActivo,idZona,identificador,orientacion) VALUES('"
                         +objRack.getIdRack()+"','"
                         +String.valueOf(objRack.getPosX())+"','"
                         +String.valueOf(objRack.getPosY())+"','"
@@ -56,7 +56,8 @@ public class RackDA {
                         +String.valueOf(objRack.getColumnas())+"','"
                         +objRack.getIndActivo()+"','"
                         +objRack.getIdZona()+"','"
-                        +objRack.getIdentificador()+"')";
+                        +objRack.getIdentificador()+"','"
+                        +objRack.getOrientacion()+ "')";
         
         try{
             objConexion.EjecutarUID(query);
@@ -80,7 +81,8 @@ public class RackDA {
                                 + "posY='"+String.valueOf(objRackBE.getPosY())+"', "
                                 + "indActivo = '" +objRackBE.getIndActivo()+ "',"
                                 + "idZona ='"+objRackBE.getIdZona()+"',"
-                                + "identificador='"+objRackBE.getIdentificador()+"'"
+                                + "identificador='"+objRackBE.getIdentificador()+"',"
+                                + "orientacion='"+objRackBE.getOrientacion()+"'"
                                 + " WHERE idRack = '"+objRackBE.getIdRack()+"'";
             
         try{
@@ -183,7 +185,8 @@ public class RackDA {
                 String strIndActivo = rs.getString("IndActivo").trim();
                 String strIdZona = rs.getString("IdZona").trim();
                 String strIdentificador = rs.getString("Identificador").trim();
-                objRackBE = new RackBE(strIdRack,posX,posY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador);
+                String strOrientacion = rs.getString("Orientacion").trim();
+                objRackBE = new RackBE(strIdRack,posX,posY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador,strOrientacion);
                 
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,8 +212,9 @@ public class RackDA {
                 int intColumnas = rs.getInt("Columnas");
                 String strIndActivo = rs.getString("IndActivo").trim();
                 String strIdZona = rs.getString("IdZona").trim();
-                String strIdentificador = rs.getString("Identificador").trim();                
-                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona, strIdentificador));
+                String strIdentificador = rs.getString("Identificador").trim(); 
+                String strOrientacion = rs.getString("Orientacion").trim();
+                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona, strIdentificador, strOrientacion));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -249,7 +253,8 @@ public class RackDA {
                 String strIndActivo = rs.getString("IndActivo").trim();
                 String strIdZona = rs.getString("IdZona").trim();
                 String strIdentificador = rs.getString("Identificador").trim();
-                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador));
+                String strOrientacion = rs.getString("Orientacion").trim();
+                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador,strOrientacion));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -275,7 +280,8 @@ public class RackDA {
             String strIndActivo = rs.getString("IndActivo").trim();
             String strIdZona = rs.getString("IdZona").trim();
             String strIdentificador = rs.getString("Identificador").trim();
-            objRackBE = new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador);
+            String strOrientacion = rs.getString("Orientacion").trim();
+            objRackBE = new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador,strOrientacion);
         
         } catch (SQLException ex) {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -302,7 +308,8 @@ public class RackDA {
             String strIndActivo = rs.getString("IndActivo").trim();
             String strIdZona = rs.getString("IdZona").trim();
             String strIdentificador = rs.getString("Identificador").trim();
-            objRackBE = new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador);
+            String strOrientacion = rs.getString("Orientacion").trim();
+            objRackBE = new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador,strOrientacion);
         
         } catch (SQLException ex) {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -329,7 +336,8 @@ public class RackDA {
                 String strIndActivo = rs.getString("IndActivo").trim();
                 String strIdZona = rs.getString("IdZona").trim();
                 String strIdentificador = rs.getString("Identificador").trim();
-                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador));
+                String strOrientacion = rs.getString("Orientacion").trim();
+                arrRacks.add(new RackBE(strIdRack,intPosX,intPosY,intPisos,intColumnas,strIndActivo,strIdZona,strIdentificador,strOrientacion));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);

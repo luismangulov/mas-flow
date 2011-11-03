@@ -14,6 +14,7 @@ import BusinessEntity.AlmacenBE;
 import BusinessEntity.MovimientoInternoBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.MovimientoInternoBL;
+import Util.Utilitario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.DateFormat;
@@ -76,6 +77,12 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
         jLabel3.setText("Entre:");
 
         jLabel4.setText("y");
+
+        txtIdProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdProductoKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -182,6 +189,15 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se pudo hacer la búsqueda");
         
     }//GEN-LAST:event_btnBuscarMouseClicked
+
+    private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdProductoKeyTyped
+    char c = (char)evt.getKeyChar();
+    if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+       evt.consume();
+    if ((this.txtIdProducto.getText().length() + 1) > 6) {
+       evt.consume();
+    }
+    }//GEN-LAST:event_txtIdProductoKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

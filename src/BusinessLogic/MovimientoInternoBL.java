@@ -26,5 +26,10 @@ public class MovimientoInternoBL {
         objMovimientoInternoDA = new MovimientoInternoDA();
         objMovimientoInternoDA.insertar(objMovimientoInternoBE);
     }
+
+    public boolean reubicarPallet(MovimientoInternoBE objMovimientoInternoBE) {
+        objMovimientoInternoDA = new MovimientoInternoDA();
+        return objMovimientoInternoDA.reubicarPallet(objMovimientoInternoBE);
+    }
     
 }
