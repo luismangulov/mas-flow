@@ -245,6 +245,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 UbicacionBL objUbicacionBL = new UbicacionBL();
                 int ubicaOcupadas = objUbicacionBL.queryCantUbicacionesOcupadas(objProductoBE.getIdFamilia(), idAlmacen, objProductoBE.getIdProducto());
                 int cantUbicaRequeridas = arrDetalleGuiaRemisionBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
+                //JOptionPane.showMessageDialog(null,  ubicaOcupadas, "Mensaje",1); 
+                //JOptionPane.showMessageDialog(null, cantUbicaRequeridas, "Mensaje",1);
                if(cantUbicaRequeridas>ubicaOcupadas){
                    ocupados = false;
                    break;
