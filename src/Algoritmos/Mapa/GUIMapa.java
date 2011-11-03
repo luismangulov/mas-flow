@@ -66,7 +66,17 @@ public class GUIMapa extends javax.swing.JFrame {
         setTitle("Mapa del almacén");
         setBounds(new java.awt.Rectangle(400, 400, 800, 600));
         setName("mapaFrame"); // NOI18N
-        getContentPane().setLayout(null);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 660, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 322, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
