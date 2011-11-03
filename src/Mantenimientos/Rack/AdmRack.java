@@ -222,6 +222,7 @@ private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
         UbicacionBL objUbicacionBL = new UbicacionBL();
         
         if (objUbicacionBL.getCantUbicacionesOcupadas(strIdRack) > 0){
+            JOptionPane.showMessageDialog(null, objUbicacionBL.getCantUbicacionesOcupadas(strIdRack));
             JOptionPane.showMessageDialog(null, "No se puede eliminar el rack. Existen ubicaciones en uso o bloqueadas");
             return;       
         }

@@ -11,14 +11,10 @@
 package Procesamiento.MovimientosInternos;
 
 import BusinessEntity.MovimientoInternoBE;
-import Procesamiento.MovimientosInternos.ReubicarPallet;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
 import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
-import BusinessLogic.RackBL;
-import BusinessLogic.UbicacionBL;
-import BusinessLogic.UnidadMedidaBL;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

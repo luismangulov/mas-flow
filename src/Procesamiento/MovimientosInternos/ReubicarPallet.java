@@ -10,20 +10,23 @@
  */
 package Procesamiento.MovimientosInternos;
 
-import BusinessEntity.AlmacenBE;
-import BusinessEntity.MovimientoInternoBE;
-import BusinessEntity.PalletBE;
-import BusinessEntity.ProductoBE;
-import BusinessEntity.RackBE;
-import BusinessEntity.UbicacionBE;
-import BusinessEntity.ZonaBE;
-import BusinessLogic.AlmacenBL;
-import BusinessLogic.PalletBL;
-import BusinessLogic.ProductoBL;
-import BusinessLogic.RackBL;
-import BusinessLogic.UbicacionBL;
-import BusinessLogic.UnidadMedidaBL;
-import BusinessLogic.ZonaBL;
+import BusinessEntity.*;
+import BusinessLogic.*;
+//import BusinessEntity.AlmacenBE;
+//import BusinessEntity.MovimientoInternoBE;
+//import BusinessEntity.PalletBE;
+//import BusinessEntity.ProductoBE;
+//import BusinessEntity.RackBE;
+//import BusinessEntity.UbicacionBE;
+//import BusinessEntity.ZonaBE;
+//import BusinessLogic.AlmacenBL;
+//import BusinessLogic.FamiliaBL;
+//import BusinessLogic.PalletBL;
+//import BusinessLogic.ProductoBL;
+//import BusinessLogic.RackBL;
+//import BusinessLogic.UbicacionBL;
+//import BusinessLogic.UnidadMedidaBL;
+//import BusinessLogic.ZonaBL;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -42,20 +45,28 @@ public class ReubicarPallet extends javax.swing.JFrame {
     String strIdUbicacionDestino;
     String strIdUbicacionOrigen;
     String strIdPallet;
+    String strNombreFamilia;
     
     AlmacenBL objAlmacenBL = new AlmacenBL();   
     ZonaBL objZonaBL = new ZonaBL();
     RackBL objRackBL = new RackBL();    
-    UbicacionBL objUbicacionBL = new UbicacionBL();    
+    UbicacionBL objUbicacionBL = new UbicacionBL();
+    FamiliaBL objFamiliaBL = new FamiliaBL();
+    PalletBL objPalletBL = new PalletBL();
+    ProductoBL objProductoBL = new ProductoBL();                
+    UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
+
+    ArrayList<PalletBE> arrPallets = new ArrayList<PalletBE>();
     
-    UbicacionBE objUbicacionBE = new UbicacionBE();
-    
-    ArrayList<PalletBE> arrPallets;
-    ArrayList<UbicacionBE> arrUbicaciones;
     ArrayList<String> arrIdAlmacenes = new ArrayList<String>();
+    ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+            ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+                    ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+                    ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+            UbicacionBE objUbicacionBE = new UbicacionBE();
     
     AdmMovimientosInternos ventanaPadre;
-    
+        
     public ReubicarPallet(AdmMovimientosInternos ventanaPadre) {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -72,7 +83,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
         
-        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+        
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
         if (arrAlmacenes != null)
@@ -85,6 +96,15 @@ public class ReubicarPallet extends javax.swing.JFrame {
     
     public void cargarComboZona(String idAlmacen){
         
+        int intFila;
+        intFila = dgvPallets.getSelectedRow();
+        if (intFila!=-1)
+            strNombreFamilia = (String)dgvPallets.getValueAt(intFila,5);
+        else
+            return;
+        
+        String strIdFamilia = objFamiliaBL.getIdFamilia(strNombreFamilia);
+        
         cbZona.removeAllItems();
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
@@ -92,12 +112,12 @@ public class ReubicarPallet extends javax.swing.JFrame {
         cbRack.addItem("");
         cbUbicacion.addItem(""); 
 
-        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
-        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+
+        arrZonas = objZonaBL.getZonasByFamilia(idAlmacen,strIdFamilia);
         
         if (arrZonas != null)
             for(ZonaBE zona : arrZonas)
-                cbZona.addItem(zona.getIdentificador());
+                cbZona.addItem(zona.getIdentificador().trim());
         
     }
     
@@ -108,12 +128,12 @@ public class ReubicarPallet extends javax.swing.JFrame {
         cbRack.addItem("");
         cbUbicacion.addItem(""); 
                
-        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+
         arrRacks = objRackBL.getRacksByZona(idZona);
         
         if (arrRacks != null)
             for(RackBE rack : arrRacks)
-                cbRack.addItem(rack.getIdentificador());
+                cbRack.addItem(rack.getIdentificador().trim());
         
     }
     
@@ -121,7 +141,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
        
         cbUbicacion.removeAllItems();
         cbUbicacion.addItem(""); 
-        ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+        
         arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"1"); //"1" porque se buscarán ubicaciones libres
         
         if (arrUbicaciones != null)
@@ -136,19 +156,19 @@ public class ReubicarPallet extends javax.swing.JFrame {
         limpiarDgv();
         this.arrPallets = arrPallets;
         
-        ProductoBL objProductoBL = new ProductoBL();                
-        UbicacionBL objUbicacionBL = new UbicacionBL();
-        RackBL objRackBL = new RackBL();
-        UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
+
 
         PalletBE palletBE = new PalletBE();
         ProductoBE objProductoBE;
+        
+        String strIdFamilia = "";
+        strNombreFamilia = "";
         
         if(arrPallets != null){
         
             for (int i=0; i<arrPallets.size(); i++){
 
-                String strIdPallet = arrPallets.get(i).getIdPallet();
+                strIdPallet = arrPallets.get(i).getIdPallet();
                 String strIdProducto = arrPallets.get(i).getIdProducto().trim();
                 String strNombreProducto = "";
                 int intMaxCantPallet = 0;
@@ -159,8 +179,8 @@ public class ReubicarPallet extends javax.swing.JFrame {
                     objProductoBE = objProductoBL.getByIdProducto(arrPallets.get(i).getIdProducto());
                     strNombreProducto = objProductoBE.getNombre();
                     intMaxCantPallet = objProductoBE.getMaxCantPorPallet();
-                    strIdUnidadMedida = objProductoBE.getIdUnidadMedida();
-                    strNombreUnidadMedida = objUnidadMedidaBL.getUnidadMedida(strIdUnidadMedida).getNombre();
+                    strIdFamilia = objProductoBE.getIdFamilia();
+                    strNombreFamilia = objFamiliaBL.queryByIdFamilia(strIdFamilia).getNombre();
                 }
 
                 String strIdUbicacion = arrPallets.get(i).getIdUbicacion().trim();
@@ -179,7 +199,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
                 if (palletBE.getFechaVencimiento() != null)
                     strFecha = palletBE.getFechaVencimiento().toString();
 
-                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidadMedida,strFecha});
+                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreFamilia,strFecha});
             }
         }
     }
@@ -204,27 +224,24 @@ public class ReubicarPallet extends javax.swing.JFrame {
         for(int i=modelo.getRowCount()-1; i>=0; i--){
             modelo.removeRow(i);
         }
-
-        ProductoBL objProductoBL = new ProductoBL();                
-        UbicacionBL objUbicacionBL = new UbicacionBL();
-        RackBL objRackBL = new RackBL();
-        UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
         
         ProductoBE objProductoBE;
 
-        String strIdPallet = objPalletBE.getIdPallet();
+        strIdPallet = objPalletBE.getIdPallet();
         String strIdProducto = objPalletBE.getIdProducto().trim();
         String strNombreProducto = "";
         int intMaxCantPallet = 0;
         String strIdUnidadMedida = "";
         String strNombreUnidadMedida = "";
+        String strIdFamilia = "";
+        strNombreFamilia = "";
 
          if (!strIdProducto.equals("")){
             objProductoBE = objProductoBL.getByIdProducto(objPalletBE.getIdProducto());
             strNombreProducto = objProductoBE.getNombre();
             intMaxCantPallet = objProductoBE.getMaxCantPorPallet();
-            strIdUnidadMedida = objProductoBE.getIdUnidadMedida();
-            strNombreUnidadMedida = objUnidadMedidaBL.getUnidadMedida(strIdUnidadMedida).getNombre();
+            strIdFamilia = objProductoBE.getIdFamilia();
+            strNombreFamilia = objFamiliaBL.queryByIdFamilia(strIdFamilia).getNombre();
         }
 
         String strIdUbicacion = objPalletBE.getIdUbicacion().trim();
@@ -243,7 +260,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
         if (objPalletBE.getFechaVencimiento() != null)
             strFecha = objPalletBE.getFechaVencimiento().toString();
 
-        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreUnidadMedida,strFecha});
+        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreFamilia,strFecha});
     }
     
 
@@ -349,7 +366,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Producto", "Rack", "Ubicación", "Cant. Máx.", "Unidad", "Fecha Vencimiento"
+                "Código", "Producto", "Rack", "Ubicación", "Cant. Máx.", "Familia", "Fecha Vencimiento"
             }
         ) {
             Class[] types = new Class [] {
@@ -378,42 +395,40 @@ public class ReubicarPallet extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton1)
-                        .addGap(279, 279, 279)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jdcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(20, 20, 20)
-                            .addComponent(jScrollPane1))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5))
-                            .addGap(31, 31, 31)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(28, 28, 28)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(30, 30, 30)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbRack, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(290, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(jButton1)
+                .addGap(279, 279, 279)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(jLabel5)
+                .addGap(39, 39, 39)
+                .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(cbRack, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(280, 280, 280)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(btnCancelar)
-                .addGap(285, 285, 285))
+                .addComponent(btnCancelar))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,39 +436,34 @@ public class ReubicarPallet extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(7, 7, 7))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addGap(10, 10, 10)
+                        .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar))
-                .addContainerGap())
+                    .addComponent(btnCancelar)))
         );
 
         pack();
@@ -472,10 +482,10 @@ private void cbUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_cbUbicacionActionPerformed
 
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
-    AlmacenBL objAlmacenBL = new AlmacenBL();
+
     int i;
     i = cbAlmacen.getSelectedIndex();
-    String strIdAlmacen = arrIdAlmacenes.get(i);
+    strIdAlmacen = arrIdAlmacenes.get(i);
     cargarComboZona(strIdAlmacen);
 }//GEN-LAST:event_cbAlmacenActionPerformed
 
@@ -508,14 +518,14 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     if (intFila==-1)
         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila", "Error", 0);
     else{
-        String strIdPallet = (String)dgvPallets.getValueAt(intFila, 0);
+        strIdPallet = (String)dgvPallets.getValueAt(intFila, 0);
         strIdUbicacionOrigen = (String)dgvPallets.getValueAt(intFila, 3);
         int intFilaUbicacion = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
         int intColumnaUbicacion = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
         String strIdentificadorRack = cbRack.getSelectedItem().toString();
         strIdRack = objRackBL.getByIdentificador(strIdentificadorRack).getIdRack();
         strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacion, intColumnaUbicacion,"1").getIdUbicacion();
-        PalletBL objPalletBL = new PalletBL();
+        objPalletBL = new PalletBL();
         
         MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet);
         

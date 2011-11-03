@@ -75,20 +75,6 @@ public class UbicacionDA {
             objConexion.SalirUID();
         }
     }
-        
-//    public void desbloquearUbicacion(String idUbicacion){
-//        
-//        boolExito = false;
-//        objConexion = new conexion();
-//        query = "UPDATE UBICACION set indActivo = '1' WHERE idUbicacion = '" + idUbicacion + "'";
-//        try{
-//            objConexion.EjecutarUID(query);
-//        } catch (Exception e){
-//                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
-//        }finally{
-//            objConexion.SalirUID();
-//        }
-//    }
 
     public boolean eliminarUbicacionesRack(String idRack){
         boolExito = false;
