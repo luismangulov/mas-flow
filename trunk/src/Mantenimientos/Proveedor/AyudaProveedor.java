@@ -112,8 +112,6 @@ EntidadBE proveedor;
                 return canEdit [columnIndex];
             }
         });
-        dgvProveedor.setColumnSelectionAllowed(true);
-        dgvProveedor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvProveedor);
         dgvProveedor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvProveedor.getColumnModel().getColumn(0).setPreferredWidth(10);
