@@ -24,6 +24,7 @@ import BusinessLogic.ZonaBL;
 import BusinessLogic.RackBL;
 import BusinessLogic.UbicacionBL;
 import BusinessEntity.UbicacionBE;
+import Util.Configuracion;
 /**
  *
  * @author DIEGO
@@ -444,10 +445,36 @@ public class MantenimientoZona extends javax.swing.JFrame {
          String indActivo = new String();
         if (cbxActivo.isSelected()) {indActivo="1";} else {indActivo="0";}
 
+        int x =Integer.parseInt(txtPosX.getText());
+        double anchoMax =almacenes.get(cmbAlmacen.getSelectedIndex() -1).getAncho()/Configuracion.getAnchoPallet();
+        if (x>anchoMax) {
+            JOptionPane.showMessageDialog(null, "Coordenada X de inicio mayor a lo permitido.", "Error", 0);
+            return;
+        }
+        int y=Integer.parseInt(txtPosY.getText());
+        double largoMax =almacenes.get(cmbAlmacen.getSelectedIndex() -1).getLargo()/Configuracion.getLargoPallet();
+        if (y>largoMax) {
+            JOptionPane.showMessageDialog(null, "Coordenada Y de inicio mayor a lo permitido.", "Error", 0);
+            return;
+        }
+        
+        
+        if (x+Integer.parseInt(txtAncho.getText())>anchoMax) {
+            JOptionPane.showMessageDialog(null, "Ancho mayor a lo permitido.", "Error", 0);
+            return;
+        }
+        
+        if (y+Integer.parseInt(txtLargo.getText())>anchoMax) {
+            JOptionPane.showMessageDialog(null, "Largo mayor a lo permitido.", "Error", 0);
+            return;
+        }
+         
         String identificador ="";
 
         identificador=cmbAlmacen.getSelectedItem()+ "-" + txtNombre.getText().trim();
 
+        
+        
         ZonaBL zonaBL = new ZonaBL();
 
         ArrayList<ZonaBE>  zonas= zonaBL.buscar("","","","", identificador);
