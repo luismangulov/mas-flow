@@ -199,7 +199,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 }//GEN-LAST:event_btnBuscarMouseClicked
 
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
-    AlmacenBL objAlmacenBL = new AlmacenBL();
+    objAlmacenBL = new AlmacenBL();
     int i;
     i = cbAlmacen.getSelectedIndex();
     String strIdAlmacen = arrIdAlmacenes.get(i);
@@ -248,7 +248,7 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         cbZona.addItem("");
         cbRack.addItem("");
 
-        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+        arrZonas = new ArrayList<ZonaBE>();
         objZonaBL = new ZonaBL();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
         
@@ -263,7 +263,7 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         cbRack.removeAllItems();        
         cbRack.addItem("");
                
-        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+        arrRacks = new ArrayList<RackBE>();
         objRackBL = new RackBL();
         arrRacks = objRackBL.getRacksByZona(idZona);
         

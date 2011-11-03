@@ -232,11 +232,11 @@ public class BuscarUbicacion extends javax.swing.JFrame {
                         .addGap(61, 61, 61)
                         .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
+                        .addGap(117, 117, 117)
                         .addComponent(btnBuscar)
                         .addGap(33, 33, 33)
                         .addComponent(btnCancelar)))
-                .addGap(29, 29, 29))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,10 +272,11 @@ public class BuscarUbicacion extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(jLabel4))
                     .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBuscar)
-                    .addComponent(btnCancelar)))
+                    .addComponent(btnCancelar))
+                .addGap(32, 32, 32))
         );
 
         pack();

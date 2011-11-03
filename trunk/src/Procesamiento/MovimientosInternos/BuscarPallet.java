@@ -10,18 +10,18 @@
  */
 package Procesamiento.MovimientosInternos;
 
-import Procesamiento.MovimientosInternos.AdmMovimientosInternos;
-import BusinessEntity.AlmacenBE;
-import BusinessEntity.PalletBE;
-import BusinessEntity.RackBE;
-import BusinessEntity.UbicacionBE;
-import BusinessEntity.ZonaBE;
-import BusinessLogic.AlmacenBL;
-import BusinessLogic.PalletBL;
-import BusinessLogic.ProductoBL;
-import BusinessLogic.RackBL;
-import BusinessLogic.UbicacionBL;
-import BusinessLogic.ZonaBL;
+import BusinessEntity.*;
+import BusinessLogic.*;
+//import BusinessEntity.AlmacenBE;
+//import BusinessEntity.PalletBE;
+//import BusinessEntity.RackBE;
+//import BusinessEntity.UbicacionBE;
+//import BusinessEntity.ZonaBE;
+//import BusinessLogic.AlmacenBL;
+//import BusinessLogic.PalletBL;
+//import BusinessLogic.RackBL;
+//import BusinessLogic.UbicacionBL;
+//import BusinessLogic.ZonaBL;
 import Util.Utilitario;
 import java.util.ArrayList;
 
@@ -39,8 +39,12 @@ public class BuscarPallet extends javax.swing.JFrame {
     AlmacenBL objAlmacenBL = new AlmacenBL();
     
     ArrayList<String> arrIdAlmacenes = new ArrayList<String>();
-    ArrayList<PalletBE> arrPallets;
-    
+    ArrayList<PalletBE> arrPallets = new ArrayList<PalletBE>();
+    ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+    ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+    ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+    ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+                
     PalletBL objPalletBL = new PalletBL();
     String strIdPallet;
     String strIdProducto;
@@ -79,7 +83,6 @@ public class BuscarPallet extends javax.swing.JFrame {
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
         
-        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
         if (arrAlmacenes != null)
@@ -98,7 +101,6 @@ public class BuscarPallet extends javax.swing.JFrame {
         cbRack.addItem("");
         cbUbicacion.addItem(""); 
 
-        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
         
         if (arrZonas != null)
@@ -114,7 +116,6 @@ public class BuscarPallet extends javax.swing.JFrame {
         cbRack.addItem("");
         cbUbicacion.addItem(""); 
                
-        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
         arrRacks = objRackBL.getRacksByZona(idZona);
         
         if (arrRacks != null)
@@ -127,7 +128,7 @@ public class BuscarPallet extends javax.swing.JFrame {
        
         cbUbicacion.removeAllItems();
         cbUbicacion.addItem(""); 
-        ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+        
         arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"2"); // "2" porque se buscarán solo las ubicaciones que estén ocupadas
         
         if (arrUbicaciones != null)
@@ -240,40 +241,44 @@ public class BuscarPallet extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel1)
-                .addGap(41, 41, 41)
-                .addComponent(txtIdPallet, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel4)
-                .addGap(29, 29, 29)
-                .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel7)
-                .addGap(29, 29, 29)
-                .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel6)
-                .addGap(49, 49, 49)
-                .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel3)
-                .addGap(51, 51, 51)
-                .addComponent(cbRack, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel5)
-                .addGap(23, 23, 23)
-                .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(btnBuscar)
-                .addGap(37, 37, 37)
-                .addComponent(btnCancelar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(46, 46, 46)
+                            .addComponent(jLabel1)
+                            .addGap(41, 41, 41)
+                            .addComponent(txtIdPallet, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(46, 46, 46)
+                            .addComponent(jLabel4)
+                            .addGap(29, 29, 29)
+                            .addComponent(txtIdProducto))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(47, 47, 47)
+                            .addComponent(jLabel7)
+                            .addGap(29, 29, 29)
+                            .addComponent(cbAlmacen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(47, 47, 47)
+                            .addComponent(jLabel6)
+                            .addGap(49, 49, 49)
+                            .addComponent(cbZona, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(47, 47, 47)
+                            .addComponent(jLabel3)
+                            .addGap(51, 51, 51)
+                            .addComponent(cbRack, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(47, 47, 47)
+                            .addComponent(jLabel5)
+                            .addGap(23, 23, 23)
+                            .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(btnBuscar)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnCancelar)))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,24 +289,28 @@ public class BuscarPallet extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(jLabel1))
                     .addComponent(txtIdPallet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+                        .addGap(27, 27, 27)
                         .addComponent(jLabel4))
-                    .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+                        .addGap(32, 32, 32)
                         .addComponent(jLabel7))
-                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(28, 28, 28)
                         .addComponent(jLabel6))
-                    .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -314,10 +323,11 @@ public class BuscarPallet extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(jLabel5))
                     .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBuscar)
-                    .addComponent(btnCancelar)))
+                    .addComponent(btnCancelar))
+                .addContainerGap())
         );
 
         pack();
@@ -328,8 +338,7 @@ public class BuscarPallet extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdPalletActionPerformed
 
 private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
-    
-    String strIndActivo;
+        
     PalletBE objPalletBE;
     
     if (!cbUbicacion.getSelectedItem().toString().equals("")){
@@ -339,6 +348,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         int intColumna = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
         objUbicacionBE = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack,intFila,intColumna,"2");
         if (objUbicacionBE != null){
+
             objPalletBE =objPalletBL.getPalletByIdUbicacion(objUbicacionBE.getIdUbicacion());
             arrPallets.add(objPalletBE);
         }
@@ -407,10 +417,10 @@ private void cbAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 }//GEN-LAST:event_cbAlmacenMouseClicked
 
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
-    AlmacenBL objAlmacenBL = new AlmacenBL();
+    
     int i;
     i = cbAlmacen.getSelectedIndex();
-    String strIdAlmacen = arrIdAlmacenes.get(i);
+    strIdAlmacen = arrIdAlmacenes.get(i);
     cargarComboZona(strIdAlmacen);
 }//GEN-LAST:event_cbAlmacenActionPerformed
 
