@@ -90,22 +90,22 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
        
         
         
-        for(int i = 0; i < numAplicaciones; i++) {
-            int numServicios=lista.get(i).getListaServicios().size();
-            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
-            for(int j = 0; j < numServicios; j++) {
-            checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
-            }
-            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
-            rootNodes[i]=vectorAplicacion;   
-        }
-        
-        Vector rootVector = new NamedVector("Root", rootNodes);
-        tree = new JTree(rootVector);  
-        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
-        tree.setCellRenderer(renderer);
-        tree.setCellEditor(new CheckBoxNodeEditor(tree));
-        tree.setEditable(true);   
+//        for(int i = 0; i < numAplicaciones; i++) {
+//            int numServicios=lista.get(i).getListaServicios().size();
+//            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
+//            for(int j = 0; j < numServicios; j++) {
+//            checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+//            }
+//            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
+//            rootNodes[i]=vectorAplicacion;   
+//        }
+//        
+//        Vector rootVector = new NamedVector("Root", rootNodes);
+//        tree = new JTree(rootVector);  
+//        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+//        tree.setCellRenderer(renderer);
+//        tree.setCellEditor(new CheckBoxNodeEditor(tree));
+//        tree.setEditable(true);   
         
         initComponents();
         jListAplicacion.setModel(modeloAplicacion);
@@ -141,24 +141,24 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         };
         
        ///
-        for(int i = 0; i < numAplicaciones; i++) {
-            int numServicios=lista.get(i).getListaServicios().size();
-            CheckBoxNode[] servicios =new CheckBoxNode[numServicios];
-            for(int j = 0; j < numServicios; j++) {
-            servicios[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
-            }
-            Vector aplicaciones = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),servicios);
-            rootNodes[i]=aplicaciones;   
-        }
-        
-        ///
-        Vector rootVector = new NamedVector("Root", rootNodes);
-        tree = new JTree(rootVector);  
-        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
-        tree.setCellRenderer(renderer);
-        tree.setCellEditor(new CheckBoxNodeEditor(tree));
-        tree.setEditable(true); 
-          
+//        for(int i = 0; i < numAplicaciones; i++) {
+//            int numServicios=lista.get(i).getListaServicios().size();
+//            CheckBoxNode[] servicios =new CheckBoxNode[numServicios];
+//            for(int j = 0; j < numServicios; j++) {
+//            servicios[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+//            }
+//            Vector aplicaciones = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),servicios);
+//            rootNodes[i]=aplicaciones;   
+//        }
+//        
+//        ///
+//        Vector rootVector = new NamedVector("Root", rootNodes);
+//        tree = new JTree(rootVector);  
+//        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+//        tree.setCellRenderer(renderer);
+//        tree.setCellEditor(new CheckBoxNodeEditor(tree));
+//        tree.setEditable(true); 
+//          
         
         
         initComponents();        
