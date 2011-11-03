@@ -30,7 +30,7 @@ public class EntidadDA {
                 +"','" + objEntidad.getDireccion() +"','" + objEntidad.getTelefono()
                 +"','" + objEntidad.getEmail() +"','" + objEntidad.getNombreContacto()
                 +"','" + objEntidad.getDniContacto() +"','" + objEntidad.getTelefonoContacto()
-                +"','" + objEntidad.getRazonSocial() +"','" + objEntidad.getPaginaWeb() +"','" 
+                +"','" + objEntidad.getRazonSocial().replace("'", "''") +"','" + objEntidad.getPaginaWeb() +"','"
                 + objEntidad.getIndActivo() +"','" + objEntidad.getIdCIUU() +"');";
 
          try{
@@ -224,7 +224,7 @@ public class EntidadDA {
         }
 
         if (razonSocial == null ? "" != null : !razonSocial.equals("")){
-            sql= sql + "and  razonSocial like '%"+ razonSocial+"%' ";
+            sql= sql + "and  razonSocial like '%"+ razonSocial.replace("'", "''")+"%' ";
         }
 
         if (direccion == null ? "" != null : !direccion.equals("")){
@@ -291,7 +291,7 @@ public class EntidadDA {
                 +" direccion='" + objEntidad.getDireccion() +"', telefono='" + objEntidad.getTelefono()
                 +"', email='" + objEntidad.getEmail() +"', nombrecontacto='" + objEntidad.getNombreContacto()
                 +"', dnicontacto='" + objEntidad.getDniContacto() +"',telefonocontacto='" + objEntidad.getTelefonoContacto()
-                +"', razonsocial='" + objEntidad.getRazonSocial()+"', paginaweb='" + objEntidad.getPaginaWeb() 
+                +"', razonsocial='" + objEntidad.getRazonSocial().replace("'", "''")+"', paginaweb='" + objEntidad.getPaginaWeb()
                 +"', indActivo='" + objEntidad.getIndActivo() +"', idciuu='" + objEntidad.getIdCIUU()
                 +"' where  identidad='"+ objEntidad.getIdEntidad() +"'";
 
