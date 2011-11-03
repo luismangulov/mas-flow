@@ -18,6 +18,7 @@ import BusinessEntity.ZonaBE;
 import BusinessLogic.RackBL;
 import Util.Configuracion;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -39,13 +40,15 @@ public class GUIMapa extends javax.swing.JFrame {
         this.mapa = mapa;
         calcularFactores();
         initComponents();
+        setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
     }
 
     public GUIMapa(Mapa mapa, ArrayList<UbicacionBE> mejoresUbicaciones) {
         this.mapa = mapa;
         calcularFactores();
         this.mejoresUbicaciones= mejoresUbicaciones;
-        initComponents();        
+        initComponents();
+        setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
     }
         
     public GUIMapa(Mapa mapa, Cromosoma mejorCromosoma) {
@@ -53,6 +56,7 @@ public class GUIMapa extends javax.swing.JFrame {
         calcularFactores();
         this.mejorCromosoma = mejorCromosoma;
         initComponents();
+        setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
     }
 
 
@@ -68,17 +72,7 @@ public class GUIMapa extends javax.swing.JFrame {
         setTitle("Mapa del almacén");
         setBounds(new java.awt.Rectangle(400, 400, 800, 600));
         setName("mapaFrame"); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 322, Short.MAX_VALUE)
-        );
+        getContentPane().setLayout(null);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -180,9 +174,11 @@ public class GUIMapa extends javax.swing.JFrame {
                 RackBE rack = rackBL.getByIdRack(ubicacion.getIdRack());
                 
                 g.setColor(Color.RED);
-
                 g.fillRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
                 g.drawRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
+
+                g.setColor(Color.WHITE);
+                g.drawString(String.valueOf(ubicacion.getFila()),convertirX(rack.getPosX())+(factorX/2), convertirY(rack.getPosY()+ubicacion.getColumna()-1)+(factorY/2));
         }
     }
 
