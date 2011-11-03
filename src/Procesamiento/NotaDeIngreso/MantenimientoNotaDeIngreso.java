@@ -148,7 +148,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false
@@ -352,7 +352,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleNotaIngresoBL objDetalleGuiaRemisionBL = new DetalleNotaIngresoBL();
                 try {
-                    objDetalleGuiaRemisionBL.insertar(objNotaIngresoBL.getObjNotaIngresoBE().getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)this.tblProductos.getValueAt(i, 2)));
+                    objDetalleGuiaRemisionBL.insertar(objNotaIngresoBL.getObjNotaIngresoBE().getCodigo(), (String)this.tblProductos.getValueAt(i, 0), (Integer)this.tblProductos.getValueAt(i, 2));
                 }catch (FileNotFoundException ex) {
                     Logger.getLogger(MantenimientoNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
@@ -501,7 +501,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
                 esValido = false;
                 break;
             }
-            if((Integer.parseInt((String)this.tblProductos.getValueAt(i, 2))%objProductoBE.getMaxCantPorPallet()) != 0){
+            if(((Integer)this.tblProductos.getValueAt(i, 2)%objProductoBE.getMaxCantPorPallet()) != 0){
                 JOptionPane.showMessageDialog(null, "La cantidad debe ser múltiplo de la maxcantidadenpallet", "Mensaje",1);
                 esValido = false;
                 break;

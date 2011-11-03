@@ -139,7 +139,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false
@@ -241,7 +241,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(30, 30, 30)
                                         .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                                         .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(lblAyuda))
@@ -249,7 +249,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                                         .addGap(27, 27, 27)
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+                                        .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGap(26, 26, 26)
                                         .addComponent(jLabel5)
@@ -269,7 +269,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addGap(3, 3, 3)
@@ -346,7 +346,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             for(int i = 0;i<this.tblProductos.getRowCount();i++){
                 DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
                 try {
-                   objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBE.getCodigo(), (String)this.tblProductos.getValueAt(i, 0), Integer.parseInt((String)(this.tblProductos.getValueAt(i, 2))));
+                   objDetalleGuiaRemisionBL.insertar(objGuiaRemisionBE.getCodigo(), (String)this.tblProductos.getValueAt(i, 0), (Integer)(this.tblProductos.getValueAt(i, 2)));
                    
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
@@ -560,8 +560,8 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
                 break;
             }
             
-            if((Integer.parseInt((String)this.tblProductos.getValueAt(i, 2))%objProductoBE.getMaxCantPorPallet()) != 0){
-             
+            //if((Integer.parseInt((String)this.tblProductos.getValueAt(i, 2))%objProductoBE.getMaxCantPorPallet()) != 0){
+            if(((Integer)this.tblProductos.getValueAt(i, 2)%objProductoBE.getMaxCantPorPallet()) != 0){ 
                 JOptionPane.showMessageDialog(null, "La cantidad debe ser múltiplo de la maxcantidadenpallet", "Mensaje",1);
                 esValido = false;
                 break;
