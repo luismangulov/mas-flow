@@ -260,7 +260,7 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();
     
     for (int i=0; i<modelo.getRowCount(); i++){
-        
+        JOptionPane.showMessageDialog(null, "wa");
         strIdUbicacion = modelo.getValueAt(i,0).toString();
         strIdPallet = modelo.getValueAt(i,1).toString();
         strIdProducto = objProductoBL.getByNombreProducto(modelo.getValueAt(i, 2).toString()).getIdProducto();
@@ -298,9 +298,9 @@ private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 
     private void txtMotivoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMotivoKeyTyped
     char c = (char)evt.getKeyChar();
-    if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+    if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
        evt.consume();
-    if ((this.txtMotivo.getText().length() + 1) > 6) {
+    if ((this.txtMotivo.getText().length() + 1) > 30) {
        evt.consume();
     }
     }//GEN-LAST:event_txtMotivoKeyTyped
