@@ -26,8 +26,8 @@ public class Mapa {
     private AlmacenBE almacen;
     private int numX;
     private int numY;
-    private int posPuertaX; //posicion puerta x
-    private int posPuertaY; //posicion puerta y
+    private int posPuertaX; 
+    private int posPuertaY; 
     private int id;
 
     private ArrayList<ZonaBE> listaZonas;
@@ -36,6 +36,7 @@ public class Mapa {
     public Mapa(AlmacenBE almacen)
     {
         this.almacen = almacen;
+        listaRacks = new ArrayList<RackBE>();
 
         ZonaBL zonaBL = new ZonaBL();
         listaZonas = zonaBL.getZonasByAlmacen(almacen.getIdAlmacen());
