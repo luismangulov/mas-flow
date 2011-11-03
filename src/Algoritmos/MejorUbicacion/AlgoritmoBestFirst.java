@@ -69,8 +69,8 @@ public class AlgoritmoBestFirst {
           Collections.sort(listaPosiblesUbicaciones,new Comparator<UbicacionBE>() {
              public int compare(UbicacionBE u1, UbicacionBE u2) {
                 double distancia1 = distanciaALaPuerta(u1);
-                double distancia2 = distanciaALaPuerta(u1);
-                return (distancia2<distancia1 ? -1 : (distancia2>distancia1?1 : 0));
+                double distancia2 = distanciaALaPuerta(u2);
+                return (distancia1<distancia2 ? -1 : (distancia1>distancia2?1 : 0));
              }
           });
 
