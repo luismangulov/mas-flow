@@ -377,6 +377,16 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             
             mapa.mostrarGraficoMapa(arrUbicaciones);
             
+//            EstadoNIDA objEstadoNIDA = new EstadoNIDA();
+//            EstadoNIBE objEstadoNIBE = new EstadoNIBE();
+//            objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Ingresado");
+//            NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
+//                try {
+//                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
+//                } catch (Exception ex) {
+//                    Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
             
          }
     }//GEN-LAST:event_lblIngresarMousePressed
