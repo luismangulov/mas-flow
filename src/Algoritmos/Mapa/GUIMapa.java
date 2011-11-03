@@ -126,12 +126,12 @@ public class GUIMapa extends javax.swing.JFrame {
 
         for (int i=0;i<mapa.getNumX();i++)
         {
-            g.drawString(String.valueOf(i), factorX*i+50, pixelesAncho+factorY+20 );
+            g.drawString(String.valueOf(i), factorX*i+50+(factorX/2), pixelesAncho+factorY+10 );
         }
 
         for (int j=0;j<mapa.getNumY();j++)
         {
-            g.drawString(String.valueOf(j), 50, factorY*j+50);
+            g.drawString(String.valueOf(j), 25, factorY*j+50+(factorY/2));
         }
 
     }
@@ -143,7 +143,7 @@ public class GUIMapa extends javax.swing.JFrame {
         {
             if (nodo.isNodoInicial())
             {
-                g.setColor(Color.BLUE);
+                g.setColor(Color.ORANGE);
                 g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
                 g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
             }
