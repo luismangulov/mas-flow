@@ -65,10 +65,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         tblGuiaRemision.setAutoCreateRowSorter(true);
         tblGuiaRemision.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Almacen", "Código", "Cliente", "Dirección", "Fecha", "Estado"

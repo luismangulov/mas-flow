@@ -59,11 +59,7 @@ public class AdmFamiliaProd extends javax.swing.JFrame {
         dgvFamilia.setAutoCreateRowSorter(true);
         dgvFamilia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nombre", "Descripción", "Estado"
