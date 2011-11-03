@@ -15,7 +15,6 @@ import java.util.LinkedList;
  * @author carlitos
  */
 public class Ruta {
-//Esta clase debe ser serializada
 
     private Nodo productoOrigen;
 
@@ -27,18 +26,87 @@ public class Ruta {
 
     private static ArrayList<ArrayList<Double>> ady;
 
+    
     public Ruta(Nodo origen, Nodo destino,final Nodo nodos[])
     {
         productoOrigen = origen;
         productoDestino = destino;
         aplicarDijkstra(nodos);
     }
+
+
+    public static void llenarMatrizAdy(final Nodo nodos[])
+    {
+        ady = new ArrayList<ArrayList<Double>>();
+        ArrayList<Double> temp;
+
+        int i;
+        int j;
+        Nodo nodoi;
+        Nodo nodoj;
+
+        for (i=0 ; i < nodos.length ; i++)
+        {
+            temp = new ArrayList<Double>();
+            nodoi = nodos[i];
+
+            for (j=0 ; j < nodos.length ; j++)
+            {
+                double d;
+                nodoj = nodos[j];
+
+                if (j==i)
+                    d = 0;
+                else
+                    d = distancia(nodoi,nodoj);
+
+                temp.add(d);
+            }
+            ady.add(temp);
+        }
+
+        removerConexiones(nodos);
+    }
+
+
+    public static double distancia(Nodo nodoi, Nodo nodoj) {
+      double x = nodoi.getX();
+      double y = nodoi.getY();
+      double dx= x - nodoj.getX();
+      double dy= y - nodoj.getY();
+      double distance=Math.sqrt(dx * dx + dy * dy);
+      return distance;
+    }
+
+
+    //Forma una malla
+    public static void removerConexiones(final Nodo punto[])
+    {
+        int i;
+        int j;
+
+        double pesoMax = peso(punto[0],punto[1]);
+        pesoMax = pesoMax + 0.2 * pesoMax;
+
+        i=0;
+        while (i<punto.length && ady.size()>2)
+        {
+            j=0;
+            while (j<punto.length)
+            {
+                if (peso(punto[i],punto[j]) > pesoMax)//((peso(punto[i],punto[j]) > pesoMax) && (i != j))
+                {
+                    (ady.get(i)).set(j, Double.POSITIVE_INFINITY);
+                    (ady.get(j)).set(i, Double.POSITIVE_INFINITY);
+                }
+                j++;
+            }
+            i++;
+        }
+
+        //falta quitar las conexiones entre racks
+    }
     
-   public static Ruta obtenerRuta(Nodo producto1, Nodo producto2)
-   {
-        //HACER QUERY A LA BD PARA OBTENER LA RUTA ENTRE EL PRODUCTO1 Y EL PRODUCTO2
-       return null;
-   }
 
     private void aplicarDijkstra(final Nodo puntos[])
     {
@@ -47,9 +115,7 @@ public class Ruta {
         ArrayList<Nodo> camino = new ArrayList<Nodo>();
 
         int i,posPuntoActual,k,MAX;
-
-        //MAX = ady.size();
-        
+      
         MAX = puntos.length;
 
         for(i=0; i<MAX; i++)
@@ -127,11 +193,11 @@ public class Ruta {
     }
 
 
-    public static Double peso(Nodo producto1 , Nodo producto2)
+    public static Double peso(Nodo nodoObligatorio1 , Nodo nodoObligatorio2)
     {
         //Devuelve la distancia entre dos nodos. Si es infinita entonces no hay conexion.
         //FALTA CARGAR LA MATRIZ DE LA BD
-        return (ady.get(producto1.getId())).get(producto2.getId());
+        return (ady.get(nodoObligatorio1.getId())).get(nodoObligatorio2.getId());
     }
 
     public Nodo getProductoOrigen() {
