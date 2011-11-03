@@ -678,4 +678,37 @@ public class MantenimientoZona extends javax.swing.JFrame {
 
             }
     }
+
+
+    boolean interseccion(int x1,int y1,int ancho1,int largo1, int x2,int y2,int ancho2,int largo2){
+
+        boolean valor = false;
+
+        if ((x2>=x1 &&x2<=ancho1+x1 && y2>=y1 && y2<=largo1+y1)||
+            (x2>=x1 &&x2<=ancho1+x1 && largo2+y2>=y1 && largo2+y2<=largo1+y1)||
+            (ancho2+x2>=x1 &&ancho2+x2<=ancho1+x1 && largo2+y2>=y1 && largo2+y2<=largo1+y1)||
+            (ancho2+x2>=x1 &&ancho2+x2<=ancho1+x1 && y2>=y1 && y2<=largo1+y1)||
+
+            (x1>=x2 &&x1<=ancho2+x2 && y1>=y2 && y1<=largo2+y2)||
+            (x1>=x1 &&x1<=ancho2+x2 && largo1+y1>=y2 && largo1+y1<=largo2+y2)||
+            (ancho1+x1>=x2 &&ancho1+x1<=ancho2+x2 && largo1+y1>=y2 && largo1+y1<=largo2+y2)||
+            (ancho1+x1>=x2 &&ancho1+x1<=ancho2+x2 && y1>=y2 && y1<=largo2+y2)||
+
+            (x1<x2 &&ancho1+x1>ancho2+x2 && y1>=y2 && y1<=largo2+y2)||
+            (x1<x2 &&ancho1+x1>ancho2+x2 && largo1+y1>=y2 && largo1+y1<=largo2+y2)||
+            (x1>=x1 &&x1<=ancho2+x2 && y1<y2 && largo1+y1>largo2+y2)||
+            (ancho1+x1>=x2 &&ancho1+x1<=ancho2+x2 && y1<y2 && largo1+y1>largo2+y2)||
+
+            (x2<x1 &&ancho2+x2>ancho1+x1 && y2>=y1 && y2<=largo1+y1)||
+            (x2<x1 &&ancho2+x2>ancho1+x1 && largo2+y2>=y1 && largo2+y2<=largo1+y1)||
+            (x2>=x2 &&x2<=ancho1+x1 && y2<y1 && largo2+y2>largo1+y1)||
+            (ancho2+x2>=x1 &&ancho2+x2<=ancho1+x1 && y2<y1 && largo2+y2>largo1+y1)
+
+
+                ){ valor=true;}
+
+
+        return valor;
+
+    }
 }
