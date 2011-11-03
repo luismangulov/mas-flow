@@ -10,11 +10,13 @@
  */
 package Procesamiento.NotaDeIngreso;
 
+import BusinessEntity.AlmacenBE;
 import BusinessEntity.DetalleNotaIngresoBE;
 import BusinessEntity.EstadoGRBE;
 import BusinessEntity.EstadoNIBE;
 import BusinessEntity.NotaIngresoBE;
 import BusinessEntity.ProductoBE;
+import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleNotaIngresoBL;
 import BusinessLogic.NotaIngresoBL;
 import BusinessLogic.ProductoBL;
@@ -71,7 +73,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "CodAlmacen", "Código", "Proveedor", "Direccion", "Fecha", "Estado"
+                "Almacen", "Código", "Proveedor", "Direccion", "Fecha", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -222,10 +224,20 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         }else{
             int fila;
             String codigo;
+            String identificador;
             String idAlmacen;
             fila = tblNotaIngreso.getSelectedRow();
             codigo = (String)tblNotaIngreso.getValueAt(fila, 1);
-            idAlmacen = (String)tblNotaIngreso.getValueAt(fila, 0);
+            
+            
+            identificador = (String)tblNotaIngreso.getValueAt(fila, 0);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>(); 
+            arrAlmacenes = objAlmacenBL.buscar("", "", "1", "", "", "", identificador);
+            
+            idAlmacen = arrAlmacenes.get(0).getIdAlmacen();
+            
+            
             DetalleNotaIngresoBL objDetalleNotaIngresoBL = new DetalleNotaIngresoBL();        
             ArrayList<DetalleNotaIngresoBE> arrDetalleNotaIngresoBE = new ArrayList<DetalleNotaIngresoBE>();
             arrDetalleNotaIngresoBE = objDetalleNotaIngresoBL.queryAllDetalleNotaIngreso(codigo);
@@ -248,9 +260,9 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 }
                 UbicacionBL objUbicacionBL = new UbicacionBL();
                int ubicaLibres = objUbicacionBL.queryCantUbicacionesLibres(arrCodFamilia.get(i), idAlmacen);
-                
-                //JOptionPane.showMessageDialog(null, cantUbicacion, "Mensaje",1); 
-                //JOptionPane.showMessageDialog(null, ubicaLibres, "Mensaje",1);
+                JOptionPane.showMessageDialog(null, idAlmacen, "Mensaje",1);
+                JOptionPane.showMessageDialog(null, cantUbicacion, "Mensaje",1); 
+                JOptionPane.showMessageDialog(null, ubicaLibres, "Mensaje",1);
                 if(cantUbicacion> ubicaLibres){
                     libres = false;
                     break;
@@ -262,8 +274,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Pendiente");
                 NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
                 try {
-                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
-                    tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
+                    //objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
+                    //tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
                 } catch (Exception ex) {
                     Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -274,8 +286,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Aprobado");
                 NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
                 try {
-                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
-                     tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
+                    //objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
+                     //tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
                 } catch (Exception ex) {
                     Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -333,7 +345,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JTable tblNotaIngreso;
     // End of variables declaration//GEN-END:variables
 
-public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String direccion){
+public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String direccion,String identificador){
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
@@ -343,7 +355,7 @@ public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String dire
             }
         };
         tblNotaIngreso.setModel(modelo);
-         modelo.addColumn("CodAlmacen");         
+         modelo.addColumn("Almacen");         
         modelo.addColumn("Código");
         modelo.addColumn("Cliente");
         modelo.addColumn("Dirección");
@@ -355,7 +367,7 @@ public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String dire
 //        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
          modelo.addRow(new Object[5]);
-          tblNotaIngreso.setValueAt(notaIngreso.getAlmacen().getIdAlmacen(),0,0 ); 
+          tblNotaIngreso.setValueAt(identificador,0,0 ); 
          tblNotaIngreso.setValueAt(notaIngreso.getCodigo(),0,1 );
          tblNotaIngreso.setValueAt(razonSocial,0,2 );
          tblNotaIngreso.setValueAt(direccion,0,3 );
@@ -374,7 +386,7 @@ public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String dire
             }
         };
          tblNotaIngreso.setModel(modelo);
-          modelo.addColumn("CodAlmacen");
+          modelo.addColumn("Almacen");
         modelo.addColumn("Código");
         modelo.addColumn("Cliente");
         modelo.addColumn("Dirección");
@@ -388,7 +400,7 @@ public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String dire
         
         for(int i = 0;i<notasIngreso.size();i++){
             modelo.addRow(new Object[5]);
-             tblNotaIngreso.setValueAt(notasIngreso.get(i).getAlmacen().getIdAlmacen(),i,0 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getAlmacen().getIdentificador(),i,0 );
              tblNotaIngreso.setValueAt(notasIngreso.get(i).getCodigo(),i,1 );
              tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getRazonSocial(),i,2 );
              tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getDireccion(),i,3 );
