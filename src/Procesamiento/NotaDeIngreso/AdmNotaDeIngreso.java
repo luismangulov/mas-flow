@@ -329,6 +329,12 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
           String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();  
          if(estado.equals("Ingresado")){
             JOptionPane.showMessageDialog(null, "Los productos de la nota de ingreso ya han sido ingresados", "Mensaje",0);
+         }else  if(estado.equals("Registrado")){
+            JOptionPane.showMessageDialog(null, "La nota de ingreso debe ser aprobada", "Mensaje",0);
+         
+         }else  if(estado.equals("Pendiente")){
+            JOptionPane.showMessageDialog(null, "La nota de ingreso debe ser aprobada", "Mensaje",0);
+         
          }else{
               int fila;
             String codigo;
