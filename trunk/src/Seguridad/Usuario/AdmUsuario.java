@@ -151,11 +151,7 @@ public class AdmUsuario extends javax.swing.JFrame {
         dgvUsuario.setAutoCreateRowSorter(true);
         dgvUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Usuario", "Nombre", "Apellido Paterno", "Apellido Materno", "Perfil", "Estado "

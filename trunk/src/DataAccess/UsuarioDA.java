@@ -80,6 +80,7 @@ public class UsuarioDA {
         return arrUsuario;
     }
 
+       
      public UsuarioBE queryByIdUsuario(String idUsuario){
         conexion objConexion=new conexion();
         ResultSet rs = null;

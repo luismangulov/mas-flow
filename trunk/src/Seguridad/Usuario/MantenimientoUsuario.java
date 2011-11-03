@@ -13,6 +13,7 @@ package Seguridad.Usuario;
 import BusinessEntity.PerfilBE;
 import BusinessEntity.UsuarioBE;
 import BusinessLogic.UsuarioBL;
+import BusinessLogic.UsuarioContrasenaBL;
 import DataAccess.PerfilDA;
 import Util.Utilitario;
 import java.util.ArrayList;
@@ -255,9 +256,15 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     
                     
                     objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
-                                            
+                                
                     UsuarioBE usuario;
                     usuario = objUsuarioBL.getUsuario();
+                    UsuarioContrasenaBL objUsuarioContrasenaBL=new UsuarioContrasenaBL();
+                    String ind=objUsuarioContrasenaBL.actualizarContrasena(usuario.getIdUsuario(),usuario.getIdUsuario());
+                    if (ind.equals("1")){
+                        JOptionPane.showMessageDialog(null, "Su contraseña es "+usuario.getIdUsuario(), "Mensaje", 0);
+                    }
+                    
                     this.objPadre.recargaruno(usuario);
                     this.dispose();
                  

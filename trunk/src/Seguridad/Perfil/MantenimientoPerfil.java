@@ -13,6 +13,7 @@ package Seguridad.Perfil;
 import BusinessEntity.AplicacionxServicioBE;
 import BusinessEntity.PerfilBE;
 import BusinessEntity.PerfilDetalleBE;
+import BusinessEntity.ServicioBE;
 import BusinessLogic.PerfilBL;
 import DataAccess.AplicacionDA;
 import DataAccess.AplicacionxServicioDA;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractListModel;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JTree;
 import javax.swing.JScrollPane;
@@ -37,38 +40,69 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
     /** Creates new form MantenimientoPerfil */
     private AdmPerfil objPadre;
     private String accion;
-    private JTree tree=new JTree();
+    //private JTree tree=new JTree();
+    private javax.swing.JCheckBox jCheckBoxAplicacion;
+    private javax.swing.JCheckBox jCheckBoxServicio;
+    private AbstractListModel modeloAplicacion;
+    private AbstractListModel modeloServicio;
+    private boolean primero;
     
     AplicacionxServicioDA objAplicacionxServicio =new AplicacionxServicioDA();
-    ArrayList <AplicacionxServicioBE> lista = objAplicacionxServicio.queryAllAplicacionxServicio();   
+    ArrayList <AplicacionxServicioBE> listaAplicacionxServicio = objAplicacionxServicio.queryAllAplicacionxServicio();  
     AplicacionDA objAplicacionDA =new AplicacionDA();
     int numAplicaciones= objAplicacionDA.queryAllAplicacion().size();
-    Object[] rootNodes =new Vector[numAplicaciones];
-  
-       
+    
+    private String[] listaAplicacion=new String[numAplicaciones];
+    private String[] listaServicio;
+    //Object[] rootNodes =new Vector[numAplicaciones];
+    
+      
     
     public MantenimientoPerfil(AdmPerfil padre) {
         this.objPadre = padre;
         accion = "registrar";
+        primero=true;
         
-        for(int i = 0; i < numAplicaciones; i++) {
-            int numServicios=lista.get(i).getListaServicios().size();
-            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
-            for(int j = 0; j < numServicios; j++) {
-            checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+        int cont=0;           
+        for (cont = 0; cont<numAplicaciones; cont++) {            
+                String aplicacion = listaAplicacionxServicio.get(cont).getAplicacion().getDescripcion();
+                listaAplicacion[cont]= aplicacion;       
+            
+        };        
+       modeloAplicacion= new AbstractListModel() {        
+            String[] listaLocal=listaAplicacion;
+            public int getSize() {
+                return listaLocal.length;
+                
             }
-            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
-            rootNodes[i]=vectorAplicacion;   
-        }
+            public Object getElementAt(int index) {
+                return listaLocal[index];
+            }
+            
+        };
+       
         
-        Vector rootVector = new NamedVector("Root", rootNodes);
-        tree = new JTree(rootVector);  
-        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
-        tree.setCellRenderer(renderer);
-        tree.setCellEditor(new CheckBoxNodeEditor(tree));
-        tree.setEditable(true);   
+        
+//        for(int i = 0; i < numAplicaciones; i++) {
+//            int numServicios=lista.get(i).getListaServicios().size();
+//            CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];
+//            for(int j = 0; j < numServicios; j++) {
+//            checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+//            }
+//            Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
+//            rootNodes[i]=vectorAplicacion;   
+//        }
+//        
+//        Vector rootVector = new NamedVector("Root", rootNodes);
+//        tree = new JTree(rootVector);  
+//        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+//        tree.setCellRenderer(renderer);
+//        tree.setCellEditor(new CheckBoxNodeEditor(tree));
+//        tree.setEditable(true);   
         
         initComponents();
+        jListAplicacion.setModel(modeloAplicacion);
+        
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
         this.txtCodigo.setEnabled(false);
@@ -79,57 +113,48 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.objPadre = padre;
         accion = "modificar";
         
-       
-        for(int i = 0; i < numAplicaciones; i++) {
-            int numServicios=lista.get(i).getListaServicios().size();
-            CheckBoxNode[] servicios =new CheckBoxNode[numServicios];
-            for(int j = 0; j < numServicios; j++) {
-            servicios[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+        int cont=0;           
+        for (cont = 0; cont<perfil.getListaPerfilDetalle().size(); cont++) {            
+                String aplicacion = perfil.getListaPerfilDetalle().get(cont).getAplicacion().getDescripcion();
+                listaAplicacion[cont]= aplicacion;       
+            
+        };        
+       modeloAplicacion= new AbstractListModel() {        
+            String[] listaLocal=listaAplicacion;
+            public int getSize() {
+                return listaLocal.length;
+                
             }
-            Vector aplicaciones = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),servicios);
-            rootNodes[i]=aplicaciones;   
-        }
+            public Object getElementAt(int index) {
+                return listaLocal[index];
+            }
+            
+        };
         
-        Vector rootVector = new NamedVector("Root", rootNodes);
-        tree = new JTree(rootVector);  
-        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
-        tree.setCellRenderer(renderer);
-        tree.setCellEditor(new CheckBoxNodeEditor(tree));
-        tree.setEditable(true); 
+//       ///
+//        for(int i = 0; i < numAplicaciones; i++) {
+//            int numServicios=lista.get(i).getListaServicios().size();
+//            CheckBoxNode[] servicios =new CheckBoxNode[numServicios];
+//            for(int j = 0; j < numServicios; j++) {
+//            servicios[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
+//            }
+//            Vector aplicaciones = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),servicios);
+//            rootNodes[i]=aplicaciones;   
+//        }
+//        
+//        ///
+//        Vector rootVector = new NamedVector("Root", rootNodes);
+//        tree = new JTree(rootVector);  
+//        CheckBoxNodeRenderer renderer = new CheckBoxNodeRenderer();
+//        tree.setCellRenderer(renderer);
+//        tree.setCellEditor(new CheckBoxNodeEditor(tree));
+//        tree.setEditable(true); 
     
+        
         
         initComponents();
              
-        PerfilDA objPerfilDA =new PerfilDA();
-        PerfilBE objPerfilBE=new PerfilBE();
-        objPerfilBE=objPerfilDA.queryByIdPerfil(perfil.getIdPerfil());
-        ArrayList <PerfilDetalleBE> listaDetallePerfil=objPerfilBE.getListaPerfilDetalle();
-              
-        for(int i = 0; i <numAplicaciones; i++) {
-        //int numServicios=lista.get(i).getListaServicios().size();
-        //CheckBoxNode[] checkBoxNodeVector =new CheckBoxNode[numServicios];        
-            String aplicacion=rootNodes[i].toString().trim();
-            System.out.println(aplicacion);
-            
-            Object servicios[]=new CheckBoxNode[rootNodes.length];
-            
-            for(int j = 0; j < 3; j++) {
-                
-                String servicio =servicios[j].toString().trim();
-                
-                System.out.println(aplicacion);
-             //   String servicio = rootNodes[i][j].toString();
-                
-          //checkBoxNodeVector[j]=new CheckBoxNode(lista.get(i).getListaServicios().get(j).getIdDescripcion(),false);
-                        
-            
-            
-   
-        //Vector vectorAplicacion = new NamedVector(lista.get(i).getAplicacion().getDescripcion(),checkBoxNodeVector);
-        //rootNodes[i]=vectorAplicacion;   
-             }
-        }
-        
+//    ///        
        
         
         this.setLocationRelativeTo(null);
@@ -166,7 +191,17 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         cbxActivo = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane(tree);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListAplicacion = new javax.swing.JList();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jListServicio = new javax.swing.JList();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblAddAplicacion = new javax.swing.JLabel();
+        lblRemoverAplicacion = new javax.swing.JLabel();
+        lblAddServicio = new javax.swing.JLabel();
+        lblRemoverServicio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar perfil");
@@ -219,6 +254,55 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             }
         });
 
+        jListAplicacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListAplicacionMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jListAplicacion);
+
+        jScrollPane3.setViewportView(jListServicio);
+
+        jLabel3.setText("Aplicacion");
+
+        jLabel4.setText("Servicio");
+
+        lblAddAplicacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add24.png"))); // NOI18N
+        lblAddAplicacion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblAddAplicacion.setName(""); // NOI18N
+        lblAddAplicacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAddAplicacionMousePressed(evt);
+            }
+        });
+
+        lblRemoverAplicacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete24.png"))); // NOI18N
+        lblRemoverAplicacion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRemoverAplicacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblRemoverAplicacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRemoverAplicacionMousePressed(evt);
+            }
+        });
+
+        lblAddServicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add24.png"))); // NOI18N
+        lblAddServicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblAddServicio.setName(""); // NOI18N
+        lblAddServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAddServicioMousePressed(evt);
+            }
+        });
+
+        lblRemoverServicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete24.png"))); // NOI18N
+        lblRemoverServicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRemoverServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblRemoverServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRemoverServicioMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -242,32 +326,71 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(cbxActivo))))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(545, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAddAplicacion)
+                    .addComponent(lblRemoverAplicacion))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAddServicio)
+                            .addComponent(lblRemoverServicio))))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
                 .addGap(31, 31, 31)
                 .addComponent(cbxActivo)
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(175, Short.MAX_VALUE)
+                .addComponent(lblAddAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(lblRemoverAplicacion)
+                .addGap(164, 164, 164))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(173, Short.MAX_VALUE)
+                .addComponent(lblAddServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(lblRemoverServicio)
+                .addGap(166, 166, 166))
         );
 
         pack();
@@ -349,6 +472,65 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
 // TODO add your handling code here:
 }//GEN-LAST:event_formComponentShown
 
+private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListAplicacionMouseClicked
+// TODO add your handling code here:
+
+    int item = jListAplicacion.getSelectedIndex();//obtengo posicion en la lista
+    
+    if(accion.equals("registrar")){ //Cuando es registrar
+        
+        if (primero==true){ 
+            
+            primero=false;
+            ArrayList <ServicioBE> listaServicios  =new ArrayList<ServicioBE>();
+            listaServicios=listaAplicacionxServicio.get(item).getListaServicios();          
+
+            int cont=0;          
+            final String[] listaLocalServicio=  new String [listaAplicacionxServicio.get(item).getListaServicios().size()];
+
+            for (cont = 0; cont<listaServicios.size(); cont++) {
+                 String servicio = listaServicios.get(cont).getIdDescripcion();
+                 listaLocalServicio[cont]=servicio;           
+            };
+            modeloServicio= new AbstractListModel() {            
+                    String[] listaLocal=listaLocalServicio;
+                    public int getSize() {
+                        return listaLocal.length;
+                    }
+                    public Object getElementAt(int index) {
+                        return listaLocal[index];
+                    }
+            };
+            jListServicio.setModel(modeloServicio);
+        }
+    }
+    
+            
+            
+            
+}//GEN-LAST:event_jListAplicacionMouseClicked
+
+private void lblAddAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddAplicacionMousePressed
+        // TODO add your handling code here:
+
+        
+        
+}//GEN-LAST:event_lblAddAplicacionMousePressed
+
+private void lblRemoverAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverAplicacionMousePressed
+        // TODO add your handling code here:
+
+    
+}//GEN-LAST:event_lblRemoverAplicacionMousePressed
+
+private void lblAddServicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddServicioMousePressed
+// TODO add your handling code here:
+}//GEN-LAST:event_lblAddServicioMousePressed
+
+private void lblRemoverServicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverServicioMousePressed
+// TODO add your handling code here:
+}//GEN-LAST:event_lblRemoverServicioMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -391,7 +573,17 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
     private javax.swing.JCheckBox cbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JList jListAplicacion;
+    private javax.swing.JList jListServicio;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblAddAplicacion;
+    private javax.swing.JLabel lblAddServicio;
+    private javax.swing.JLabel lblRemoverAplicacion;
+    private javax.swing.JLabel lblRemoverServicio;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables

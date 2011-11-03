@@ -6,6 +6,7 @@
 package masflow;
 
 import Seguridad.Login;
+import Seguridad.Perfil.AdmPerfil;
 
 
 /**

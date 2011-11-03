@@ -13,10 +13,15 @@ import java.util.Vector;
 public class NamedVector extends Vector {
     
     String name;
-
+    boolean selected;
 
   public NamedVector(String name) {
     this.name = name;
+  }
+  
+  public NamedVector(String text, boolean selected) {
+    this.name = text;
+    this.selected = selected;
   }
 
   public NamedVector(String name, Object elements[]) {
