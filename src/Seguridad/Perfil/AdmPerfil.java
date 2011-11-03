@@ -27,6 +27,7 @@ public class AdmPerfil extends javax.swing.JFrame {
     /** Creates new form AdmPerfil */
     public AdmPerfil() {
         initComponents();
+         this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

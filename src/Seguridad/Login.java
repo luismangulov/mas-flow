@@ -24,6 +24,7 @@ public class Login extends javax.swing.JFrame {
     /** Creates new form LogIn2 */
     public Login() {
         initComponents();
+         this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -179,6 +180,13 @@ private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         }
         
     }
+    
+//    if (this.txtUsuario.getText().trim().equals(this.txtPassword.getText().trim())){
+//        CambiarContrasena v=new CambiarContrasena();
+//        v.setVisible(true);
+//        return;
+//    
+//    }
     
     String res=objUsuarioContrasenaBL.corroborarContrasena(this.txtUsuario.getText(),this.txtPassword.getText());
     if (res.equals("1")){             
