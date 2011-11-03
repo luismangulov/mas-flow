@@ -41,6 +41,7 @@ public class GUIMapa extends javax.swing.JFrame {
         calcularFactores();
         initComponents();
         setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
+        this.createBufferStrategy(2);
     }
 
     public GUIMapa(Mapa mapa, ArrayList<UbicacionBE> mejoresUbicaciones) {
@@ -49,6 +50,7 @@ public class GUIMapa extends javax.swing.JFrame {
         this.mejoresUbicaciones= mejoresUbicaciones;
         initComponents();
         setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
+        this.createBufferStrategy(2);
     }
         
     public GUIMapa(Mapa mapa, Cromosoma mejorCromosoma) {
@@ -57,6 +59,7 @@ public class GUIMapa extends javax.swing.JFrame {
         this.mejorCromosoma = mejorCromosoma;
         initComponents();
         setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
+        this.createBufferStrategy(2);
     }
 
 
@@ -110,7 +113,7 @@ public class GUIMapa extends javax.swing.JFrame {
 
            if (mejoresUbicaciones != null) dibujaMejoresUbicaciones(g);
 
-           
+           dibujaLeyenda(g);
     }
 
 
@@ -161,7 +164,7 @@ public class GUIMapa extends javax.swing.JFrame {
         for (ZonaBE zona : mapa.getListaZonas())
         {
                 g.setColor(Color.BLUE);
-                g.drawRect(convertirX(zona.getPosX()), convertirY(zona.getPosY()), factorX*zona.getLargo(), factorY*zona.getAncho());
+                g.drawRect(convertirX(zona.getPosX()), convertirY(zona.getPosY()), factorX*zona.getAncho(), factorY*zona.getLargo());
         }
     }
 
@@ -182,6 +185,11 @@ public class GUIMapa extends javax.swing.JFrame {
         }
     }
 
+
+    private void dibujaLeyenda(Graphics g)
+    {
+
+    }
 
     private void calcularFactores()
     {
