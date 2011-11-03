@@ -56,11 +56,7 @@ public class AdmProveedor extends javax.swing.JFrame {
         dgvProveedor.setAutoCreateRowSorter(true);
         dgvProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nombre", "Estado", "Contacto", "Teléfono"
@@ -81,6 +77,7 @@ public class AdmProveedor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvProveedor.setColumnSelectionAllowed(true);
         dgvProveedor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvProveedor);
         dgvProveedor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -222,11 +219,11 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             EntidadBL objProveedorBL = new EntidadBL();
             NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
             try {
-//                if(!objNotaIngresoBL.buscar("","", "1",codigo, "").isEmpty()){
-//                         JOptionPane.showMessageDialog(null, "El proveedor no se puede eliminar porque aparece en notas de ingreso.", "Error", 0);
-//                return;
-//
-//                    }
+                if(!objNotaIngresoBL.buscarbyCodigoEntidad(codigo).isEmpty()){
+                         JOptionPane.showMessageDialog(null, "El proveedor no se puede eliminar porque aparece en notas de ingreso.", "Error", 0);
+                return;
+
+                    }
                 objProveedorBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {

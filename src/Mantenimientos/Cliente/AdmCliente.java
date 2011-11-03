@@ -64,11 +64,7 @@ public class AdmCliente extends javax.swing.JFrame {
         dgvCliente.setAutoCreateRowSorter(true);
         dgvCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Razón Social", "Estado", "Contacto", "Teléfono"
@@ -89,6 +85,7 @@ public class AdmCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvCliente.setColumnSelectionAllowed(true);
         dgvCliente.setName("dgvCliente"); // NOI18N
         dgvCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvCliente);
@@ -265,12 +262,11 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             EntidadBL objClienteBL = new EntidadBL();
             GuiaRemisionBL objGuiaRemisionBL= new GuiaRemisionBL();
             try {
+                if(!objGuiaRemisionBL.buscarbyCodigoEntidad(codigo).isEmpty()){
+                         JOptionPane.showMessageDialog(null, "El cliente no se puede eliminar porque aparece en guías de remisión.", "Error", 0);
+                return;
 
-//                if(!objGuiaRemisionBL.buscar("","", "1",codigo, "").isEmpty()){
-//                         JOptionPane.showMessageDialog(null, "El cliente no se puede eliminar porque aparece en guías de remisión.", "Error", 0);
-//                return;
-//
-//                    }
+                    }
 
                 objClienteBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);

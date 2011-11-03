@@ -466,4 +466,42 @@ public class ZonaDA {
 
       return objZonaBE;
     }
+
+        public ArrayList<ZonaBE> queryZonasByFamilia(String strIdAlmacen, String strIdFamilia) {
+        objConexion = new conexion();
+        ResultSet rs = null;
+        arrZonas = new ArrayList<ZonaBE>();
+
+        query = "SELECT z.idZona, z.Nombre, z.indActivo, z.idAlmacen, z.largo, z.ancho, z.posx, z.posy, z.identificador FROM ALMACEN a, ZONA z, FAMILIA f, ZONAXFAMILIA zxf "
+                + " WHERE z.IndActivo = '1' AND a.idAlmacen = z.idAlmacen "
+                + " AND z.idZona = zxf.idZona AND f.idFamilia = zxf.idFamilia "
+                + " AND a.idAlmacen ='" +strIdAlmacen +"' AND f.idFamilia ='" +strIdFamilia +"'";
+
+        try{
+            rs = objConexion.EjecutarS(query);
+
+            while(rs.next()){
+
+            String strIdZona = rs.getString("idZona").trim();
+            String strNombre = rs.getString("nombre").trim();
+            String strIndActivo = rs.getString("indActivo").trim();
+            strIdAlmacen = rs.getString("idAlmacen").trim();
+            int intLargo = rs.getInt("Largo");
+            int intAncho = rs.getInt("Ancho");
+            int intPosX = rs.getInt("PosX");
+            int intPosY = rs.getInt("posY");
+            String strIdentificador = rs.getString("Identificador").trim();
+
+            arrZonas.add(objZonaBE = new ZonaBE(strIdZona,strNombre,strIdentificador,strIndActivo,strIdAlmacen,intPosX,intPosY,intAncho,intLargo,null));
+            }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+
+        return arrZonas;
+    }
 }

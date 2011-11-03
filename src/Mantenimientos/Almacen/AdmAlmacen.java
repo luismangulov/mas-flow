@@ -64,11 +64,7 @@ public class AdmAlmacen extends javax.swing.JFrame {
         dgvAlmacen.setAutoCreateRowSorter(true);
         dgvAlmacen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nombre", "Estado", "Distrito", "Provincia", "Departamento"

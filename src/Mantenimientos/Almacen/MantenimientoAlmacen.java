@@ -72,6 +72,8 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
         txtPuertaX.setText(String.valueOf(almacen.getPuertaX()));
         txtPuertaY.setText(String.valueOf(almacen.getPuertaY()));
         txtIdentificador.setText(almacen.getIdentificador());
+        txtLargo.setEnabled(false);
+        txtAncho.setEnabled(false);
 
         this.llenarComboDepartamentos();
         DepartamentoBE departamento = DepartamentoDA.queryDepartamento(almacen.getIdDepartamento());
@@ -139,6 +141,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar almacén");
+        setResizable(false);
 
         jLabel1.setText("Código:");
 
@@ -373,7 +376,7 @@ public class MantenimientoAlmacen extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(11, 11, 11))
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,7 +520,7 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                 return;
                     }
             } else {
-                if (!almacenes.isEmpty() && (almacenes.get(0).getIdAlmacen() == null ? txtCodigo.getText() == null : almacenes.get(0).getIdAlmacen().equals(txtCodigo.getText()))){
+                if (!almacenes.isEmpty() && !(almacenes.get(0).getIdAlmacen() == null ? txtCodigo.getText() == null : almacenes.get(0).getIdAlmacen().equals(txtCodigo.getText()))){
                     JOptionPane.showMessageDialog(null, "El identificador formado ya existe. Cambiar nombre.", "Error", 0);
                 return;
                 }

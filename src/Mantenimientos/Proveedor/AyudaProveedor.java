@@ -51,6 +51,7 @@ EntidadBE proveedor;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Ayuda Proveedor");
+        setResizable(false);
 
         txtRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -90,11 +91,7 @@ EntidadBE proveedor;
         dgvProveedor.setAutoCreateRowSorter(true);
         dgvProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Código", "Razón Social"
@@ -115,6 +112,7 @@ EntidadBE proveedor;
                 return canEdit [columnIndex];
             }
         });
+        dgvProveedor.setColumnSelectionAllowed(true);
         dgvProveedor.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(dgvProveedor);
         dgvProveedor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
