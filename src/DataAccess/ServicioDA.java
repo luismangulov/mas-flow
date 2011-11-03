@@ -29,8 +29,8 @@ public class ServicioDA {
 
             while (rs.next()){
 
-                strIdServicio = rs.getString(1);
-                strDescripcion = rs.getString(2);
+                strIdServicio = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
                 arrServicio.add(new ServicioBE(strIdServicio, strDescripcion));
             }
 
@@ -56,8 +56,8 @@ public class ServicioDA {
             String strDescripcion;
          
             if (rs.next()){
-                strIdServicio= rs.getString(1);
-                strDescripcion = rs.getString(2);
+                strIdServicio= rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
                 servicio = new ServicioBE(strIdServicio,strDescripcion);
             }
              

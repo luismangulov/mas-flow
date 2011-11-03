@@ -58,13 +58,13 @@ public class UsuarioDA {
 
             while (rs.next()){
               
-                strIdUsuario = rs.getString(1);
-                strNombre = rs.getString(2);
-                strPaterno = rs.getString(3);
-                strMaterno = rs.getString(4);
-                strIdPerfil = rs.getString(5);
+                strIdUsuario = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strPaterno = rs.getString(3).trim();
+                strMaterno = rs.getString(4).trim();
+                strIdPerfil = rs.getString(5).trim();
                 objPerfilBE= objPerfilDA.queryById(strIdPerfil);
-                strIdEstadoUsuario = rs.getString(6);
+                strIdEstadoUsuario = rs.getString(6).trim();
                 objEstadoUsuarioBE= objEstadoUsuarioDA.queryByIdEstadoUsuario(strIdEstadoUsuario);
                 intLimiteIntentos = rs.getInt(7);
                 arrUsuario.add(new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,objPerfilBE,objEstadoUsuarioBE,intLimiteIntentos));
@@ -195,8 +195,7 @@ public class UsuarioDA {
          }catch (Exception a){
             System.out.println(a.getMessage());
         }
-        finally{objConexion.SalirUID();}
-        
+        finally{objConexion.SalirUID();}        
         return boolExito;
     }
     
@@ -290,13 +289,13 @@ public class UsuarioDA {
 
             while (rs.next()){
               
-                strIdUsuario = rs.getString(1);
-                strNombre = rs.getString(2);
-                strPaterno = rs.getString(3);
-                strMaterno = rs.getString(4);
-                strIdPerfil = rs.getString(5);
+                strIdUsuario = rs.getString(1).trim();
+                strNombre = rs.getString(2).trim();
+                strPaterno = rs.getString(3).trim();
+                strMaterno = rs.getString(4).trim();
+                strIdPerfil = rs.getString(5).trim();
                 objPerfilBE= objPerfilDA.queryByIdPerfil(strIdPerfil);
-                strIdEstadoUsuario = rs.getString(6);
+                strIdEstadoUsuario = rs.getString(6).trim();
                 objEstadoUsuarioBE= objEstadoUsuarioDA.queryByIdEstadoUsuario(strIdEstadoUsuario);
                 intLimiteIntentos = rs.getInt(7);
                 arrUsuario.add(new UsuarioBE(strIdUsuario,strNombre,strPaterno,strMaterno,objPerfilBE,objEstadoUsuarioBE,intLimiteIntentos));

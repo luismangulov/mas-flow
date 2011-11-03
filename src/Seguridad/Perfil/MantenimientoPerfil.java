@@ -15,9 +15,11 @@ import BusinessEntity.PerfilBE;
 import BusinessEntity.PerfilDetalleBE;
 import BusinessEntity.ServicioBE;
 import BusinessLogic.PerfilBL;
+
 import DataAccess.AplicacionDA;
 import DataAccess.AplicacionxServicioDA;
 import DataAccess.PerfilDA;
+import DataAccess.PerfilDetalleDA;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 
     /** Creates new form MantenimientoPerfil */
     private AdmPerfil objPadre;
+    private PerfilBE perfil;// Este perfil tiene una lista de detalles
     private String accion;
     //private JTree tree=new JTree();
     private javax.swing.JCheckBox jCheckBoxAplicacion;
@@ -48,17 +51,18 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
     private boolean primero;
     
     AplicacionxServicioDA objAplicacionxServicio =new AplicacionxServicioDA();
+    //listaAplicacionxServicio obttiene la lista de aplicaciones del sistema con su listas de servicios
     ArrayList <AplicacionxServicioBE> listaAplicacionxServicio = objAplicacionxServicio.queryAllAplicacionxServicio();  
+    //numAplicaciones tiene todos las aplicaciones del sistema
     AplicacionDA objAplicacionDA =new AplicacionDA();
     int numAplicaciones= objAplicacionDA.queryAllAplicacion().size();
     
-    private String[] listaAplicacion=new String[numAplicaciones];
+    private String[] listaAplicaciones=new String[numAplicaciones];//de todo el sistema
     private String[] listaServicio;
     //Object[] rootNodes =new Vector[numAplicaciones];
     
-      
     
-    public MantenimientoPerfil(AdmPerfil padre) {
+    public MantenimientoPerfil(AdmPerfil padre){
         this.objPadre = padre;
         accion = "registrar";
         primero=true;
@@ -66,11 +70,11 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         int cont=0;           
         for (cont = 0; cont<numAplicaciones; cont++) {            
                 String aplicacion = listaAplicacionxServicio.get(cont).getAplicacion().getDescripcion();
-                listaAplicacion[cont]= aplicacion;       
+                listaAplicaciones[cont]= aplicacion;       
             
         };        
        modeloAplicacion= new AbstractListModel() {        
-            String[] listaLocal=listaAplicacion;
+            String[] listaLocal=listaAplicaciones;
             public int getSize() {
                 return listaLocal.length;
                 
@@ -105,28 +109,30 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
+        this.cbxActivo.setSelected(true);
         this.txtCodigo.setEnabled(false);
         this.setVisible(true);
     }
 
-     public MantenimientoPerfil(AdmPerfil padre,PerfilBE perfil) {
+     public MantenimientoPerfil(AdmPerfil padre,PerfilBE perfilBE) {
         this.objPadre = padre;
         accion = "modificar";
+        this.perfil =perfilBE;
+        int cont=0; 
         
-        int cont=0;           
-        for (cont = 0; cont<perfil.getListaPerfilDetalle().size(); cont++) {            
-                String aplicacion = perfil.getListaPerfilDetalle().get(cont).getAplicacion().getDescripcion();
-                listaAplicacion[cont]= aplicacion;       
-            
-        };        
+       PerfilDetalleDA objPerfilDetalleDA= new PerfilDetalleDA();
+        //lista de aplicaciones por perfil
+      
+       final ArrayList<String> listaAplicacionesPorPerfil= objPerfilDetalleDA.queryAllAplicacionesPorPerfil(perfil.getIdPerfil());
+       
        modeloAplicacion= new AbstractListModel() {        
-            String[] listaLocal=listaAplicacion;
+            ArrayList<String> listaLocal=listaAplicacionesPorPerfil;
             public int getSize() {
-                return listaLocal.length;
+                return listaLocal.size();
                 
             }
             public Object getElementAt(int index) {
-                return listaLocal[index];
+                return listaLocal.get(index);
             }
             
         };
@@ -149,10 +155,12 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 //        tree.setCellRenderer(renderer);
 //        tree.setCellEditor(new CheckBoxNodeEditor(tree));
 //        tree.setEditable(true); 
-    
-        
-        
+          
         initComponents();
+        
+        this.jListAplicacion.setModel(modeloAplicacion);
+        
+        
              
 //    ///        
        
@@ -475,7 +483,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
 private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListAplicacionMouseClicked
 // TODO add your handling code here:
 
-    int item = jListAplicacion.getSelectedIndex();//obtengo posicion en la lista
+    int indexSeleccionado = jListAplicacion.getSelectedIndex();//obtengo posicion en la lista
     
     if(accion.equals("registrar")){ //Cuando es registrar
         
@@ -483,10 +491,10 @@ private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
             
             primero=false;
             ArrayList <ServicioBE> listaServicios  =new ArrayList<ServicioBE>();
-            listaServicios=listaAplicacionxServicio.get(item).getListaServicios();          
+            listaServicios=listaAplicacionxServicio.get(indexSeleccionado).getListaServicios();          
 
             int cont=0;          
-            final String[] listaLocalServicio=  new String [listaAplicacionxServicio.get(item).getListaServicios().size()];
+            final String[] listaLocalServicio=  new String [listaAplicacionxServicio.get(indexSeleccionado).getListaServicios().size()];
 
             for (cont = 0; cont<listaServicios.size(); cont++) {
                  String servicio = listaServicios.get(cont).getIdDescripcion();
@@ -503,6 +511,24 @@ private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
             };
             jListServicio.setModel(modeloServicio);
         }
+    }else{// cuando es modificar
+        
+        PerfilDetalleDA objPerfilDetalleDA=new PerfilDetalleDA();
+        indexSeleccionado++;
+        String idAplicacion=String.valueOf(indexSeleccionado);
+        final ArrayList<String> listaLocalServicio=objPerfilDetalleDA.queryAllServiciosPorAplicacionPorPerfil(perfil.getIdPerfil(),idAplicacion);
+        modeloServicio= new AbstractListModel() {            
+                    ArrayList<String> listaLocal=listaLocalServicio;
+                    public int getSize() {
+                        return listaLocal.size();
+                    }
+                    public Object getElementAt(int index) {
+                        return listaLocal.get(index);
+                    }
+        };
+        
+        jListServicio.setModel(modeloServicio);
+        
     }
     
             
@@ -587,6 +613,8 @@ private void lblRemoverServicioMousePressed(java.awt.event.MouseEvent evt) {//GE
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables
+
+
 
  
 

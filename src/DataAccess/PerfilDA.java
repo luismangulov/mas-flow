@@ -58,9 +58,9 @@ public class PerfilDA {
             String strIndActivo;
             while (rs.next()){
               
-                strIdPerfil = rs.getString(1);
-                strDescripcion = rs.getString(2);
-                strIndActivo = rs.getString(3);
+                strIdPerfil = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                strIndActivo = rs.getString(3).trim();
                 arrPerfil.add(new PerfilBE(strIdPerfil,strDescripcion,strIndActivo));
             }
              
@@ -89,9 +89,9 @@ public class PerfilDA {
             String strIndActivo;
             if (rs.next()){
               
-                strIdPerfil = rs.getString(1);
-                strDescripcion = rs.getString(2);
-                strIndActivo = rs.getString(3);
+                strIdPerfil = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                strIndActivo = rs.getString(3).trim();
                 arrPerfilDetalle= objPerfilDetalleDA.queryAllByIdPerfil(idPerfil);
                 perfil = new PerfilBE(strIdPerfil,strDescripcion,arrPerfilDetalle,strIndActivo);
             }

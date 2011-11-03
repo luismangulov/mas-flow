@@ -32,8 +32,8 @@ public class AplicacionxServicioDA {
             String strIdAplicacion;
             String strDescripcion;           
             while (rs.next()){                
-                strIdAplicacion = rs.getString(1);
-                strDescripcion = rs.getString(2);
+                strIdAplicacion = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
                 objAplicacionBE =objAplicacionDA.queryByIdAplicacion(strIdAplicacion);
                 arrServicios=queryServiciosByAplicacion(strIdAplicacion);         
                 arrAplicacionxServicios.add(new AplicacionxServicioBE(objAplicacionBE,arrServicios));               
@@ -62,8 +62,8 @@ public class AplicacionxServicioDA {
      
             while (rs.next()){
                 
-                strIdServicio = rs.getString(1);
-                strDescripcion = rs.getString(2);
+                strIdServicio = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
                 arrServicios.add(new ServicioBE(strIdServicio, strDescripcion));
                 
             }
