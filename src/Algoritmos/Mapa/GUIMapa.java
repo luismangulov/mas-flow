@@ -123,7 +123,7 @@ public class GUIMapa extends javax.swing.JFrame {
 
         for (int i=0;i<mapa.getNumX();i++)
         {
-            g.drawString(String.valueOf(i), factorX*i+50+(factorX/2), pixelesAncho+factorY+10 );
+            g.drawString(String.valueOf(i), factorX*i+50+(factorX/2), pixelesAncho+50+25 );
         }
 
         for (int j=0;j<mapa.getNumY();j++)
