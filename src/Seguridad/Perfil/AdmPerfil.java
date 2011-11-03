@@ -207,16 +207,16 @@ private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
 private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
 // TODO add your handling code here:
     
-            int respuesta = 0;
+        int respuesta = 0;
         respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar este perfil? Esta acción no podrá deshacerse.", "Eliminar perfil", 0); 
         if(respuesta == 0){
             int fila;
             String codigo;
             fila = dgvPerfil.getSelectedRow();
             codigo = (String)dgvPerfil.getValueAt(fila, 0);
-            PerfilBL objFamiliaBL = new PerfilBL();
+            PerfilBL objPerfilBL = new PerfilBL();
             try {
- //               objFamiliaBL.eliminar(codigo);
+                objPerfilBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {
                 Logger.getLogger(AdmPerfil.class.getName()).log(Level.SEVERE, null, ex);

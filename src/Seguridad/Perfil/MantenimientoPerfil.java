@@ -414,7 +414,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     if(this.cbxActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";       
-//                    objPerfilBL.insertar(this.txtDescripcion.getText(),estado);
+                    objPerfilBL.insertar(this.txtDescripcion.getText(),estado);
                     PerfilBE perfil;
                     perfil = objPerfilBL.getPerfil();
                     this.objPadre.recargaruno(perfil);
