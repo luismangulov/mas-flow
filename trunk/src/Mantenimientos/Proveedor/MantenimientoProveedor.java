@@ -148,6 +148,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar proveedor");
+        setResizable(false);
 
         txtDoc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -678,7 +679,7 @@ private void personaSeleccionada(){
             this.txtDNIContacto.setEnabled(false);
             this.txtTelfContacto.setEnabled(false);
             this.lblDocumento.setText("DNI*:");
-            this.cmbCIUU.setSelectedIndex(0);
+            this.cmbCIUU.setSelectedIndex(-1);
             this.txtPaginaWeb.setText("");
             this.txtNombreContacto.setText("");
             this.txtDNIContacto.setText("");

@@ -57,6 +57,7 @@ private ArrayList<AlmacenBE> almacenes = new ArrayList<AlmacenBE>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow -  Buscar zona");
+        setResizable(false);
 
         jLabel2.setText("Nombre:");
 

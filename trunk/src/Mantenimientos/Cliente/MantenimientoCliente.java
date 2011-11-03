@@ -142,6 +142,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar cliente");
+        setResizable(false);
 
         jLabel10.setText("E-mail*:");
 
@@ -649,7 +650,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
             this.txtDNIContacto.setEnabled(false);
             this.txtTelfContacto.setEnabled(false);
             this.lblDocumento.setText("DNI*:");
-            this.cmbCIUU.setSelectedIndex(0);
+            this.cmbCIUU.setSelectedIndex(-1);
             this.txtPaginaWeb.setText("");
             this.txtNombreContacto.setText("");
             this.txtDNIContacto.setText("");

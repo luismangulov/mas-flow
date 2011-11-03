@@ -83,6 +83,11 @@ public class ZonaBL {
         return objZonaDA.queryZonasByAlmacen(idAlmacen);
     }
 
+    public ArrayList<ZonaBE> getZonasByFamilia(String strIdAlmacen, String strIdFamilia) {
+        ZonaDA objZonaDA = new ZonaDA();
+        return objZonaDA.queryZonasByFamilia(strIdAlmacen, strIdFamilia);
+    }
+
     /**
      * @return the zona
      */

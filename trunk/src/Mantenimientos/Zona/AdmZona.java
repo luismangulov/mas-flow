@@ -59,11 +59,7 @@ public class AdmZona extends javax.swing.JFrame {
         dgvZona.setAutoCreateRowSorter(true);
         dgvZona.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nombre", "Almacén", "Identificador", "Estado"
@@ -84,6 +80,7 @@ public class AdmZona extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        dgvZona.setColumnSelectionAllowed(true);
         dgvZona.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 dgvZonaMousePressed(evt);

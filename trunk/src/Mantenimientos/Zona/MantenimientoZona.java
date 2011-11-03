@@ -47,6 +47,9 @@ public class MantenimientoZona extends javax.swing.JFrame {
         this.setTitle("+Flow - Registrar zona");
         this.cbxActivo.setEnabled(false);
         this.setVisible(true);
+        dgvFamilia.setColumnSelectionAllowed(false);
+        dgvFamilia.setCellSelectionEnabled(false);
+        dgvFamilia.setRowSelectionAllowed(true);
     }
 
      public MantenimientoZona(AdmZona padre,ZonaBE zona){
@@ -62,6 +65,10 @@ public class MantenimientoZona extends javax.swing.JFrame {
         this.cbxActivo.setSelected(true);
         this.setTitle("+Flow - Editar zona");
 
+        dgvFamilia.setColumnSelectionAllowed(false);
+        dgvFamilia.setCellSelectionEnabled(false);
+        dgvFamilia.setRowSelectionAllowed(true);
+
         txtCodigo.setText(zona.getIdZona());
         txtNombre.setText(zona.getNombre());
         txtIdentificador.setText(zona.getIdentificador());
@@ -69,7 +76,11 @@ public class MantenimientoZona extends javax.swing.JFrame {
         txtPosY.setText(String.valueOf(zona.getPosY()));
         txtAncho.setText(String.valueOf(zona.getAncho()));
         txtLargo.setText(String.valueOf(zona.getLargo()));
-
+        txtPosX.setEnabled(false);
+        txtPosY.setEnabled(false);
+        txtAncho.setEnabled(false);
+        txtLargo.setEnabled(false);
+        
         this.llenarComboAlmacen();
         AlmacenBL almacenBL = new AlmacenBL();
         AlmacenBE almacen = almacenBL.getAlmacen(zona.getIdAlmacen());
@@ -127,6 +138,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar zona");
+        setResizable(false);
 
         jLabel8.setText("Y*:");
 
@@ -147,13 +159,10 @@ public class MantenimientoZona extends javax.swing.JFrame {
 
         jLabel6.setText("Almacén*:");
 
+        dgvFamilia.setAutoCreateRowSorter(true);
         dgvFamilia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Código", "Familia"
@@ -176,7 +185,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
         });
         dgvFamilia.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(dgvFamilia);
-        dgvFamilia.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        dgvFamilia.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvFamilia.getColumnModel().getColumn(0).setPreferredWidth(20);
         dgvFamilia.getColumnModel().getColumn(1).setPreferredWidth(100);
 
@@ -385,10 +394,14 @@ public class MantenimientoZona extends javax.swing.JFrame {
 }//GEN-LAST:event_lblAddMousePressed
 
     private void lblDeleteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeleteMousePressed
-
+     if((dgvFamilia.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una familia.", "Mensaje",0);
+        } else if((dgvFamilia.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de una familia.", "Mensaje",0);
+        }else{
         familias.remove(dgvFamilia.getSelectedRow());
         recargar(this.familias);
-
+     }
     }//GEN-LAST:event_lblDeleteMousePressed
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
@@ -459,7 +472,7 @@ public class MantenimientoZona extends javax.swing.JFrame {
                 return;
                     }
             } else {
-                if (!zonas.isEmpty() && (zonas.get(0).getIdAlmacen() == null ? txtCodigo.getText() == null : zonas.get(0).getIdZona().equals(txtCodigo.getText()))){
+                if (!zonas.isEmpty() && !(zonas.get(0).getIdAlmacen() == null ? txtCodigo.getText() == null : zonas.get(0).getIdZona().equals(txtCodigo.getText()))){
                     JOptionPane.showMessageDialog(null, "El identificador formado ya existe. Cambiar nombre.", "Error", 0);
                 return;
                 }
@@ -604,7 +617,10 @@ public class MantenimientoZona extends javax.swing.JFrame {
     }
 
     public void recargar(ArrayList<FamiliaBE> familias) {
-            DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+        
+        
+        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
+
         for(int i=modelo.getRowCount()-1; i>=0; i--){
             modelo.removeRow(i);
         }

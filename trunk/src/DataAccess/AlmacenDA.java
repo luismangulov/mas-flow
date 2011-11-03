@@ -55,8 +55,8 @@ public class AlmacenDA {
             rs=objConexion.EjecutarS(sql);
             String strIdAlmacen;
             String strNombre;
-            float fltLargo;
-            float fltAncho;
+            double dblLargo;
+            double dblAncho;
             String strDireccion;
             String strTelefono;
             String strIdDistrito;
@@ -71,8 +71,8 @@ public class AlmacenDA {
 
                 strIdAlmacen = rs.getString(1).trim();
                 strNombre = rs.getString(2).trim();
-                fltLargo = rs.getFloat(3);
-                fltAncho = rs.getFloat(4);
+                dblLargo = rs.getDouble(3);
+                dblAncho = rs.getDouble(4);
                 strDireccion= rs.getString(5).trim();
                 strTelefono= rs.getString(6).trim();
                 strIdDistrito= rs.getString(7).trim();
@@ -83,7 +83,7 @@ public class AlmacenDA {
                 intPuertaY = rs.getInt(12);
                 strIdentificador = rs.getString(13).trim();
 
-                arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
+                arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, dblLargo, dblAncho, strDireccion,
                 strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY, strIdentificador));
             }
 
@@ -109,8 +109,8 @@ public class AlmacenDA {
             rs=objConexion.EjecutarS(sql);
             String strIdAlmacen;
             String strNombre;
-            float fltLargo;
-            float fltAncho;
+            double dblLargo;
+            double dblAncho;
             String strDireccion;
             String strTelefono;
             String strIdDistrito;
@@ -125,8 +125,8 @@ public class AlmacenDA {
 
                 strIdAlmacen = rs.getString(1).trim();
                 strNombre = rs.getString(2).trim();
-                fltLargo = rs.getFloat(3);
-                fltAncho = rs.getFloat(4);
+                dblLargo = rs.getDouble(3);
+                dblAncho = rs.getDouble(4);
                 strDireccion= rs.getString(5).trim();
                 strTelefono= rs.getString(6).trim();
                 strIdDistrito= rs.getString(7).trim();
@@ -137,7 +137,7 @@ public class AlmacenDA {
                 intPuertaY = rs.getInt(12);
                 strIdentificador = rs.getString(13).trim();
 
-                arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
+                arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, dblLargo, dblAncho, strDireccion,
                 strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY, strIdentificador));
             }
 
@@ -163,8 +163,8 @@ public class AlmacenDA {
             rs=objConexion.EjecutarS(sql);
             String strIdAlmacen;
             String strNombre;
-            float fltLargo;
-            float fltAncho;
+            double dblLargo;
+            double dblAncho;
             String strDireccion;
             String strTelefono;
             String strIdDistrito;
@@ -179,8 +179,8 @@ public class AlmacenDA {
 
                 strIdAlmacen = rs.getString(1).trim();
                 strNombre = rs.getString(2).trim();
-                fltLargo = rs.getFloat(3);
-                fltAncho = rs.getFloat(4);
+                dblLargo = rs.getDouble(3);
+                dblAncho = rs.getDouble(4);
                 strDireccion= rs.getString(5).trim();
                 strTelefono= rs.getString(6).trim();
                 strIdDistrito= rs.getString(7).trim();
@@ -191,7 +191,7 @@ public class AlmacenDA {
                 intPuertaY = rs.getInt(12);
                 strIdentificador = rs.getString(13).trim();
 
-                almacen = new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
+                almacen = new AlmacenBE(strIdAlmacen, strNombre, dblLargo, dblAncho, strDireccion,
                 strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY, strIdentificador);
             }
 
@@ -335,8 +335,8 @@ public class AlmacenDA {
             rs=objConexion.EjecutarS(sql);
             String strIdAlmacen;
             String strNombre;
-            float fltLargo;
-            float fltAncho;
+            double dblLargo;
+            double dblAncho;
             String strDireccion;
             String strTelefono;
             String strIdDistrito;
@@ -351,8 +351,8 @@ public class AlmacenDA {
 
                 strIdAlmacen = rs.getString(1).trim();
                 strNombre = rs.getString(2).trim();
-                fltLargo = rs.getFloat(3);
-                fltAncho = rs.getFloat(4);
+                dblLargo = rs.getDouble(3);
+                dblAncho = rs.getDouble(4);
                 strDireccion= rs.getString(5).trim();
                 strTelefono= rs.getString(6).trim();
                 strIdDistrito= rs.getString(7).trim();
@@ -363,7 +363,7 @@ public class AlmacenDA {
                 intPuertaY = rs.getInt(12);
                 strIdentificador = rs.getString(13).trim();
 
-                arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, fltLargo, fltAncho, strDireccion,
+                arrAlmacen.add(new AlmacenBE(strIdAlmacen, strNombre, dblLargo, dblAncho, strDireccion,
                 strTelefono, strIdDistrito, strIdProvincia, strIdDepartamento, strIndActivo, intPuertaX, intPuertaY, strIdentificador));
             }
 
