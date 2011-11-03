@@ -16,7 +16,6 @@ import Util.conexion;
 import Util.Utilitario;
 import java.util.Date;
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -63,15 +62,28 @@ public class PalletDA {
     }
 
         
-    public void eliminar(String idPallet){
+    public void desechar(PalletBE objPalletBE){
 
         objConexion = new conexion();
-        query = "DELETE FROM PALLET WHERE idPallet ='" + idPallet + "'";
+        
+        //se coloca la disponibilidad de la ubicacion
+        query = "UPDATE UBICACION SET indactivo = '1' WHERE idubicacion = '" + objPalletBE.getIdUbicacion() + "'";
         
         try{
             objConexion.EjecutarUID(query);
         } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro", "Error", 0);
+
+        }finally{
+            objConexion.SalirUID();
+        }
+        
+        //se desecha el pallet   
+        query = "UPDATE PALLET SET indActivo = '0' WHERE idPallet ='" + objPalletBE.getIdPallet() + "'";
+        
+        try{
+            objConexion.EjecutarUID(query);
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "No se pudo desechar el pallet", "Error", 0);
         }finally{
             objConexion.SalirUID();
         }
@@ -235,7 +247,7 @@ public class PalletDA {
         boolean exito = false;
         objConexion = new conexion();
         
-        // se setea la disponibilidad de la ubicacion anterior
+        // se setea la disponibilidad "1" de la ubicacion anterior
         query = "UPDATE UBICACION SET indActivo = '1' WHERE idUbicacion = '" + objMovimientoInternoBE.getIdUbicacionOrigen() + "'";
         
         try{
@@ -276,22 +288,24 @@ public class PalletDA {
             
                 objUtilitario = new Utilitario();
                 String strIdMovimientoInterno = "";
-
                 try {
                     strIdMovimientoInterno = objUtilitario.generaCodigo("movimientointerno", 8);
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(PalletDA.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(PalletDA.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                    
+                objMovimientoInternoBE.setIdMovimiento(strIdMovimientoInterno);
 
-                query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idUbicacionOrigen,idUbicacionDestino, fecha ,descripcion, idPallet) "
+                query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idUbicacionOrigen,idUbicacionDestino, fecha ,descripcion, idPallet, idAlmacen) "
                         + "VALUES('"+strIdMovimientoInterno+"',"
                         + "'"+objMovimientoInternoBE.getIdUbicacionOrigen()+"',"
                         + "'"+objMovimientoInternoBE.getIdUbicacionDestino()+"',"
                         + "'"+objMovimientoInternoBE.getFecha() +"',"
                         + "'"+objMovimientoInternoBE.getDescripcion()+"',"
-                        + "'"+objMovimientoInternoBE.getIdPallet() + "')";
+                        + "'"+objMovimientoInternoBE.getIdPallet() + "',"
+                        + "'"+objMovimientoInternoBE.getIdAlmacen() + "')";
 
                 try{
                     objConexion.EjecutarUID(query);

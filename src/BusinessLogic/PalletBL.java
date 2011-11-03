@@ -25,9 +25,9 @@ public class PalletBL {
         objPalletDA.insertar(objPalletBE);
     }
         
-    public void eliminar(String strIdPallet) {
+    public void desechar(PalletBE objPalletBE) {
         objPalletDA = new PalletDA();
-        objPalletDA.eliminar(strIdPallet);
+        objPalletDA.desechar(objPalletBE);
     }
 
     public ArrayList<PalletBE> getListSearch(String idPallet, String idProducto, String idAlmacen) {
@@ -69,6 +69,7 @@ public class PalletBL {
         objPalletDA = new PalletDA();
         return objPalletDA.queryByIdPallet(strIdPallet);
     }
+
     
     
 }

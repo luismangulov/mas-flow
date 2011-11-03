@@ -13,9 +13,11 @@ package Procesamiento.MovimientosInternos;
 import BusinessEntity.MovimientoInternoBE;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
+import BusinessLogic.AlmacenBL;
 import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,8 +29,30 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
 
     /** Creates new form AdmMovimientosInternos */
     ArrayList<PalletBE> arrPallets;
-    private ArrayList<MovimientoInternoBE> arrMovimientoInterno;
+    ArrayList<MovimientoInternoBE> arrMovimientoInterno;
+    
+    PalletBL objPalletBL = new PalletBL();
+    ProductoBL objProductoBL = new ProductoBL();
+    AlmacenBL objAlmacenBL = new AlmacenBL();
+    
+    String strIdMovimientoInterno;
+    String strIdUbicacionOrigen;
+    String strIdUbicacionDestino;
+    Date dateFecha;
+    String strDescripcion;
+    String strIdPallet;
+    String strIdAlmacen;
+    String strIdProducto;
+    String strIdentificadorAlmacen;
 
+    ProductoBE objProductoBE;
+    String strNombreProducto;
+    int intCantidad;
+
+    /*
+     *  CONSTRUCTOR
+     */
+    
     public AdmMovimientosInternos() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -46,7 +70,6 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         dgvMovimientoInterno = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
-        lblRegistrarPallet = new javax.swing.JLabel();
         lblEliminarMovimientos = new javax.swing.JLabel();
         lblBuscarMovimientos = new javax.swing.JLabel();
         lblRefrescarMovimientos = new javax.swing.JLabel();
@@ -60,20 +83,17 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
         dgvMovimientoInterno.setAutoCreateRowSorter(true);
         dgvMovimientoInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Código", "Ubicación Origen", "Ubicación Destino", "Fecha Movimiento", "Descripción", "Cantidad", "Pallet", "Producto"
+                "Código", "Descripción", "Fecha Movimiento", "Almacén", "Ubicación Origen", "Ubicación Destino", "Pallet", "Producto", "Cantidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -85,32 +105,27 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(dgvMovimientoInterno);
+        dgvMovimientoInterno.getColumnModel().getColumn(0).setResizable(false);
         dgvMovimientoInterno.getColumnModel().getColumn(0).setPreferredWidth(20);
-        dgvMovimientoInterno.getColumnModel().getColumn(1).setPreferredWidth(40);
-        dgvMovimientoInterno.getColumnModel().getColumn(2).setPreferredWidth(30);
-        dgvMovimientoInterno.getColumnModel().getColumn(3).setPreferredWidth(25);
-        dgvMovimientoInterno.getColumnModel().getColumn(4).setPreferredWidth(25);
-        dgvMovimientoInterno.getColumnModel().getColumn(5).setPreferredWidth(20);
+        dgvMovimientoInterno.getColumnModel().getColumn(1).setResizable(false);
+        dgvMovimientoInterno.getColumnModel().getColumn(1).setPreferredWidth(25);
+        dgvMovimientoInterno.getColumnModel().getColumn(2).setResizable(false);
+        dgvMovimientoInterno.getColumnModel().getColumn(2).setPreferredWidth(25);
+        dgvMovimientoInterno.getColumnModel().getColumn(3).setResizable(false);
+        dgvMovimientoInterno.getColumnModel().getColumn(4).setResizable(false);
+        dgvMovimientoInterno.getColumnModel().getColumn(4).setPreferredWidth(40);
+        dgvMovimientoInterno.getColumnModel().getColumn(5).setResizable(false);
+        dgvMovimientoInterno.getColumnModel().getColumn(5).setPreferredWidth(30);
+        dgvMovimientoInterno.getColumnModel().getColumn(6).setResizable(false);
         dgvMovimientoInterno.getColumnModel().getColumn(6).setPreferredWidth(40);
+        dgvMovimientoInterno.getColumnModel().getColumn(7).setResizable(false);
+        dgvMovimientoInterno.getColumnModel().getColumn(8).setResizable(false);
+        dgvMovimientoInterno.getColumnModel().getColumn(8).setPreferredWidth(20);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        lblRegistrarPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
-        lblRegistrarPallet.setToolTipText("Agregar");
-        lblRegistrarPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblRegistrarPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblRegistrarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblRegistrarPalletMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblRegistrarPalletMousePressed(evt);
-            }
-        });
-        jToolBar1.add(lblRegistrarPallet);
-
-        lblEliminarMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
+        lblEliminarMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete.png"))); // NOI18N
         lblEliminarMovimientos.setToolTipText("Editar");
         lblEliminarMovimientos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblEliminarMovimientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -126,8 +141,8 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
         lblBuscarMovimientos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblBuscarMovimientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBuscarMovimientos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblBuscarMovimientosMousePressed(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBuscarMovimientosMouseClicked(evt);
             }
         });
         jToolBar1.add(lblBuscarMovimientos);
@@ -180,38 +195,17 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-private void lblRegistrarPalletMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarPalletMousePressed
-
-}//GEN-LAST:event_lblRegistrarPalletMousePressed
-
-    private void lblBuscarMovimientosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMovimientosMousePressed
-
-    }//GEN-LAST:event_lblBuscarMovimientosMousePressed
-
-private void lblRegistrarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrarPalletMouseClicked
+    /*
+     * MANEJO DE EVENTOS
+     */
+    
+private void lblEliminarMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMovimientosMouseClicked
     DesecharPalletsPorCaducidad ventana = new DesecharPalletsPorCaducidad(this);
     ventana.setVisible(true);
-}//GEN-LAST:event_lblRegistrarPalletMouseClicked
-
-private void lblEliminarMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMovimientosMouseClicked
-    int fila;
-    fila = dgvMovimientoInterno.getSelectedRow();
-    if (fila==-1)
-        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
-    else{
-        if (JOptionPane.showConfirmDialog(null, "La eliminación será permanente, ¿realmente desea realizar la acción?") == 0){
-            String idPallet = (String)dgvMovimientoInterno.getValueAt(fila, 0);
-            PalletBL objPalletBL = new PalletBL();
-            objPalletBL.eliminar(idPallet);
-//            eliminaFilaDgv(fila);
-        }
-    }
 }//GEN-LAST:event_lblEliminarMovimientosMouseClicked
 
 private void lblRefrescarMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefrescarMovimientosMouseClicked
-    PalletBL objPalletBL = new PalletBL();
-//    llenarDgv(objPalletBL.getAll());
+
 }//GEN-LAST:event_lblRefrescarMovimientosMouseClicked
 
 private void lblReubicarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReubicarPalletMouseClicked
@@ -220,6 +214,12 @@ private void lblReubicarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
     ventana.setVisible(true);
 
 }//GEN-LAST:event_lblReubicarPalletMouseClicked
+
+    private void lblBuscarMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMovimientosMouseClicked
+
+        BuscarMovimientoInterno ventana = new BuscarMovimientoInterno(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_lblBuscarMovimientosMouseClicked
 
 
     /**
@@ -266,35 +266,44 @@ private void lblReubicarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
     private javax.swing.JLabel lblBuscarMovimientos;
     private javax.swing.JLabel lblEliminarMovimientos;
     private javax.swing.JLabel lblRefrescarMovimientos;
-    private javax.swing.JLabel lblRegistrarPallet;
     private javax.swing.JLabel lblReubicarPallet;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     *  OPERACIONES DE VENTANA
+     */
+    
     public void llenarDgv(ArrayList<MovimientoInternoBE> arrMovimientoInterno){
         
         DefaultTableModel modelo=(DefaultTableModel) dgvMovimientoInterno.getModel();    
         limpiarDgv();
         this.arrMovimientoInterno = arrMovimientoInterno;
         
-        PalletBL objPalletBL = new PalletBL();
-        ProductoBL objProductoBL = new ProductoBL();
+        objPalletBL = new PalletBL();
+        objProductoBL = new ProductoBL();
+        
+        if (arrMovimientoInterno == null)
+            return;
 
         for (int i=0; i<arrMovimientoInterno.size(); i++){
 
-            String strIdMovimientoInterno = arrMovimientoInterno.get(i).getIdMovimiento();
-            String strIdUbicacionOrigen = arrMovimientoInterno.get(i).getIdUbicacionOrigen();
-            String strIdUbicacionDestino = arrMovimientoInterno.get(i).getIdUbicacionDestino();
-            String strFecha = arrMovimientoInterno.get(i).getFecha().toString();
-            String strDescripcion = arrMovimientoInterno.get(i).getDescripcion();
-            String strIdPallet = arrMovimientoInterno.get(i).getIdPallet();
+            strIdMovimientoInterno = arrMovimientoInterno.get(i).getIdMovimiento();
+            strIdUbicacionOrigen = arrMovimientoInterno.get(i).getIdUbicacionOrigen();
+            strIdUbicacionDestino = arrMovimientoInterno.get(i).getIdUbicacionDestino();
+            dateFecha = arrMovimientoInterno.get(i).getFecha();
+            strDescripcion = arrMovimientoInterno.get(i).getDescripcion();
+            strIdPallet = arrMovimientoInterno.get(i).getIdPallet();
+            strIdAlmacen = arrMovimientoInterno.get(i).getIdAlmacen();
+            
+            strIdentificadorAlmacen = objAlmacenBL.getAlmacen(strIdAlmacen).getIdentificador();
+            
+            strIdProducto = objPalletBL.getPallet(strIdPallet).getIdProducto();
+            
+            objProductoBE = objProductoBL.getByIdProducto(strIdProducto);
+            strNombreProducto = objProductoBE.getNombre();
+            intCantidad = objProductoBE.getMaxCantPorPallet();
 
-            String strIdProducto = objPalletBL.getPallet(strIdPallet).getIdProducto();
-
-            ProductoBE objProductoBE = objProductoBL.getByIdProducto(strIdProducto);
-            String strNombreProducto = objProductoBE.getNombre();
-            int intCantidad = objProductoBE.getMaxCantPorPallet();
-
-            modelo.addRow(new Object[]{strIdMovimientoInterno,strIdUbicacionOrigen,strIdUbicacionDestino,strFecha,strDescripcion,intCantidad,strNombreProducto,strIdPallet});
+            modelo.addRow(new Object[]{strIdMovimientoInterno,strDescripcion,dateFecha,strIdentificadorAlmacen,strIdUbicacionOrigen,strIdUbicacionDestino,strIdPallet,strNombreProducto,intCantidad});
         }
         
     }
@@ -319,23 +328,26 @@ private void lblReubicarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
         DefaultTableModel modelo=(DefaultTableModel) dgvMovimientoInterno.getModel();    
         limpiarDgv();
        
-        PalletBL objPalletBL = new PalletBL();
-        ProductoBL objProductoBL = new ProductoBL();
+        objPalletBL = new PalletBL();
+        objProductoBL = new ProductoBL();
        
-        String strIdMovimientoInterno = objMovimientoInternoBE.getIdMovimiento();
-        String strIdUbicacionOrigen = objMovimientoInternoBE.getIdUbicacionOrigen();
-        String strIdUbicacionDestino = objMovimientoInternoBE.getIdUbicacionDestino();
-        String strFecha = objMovimientoInternoBE.getFecha().toString();
-        String strDescripcion = objMovimientoInternoBE.getDescripcion();
-        String strIdPallet = objMovimientoInternoBE.getIdPallet();
+        strIdMovimientoInterno = objMovimientoInternoBE.getIdMovimiento();
+        strIdUbicacionOrigen = objMovimientoInternoBE.getIdUbicacionOrigen();
+        strIdUbicacionDestino = objMovimientoInternoBE.getIdUbicacionDestino();
+        dateFecha = objMovimientoInternoBE.getFecha();
+        strDescripcion = objMovimientoInternoBE.getDescripcion();
+        strIdPallet = objMovimientoInternoBE.getIdPallet();
+        strIdAlmacen = objMovimientoInternoBE.getIdAlmacen();
 
-        String strIdProducto = objPalletBL.getPallet(strIdPallet).getIdProducto();
+        strIdentificadorAlmacen = objAlmacenBL.getAlmacen(strIdAlmacen).getIdentificador();
 
-        ProductoBE objProductoBE = objProductoBL.getByIdProducto(strIdProducto);
-        String strNombreProducto = objProductoBE.getNombre();
-        int intCantidad = objProductoBE.getMaxCantPorPallet();
+        strIdProducto = objPalletBL.getPallet(strIdPallet).getIdProducto();
 
-        modelo.addRow(new Object[]{strIdMovimientoInterno,strIdUbicacionOrigen,strIdUbicacionDestino,strFecha,strDescripcion,intCantidad,strNombreProducto,strIdPallet});
+        objProductoBE = objProductoBL.getByIdProducto(strIdProducto);
+        strNombreProducto = objProductoBE.getNombre();
+        intCantidad = objProductoBE.getMaxCantPorPallet();
+
+        modelo.addRow(new Object[]{strIdMovimientoInterno,strDescripcion,dateFecha,strIdentificadorAlmacen,strIdUbicacionOrigen,strIdUbicacionDestino,strIdPallet,strNombreProducto,intCantidad});
 
     }
 }
