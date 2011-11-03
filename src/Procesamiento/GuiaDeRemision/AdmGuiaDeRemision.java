@@ -207,12 +207,17 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 
     private void lblAprobarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAprobarMousePressed
         // TODO add your handling code here:
-        
+        int fila1 = 0;
         if((tblGuiaRemision.getSelectedRowCount() == 0)){
            JOptionPane.showMessageDialog(null, "No ha seleccionado una guia de remision", "Mensaje",0);
         } else if((tblGuiaRemision.getSelectedRowCount() > 1)){
             JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una guia de remision", "Mensaje",0);
         }else{
+            fila1 = tblGuiaRemision.getSelectedRow();
+          String  estado = tblGuiaRemision.getValueAt(fila1, 5).toString().trim();  
+         if(estado.equals("Aprobado")){
+            JOptionPane.showMessageDialog(null, "La guia de remision ya ha sido aprobada", "Mensaje",0);
+         }else{
             int fila;
             String codigo;
             String identificador;
