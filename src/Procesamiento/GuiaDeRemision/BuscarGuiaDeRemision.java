@@ -203,7 +203,13 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         }
         
         GuiaRemisionBL objGuiaRemisionBL = new GuiaRemisionBL();
-        ArrayList<GuiaRemisionBE> arrGuiaRemision = objGuiaRemisionBL.buscar(this.txtCodigo.getText(), this.txtCliente.getText(), codEstado, this.arrAlmacenes.get(cbAlmacen.getSelectedIndex()).getIdAlmacen());
+        ArrayList<GuiaRemisionBE> arrGuiaRemision;
+         if(this.cbAlmacen.getSelectedItem().toString().equals("")){
+             arrGuiaRemision = objGuiaRemisionBL.buscar(this.txtCodigo.getText(), this.txtCliente.getText(), codEstado, "");
+         }else{
+             arrGuiaRemision = objGuiaRemisionBL.buscar(this.txtCodigo.getText(), this.txtCliente.getText(), codEstado, this.arrAlmacenes.get(cbAlmacen.getSelectedIndex()-1).getIdAlmacen());
+         }
+        
         this.objPadre.recargar(arrGuiaRemision);
         this.dispose();
     }//GEN-LAST:event_btnGuardarMousePressed
@@ -301,9 +307,15 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
          arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
-        if (arrAlmacenes != null)
+        if (arrAlmacenes != null){
+            cbAlmacen.addItem("");
+            AlmacenBE objAlmacenBE = new AlmacenBE();
+            objAlmacenBE.setIdAlmacen("");
+             arrAlmacenes.add(objAlmacenBE);
             for(AlmacenBE almacen : arrAlmacenes)
                 cbAlmacen.addItem(almacen.getIdentificador());
+        }
+            
 
     }
      

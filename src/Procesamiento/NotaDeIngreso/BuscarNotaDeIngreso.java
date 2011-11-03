@@ -204,7 +204,12 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
         
         NotaIngresoBL objNotaIngresoBL = new  NotaIngresoBL();
-        ArrayList< NotaIngresoBE> arrNotaIngreso = objNotaIngresoBL.buscar(this.txtCodigo.getText(), this.txtProveedor.getText(), codEstado, this.arrAlmacenes.get(cbAlmacen.getSelectedIndex()).getIdAlmacen());
+        ArrayList< NotaIngresoBE> arrNotaIngreso;
+        if(this.cbAlmacen.getSelectedItem().toString().equals("")){
+             arrNotaIngreso = objNotaIngresoBL.buscar(this.txtCodigo.getText(), this.txtProveedor.getText(), codEstado, "");
+        }else{
+             arrNotaIngreso = objNotaIngresoBL.buscar(this.txtCodigo.getText(), this.txtProveedor.getText(), codEstado, this.arrAlmacenes.get(cbAlmacen.getSelectedIndex()-1).getIdAlmacen());
+        }
         this.objPadre.recargar(arrNotaIngreso);
         this.dispose();
     }//GEN-LAST:event_btnBuscarMousePressed
@@ -302,10 +307,11 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
          arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
-        if (arrAlmacenes != null)
+        if (arrAlmacenes != null){
+            cbAlmacen.addItem("");
             for(AlmacenBE almacen : arrAlmacenes)
                 cbAlmacen.addItem(almacen.getIdentificador());
-
+        } 
     }
 
 }
