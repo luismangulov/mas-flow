@@ -17,8 +17,7 @@ import java.util.ArrayList;
  *
  * @author Florencio
  */
-public class PerfilDetalleDA {
-    
+public class PerfilDetalleDA {  
     
         public ArrayList<PerfilDetalleBE> queryAllByIdPerfil(String idPerfil){
         conexion objConexion=new conexion();
@@ -61,8 +60,66 @@ public class PerfilDetalleDA {
       
         return arrPerfilDetalle;
         
-    }
+        }
         
+      //obtiene un listado de las aplicaciones por perfil
+      public ArrayList<String> queryAllAplicacionesPorPerfil(String idPerfil){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<String> listaAplicaciones = new ArrayList<String>();
+        
+        String sql = "SELECT DISTINCT idAplicacion FROM PerfilDetalle WHERE idPerfil= '"+idPerfil+"' order by 1";
+        AplicacionDA objAplicacionDA=new AplicacionDA();  
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdAplicacion;
+            while (rs.next()){
+
+                strIdAplicacion = rs.getString(1).trim();
+                listaAplicaciones.add(objAplicacionDA.queryByIdAplicacion(strIdAplicacion).getDescripcion());
+                
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return listaAplicaciones;
+        
+        }
+      
+      //obtiene todos los servicios para una determinada aplicacion de un PERFIL ESPECÏFICO
+       public ArrayList<String> queryAllServiciosPorAplicacionPorPerfil(String idPerfil,String idAplicacion){
+           
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<String> listaServicios = new ArrayList<String>();
+        
+        String sql = "SELECT DISTINCT idServicio FROM PerfilDetalle WHERE idPerfil= '"+idPerfil+"' AND idAplicacion LIKE '%"+idAplicacion+"' order by 1";
+        ServicioDA objServicioDA=new ServicioDA();                                                  
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdServicio;
+            while (rs.next()){
+                
+                strIdServicio = rs.getString(1).trim();
+                listaServicios.add(objServicioDA.queryByIdServicio(strIdServicio).getIdDescripcion());
+                
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return listaServicios;
+        
+        }
         
 
 

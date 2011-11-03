@@ -29,8 +29,8 @@ public class AplicacionDA {
 
             while (rs.next()){
 
-                strIdAplicacion = rs.getString(1);
-                strDescripcion = rs.getString(2);
+                strIdAplicacion = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
                 arrAplicacion.add(new AplicacionBE(strIdAplicacion, strDescripcion));
             }
 
@@ -56,8 +56,8 @@ public class AplicacionDA {
          
             if (rs.next()){
               
-                strIdAplicacion = rs.getString(1);
-                strDescripcion = rs.getString(2);
+                strIdAplicacion = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
                 aplicacion = new AplicacionBE(strIdAplicacion,strDescripcion);
             }
              
