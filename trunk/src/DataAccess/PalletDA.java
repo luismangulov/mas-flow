@@ -78,7 +78,7 @@ public class PalletDA {
         }
         
         //se desecha el pallet   
-        query = "UPDATE PALLET SET indActivo = '0' WHERE idPallet ='" + objPalletBE.getIdPallet() + "'";
+        query = "UPDATE PALLET SET indActivo = '3' WHERE idPallet ='" + objPalletBE.getIdPallet() + "'";
         
         try{
             objConexion.EjecutarUID(query);
