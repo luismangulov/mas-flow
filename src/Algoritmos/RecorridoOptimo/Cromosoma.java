@@ -29,16 +29,16 @@ public class Cromosoma {
         Nodo mejoresNodos[]=ordenarCromosoma(this).getGenes();
         for (int i=0;i<mejoresNodos.length-1;i++)
         {
-            Nodo producto1=mejoresNodos[i];
-            Nodo producto2=mejoresNodos[i+1];
-            Ruta ruta = Ruta.obtenerRuta(producto1,producto2);
+            Nodo nodo1=mejoresNodos[i];
+            Nodo nodo2=mejoresNodos[i+1];
+            Ruta ruta = AlgoritmoGenetico.obtenerRuta(nodo1,nodo2);
             distanciaActual = ruta.getDistanciaTotal();
             distanciaTotal+=distanciaActual;
         }
 
-        Nodo producto1=mejoresNodos[mejoresNodos.length-1];
-        Nodo producto2=mejoresNodos[0];
-        Ruta ruta = Ruta.obtenerRuta(producto1,producto2);
+        Nodo nodo1=mejoresNodos[mejoresNodos.length-1];
+        Nodo nodo2=mejoresNodos[0];
+        Ruta ruta = AlgoritmoGenetico.obtenerRuta(nodo1,nodo2);
         distanciaActual = ruta.getDistanciaTotal();
         distanciaTotal+=distanciaActual;
        

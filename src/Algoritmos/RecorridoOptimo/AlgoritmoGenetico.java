@@ -5,7 +5,10 @@
 
 package Algoritmos.RecorridoOptimo;
 
+import Algoritmos.Mapa.Mapa;
 import Algoritmos.Mapa.Nodo;
+import BusinessEntity.UbicacionBE;
+import BusinessLogic.RackBL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,7 +31,7 @@ public class AlgoritmoGenetico {
    private static int maxNumGeneraciones=300;
 
 //Atributos de ejecucion
-   private static Nodo puntos[]=null;
+   private static Nodo nodos[]=null;
    private static volatile boolean flagInicio=false;
    private static volatile boolean flagFin=false;
    private static Cromosoma mejorCromosoma;
@@ -42,6 +45,7 @@ public class AlgoritmoGenetico {
    private static List<Cromosoma> poblacion=Collections.synchronizedList(new ArrayList<Cromosoma>());
    private static Random rnd;
    private static int tamanoPoblacion;
+   public static ArrayList<ArrayList<Ruta>> rutas;
 
 
 //metodos del algoritmo
@@ -361,18 +365,85 @@ public class AlgoritmoGenetico {
    }
 
 
-//Aplicacion
-//Recibe una lista de puntos obligatorios de tipo ArrayList UbicacionBE y obtiene el recorrido optimo
-  public static void ejecutar(Object listaPuntosObligatorios) {
-      try {
-         //initialize variables
-         generacion=0;
+   private static boolean esObligatorio(int pos, Nodo[] arregloNodos, ArrayList<UbicacionBE> listaUbicaciones)
+   {
+        if (arregloNodos[pos].isNodoInicial()) return true;
 
-         //OBTENER LOS PUNTOS DEL ALMACEN DE LA BD Y LOS OBLIGATORIOS DE LA GUIA DE REMISION O DE INGRESO
+        if (arregloNodos[pos].getItem()!=null)
+        {
+            UbicacionBE ubicacion = (UbicacionBE)arregloNodos[pos].getItem();
+
+            for (UbicacionBE u : listaUbicaciones)
+                if (ubicacion.getIdUbicacion().equals(u.getIdUbicacion())) return true;
+        }
+
+        return false;
+   }
+
+
+   public static Ruta obtenerRuta(Nodo nodoObligatorio1, Nodo nodoObligatorio2)
+   {
+       for (int i=0; i<rutas.size() ;i++)
+       {
+           for (int j=0; j<rutas.size() ;j++)
+           {
+                if (((rutas.get(i)).get(j).getProductoOrigen().getId()== nodoObligatorio1.getId())
+                   && ((rutas.get(i)).get(j).getProductoDestino().getId()== nodoObligatorio2.getId()))
+                        return (rutas.get(i)).get(j);
+           }
+       }
+       return null;
+   }
+   
+
+//Aplicacion
+//Recibe una lista de puntos obligatorios de tipo ArrayList UbicacionBE (primer piso) y obtiene el recorrido optimo
+  public static Cromosoma ejecutar(Mapa mapa, ArrayList<UbicacionBE> listaUbicaciones) {
+      try {
+
+         generacion=0;
          
+         rutas = new ArrayList<ArrayList<Ruta>>();
+
+         ArrayList<Nodo> listaNodos = mapa.getListaNodos();
+         Nodo[] arregloNodos = new Nodo[listaNodos.size()];
+         for (int i=0;i<listaNodos.size();i++)
+         {
+            arregloNodos[i]=listaNodos.get(i);
+         }
+         
+         Ruta.llenarMatrizAdy(arregloNodos);
+         
+         ArrayList<Nodo> nodosObligatorios = new ArrayList<Nodo>();
+         for (int i=0; i<arregloNodos.length; i++)
+         {
+            if (esObligatorio(i,arregloNodos,listaUbicaciones))
+            {
+                nodosObligatorios.add(arregloNodos[i]);
+
+                ArrayList<Ruta> temp = new ArrayList<Ruta>();
+                for (int j=0; i<listaNodos.size(); j++)
+                {
+                     if (esObligatorio(j,arregloNodos,listaUbicaciones))
+                     {
+                        Ruta r = new Ruta(arregloNodos[i],arregloNodos[j],arregloNodos);
+                        temp.add(r);
+                     }
+                }
+                rutas.add(temp);
+            }
+         }
+
+         arregloNodos = new Nodo[nodosObligatorios.size()];
+         for (int i=0;i<nodosObligatorios.size();i++)
+         {
+            arregloNodos[i]=nodosObligatorios.get(i);
+         }
+         
+         nodos = arregloNodos;
  
          tiempoInicio=System.currentTimeMillis();
-         inicializar(puntos);
+         inicializar(nodos);
 
          edadMejorDistancia=0;
 
@@ -410,11 +481,12 @@ public class AlgoritmoGenetico {
          tiempoEjecucion=System.currentTimeMillis()-tiempoInicio;
          flagInicio=false;
 
-         //termino de correr el algoritmo
+         return obtenerMejorCromosoma();
 
       } catch(Throwable e) {
          e.printStackTrace();
          System.exit(-1);
+         return null;
       }
    }
 
