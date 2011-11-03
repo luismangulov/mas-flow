@@ -228,9 +228,9 @@ public class RackDA {
     public ArrayList<RackBE> queryListSearch(String idAlmacen, String idRack, String idZona, String indActivos) {
         
         objConexion = new conexion();
-        //SELECT r.idrack, r.posx, r.posy, r.pisos, r.columnas, r.indactivo, r.idzona, r.identificador FROM RACK r, ZONA z 
+        //SELECT r.idrack, r.posx, r.posy, r.pisos, r.columnas, r.indactivo, r.idzona, r.identificador, r.orientacion FROM RACK r, ZONA z 
         //WHERE r.idzona = z.idzona AND z.idAlmacen = '000001' AND r.indActivo ='1'
-        query = "SELECT r.idrack, r.posx, r.posy, r.pisos, r.columnas, r.indactivo, r.idzona, r.identificador"
+        query = "SELECT r.idrack, r.posx, r.posy, r.pisos, r.columnas, r.indactivo, r.idzona, r.identificador, r.orientacion"
                 + " FROM RACK r, ZONA z WHERE r.idzona = z.idzona AND z.idAlmacen = '" + idAlmacen + "' AND r.indActivo ='" +indActivos+"'";
 
         if (!idRack.equals(""))
@@ -267,7 +267,7 @@ public class RackDA {
     public RackBE queryRackByUbicacion(String strIdUbicacion) {
         
         objConexion = new conexion();
-        query = "SELECT a.idRack, a.posx, a.posy, a.pisos, a.columnas, a.indActivo, a.idZona, a.identificador FROM RACK a, UBICACION b WHERE a.indActivo = '1' AND a.idRack = b.idRack AND b.idUbicacion = '" +strIdUbicacion+"'";
+        query = "SELECT a.idRack, a.posx, a.posy, a.pisos, a.columnas, a.indActivo, a.idZona, a.identificador, a.orientacion FROM RACK a, UBICACION b WHERE a.indActivo = '1' AND a.idRack = b.idRack AND b.idUbicacion = '" +strIdUbicacion+"'";
         rs = objConexion.EjecutarS(query);
         
         try {
