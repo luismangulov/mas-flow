@@ -67,10 +67,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         tblNotaIngreso.setAutoCreateRowSorter(true);
         tblNotaIngreso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Almacen", "Código", "Proveedor", "Direccion", "Fecha", "Estado"
