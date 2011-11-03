@@ -57,15 +57,20 @@ public class ReubicarPallet extends javax.swing.JFrame {
     UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
 
     ArrayList<PalletBE> arrPallets = new ArrayList<PalletBE>();
-    
+
     ArrayList<String> arrIdAlmacenes = new ArrayList<String>();
     ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
-            ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
-                    ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
-                    ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
-            UbicacionBE objUbicacionBE = new UbicacionBE();
+    ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+    ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+    ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+    UbicacionBE objUbicacionBE = new UbicacionBE();
     
     AdmMovimientosInternos ventanaPadre;
+
+    
+    /*
+     *  CONSTRUCTOR
+     */
         
     public ReubicarPallet(AdmMovimientosInternos ventanaPadre) {
         initComponents();
@@ -76,87 +81,15 @@ public class ReubicarPallet extends javax.swing.JFrame {
         cargarComboAlmacen();
     }
     
-    public void cargarComboAlmacen(){
-        
-        cbAlmacen.removeAllItems();
-        cbZona.removeAllItems();
-        cbRack.removeAllItems();
-        cbUbicacion.removeAllItems();
-        
-        
-        arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
-        
-        if (arrAlmacenes != null)
-            for(AlmacenBE almacen : arrAlmacenes){
-                arrIdAlmacenes.add(almacen.getIdAlmacen());
-                cbAlmacen.addItem(almacen.getIdentificador().trim());
-            }
-
-    }
-    
-    public void cargarComboZona(String idAlmacen){
-        
-        int intFila;
-        intFila = dgvPallets.getSelectedRow();
-        if (intFila!=-1)
-            strNombreFamilia = (String)dgvPallets.getValueAt(intFila,5);
-        else
-            return;
-        
-        String strIdFamilia = objFamiliaBL.getIdFamilia(strNombreFamilia);
-        
-        cbZona.removeAllItems();
-        cbRack.removeAllItems();
-        cbUbicacion.removeAllItems();
-        cbZona.addItem("");
-        cbRack.addItem("");
-        cbUbicacion.addItem(""); 
-
-
-        arrZonas = objZonaBL.getZonasByFamilia(idAlmacen,strIdFamilia);
-        
-        if (arrZonas != null)
-            for(ZonaBE zona : arrZonas)
-                cbZona.addItem(zona.getIdentificador().trim());
-        
-    }
-    
-    public void cargarComboRack(String idZona){
-        
-        cbRack.removeAllItems();        
-        cbUbicacion.removeAllItems();
-        cbRack.addItem("");
-        cbUbicacion.addItem(""); 
-               
-
-        arrRacks = objRackBL.getRacksByZona(idZona);
-        
-        if (arrRacks != null)
-            for(RackBE rack : arrRacks)
-                cbRack.addItem(rack.getIdentificador().trim());
-        
-    }
-    
-    public void cargarComboUbicacion(String idRack){
-       
-        cbUbicacion.removeAllItems();
-        cbUbicacion.addItem(""); 
-        
-        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"1"); //"1" porque se buscarán ubicaciones libres
-        
-        if (arrUbicaciones != null)
-            for(UbicacionBE ubicacion : arrUbicaciones)
-                cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
-        
-    }
+    /*
+     * OPERACIONES DE VENTANA
+     */
     
     public void llenarDgv(ArrayList<PalletBE> arrPallets){
         
         DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
         limpiarDgv();
         this.arrPallets = arrPallets;
-        
-
 
         PalletBE palletBE = new PalletBE();
         ProductoBE objProductoBE;
@@ -314,11 +247,6 @@ public class ReubicarPallet extends javax.swing.JFrame {
 
         jLabel4.setText("<html>Zona<br>destino:</html>");
 
-        cbZona.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbZonaMouseClicked(evt);
-            }
-        });
         cbZona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbZonaActionPerformed(evt);
@@ -331,19 +259,8 @@ public class ReubicarPallet extends javax.swing.JFrame {
             }
         });
 
-        cbUbicacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbUbicacionActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Almacén:");
 
-        cbAlmacen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbAlmacenMouseClicked(evt);
-            }
-        });
         cbAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbAlmacenActionPerformed(evt);
@@ -360,10 +277,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
         dgvPallets.setAutoCreateRowSorter(true);
         dgvPallets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Producto", "Rack", "Ubicación", "Cant. Máx.", "Familia", "Fecha Vencimiento"
@@ -469,18 +383,10 @@ public class ReubicarPallet extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void cbAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbAlmacenMouseClicked
-//NO
-}//GEN-LAST:event_cbAlmacenMouseClicked
-
-private void cbZonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbZonaMouseClicked
-//NO
-}//GEN-LAST:event_cbZonaMouseClicked
-
-private void cbUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUbicacionActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_cbUbicacionActionPerformed
-
+    /*
+     *  MANEJO DE EVENTOS
+     */
+    
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
 
     int i;
@@ -510,6 +416,9 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     }
 }//GEN-LAST:event_cbRackActionPerformed
 
+/*
+ * EVENTO BOTÓN GUARDAR
+ */
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
     
     int intFila;
@@ -525,16 +434,19 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         String strIdentificadorRack = cbRack.getSelectedItem().toString();
         strIdRack = objRackBL.getByIdentificador(strIdentificadorRack).getIdRack();
         strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacion, intColumnaUbicacion,"1").getIdUbicacion();
-        objPalletBL = new PalletBL();
+        strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         
-        MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet);
+        MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen);
         
         boolExito = objPalletBL.reubicarPallet(objMovimientoInternoBE);
         
         if (boolExito){
             PalletBE objPalletBE = objPalletBL.getPallet(strIdPallet);
             ventanaPadre.actualizarDgv(objMovimientoInternoBE);
+            this.dispose();
         }
+        else
+            JOptionPane.showMessageDialog(null, "No se pudo reubicar el pallet");
     }
     
 }//GEN-LAST:event_btnGuardarActionPerformed
@@ -571,4 +483,81 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdcFecha;
     // End of variables declaration//GEN-END:variables
+   
+    /*
+     *  CARGA DE COMPONENTES INICIALES
+     */
+    
+    public void cargarComboAlmacen(){
+        
+        cbAlmacen.removeAllItems();
+        cbZona.removeAllItems();
+        cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();
+        
+        arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
+        
+        if (arrAlmacenes != null)
+            for(AlmacenBE almacen : arrAlmacenes){
+                arrIdAlmacenes.add(almacen.getIdAlmacen());
+                cbAlmacen.addItem(almacen.getIdentificador().trim());
+            }
+
+    }
+    
+    public void cargarComboZona(String idAlmacen){
+        
+        int intFila;
+        intFila = dgvPallets.getSelectedRow();
+        if (intFila!=-1)
+            strNombreFamilia = (String)dgvPallets.getValueAt(intFila,5);
+        else
+            return;
+        
+        String strIdFamilia = objFamiliaBL.getIdFamilia(strNombreFamilia);
+        
+        cbZona.removeAllItems();
+        cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();
+        cbZona.addItem("");
+        cbRack.addItem("");
+        cbUbicacion.addItem(""); 
+
+
+        arrZonas = objZonaBL.getZonasByFamilia(idAlmacen,strIdFamilia);
+        
+        if (arrZonas != null)
+            for(ZonaBE zona : arrZonas)
+                cbZona.addItem(zona.getIdentificador().trim());
+        
+    }
+    
+    public void cargarComboRack(String idZona){
+        
+        cbRack.removeAllItems();        
+        cbUbicacion.removeAllItems();
+        cbRack.addItem("");
+        cbUbicacion.addItem(""); 
+
+        arrRacks = objRackBL.getRacksByZona(idZona);
+        
+        if (arrRacks != null)
+            for(RackBE rack : arrRacks)
+                cbRack.addItem(rack.getIdentificador().trim());
+        
+    }
+    
+    public void cargarComboUbicacion(String idRack){
+       
+        cbUbicacion.removeAllItems();
+        cbUbicacion.addItem(""); 
+        
+        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"1"); //"1" porque se buscarán ubicaciones libres
+        
+        if (arrUbicaciones != null)
+            for(UbicacionBE ubicacion : arrUbicaciones)
+                cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
+        
+    }
+
 }

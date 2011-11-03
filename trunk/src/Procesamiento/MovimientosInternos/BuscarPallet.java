@@ -35,7 +35,7 @@ public class BuscarPallet extends javax.swing.JFrame {
 
     /** Creates new form BuscarPallet */
     ReubicarPallet ventanaPadreReubicar = null;
-    DesecharPalletsPorCaducidad ventanaPadreMant = null;
+    DesecharPalletsPorCaducidad ventanaPadreDesecharPallets = null;
     AlmacenBL objAlmacenBL = new AlmacenBL();
     
     ArrayList<String> arrIdAlmacenes = new ArrayList<String>();
@@ -72,7 +72,7 @@ public class BuscarPallet extends javax.swing.JFrame {
     public BuscarPallet(DesecharPalletsPorCaducidad ventanaPadre) {
         this.setLocationRelativeTo(null); 
         initComponents();
-        this.ventanaPadreMant = ventanaPadre;
+        this.ventanaPadreDesecharPallets = ventanaPadre;
         cargarComboAlmacen();
     }
     
@@ -367,13 +367,16 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     }
     else if (cbZona.getSelectedItem().toString().equals("") && !cbAlmacen.getSelectedItem().toString().equals("")){
         
-        strIdAlmacen = cbAlmacen.getSelectedItem().toString();
+        int i = cbAlmacen.getSelectedIndex();
+        strIdAlmacen = arrIdAlmacenes.get(i);
         arrPallets = objPalletBL.getPalletsByAlmacen(strIdAlmacen);
         
     }
     
     if (ventanaPadreReubicar != null)
         ventanaPadreReubicar.llenarDgv(arrPallets);
+    if (ventanaPadreDesecharPallets != null)
+        ventanaPadreDesecharPallets.llenarDgv(arrPallets);
 
     this.dispose();
     

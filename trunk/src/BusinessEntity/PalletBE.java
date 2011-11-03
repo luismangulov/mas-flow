@@ -14,7 +14,7 @@ public class PalletBE {
     
     private String idPallet;
     private String idProducto;
-    private String indActivo; // 0: vacío, 1: ocupado
+    private String indActivo; // 0: vacío, 1: ocupado, 2: despachado, 3: desechado
     private String idUbicacion;
     private String idAlmacen;
     private Date fechaVencimiento;
