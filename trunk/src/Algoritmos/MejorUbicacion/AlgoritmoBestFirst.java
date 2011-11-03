@@ -90,7 +90,7 @@ public class AlgoritmoBestFirst {
         RackBE rack = rackBL.getByIdRack(u.getIdRack());
 
         double dx= mapa.getPosPuertaX()- rack.getPosX();
-        double dy= mapa.getPosPuertaY() - rack.getPosY()+u.getColumna()-1;
+        double dy= mapa.getPosPuertaY() - (rack.getPosY()+u.getColumna()-1);
         double distanciaALaPuerta=Math.sqrt(dx * dx + dy * dy);
         return distanciaALaPuerta;
     }
