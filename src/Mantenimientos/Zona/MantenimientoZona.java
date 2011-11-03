@@ -546,7 +546,12 @@ public class MantenimientoZona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarMousePressed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-    if ((this.txtNombre.getText().length() + 1) > 10) {
+        char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))){
+        } else { evt.consume(); }
+
+
+        if ((this.txtNombre.getText().length() + 1) > 10) {
             evt.consume();}        // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreKeyTyped
 

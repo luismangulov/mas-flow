@@ -224,8 +224,11 @@ public class BuscarProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRazonSocialFocusLost
 
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))||(c=='.')||(c=='-')){
+        } else { evt.consume(); }
         if ((this.txtDireccion.getText().length() + 1) > 60) {
-            evt.consume();        }          // TODO add your handling code here:
+        evt.consume();        }          // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionKeyTyped
 
     private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost

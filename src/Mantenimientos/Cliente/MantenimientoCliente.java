@@ -566,7 +566,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 
     private void txtPaginaWebKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaginaWebKeyTyped
         char c = (char)evt.getKeyChar();
-        if((c>='a' && c<='z') || (c>='A' && c<='Z') || (c>='0' && c<='9') ||(Character.isISOControl(c))||(c=='.')){
+        if((c>='a' && c<='z') || (c>='A' && c<='Z') || (c>='0' && c<='9') ||(Character.isISOControl(c))||(c=='.')||(c=='-')||(c=='_')){
         } else { evt.consume(); }
         if ((this.txtPaginaWeb.getText().length() + 1) > 30) {
             evt.consume();}
@@ -598,6 +598,9 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 }//GEN-LAST:event_txtEmailKeyTyped
 
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))||(c=='.')||(c=='-')){
+        } else { evt.consume(); }
         if ((this.txtDireccion.getText().length() + 1) > 60) { evt.consume();        }
         // TODO add your handling code here:
 }//GEN-LAST:event_txtDireccionKeyTyped
@@ -633,6 +636,9 @@ public class MantenimientoCliente extends javax.swing.JFrame {
 }//GEN-LAST:event_txtDNIContactoKeyTyped
 
     private void txtNombreContactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreContactoKeyTyped
+        char c = (char)evt.getKeyChar();
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))){
+        } else { evt.consume(); }
         if ((this.txtNombreContacto.getText().length() + 1) > 30) {
             evt.consume();}// TODO add your handling code here:
 }//GEN-LAST:event_txtNombreContactoKeyTyped
