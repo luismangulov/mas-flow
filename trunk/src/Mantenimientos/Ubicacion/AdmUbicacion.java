@@ -243,14 +243,12 @@ private void lblRefrescarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
 
     public void llenarDgv(ArrayList<UbicacionBE> arrUbicaciones){
 
-        
         DefaultTableModel modelo=(DefaultTableModel) dgvUbicaciones.getModel();    
         this.limpiarDgv();
         this.arrUbicaciones = arrUbicaciones;
         
         if (arrUbicaciones != null){
             
-        
             for (int i=0; i<arrUbicaciones.size(); i++){
 
                 String strIdUbicacion = arrUbicaciones.get(i).getIdUbicacion();
