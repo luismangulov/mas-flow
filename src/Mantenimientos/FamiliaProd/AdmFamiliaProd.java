@@ -196,15 +196,12 @@ private void lblInsertarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
 
     private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
         // TODO add your handling code here:
-        ProductoBL objProductoBL = new ProductoBL();
-        int fila1 = dgvFamilia.getSelectedRow();
-         String cod = (String)dgvFamilia.getValueAt(fila1, 0);
+       
         if((dgvFamilia.getSelectedRowCount() == 0)){
            JOptionPane.showMessageDialog(null, "No ha seleccionado una familia de producto", "Mensaje",0);
         } else if((dgvFamilia.getSelectedRowCount() > 1)){
             JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
-        }else if(!objProductoBL.getListSearch("", "", cod, "").isEmpty()){
-            JOptionPane.showMessageDialog(null, "La familia de producto no se puede eliminar porque aparece en productos", "Mensaje",0);
+      
         }else{
             int fila;
             String codigo;
