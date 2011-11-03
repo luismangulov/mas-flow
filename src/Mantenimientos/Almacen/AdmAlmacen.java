@@ -24,6 +24,7 @@ import DataAccess.ProvinciaDA;
 import BusinessEntity.DistritoBE;
 import DataAccess.DistritoDA;
 import java.util.ArrayList;
+import Algoritmos.Mapa.Mapa;
 /**
  *
  * @author DIEGO
@@ -150,6 +151,11 @@ public class AdmAlmacen extends javax.swing.JFrame {
         lblVerMapa.setToolTipText("Ver mapa");
         lblVerMapa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblVerMapa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVerMapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblVerMapaMousePressed(evt);
+            }
+        });
         tlbAlmacen.add(lblVerMapa);
 
         lblBlanco.setText("                                                                     ");
@@ -248,7 +254,31 @@ m.setVisible(true);
 
         }         // TODO add your handling code here:
     }//GEN-LAST:event_lblEliminarMousePressed
-    }
+ }
+
+
+
+    private void lblVerMapaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMapaMousePressed
+
+        if((dgvAlmacen.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un almacén.", "Mensaje",0);
+        } else if((dgvAlmacen.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un almacén.", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvAlmacen.getSelectedRow();
+            codigo = (String)dgvAlmacen.getValueAt(fila, 0);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            AlmacenBE almacen = objAlmacenBL.getAlmacen(codigo);
+            Mapa mapa = new Mapa(almacen);
+            mapa.mostrarGraficoMapa();
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblVerMapaMousePressed
+   }
+
 
     /**
      * @param args the command line arguments

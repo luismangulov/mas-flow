@@ -10,6 +10,8 @@
  */
 package Mantenimientos.Zona;
 
+import Algoritmos.Mapa.Mapa;
+import BusinessEntity.AlmacenBE;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.ZonaBL;
 import BusinessLogic.AlmacenBL;
@@ -155,6 +157,11 @@ public class AdmZona extends javax.swing.JFrame {
         lblVerMapa.setToolTipText("Ver en mapa");
         lblVerMapa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblVerMapa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVerMapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblVerMapaMousePressed(evt);
+            }
+        });
         tlbZona.add(lblVerMapa);
 
         lblBlanco.setText("                                                                     ");
@@ -257,6 +264,28 @@ private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         }        // TODO add your handling code here:
     }//GEN-LAST:event_lblEliminarMousePressed
     }
+
+    private void lblVerMapaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMapaMousePressed
+        if((dgvZona.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una zona.", "Mensaje",0);
+        } else if((dgvZona.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de una zona.", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvZona.getSelectedRow();
+            codigo = (String)dgvZona.getValueAt(fila, 0);
+            ZonaBL objZonaBL = new ZonaBL();
+            ZonaBE zona = objZonaBL.getZona(codigo);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            AlmacenBE almacen = objAlmacenBL.getAlmacen(zona.getIdAlmacen());
+            Mapa mapa = new Mapa(almacen);
+            mapa.mostrarGraficoMapa();
+        }
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblVerMapaMousePressed
+    
     /**
      * @param args the command line arguments
      */
