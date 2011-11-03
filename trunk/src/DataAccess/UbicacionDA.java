@@ -322,7 +322,7 @@ public class UbicacionDA {
        
         rs = null;
         objConexion = new conexion();
-        query = "SELECT COUNT(u.idUbicacion) FROM almacen a, zona z, familia f, zonaxfamilia zxf, rack r, ubicacion u, pallet p WHERE a.idalmacen = z.idalmacen ANd z.idzona = zxf.idzona AND zxf.idfamilia = f.idfamilia AND z.idzona = r.idzona AND u.idrack = r.idrack AND u.indactivo = '0' AND p.idubicacion = u.idubicacion";
+        query = "SELECT COUNT(u.idUbicacion) FROM almacen a, zona z, familia f, zonaxfamilia zxf, rack r, ubicacion u, pallet p WHERE a.idalmacen = z.idalmacen ANd z.idzona = zxf.idzona AND zxf.idfamilia = f.idfamilia AND z.idzona = r.idzona AND u.idrack = r.idrack AND u.indactivo = '2' AND p.idubicacion = u.idubicacion";
                 query+= " AND f.idfamilia = '"+idFamilia+"' AND p.idalmacen = '"+idAlmacen+"' AND p.idproducto = '"+idProducto+"' AND a.idalmacen = '"+idAlmacen+"'";
         int cantUbicacinesLibres = 0;
         try{
