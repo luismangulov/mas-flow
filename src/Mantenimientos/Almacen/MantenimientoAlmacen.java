@@ -509,17 +509,17 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         }
        
         int x =Integer.parseInt(txtPuertaX.getText());
-        if (x>ancho) {
+        if (x>ancho-1) {
             JOptionPane.showMessageDialog(null, "Cordenada X de la puerta mayor a lo permitido.", "Error", 0);
             return;
         }
         int y=Integer.parseInt(txtPuertaY.getText());
-        if (y>largo) {
+        if (y>largo-1) {
             JOptionPane.showMessageDialog(null, "Cordenada Y de la puerta mayor a lo permitido.", "Error", 0);
             return;
         }
         
-        if ((x!=1 &&x!=ancho) && (y!=1 &&y!=largo)){
+        if ((x!=0 &&x!=ancho) && (y!=0 &&y!=largo)){
             JOptionPane.showMessageDialog(null, "Cordenada de la puerta no colinda con las paredes.", "Error", 0);
             return;
         }
