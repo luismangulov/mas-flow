@@ -280,7 +280,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                }
              
             
-        }    
+        } 
+        }  
     }//GEN-LAST:event_lblAprobarMousePressed
 
     /**
