@@ -20,6 +20,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         this.jLabel20.setEnabled(false);
+        this.jLabel21.setEnabled(false);
          this.setLocationRelativeTo(null);
     }
 
