@@ -540,7 +540,7 @@ private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:
             return;
         }
         
-        if ((x!=0 &&x!=ancho) && (y!=0 &&y!=largo)){
+        if ((x!=0 &&x!=ancho-1) && (y!=0 &&y!=largo-1)){
             JOptionPane.showMessageDialog(null, "Cordenada de la puerta no colinda con las paredes.", "Error", 0);
             return;
         }
