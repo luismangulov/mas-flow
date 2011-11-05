@@ -487,7 +487,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         if ((txtDNIContacto.getText().length()==0)&& rdbEmpresa.isSelected()) {
             JOptionPane.showMessageDialog(null, "Falta indicar DNI del contacto.", "Error", 0);
             return;
-        } else if(txtDNIContacto.getText().length()<8){
+        } else if(txtDNIContacto.getText().length()<8 && rdbEmpresa.isSelected()){
             JOptionPane.showMessageDialog(null, "DNI del contacto incorrecto.", "Error", 0);
             return;
         }

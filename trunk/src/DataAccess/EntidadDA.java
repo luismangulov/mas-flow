@@ -224,7 +224,7 @@ public class EntidadDA {
         }
 
         if (razonSocial == null ? "" != null : !razonSocial.equals("")){
-            sql= sql + "and  razonSocial like '%"+ razonSocial.replace("'", "''")+"%' ";
+            sql= sql + "and  razonSocial like '%"+ razonSocial.replace("'", "''").replace("_", "\\_").replace("%", "\\%").replace("\\", "\\\\")+"%' ";
         }
 
         if (direccion == null ? "" != null : !direccion.equals("")){
