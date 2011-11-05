@@ -54,8 +54,8 @@ public class Mapa {
 //        numX = (int)(almacen.getLargo()/Configuracion.getLargoPallet());
 //        numY = (int)(almacen.getAncho()/Configuracion.getAnchoPallet());
 
-        numX = (int)(almacen.getAncho()/Configuracion.getLargoPallet());
-        numY = (int)(almacen.getLargo()/Configuracion.getAnchoPallet());
+        numX = (int)(almacen.getAncho()/Configuracion.getAnchoPallet());
+        numY = (int)(almacen.getLargo()/Configuracion.getLargoPallet());
 
         listaNodos = new ArrayList<Nodo>();
 
@@ -105,11 +105,19 @@ public class Mapa {
         
         for (UbicacionBE ubicacion : listaUbicacion)
         {
-            //no filas o pisos
-            //incompleto para almacenes horizontales
-            Nodo nodo = new Nodo(id,rack.getPosX(),rack.getPosY()+ubicacion.getColumna()-1,ubicacion);
-            listaNodos.add(nodo);
-            id++;
+            //H: horizontal, V:vertical
+            if (rack.getOrientacion().equals("V"))
+            {
+                Nodo nodo = new Nodo(id,rack.getPosX(),rack.getPosY()+ubicacion.getColumna()-1,ubicacion);
+                listaNodos.add(nodo);
+                id++;
+            }
+            else
+            {
+                Nodo nodo = new Nodo(id,rack.getPosX()+ubicacion.getColumna()-1,rack.getPosY(),ubicacion);
+                listaNodos.add(nodo);
+                id++;
+            }
         }
     }
 
