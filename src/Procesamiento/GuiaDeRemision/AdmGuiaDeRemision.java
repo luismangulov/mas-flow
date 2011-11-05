@@ -123,6 +123,8 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
 
         lblDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/detalle2.png"))); // NOI18N
         lblDetalle.setToolTipText("VisualizarDetalle");
+        lblDetalle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblDetalle.setMaximumSize(new java.awt.Dimension(54, 54));
         lblDetalle.setPreferredSize(new java.awt.Dimension(54, 54));
         lblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
