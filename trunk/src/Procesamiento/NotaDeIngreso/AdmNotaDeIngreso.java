@@ -40,7 +40,7 @@ import javax.swing.table.DefaultTableModel;
  * @author DIEGO
  */
 public class AdmNotaDeIngreso extends javax.swing.JFrame {
-
+     ArrayList<PalletBE> arrPallet = new ArrayList<PalletBE>();
     /** Creates new form AdmNotaDeIngreso */
     public AdmNotaDeIngreso() {
         initComponents();
@@ -297,6 +297,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 try {
                     objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
                     tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -307,8 +308,40 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Aprobado");
                 NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
                 try {
+                   
+                     for(int i=0;i<arrDetalleNotaIngresoBE.size();i++){
+                        ProductoBL objProductoBL = new ProductoBL();
+                        ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrDetalleNotaIngresoBE.get(i).getProducto().getIdProducto());
+
+                        int cantidadPallet = arrDetalleNotaIngresoBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
+                        for(int j=0;j<cantidadPallet;j++){
+                            PalletBL objPalletBL = new PalletBL();
+                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento());
+                            objPalletBL.insertar(objPalletBE);
+                            arrPallet.add(objPalletBE);
+                        }
+                                               
+                     }
+                    
+                    
                     objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
                     tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
+                    
+                ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+                Mapa mapa = new Mapa(arrAlmacenes.get(0));
+            for(PalletBE pallet : arrPallet){
+              
+                arrUbicaciones.add(AlgoritmoBestFirst.ejecutar(mapa, pallet));
+                
+            }
+            
+            mapa.mostrarGraficoMapa(arrUbicaciones);
+                    
+//            for(int u = 0;u<arrPallet.size();u++){
+//                
+//            }                           
+                    
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -367,7 +400,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 int cantidadPallet = arrDetalleNotaIngresoBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
                 for(int j=0;j<cantidadPallet;j++){
                     PalletBL objPalletBL = new PalletBL();
-                    PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen,null);
+                    PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento());
                     objPalletBL.insertar(objPalletBE);
                     arrPallet.add(objPalletBE);
                 }

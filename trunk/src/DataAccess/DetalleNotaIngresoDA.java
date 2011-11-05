@@ -10,6 +10,7 @@ import BusinessEntity.ProductoBE;
 import Util.conexion;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -21,7 +22,7 @@ public class DetalleNotaIngresoDA {
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
-        String sql = "INSERT INTO detallenotaingreso(iddetallenotaingreso,idnotaingreso,cantidad,idproducto) VALUES('"+ objDetalleNotaIngreso.getCodigo() +"','"+ codNotaIngreso +"','"+ objDetalleNotaIngreso.getCantidad() +"','"+ objDetalleNotaIngreso.getProducto().getIdProducto() +"')";
+        String sql = "INSERT INTO detallenotaingreso(iddetallenotaingreso,idnotaingreso,cantidad,idproducto,fechavencimiento) VALUES('"+ objDetalleNotaIngreso.getCodigo() +"','"+ codNotaIngreso +"','"+ objDetalleNotaIngreso.getCantidad() +"','"+ objDetalleNotaIngreso.getProducto().getIdProducto() +"','"+ objDetalleNotaIngreso.getFechaVencimiento() +"')";
         
         
         try{
@@ -39,7 +40,7 @@ public class DetalleNotaIngresoDA {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<DetalleNotaIngresoBE> arrDetalleNotaIngreso = new ArrayList<DetalleNotaIngresoBE>();
-        String sql = "SELECT g.idnotaingreso,g.iddetallenotaingreso,g.cantidad,p.idproducto,p.nombre FROM detallenotaingreso g, producto p";
+        String sql = "SELECT g.idnotaingreso,g.iddetallenotaingreso,g.cantidad,g.fechavencimiento,p.idproducto,p.nombre FROM detallenotaingreso g, producto p";
                  sql += " WHERE g.idnotaingreso='"+codNotaIngreso+"'";
                  sql += " AND p.idproducto = g.idproducto order by 1";
         try{
@@ -47,6 +48,8 @@ public class DetalleNotaIngresoDA {
             String strIdNotaIngreso;
             String strIdDetalleNotaIngreso;
             int cantidad;
+            Date fecha;
+            
             String strIdProducto;
             String strNombre;
                         
@@ -55,13 +58,15 @@ public class DetalleNotaIngresoDA {
                 strIdNotaIngreso = rs.getString(1).trim();
                 strIdDetalleNotaIngreso = rs.getString(2).trim();
                 cantidad = rs.getInt(3);
-                strIdProducto = rs.getString(4).trim();
-                strNombre = rs.getString(5).trim();
+                fecha = rs.getDate(4);
+                
+                strIdProducto = rs.getString(5).trim();
+                strNombre = rs.getString(6).trim();
                 ProductoBE objProducto = new ProductoBE();
                 objProducto.setIdProducto(strIdProducto);
                 objProducto.setNombre(strNombre);
                 
-                arrDetalleNotaIngreso.add(new DetalleNotaIngresoBE(strIdDetalleNotaIngreso,cantidad,objProducto));
+                arrDetalleNotaIngreso.add(new DetalleNotaIngresoBE(strIdDetalleNotaIngreso,cantidad,objProducto,fecha));
             }
              
         }catch (Exception a){
