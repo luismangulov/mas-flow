@@ -55,46 +55,38 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 
     //numAplicaciones tiene todos las aplicaciones del sistema
     AplicacionDA objAplicacionDA =new AplicacionDA();
-    int numAplicaciones= objAplicacionDA.queryAllAplicacion().size();
-    
-
-    
-    private String[] listaAplicaciones=new String[numAplicaciones];//de todo el sistema
+    int numAplicaciones= objAplicacionDA.queryAllAplicacion().size();      
+    private ArrayList <String> listaAplicacionesSistema=new ArrayList<String>();//de todo el sistema
     private String[] listaServicio;
 
-    public MantenimientoPerfil() {
-    }
+    public MantenimientoPerfil() {  }
 
-    
-    
+   
     public MantenimientoPerfil(AdmPerfil padre){
         this.objPadre = padre;
         accion = "registrar";
-        primero=true;
-        
+        primero=true;       
         
         int cont=0;           
         for (cont = 0; cont<numAplicaciones; cont++) {            
                 String aplicacion = listaAplicacionxServicio.get(cont).getAplicacion().getDescripcion();
-                listaAplicaciones[cont]= aplicacion;       
+                listaAplicacionesSistema.add(aplicacion);
             
         };        
        modeloAplicacion= new AbstractListModel() {        
-            String[] listaLocal=listaAplicaciones;
+            ArrayList <String> listaLocal=listaAplicacionesSistema;
             public int getSize() {
-                return listaLocal.length;
+                return listaLocal.size();
                 
             }
             public Object getElementAt(int index) {
-                return listaLocal[index];
+                return listaLocal.get(index);
             }
             
-        };     
-               
+        };                 
         
         initComponents();
-        jListAplicacion.setModel(modeloAplicacion);
-        
+        jListAplicacion.setModel(modeloAplicacion);        
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
         this.cbxActivo.setSelected(true);
@@ -123,14 +115,12 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 return listaLocal.get(index);
             }
             
-        };
-        
+        };     
 
         
         
         initComponents();        
-        this.jListAplicacion.setModel(modeloAplicacion);
-        
+        this.jListAplicacion.setModel(modeloAplicacion);   
         
         this.setLocationRelativeTo(null);
         this.cbxActivo.setEnabled(true);
@@ -173,6 +163,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lblAddAplicacion = new javax.swing.JLabel();
         lblRemoverAplicacion = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListAplicacionSelect = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar perfil");
@@ -230,6 +222,11 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 jListAplicacionMouseClicked(evt);
             }
         });
+        jListAplicacion.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jListAplicacionComponentAdded(evt);
+            }
+        });
         jScrollPane2.setViewportView(jListAplicacion);
 
         jScrollPane3.setViewportView(jListServicio);
@@ -254,6 +251,13 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             }
         });
 
+        jListAplicacionSelect.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jListAplicacionSelect);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -261,11 +265,6 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxActivo)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -280,10 +279,16 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAddAplicacion)
                             .addComponent(lblRemoverAplicacion))
+                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addComponent(cbxActivo)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3))
-                .addContainerGap(66, Short.MAX_VALUE))
+                        .addComponent(btnCancelar))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,26 +301,28 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
                         .addComponent(lblAddAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblRemoverAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))
+                        .addComponent(lblRemoverAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))))
-                .addGap(18, 18, 18)
-                .addComponent(cbxActivo)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
-                .addGap(49, 49, 49))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(cbxActivo)
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnCancelar))))
+                .addContainerGap())
         );
 
         pack();
@@ -404,30 +411,35 @@ private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
     
     if(accion.equals("registrar")){ //Cuando es registrar
         
-        if (primero==true){ 
-            
-            primero=false;
-            ArrayList <ServicioBE> listaServicios  =new ArrayList<ServicioBE>();
-            listaServicios=listaAplicacionxServicio.get(indexSeleccionado).getListaServicios();          
+//        if (primero==true){
+//
+//            primero=false;
+//            ArrayList <ServicioBE> listaServicios  =new ArrayList<ServicioBE>();
+//            listaServicios=listaAplicacionxServicio.get(indexSeleccionado).getListaServicios();
+//
+//            int cont=0;
+//            final String[] listaLocalServicio=  new String [listaAplicacionxServicio.get(indexSeleccionado).getListaServicios().size()];
+//
+//            for (cont = 0; cont<listaServicios.size(); cont++) {
+//                 String servicio = listaServicios.get(cont).getIdDescripcion();
+//                 listaLocalServicio[cont]=servicio;
+//            };
+//            modeloServicio= new AbstractListModel() {
+//                    String[] listaLocal=listaLocalServicio;
+//                    public int getSize() {
+//                        return listaLocal.length;
+//                    }
+//                    public Object getElementAt(int index) {
+//                        return listaLocal[index];
+//                    }
+//            };
+//            jListServicio.setModel(modeloServicio);
+//        }
 
-            int cont=0;          
-            final String[] listaLocalServicio=  new String [listaAplicacionxServicio.get(indexSeleccionado).getListaServicios().size()];
 
-            for (cont = 0; cont<listaServicios.size(); cont++) {
-                 String servicio = listaServicios.get(cont).getIdDescripcion();
-                 listaLocalServicio[cont]=servicio;           
-            };
-            modeloServicio= new AbstractListModel() {            
-                    String[] listaLocal=listaLocalServicio;
-                    public int getSize() {
-                        return listaLocal.length;
-                    }
-                    public Object getElementAt(int index) {
-                        return listaLocal[index];
-                    }
-            };
-            jListServicio.setModel(modeloServicio);
-        }
+
+
+
     }else{// cuando es modificar
         
         PerfilDetalleDA objPerfilDetalleDA=new PerfilDetalleDA();
@@ -442,8 +454,7 @@ private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
                     public Object getElementAt(int index) {
                         return listaLocal.get(index);
                     }
-        };
-        
+        };        
         jListServicio.setModel(modeloServicio);
         
     }
@@ -456,6 +467,7 @@ private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
 private void lblAddAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddAplicacionMousePressed
         // TODO add your handling code here:
 
+
         
         
 }//GEN-LAST:event_lblAddAplicacionMousePressed
@@ -465,6 +477,11 @@ private void lblRemoverAplicacionMousePressed(java.awt.event.MouseEvent evt) {//
 
     
 }//GEN-LAST:event_lblRemoverAplicacionMousePressed
+
+private void jListAplicacionComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jListAplicacionComponentAdded
+    // TODO add your handling code here:
+
+}//GEN-LAST:event_jListAplicacionComponentAdded
 
     /**
      * @param args the command line arguments
@@ -510,7 +527,9 @@ private void lblRemoverAplicacionMousePressed(java.awt.event.MouseEvent evt) {//
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList jListAplicacion;
+    private javax.swing.JList jListAplicacionSelect;
     private javax.swing.JList jListServicio;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblAddAplicacion;
