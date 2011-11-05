@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.JScrollPane;
 
@@ -45,48 +46,58 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
     private String accion;
 
     private AbstractListModel modeloAplicacion;
+    private AbstractListModel modeloAplicacionSelected;
     private AbstractListModel modeloServicio;
-    private boolean primero;
+    private AbstractListModel modeloServicioSelected;
+
     
     AplicacionxServicioDA objAplicacionxServicio =new AplicacionxServicioDA();
-    //listaAplicacionxServicio obttiene la lista de aplicaciones del sistema con su listas de servicios
-    ArrayList <AplicacionxServicioBE> listaAplicacionxServicio = objAplicacionxServicio.queryAllAplicacionxServicio();  
-
-
-    //numAplicaciones tiene todos las aplicaciones del sistema
-    AplicacionDA objAplicacionDA =new AplicacionDA();
-    int numAplicaciones= objAplicacionDA.queryAllAplicacion().size();      
-    private ArrayList <String> listaAplicacionesSistema=new ArrayList<String>();//de todo el sistema
-    private String[] listaServicio;
+    //Lista de aplicaciones de todo el sistema
+    private ArrayList <String> listaAplicacionesSistema=objAplicacionxServicio.queryAllNombreAplicaciones();
+    //Lista de aplicaciones del perfil (argumento del constructor)
+    private ArrayList<String> listaAplicacionesPerfil=new ArrayList<String>();
+    //Lista de aplicaciones seleccionadas
+    private ArrayList<String> listaAplicacionesSelected=new ArrayList<String>();
+    //Lista de servicios de una aplicacion del sistema
+    private ArrayList<String> listaServiciosSistema=new ArrayList<String>();
+    //Lista de servicios de una aplicacion del perfil(argumento del constructor)
+    private ArrayList<String>listaServiciosSelected=new ArrayList<String>();
 
     public MantenimientoPerfil() {  }
 
    
     public MantenimientoPerfil(AdmPerfil padre){
+
         this.objPadre = padre;
-        accion = "registrar";
-        primero=true;       
-        
-        int cont=0;           
-        for (cont = 0; cont<numAplicaciones; cont++) {            
-                String aplicacion = listaAplicacionxServicio.get(cont).getAplicacion().getDescripcion();
-                listaAplicacionesSistema.add(aplicacion);
-            
-        };        
-       modeloAplicacion= new AbstractListModel() {        
+        accion = "registrar";     
+     
+       modeloAplicacion= new AbstractListModel() {
             ArrayList <String> listaLocal=listaAplicacionesSistema;
             public int getSize() {
                 return listaLocal.size();
-                
+
             }
             public Object getElementAt(int index) {
                 return listaLocal.get(index);
             }
-            
-        };                 
+
+        };
+        modeloAplicacionSelected= new AbstractListModel() {
+            ArrayList <String> listaLocal=listaAplicacionesSelected;
+            public int getSize() {
+                return listaLocal.size();
+
+            }
+            public Object getElementAt(int index) {
+                return listaLocal.get(index);
+            }
+
+        };
         
         initComponents();
-        jListAplicacion.setModel(modeloAplicacion);        
+        jListAplicacion.setModel(modeloAplicacion);
+        jListAplicacionSelected.setModel(modeloAplicacionSelected);
+        
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
         this.cbxActivo.setSelected(true);
@@ -98,15 +109,12 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.objPadre = padre;
         accion = "modificar";
         this.perfil =perfilBE;
-        int cont=0; 
         
-       PerfilDetalleDA objPerfilDetalleDA= new PerfilDetalleDA();
-        //lista de aplicaciones por perfil
-      
-       final ArrayList<String> listaAplicacionesPorPerfil= objPerfilDetalleDA.queryAllAplicacionesPorPerfil(perfil.getIdPerfil());
-       
-       modeloAplicacion= new AbstractListModel() {        
-            ArrayList<String> listaLocal=listaAplicacionesPorPerfil;
+        PerfilDetalleDA objPerfilDetalleDA= new PerfilDetalleDA();
+        //lista de aplicaciones por perfil      
+        listaAplicacionesPerfil= objPerfilDetalleDA.queryAllAplicacionesPorPerfil(perfil.getIdPerfil());
+        modeloAplicacion= new AbstractListModel() {
+            ArrayList<String> listaLocal=listaAplicacionesSistema;
             public int getSize() {
                 return listaLocal.size();
                 
@@ -115,12 +123,23 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 return listaLocal.get(index);
             }
             
-        };     
+            };
 
-        
+        modeloAplicacionSelected= new AbstractListModel() {
+            ArrayList <String> listaLocal=listaAplicacionesPerfil;
+            public int getSize() {
+                return listaLocal.size();
+
+            }
+            public Object getElementAt(int index) {
+                return listaLocal.get(index);
+            }
+
+            };
         
         initComponents();        
-        this.jListAplicacion.setModel(modeloAplicacion);   
+        this.jListAplicacion.setModel(modeloAplicacion);
+        this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
         
         this.setLocationRelativeTo(null);
         this.cbxActivo.setEnabled(true);
@@ -164,7 +183,9 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         lblAddAplicacion = new javax.swing.JLabel();
         lblRemoverAplicacion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jListAplicacionSelect = new javax.swing.JList();
+        jListAplicacionSelected = new javax.swing.JList();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jListServicioSelected = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar perfil");
@@ -251,20 +272,28 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             }
         });
 
-        jListAplicacionSelect.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        jListAplicacionSelected.setModel(modeloAplicacionSelected);
+        jListAplicacionSelected.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListAplicacionSelectedMouseClicked(evt);
+            }
         });
-        jScrollPane1.setViewportView(jListAplicacionSelect);
+        jScrollPane1.setViewportView(jListAplicacionSelected);
+
+        jScrollPane4.setViewportView(jListServicioSelected);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxActivo)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGuardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -273,55 +302,55 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAddAplicacion)
                             .addComponent(lblRemoverAplicacion))
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3)
-                    .addComponent(cbxActivo)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(lblAddAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblRemoverAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(cbxActivo)
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGuardar)
-                            .addComponent(btnCancelar))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(186, 186, 186)
+                        .addComponent(lblAddAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblRemoverAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(72, 72, 72)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(cbxActivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -330,6 +359,12 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 // TODO add your handling code here:
+    if ((txtDescripcion.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar nombre de perfil.", "Error", 0);
+            return;
+    }
+
+
         PerfilBL objPerfilBL = new PerfilBL();
        
         try {
@@ -466,6 +501,41 @@ private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
 
 private void lblAddAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddAplicacionMousePressed
         // TODO add your handling code here:
+    int itemSelected=this.jListAplicacion.getSelectedIndex();
+    if(itemSelected>-1){
+        this.listaAplicacionesSelected.add(this.listaAplicacionesSistema.get(itemSelected));
+        this.listaAplicacionesSistema.remove(itemSelected);
+
+        modeloAplicacion= new AbstractListModel() {
+            ArrayList <String> listaLocal=listaAplicacionesSistema;
+            public int getSize() {
+                return listaLocal.size();
+
+            }
+            public Object getElementAt(int index) {
+                return listaLocal.get(index);
+            }
+
+        };
+
+        this.jListAplicacion.setModel(modeloAplicacion);
+
+        modeloAplicacionSelected= new AbstractListModel() {
+            ArrayList <String> listaLocal=listaAplicacionesSelected;
+            public int getSize() {
+                return listaLocal.size();
+
+            }
+            public Object getElementAt(int index) {
+                return listaLocal.get(index);
+            }
+
+        };
+        this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
+        
+
+    }
+
 
 
         
@@ -474,6 +544,41 @@ private void lblAddAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-
 
 private void lblRemoverAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverAplicacionMousePressed
         // TODO add your handling code here:
+    int itemSelected=this.jListAplicacionSelected.getSelectedIndex();
+
+    if(itemSelected>-1){
+        this.listaAplicacionesSistema.add(this.listaAplicacionesSelected.get(itemSelected));
+        this.listaAplicacionesSelected.remove(itemSelected);
+
+        modeloAplicacion= new AbstractListModel() {
+            ArrayList <String> listaLocal=listaAplicacionesSistema;
+            public int getSize() {
+                return listaLocal.size();
+
+            }
+            public Object getElementAt(int index) {
+                return listaLocal.get(index);
+            }
+
+        };
+
+        this.jListAplicacion.setModel(modeloAplicacion);
+
+        modeloAplicacionSelected= new AbstractListModel() {
+            ArrayList <String> listaLocal=listaAplicacionesSelected;
+            public int getSize() {
+                return listaLocal.size();
+
+            }
+            public Object getElementAt(int index) {
+                return listaLocal.get(index);
+            }
+
+        };
+        this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
+
+
+    }
 
     
 }//GEN-LAST:event_lblRemoverAplicacionMousePressed
@@ -482,6 +587,37 @@ private void jListAplicacionComponentAdded(java.awt.event.ContainerEvent evt) {/
     // TODO add your handling code here:
 
 }//GEN-LAST:event_jListAplicacionComponentAdded
+
+private void jListAplicacionSelectedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListAplicacionSelectedMouseClicked
+    // TODO add your handling code here:
+
+    int indexSelected = jListAplicacionSelected.getSelectedIndex();//obtengo posicion en la lista
+
+    if (indexSelected>-1){
+
+        if(accion.equals("registrar")){
+            
+            String nombreAplicacion=listaAplicacionesSelected.get(indexSelected);
+            listaServiciosSistema=objAplicacionxServicio.queryNombreServiciosByNombreAplicacion(nombreAplicacion);
+
+
+
+        }
+
+        modeloServicio= new AbstractListModel() {
+                ArrayList<String> listaLocal=listaServiciosSistema;
+                public int getSize() {
+                    return listaLocal.size();
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+        };
+        jListServicio.setModel(modeloServicio);
+
+
+    }
+}//GEN-LAST:event_jListAplicacionSelectedMouseClicked
 
     /**
      * @param args the command line arguments
@@ -527,11 +663,13 @@ private void jListAplicacionComponentAdded(java.awt.event.ContainerEvent evt) {/
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList jListAplicacion;
-    private javax.swing.JList jListAplicacionSelect;
+    private javax.swing.JList jListAplicacionSelected;
     private javax.swing.JList jListServicio;
+    private javax.swing.JList jListServicioSelected;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblAddAplicacion;
     private javax.swing.JLabel lblRemoverAplicacion;
     private javax.swing.JTextField txtCodigo;
