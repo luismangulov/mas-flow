@@ -10,7 +10,11 @@
  */
 package Mantenimientos.Rack;
 
+import Algoritmos.Mapa.Mapa;
+import BusinessEntity.AlmacenBE;
 import BusinessEntity.RackBE;
+import BusinessEntity.ZonaBE;
+import BusinessLogic.AlmacenBL;
 import BusinessLogic.RackBL;
 import BusinessLogic.UbicacionBL;
 import BusinessLogic.ZonaBL;
@@ -65,6 +69,7 @@ public class AdmRack extends javax.swing.JFrame {
         lblEliminarRack = new javax.swing.JLabel();
         lblBuscarRack = new javax.swing.JLabel();
         lblCargarRacks = new javax.swing.JLabel();
+        lblVerMapa = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -157,6 +162,17 @@ public class AdmRack extends javax.swing.JFrame {
         });
         jToolBar1.add(lblCargarRacks);
 
+        lblVerMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
+        lblVerMapa.setToolTipText("Ver en mapa");
+        lblVerMapa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblVerMapa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblVerMapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblVerMapaMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(lblVerMapa);
+
         jLabel7.setText("                                                                                                   ");
         jToolBar1.add(jLabel7);
 
@@ -236,6 +252,25 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
     arrRacks = objRackBL.getAllRack();
     llenarDgv(arrRacks);
 }//GEN-LAST:event_lblCargarRacksMouseClicked
+
+    private void lblVerMapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMapaMouseClicked
+        if((dgvRacks.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una zona.", "Mensaje",0);
+        } else if((dgvRacks.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de una zona.", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = dgvRacks.getSelectedRow();
+            codigo = (String)dgvRacks.getValueAt(fila, 0);
+            objZonaBL = new ZonaBL();
+            ZonaBE zona = objZonaBL.getZona(codigo);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            AlmacenBE almacen = objAlmacenBL.getAlmacen(zona.getIdAlmacen());
+            Mapa mapa = new Mapa(almacen);
+            mapa.mostrarGraficoMapa();
+        }
+    }//GEN-LAST:event_lblVerMapaMouseClicked
 
     public void llenarDgv(ArrayList<RackBE> arrRacks){
         
@@ -358,5 +393,6 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
     private javax.swing.JLabel lblEliminarRack;
     private javax.swing.JLabel lblModificarRack;
     private javax.swing.JLabel lblRegistrarRack;
+    private javax.swing.JLabel lblVerMapa;
     // End of variables declaration//GEN-END:variables
 }

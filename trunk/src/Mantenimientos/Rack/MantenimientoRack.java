@@ -421,7 +421,7 @@ private void txtPisosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tx
     char c = (char)evt.getKeyChar();
     if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
        evt.consume();
-    if ((this.txtPisos.getText().length() + 1) > 6) {
+    if ((this.txtPisos.getText().length() + 1) > 1) {
        evt.consume();
     }
 }//GEN-LAST:event_txtPisosKeyTyped
@@ -570,6 +570,96 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         if (txtColumnas.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de columnas del rack");
             return false;
+        }
+        
+        if (!validarPosicionamiento())
+            return false;
+        
+        return true;
+    }
+    
+    public boolean validarPosicionamiento(){
+        
+        objZonaBE = objZonaBL.getZona(cbZona.getSelectedItem().toString());
+        int intPosXZona = objZonaBE.getPosX();
+        int intPosYZona = objZonaBE.getPosY();
+        int intAnchoZona = objZonaBE.getAncho();
+        int intLargoZona = objZonaBE.getLargo();
+        
+        int intPosXRack = Integer.getInteger(txtPosX.getText());
+        int intPosYRack = Integer.getInteger(txtPosY.getText());
+        int intColumnasRack = Integer.getInteger(txtColumnas.getText());
+        
+        if (cbOrientacion.getSelectedItem().toString().equals("Horizontal"))
+            strOrientacion = "H";
+        else
+            strOrientacion = "V";
+        
+        //1 validar límites de la zona
+        
+        if ((intPosXRack < intPosXZona && intPosYRack < intPosYZona) || (intPosYRack > intPosYZona + intLargoZona 
+            && intPosXRack > intPosXZona) || (intPosXRack > intPosXZona + intAnchoZona && intPosYRack < intPosYZona) 
+            || (intPosXRack > intPosXZona + intAnchoZona && intPosYRack > intPosYZona + intLargoZona)){ 
+            
+            JOptionPane.showMessageDialog(null, "El rack excede las dimensiones de la zona");
+            return false;
+        }
+        
+        //2 validar que los racks no se solapen
+        
+        ArrayList<RackBE> arrRacks = objRackBL.getRacksByZona(strIdZona);
+        boolExito = true;
+        //si no hay racks en el sistema entonces se termina el registro del rack
+        
+        if (arrRacks != null){
+
+            //2.1 se crea una matriz de la zona solo con las posiciones que ocuparía el rack  a agregar (set 1)
+
+            int matrizZonaRack[][] = new int[intPosXZona][intPosYZona];
+
+            //2.1.1 inicialización de matriz
+
+            for (int i=0; i<intPosXZona; i++)
+                for (int j=0; j<intPosYZona; j++)
+                    matrizZonaRack[i][j] = 0;
+
+            if (strOrientacion.equals("H"))
+                for (int i=0; i<intColumnasRack; i++)
+                    matrizZonaRack[intPosXRack+i][intPosYRack] = 1;
+
+            else
+                for (int i=0; i<intColumnasRack; i++)
+                    matrizZonaRack[intPosXRack][intPosYRack+i] = 1;
+            
+            //2.2 se crea una matriz de la zona con las posiciones ocupadas por los racks en el sistema
+
+            int matrizZona[][] = new int[intPosXZona][intPosYZona];
+
+            //2.2.1 inicialización de matriz
+
+            for (int i=0; i<intPosXZona; i++)
+                for (int j=0; j<intPosYZona; j++)
+                    matrizZona[i][j] = 0;
+            
+            for (RackBE rack : arrRacks){
+                if (rack.getOrientacion().equals("H"))
+                    for (int i=0; i<rack.getColumnas(); i++)
+                        matrizZona[rack.getPosX()+i][rack.getPosY()] = 1;
+
+                else
+                    for (int i=0; i<intColumnasRack; i++)
+                        matrizZona[rack.getPosX()][rack.getPosY()+i] = 1;
+            }
+            
+            //3 comparar matrices
+            
+            for (int i=0; i<intPosXZona; i++)
+                for (int j=0; j<intPosYZona; j++)
+                    if (matrizZonaRack[i][j] == 1 && matrizZona[i][j] == 1){
+                        JOptionPane.showMessageDialog(null, "Existe solapamiento de racks");
+                        return false;
+                    }
+                        
         }
         
         return true;

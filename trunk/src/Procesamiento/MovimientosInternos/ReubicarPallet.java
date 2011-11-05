@@ -68,6 +68,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
     
     AdmMovimientosInternos ventanaPadre;
 
+    PalletBE objPalletBE = new PalletBE();
     
     /*
      *  CONSTRUCTOR
@@ -80,6 +81,25 @@ public class ReubicarPallet extends javax.swing.JFrame {
         Date fechaActual = new Date();
         this.jdcFecha.setDate(fechaActual);
         cargarComboAlmacen();
+    }
+    
+    public ReubicarPallet(PalletBE objPalletBE){
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.ventanaPadre = null;        
+        Date fechaActual = new Date();
+        this.jdcFecha.setDate(fechaActual);
+        cargarComboAlmacen();
+        strIdAlmacen = objPalletBE.getIdAlmacen();
+        for (int i=0; i<arrIdAlmacenes.size(); i++)
+            if (arrIdAlmacenes.get(i).equals(strIdAlmacen)){
+                cbAlmacen.setSelectedItem(i);
+                return;
+            }
+        
+        arrPallets.add(objPalletBE);
+        
+        llenarDgv(arrPallets);
     }
     
     /*
