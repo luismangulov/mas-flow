@@ -43,6 +43,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
     /** Creates new form MantenimientoPerfil */
     private AdmPerfil objPadre;
     private PerfilBE perfil;// Este perfil tiene una lista de detalles
+    private PerfilDetalleDA objPerfilDetalleDA= new PerfilDetalleDA();
+    private AplicacionDA objAplicacionDA=new AplicacionDA();
     private String accion;
 
     private AbstractListModel modeloAplicacion;
@@ -58,10 +60,14 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
     private ArrayList<String> listaAplicacionesPerfil=new ArrayList<String>();
     //Lista de aplicaciones seleccionadas
     private ArrayList<String> listaAplicacionesSelected=new ArrayList<String>();
+
     //Lista de servicios de una aplicacion del sistema
     private ArrayList<String> listaServiciosSistema=new ArrayList<String>();
+    //Lista de servicios de la Aplicacion del perfil(argumento del constructor)
+    private ArrayList<String>listaServiciosPerfil=new ArrayList<String>();
     //Lista de servicios de una aplicacion del perfil(argumento del constructor)
     private ArrayList<String>listaServiciosSelected=new ArrayList<String>();
+
 
     public MantenimientoPerfil() {  }
 
@@ -110,9 +116,33 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         accion = "modificar";
         this.perfil =perfilBE;
         
-        PerfilDetalleDA objPerfilDetalleDA= new PerfilDetalleDA();
+
         //lista de aplicaciones por perfil      
         listaAplicacionesPerfil= objPerfilDetalleDA.queryAllAplicacionesPorPerfil(perfil.getIdPerfil());
+        
+        //Elimina de la listaAplicacionesSistema las aplicaciones que ya tiene el perfil
+        ArrayList <Integer>listaIndexMarcados=new ArrayList<Integer>();
+        for(int i=0;i<listaAplicacionesSistema.size();i++)
+        {
+            for(int j=0;j<listaAplicacionesPerfil.size();j++)
+            {
+                if (listaAplicacionesSistema.get(i).equals(listaAplicacionesPerfil.get(j))){
+                    listaIndexMarcados.add(i);
+                }
+
+            }
+        }
+        int cantEliminar=listaAplicacionesSistema.size()-listaIndexMarcados.size();
+        for(int i=0; i<cantEliminar;i++){
+            if(i==listaIndexMarcados.get(i)){
+                listaAplicacionesSistema.remove(i);
+            }
+
+        }
+
+
+
+
         modeloAplicacion= new AbstractListModel() {
             ArrayList<String> listaLocal=listaAplicacionesSistema;
             public int getSize() {
@@ -440,63 +470,7 @@ private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_formComponentShown
 
 private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListAplicacionMouseClicked
-// TODO add your handling code here:
-
-    int indexSeleccionado = jListAplicacion.getSelectedIndex();//obtengo posicion en la lista
-    
-    if(accion.equals("registrar")){ //Cuando es registrar
-        
-//        if (primero==true){
-//
-//            primero=false;
-//            ArrayList <ServicioBE> listaServicios  =new ArrayList<ServicioBE>();
-//            listaServicios=listaAplicacionxServicio.get(indexSeleccionado).getListaServicios();
-//
-//            int cont=0;
-//            final String[] listaLocalServicio=  new String [listaAplicacionxServicio.get(indexSeleccionado).getListaServicios().size()];
-//
-//            for (cont = 0; cont<listaServicios.size(); cont++) {
-//                 String servicio = listaServicios.get(cont).getIdDescripcion();
-//                 listaLocalServicio[cont]=servicio;
-//            };
-//            modeloServicio= new AbstractListModel() {
-//                    String[] listaLocal=listaLocalServicio;
-//                    public int getSize() {
-//                        return listaLocal.length;
-//                    }
-//                    public Object getElementAt(int index) {
-//                        return listaLocal[index];
-//                    }
-//            };
-//            jListServicio.setModel(modeloServicio);
-//        }
-
-
-
-
-
-    }else{// cuando es modificar
-        
-        PerfilDetalleDA objPerfilDetalleDA=new PerfilDetalleDA();
-        indexSeleccionado++;
-        String idAplicacion=String.valueOf(indexSeleccionado);
-        final ArrayList<String> listaLocalServicio=objPerfilDetalleDA.queryAllServiciosPorAplicacionPorPerfil(perfil.getIdPerfil(),idAplicacion);
-        modeloServicio= new AbstractListModel() {            
-                    ArrayList<String> listaLocal=listaLocalServicio;
-                    public int getSize() {
-                        return listaLocal.size();
-                    }
-                    public Object getElementAt(int index) {
-                        return listaLocal.get(index);
-                    }
-        };        
-        jListServicio.setModel(modeloServicio);
-        
-    }
-    
-            
-            
-            
+// TODO add your handling code here:            
 }//GEN-LAST:event_jListAplicacionMouseClicked
 
 private void lblAddAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddAplicacionMousePressed
@@ -595,16 +569,12 @@ private void jListAplicacionSelectedMouseClicked(java.awt.event.MouseEvent evt) 
 
     if (indexSelected>-1){
 
-        if(accion.equals("registrar")){
+        String nombreAplicacion=listaAplicacionesSelected.get(indexSelected);
+
+        if(accion.equals("registrar")){           
             
-            String nombreAplicacion=listaAplicacionesSelected.get(indexSelected);
             listaServiciosSistema=objAplicacionxServicio.queryNombreServiciosByNombreAplicacion(nombreAplicacion);
-
-
-
-        }
-
-        modeloServicio= new AbstractListModel() {
+            modeloServicio= new AbstractListModel() {
                 ArrayList<String> listaLocal=listaServiciosSistema;
                 public int getSize() {
                     return listaLocal.size();
@@ -612,8 +582,26 @@ private void jListAplicacionSelectedMouseClicked(java.awt.event.MouseEvent evt) 
                 public Object getElementAt(int index) {
                     return listaLocal.get(index);
                 }
-        };
-        jListServicio.setModel(modeloServicio);
+            };
+            jListServicio.setModel(modeloServicio);
+
+        }else //modificar
+        {
+            String idAplicacion = objAplicacionDA.queryByNombreAplicacion(nombreAplicacion).getIdAplicacion();
+            listaServiciosPerfil=objPerfilDetalleDA.queryAllServiciosPorAplicacionPorPerfil(perfil.getIdPerfil(),idAplicacion);
+            modeloServicio= new AbstractListModel() {
+                ArrayList<String> listaLocal=listaServiciosPerfil;
+                public int getSize() {
+                    return listaLocal.size();
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+            };
+            jListServicio.setModel(modeloServicio);            
+        }
+
+
 
 
     }
