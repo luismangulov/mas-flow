@@ -16,14 +16,14 @@ import BusinessEntity.RackBE;
 import BusinessEntity.UbicacionBE;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.RackBL;
-import Util.Configuracion;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+
 
 /**
  *
@@ -40,8 +40,7 @@ public class GUIMapa extends javax.swing.JFrame {
         this.mapa = mapa;
         calcularFactores();
         initComponents();
-        setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
-        this.createBufferStrategy(2);
+        inicializarFrame();
     }
 
     public GUIMapa(Mapa mapa, ArrayList<UbicacionBE> mejoresUbicaciones) {
@@ -49,15 +48,19 @@ public class GUIMapa extends javax.swing.JFrame {
         calcularFactores();
         this.mejoresUbicaciones= mejoresUbicaciones;
         initComponents();
-        setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
-        this.createBufferStrategy(2);
+        inicializarFrame();
     }
-        
-    public GUIMapa(Mapa mapa, Cromosoma mejorCromosoma) {
+       
+    public GUIMapa(ArrayList<Nodo> recorridoOptimo, Mapa mapa) {
         this.mapa = mapa;
         calcularFactores();
-        this.mejorCromosoma = mejorCromosoma;
+        this.recorridoOptimo = recorridoOptimo;
         initComponents();
+        inicializarFrame();
+    }
+
+    private void inicializarFrame()
+    {
         setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
         this.createBufferStrategy(2);
     }
@@ -94,9 +97,14 @@ public class GUIMapa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g)
+    {
+        pintar(g);
+    }
+
+
+    public void pintar(Graphics g) {
 
            Graphics2D g2 = (Graphics2D)g;
            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -117,18 +125,19 @@ public class GUIMapa extends javax.swing.JFrame {
     }
 
 
+
     private void dibujaCoordenadas(Graphics g)
     {
         g.setColor(Color.BLACK);
 
         for (int i=0;i<mapa.getNumX();i++)
         {
-            g.drawString(String.valueOf(i), factorX*i+50+(factorX/2), pixelesAncho+50+25 );
+            g.drawString(String.valueOf(i), factorX*i+offSetX+(factorX/2), 50 );
         }
 
         for (int j=0;j<mapa.getNumY();j++)
         {
-            g.drawString(String.valueOf(j), 25, factorY*j+50+(factorY/2));
+            g.drawString(String.valueOf(j), 25, factorY*j+offSetY+(factorY/2));
         }
 
     }
@@ -191,6 +200,19 @@ public class GUIMapa extends javax.swing.JFrame {
 
     }
 
+
+    private void dibujaRecorrido(Graphics g)
+    {
+        for (Nodo nodo : recorridoOptimo)
+        {
+
+            g.setColor(Color.GREEN);
+            g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+            g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+            
+        }
+    }
+
     private void calcularFactores()
     {
         factorX = (pixelesAncho/mapa.getNumX());
@@ -199,21 +221,24 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private int convertirX(int x)
     {
-        return x*factorX+50;
+        return x*factorX+offSetX;
     }
 
     private int convertirY(int y)
     {
-        return y*factorY+50;
+        return y*factorY+offSetY;
     }
 
 
     private Mapa mapa;
     private ArrayList<UbicacionBE> mejoresUbicaciones;
-    private Cromosoma mejorCromosoma;
+    private ArrayList<Nodo> recorridoOptimo;
 
-    private int pixelesLargo=600;
     private int pixelesAncho=800;
+    private int pixelesLargo=600;
+
+    private final int offSetX=50;
+    private final int offSetY=65;
 
     private int factorX;
     private int factorY;
