@@ -136,9 +136,9 @@ public class Mapa {
     }
 
 
-    public void mostrarGraficoMapa(Cromosoma mejorCromosoma)
+    public void mostrarGraficoMapa(ArrayList<Nodo> recorridoOptimo, boolean b)
     {
-        GUIMapa guiMapa = new GUIMapa(this, mejorCromosoma);
+        GUIMapa guiMapa = new GUIMapa(recorridoOptimo, this);
         guiMapa.setVisible(true);
     }
 
