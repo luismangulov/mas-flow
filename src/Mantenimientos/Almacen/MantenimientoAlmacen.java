@@ -631,7 +631,7 @@ private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t
 
 private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
     char c = (char)evt.getKeyChar();
-        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))){
+        if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c)) || c=='.'){
         } else { evt.consume(); }
     if ((this.txtDireccion.getText().length() + 1) > 30) {
             evt.consume();}     // TODO add your handling code here:

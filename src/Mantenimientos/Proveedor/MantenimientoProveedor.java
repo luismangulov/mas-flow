@@ -761,6 +761,7 @@ private void empresaSeleccionada(){
     private void llenarCombo() {
 
        try { ArrayList<CIUUBE> arrCIUU = DataAccess.CIUUDA.queryAllCIUU();
+        arrCIUU.remove(0);
         cmbCIUU.addItem("Seleccione");
         for (CIUUBE CIUU : arrCIUU){
             cmbCIUU.addItem((CIUU.getIdCIUU() + " - " + CIUU.getDescripcion()));
