@@ -85,9 +85,11 @@ public class AplicacionxServicioDA {
    public ArrayList<String> queryNombreServiciosByNombreAplicacion(String nombre) {
         conexion objConexion=new conexion();
         ResultSet rs = null;
-        ArrayList<String> arrServicios= new ArrayList<String>();        
+        ArrayList<String> arrServicios= new ArrayList<String>();
+        AplicacionDA objAplicacionDA=new AplicacionDA();
+        String idAplicacion=objAplicacionDA.queryByNombreAplicacion(nombre).getIdAplicacion();
         String sql = "SELECT AXS.idServicio, S.descripcion FROM aplicacionxservicio AXS, servicio S where S.idservicio = AXS.idservicio ";
-           sql += " AND AXS.descripcion LIKE '%"+nombre+"'";
+           sql += " AND AXS.idAplicacion LIKE '%"+idAplicacion+"'";
 
         try{
             rs=objConexion.EjecutarS(sql);

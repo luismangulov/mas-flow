@@ -76,7 +76,9 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 
         this.objPadre = padre;
         accion = "registrar";     
-     
+
+   
+
        modeloAplicacion= new AbstractListModel() {
             ArrayList <String> listaLocal=listaAplicacionesSistema;
             public int getSize() {
@@ -132,12 +134,17 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 
             }
         }
-        int cantEliminar=listaAplicacionesSistema.size()-listaIndexMarcados.size();
-        for(int i=0; i<cantEliminar;i++){
-            if(i==listaIndexMarcados.get(i)){
-                listaAplicacionesSistema.remove(i);
+        boolean primer=true;
+        for(int i=0; i<listaIndexMarcados.size();i++){
+            int ind=listaIndexMarcados.get(i);
+            if (primer)
+            {
+                primer=false;
+            }else
+            {
+                ind--;
             }
-
+            listaAplicacionesSistema.remove(ind);
         }
 
 
@@ -146,14 +153,12 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         modeloAplicacion= new AbstractListModel() {
             ArrayList<String> listaLocal=listaAplicacionesSistema;
             public int getSize() {
-                return listaLocal.size();
-                
+                return listaLocal.size();                
             }
             public Object getElementAt(int index) {
                 return listaLocal.get(index);
-            }
-            
-            };
+            }            
+        };
 
         modeloAplicacionSelected= new AbstractListModel() {
             ArrayList <String> listaLocal=listaAplicacionesPerfil;
@@ -165,7 +170,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 return listaLocal.get(index);
             }
 
-            };
+        };
         
         initComponents();        
         this.jListAplicacion.setModel(modeloAplicacion);
@@ -477,36 +482,67 @@ private void lblAddAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-
         // TODO add your handling code here:
     int itemSelected=this.jListAplicacion.getSelectedIndex();
     if(itemSelected>-1){
-        this.listaAplicacionesSelected.add(this.listaAplicacionesSistema.get(itemSelected));
-        this.listaAplicacionesSistema.remove(itemSelected);
-
-        modeloAplicacion= new AbstractListModel() {
-            ArrayList <String> listaLocal=listaAplicacionesSistema;
-            public int getSize() {
-                return listaLocal.size();
-
-            }
-            public Object getElementAt(int index) {
-                return listaLocal.get(index);
-            }
-
-        };
-
-        this.jListAplicacion.setModel(modeloAplicacion);
-
-        modeloAplicacionSelected= new AbstractListModel() {
-            ArrayList <String> listaLocal=listaAplicacionesSelected;
-            public int getSize() {
-                return listaLocal.size();
-
-            }
-            public Object getElementAt(int index) {
-                return listaLocal.get(index);
-            }
-
-        };
-        this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
         
+        if (accion.equals("registrar")){
+
+            this.listaAplicacionesSelected.add(this.listaAplicacionesSistema.get(itemSelected));
+            this.listaAplicacionesSistema.remove(itemSelected);
+
+            modeloAplicacion= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesSistema;
+                public int getSize() {
+                    return listaLocal.size();
+
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+
+            };
+            this.jListAplicacion.setModel(modeloAplicacion);
+
+            modeloAplicacionSelected= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesSelected;
+                public int getSize() {
+                    return listaLocal.size();
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+
+            };
+            this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
+
+        }else{//modificar
+
+            this.listaAplicacionesSistema.add(this.listaAplicacionesPerfil.get(itemSelected));
+            this.listaAplicacionesSistema.remove(itemSelected);
+
+            modeloAplicacion= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesSistema;
+                public int getSize() {
+                    return listaLocal.size();
+
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+
+            };
+            this.jListAplicacion.setModel(modeloAplicacion);
+
+            modeloAplicacionSelected= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesPerfil;
+                public int getSize() {
+                    return listaLocal.size();
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+
+            };
+            this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
+        }
 
     }
 
@@ -521,35 +557,69 @@ private void lblRemoverAplicacionMousePressed(java.awt.event.MouseEvent evt) {//
     int itemSelected=this.jListAplicacionSelected.getSelectedIndex();
 
     if(itemSelected>-1){
-        this.listaAplicacionesSistema.add(this.listaAplicacionesSelected.get(itemSelected));
-        this.listaAplicacionesSelected.remove(itemSelected);
 
-        modeloAplicacion= new AbstractListModel() {
-            ArrayList <String> listaLocal=listaAplicacionesSistema;
-            public int getSize() {
-                return listaLocal.size();
+        if(accion.equals("registrar")){
 
-            }
-            public Object getElementAt(int index) {
-                return listaLocal.get(index);
-            }
+            this.listaAplicacionesSistema.add(this.listaAplicacionesSelected.get(itemSelected));
+            this.listaAplicacionesSelected.remove(itemSelected);
 
-        };
+            modeloAplicacion= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesSistema;
+                public int getSize() {
+                    return listaLocal.size();
 
-        this.jListAplicacion.setModel(modeloAplicacion);
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
 
-        modeloAplicacionSelected= new AbstractListModel() {
-            ArrayList <String> listaLocal=listaAplicacionesSelected;
-            public int getSize() {
-                return listaLocal.size();
+            };
 
-            }
-            public Object getElementAt(int index) {
-                return listaLocal.get(index);
-            }
+            this.jListAplicacion.setModel(modeloAplicacion);
 
-        };
-        this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
+            modeloAplicacionSelected= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesSelected;
+                public int getSize() {
+                    return listaLocal.size();
+
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+
+            };
+            this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
+
+        }else{//modificar
+
+            this.listaAplicacionesPerfil.add(this.listaAplicacionesSistema.get(itemSelected));
+            this.listaAplicacionesPerfil.remove(itemSelected);
+
+            modeloAplicacion= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesSistema;
+                public int getSize() {
+                    return listaLocal.size();
+
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+
+            };
+            this.jListAplicacion.setModel(modeloAplicacion);
+
+            modeloAplicacionSelected= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesPerfil;
+                public int getSize() {
+                    return listaLocal.size();
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+
+            };
+            this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
+        }
 
 
     }
@@ -565,46 +635,43 @@ private void jListAplicacionComponentAdded(java.awt.event.ContainerEvent evt) {/
 private void jListAplicacionSelectedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListAplicacionSelectedMouseClicked
     // TODO add your handling code here:
 
-    int indexSelected = jListAplicacionSelected.getSelectedIndex();//obtengo posicion en la lista
+//    int indexSelected = jListAplicacionSelected.getSelectedIndex();//obtengo posicion en la lista
+//
+//    if (indexSelected>-1){
+//
+//        String nombreAplicacion=listaAplicacionesSelected.get(indexSelected);
+//
+//        if(accion.equals("registrar")){
+//
+//            listaServiciosSistema=objAplicacionxServicio.queryNombreServiciosByNombreAplicacion(nombreAplicacion);
+//            modeloServicio= new AbstractListModel() {
+//                ArrayList<String> listaLocal=listaServiciosSistema;
+//                public int getSize() {
+//                    return listaLocal.size();
+//                }
+//                public Object getElementAt(int index) {
+//                    return listaLocal.get(index);
+//                }
+//            };
+//            jListServicio.setModel(modeloServicio);
+//
+//        }else //modificar
+//        {
+//            String idAplicacion = objAplicacionDA.queryByNombreAplicacion(nombreAplicacion).getIdAplicacion();
+//            listaServiciosPerfil=objPerfilDetalleDA.queryAllServiciosPorAplicacionPorPerfil(perfil.getIdPerfil(),idAplicacion);
+//            modeloServicio= new AbstractListModel() {
+//                ArrayList<String> listaLocal=listaServiciosPerfil;
+//                public int getSize() {
+//                    return listaLocal.size();
+//                }
+//                public Object getElementAt(int index) {
+//                    return listaLocal.get(index);
+//                }
+//            };
+//            jListServicio.setModel(modeloServicio);
+//        }
+//    }
 
-    if (indexSelected>-1){
-
-        String nombreAplicacion=listaAplicacionesSelected.get(indexSelected);
-
-        if(accion.equals("registrar")){           
-            
-            listaServiciosSistema=objAplicacionxServicio.queryNombreServiciosByNombreAplicacion(nombreAplicacion);
-            modeloServicio= new AbstractListModel() {
-                ArrayList<String> listaLocal=listaServiciosSistema;
-                public int getSize() {
-                    return listaLocal.size();
-                }
-                public Object getElementAt(int index) {
-                    return listaLocal.get(index);
-                }
-            };
-            jListServicio.setModel(modeloServicio);
-
-        }else //modificar
-        {
-            String idAplicacion = objAplicacionDA.queryByNombreAplicacion(nombreAplicacion).getIdAplicacion();
-            listaServiciosPerfil=objPerfilDetalleDA.queryAllServiciosPorAplicacionPorPerfil(perfil.getIdPerfil(),idAplicacion);
-            modeloServicio= new AbstractListModel() {
-                ArrayList<String> listaLocal=listaServiciosPerfil;
-                public int getSize() {
-                    return listaLocal.size();
-                }
-                public Object getElementAt(int index) {
-                    return listaLocal.get(index);
-                }
-            };
-            jListServicio.setModel(modeloServicio);            
-        }
-
-
-
-
-    }
 }//GEN-LAST:event_jListAplicacionSelectedMouseClicked
 
     /**
