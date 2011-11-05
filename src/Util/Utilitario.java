@@ -131,7 +131,7 @@ public class Utilitario {
 
     public static boolean validarCadenaAlfabetica(char chrCaracter) {
         String strCadena = "" + chrCaracter;
-        if (strCadena.matches("[a-zA-Z áéíóúñ]*"))
+        if (strCadena.matches("[a-zA-Z ñ]*"))
             return true;
         else
             return false;
@@ -139,7 +139,7 @@ public class Utilitario {
 
     public static boolean validarCadenaAlfaNumerica(char chrCaracter) {
         String strCadena = "" + chrCaracter;
-        if (strCadena.matches("[a-zA-Z0-9 áéíóúñ]*"))
+        if (strCadena.matches("[a-zA-Z0-9 ñ]*"))
             return true;
         else
             return false;
