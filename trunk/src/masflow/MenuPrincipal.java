@@ -19,6 +19,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /** Creates new form MenuPrincipal */
     public MenuPrincipal() {
         initComponents();
+        this.jLabel20.setEnabled(false);
          this.setLocationRelativeTo(null);
     }
 
