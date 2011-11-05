@@ -394,11 +394,51 @@ public class AlgoritmoGenetico {
        }
        return null;
    }
+
+
+   private static ArrayList<Nodo> obtenerMejorRecorrido(Cromosoma mejorCromosoma)
+   {
+        ArrayList<Nodo> listaNodos = new ArrayList<Nodo>();
+        
+        Nodo mejoresNodos[]=mejorCromosoma.getGenes();
+        for (int i=0;i<mejoresNodos.length-1;i++)
+        {
+           Nodo nodo1=mejoresNodos[i];
+           Nodo nodo2=mejoresNodos[i+1];
+           Ruta ruta = obtenerRuta(nodo1,nodo2);
+           Nodo rutaOptima[] = ruta.getRutaOptima();
+
+           for (int j=0;j<rutaOptima.length-1;j++)
+           {
+                Nodo punto1=rutaOptima[j];
+                Nodo punto2=rutaOptima[j+1];
+                listaNodos.add(punto1);
+                listaNodos.add(punto2);
+           }
+
+        }
+
+        Nodo nodo1=mejoresNodos[mejoresNodos.length-1];
+        Nodo nodo2=mejoresNodos[0];
+        Ruta ruta = obtenerRuta(nodo1,nodo2);
+        Nodo rutaOptima[] = ruta.getRutaOptima();
+
+        for (int j=0;j<rutaOptima.length-1;j++)
+        {
+            Nodo punto1=rutaOptima[j];
+            Nodo punto2=rutaOptima[j+1];
+            listaNodos.add(punto1);
+            listaNodos.add(punto2);
+        }
+
+        
+        return listaNodos;
+   }
    
 
 //Aplicacion
 //Recibe una lista de puntos obligatorios de tipo ArrayList UbicacionBE (primer piso) y obtiene el recorrido optimo
-  public static Cromosoma ejecutar(Mapa mapa, ArrayList<UbicacionBE> listaUbicaciones) {
+  public static ArrayList<Nodo> ejecutar(Mapa mapa, ArrayList<UbicacionBE> listaUbicaciones) {
       try {
 
          generacion=0;
@@ -406,11 +446,13 @@ public class AlgoritmoGenetico {
          rutas = new ArrayList<ArrayList<Ruta>>();
 
          ArrayList<Nodo> listaNodos = mapa.getListaNodos();
+         
          Nodo[] arregloNodos = new Nodo[listaNodos.size()];
          for (int i=0;i<listaNodos.size();i++)
          {
             arregloNodos[i]=listaNodos.get(i);
          }
+         
          
          Ruta.llenarMatrizAdy(arregloNodos);
          
@@ -442,7 +484,7 @@ public class AlgoritmoGenetico {
          
          nodos = arregloNodos;
  
-         tiempoInicio=System.currentTimeMillis();
+//         tiempoInicio=System.currentTimeMillis();
          inicializar(nodos);
 
          edadMejorDistancia=0;
@@ -478,10 +520,10 @@ public class AlgoritmoGenetico {
             generacion++;
          } 
 
-         tiempoEjecucion=System.currentTimeMillis()-tiempoInicio;
-         flagInicio=false;
+//         tiempoEjecucion=System.currentTimeMillis()-tiempoInicio;
+//         flagInicio=false;
 
-         return obtenerMejorCromosoma();
+         return obtenerMejorRecorrido(obtenerMejorCromosoma());
 
       } catch(Throwable e) {
          e.printStackTrace();
