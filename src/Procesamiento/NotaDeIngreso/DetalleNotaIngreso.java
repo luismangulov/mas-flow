@@ -55,14 +55,14 @@ public class DetalleNotaIngreso extends javax.swing.JFrame {
 
             },
             new String [] {
-                "IdNotaIngreso", "IdDetalleNotaIngreso", "Cantidad", "NombreProducto"
+                "IdNotaIngreso", "IdDetalleNotaIngreso", "Cantidad", "NombreProducto", "FechaVencimiento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -79,7 +79,7 @@ public class DetalleNotaIngreso extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,6 +143,7 @@ public class DetalleNotaIngreso extends javax.swing.JFrame {
         modelo.addColumn("IdDetalleNotaIngreso");
         modelo.addColumn("Cantidad");
         modelo.addColumn("NombreProducto");
+        modelo.addColumn("FechaVencimiento");
         
 //        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
 //        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -156,6 +157,7 @@ public class DetalleNotaIngreso extends javax.swing.JFrame {
             tblNotaIngreso.setValueAt(detalleNotaIngreso.get(i).getCantidad(),i,2 );
             
             tblNotaIngreso.setValueAt(detalleNotaIngreso.get(i).getProducto().getNombre(),i,3 );
+             tblNotaIngreso.setValueAt(detalleNotaIngreso.get(i).getFechaVencimiento(),i,4 );
             
         }
         
