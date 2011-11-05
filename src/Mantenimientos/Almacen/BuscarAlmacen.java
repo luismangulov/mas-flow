@@ -249,7 +249,7 @@ public class BuscarAlmacen extends javax.swing.JFrame {
         char c = (char)evt.getKeyChar();
         if (Util.Utilitario.validarCadenaAlfaNumerica(c)|| (Character.isISOControl(c))){
         } else { evt.consume(); }
-        if ((this.txtNombre.getText().length() + 1) > 10) {
+        if ((this.txtNombre.getText().length() + 1) > 15) {
             evt.consume();}            // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreKeyTyped
 
