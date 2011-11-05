@@ -21,8 +21,7 @@ public class UsuarioDA {
      public boolean insertar(UsuarioBE objUsuario) {
         
         boolean boolExito = false;
-        conexion objConexion = new conexion();
-       
+        conexion objConexion = new conexion();       
         String sql = "INSERT INTO usuario(idUsuario, nombre, apellidopaterno,apellidomaterno, idPerfil, idEstadoUsuario,limiteIntentos) VALUES('"+ objUsuario.getIdUsuario() +"','"+ objUsuario.getNombre() +"','"+ objUsuario.getPaterno() +"','"+ objUsuario.getMaterno()+"','"+ objUsuario.getPerfil().getIdPerfil() +"','"+ objUsuario.getEstadoUsuario().getIdEstadoUsuario() +"','"+ objUsuario.getLimiteIntentos() +"')";
         
         try{
