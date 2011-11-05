@@ -80,7 +80,38 @@ public class AplicacionxServicioDA {
       
         return arrServicios;
     }
-    
+
+   //obtiene la lista de NOMBRES de servicios que tiene el SISTEMA para una determinada aplicacion
+   public ArrayList<String> queryNombreServiciosByNombreAplicacion(String nombre) {
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<String> arrServicios= new ArrayList<String>();        
+        String sql = "SELECT AXS.idServicio, S.descripcion FROM aplicacionxservicio AXS, servicio S where S.idservicio = AXS.idservicio ";
+           sql += " AND AXS.descripcion LIKE '%"+nombre+"'";
+
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdServicio;
+            String strDescripcion;
+     
+            while (rs.next()){
+                
+                strIdServicio = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                arrServicios.add(strDescripcion);
+                
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return arrServicios;
+    }
+
     
     //obtiene la lista de aplicaciones que tiene el SISTEMA 
     public ArrayList<AplicacionBE> queryAllAplicaciones() {
@@ -112,7 +143,36 @@ public class AplicacionxServicioDA {
       
         return arrAplicaciones;
     }   
- 
+
+   //obtiene la lista de nombres de las aplicaciones que tiene el SISTEMA
+  public ArrayList<String> queryAllNombreAplicaciones() {
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<String> arrAplicaciones= new ArrayList<String>();
+        String sql = "SELECT DISTINCT AXS.idAplicacion, A.descripcion FROM aplicacionxservicio AXS, Aplicacion A where A.idAplicacion = AXS.idAplicacion";
+
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdAplicacion;
+            String strDescripcion;
+
+            while (rs.next()){
+                strIdAplicacion = rs.getString(1).trim();
+                strDescripcion = rs.getString(2).trim();
+                arrAplicaciones.add(strDescripcion);
+
+            }
+
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+
+        return arrAplicaciones;
+    }
+
 
     
 }
