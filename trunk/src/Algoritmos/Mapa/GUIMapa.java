@@ -193,8 +193,8 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void calcularFactores()
     {
-        factorX = (pixelesLargo/mapa.getNumX());
-        factorY = (pixelesAncho/mapa.getNumY());
+        factorX = (pixelesAncho/mapa.getNumX());
+        factorY = (pixelesLargo/mapa.getNumY());
     }
 
     private int convertirX(int x)
@@ -212,8 +212,8 @@ public class GUIMapa extends javax.swing.JFrame {
     private ArrayList<UbicacionBE> mejoresUbicaciones;
     private Cromosoma mejorCromosoma;
 
-    private int pixelesLargo=800;
-    private int pixelesAncho=600;
+    private int pixelesLargo=600;
+    private int pixelesAncho=800;
 
     private int factorX;
     private int factorY;
