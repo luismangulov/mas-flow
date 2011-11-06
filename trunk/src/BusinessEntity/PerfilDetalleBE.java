@@ -15,6 +15,10 @@ public class PerfilDetalleBE {
     private AplicacionBE aplicacion;
     private ServicioBE servicio;
 
+    public PerfilDetalleBE() {
+    }
+
+
     public PerfilDetalleBE(PerfilBE perfil, String indDetalle, AplicacionBE aplicacion, ServicioBE servicio) {
         this.perfil = perfil;
         this.indDetalle = indDetalle;

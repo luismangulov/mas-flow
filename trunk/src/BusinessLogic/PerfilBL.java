@@ -105,5 +105,12 @@ public class PerfilBL {
         return exito;
     }
 
+     public boolean modificar(PerfilBE objPerfil) throws Exception{
+          boolean exito = false;
+          PerfilDA objPerfilDA = new PerfilDA();
+          exito = objPerfilDA.modificar(objPerfil);
+          return exito;
+     }
+
     
 }
