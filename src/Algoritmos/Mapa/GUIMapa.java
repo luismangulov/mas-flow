@@ -67,6 +67,7 @@ public class GUIMapa extends javax.swing.JFrame {
         this.createBufferStrategy(2);
         scrollbar1.setMaximum((int)(1.13*(mapa.getNumY())));
         scrollbar2.setMaximum((int)(3.83*(mapa.getNumX())));
+        this.setTitle("Mapa del almacén "+mapa.getAlmacen().getNombre());
     }
 
 
@@ -123,7 +124,15 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        mostrarInformacionDialogo(evt);
+        if (evt.getButton()==evt.BUTTON2)
+        {
+            mostrarInformacionCuadrado(evt);
+        }
+        else
+        {
+            //mostrarInformacionDialogo(evt);
+        }
+        mostrarInformacionCuadrado(evt);
     }//GEN-LAST:event_formMouseClicked
 
     /**
@@ -255,7 +264,24 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void dibujaLeyenda(Graphics g)
     {
-        
+        if (click1X!=-1 && click1Y!=-1)
+        {
+            g.setColor(Color.RED);
+            g.fillOval(convertirX(click1X)+factorX/4, convertirY(click1Y)+factorY/4, factorX/2, factorY/2);
+
+            if (click2X!=-1 && click2Y!=-1)
+            {
+                g.fillOval(convertirX(click2X)+factorX/4, convertirY(click2Y)+factorY/4, factorX/2, factorY/2);
+                g.drawLine(convertirX(click1X)+factorX/2, convertirY(click1Y)+factorY/2, convertirX(click2X)+factorX/2, convertirY(click2Y)+factorY/2);
+
+                g.drawLine(convertirX(click1X)+factorX/2, convertirY(click1Y)+factorY/2, convertirX(click2X)+factorX/2, convertirY(click1Y)+factorY/2);
+                g.drawLine(convertirX(click1X)+factorX/2, convertirY(click1Y)+factorY/2, convertirX(click1X)+factorX/2, convertirY(click2Y)+factorY/2);
+                g.drawLine(convertirX(click2X)+factorX/2, convertirY(click2Y)+factorY/2, convertirX(click1X)+factorX/2, convertirY(click2Y)+factorY/2);
+                g.drawLine(convertirX(click2X)+factorX/2, convertirY(click2Y)+factorY/2, convertirX(click2X)+factorX/2, convertirY(click1Y)+factorY/2);
+            }
+        }
+
+
     }
 
 
@@ -365,6 +391,51 @@ public class GUIMapa extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,cadena, "Información",JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void mostrarInformacionCuadrado(java.awt.event.MouseEvent evt)
+    {
+        int x;
+        int y;
+
+        x=obtenerX(evt.getX());
+        y=obtenerY(evt.getY());
+
+        int largo;
+        int ancho;
+
+        Nodo nodo = encontrarNodo(x,y);
+        if (nodo==null) return;
+
+        if (click1X!=-1 && click1Y!=-1)
+        {
+
+            click2X=x;
+            click2Y=y;
+            ancho = Math.abs(click1X-x)+1;
+            largo = Math.abs(click1Y-y)+1;
+            
+            String cadena = "Posición X: " + click1X + "\nPosición Y: " + click1Y+ "\n";
+            cadena = cadena + "Largo: " + largo + "\nAncho : " + ancho;
+
+            repaint();
+
+            JOptionPane.showMessageDialog(null,cadena, "Información",JOptionPane.INFORMATION_MESSAGE);
+
+            repaint();
+
+            click2X=-1;
+            click2Y=-1;
+            click1X=-1;
+            click1Y=-1;
+        }
+        else
+        {
+            click1X=x;
+            click1Y=y;
+            repaint();
+        }
+        
+    }
+
 
     private ZonaBE devolverZonaPorXY(int x, int y)
     {
@@ -394,5 +465,10 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private int factorX;
     private int factorY;
+
+    private int click1X=-1;
+    private int click1Y=-1;
+    private int click2X=-1;
+    private int click2Y=-1;
 
 }
