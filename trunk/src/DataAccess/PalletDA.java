@@ -45,13 +45,14 @@ public class PalletDA {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        query = "INSERT INTO PALLET(idPallet,idProducto,indActivo,idUbicacion,idAlmacen,fechaVencimiento) VALUES("
+        query = "INSERT INTO PALLET(idPallet,idProducto,indActivo,idUbicacion,idAlmacen,fechaVencimiento, idNotaIngreso) VALUES("
                 + "'" +objPallet.getIdPallet()+"',"
                 + "'" +objPallet.getIdProducto()+"',"
                 + "'" +objPallet.getIndActivo()+"',"
                 + "'" +objPallet.getIdUbicacion()+"',"
-                + "'" +objPallet.getIdAlmacen()+"','"
-                +objPallet.getFechaVencimiento()+"')";
+                + "'" +objPallet.getIdAlmacen()+"', "
+                + "'" +objPallet.getFechaVencimiento()+"',"
+                + "'" +objPallet.getIdNotaIngreso()+"')";
                                 
         try{
             objConexion.EjecutarUID(query);
@@ -116,8 +117,9 @@ public class PalletDA {
             String strIdUbicacion = rs.getString("idUbicacion");
             String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
+            String strIdNotaIngreso = rs.getString("idNotaIngreso");
             
-            objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento);
+            objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso);
                 
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,8 +145,9 @@ public class PalletDA {
             String strIdUbicacion = rs.getString("idUbicacion");
             String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
+            String strIdNotaIngreso = rs.getString("idNotaIngreso");
             
-            arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+            arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             
             }
         } catch (SQLException ex) {
@@ -171,8 +174,9 @@ public class PalletDA {
             String strIdUbicacion = rs.getString("idUbicacion");
             String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
+            String strIdNotaIngreso = rs.getString("idNotaIngreso");
             
-            arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+            arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             
             }
         } catch (SQLException ex) {
@@ -212,8 +216,9 @@ public class PalletDA {
                 String strIdAlmacen = rs.getString("idAlmacen");
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                String strIdNotaIngreso = rs.getString("idNotaIngreso");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -239,8 +244,9 @@ public class PalletDA {
             String strIdUbicacion = rs.getString("idUbicacion");
             String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
+            String strIdNotaIngreso = rs.getString("idNotaIngreso");
             
-            objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento);
+            objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso);
                        
         } catch (SQLException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
@@ -272,8 +278,9 @@ public class PalletDA {
                 String strIdAlmacen = rs.getString("idAlmacen");
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                String strIdNotaIngreso = rs.getString("idNotaIngreso");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -305,8 +312,9 @@ public class PalletDA {
                 String strIdAlmacen = rs.getString("idAlmacen");
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                String strIdNotaIngreso = rs.getString("idNotaIngreso");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -339,8 +347,9 @@ public class PalletDA {
                 String strIdAlmacen = rs.getString("idAlmacen");
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                String strIdNotaIngreso = rs.getString("idNotaIngreso");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -370,8 +379,9 @@ public class PalletDA {
                 String strIdAlmacen = rs.getString("idAlmacen");
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                String strIdNotaIngreso = rs.getString("idNotaIngreso");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -418,9 +428,9 @@ public class PalletDA {
                 strIdAlmacen = rs.getString("idAlmacen");
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                String strIdNotaIngreso = rs.getString("idNotaIngreso");
                 
-                
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             }
             
             

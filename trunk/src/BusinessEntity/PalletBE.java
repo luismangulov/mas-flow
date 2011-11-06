@@ -18,17 +18,19 @@ public class PalletBE {
     private String idUbicacion;
     private String idAlmacen;
     private Date fechaVencimiento;
+    private String idNotaIngreso;
 
     public PalletBE() {
     }
 
-    public PalletBE(String idPallet, String idProducto, String indActivo, String idUbicacion, String idAlmacen, Date fechaVencimiento) {
+    public PalletBE(String idPallet, String idProducto, String indActivo, String idUbicacion, String idAlmacen, Date fechaVencimiento,String idNotaIngreso) {
         this.idPallet = idPallet;
         this.idProducto = idProducto;
         this.indActivo = indActivo;
         this.idUbicacion = idUbicacion;
         this.idAlmacen = idAlmacen;
         this.fechaVencimiento = fechaVencimiento;
+        this.idNotaIngreso = idNotaIngreso;
     }
     
     public Date getFechaVencimiento() {
@@ -78,4 +80,13 @@ public class PalletBE {
     public void setIndActivo(String indActivo) {
         this.indActivo = indActivo;
     }   
+    
+    public String getIdNotaIngreso() {
+        return idNotaIngreso;
+    }
+
+    public void setIdNotaIngreso(String idNotaIngreso) {
+        this.idNotaIngreso = idNotaIngreso;
+    }
+
 }
