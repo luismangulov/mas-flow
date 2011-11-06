@@ -106,7 +106,7 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Registrar nota de ingreso");
+        setTitle("+Flow - Registrar orden de entrega");
 
         jLabel1.setText("Código*:");
 

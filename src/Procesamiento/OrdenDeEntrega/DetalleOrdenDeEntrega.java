@@ -48,7 +48,7 @@ public class DetalleOrdenDeEntrega extends javax.swing.JFrame {
         tblNotaIngreso = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Detalle nota de remision");
+        setTitle("+Flow - Detalle orden de entrega");
 
         tblNotaIngreso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

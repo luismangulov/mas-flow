@@ -74,7 +74,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Administrar Nota de ingreso");
+        setTitle("+Flow - Administrar orden de entrega");
 
         tblNotaIngreso.setAutoCreateRowSorter(true);
         tblNotaIngreso.setModel(new javax.swing.table.DefaultTableModel(
@@ -324,7 +324,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                       
                         for(int j=0;j<cantidadPallet;j++){
                             
-                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento(),codigo);
+                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento(),"");
                             
                             arrPallet.add(objPalletBE);
                         }
