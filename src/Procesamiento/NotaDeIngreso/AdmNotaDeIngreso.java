@@ -45,6 +45,7 @@ import javax.swing.table.DefaultTableModel;
 public class AdmNotaDeIngreso extends javax.swing.JFrame {
      ArrayList<PalletBE> arrPallet = new ArrayList<PalletBE>();
      UbicacionBE objUbicacionBE = new UbicacionBE();
+      ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
     /** Creates new form AdmNotaDeIngreso */
     public AdmNotaDeIngreso() {
         initComponents();
@@ -332,7 +333,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                     
                     
                     
-                ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+               
                 //Mapa mapa = new Mapa(arrAlmacenes.get(0));
                 
             for(int i =0;i<arrPallet.size();i++){
@@ -352,21 +353,21 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             }
 
             Mapa mapa = new Mapa(arrAlmacenes.get(0));
-            mapa.mostrarGraficoMapa(arrUbicaciones);
+            //mapa.mostrarGraficoMapa(arrUbicaciones);
             
-           // ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicaciones);
-           // mapa.mostrarGraficoMapa(listaNodo, true);
+            ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicaciones);
+            mapa.mostrarGraficoMapa(listaNodo, true);
 
 
             ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
             
             
-            for(int u = 0;u<arrPallet.size();u++){
-                ReubicarPallet r = new ReubicarPallet(this,true,arrPallet.get(u),idAlmacen,objUbicacionBE);
-                r.setVisible(true);
-
-                arrUbicacion.add(this.objUbicacionBE);
-            }
+//            for(int u = 0;u<arrPallet.size();u++){
+//                ReubicarPallet r = new ReubicarPallet(this,true,arrPallet.get(u),idAlmacen,objUbicacionBE);
+//                r.setVisible(true);
+//
+//                arrUbicacion.add(this.objUbicacionBE);
+//            }
 
               
             
