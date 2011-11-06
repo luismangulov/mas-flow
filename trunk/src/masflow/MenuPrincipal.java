@@ -503,7 +503,7 @@ private void jLblRacksMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 }//GEN-LAST:event_jLblRacksMousePressed
 
 private void jLblIngresarProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblIngresarProductosMousePressed
-    Procesamiento.NotaDeIngreso.AdmNotaDeIngreso a = new Procesamiento.NotaDeIngreso.AdmNotaDeIngreso();
+        Procesamiento.OrdenDeEntrega.AdmOrdenDeEntrega a = new Procesamiento.OrdenDeEntrega.AdmOrdenDeEntrega();
     a.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_jLblIngresarProductosMousePressed
 
