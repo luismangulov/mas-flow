@@ -381,6 +381,22 @@ public class AlgoritmoGenetico {
    }
 
 
+   private static boolean esObligatorio(int pos, ArrayList<Nodo> listaNodos, ArrayList<UbicacionBE> listaUbicaciones)
+   {
+        if (listaNodos.get(pos).isNodoInicial()) return true;
+
+        if (listaNodos.get(pos).getItem()!=null)
+        {
+            UbicacionBE ubicacion = (UbicacionBE)listaNodos.get(pos).getItem();
+
+            for (UbicacionBE u : listaUbicaciones)
+                if (ubicacion.getIdUbicacion().equals(u.getIdUbicacion())) return true;
+        }
+
+        return false;
+   }
+
+
    public static Ruta obtenerRuta(Nodo nodoObligatorio1, Nodo nodoObligatorio2)
    {
        for (int i=0; i<rutas.size() ;i++)
@@ -434,6 +450,29 @@ public class AlgoritmoGenetico {
         
         return listaNodos;
    }
+
+
+   private static ArrayList<Nodo> eliminarDuplicados(ArrayList<Nodo> listaNodos, ArrayList<UbicacionBE> listaUbicaciones)
+   {
+       //ArrayList<Nodo> nodosARemover = new ArrayList<Nodo>();
+       
+        for (Nodo nodo1 : listaNodos)
+        {
+            for (Nodo nodo2 : listaNodos)
+            {
+                if ((nodo1.getId()!=nodo2.getId()) && (nodo1.getX()==nodo2.getX()) && (nodo1.getY()==nodo2.getY())
+                    && !(esObligatorio(listaNodos.indexOf(nodo2),listaNodos,listaUbicaciones)))
+                    listaNodos.remove(nodo2);
+                    //nodosARemover.add(nodo2);
+            }
+        }
+
+//        for (Nodo nodo : nodosARemover)
+//            listaNodos.remove(nodo);
+        
+        return listaNodos;
+   }
+
    
 
 //Aplicacion
@@ -445,7 +484,7 @@ public class AlgoritmoGenetico {
          
          rutas = new ArrayList<ArrayList<Ruta>>();
 
-         ArrayList<Nodo> listaNodos = mapa.getListaNodos();
+         ArrayList<Nodo> listaNodos = eliminarDuplicados(mapa.getListaNodos(),listaUbicaciones);
          
          Nodo[] arregloNodos = new Nodo[listaNodos.size()];
          for (int i=0;i<listaNodos.size();i++)
@@ -464,7 +503,7 @@ public class AlgoritmoGenetico {
                 nodosObligatorios.add(arregloNodos[i]);
 
                 ArrayList<Ruta> temp = new ArrayList<Ruta>();
-                for (int j=0; i<listaNodos.size(); j++)
+                for (int j=0; i<arregloNodos.length; j++)
                 {
                      if (esObligatorio(j,arregloNodos,listaUbicaciones))
                      {
