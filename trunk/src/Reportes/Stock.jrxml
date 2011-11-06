@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28">
+	<property name="ireport.zoom" value="1.1000000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="28"/>
+	<parameter name="desdeProducto" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hastaProducto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 
+  almacen.identificador as idAlmacen, 
+  almacen.nombre as Almacen, 
+  producto.idproducto, 
+  producto.nombre as Producto, 
+  producto.maxcantporpallet as cant, 
+  unidadmedida.nombre as UnidadMedidad
+FROM 
+  public.almacen, 
+  public.producto, 
+  public.pallet, 
+  public.unidadmedida
+WHERE 
+  producto.idproducto = pallet.idproducto AND
+  pallet.idalmacen = almacen.idalmacen AND
+  unidadmedida.idunidadmedida = producto.idunidadmedida AND
+  producto.idproducto >= $P{desdeProducto} AND
+  producto.idproducto <= $P{hastaProducto}
+ORDER BY  producto.idproducto,almacen.identificador;]]>
+	</queryString>
+	<field name="idalmacen" class="java.lang.String"/>
+	<field name="almacen" class="java.lang.String"/>
+	<field name="idproducto" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="cant" class="java.math.BigDecimal"/>
+	<field name="unidadmedidad" class="java.lang.String"/>
+	<variable name="cant_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Almacen" calculation="Sum">
+		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
+	</variable>
+	<variable name="cant_2" class="java.math.BigDecimal" resetType="Group" resetGroup="Almacen" calculation="Sum">
+		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
+	</variable>
+	<variable name="cant_3" class="java.math.BigDecimal" resetType="Group" resetGroup="Producto" calculation="Sum">
+		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
+	</variable>
+	<variable name="cant_4" class="java.lang.Integer" resetType="Group" resetGroup="Almacen" calculation="Count">
+		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
+	</variable>
+	<variable name="cant_5" class="java.lang.Integer" resetType="Group" resetGroup="Producto" calculation="Count">
+		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
+	</variable>
+	<variable name="cant_6" class="java.lang.Integer" resetType="Group" resetGroup="Almacen" calculation="Count">
+		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
+	</variable>
+	<group name="Producto">
+		<groupExpression><![CDATA[$F{idproducto}]]></groupExpression>
+		<groupHeader>
+			<band height="38">
+				<rectangle>
+					<reportElement x="0" y="0" width="539" height="16" forecolor="#FFFFFF" backcolor="#CCCCFF"/>
+				</rectangle>
+				<textField>
+					<reportElement x="63" y="0" width="89" height="20"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="14" y="0" width="41" height="20"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{idproducto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="14" y="16" width="163" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Almacén]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="177" y="16" width="58" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="235" y="16" width="58" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Unidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="55" y="0" width="8" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[-]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="31">
+				<staticText>
+					<reportElement x="109" y="0" width="43" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="163" y="1" width="58" height="20"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{cant_3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="235" y="0" width="58" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{unidadmedidad}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Almacen">
+		<groupExpression><![CDATA[$F{idalmacen}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="44" y="0" width="133" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{almacen}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="14" y="0" width="19" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{idalmacen}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="235" y="0" width="58" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{unidadmedidad}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Almacen">
+					<reportElement x="163" y="0" width="58" height="20" printWhenGroupChanges="Almacen"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{cant_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="33" y="0" width="6" height="20"/>
+					<textElement/>
+					<text><![CDATA[-]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="45" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="539" height="45" forecolor="#6C86AF" backcolor="#6C86AF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="437" y="30" width="35" height="5" forecolor="#6C86AF" backcolor="#6C86AF"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="14" y="10" width="260" height="34" forecolor="#FFFFFF"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Inventario]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="539" height="20" forecolor="#6C86AF" backcolor="#6C86AF"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="14" y="0" width="260" height="20" forecolor="#FFFFFF"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="380" y="0" width="144" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="14" y="0" width="122" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Hecho por Sistemas +Flow]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="404" y="1" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pág. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="484" y="1" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
