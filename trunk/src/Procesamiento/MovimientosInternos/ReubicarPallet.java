@@ -332,6 +332,11 @@ public class ReubicarPallet extends javax.swing.JDialog {
         });
         dgvPallets.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         dgvPallets.getTableHeader().setReorderingAllowed(false);
+        dgvPallets.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dgvPalletsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(dgvPallets);
 
         jLabel6.setText("Fecha:");
@@ -516,6 +521,14 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         this.dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void dgvPalletsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dgvPalletsMouseClicked
+//        DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();
+//        int intFila = dgvPallets.getSelectedRow();
+//        strIdUbicacionOrigen = dgvPallets.getValueAt(intFila, 3);
+        cargarComboZona(strIdAlmacen);
+        
+    }//GEN-LAST:event_dgvPalletsMouseClicked
 
     /**
      * @param args the command line arguments
