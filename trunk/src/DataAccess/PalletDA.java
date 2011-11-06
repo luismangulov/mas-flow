@@ -448,7 +448,7 @@ public class PalletDA {
         objConexion = new conexion();        
         arrPallets = new ArrayList<PalletBE>();
         
-        query = "SELECT * PALLET WHERE idNotaIngreso = '" +strIdNotaIngreso + "'";
+        query = "SELECT * FROM PALLET WHERE idNotaIngreso = '" +strIdNotaIngreso + "'";
         
         Date dateFechaVencimiento = null;
         rs = objConexion.EjecutarS(query);
