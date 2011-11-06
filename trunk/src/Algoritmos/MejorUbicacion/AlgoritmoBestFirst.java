@@ -83,6 +83,11 @@ public class AlgoritmoBestFirst {
         return listaPosiblesUbicaciones.get(0);  
     }
 
+    public static ArrayList<UbicacionBE> ejecutar(Mapa mapa, ArrayList<PalletBE> pallet)
+    {
+        return null;
+    }
+
 
     private static double distanciaALaPuerta(UbicacionBE u)
     {
