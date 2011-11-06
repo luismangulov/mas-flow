@@ -101,6 +101,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
         for (int i=0; i<arrIdAlmacenes.size(); i++)
             if (arrIdAlmacenes.get(i).equals(strIdAlmacen)){
                 cbAlmacen.setSelectedItem(i);
+                cbAlmacen.setEnabled(false);
                 return;
             }
         
@@ -270,6 +271,11 @@ public class ReubicarPallet extends javax.swing.JDialog {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("<html>Zona<br>destino:</html>");
 
@@ -468,12 +474,15 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacion, intColumnaUbicacion,"1").getIdUbicacion();
         UbicacionBE objUbicacion = objUbicacionBL.getUbicacionById(strIdUbicacionDestino);
         
-        this.objUbicacionPadre.setIdUbicacion(objUbicacion.getIdUbicacion());
-        this.objUbicacionPadre.setIdRack(objUbicacion.getIdRack());
-        this.objUbicacionPadre.setColumna(objUbicacion.getColumna());
-        this.objUbicacionPadre.setFila(objUbicacion.getFila());
-        this.objUbicacionPadre.setIndActivo(objUbicacion.getIndActivo());
+        if (this.objUbicacionPadre != null){
         
+            this.objUbicacionPadre.setIdUbicacion(objUbicacion.getIdUbicacion());
+            this.objUbicacionPadre.setIdRack(objUbicacion.getIdRack());
+            this.objUbicacionPadre.setColumna(objUbicacion.getColumna());
+            this.objUbicacionPadre.setFila(objUbicacion.getFila());
+            this.objUbicacionPadre.setIndActivo(objUbicacion.getIndActivo());
+            
+        }
         strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         
         MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen);
@@ -502,6 +511,10 @@ private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
     
 }//GEN-LAST:event_btnGuardarMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMouseClicked
 
     /**
      * @param args the command line arguments

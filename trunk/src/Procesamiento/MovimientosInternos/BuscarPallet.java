@@ -193,6 +193,11 @@ public class BuscarPallet extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
         jLabel3.setText("Rack:");
 
@@ -340,38 +345,44 @@ public class BuscarPallet extends javax.swing.JFrame {
 private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         
     PalletBE objPalletBE;
+    strIdPallet = txtIdPallet.getText();
+    strIdProducto = txtIdProducto.getText();
+    int intFila = 0;
+    int intColumna = 0;
     
     if (!cbUbicacion.getSelectedItem().toString().equals("")){
         
+        intFila = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
+        intColumna = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
+        
+    }
+    
+    if (!cbRack.getSelectedItem().toString().equals("")){
+        
         strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
-        int intFila = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
-        int intColumna = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
-        objUbicacionBE = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack,intFila,intColumna,"2");
-        if (objUbicacionBE != null){
 
-            objPalletBE =objPalletBL.getPalletByIdUbicacion(objUbicacionBE.getIdUbicacion());
-            arrPallets.add(objPalletBE);
-        }
-        
     }
-    else if (cbUbicacion.getSelectedItem().toString().equals("") && !cbRack.getSelectedItem().toString().equals("")){
+    else
         
-        strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
-        arrPallets = objPalletBL.getPalletsByRack(strIdRack);
-    }
-    else if (cbRack.getSelectedItem().toString().equals("") && !cbZona.getSelectedItem().toString().equals("")){
+        strIdRack = "";
+    
+    if (!cbZona.getSelectedItem().toString().equals("")){
         
         strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
-        arrPallets = objPalletBL.getPalletsByZona(strIdZona);
         
-    }
-    else if (cbZona.getSelectedItem().toString().equals("") && !cbAlmacen.getSelectedItem().toString().equals("")){
+    }else
+        
+        strIdZona = "";
+    
+    if (!cbAlmacen.getSelectedItem().toString().equals("")){
         
         int i = cbAlmacen.getSelectedIndex();
         strIdAlmacen = arrIdAlmacenes.get(i);
-        arrPallets = objPalletBL.getPalletsByAlmacen(strIdAlmacen);
         
-    }
+    }else
+        strIdAlmacen = "";
+    
+    arrPallets = objPalletBL.getPalletListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIdPallet, strIdProducto);
     
     if (ventanaPadreReubicar != null)
         ventanaPadreReubicar.llenarDgv(arrPallets);
@@ -446,6 +457,10 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
     
     }
 }//GEN-LAST:event_txtIdProductoKeyTyped
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMouseClicked
 
 
     /**
