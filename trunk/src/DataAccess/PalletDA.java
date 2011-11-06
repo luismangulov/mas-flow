@@ -396,7 +396,7 @@ public class PalletDA {
         objConexion = new conexion();        
         arrPallets = new ArrayList<PalletBE>();
         
-        query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento"
+        query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento, p.idnotaingreso"
                 + " FROM PALLET p, UBICACION u, RACK r, ZONA z, ALMACEN a "
                 + " WHERE p.indactivo = '1' AND a.IdAlmacen = z.IdAlmacen AND z.IdZona = r.IdZona"
                 + " AND u.idRack = r.idrack AND u.idubicacion = p.idubicacion";
@@ -427,10 +427,8 @@ public class PalletDA {
                 String strIndActivo= rs.getString("IndActivo");
                 String strIdUbicacion = rs.getString("idUbicacion");
                 strIdAlmacen = rs.getString("idAlmacen");
-                if (rs.getDate("FechaVencimiento").equals(""))
-                    dateFechaVencimiento = rs.getDate("FechaVencimiento");
-                if (rs.getString("idNotaIngreso").equals(""))
-                    strIdNotaIngreso = rs.getString("idNotaIngreso");
+                dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                strIdNotaIngreso = rs.getString("idNotaIngreso");
                 
                 arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             }
