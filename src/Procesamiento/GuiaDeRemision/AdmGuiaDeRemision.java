@@ -277,6 +277,9 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                     try {
                         objGuiaRemisionBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
                          tblGuiaRemision.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
+                         
+                         
+                         
                     } catch (Exception ex) {
                         Logger.getLogger(AdmGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
                     }
