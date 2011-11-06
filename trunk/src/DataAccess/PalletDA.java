@@ -49,8 +49,8 @@ public class PalletDA {
                 + "'" +objPallet.getIdPallet()+"',"
                 + "'" +objPallet.getIdProducto()+"',"
                 + "'" +objPallet.getIndActivo()+"',"
-                + "'" +objPallet.getIdAlmacen()+"',"
-                +objPallet.getFechaVencimiento()+")";
+                + "'" +objPallet.getIdAlmacen()+"','"
+                +objPallet.getFechaVencimiento()+"')";
                                 
         try{
             objConexion.EjecutarUID(query);
