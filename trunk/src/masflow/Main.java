@@ -22,7 +22,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        AdmPerfil L = new AdmPerfil();
+        Login L = new Login();
         L.setVisible(true);
 
     }
