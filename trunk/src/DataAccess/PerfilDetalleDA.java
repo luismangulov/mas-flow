@@ -91,6 +91,37 @@ public class PerfilDetalleDA {
         
         }
       
+    //obtiene todos los Id de las aplicacion para un determindo perfil  
+    public ArrayList<String> queryAllIdAplicacionesPorPerfil(String idPerfil){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        ArrayList<String> listaAplicaciones = new ArrayList<String>();
+        
+        String sql = "SELECT DISTINCT idAplicacion FROM PerfilDetalle WHERE idPerfil= '"+idPerfil+"' order by 1";
+//        AplicacionDA objAplicacionDA=new AplicacionDA();  
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdAplicacion;
+            while (rs.next()){
+
+                strIdAplicacion = rs.getString(1).trim();
+                listaAplicaciones.add(strIdAplicacion);
+                
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return listaAplicaciones;
+        
+        }
+      
+      
+      
       //obtiene todos los servicios para una determinada aplicacion de un PERFIL ESPECÏFICO
        public ArrayList<String> queryAllServiciosPorAplicacionPorPerfil(String idPerfil,String idAplicacion){
            
