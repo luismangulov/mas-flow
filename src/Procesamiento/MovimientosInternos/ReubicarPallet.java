@@ -85,25 +85,23 @@ public class ReubicarPallet extends javax.swing.JDialog {
         cargarComboAlmacen();
     }
     
-    public ReubicarPallet(java.awt.Frame parent, boolean modal,PalletBE objPalletBE,String idAlmacen,UbicacionBE objUbicacionBE){
+    public ReubicarPallet(java.awt.Frame parent, boolean modal,ArrayList<PalletBE> arrPallets,String strIdAlmacen){
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventanaPadre = null;        
         Date fechaActual = new Date();
         this.jdcFecha.setDate(fechaActual);
-        arrPallets.add(objPalletBE);
-        JOptionPane.showMessageDialog(null, objPalletBE.getFechaVencimiento(), "Mensaje",0);
-        this.objUbicacionPadre = objUbicacionBE;
+//        JOptionPane.showMessageDialog(null, objPalletBE.getFechaVencimiento(), "Mensaje",0);
+//        this.objUbicacionPadre = objUbicacionBE;
         llenarDgv(arrPallets);
         cargarComboAlmacen();
-        strIdAlmacen = objPalletBE.getIdAlmacen();
-//        for (int i=0; i<arrIdAlmacenes.size(); i++)
-//            if (arrIdAlmacenes.get(i).equals(strIdAlmacen)){
-//                cbAlmacen.setSelectedItem(i);
-//                cbAlmacen.setEnabled(false);
-//                return;
-//            }
+        for (int i=0; i<arrIdAlmacenes.size(); i++)
+            if (arrIdAlmacenes.get(i).equals(strIdAlmacen)){
+                cbAlmacen.setSelectedItem(i);
+                cbAlmacen.setEnabled(false);
+                return;
+            }
         
         
     }
