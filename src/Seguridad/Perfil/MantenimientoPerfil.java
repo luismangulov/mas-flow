@@ -105,6 +105,9 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         initComponents();
         jListAplicacion.setModel(modeloAplicacion);
         jListAplicacionSelected.setModel(modeloAplicacionSelected);
+
+        this.jListServicio.setEnabled(false);
+        this.jListServicioSelected.setEnabled(false);
         
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
@@ -191,6 +194,12 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             this.cbxActivo.setSelected(false);
         }
         this.setVisible(true);
+
+
+        this.jListServicio.setEnabled(false);
+        this.jListServicioSelected.setEnabled(false);
+
+
     }
 
 
@@ -515,8 +524,10 @@ private void lblAddAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-
 
         }else{//modificar
 
-            this.listaAplicacionesSistema.add(this.listaAplicacionesPerfil.get(itemSelected));
-            this.listaAplicacionesSistema.remove(itemSelected);
+            if (this.listaAplicacionesSistema.size()>0){//Valida que listaAplicacionesPerfil tenga elementos para hacer un get
+                this.listaAplicacionesPerfil.add(this.listaAplicacionesSistema.get(itemSelected));
+                this.listaAplicacionesSistema.remove(itemSelected);
+            }
 
             modeloAplicacion= new AbstractListModel() {
                 ArrayList <String> listaLocal=listaAplicacionesSistema;
@@ -592,8 +603,13 @@ private void lblRemoverAplicacionMousePressed(java.awt.event.MouseEvent evt) {//
 
         }else{//modificar
 
-            this.listaAplicacionesPerfil.add(this.listaAplicacionesSistema.get(itemSelected));
-            this.listaAplicacionesPerfil.remove(itemSelected);
+            if(this.listaAplicacionesPerfil.size()>0){ //verifica q la listaAplicacionesSistema tenga elementos para hacer un get
+
+                this.listaAplicacionesSistema.add(this.listaAplicacionesPerfil.get(itemSelected));
+                this.listaAplicacionesPerfil.remove(itemSelected);
+
+            }
+
 
             modeloAplicacion= new AbstractListModel() {
                 ArrayList <String> listaLocal=listaAplicacionesSistema;

@@ -19,9 +19,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /** Creates new form MenuPrincipal */
     public MenuPrincipal() {
         initComponents();
-        this.jLabel20.setEnabled(false);
-        this.jLabel21.setEnabled(false);
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -37,45 +35,45 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLayeredPane2 = new javax.swing.JLayeredPane();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLayeredPane3 = new javax.swing.JLayeredPane();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLayeredPane4 = new javax.swing.JLayeredPane();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
+        jLayeredPaneMantenimientos = new javax.swing.JLayeredPane();
+        jLblFamilia = new javax.swing.JLabel();
+        jLblClientes = new javax.swing.JLabel();
+        jLblAlmacenes = new javax.swing.JLabel();
+        jLblUbicaciones = new javax.swing.JLabel();
+        jLblProveedores = new javax.swing.JLabel();
+        jLblProductos = new javax.swing.JLabel();
+        jLblZonas = new javax.swing.JLabel();
+        jLblRacks = new javax.swing.JLabel();
+        jLayeredPaneProcesos = new javax.swing.JLayeredPane();
+        jLblIngresarProductos = new javax.swing.JLabel();
+        jLblDespacharProductos = new javax.swing.JLabel();
+        jLblMovimientosInternos = new javax.swing.JLabel();
+        jLayeredPaneReportes = new javax.swing.JLayeredPane();
+        jLblReporteStock = new javax.swing.JLabel();
+        jLblKardek = new javax.swing.JLabel();
+        jLblTrazabilidadPallet = new javax.swing.JLabel();
+        jLblLogAuditoria = new javax.swing.JLabel();
+        jLayeredPaneSeguridad = new javax.swing.JLayeredPane();
+        jLblPerfiles = new javax.swing.JLabel();
+        jLblCambioContrasena = new javax.swing.JLabel();
+        jLblUsuarios = new javax.swing.JLabel();
+        jLayeredPaneLogo = new javax.swing.JLayeredPane();
         jLabel45 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jButtonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("+Flow - Menú Principal");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Mantenimientos.png"))); // NOI18N
+        jLabel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -84,18 +82,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/procesos.png"))); // NOI18N
+        jLabel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reportes.png"))); // NOI18N
+        jLabel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/seguridad.png"))); // NOI18N
+        jLabel8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logoMasFlow.png"))); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setText("Mantenimientos");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -105,352 +103,336 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel2.setText("Procesos");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 102));
         jLabel3.setText("Seguridad");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 102));
         jLabel4.setText("Reportes");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel10.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel10.setText("Familias de Productos");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLayeredPaneMantenimientos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLblFamilia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblFamilia.setForeground(new java.awt.Color(0, 0, 102));
+        jLblFamilia.setText("Familias de Productos");
+        jLblFamilia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblFamilia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel10MousePressed(evt);
+                jLblFamiliaMousePressed(evt);
             }
         });
-        jLabel10.setBounds(20, 170, 160, 17);
-        jLayeredPane1.add(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblFamilia.setBounds(20, 140, 160, 17);
+        jLayeredPaneMantenimientos.add(jLblFamilia, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel11.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel11.setText("Clientes");
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblClientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblClientes.setForeground(new java.awt.Color(0, 0, 102));
+        jLblClientes.setText("Clientes");
+        jLblClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel11MousePressed(evt);
+                jLblClientesMousePressed(evt);
             }
         });
-        jLabel11.setBounds(20, 260, 60, 17);
-        jLayeredPane1.add(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblClientes.setBounds(20, 230, 60, 17);
+        jLayeredPaneMantenimientos.add(jLblClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel12.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel12.setText("Almacenes");
-        jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblAlmacenes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblAlmacenes.setForeground(new java.awt.Color(0, 0, 102));
+        jLblAlmacenes.setText("Almacenes");
+        jLblAlmacenes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblAlmacenes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel12MousePressed(evt);
+                jLblAlmacenesMousePressed(evt);
             }
         });
-        jLabel12.setBounds(20, 20, 80, 17);
-        jLayeredPane1.add(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblAlmacenes.setBounds(20, 20, 80, 17);
+        jLayeredPaneMantenimientos.add(jLblAlmacenes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel13.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel13.setText("Pallets");
-        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblUbicaciones.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblUbicaciones.setForeground(new java.awt.Color(0, 0, 102));
+        jLblUbicaciones.setText("Ubicaciones");
+        jLblUbicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblUbicaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel13MousePressed(evt);
+                jLblUbicacionesMousePressed(evt);
             }
         });
-        jLabel13.setBounds(20, 140, 60, 17);
-        jLayeredPane1.add(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblUbicaciones.setBounds(20, 110, 90, 17);
+        jLayeredPaneMantenimientos.add(jLblUbicaciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel14.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel14.setText("Ubicaciones");
-        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblProveedores.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblProveedores.setForeground(new java.awt.Color(0, 0, 102));
+        jLblProveedores.setText("Proveedores");
+        jLblProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel14MousePressed(evt);
+                jLblProveedoresMousePressed(evt);
             }
         });
-        jLabel14.setBounds(20, 110, 90, 17);
-        jLayeredPane1.add(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblProveedores.setBounds(20, 200, 90, 17);
+        jLayeredPaneMantenimientos.add(jLblProveedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel15.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel15.setText("Proveedores");
-        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblProductos.setForeground(new java.awt.Color(0, 0, 102));
+        jLblProductos.setText("Productos");
+        jLblProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel15MousePressed(evt);
+                jLblProductosMousePressed(evt);
             }
         });
-        jLabel15.setBounds(20, 230, 90, 17);
-        jLayeredPane1.add(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblProductos.setBounds(20, 170, 90, 17);
+        jLayeredPaneMantenimientos.add(jLblProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel16.setText("Productos");
-        jLabel16.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblZonas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblZonas.setForeground(new java.awt.Color(0, 0, 102));
+        jLblZonas.setText("Zonas");
+        jLblZonas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblZonas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel16MousePressed(evt);
+                jLblZonasMousePressed(evt);
             }
         });
-        jLabel16.setBounds(20, 200, 90, 17);
-        jLayeredPane1.add(jLabel16, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblZonas.setBounds(20, 50, 60, 17);
+        jLayeredPaneMantenimientos.add(jLblZonas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel17.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel17.setText("Zonas");
-        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblRacks.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblRacks.setForeground(new java.awt.Color(0, 0, 102));
+        jLblRacks.setText("Racks");
+        jLblRacks.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblRacks.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel17MousePressed(evt);
+                jLblRacksMousePressed(evt);
             }
         });
-        jLabel17.setBounds(20, 50, 60, 17);
-        jLayeredPane1.add(jLabel17, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblRacks.setBounds(20, 80, 50, 17);
+        jLayeredPaneMantenimientos.add(jLblRacks, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel21.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel21.setText("Racks");
-        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLayeredPaneProcesos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLblIngresarProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblIngresarProductos.setForeground(new java.awt.Color(0, 0, 102));
+        jLblIngresarProductos.setText("Ingresar Productos");
+        jLblIngresarProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblIngresarProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel21MousePressed(evt);
+                jLblIngresarProductosMousePressed(evt);
             }
         });
-        jLabel21.setBounds(20, 80, 50, 17);
-        jLayeredPane1.add(jLabel21, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblIngresarProductos.setBounds(20, 20, 150, 17);
+        jLayeredPaneProcesos.add(jLblIngresarProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel20.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel20.setText("Ordenar Productos");
-        jLabel20.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblDespacharProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblDespacharProductos.setForeground(new java.awt.Color(0, 0, 102));
+        jLblDespacharProductos.setText("Despachar Productos");
+        jLblDespacharProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblDespacharProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel20MousePressed(evt);
+                jLblDespacharProductosMousePressed(evt);
             }
         });
-        jLabel20.setBounds(50, 20, 140, 17);
-        jLayeredPane2.add(jLabel20, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblDespacharProductos.setBounds(20, 50, 150, 17);
+        jLayeredPaneProcesos.add(jLblDespacharProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel26.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel26.setText("Ingresar Productos");
-        jLabel26.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel26MousePressed(evt);
-            }
-        });
-        jLabel26.setBounds(50, 50, 140, 17);
-        jLayeredPane2.add(jLabel26, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel28.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel28.setText("Despachar Productos");
-        jLabel28.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel28MousePressed(evt);
-            }
-        });
-        jLabel28.setBounds(50, 80, 150, 17);
-        jLayeredPane2.add(jLabel28, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jLabel27.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(0, 0, 100));
-        jLabel27.setText("Movimientos Internos");
-        jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblMovimientosInternos.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
+        jLblMovimientosInternos.setForeground(new java.awt.Color(0, 0, 100));
+        jLblMovimientosInternos.setText("Movimientos Internos");
+        jLblMovimientosInternos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel27MouseClicked(evt);
+                jLblMovimientosInternosMouseClicked(evt);
             }
         });
-        jLabel27.setBounds(50, 110, 160, 19);
-        jLayeredPane2.add(jLabel27, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblMovimientosInternos.setBounds(20, 80, 160, 17);
+        jLayeredPaneProcesos.add(jLblMovimientosInternos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel30.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel30.setText("Reporte de Stock");
-        jLabel30.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLayeredPaneReportes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLblReporteStock.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblReporteStock.setForeground(new java.awt.Color(0, 0, 102));
+        jLblReporteStock.setText("Reporte de Stock");
+        jLblReporteStock.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblReporteStock.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel30MousePressed(evt);
+                jLblReporteStockMousePressed(evt);
             }
         });
-        jLabel30.setBounds(40, 20, 130, 17);
-        jLayeredPane3.add(jLabel30, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblReporteStock.setBounds(30, 20, 130, 17);
+        jLayeredPaneReportes.add(jLblReporteStock, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel35.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel35.setText("Kárdex");
-        jLabel35.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel35.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblKardek.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblKardek.setForeground(new java.awt.Color(0, 0, 102));
+        jLblKardek.setText("Kárdex");
+        jLblKardek.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblKardek.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel35MousePressed(evt);
+                jLblKardekMousePressed(evt);
             }
         });
-        jLabel35.setBounds(40, 50, 50, 17);
-        jLayeredPane3.add(jLabel35, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblKardek.setBounds(30, 50, 50, 17);
+        jLayeredPaneReportes.add(jLblKardek, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel36.setText("Historial de Pallet");
-        jLabel36.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel36.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblTrazabilidadPallet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblTrazabilidadPallet.setForeground(new java.awt.Color(0, 0, 102));
+        jLblTrazabilidadPallet.setText("Trazabilidad de Pallet");
+        jLblTrazabilidadPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblTrazabilidadPallet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel36MousePressed(evt);
+                jLblTrazabilidadPalletMousePressed(evt);
             }
         });
-        jLabel36.setBounds(40, 80, 130, 17);
-        jLayeredPane3.add(jLabel36, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblTrazabilidadPallet.setBounds(30, 80, 150, 17);
+        jLayeredPaneReportes.add(jLblTrazabilidadPallet, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel43.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel43.setText("Log de Auditoría");
-        jLabel43.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel43.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblLogAuditoria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblLogAuditoria.setForeground(new java.awt.Color(0, 0, 102));
+        jLblLogAuditoria.setText("Log de Auditoría");
+        jLblLogAuditoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblLogAuditoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel43MousePressed(evt);
+                jLblLogAuditoriaMousePressed(evt);
             }
         });
-        jLabel43.setBounds(40, 110, 120, 17);
-        jLayeredPane3.add(jLabel43, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblLogAuditoria.setBounds(30, 110, 120, 17);
+        jLayeredPaneReportes.add(jLblLogAuditoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel37.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel37.setText("Clientes");
-        jLabel37.setBounds(30, 260, 80, 17);
-        jLayeredPane4.add(jLabel37, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneSeguridad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel38.setText("Perfiles");
-        jLabel38.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel38.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblPerfiles.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblPerfiles.setForeground(new java.awt.Color(0, 0, 102));
+        jLblPerfiles.setText("Perfiles");
+        jLblPerfiles.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblPerfiles.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel38MousePressed(evt);
+                jLblPerfilesMousePressed(evt);
             }
         });
-        jLabel38.setBounds(40, 20, 50, 17);
-        jLayeredPane4.add(jLabel38, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblPerfiles.setBounds(20, 20, 50, 17);
+        jLayeredPaneSeguridad.add(jLblPerfiles, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel39.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel39.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel39.setText("Pallets");
-        jLabel39.setBounds(30, 140, 80, 17);
-        jLayeredPane4.add(jLabel39, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jLabel40.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel40.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel40.setText("Proveedores");
-        jLabel40.setBounds(30, 230, 80, 17);
-        jLayeredPane4.add(jLabel40, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jLabel41.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel41.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel41.setText("Productos");
-        jLabel41.setBounds(30, 200, 80, 17);
-        jLayeredPane4.add(jLabel41, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jLabel42.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLabel42.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel42.setText("Usuarios");
-        jLabel42.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel42.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblCambioContrasena.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblCambioContrasena.setForeground(new java.awt.Color(0, 0, 102));
+        jLblCambioContrasena.setText("Cambio contraseña");
+        jLblCambioContrasena.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblCambioContrasena.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel42MousePressed(evt);
+                jLblCambioContrasenaMousePressed(evt);
             }
         });
-        jLabel42.setBounds(40, 50, 60, 17);
-        jLayeredPane4.add(jLabel42, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblCambioContrasena.setBounds(20, 80, 140, 17);
+        jLayeredPaneSeguridad.add(jLblCambioContrasena, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblUsuarios.setForeground(new java.awt.Color(0, 0, 102));
+        jLblUsuarios.setText("Usuarios");
+        jLblUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLblUsuariosMousePressed(evt);
+            }
+        });
+        jLblUsuarios.setBounds(20, 50, 60, 17);
+        jLayeredPaneSeguridad.add(jLblUsuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLayeredPaneLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel45.setText("GESTIÓN DE ALMACENES");
+        jLabel45.setBounds(140, 100, 229, 22);
+        jLayeredPaneLogo.add(jLabel45, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
-        jLabel44.setText("<html>Sistemas<br>+Flow</html>");
+        jLabel44.setText("<html>Sistema<br>+Flow</html>");
+        jLabel44.setBounds(140, 10, 162, 86);
+        jLayeredPaneLogo.add(jLabel44, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18));
-        jLabel45.setText("GESTIÓN DE ALMACENES");
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logoMasFlow.png"))); // NOI18N
+        jLabel9.setBounds(10, 10, 130, 105);
+        jLayeredPaneLogo.add(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel6)
-                .addGap(83, 83, 83)
-                .addComponent(jLabel5)
-                .addGap(54, 54, 54)
-                .addComponent(jLabel7)
-                .addGap(61, 61, 61)
-                .addComponent(jLabel8))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jLabel2)
-                .addGap(87, 87, 87)
-                .addComponent(jLabel1)
-                .addGap(85, 85, 85)
-                .addComponent(jLabel4)
-                .addGap(98, 98, 98)
-                .addComponent(jLabel3))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLayeredPaneMantenimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLayeredPaneSeguridad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLayeredPaneLogo)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel9)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel45))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel6)
+                                .addGap(83, 83, 83)
+                                .addComponent(jLabel5)
+                                .addGap(54, 54, 54)
+                                .addComponent(jLabel7))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabel2)
+                                .addGap(87, 87, 87)
+                                .addComponent(jLabel1)
+                                .addGap(59, 59, 59)
+                                .addComponent(jLabel4)))
+                        .addGap(73, 73, 73)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel3))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addComponent(jLabel4))
                     .addComponent(jLabel3))
-                .addGap(11, 11, 11)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLayeredPaneSeguridad, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel45))
+                        .addComponent(jLayeredPaneLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                    .addComponent(jLayeredPaneMantenimientos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLayeredPane2)
-                            .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))))
-                .addGap(29, 29, 29))
+                        .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -460,101 +442,100 @@ private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     // TODO add your handling code here:
 }//GEN-LAST:event_jLabel5MousePressed
 
-private void jLabel20MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MousePressed
-    Procesamiento.OrdenDeSuministro.AdmOrdenDeSuministro a = new Procesamiento.OrdenDeSuministro.AdmOrdenDeSuministro();
-    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel20MousePressed
-
-private void jLabel21MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MousePressed
+private void jLblRacksMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblRacksMousePressed
     Mantenimientos.Rack.AdmRack a = new Mantenimientos.Rack.AdmRack();
     a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel21MousePressed
+}//GEN-LAST:event_jLblRacksMousePressed
 
-private void jLabel26MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MousePressed
+private void jLblIngresarProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblIngresarProductosMousePressed
     Procesamiento.NotaDeIngreso.AdmNotaDeIngreso a = new Procesamiento.NotaDeIngreso.AdmNotaDeIngreso();
     a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel26MousePressed
+}//GEN-LAST:event_jLblIngresarProductosMousePressed
 
-private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
+private void jLblAlmacenesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblAlmacenesMousePressed
     Mantenimientos.Almacen.AdmAlmacen a = new Mantenimientos.Almacen.AdmAlmacen();
     a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel12MousePressed
+}//GEN-LAST:event_jLblAlmacenesMousePressed
 
-private void jLabel17MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MousePressed
+private void jLblZonasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblZonasMousePressed
    Mantenimientos.Zona.AdmZona a = new Mantenimientos.Zona.AdmZona();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel17MousePressed
+}//GEN-LAST:event_jLblZonasMousePressed
 
-private void jLabel14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MousePressed
+private void jLblUbicacionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblUbicacionesMousePressed
    Mantenimientos.Ubicacion.AdmUbicacion a = new Mantenimientos.Ubicacion.AdmUbicacion();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel14MousePressed
+}//GEN-LAST:event_jLblUbicacionesMousePressed
 
-private void jLabel13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MousePressed
-        Procesamiento.MovimientosInternos.AdmMovimientosInternos a = new Procesamiento.MovimientosInternos.AdmMovimientosInternos();
-   a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel13MousePressed
-
-private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
+private void jLblFamiliaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblFamiliaMousePressed
    Mantenimientos.FamiliaProd.AdmFamiliaProd a = new Mantenimientos.FamiliaProd.AdmFamiliaProd();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel10MousePressed
+}//GEN-LAST:event_jLblFamiliaMousePressed
 
-private void jLabel16MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MousePressed
+private void jLblProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblProductosMousePressed
    Mantenimientos.Producto.AdmProducto a = new Mantenimientos.Producto.AdmProducto();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel16MousePressed
+}//GEN-LAST:event_jLblProductosMousePressed
 
-private void jLabel15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MousePressed
+private void jLblProveedoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblProveedoresMousePressed
    Mantenimientos.Proveedor.AdmProveedor a = new Mantenimientos.Proveedor.AdmProveedor();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel15MousePressed
+}//GEN-LAST:event_jLblProveedoresMousePressed
 
-private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+private void jLblClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblClientesMousePressed
    Mantenimientos.Cliente.AdmCliente a = new Mantenimientos.Cliente.AdmCliente();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel11MousePressed
+}//GEN-LAST:event_jLblClientesMousePressed
 
-private void jLabel30MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MousePressed
+private void jLblReporteStockMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblReporteStockMousePressed
    Reportes.Stock a = new Reportes.Stock();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel30MousePressed
+}//GEN-LAST:event_jLblReporteStockMousePressed
 
-private void jLabel35MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel35MousePressed
+private void jLblKardekMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblKardekMousePressed
    Reportes.Kardex a = new Reportes.Kardex();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel35MousePressed
+}//GEN-LAST:event_jLblKardekMousePressed
 
-private void jLabel36MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MousePressed
+private void jLblTrazabilidadPalletMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblTrazabilidadPalletMousePressed
    Reportes.HistorialPallet a = new Reportes.HistorialPallet();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel36MousePressed
+}//GEN-LAST:event_jLblTrazabilidadPalletMousePressed
 
-private void jLabel38MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MousePressed
+private void jLblPerfilesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblPerfilesMousePressed
    Seguridad.Perfil.AdmPerfil a = new Seguridad.Perfil.AdmPerfil();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel38MousePressed
+}//GEN-LAST:event_jLblPerfilesMousePressed
 
-private void jLabel42MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MousePressed
+private void jLblCambioContrasenaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblCambioContrasenaMousePressed
    Seguridad.Usuario.AdmUsuario a = new Seguridad.Usuario.AdmUsuario();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel42MousePressed
+}//GEN-LAST:event_jLblCambioContrasenaMousePressed
 
-private void jLabel43MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MousePressed
+private void jLblLogAuditoriaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblLogAuditoriaMousePressed
    Reportes.LogDeAuditoria a = new Reportes.LogDeAuditoria();
    a.setVisible(true);// TODO add your handling code here:
-}//GEN-LAST:event_jLabel43MousePressed
+}//GEN-LAST:event_jLblLogAuditoriaMousePressed
 
-private void jLabel28MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MousePressed
+private void jLblDespacharProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblDespacharProductosMousePressed
 // TODO add your handling code here:
     Procesamiento.GuiaDeRemision.AdmGuiaDeRemision a = new Procesamiento.GuiaDeRemision.AdmGuiaDeRemision();
     a.setVisible(true);
-}//GEN-LAST:event_jLabel28MousePressed
+}//GEN-LAST:event_jLblDespacharProductosMousePressed
 
-private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
+private void jLblMovimientosInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblMovimientosInternosMouseClicked
     Procesamiento.MovimientosInternos.AdmMovimientosInternos a = new Procesamiento.MovimientosInternos.AdmMovimientosInternos();
     a.setVisible(true);
-}//GEN-LAST:event_jLabel27MouseClicked
+}//GEN-LAST:event_jLblMovimientosInternosMouseClicked
+
+private void jLblUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblUsuariosMousePressed
+    // TODO add your handling code here:
+}//GEN-LAST:event_jLblUsuariosMousePressed
+
+private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+    // TODO add your handling code here:
+    this.dispose();
+}//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -592,33 +573,11 @@ private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
@@ -626,9 +585,28 @@ private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JLayeredPane jLayeredPane2;
-    private javax.swing.JLayeredPane jLayeredPane3;
-    private javax.swing.JLayeredPane jLayeredPane4;
+    private javax.swing.JLayeredPane jLayeredPaneLogo;
+    private javax.swing.JLayeredPane jLayeredPaneMantenimientos;
+    private javax.swing.JLayeredPane jLayeredPaneProcesos;
+    private javax.swing.JLayeredPane jLayeredPaneReportes;
+    private javax.swing.JLayeredPane jLayeredPaneSeguridad;
+    private javax.swing.JLabel jLblAlmacenes;
+    private javax.swing.JLabel jLblCambioContrasena;
+    private javax.swing.JLabel jLblClientes;
+    private javax.swing.JLabel jLblDespacharProductos;
+    private javax.swing.JLabel jLblFamilia;
+    private javax.swing.JLabel jLblIngresarProductos;
+    private javax.swing.JLabel jLblKardek;
+    private javax.swing.JLabel jLblLogAuditoria;
+    private javax.swing.JLabel jLblMovimientosInternos;
+    private javax.swing.JLabel jLblPerfiles;
+    private javax.swing.JLabel jLblProductos;
+    private javax.swing.JLabel jLblProveedores;
+    private javax.swing.JLabel jLblRacks;
+    private javax.swing.JLabel jLblReporteStock;
+    private javax.swing.JLabel jLblTrazabilidadPallet;
+    private javax.swing.JLabel jLblUbicaciones;
+    private javax.swing.JLabel jLblUsuarios;
+    private javax.swing.JLabel jLblZonas;
     // End of variables declaration//GEN-END:variables
 }
