@@ -443,4 +443,40 @@ public class PalletDA {
         return arrPallets;
     }
 
+    public ArrayList<PalletBE> queryPalletByIdNotaIngreso(String strIdNotaIngreso) {
+                
+        objConexion = new conexion();        
+        arrPallets = new ArrayList<PalletBE>();
+        
+        query = "SELECT * PALLET WHERE idNotaIngreso = '" +strIdNotaIngreso + "'";
+        
+        Date dateFechaVencimiento = null;
+        rs = objConexion.EjecutarS(query);
+        
+        try{
+            
+            while (rs.next()){
+                
+                String strIdPallet = rs.getString("IdPallet");
+                String strIdProducto = rs.getString("IdProducto");
+                String strIndActivo= rs.getString("IndActivo");
+                String strIdUbicacion = rs.getString("idUbicacion");
+                String strIdAlmacen = rs.getString("idAlmacen");
+                if (rs.getDate("FechaVencimiento") != null)
+                    dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                strIdNotaIngreso = rs.getString("idNotaIngreso");
+                
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+            }
+            
+            
+        }catch (SQLException ex){
+            
+        }finally{
+            objConexion.SalirS();
+        }
+        
+        return arrPallets;
+    }
+
 }

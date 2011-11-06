@@ -70,5 +70,10 @@ public class PalletBL {
         return objPalletDA.queryPalletListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIdPallet, strIdProducto);
     }
     
+    public ArrayList<PalletBE> getPalletByIdNotaIngreso(String strIdNotaIngreso){
+        objPalletDA = new PalletDA();
+        return objPalletDA.queryPalletByIdNotaIngreso(strIdNotaIngreso);
+    }
+    
     
 }
