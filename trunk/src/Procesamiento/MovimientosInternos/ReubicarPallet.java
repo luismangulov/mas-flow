@@ -497,7 +497,6 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             PalletBE objPalletBE = objPalletBL.getPallet(strIdPallet);
             if(ventanaPadre != null)
                ventanaPadre.actualizarDgv(objMovimientoInternoBE);
-            this.dispose();
         }
         else
             JOptionPane.showMessageDialog(null, "No se pudo reubicar el pallet");
