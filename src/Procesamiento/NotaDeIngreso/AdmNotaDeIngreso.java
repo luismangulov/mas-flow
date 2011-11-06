@@ -323,7 +323,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                       
                         for(int j=0;j<cantidadPallet;j++){
                             
-                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento());
+                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento(),codigo);
                             
                             arrPallet.add(objPalletBE);
                         }
@@ -429,9 +429,9 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 int cantidadPallet = arrDetalleNotaIngresoBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
                 for(int j=0;j<cantidadPallet;j++){
                     PalletBL objPalletBL = new PalletBL();
-                    PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento());
-                    objPalletBL.insertar(objPalletBE);
-                    arrPallet.add(objPalletBE);
+                    //PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento());
+                    //objPalletBL.insertar(objPalletBE);
+                    //arrPallet.add(objPalletBE);
                 }
                 
                 
