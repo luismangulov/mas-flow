@@ -98,7 +98,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
         cargarComboAlmacen();
         for (int i=0; i<arrIdAlmacenes.size(); i++)
             if (arrIdAlmacenes.get(i).equals(strIdAlmacen)){
-                cbAlmacen.setSelectedItem(i);
+                cbAlmacen.setSelectedIndex(i);
                 cbAlmacen.setEnabled(false);
                 return;
             }
