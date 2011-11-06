@@ -168,7 +168,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         dgvPallets.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(dgvPallets);
 
-        jLabel4.setText("Motivo:");
+        jLabel4.setText("Motivo*:");
 
         txtMotivo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
