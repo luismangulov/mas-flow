@@ -90,4 +90,14 @@ public class UbicacionBL {
         return objUbicacionDA.queryDesbloquearUbicacionesByRack(strIdRack);
     }
     
+    public void ocuparUbicacion(String strIdUbicacion){
+        objUbicacionDA = new UbicacionDA();
+        objUbicacionDA.queryUsarUbicacion(strIdUbicacion);
+    }
+    
+    public void desocuparUbicacion(String strIdUbicacion){
+        objUbicacionDA = new UbicacionDA();
+        objUbicacionDA.queryDesocuparUbicacion(strIdUbicacion);
+    }
+    
 }
