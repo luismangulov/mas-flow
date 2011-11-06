@@ -175,7 +175,7 @@ public class ZonaDA {
     }
 
 
-    private ArrayList<FamiliaBE> querryAllFamilias(String strIdZona) {
+    public ArrayList<FamiliaBE> querryAllFamilias(String strIdZona) {
         conexion objConexion=new conexion();
         ResultSet rs = null;
         ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
