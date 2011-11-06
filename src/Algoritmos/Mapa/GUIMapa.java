@@ -21,6 +21,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -61,8 +62,10 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void inicializarFrame()
     {
-        setBounds(new java.awt.Rectangle(0, 0, 1024, 768));
+        setBounds(new java.awt.Rectangle(0100, 0, 1024, 768));
         this.createBufferStrategy(2);
+        scrollbar1.setMaximum((int)(0.62*(mapa.getNumY())));
+        scrollbar2.setMaximum((int)(0.79*(mapa.getNumX())));
     }
 
 
@@ -75,13 +78,53 @@ public class GUIMapa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        scrollbar1 = new java.awt.Scrollbar();
+        scrollbar2 = new java.awt.Scrollbar();
+
         setTitle("Mapa del almacén");
         setBounds(new java.awt.Rectangle(400, 400, 800, 600));
         setName("mapaFrame"); // NOI18N
-        getContentPane().setLayout(null);
+        setResizable(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+
+        scrollbar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        scrollbar1.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+            public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
+                scrollbar1AdjustmentValueChanged(evt);
+            }
+        });
+        getContentPane().add(scrollbar1, java.awt.BorderLayout.LINE_END);
+
+        scrollbar2.setOrientation(java.awt.Scrollbar.HORIZONTAL);
+        scrollbar2.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+            public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
+                scrollbar2AdjustmentValueChanged(evt);
+            }
+        });
+        getContentPane().add(scrollbar2, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void scrollbar1AdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_scrollbar1AdjustmentValueChanged
+        // TODO add your handling code here:
+        ajustarGraficoVertical(evt);
+    }//GEN-LAST:event_scrollbar1AdjustmentValueChanged
+
+    private void scrollbar2AdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_scrollbar2AdjustmentValueChanged
+        // TODO add your handling code here:
+        ajustarGraficoHorizontal(evt);
+    }//GEN-LAST:event_scrollbar2AdjustmentValueChanged
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        
+        JOptionPane.showMessageDialog(null, "X: " + obtenerX(evt.getX()) + "\nY: " + obtenerY(evt.getY()), "Posición",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_formMouseClicked
 
     /**
     * @param args the command line arguments
@@ -95,6 +138,8 @@ public class GUIMapa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Scrollbar scrollbar1;
+    private java.awt.Scrollbar scrollbar2;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -120,6 +165,7 @@ public class GUIMapa extends javax.swing.JFrame {
            dibujaZonas(g);
 
            if (mejoresUbicaciones != null) dibujaMejoresUbicaciones(g);
+           if (recorridoOptimo != null) dibujaRecorridoOptimo(g);
 
            dibujaLeyenda(g);
     }
@@ -132,12 +178,12 @@ public class GUIMapa extends javax.swing.JFrame {
 
         for (int i=0;i<mapa.getNumX();i++)
         {
-            g.drawString(String.valueOf(i), factorX*i+offSetX+(factorX/2), 50 );
+            g.drawString(String.valueOf(i), factorX*i+offSetX+(factorX/2), offSetY-15/*50*/);
         }
 
         for (int j=0;j<mapa.getNumY();j++)
         {
-            g.drawString(String.valueOf(j), 25, factorY*j+offSetY+(factorY/2));
+            g.drawString(String.valueOf(j), offSetX-30/*25*/, factorY*j+offSetY+(factorY/2));
         }
 
     }
@@ -184,24 +230,36 @@ public class GUIMapa extends javax.swing.JFrame {
         {
                 RackBL rackBL = new RackBL();
                 RackBE rack = rackBL.getByIdRack(ubicacion.getIdRack());
-                
-                g.setColor(Color.RED);
-                g.fillRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
-                g.drawRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
 
-                g.setColor(Color.WHITE);
-                g.drawString(String.valueOf(ubicacion.getFila()),convertirX(rack.getPosX())+(factorX/2), convertirY(rack.getPosY()+ubicacion.getColumna()-1)+(factorY/2));
+                if (rack.getOrientacion().equals("V"))
+                {
+                    g.setColor(Color.RED);
+                    g.fillRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
+                    g.drawRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
+
+                    g.setColor(Color.WHITE);
+                    g.drawString(String.valueOf(ubicacion.getFila()),convertirX(rack.getPosX())+(factorX/2), convertirY(rack.getPosY()+ubicacion.getColumna()-1)+(factorY/2));
+                }
+                else
+                {
+                    g.setColor(Color.RED);
+                    g.fillRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
+                    g.drawRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
+
+                    g.setColor(Color.WHITE);
+                    g.drawString(String.valueOf(ubicacion.getFila()),convertirX(rack.getPosX()+ubicacion.getColumna()-1)+(factorX/2), convertirY(rack.getPosY())+(factorY/2));
+                }                
         }
     }
 
 
     private void dibujaLeyenda(Graphics g)
     {
-
+        
     }
 
 
-    private void dibujaRecorrido(Graphics g)
+    private void dibujaRecorridoOptimo(Graphics g)
     {
         for (Nodo nodo : recorridoOptimo)
         {
@@ -213,10 +271,28 @@ public class GUIMapa extends javax.swing.JFrame {
         }
     }
 
+
+    private void ajustarGraficoVertical(java.awt.event.AdjustmentEvent evt)
+    {
+
+        offSetY = 65 * (1-scrollbar1.getValue());
+        repaint();
+    }
+
+
+    private void ajustarGraficoHorizontal(java.awt.event.AdjustmentEvent evt)
+    {
+        offSetX = 50 * (1-scrollbar2.getValue());
+        repaint();
+    }
+
+
     private void calcularFactores()
     {
-        factorX = (pixelesAncho/mapa.getNumX());
-        factorY = (pixelesLargo/mapa.getNumY());
+//        factorX = (pixelesAncho/mapa.getNumX());
+//        factorY = (pixelesLargo/mapa.getNumY());
+          factorX=40;
+          factorY=40;
     }
 
     private int convertirX(int x)
@@ -230,15 +306,28 @@ public class GUIMapa extends javax.swing.JFrame {
     }
 
 
+    private int obtenerX(int x)
+    {
+        return (x-offSetX)/factorX;
+    }
+
+    private int obtenerY(int y)
+    {
+        return (y-offSetY)/factorY;
+    }
+
+
+
+
     private Mapa mapa;
     private ArrayList<UbicacionBE> mejoresUbicaciones;
     private ArrayList<Nodo> recorridoOptimo;
 
-    private int pixelesAncho=800;
-    private int pixelesLargo=600;
+    //private int pixelesAncho=600;
+    //private int pixelesLargo=600;
 
-    private final int offSetX=50;
-    private final int offSetY=65;
+    private int offSetX=50;
+    private int offSetY=65;
 
     private int factorX;
     private int factorY;
