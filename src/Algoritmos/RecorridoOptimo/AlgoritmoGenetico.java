@@ -7,6 +7,7 @@ package Algoritmos.RecorridoOptimo;
 
 import Algoritmos.Mapa.Mapa;
 import Algoritmos.Mapa.Nodo;
+import BusinessEntity.RackBE;
 import BusinessEntity.UbicacionBE;
 import BusinessLogic.RackBL;
 import java.util.ArrayList;
@@ -365,34 +366,34 @@ public class AlgoritmoGenetico {
    }
 
 
-   private static boolean esObligatorio(int pos, Nodo[] arregloNodos, ArrayList<UbicacionBE> listaUbicaciones)
+   private static boolean esObligatorio(int pos, Nodo[] arregloNodos, ArrayList<UbicacionBE> listaUbicaciones, Mapa mapa)
    {
-        if (arregloNodos[pos].isNodoInicial()) return true;
+        if ((arregloNodos[pos].getX()==mapa.getPosPuertaX())&&(arregloNodos[pos].getY()==mapa.getPosPuertaY())) return true;
 
-        if (arregloNodos[pos].getItem()!=null)
+        for (UbicacionBE u : listaUbicaciones)
         {
-            UbicacionBE ubicacion = (UbicacionBE)arregloNodos[pos].getItem();
+            RackBE rack=null;
+            for (RackBE r : mapa.getListaRacks())
+            {
+                if (r.getIdRack().equals(u.getIdRack()))
+                {
+                    rack=r;
+                    break;
+                }
+            }
+            if (rack==null) return false;
 
-            for (UbicacionBE u : listaUbicaciones)
-                if (ubicacion.getIdUbicacion().equals(u.getIdUbicacion())) return true;
+            if (rack.getOrientacion().equals("V"))
+            {
+                if ((arregloNodos[pos].getX()==rack.getPosX())&&(arregloNodos[pos].getY()==rack.getPosY()+u.getColumna()-1)) return true;
+                //Nodo nodo = new Nodo(id,rack.getPosX(),rack.getPosY()+ubicacion.getColumna()-1,ubicacion);
+            }
+            else
+            {
+                if ((arregloNodos[pos].getX()==rack.getPosX()+u.getColumna()-1)&&(arregloNodos[pos].getY()==rack.getPosY())) return true;
+            }
         }
-
-        return false;
-   }
-
-
-   private static boolean esObligatorio(int pos, ArrayList<Nodo> listaNodos, ArrayList<UbicacionBE> listaUbicaciones)
-   {
-        if (listaNodos.get(pos).isNodoInicial()) return true;
-
-        if (listaNodos.get(pos).getItem()!=null)
-        {
-            UbicacionBE ubicacion = (UbicacionBE)listaNodos.get(pos).getItem();
-
-            for (UbicacionBE u : listaUbicaciones)
-                if (ubicacion.getIdUbicacion().equals(u.getIdUbicacion())) return true;
-        }
-
+        
         return false;
    }
 
@@ -452,25 +453,30 @@ public class AlgoritmoGenetico {
    }
 
 
-   private static ArrayList<Nodo> eliminarDuplicados(ArrayList<Nodo> listaNodos, ArrayList<UbicacionBE> listaUbicaciones)
+   private static ArrayList<Nodo> eliminarDuplicados(ArrayList<Nodo> listaNodos)
    {
-       //ArrayList<Nodo> nodosARemover = new ArrayList<Nodo>();
+       ArrayList<Nodo> listaNodosTemp = new ArrayList<Nodo>();
        
         for (Nodo nodo1 : listaNodos)
         {
-            for (Nodo nodo2 : listaNodos)
+            boolean esta=false;
+
+            for (Nodo nodo2 : listaNodosTemp)
+            {   
+                if ((nodo1.getX()==nodo2.getX()) && (nodo1.getY()==nodo2.getY()))
+                {
+                    esta=true;
+                    break;
+                }
+            }
+
+            if (!esta)
             {
-                if ((nodo1.getId()!=nodo2.getId()) && (nodo1.getX()==nodo2.getX()) && (nodo1.getY()==nodo2.getY())
-                    && !(esObligatorio(listaNodos.indexOf(nodo2),listaNodos,listaUbicaciones)))
-                    listaNodos.remove(nodo2);
-                    //nodosARemover.add(nodo2);
+                listaNodosTemp.add(nodo1);
             }
         }
 
-//        for (Nodo nodo : nodosARemover)
-//            listaNodos.remove(nodo);
-        
-        return listaNodos;
+        return listaNodosTemp;
    }
 
    
@@ -484,7 +490,7 @@ public class AlgoritmoGenetico {
          
          rutas = new ArrayList<ArrayList<Ruta>>();
 
-         ArrayList<Nodo> listaNodos = eliminarDuplicados(mapa.getListaNodos(),listaUbicaciones);
+         ArrayList<Nodo> listaNodos = /*mapa.getListaNodos();*/eliminarDuplicados(mapa.getListaNodos());
          
          Nodo[] arregloNodos = new Nodo[listaNodos.size()];
          for (int i=0;i<listaNodos.size();i++)
@@ -498,14 +504,14 @@ public class AlgoritmoGenetico {
          ArrayList<Nodo> nodosObligatorios = new ArrayList<Nodo>();
          for (int i=0; i<arregloNodos.length; i++)
          {
-            if (esObligatorio(i,arregloNodos,listaUbicaciones))
+            if (esObligatorio(i,arregloNodos,listaUbicaciones,mapa))
             {
                 nodosObligatorios.add(arregloNodos[i]);
 
                 ArrayList<Ruta> temp = new ArrayList<Ruta>();
                 for (int j=0; i<arregloNodos.length; j++)
                 {
-                     if (esObligatorio(j,arregloNodos,listaUbicaciones))
+                     if (esObligatorio(j,arregloNodos,listaUbicaciones,mapa))
                      {
                         Ruta r = new Ruta(arregloNodos[i],arregloNodos[j],arregloNodos);
                         temp.add(r);
