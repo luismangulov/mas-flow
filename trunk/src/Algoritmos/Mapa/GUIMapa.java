@@ -124,15 +124,15 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        if (evt.getButton()==evt.BUTTON2)
+        if (evt.getButton()==evt.BUTTON3)
         {
             mostrarInformacionCuadrado(evt);
         }
         else
         {
-            //mostrarInformacionDialogo(evt);
+            mostrarInformacionDialogo(evt);
         }
-        mostrarInformacionCuadrado(evt);
+        //mostrarInformacionCuadrado(evt);
     }//GEN-LAST:event_formMouseClicked
 
     /**
