@@ -10,6 +10,9 @@
  */
 package masflow;
 
+import BusinessEntity.UsuarioSistema;
+import Seguridad.ConstantesSeguridad;
+
 /**
  *
  * @author DIEGO
@@ -18,7 +21,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     /** Creates new form MenuPrincipal */
     public MenuPrincipal() {
-        initComponents();
+        
+        initComponents();      
+        int nc1=this.jLayeredPaneMantenimientos.getComponentCount();
+        for(int i=0;i<nc1;i++){
+            if(!UsuarioSistema.PermisoParaAplicacion(this.jLayeredPaneMantenimientos.getComponent(i).getName())){
+                this.jLayeredPaneMantenimientos.getComponent(i).setEnabled(false);
+            }            
+        }
+        int nc2=this.jLayeredPaneProcesos.getComponentCount();
+        for(int i=0;i<nc2;i++){
+            if(!UsuarioSistema.PermisoParaAplicacion(this.jLayeredPaneProcesos.getComponent(i).getName())){
+                this.jLayeredPaneProcesos.getComponent(i).setEnabled(false);
+            }            
+        }
+        int nc3=this.jLayeredPaneReportes.getComponentCount();
+        for(int i=0;i<nc3;i++){
+            if(!UsuarioSistema.PermisoParaAplicacion(this.jLayeredPaneReportes.getComponent(i).getName())){
+                this.jLayeredPaneReportes.getComponent(i).setEnabled(false);
+            }            
+        }
+        int nc4=this.jLayeredPaneSeguridad.getComponentCount();
+        for(int i=0;i<nc4;i++){
+            if(!UsuarioSistema.PermisoParaAplicacion(this.jLayeredPaneSeguridad.getComponent(i).getName())){
+                this.jLayeredPaneSeguridad.getComponent(i).setEnabled(false);
+            }            
+        }        
+        
+        
+        
+        boolean verifica=UsuarioSistema.PermisoParaAplicacion("000001");
+        
+//        ConstantesSeguridad.app_ingresarProductos
+
+        
+        
         this.setLocationRelativeTo(null);
     }
 
@@ -93,32 +130,33 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setText("Mantenimientos");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
         jLabel2.setText("Procesos");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel3.setForeground(new java.awt.Color(0, 0, 102));
         jLabel3.setText("Seguridad");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel4.setForeground(new java.awt.Color(0, 0, 102));
         jLabel4.setText("Reportes");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLayeredPaneMantenimientos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLblFamilia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblFamilia.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblFamilia.setForeground(new java.awt.Color(0, 0, 102));
         jLblFamilia.setText("Familias de Productos");
         jLblFamilia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblFamilia.setName("000008"); // NOI18N
         jLblFamilia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblFamiliaMousePressed(evt);
@@ -127,10 +165,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblFamilia.setBounds(20, 140, 160, 17);
         jLayeredPaneMantenimientos.add(jLblFamilia, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblClientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblClientes.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblClientes.setForeground(new java.awt.Color(0, 0, 102));
         jLblClientes.setText("Clientes");
         jLblClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblClientes.setName("000011"); // NOI18N
         jLblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblClientesMousePressed(evt);
@@ -139,10 +178,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblClientes.setBounds(20, 230, 60, 17);
         jLayeredPaneMantenimientos.add(jLblClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblAlmacenes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblAlmacenes.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblAlmacenes.setForeground(new java.awt.Color(0, 0, 102));
         jLblAlmacenes.setText("Almacenes");
         jLblAlmacenes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblAlmacenes.setName("000004"); // NOI18N
         jLblAlmacenes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblAlmacenesMousePressed(evt);
@@ -151,10 +191,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblAlmacenes.setBounds(20, 20, 80, 17);
         jLayeredPaneMantenimientos.add(jLblAlmacenes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblUbicaciones.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblUbicaciones.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblUbicaciones.setForeground(new java.awt.Color(0, 0, 102));
         jLblUbicaciones.setText("Ubicaciones");
         jLblUbicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblUbicaciones.setName("000007"); // NOI18N
         jLblUbicaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblUbicacionesMousePressed(evt);
@@ -163,10 +204,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblUbicaciones.setBounds(20, 110, 90, 17);
         jLayeredPaneMantenimientos.add(jLblUbicaciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblProveedores.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblProveedores.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblProveedores.setForeground(new java.awt.Color(0, 0, 102));
         jLblProveedores.setText("Proveedores");
         jLblProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblProveedores.setName("000010"); // NOI18N
         jLblProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblProveedoresMousePressed(evt);
@@ -175,10 +217,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblProveedores.setBounds(20, 200, 90, 17);
         jLayeredPaneMantenimientos.add(jLblProveedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblProductos.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblProductos.setForeground(new java.awt.Color(0, 0, 102));
         jLblProductos.setText("Productos");
         jLblProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblProductos.setName("000009"); // NOI18N
         jLblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblProductosMousePressed(evt);
@@ -187,10 +230,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblProductos.setBounds(20, 170, 90, 17);
         jLayeredPaneMantenimientos.add(jLblProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblZonas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblZonas.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblZonas.setForeground(new java.awt.Color(0, 0, 102));
         jLblZonas.setText("Zonas");
         jLblZonas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblZonas.setName("000005"); // NOI18N
         jLblZonas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblZonasMousePressed(evt);
@@ -199,10 +243,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblZonas.setBounds(20, 50, 60, 17);
         jLayeredPaneMantenimientos.add(jLblZonas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblRacks.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblRacks.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblRacks.setForeground(new java.awt.Color(0, 0, 102));
         jLblRacks.setText("Racks");
         jLblRacks.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblRacks.setName("000006"); // NOI18N
         jLblRacks.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblRacksMousePressed(evt);
@@ -217,6 +262,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblIngresarProductos.setForeground(new java.awt.Color(0, 0, 102));
         jLblIngresarProductos.setText("Ingresar Productos");
         jLblIngresarProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblIngresarProductos.setName("000001"); // NOI18N
         jLblIngresarProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblIngresarProductosMousePressed(evt);
@@ -225,10 +271,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblIngresarProductos.setBounds(20, 20, 150, 17);
         jLayeredPaneProcesos.add(jLblIngresarProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblDespacharProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblDespacharProductos.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblDespacharProductos.setForeground(new java.awt.Color(0, 0, 102));
         jLblDespacharProductos.setText("Despachar Productos");
         jLblDespacharProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblDespacharProductos.setName("000002"); // NOI18N
         jLblDespacharProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblDespacharProductosMousePressed(evt);
@@ -237,23 +284,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblDespacharProductos.setBounds(20, 50, 150, 17);
         jLayeredPaneProcesos.add(jLblDespacharProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblMovimientosInternos.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
+        jLblMovimientosInternos.setFont(new java.awt.Font("Droid Sans", 0, 14));
         jLblMovimientosInternos.setForeground(new java.awt.Color(0, 0, 100));
         jLblMovimientosInternos.setText("Movimientos Internos");
+        jLblMovimientosInternos.setName("000003"); // NOI18N
         jLblMovimientosInternos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLblMovimientosInternosMouseClicked(evt);
             }
         });
-        jLblMovimientosInternos.setBounds(20, 80, 160, 17);
+        jLblMovimientosInternos.setBounds(20, 80, 160, 19);
         jLayeredPaneProcesos.add(jLblMovimientosInternos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneReportes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLblReporteStock.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblReporteStock.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblReporteStock.setForeground(new java.awt.Color(0, 0, 102));
         jLblReporteStock.setText("Reporte de Stock");
         jLblReporteStock.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblReporteStock.setName("000012"); // NOI18N
         jLblReporteStock.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblReporteStockMousePressed(evt);
@@ -262,10 +311,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblReporteStock.setBounds(30, 20, 130, 17);
         jLayeredPaneReportes.add(jLblReporteStock, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblKardek.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblKardek.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblKardek.setForeground(new java.awt.Color(0, 0, 102));
         jLblKardek.setText("Kárdex");
         jLblKardek.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblKardek.setName("000013"); // NOI18N
         jLblKardek.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblKardekMousePressed(evt);
@@ -274,10 +324,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblKardek.setBounds(30, 50, 50, 17);
         jLayeredPaneReportes.add(jLblKardek, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblTrazabilidadPallet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblTrazabilidadPallet.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblTrazabilidadPallet.setForeground(new java.awt.Color(0, 0, 102));
         jLblTrazabilidadPallet.setText("Trazabilidad de Pallet");
         jLblTrazabilidadPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblTrazabilidadPallet.setName("000014"); // NOI18N
         jLblTrazabilidadPallet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblTrazabilidadPalletMousePressed(evt);
@@ -286,10 +337,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblTrazabilidadPallet.setBounds(30, 80, 150, 17);
         jLayeredPaneReportes.add(jLblTrazabilidadPallet, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblLogAuditoria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblLogAuditoria.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblLogAuditoria.setForeground(new java.awt.Color(0, 0, 102));
         jLblLogAuditoria.setText("Log de Auditoría");
         jLblLogAuditoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblLogAuditoria.setName("000015"); // NOI18N
         jLblLogAuditoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblLogAuditoriaMousePressed(evt);
@@ -300,10 +352,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLayeredPaneSeguridad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLblPerfiles.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblPerfiles.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblPerfiles.setForeground(new java.awt.Color(0, 0, 102));
         jLblPerfiles.setText("Perfiles");
         jLblPerfiles.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblPerfiles.setName("000016"); // NOI18N
         jLblPerfiles.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblPerfilesMousePressed(evt);
@@ -312,10 +365,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblPerfiles.setBounds(20, 20, 50, 17);
         jLayeredPaneSeguridad.add(jLblPerfiles, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblCambioContrasena.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblCambioContrasena.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblCambioContrasena.setForeground(new java.awt.Color(0, 0, 102));
         jLblCambioContrasena.setText("Cambio contraseña");
         jLblCambioContrasena.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblCambioContrasena.setName("000018"); // NOI18N
         jLblCambioContrasena.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblCambioContrasenaMousePressed(evt);
@@ -324,10 +378,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblCambioContrasena.setBounds(20, 80, 140, 17);
         jLayeredPaneSeguridad.add(jLblCambioContrasena, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblUsuarios.setForeground(new java.awt.Color(0, 0, 102));
         jLblUsuarios.setText("Usuarios");
         jLblUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblUsuarios.setName("000017"); // NOI18N
         jLblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblUsuariosMousePressed(evt);
@@ -338,14 +393,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLayeredPaneLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel45.setText("GESTIÓN DE ALMACENES");
-        jLabel45.setBounds(140, 100, 229, 22);
+        jLabel45.setBounds(140, 100, 207, 22);
         jLayeredPaneLogo.add(jLabel45, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36));
         jLabel44.setText("<html>Sistema<br>+Flow</html>");
-        jLabel44.setBounds(140, 10, 162, 86);
+        jLabel44.setBounds(140, 10, 95, 88);
         jLayeredPaneLogo.add(jLabel44, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));

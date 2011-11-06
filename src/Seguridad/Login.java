@@ -11,6 +11,7 @@
 package Seguridad;
 
 import BusinessEntity.UsuarioBE;
+import BusinessEntity.UsuarioSistema;
 import BusinessLogic.UsuarioBL;
 import BusinessLogic.UsuarioContrasenaBL;
 import javax.swing.JOptionPane;
@@ -191,7 +192,9 @@ private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 //    }
     
     String res=objUsuarioContrasenaBL.corroborarContrasena(this.txtUsuario.getText(),this.txtPassword.getText());
-    if (res.equals("1")){             
+    if (res.equals("1")){
+        
+        UsuarioSistema.usuario=objUsuarioBE;        
         masflow.MenuPrincipal m = new masflow.MenuPrincipal();
         m.setVisible(true);
         this.dispose();
