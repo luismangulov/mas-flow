@@ -399,13 +399,32 @@ public class UbicacionDA {
         return boolExito;
     }
     
-        public boolean queryBloquearUbicacion(String strIdUbicacion) {
+    public boolean queryUsarUbicacion(String strIdUbicacion) {
            
         boolExito = false;
         objConexion = new conexion();
         // 0 bloqueada, 1 disponible, 2 en uso
 
         query = "UPDATE UBICACION set indActivo = '2' WHERE idUbicacion= '" + strIdUbicacion + "'";
+        try{
+            objConexion.EjecutarUID(query);
+            boolExito = true;
+        } catch (Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", 0);
+                boolExito = false;
+        }finally{
+            objConexion.SalirUID();
+        }
+        return boolExito;
+    }
+        
+    public boolean queryDesocuparUbicacion(String strIdUbicacion) {
+           
+        boolExito = false;
+        objConexion = new conexion();
+        // 0 bloqueada, 1 disponible, 2 en uso
+
+        query = "UPDATE UBICACION set indActivo = '1' WHERE idUbicacion= '" + strIdUbicacion + "'";
         try{
             objConexion.EjecutarUID(query);
             boolExito = true;
