@@ -159,7 +159,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         });
         jToolBar1.add(lblAprobar);
 
-        lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/accept.png"))); // NOI18N
+        lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/50px-Vista-forward.png"))); // NOI18N
         lblIngresar.setText("jLabel1");
         lblIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -324,7 +324,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                       
                         for(int j=0;j<cantidadPallet;j++){
                             
-                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento(),"");
+                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento(),codigo);
                             
                             arrPallet.add(objPalletBE);
                         }
@@ -415,6 +415,10 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                  objUbicacion = objUbicacionBL.getUbicacionById(arrPallets.get(i).getIdUbicacion());
                  arrUbicacion.add(objUbicacion);
              }
+            for(int i =0;i<arrUbicacion.size();i++){
+                UbicacionBL objUbicacionBL = new UbicacionBL();
+                objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
+            }
             
               Mapa mapa = new Mapa(arrAlmacenes.get(0));
             
