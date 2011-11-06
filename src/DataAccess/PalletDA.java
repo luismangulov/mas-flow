@@ -415,6 +415,7 @@ public class PalletDA {
             query = query + " AND p.idPallet LIKE '%"+strIdPallet+"%'";
         
         Date dateFechaVencimiento = null;
+        String strIdNotaIngreso = "";
         rs = objConexion.EjecutarS(query);
         
         try{
@@ -426,9 +427,10 @@ public class PalletDA {
                 String strIndActivo= rs.getString("IndActivo");
                 String strIdUbicacion = rs.getString("idUbicacion");
                 strIdAlmacen = rs.getString("idAlmacen");
-                if (rs.getDate("FechaVencimiento") != null)
+                if (rs.getDate("FechaVencimiento").equals(""))
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
-                String strIdNotaIngreso = rs.getString("idNotaIngreso");
+                if (rs.getString("idNotaIngreso").equals(""))
+                    strIdNotaIngreso = rs.getString("idNotaIngreso");
                 
                 arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
             }
