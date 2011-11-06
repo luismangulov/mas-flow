@@ -10,6 +10,7 @@
  */
 package Seguridad.Perfil;
 
+import BusinessEntity.AplicacionBE;
 import BusinessEntity.AplicacionxServicioBE;
 import BusinessEntity.PerfilBE;
 import BusinessEntity.PerfilDetalleBE;
@@ -20,6 +21,7 @@ import DataAccess.AplicacionDA;
 import DataAccess.AplicacionxServicioDA;
 import DataAccess.PerfilDA;
 import DataAccess.PerfilDetalleDA;
+import DataAccess.ServicioDA;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -45,6 +47,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
     private PerfilBE perfil;// Este perfil tiene una lista de detalles
     private PerfilDetalleDA objPerfilDetalleDA= new PerfilDetalleDA();
     private AplicacionDA objAplicacionDA=new AplicacionDA();
+    private ServicioDA objServicioDA=new ServicioDA();
+    private PerfilDetalleBE perfilDetalle = new PerfilDetalleBE();
     private String accion;
 
     private AbstractListModel modeloAplicacion;
@@ -403,53 +407,97 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 // TODO add your handling code here:
+    
     if ((txtDescripcion.getText().length())==0) {
             JOptionPane.showMessageDialog(null, "Falta indicar nombre de perfil.", "Error", 0);
             return;
     }
 
+    PerfilBL objPerfilBL = new PerfilBL();
+    AplicacionBE objAplicacionBE=new AplicacionBE();
 
-        PerfilBL objPerfilBL = new PerfilBL();
-       
-        try {
-                 if(this.accion.equals("registrar")){
-                    String estado;
-                    if(this.cbxActivo.isSelected()){
-                        estado = "1";
-                    }else estado = "0";       
-                    objPerfilBL.insertar(this.txtDescripcion.getText(),estado);
-                    PerfilBE perfil;
-                    perfil = objPerfilBL.getPerfil();
-                    this.objPadre.recargaruno(perfil);
-                    this.dispose();
-                 }
-                 
-                 if(this.accion.equals("modificar")){
-                     PerfilBE perfil = null;
-                     String estado;
-                    if(this.cbxActivo.isSelected()){
-                        estado = "1";
-                    }else estado = "0";   
-                     perfil = objPerfilBL.setPerfil(this.txtCodigo.getText(),this.txtDescripcion.getText(),estado);
-                     //familia = new FamiliaBE(this.txtCodigo.getText(), this.txtNombre.getText(), this.txtDescripcion.getText(),"1");
-//                     objPerfilBL.modificar(perfil);
-                     int fila;
-                     fila = this.objPadre.getDgvPerfil().getSelectedRow();
-                     this.objPadre.getDgvPerfil().removeRowSelectionInterval(fila, fila);
-                     this.objPadre.getDgvPerfil().setValueAt(perfil.getIdPerfil(), fila, 0);
-                     this.objPadre.getDgvPerfil().setValueAt(perfil.getDescripcion(), fila, 1);
-                   
-                     if(perfil.getIndActivo().equals("1")){
-                          this.objPadre.getDgvPerfil().setValueAt("Activo", fila, 2);
-                      }else if(perfil.getIndActivo().equals("0")){
-                         this.objPadre.getDgvPerfil().setValueAt("Inactivo", fila, 2);
-                      }
-                     this.dispose();
-                 }
-            } catch (Exception ex) {
+    String estado;
+    if(this.cbxActivo.isSelected()){
+        estado = "1";
+    }else estado = "0";
+
+
+    try {
+
+        if(this.accion.equals("registrar")){
+
+                objPerfilBL.insertar(this.txtDescripcion.getText(),estado);
+                perfil=objPerfilBL.getPerfil();
+                int cont=1;
+                for(int i=0;i<listaAplicacionesSelected.size();i++){
+                    perfilDetalle.setPerfil(perfil);
+                    objAplicacionBE=objAplicacionDA.queryByNombreAplicacion(listaAplicacionesSelected.get(i));
+                    perfilDetalle.setAplicacion(objAplicacionBE);
+                    //Agregar todos los servicios que tiene la aplicacion en el sistema
+                    ArrayList <ServicioBE> listaServicios=objAplicacionxServicio.queryServiciosByAplicacion(objAplicacionBE.getIdAplicacion());
+                    for(int j=0;j<listaServicios.size();j++)
+                    {   
+                        perfilDetalle.setIndDetalle(String.valueOf(cont));
+                        cont++;
+                        perfilDetalle.setServicio(listaServicios.get(i));
+                        //inserta el detalle en la tabla perfil detalle
+                        objPerfilDetalleDA.insertar(perfilDetalle);
+
+                    }
+
+                }
+
+                perfil = objPerfilBL.getPerfil();
+                this.objPadre.recargaruno(perfil);
+                this.dispose();
+        }
+
+        if(this.accion.equals("modificar")){
+                perfil.setDescripcion(this.txtDescripcion.getText().trim());
+                perfil.setIndActivo(estado);
+                objPerfilBL.modificar(perfil);
+                //Elimina todo el detalle de la tabla detalle perfil para determinado perfil
+                objPerfilDetalleDA.eliminarDetallePerfil(perfil.getIdPerfil());
+                int cont=1;
+                for(int i=0;i<listaAplicacionesPerfil.size();i++){
+                    perfilDetalle.setPerfil(perfil);
+                    objAplicacionBE=objAplicacionDA.queryByNombreAplicacion(listaAplicacionesPerfil.get(i));
+                    perfilDetalle.setAplicacion(objAplicacionBE);
+                    //Agregar todos los servicios que tiene la aplicacion en el sistema
+                    ArrayList <ServicioBE> listaServicios=objAplicacionxServicio.queryServiciosByAplicacion(objAplicacionBE.getIdAplicacion());
+                    for(int j=0;j<listaServicios.size();j++)
+                    {   
+                        perfilDetalle.setIndDetalle(String.valueOf(cont));
+                        cont++;
+                        perfilDetalle.setServicio(listaServicios.get(i));
+                        //inserta el detalle en la tabla perfil detalle
+                        objPerfilDetalleDA.insertar(perfilDetalle);
+
+                    }
+
+                }
+
+                this.objPadre.recargaruno(perfil);
+                this.dispose();
+
+//////                 int fila;
+//////                 fila = this.objPadre.getDgvPerfil().getSelectedRow();
+//////                 this.objPadre.getDgvPerfil().removeRowSelectionInterval(fila, fila);
+//////                 this.objPadre.getDgvPerfil().setValueAt(perfil.getIdPerfil(), fila, 0);
+//////                 this.objPadre.getDgvPerfil().setValueAt(perfil.getDescripcion(), fila, 1);
+//////                 if(perfil.getIndActivo().equals("1")){
+//////                      this.objPadre.getDgvPerfil().setValueAt("Activo", fila, 2);
+//////                  }else if(perfil.getIndActivo().equals("0")){
+//////                     this.objPadre.getDgvPerfil().setValueAt("Inactivo", fila, 2);
+//////                  }
+////                 this.dispose();
+         }
+
+         }catch (Exception ex) {
+
                 Logger.getLogger(MantenimientoPerfil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    
+     }
+
 
 }//GEN-LAST:event_btnGuardarActionPerformed
 

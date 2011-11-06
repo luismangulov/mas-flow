@@ -120,6 +120,44 @@ public class PerfilDetalleDA {
         return listaServicios;
         
         }
+
+
+    public boolean insertar(PerfilDetalleBE objPerfilDetalle) throws Exception{
+
+        boolean boolExito = false;
+        conexion objConexion = new conexion();
+        String sql = "INSERT INTO PerfilDetalle(idPerfil, indDetalle,idAplicacion,idServicio) VALUES('"+ objPerfilDetalle.getPerfil().getIdPerfil() +"','"+ objPerfilDetalle.getIndDetalle() +"','"+ objPerfilDetalle.getAplicacion().getIdAplicacion() +"','"+ objPerfilDetalle.getServicio().getIdServicio() +"')";
+   
+        try{
+            objConexion.EjecutarUID(sql);
+            boolExito=true;
+         }catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{objConexion.SalirUID();}
+        return boolExito;
+    }
+
+    //elimina toda la lista de detalles perfil de la tabla perfil
+
+    public boolean eliminarDetallePerfil(String idPerfil) throws Exception{
+
+        boolean boolExito = false;
+        conexion objConexion = new conexion();
+
+        String sql = "DELETE FROM PerfilDetalle";
+             sql += " WHERE idPerfil='"+idPerfil+"'";
+
+        try{
+            objConexion.EjecutarUID(sql);
+            boolExito=true;
+         }catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{objConexion.SalirUID();}
+
+        return boolExito;
+    }
         
 
 
