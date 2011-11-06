@@ -379,6 +379,7 @@ public class GUIMapa extends javax.swing.JFrame {
             ZonaBE zona = zonaBL.getZona(rack.getIdZona());
 
             cadena = "\n"+"Columna: " + ubicacion.getColumna()+cadena;
+            cadena = "\n"+"N° Pisos: "+rack.getPisos()+cadena;
             cadena = "\n"+"Rack: "+rack.getIdentificador()+cadena;
             cadena = "Zona: "+zona.getNombre()+cadena;
         }
@@ -387,6 +388,9 @@ public class GUIMapa extends javax.swing.JFrame {
             ZonaBE zona = devolverZonaPorXY(x,y);
             if (zona != null) cadena = "Zona: "+zona.getNombre()+cadena;
         }
+
+        if (nodo.isNodoInicial()) cadena =cadena + "\n"+"(Puerta)";
+
 
         JOptionPane.showMessageDialog(null,cadena, "Información",JOptionPane.INFORMATION_MESSAGE);
     }
