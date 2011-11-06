@@ -389,17 +389,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
          } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
             JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una nota de ingreso", "Mensaje",0);
          }else{
-          fila1 = tblNotaIngreso.getSelectedRow();
-          String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();  
-         if(estado.equals("Ingresado")){
-            JOptionPane.showMessageDialog(null, "Los productos de la nota de ingreso ya han sido ingresados", "Mensaje",0);
-         }else  if(estado.equals("Registrado")){
-            JOptionPane.showMessageDialog(null, "La nota de ingreso debe ser aprobada", "Mensaje",0);
-         
-         }else  if(estado.equals("Pendiente")){
-            JOptionPane.showMessageDialog(null, "La nota de ingreso debe ser aprobada", "Mensaje",0);
-         
-         }else{
+          
               int fila;
             String codigo;
             String identificador;
@@ -407,58 +397,31 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             fila = tblNotaIngreso.getSelectedRow();
             codigo = (String)tblNotaIngreso.getValueAt(fila, 1);
             
-            
-            identificador = (String)tblNotaIngreso.getValueAt(fila, 0);
+             identificador = (String)tblNotaIngreso.getValueAt(fila, 0);
             AlmacenBL objAlmacenBL = new AlmacenBL();
             ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>(); 
             arrAlmacenes = objAlmacenBL.buscar("", "", "1", "", "", "", identificador);
             
             idAlmacen = arrAlmacenes.get(0).getIdAlmacen();
             
+            PalletBL objPalletBL = new PalletBL();
             
-            DetalleNotaIngresoBL objDetalleNotaIngresoBL = new DetalleNotaIngresoBL();        
-            ArrayList<DetalleNotaIngresoBE> arrDetalleNotaIngresoBE = new ArrayList<DetalleNotaIngresoBE>();
-            arrDetalleNotaIngresoBE = objDetalleNotaIngresoBL.queryAllDetalleNotaIngreso(codigo);
-             
+            ArrayList<PalletBE> arrPallets = objPalletBL.getPalletByIdNotaIngreso(codigo);
+             ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
+             for(int i = 0;i<arrPallets.size();i++){
+                 UbicacionBL objUbicacionBL = new UbicacionBL();
+                 UbicacionBE objUbicacion = new UbicacionBE();
+                 objUbicacion = objUbicacionBL.getUbicacionById(arrPallets.get(i).getIdUbicacion());
+                 arrUbicacion.add(objUbicacion);
+             }
             
-            ArrayList<PalletBE> arrPallet = new ArrayList<PalletBE>();
-            for(int i=0;i<arrDetalleNotaIngresoBE.size();i++){
-                ProductoBL objProductoBL = new ProductoBL();
-                ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrDetalleNotaIngresoBE.get(i).getProducto().getIdProducto());
-                
-                int cantidadPallet = arrDetalleNotaIngresoBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
-                for(int j=0;j<cantidadPallet;j++){
-                    PalletBL objPalletBL = new PalletBL();
-                    //PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento());
-                    //objPalletBL.insertar(objPalletBE);
-                    //arrPallet.add(objPalletBE);
-                }
-                
-                
-                
-            }
-            ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
-            Mapa mapa = new Mapa(arrAlmacenes.get(0));
-            for(PalletBE pallet : arrPallet){
-              
-                arrUbicaciones.add(AlgoritmoBestFirst.ejecutar(mapa, pallet));
-                
-            }
+              Mapa mapa = new Mapa(arrAlmacenes.get(0));
             
-            mapa.mostrarGraficoMapa(arrUbicaciones);
             
-//            EstadoNIDA objEstadoNIDA = new EstadoNIDA();
-//            EstadoNIBE objEstadoNIBE = new EstadoNIBE();
-//            objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Ingresado");
-//            NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
-//                try {
-//                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
-//                } catch (Exception ex) {
-//                    Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
-            
-         }
+            ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicacion);
+            mapa.mostrarGraficoMapa(listaNodo, true);
+                     
+                  
     }//GEN-LAST:event_lblIngresarMousePressed
     }
     /**
