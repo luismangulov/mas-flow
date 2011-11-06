@@ -389,7 +389,7 @@ public class GUIMapa extends javax.swing.JFrame {
             if (zona != null) cadena = "Zona: "+zona.getNombre()+cadena;
         }
 
-        if (nodo.isNodoInicial()) cadena =cadena + "\n"+"(Puerta)";
+        if (nodo.isNodoInicial()) cadena =cadena + "\n"+"   (Puerta)";
 
 
         JOptionPane.showMessageDialog(null,cadena, "Información",JOptionPane.INFORMATION_MESSAGE);
