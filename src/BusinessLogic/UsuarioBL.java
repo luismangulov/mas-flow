@@ -25,9 +25,9 @@ public class UsuarioBL {
     
     private UsuarioBE usuario;
     
-    public Boolean insertar(String nombre,String paterno,String materno,String idPerfil, String idEstadoUsuario,int limiteIntentos) throws FileNotFoundException, IOException  
+    public String insertar(String idUsuario,String nombre,String paterno,String materno,String idPerfil, String idEstadoUsuario,int limiteIntentos) throws FileNotFoundException, IOException
     {
-       Boolean exito;
+       String exito;
 //        Dim odaPerfil As New PerfilDA()
 //        Dim obePerfil As PerfilBE = odaPerfil.queryByIdPerfilSinDetalle(perfil)
 //        Dim obeUsuario As New UsuarioBE("", codigo, obeEmpleado, obePerfil)
@@ -37,7 +37,7 @@ public class UsuarioBL {
         EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
         EstadoUsuarioBE objEstadoUsuarioBE = objEstadoUsuarioDA.queryByIdEstadoUsuario(idEstadoUsuario);
         
-        usuario = new UsuarioBE(Utilitario.generaCodigo("usuario",6),nombre,paterno,materno,objPerfilBE,objEstadoUsuarioBE,limiteIntentos);
+        usuario = new UsuarioBE(idUsuario,nombre,paterno,materno,objPerfilBE,objEstadoUsuarioBE,limiteIntentos);
         UsuarioDA objUsuarioDA = new UsuarioDA();
         exito = objUsuarioDA.insertar(getUsuario());
         return exito;

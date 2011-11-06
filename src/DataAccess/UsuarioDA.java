@@ -18,19 +18,22 @@ import java.util.Date;
  */
 public class UsuarioDA {
     
-     public boolean insertar(UsuarioBE objUsuario) {
+     public String insertar(UsuarioBE objUsuario) {
         
-        boolean boolExito = false;
+        String boolExito ="0" ;
         conexion objConexion = new conexion();       
         String sql = "INSERT INTO usuario(idUsuario, nombre, apellidopaterno,apellidomaterno, idPerfil, idEstadoUsuario,limiteIntentos) VALUES('"+ objUsuario.getIdUsuario() +"','"+ objUsuario.getNombre() +"','"+ objUsuario.getPaterno() +"','"+ objUsuario.getMaterno()+"','"+ objUsuario.getPerfil().getIdPerfil() +"','"+ objUsuario.getEstadoUsuario().getIdEstadoUsuario() +"','"+ objUsuario.getLimiteIntentos() +"')";
         
         try{
             objConexion.EjecutarUID(sql);
-            boolExito=true;
+            boolExito="1";
          }catch (Exception a){
-            System.out.println(a.getMessage());
+            boolExito="2";
+            //System.out.println(a.getMessage());
         }
-        finally{objConexion.SalirUID();}
+        finally{
+            objConexion.SalirUID();
+        }
         
         return boolExito;
     }
