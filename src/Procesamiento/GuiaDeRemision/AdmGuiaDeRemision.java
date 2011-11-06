@@ -10,11 +10,17 @@
  */
 package Procesamiento.GuiaDeRemision;
 
+import Algoritmos.Mapa.Mapa;
+import Algoritmos.Mapa.Nodo;
+import Algoritmos.MejorUbicacion.AlgoritmoBestFirst;
+import Algoritmos.RecorridoOptimo.AlgoritmoGenetico;
 import BusinessEntity.AlmacenBE;
 import BusinessEntity.DetalleGuiaRemisionBE;
 import BusinessEntity.EstadoGRBE;
 import BusinessEntity.GuiaRemisionBE;
+import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
+import BusinessEntity.UbicacionBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
@@ -33,6 +39,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdmGuiaDeRemision extends javax.swing.JFrame {
 
+    
+    ArrayList<PalletBE> arrPallet = new ArrayList<PalletBE>();
+     
+      ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+    
     /** Creates new form AdmGuiaDeRemision */
     public AdmGuiaDeRemision() {
         initComponents();
@@ -286,12 +297,32 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                       
                         for(int j=0;j<cantidadPallet;j++){
                             
-                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento(),codigo);
+                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, null,"");
                             
                             arrPallet.add(objPalletBE);
                         }
-                                               
                      }
+                     
+                        for(int u =0;u<arrPallet.size();u++){
+                            Mapa mapa = new Mapa(arrAlmacenes.get(0));
+                            arrUbicaciones.add(AlgoritmoBestFirst.ejecutar(mapa, arrPallet.get(u)));
+                            //JOptionPane.showMessageDialog(null, arrUbicaciones.get(i).getIdUbicacion(), "Mensaje",0);
+                                                      
+                            //UbicacionBL objUbicacionBL = new UbicacionBL();
+                            //objUbicacionBL.ocuparUbicacion(arrUbicaciones.get(u).getIdUbicacion());
+                        }
+                        
+                        for(int i =0;i<arrUbicaciones.size();i++){
+                             UbicacionBL objUbicacionBL = new UbicacionBL();
+                              objUbicacionBL.desocuparUbicacion(arrUbicaciones.get(i).getIdUbicacion());
+                        }
+                        
+                        Mapa mapa = new Mapa(arrAlmacenes.get(0));
+                        
+                         ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicaciones);
+                         mapa.mostrarGraficoMapa(listaNodo, true);
+                                               
+                     
                          
                     } catch (Exception ex) {
                         Logger.getLogger(AdmGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
