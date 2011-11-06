@@ -16,6 +16,7 @@ import BusinessEntity.RackBE;
 import BusinessEntity.UbicacionBE;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.RackBL;
+import BusinessLogic.ZonaBL;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -64,8 +65,8 @@ public class GUIMapa extends javax.swing.JFrame {
     {
         setBounds(new java.awt.Rectangle(0100, 0, 1024, 768));
         this.createBufferStrategy(2);
-        scrollbar1.setMaximum((int)(0.62*(mapa.getNumY())));
-        scrollbar2.setMaximum((int)(0.79*(mapa.getNumX())));
+        scrollbar1.setMaximum((int)(1.13*(mapa.getNumY())));
+        scrollbar2.setMaximum((int)(3.83*(mapa.getNumX())));
     }
 
 
@@ -122,8 +123,7 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        
-        JOptionPane.showMessageDialog(null, "X: " + obtenerX(evt.getX()) + "\nY: " + obtenerY(evt.getY()), "Posición",JOptionPane.INFORMATION_MESSAGE);
+        mostrarInformacionDialogo(evt);
     }//GEN-LAST:event_formMouseClicked
 
     /**
@@ -158,7 +158,7 @@ public class GUIMapa extends javax.swing.JFrame {
 
            super.paint(g);
 
-           dibujaCoordenadas(g);
+           //dibujaCoordenadas(g);
 
            dibujaUbicaciones(g);
 
@@ -172,21 +172,21 @@ public class GUIMapa extends javax.swing.JFrame {
 
 
 
-    private void dibujaCoordenadas(Graphics g)
-    {
-        g.setColor(Color.BLACK);
-
-        for (int i=0;i<mapa.getNumX();i++)
-        {
-            g.drawString(String.valueOf(i), factorX*i+offSetX+(factorX/2), offSetY-15/*50*/);
-        }
-
-        for (int j=0;j<mapa.getNumY();j++)
-        {
-            g.drawString(String.valueOf(j), offSetX-30/*25*/, factorY*j+offSetY+(factorY/2));
-        }
-
-    }
+//    private void dibujaCoordenadas(Graphics g)
+//    {
+//        g.setColor(Color.BLACK);
+//
+//        for (int i=0;i<mapa.getNumX();i++)
+//        {
+//            g.drawString(String.valueOf(i), factorX*i+offSetX+(factorX/2), offSetY-15/*50*/);
+//        }
+//
+//        for (int j=0;j<mapa.getNumY();j++)
+//        {
+//            g.drawString(String.valueOf(j), offSetX-30/*25*/, factorY*j+offSetY+(factorY/2));
+//        }
+//
+//    }
     
 
     private void dibujaUbicaciones(Graphics g)
@@ -275,14 +275,14 @@ public class GUIMapa extends javax.swing.JFrame {
     private void ajustarGraficoVertical(java.awt.event.AdjustmentEvent evt)
     {
 
-        offSetY = 65 * (1-scrollbar1.getValue());
+        offSetY = 35 * (1-scrollbar1.getValue());
         repaint();
     }
 
 
     private void ajustarGraficoHorizontal(java.awt.event.AdjustmentEvent evt)
     {
-        offSetX = 50 * (1-scrollbar2.getValue());
+        offSetX = 10 * (1-scrollbar2.getValue());
         repaint();
     }
 
@@ -317,6 +317,69 @@ public class GUIMapa extends javax.swing.JFrame {
     }
 
 
+    private Nodo encontrarNodo(int x, int y)
+    {
+        for (Nodo nodo : mapa.getListaNodos())
+        {
+            if ((nodo.getX()==x) && (nodo.getY()==y))
+                return nodo;
+        }
+
+        return null;
+    }
+
+
+    private void mostrarInformacionDialogo(java.awt.event.MouseEvent evt)
+    {
+        int x;
+        int y;
+        
+        x=obtenerX(evt.getX());
+        y=obtenerY(evt.getY());
+
+        Nodo nodo = encontrarNodo(x,y);
+
+        if (nodo==null) return;
+
+        String cadena = "\n"+"Posición X: " + x + "\nPosición Y: " + y;
+
+        if (nodo.getItem()!=null)
+        {
+            RackBL rackBL = new RackBL();
+            ZonaBL zonaBL = new ZonaBL();
+
+            UbicacionBE ubicacion = (UbicacionBE)nodo.getItem();
+            RackBE rack = rackBL.getByIdRack(ubicacion.getIdRack());
+            ZonaBE zona = zonaBL.getZona(rack.getIdZona());
+
+            cadena = "\n"+"Columna: " + ubicacion.getColumna()+cadena;
+            cadena = "\n"+"Rack: "+rack.getIdentificador()+cadena;
+            cadena = "Zona: "+zona.getNombre()+cadena;
+        }
+        else
+        {
+            ZonaBE zona = devolverZonaPorXY(x,y);
+            if (zona != null) cadena = "Zona: "+zona.getNombre()+cadena;
+        }
+
+        JOptionPane.showMessageDialog(null,cadena, "Información",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+    private ZonaBE devolverZonaPorXY(int x, int y)
+    {
+        for (ZonaBE zona : mapa.getListaZonas())
+        {
+            if ((x>=zona.getPosX()) &&
+               (x<=zona.getPosX()+zona.getAncho()-1) &&
+               (y>=zona.getPosY()) &&
+               (y<=zona.getPosY()+zona.getLargo()-1))
+            {
+                return zona;
+            }
+        }
+        return null;
+    }
 
 
     private Mapa mapa;
@@ -326,8 +389,8 @@ public class GUIMapa extends javax.swing.JFrame {
     //private int pixelesAncho=600;
     //private int pixelesLargo=600;
 
-    private int offSetX=50;
-    private int offSetY=65;
+    private int offSetX=10;
+    private int offSetY=35;
 
     private int factorX;
     private int factorY;
