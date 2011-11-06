@@ -278,7 +278,20 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                         objGuiaRemisionBL.cambiarEstado(codigo, objEstadoGRBE.getCodigo());
                          tblGuiaRemision.setValueAt( objEstadoGRBE.getDescripcion(),fila,5 );
                          
-                         
+                     for(int i=0;i<arrDetalleGuiaRemisionBE.size();i++){
+                        ProductoBL objProductoBL = new ProductoBL();
+                        ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrDetalleGuiaRemisionBE.get(i).getProducto().getIdProducto());
+
+                        int cantidadPallet = arrDetalleGuiaRemisionBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
+                      
+                        for(int j=0;j<cantidadPallet;j++){
+                            
+                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento(),codigo);
+                            
+                            arrPallet.add(objPalletBE);
+                        }
+                                               
+                     }
                          
                     } catch (Exception ex) {
                         Logger.getLogger(AdmGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);

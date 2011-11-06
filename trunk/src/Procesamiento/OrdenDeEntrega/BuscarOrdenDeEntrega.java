@@ -57,7 +57,7 @@ public class BuscarOrdenDeEntrega extends javax.swing.JFrame {
         cbAlmacen = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Buscar Nota de ingreso");
+        setTitle("+Flow - Buscar orden de entrega");
 
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
