@@ -24,7 +24,7 @@ public class Main {
         // TODO code application logic here
         Login L = new Login();
         L.setVisible(true);
-      
+
     }
 
 }
