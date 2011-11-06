@@ -10,6 +10,7 @@
  */
 package Mantenimientos.Rack;
 
+import Algoritmos.Mapa.Mapa;
 import BusinessEntity.AlmacenBE;
 import BusinessEntity.RackBE;
 import BusinessEntity.UbicacionBE;
@@ -212,6 +213,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
         cbAlmacen = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         cbOrientacion = new javax.swing.JComboBox();
+        lblVerMapa = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow -  Registrar rack");
@@ -283,107 +285,125 @@ public class MantenimientoRack extends javax.swing.JFrame {
         cbOrientacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Horizontal", "Vertical" }));
         cbOrientacion.setToolTipText("");
 
+        lblVerMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
+        lblVerMapa.setToolTipText("Ver en mapa");
+        lblVerMapa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblVerMapa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblVerMapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblVerMapaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(btnCancelar)
-                .addContainerGap(145, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(chbxActivo)
-                        .addContainerGap())
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel1)
+                        .addGap(67, 67, 67)
+                        .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chbxActivo)
+                                    .addComponent(jLabel5)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(27, 27, 27)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel8))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(13, 13, 13))
-                                    .addComponent(cbOrientacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel6))))
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbOrientacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel3))
-                                .addGap(49, 49, 49)
+                                    .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(37, 37, 37)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbZona, 0, 246, Short.MAX_VALUE)
-                                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(37, 37, 37))))
+                                    .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(43, 43, 43)
+                                .addComponent(lblVerMapa))
+                            .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(btnCancelar)))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(jLabel1))
+                    .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel3))
+                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(28, 28, 28)
+                        .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
                             .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8))
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPisos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cbOrientacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4)
+                                .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)))
+                        .addComponent(lblVerMapa)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbOrientacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
                 .addComponent(chbxActivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar))
-                .addGap(24, 24, 24))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-419)/2, (screenSize.height-373)/2, 419, 373);
+        setBounds((screenSize.width-478)/2, (screenSize.height-419)/2, 478, 419);
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -443,6 +463,19 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     cargarComboZona(strIdAlmacen);
     }//GEN-LAST:event_cbAlmacenActionPerformed
 
+    private void lblVerMapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMapaMouseClicked
+        
+        if (cbAlmacen.getItemCount() < 0)
+            return;
+        
+        String strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
+        AlmacenBE almacen = objAlmacenBL.getAlmacen(strIdAlmacen);
+        Mapa mapa = new Mapa(almacen);
+        mapa.mostrarGraficoMapa();
+        
+        
+    }//GEN-LAST:event_lblVerMapaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -462,6 +495,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel lblVerMapa;
     private javax.swing.JTextField txtColumnas;
     private javax.swing.JTextField txtIdRack;
     private javax.swing.JTextField txtPisos;
@@ -581,12 +615,15 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     public boolean validarPosicionamiento(){
         
         objZonaBL = new ZonaBL();
-        objZonaBE = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString());
+        String strIdentificadorZona = cbZona.getSelectedItem().toString();
+        
+        objZonaBE = objZonaBL.getByIdentificadorZona(strIdentificadorZona);
+        JOptionPane.showMessageDialog(null, objZonaBE.getIdentificador());
         int intPosXZona = objZonaBE.getPosX();
         int intPosYZona = objZonaBE.getPosY();
         int intAnchoZona = objZonaBE.getAncho();
         int intLargoZona = objZonaBE.getLargo();
-        
+        JOptionPane.showMessageDialog(null, "posx"+String.valueOf(intPosXZona)+"posy"+String.valueOf(intPosYZona)+"ancho"+String.valueOf(intAnchoZona)+"largo"+String.valueOf(intLargoZona));
         int intPosXRack = Integer.parseInt(txtPosX.getText());
         int intPosYRack = Integer.parseInt(txtPosY.getText());
         int intColumnasRack = Integer.parseInt(txtColumnas.getText());
@@ -598,18 +635,28 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         
         //1 validar límites de la zona
         
-        if ((intPosXRack < intPosXZona && intPosYRack < intPosYZona) || (intPosYRack > intPosYZona + intLargoZona 
-            && intPosXRack > intPosXZona) || (intPosXRack > intPosXZona + intAnchoZona && intPosYRack < intPosYZona) 
-            || (intPosXRack > intPosXZona + intAnchoZona && intPosYRack > intPosYZona + intLargoZona)){ 
-            
-            JOptionPane.showMessageDialog(null, "El rack excede las dimensiones de la zona");
+        if (intPosXRack < intPosXZona || intPosXRack > intPosXZona + intAnchoZona || intPosYRack < intPosYZona || intPosYRack > intPosYZona + intLargoZona){
+            JOptionPane.showMessageDialog(null, "La posición inicial del rack excede las dimensiones de la zona");
             return false;
         }
+        
+        if (strOrientacion.equals("H")){
+            if (intPosXRack + intColumnasRack - intPosXZona > intAnchoZona){
+                JOptionPane.showMessageDialog(null, "El rack excede las dimensiones de la zona");
+                return false;
+            }
+        }
+        else
+            if (intPosYRack + intColumnasRack - intPosYZona > intLargoZona){
+                JOptionPane.showMessageDialog(null, "El rack excede las dimensiones de la zona");
+                return false;
+            }
+                
         
         //2 validar que los racks no se solapen
         
         objRackBL = new RackBL();
-        ArrayList<RackBE> arrRacks = objRackBL.getRacksByZona(strIdZona);
+        ArrayList<RackBE> arrRacks = objRackBL.getRacksByZona(objZonaBE.getIdZona());
         boolExito = true;
         //si no hay racks en el sistema entonces se termina el registro del rack
         
@@ -617,46 +664,60 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
 
             //2.1 se crea una matriz de la zona solo con las posiciones que ocuparía el rack  a agregar (set 1)
 
-            int matrizZonaRack[][] = new int[intAnchoZona][intLargoZona];
+            int matrizZonaRack[][] = new int[intLargoZona][intAnchoZona];
 
             //2.1.1 inicialización de matriz
 
-            for (int i=0; i<intPosXZona; i++)
-                for (int j=0; j<intPosYZona; j++)
+            for (int i=0; i<intLargoZona; i++)
+                for (int j=0; j<intAnchoZona; j++)
                     matrizZonaRack[i][j] = 0;
 
             if (strOrientacion.equals("H"))
                 for (int i=0; i<intColumnasRack; i++)
-                    matrizZonaRack[intPosXRack-intPosXZona+i][intPosYRack-intPosYZona] = 1;
+                    matrizZonaRack[intPosYRack-intPosYZona][intPosXRack-intPosXZona +i] = 1;
 
             else
                 for (int i=0; i<intColumnasRack; i++)
-                    matrizZonaRack[intPosXRack-intPosXZona][intPosYRack-intPosYZona+i] = 1;
+                    matrizZonaRack[intPosYRack-intPosYZona+i][intPosXRack-intPosXZona] = 1;
+            
+            for (int i=0; i<intLargoZona; i++){
+                for (int j=0; j<intAnchoZona; j++)
+                    System.out.print(matrizZonaRack[i][j]);
+                System.out.println();
+            }
+            System.out.println();
             
             //2.2 se crea una matriz de la zona con las posiciones ocupadas por los racks en el sistema
 
-            int matrizZona[][] = new int[intAnchoZona][intLargoZona];
+            int matrizZona[][] = new int[intLargoZona][intAnchoZona];
 
             //2.2.1 inicialización de matriz
 
-            for (int i=0; i<intPosXZona; i++)
-                for (int j=0; j<intPosYZona; j++)
+            for (int i=0; i<intLargoZona; i++)
+                for (int j=0; j<intAnchoZona; j++)
                     matrizZona[i][j] = 0;
             
             for (RackBE rack : arrRacks){
                 if (rack.getOrientacion().equals("H"))
                     for (int i=0; i<rack.getColumnas(); i++)
-                        matrizZona[rack.getPosX()+i][rack.getPosY()] = 1;
+                        matrizZona[rack.getPosY()-intPosYZona][rack.getPosX()-intPosXZona+i] = 1;
 
                 else
-                    for (int i=0; i<intColumnasRack; i++)
-                        matrizZona[rack.getPosX()][rack.getPosY()+i] = 1;
+                    for (int i=0; i<rack.getColumnas(); i++)
+                        matrizZona[rack.getPosY()-intPosYZona+i][rack.getPosX()-intPosXZona] = 1;
             }
+            
+            for (int i=0; i<intLargoZona; i++){
+                for (int j=0; j<intAnchoZona; j++)
+                    System.out.print(matrizZona[i][j]);
+                System.out.println();
+            }
+            
             
             //3 comparar matrices
             
-            for (int i=0; i<intPosXZona; i++)
-                for (int j=0; j<intPosYZona; j++)
+            for (int i=0; i<intLargoZona; i++)
+                for (int j=0; j<intAnchoZona; j++)
                     if (matrizZonaRack[i][j] == 1 && matrizZona[i][j] == 1){
                         JOptionPane.showMessageDialog(null, "Existe solapamiento de racks");
                         return false;
