@@ -8,7 +8,7 @@
  *
  * Created on Oct 29, 2011, 7:34:12 PM
  */
-package Procesamiento.NotaDeIngreso;
+package Procesamiento.OrdenDeEntrega;
 
 import BusinessEntity.DetalleNotaIngresoBE;
 import BusinessLogic.DetalleNotaIngresoBL;
@@ -19,11 +19,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DIEGO
  */
-public class DetalleNotaIngreso extends javax.swing.JFrame {
-    private AdmNotaDeIngreso padre;
+public class DetalleOrdenDeEntrega extends javax.swing.JFrame {
+    private AdmOrdenDeEntrega padre;
     private String codNotaIngreso;
     /** Creates new form DetalleNotaIngreso */
-    public DetalleNotaIngreso(AdmNotaDeIngreso objPadre,String codigo) {
+    public DetalleOrdenDeEntrega(AdmOrdenDeEntrega objPadre,String codigo) {
         this.padre = objPadre;
         this.codNotaIngreso = codigo;
         initComponents();

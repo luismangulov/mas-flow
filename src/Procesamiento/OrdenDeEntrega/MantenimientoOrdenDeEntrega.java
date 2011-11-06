@@ -8,7 +8,7 @@
  *
  * Created on Oct 2, 2011, 3:42:45 PM
  */
-package Procesamiento.NotaDeIngreso;
+package Procesamiento.OrdenDeEntrega;
 
 import BusinessEntity.AlmacenBE;
 import BusinessEntity.EntidadBE;
@@ -34,14 +34,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DIEGO
  */
-public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
+public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
     //private ProductoBE producto =new ProductoBE();
     private ArrayList<ProductoBE> arrProducto = new ArrayList<ProductoBE>();
     private EntidadBE proveedor = new EntidadBE();
-    private AdmNotaDeIngreso objPadre;
+    private AdmOrdenDeEntrega objPadre;
     ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
     /** Creates new form MantenimientoNotaDeIngreso */
-    public MantenimientoNotaDeIngreso(AdmNotaDeIngreso padre) {
+    public MantenimientoOrdenDeEntrega(AdmOrdenDeEntrega padre) {
         this.objPadre = padre;
         initComponents();
          this.setLocationRelativeTo(null); 
@@ -359,11 +359,11 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
                     String fecha = (String)this.tblProductos.getValueAt(i, 4);
                     objDetalleGuiaRemisionBL.insertar(objNotaIngresoBL.getObjNotaIngresoBE().getCodigo(), (String)this.tblProductos.getValueAt(i, 0), (Integer)this.tblProductos.getValueAt(i, 2),formato.parse(fecha));
                 }catch (FileNotFoundException ex) {
-                    Logger.getLogger(MantenimientoNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(MantenimientoNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (Exception ex) {
-                    Logger.getLogger(MantenimientoNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -371,7 +371,7 @@ public class MantenimientoNotaDeIngreso extends javax.swing.JFrame {
         this.objPadre.recargaruno(objNotaIngresoBE, proveedor.getRazonSocial(), proveedor.getDireccion(),(String)this.cbAlmacen.getSelectedItem());
         this.dispose();
     } catch (Exception ex) {
-        Logger.getLogger(MantenimientoNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
     }
    }
         

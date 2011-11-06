@@ -8,7 +8,7 @@
  *
  * Created on Oct 2, 2011, 3:44:28 PM
  */
-package Procesamiento.NotaDeIngreso;
+package Procesamiento.OrdenDeEntrega;
 
 import Algoritmos.Mapa.GUIMapa;
 import Algoritmos.Mapa.Mapa;
@@ -42,12 +42,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DIEGO
  */
-public class AdmNotaDeIngreso extends javax.swing.JFrame {
+public class AdmOrdenDeEntrega extends javax.swing.JFrame {
      ArrayList<PalletBE> arrPallet = new ArrayList<PalletBE>();
      UbicacionBE objUbicacionBE = new UbicacionBE();
       ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
     /** Creates new form AdmNotaDeIngreso */
-    public AdmNotaDeIngreso() {
+    public AdmOrdenDeEntrega() {
         initComponents();
          this.setLocationRelativeTo(null); 
     }
@@ -108,7 +108,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
 
         lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
         lblAgregar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblAgregarMousePressed(evt);
@@ -118,7 +118,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
         lblBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblBuscarMousePressed(evt);
@@ -128,7 +128,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
 
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
         lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblRefrescarMousePressed(evt);
@@ -139,7 +139,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         lblDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/detalle2.png"))); // NOI18N
         lblDetalle.setToolTipText("VisualizarDetalle");
         lblDetalle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblDetalle.setMaximumSize(new java.awt.Dimension(54, 54));
         lblDetalle.setPreferredSize(new java.awt.Dimension(54, 54));
         lblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,7 +151,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
 
         lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
         lblAprobar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblAprobar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblAprobarMousePressed(evt);
@@ -162,7 +162,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
         lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/accept.png"))); // NOI18N
         lblIngresar.setText("jLabel1");
         lblIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblIngresar.setMaximumSize(new java.awt.Dimension(54, 54));
         lblIngresar.setPreferredSize(new java.awt.Dimension(54, 54));
         lblIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,7 +179,7 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/info.png"))); // NOI18N
         jLabel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jToolBar1.add(jLabel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,14 +201,14 @@ public class AdmNotaDeIngreso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void lblAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMousePressed
-    MantenimientoNotaDeIngreso m = new MantenimientoNotaDeIngreso(this);
+    MantenimientoOrdenDeEntrega m = new MantenimientoOrdenDeEntrega(this);
     m.setVisible(true);
 // TODO add your handling code here:
 }//GEN-LAST:event_lblAgregarMousePressed
 
 private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMousePressed
 // TODO add your handling code here:
-    BuscarNotaDeIngreso m = new BuscarNotaDeIngreso(this);
+    BuscarOrdenDeEntrega m = new BuscarOrdenDeEntrega(this);
     m.setVisible(true);
 }//GEN-LAST:event_lblBuscarMousePressed
 
@@ -230,7 +230,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             fila = tblNotaIngreso.getSelectedRow();
             codigo = (String)tblNotaIngreso.getValueAt(fila, 1);
                     
-           DetalleNotaIngreso m = new DetalleNotaIngreso(this, codigo);
+           DetalleOrdenDeEntrega m = new DetalleOrdenDeEntrega(this, codigo);
            m.setVisible(true);
         }    
     }//GEN-LAST:event_lblDetalleMousePressed
@@ -304,7 +304,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                     tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
                     
                 } catch (Exception ex) {
-                    Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AdmOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
                 }
                  
             }else{
@@ -373,7 +373,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
               
             
                 } catch (Exception ex) {
-                    Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AdmOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
                 }
                
             }
@@ -442,13 +442,13 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmOrdenDeEntrega.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmOrdenDeEntrega.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmOrdenDeEntrega.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdmOrdenDeEntrega.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -456,7 +456,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new AdmNotaDeIngreso().setVisible(true);
+                new AdmOrdenDeEntrega().setVisible(true);
             }
         });
     }

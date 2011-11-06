@@ -527,7 +527,7 @@ private void jLabel20MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 }//GEN-LAST:event_jLabel20MousePressed
 
 private void jLabel26MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MousePressed
-    Procesamiento.NotaDeIngreso.AdmNotaDeIngreso a = new Procesamiento.NotaDeIngreso.AdmNotaDeIngreso();
+        Procesamiento.OrdenDeEntrega.AdmOrdenDeEntrega a = new Procesamiento.OrdenDeEntrega.AdmOrdenDeEntrega();
     a.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_jLabel26MousePressed
 

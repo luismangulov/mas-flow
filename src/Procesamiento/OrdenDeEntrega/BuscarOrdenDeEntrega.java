@@ -8,7 +8,7 @@
  *
  * Created on Oct 2, 2011, 3:44:14 PM
  */
-package Procesamiento.NotaDeIngreso;
+package Procesamiento.OrdenDeEntrega;
 
 import BusinessEntity.AlmacenBE;
 import BusinessEntity.EstadoNIBE;
@@ -23,11 +23,11 @@ import java.util.ArrayList;
  *
  * @author DIEGO
  */
-public class BuscarNotaDeIngreso extends javax.swing.JFrame {
-     private AdmNotaDeIngreso objPadre;
+public class BuscarOrdenDeEntrega extends javax.swing.JFrame {
+     private AdmOrdenDeEntrega objPadre;
      ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
     /** Creates new form BuscarNotaDeIngreso */
-    public BuscarNotaDeIngreso(AdmNotaDeIngreso padre) {
+    public BuscarOrdenDeEntrega(AdmOrdenDeEntrega padre) {
         this.objPadre = padre;
         initComponents();
          this.cargarComboEstado();
