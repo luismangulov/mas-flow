@@ -381,4 +381,56 @@ public class PalletDA {
         return arrPallets;
     }
 
+    public ArrayList<PalletBE> queryPalletListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIdPallet, String strIdProducto) {
+        
+        objConexion = new conexion();        
+        arrPallets = new ArrayList<PalletBE>();
+        
+        query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento"
+                + " FROM PALLET p, UBICACION u, RACK r, ZONA z, ALMACEN a "
+                + " WHERE p.indactivo = '1' AND a.IdAlmacen = z.IdAlmacen AND z.IdZona = r.IdZona"
+                + " AND u.idRack = r.idrack AND u.idubicacion = p.idubicacion";
+        if (!strIdAlmacen.equals(""))
+            query = query + " AND a.IdAlmacen = '" + strIdAlmacen + "'";
+        
+        if (!strIdZona.equals(""))
+            query = query + " AND z.idZona ='" +strIdZona+"'";
+        if (!strIdRack.equals(""))
+            query = query + " AND r.idRack ='" +strIdRack+"'";
+        if (intFila!=0 && intColumna!=0)
+            query = query + " AND u.fila = " + intFila + " AND u.columna =" +intColumna + "";
+        if (!strIdProducto.equals(""))
+            query = query + " AND p.idProducto LIKE '%"+strIdProducto+"%'";
+        if (!strIdPallet.equals(""))
+            query = query + " AND p.idPallet LIKE '%"+strIdPallet+"%'";
+        
+        Date dateFechaVencimiento = null;
+        rs = objConexion.EjecutarS(query);
+        
+        try{
+            
+            while (rs.next()){
+                
+                strIdPallet = rs.getString("IdPallet");
+                strIdProducto = rs.getString("IdProducto");
+                String strIndActivo= rs.getString("IndActivo");
+                String strIdUbicacion = rs.getString("idUbicacion");
+                strIdAlmacen = rs.getString("idAlmacen");
+                if (rs.getDate("FechaVencimiento") != null)
+                    dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                
+                
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento));
+            }
+            
+            
+        }catch (SQLException ex){
+            
+        }finally{
+            objConexion.SalirS();
+        }
+        
+        return arrPallets;
+    }
+
 }
