@@ -7,12 +7,15 @@ package Algoritmos.Mapa;
 
 import Algoritmos.RecorridoOptimo.Cromosoma;
 import BusinessEntity.AlmacenBE;
+import BusinessEntity.FamiliaBE;
 import BusinessEntity.RackBE;
 import BusinessEntity.UbicacionBE;
 import BusinessEntity.ZonaBE;
+import BusinessLogic.FamiliaBL;
 import BusinessLogic.RackBL;
 import BusinessLogic.UbicacionBL;
 import BusinessLogic.ZonaBL;
+import DataAccess.ZonaDA;
 import Util.Configuracion;
 import java.util.ArrayList;
 
@@ -40,6 +43,13 @@ public class Mapa {
 
         ZonaBL zonaBL = new ZonaBL();
         listaZonas = zonaBL.getZonasByAlmacen(almacen.getIdAlmacen());
+
+        for (ZonaBE z : listaZonas)
+        {
+            ZonaDA zonaDA = new ZonaDA();
+            ArrayList<FamiliaBE> listaFamilias = zonaDA.querryAllFamilias(z.getIdZona());
+            z.setFamilias(listaFamilias);
+        }
 
         RackBL rackBL = new RackBL();
         for (ZonaBE zona : listaZonas)
