@@ -331,10 +331,10 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                     
                     
                 ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
-                Mapa mapa = new Mapa(arrAlmacenes.get(0));
+                //Mapa mapa = new Mapa(arrAlmacenes.get(0));
                 
             for(int i =0;i<arrPallet.size();i++){
-              
+                Mapa mapa = new Mapa(arrAlmacenes.get(0));
                 arrUbicaciones.add(AlgoritmoBestFirst.ejecutar(mapa, arrPallet.get(i)));
                 //JOptionPane.showMessageDialog(null, arrUbicaciones.get(i).getIdUbicacion(), "Mensaje",0);
                 arrPallet.get(i).setIdUbicacion(arrUbicaciones.get(i).getIdUbicacion());
@@ -348,7 +348,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 UbicacionBL objUbicacionBL = new UbicacionBL();
                 objUbicacionBL.desocuparUbicacion(arrUbicaciones.get(i).getIdUbicacion());
             }
-            
+
+            Mapa mapa = new Mapa(arrAlmacenes.get(0));
             mapa.mostrarGraficoMapa(arrUbicaciones);
             
             
