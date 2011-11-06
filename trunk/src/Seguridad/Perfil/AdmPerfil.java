@@ -173,9 +173,9 @@ m.setVisible(true);
 private void lblEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMousePressed
 // TODO add your handling code here:
        if((dgvPerfil.getSelectedRowCount() == 0)){
-           JOptionPane.showMessageDialog(null, "No ha seleccionado una familia de producto", "Mensaje",0);
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un perfil", "Mensaje",0);
         } else if((dgvPerfil.getSelectedRowCount() > 1)){
-            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una familia de producto", "Mensaje",0);
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de un perfil", "Mensaje",0);
         }else{
             int fila;
             String codigo;

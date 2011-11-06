@@ -193,6 +193,7 @@ public class BuscarUsuario extends javax.swing.JFrame {
 
 private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
 // TODO add your handling code here:
+
 }//GEN-LAST:event_txtNombreActionPerformed
 
 private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -226,10 +227,10 @@ private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void txtIdUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdUsuarioKeyTyped
 // TODO add your handling code here:
-        char c = (char)evt.getKeyChar();
-        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+       char c = (char)evt.getKeyChar();
+       if (!Utilitario.validarCadenaAlfaNumerica(evt.getKeyChar()) || (Character.isISOControl(c)))
             evt.consume();
-       if ((this.txtIdUsuario.getText().length() + 1) > 6) {
+       if ((this.txtIdUsuario.getText().length() + 1) > 11) {
             evt.consume();
         }
 }//GEN-LAST:event_txtIdUsuarioKeyTyped

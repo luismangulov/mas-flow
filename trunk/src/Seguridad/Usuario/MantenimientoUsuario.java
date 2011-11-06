@@ -38,7 +38,7 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar usuario"); 
-        this.txtIdUsuario.setEnabled(false);
+//        this.txtIdUsuario.setEnabled(false);
         this.ckbActivo.setSelected(true);
         this.llenarCombo();
         this.setVisible(true);
@@ -51,7 +51,7 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.ckbActivo.setEnabled(true);
         this.setTitle("+Flow - Editar Usuario");
-        this.txtIdUsuario.setEnabled(false);
+//        this.txtIdUsuario.setEnabled(false);
         this.llenarCombo();
         this.txtIdUsuario.setText(usuario.getIdUsuario());
         this.txtNombre.setText(usuario.getNombre());
@@ -213,6 +213,10 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 // TODO add your handling code here:
+    if ((txtIdUsuario.getText().length())==0) {
+            JOptionPane.showMessageDialog(null, "Falta indicar usuario.", "Error", 0);
+            return;
+    }
     
     if ((txtNombre.getText().length())==0) {
             JOptionPane.showMessageDialog(null, "Falta indicar nombre.", "Error", 0);
@@ -255,18 +259,28 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     PerfilBE objPerfilBE=objPerfilDA.queryByNombre(nombrePerfil);
                     
                     
-                    objUsuarioBL.insertar(this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
-                                
-                    UsuarioBE usuario;
-                    usuario = objUsuarioBL.getUsuario();
-                    UsuarioContrasenaBL objUsuarioContrasenaBL=new UsuarioContrasenaBL();
-                    String ind=objUsuarioContrasenaBL.actualizarContrasena(usuario.getIdUsuario(),usuario.getIdUsuario());
-                    if (ind.equals("1")){
-                        JOptionPane.showMessageDialog(null, "Su contraseña es "+usuario.getIdUsuario(), "Mensaje", 0);
-                    }
-                    
-                    this.objPadre.recargaruno(usuario);
+                    String ok= objUsuarioBL.insertar(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
+
+                    if (ok.equals("1")){                                                                   
+                        UsuarioBE usuario;
+                        usuario = objUsuarioBL.getUsuario();
+                        UsuarioContrasenaBL objUsuarioContrasenaBL=new UsuarioContrasenaBL();
+                        String ind=objUsuarioContrasenaBL.actualizarContrasena(usuario.getIdUsuario(),usuario.getIdUsuario());
+                        if (ind.equals("1")){
+                            JOptionPane.showMessageDialog(null, "Su contraseña es "+usuario.getIdUsuario(), "Mensaje", 0);
+                        }
+                        this.objPadre.recargaruno(usuario);
+                        this.dispose();
+                    } else
+                        if (ok.equals("2")){
+                            JOptionPane.showMessageDialog(null, "Este usuario ya existe.", "Error", 0);
+                            return;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                            return;
+                        }
                     this.dispose();
+
                  
         }
         if(this.accion.equals("modificar")){
@@ -304,6 +318,12 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void txtIdUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdUsuarioKeyTyped
 // TODO add your handling code here:
+       char c = (char)evt.getKeyChar();
+       if (!Utilitario.validarCadenaAlfaNumerica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtNombre.getText().length() + 1) > 11) {
+            evt.consume();
+        }
 
 }//GEN-LAST:event_txtIdUsuarioKeyTyped
 
