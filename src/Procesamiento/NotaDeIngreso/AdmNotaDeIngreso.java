@@ -354,20 +354,20 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             Mapa mapa = new Mapa(arrAlmacenes.get(0));
             mapa.mostrarGraficoMapa(arrUbicaciones);
             
-            ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicaciones);
-            mapa.mostrarGraficoMapa(listaNodo, true);
+           // ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicaciones);
+           // mapa.mostrarGraficoMapa(listaNodo, true);
 
 
-            //ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
+            ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
             
             
-//            for(int u = 0;u<arrPallet.size();u++){
-//                ReubicarPallet r = new ReubicarPallet(this,true,arrPallet.get(u),objUbicacionBE);
-//                r.setVisible(true);
-//
-//                arrUbicacion.add(this.objUbicacionBE);
-//            }
-//
+            for(int u = 0;u<arrPallet.size();u++){
+                ReubicarPallet r = new ReubicarPallet(this,true,arrPallet.get(u),idAlmacen,objUbicacionBE);
+                r.setVisible(true);
+
+                arrUbicacion.add(this.objUbicacionBE);
+            }
+
               
             
                 } catch (Exception ex) {

@@ -85,7 +85,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
         cargarComboAlmacen();
     }
     
-    public ReubicarPallet(java.awt.Frame parent, boolean modal,PalletBE objPalletBE,UbicacionBE objUbicacionBE){
+    public ReubicarPallet(java.awt.Frame parent, boolean modal,PalletBE objPalletBE,String idAlmacen,UbicacionBE objUbicacionBE){
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
