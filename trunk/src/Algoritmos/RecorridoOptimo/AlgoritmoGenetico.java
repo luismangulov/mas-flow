@@ -476,6 +476,13 @@ public class AlgoritmoGenetico {
             }
         }
 
+        int id=0;
+        for (Nodo nodo : listaNodosTemp)
+        {
+            nodo.setId(id);
+            id++;
+        }
+
         return listaNodosTemp;
    }
 
@@ -492,6 +499,7 @@ public class AlgoritmoGenetico {
 
          ArrayList<Nodo> listaNodos = /*mapa.getListaNodos();*/eliminarDuplicados(mapa.getListaNodos());
          
+
          Nodo[] arregloNodos = new Nodo[listaNodos.size()];
          for (int i=0;i<listaNodos.size();i++)
          {
@@ -509,7 +517,7 @@ public class AlgoritmoGenetico {
                 nodosObligatorios.add(arregloNodos[i]);
 
                 ArrayList<Ruta> temp = new ArrayList<Ruta>();
-                for (int j=0; i<arregloNodos.length; j++)
+                for (int j=0; j<arregloNodos.length; j++)
                 {
                      if (esObligatorio(j,arregloNodos,listaUbicaciones,mapa))
                      {
