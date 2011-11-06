@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,6 +33,7 @@ import javax.swing.border.Border;
  * @author carlitos
  */
 public class GUIMapa extends javax.swing.JFrame {
+    private BufferStrategy bf;
 
     /** Creates new form GUIMapa */
     public GUIMapa() {
@@ -68,6 +70,7 @@ public class GUIMapa extends javax.swing.JFrame {
         scrollbar1.setMaximum((int)(1.13*(mapa.getNumY())));
         scrollbar2.setMaximum((int)(3.83*(mapa.getNumX())));
         this.setTitle("Mapa del almacén "+mapa.getAlmacen().getNombre());
+        bf = this.getBufferStrategy();
     }
 
 
@@ -154,7 +157,20 @@ public class GUIMapa extends javax.swing.JFrame {
     @Override
     public void paint(Graphics g)
     {
-        pintar(g);
+//        pintar(g);
+        Graphics2D g2 = null;
+
+        try {
+            //obtenemos uno de los buffers para dibujar
+            g2 = (Graphics2D) bf.getDrawGraphics();
+            pintar(g2);
+
+        } finally {
+            g2.dispose();
+        }
+
+//        pintamos el buffer en pantalla
+        bf.show();
     }
 
 
@@ -167,8 +183,6 @@ public class GUIMapa extends javax.swing.JFrame {
 
            super.paint(g);
 
-           //dibujaCoordenadas(g);
-
            dibujaUbicaciones(g);
 
            dibujaZonas(g);
@@ -178,25 +192,7 @@ public class GUIMapa extends javax.swing.JFrame {
 
            dibujaLeyenda(g);
     }
-
-
-
-//    private void dibujaCoordenadas(Graphics g)
-//    {
-//        g.setColor(Color.BLACK);
-//
-//        for (int i=0;i<mapa.getNumX();i++)
-//        {
-//            g.drawString(String.valueOf(i), factorX*i+offSetX+(factorX/2), offSetY-15/*50*/);
-//        }
-//
-//        for (int j=0;j<mapa.getNumY();j++)
-//        {
-//            g.drawString(String.valueOf(j), offSetX-30/*25*/, factorY*j+offSetY+(factorY/2));
-//        }
-//
-//    }
-    
+   
 
     private void dibujaUbicaciones(Graphics g)
     {
