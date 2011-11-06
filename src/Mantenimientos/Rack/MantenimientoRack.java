@@ -100,12 +100,12 @@ public class MantenimientoRack extends javax.swing.JFrame {
         else 
             strIndActivo = "0";
         
-        if (cbOrientacion.getSelectedItem().toString().equals("V"))
+        if (cbOrientacion.getSelectedItem().toString().equals("Vertical"))
             strOrientacion = "V";
         else
             strOrientacion = "H";
         
-        ZonaBL objZonaBL = new ZonaBL();
+        objZonaBL = new ZonaBL();
         strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
         objRackBL = new RackBL();
         objRackBE = new RackBE("",intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "", strOrientacion);
@@ -580,15 +580,16 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     
     public boolean validarPosicionamiento(){
         
-        objZonaBE = objZonaBL.getZona(cbZona.getSelectedItem().toString());
+        objZonaBL = new ZonaBL();
+        objZonaBE = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString());
         int intPosXZona = objZonaBE.getPosX();
         int intPosYZona = objZonaBE.getPosY();
         int intAnchoZona = objZonaBE.getAncho();
         int intLargoZona = objZonaBE.getLargo();
         
-        int intPosXRack = Integer.getInteger(txtPosX.getText());
-        int intPosYRack = Integer.getInteger(txtPosY.getText());
-        int intColumnasRack = Integer.getInteger(txtColumnas.getText());
+        int intPosXRack = Integer.parseInt(txtPosX.getText());
+        int intPosYRack = Integer.parseInt(txtPosY.getText());
+        int intColumnasRack = Integer.parseInt(txtColumnas.getText());
         
         if (cbOrientacion.getSelectedItem().toString().equals("Horizontal"))
             strOrientacion = "H";
@@ -607,6 +608,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         
         //2 validar que los racks no se solapen
         
+        objRackBL = new RackBL();
         ArrayList<RackBE> arrRacks = objRackBL.getRacksByZona(strIdZona);
         boolExito = true;
         //si no hay racks en el sistema entonces se termina el registro del rack
@@ -615,7 +617,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
 
             //2.1 se crea una matriz de la zona solo con las posiciones que ocuparía el rack  a agregar (set 1)
 
-            int matrizZonaRack[][] = new int[intPosXZona][intPosYZona];
+            int matrizZonaRack[][] = new int[intAnchoZona][intLargoZona];
 
             //2.1.1 inicialización de matriz
 
@@ -633,7 +635,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             
             //2.2 se crea una matriz de la zona con las posiciones ocupadas por los racks en el sistema
 
-            int matrizZona[][] = new int[intPosXZona][intPosYZona];
+            int matrizZona[][] = new int[intAnchoZona][intLargoZona];
 
             //2.2.1 inicialización de matriz
 
