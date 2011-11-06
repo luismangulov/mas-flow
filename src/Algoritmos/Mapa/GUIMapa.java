@@ -283,13 +283,17 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void dibujaRecorridoOptimo(Graphics g)
     {
-        for (Nodo nodo : recorridoOptimo)
-        {
+//        for (Nodo nodo : recorridoOptimo)
+//        {
+//            g.setColor(Color.GREEN);
+//            g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+//            g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+//        }
 
-            g.setColor(Color.GREEN);
-            g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
-            g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
-            
+        g.setColor(Color.GREEN);
+        for (int i=0;i<recorridoOptimo.size()-1;i++)
+        {
+            g.drawLine(convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2, convertirX(recorridoOptimo.get(i+1).getX())+factorX/2, convertirY(recorridoOptimo.get(i+1).getY())+factorY/2);
         }
     }
 
