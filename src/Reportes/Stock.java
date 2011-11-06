@@ -19,6 +19,7 @@ public class Stock extends javax.swing.JFrame {
     /** Creates new form Stock */
     public Stock() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
