@@ -29,6 +29,7 @@ import BusinessLogic.ProductoBL;
 import BusinessLogic.UbicacionBL;
 import DataAccess.EstadoGRDA;
 import DataAccess.EstadoNIDA;
+import Procesamiento.MovimientosInternos.ReubicarPallet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +42,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdmNotaDeIngreso extends javax.swing.JFrame {
      ArrayList<PalletBE> arrPallet = new ArrayList<PalletBE>();
+     UbicacionBE objUbicacionBE = new UbicacionBE();
     /** Creates new form AdmNotaDeIngreso */
     public AdmNotaDeIngreso() {
         initComponents();
@@ -308,40 +310,60 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Aprobado");
                 NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
                 try {
-                   
+                   objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
+                    tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
                      for(int i=0;i<arrDetalleNotaIngresoBE.size();i++){
                         ProductoBL objProductoBL = new ProductoBL();
                         ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrDetalleNotaIngresoBE.get(i).getProducto().getIdProducto());
 
                         int cantidadPallet = arrDetalleNotaIngresoBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
+                      
                         for(int j=0;j<cantidadPallet;j++){
-                            PalletBL objPalletBL = new PalletBL();
+                            
                             PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento());
-                            objPalletBL.insertar(objPalletBE);
+                            
                             arrPallet.add(objPalletBE);
                         }
                                                
                      }
                     
                     
-                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
-                    tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
+                    
                     
                 ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
                 Mapa mapa = new Mapa(arrAlmacenes.get(0));
-            for(PalletBE pallet : arrPallet){
-              
-                arrUbicaciones.add(AlgoritmoBestFirst.ejecutar(mapa, pallet));
                 
+            for(int i =0;i<arrPallet.size();i++){
+              
+                arrUbicaciones.add(AlgoritmoBestFirst.ejecutar(mapa, arrPallet.get(i)));
+                //JOptionPane.showMessageDialog(null, arrUbicaciones.get(i).getIdUbicacion(), "Mensaje",0);
+                arrPallet.get(i).setIdUbicacion(arrUbicaciones.get(i).getIdUbicacion());
+                PalletBL objPalletBL = new PalletBL();
+                objPalletBL.insertar(arrPallet.get(i));
+                UbicacionBL objUbicacionBL = new UbicacionBL();
+                objUbicacionBL.ocuparUbicacion(arrUbicaciones.get(i).getIdUbicacion());
+            }
+            
+            for(int i =0;i<arrUbicaciones.size();i++){
+                UbicacionBL objUbicacionBL = new UbicacionBL();
+                objUbicacionBL.desocuparUbicacion(arrUbicaciones.get(i).getIdUbicacion());
             }
             
             mapa.mostrarGraficoMapa(arrUbicaciones);
+            
+            
+            ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
+            
+            
+            for(int u = 0;u<arrPallet.size();u++){
+                ReubicarPallet r = new ReubicarPallet(this,true,arrPallet.get(u),objUbicacionBE);
+                r.setVisible(true);
+                               
+                arrUbicacion.add(this.objUbicacionBE);
+            }                           
                     
-//            for(int u = 0;u<arrPallet.size();u++){
-//                
-//            }                           
-                    
-                    
+              
+            
                 } catch (Exception ex) {
                     Logger.getLogger(AdmNotaDeIngreso.class.getName()).log(Level.SEVERE, null, ex);
                 }

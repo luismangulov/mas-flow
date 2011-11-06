@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DIEGO
  */
-public class ReubicarPallet extends javax.swing.JFrame {
+public class ReubicarPallet extends javax.swing.JDialog {
 
     /** Creates new form ReubicarPallet */
     String strIdAlmacen;
@@ -66,6 +66,8 @@ public class ReubicarPallet extends javax.swing.JFrame {
     ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
     UbicacionBE objUbicacionBE = new UbicacionBE();
     
+    UbicacionBE objUbicacionPadre;
+    
     AdmMovimientosInternos ventanaPadre;
 
     PalletBE objPalletBE = new PalletBE();
@@ -83,12 +85,17 @@ public class ReubicarPallet extends javax.swing.JFrame {
         cargarComboAlmacen();
     }
     
-    public ReubicarPallet(PalletBE objPalletBE){
+    public ReubicarPallet(java.awt.Frame parent, boolean modal,PalletBE objPalletBE,UbicacionBE objUbicacionBE){
+        super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventanaPadre = null;        
         Date fechaActual = new Date();
         this.jdcFecha.setDate(fechaActual);
+        arrPallets.add(objPalletBE);
+        JOptionPane.showMessageDialog(null, objPalletBE.getFechaVencimiento(), "Mensaje",0);
+        this.objUbicacionPadre = objUbicacionBE;
+        llenarDgv(arrPallets);
         cargarComboAlmacen();
         strIdAlmacen = objPalletBE.getIdAlmacen();
         for (int i=0; i<arrIdAlmacenes.size(); i++)
@@ -97,9 +104,7 @@ public class ReubicarPallet extends javax.swing.JFrame {
                 return;
             }
         
-        arrPallets.add(objPalletBE);
         
-        llenarDgv(arrPallets);
     }
     
     /*
@@ -148,12 +153,12 @@ public class ReubicarPallet extends javax.swing.JFrame {
                     strIdentificadorRack = objRackBL.getRackByIdUbicacion(strIdUbicacion).getIdentificador();
                 }
                 
-                String strFecha = "";
-                
-                if (palletBE.getFechaVencimiento() != null)
-                    strFecha = palletBE.getFechaVencimiento().toString();
+//                String strFecha = "";
+//                
+//                if (palletBE.getFechaVencimiento() != null)
+//                    strFecha = palletBE.getFechaVencimiento().toString();
 
-                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreFamilia,strFecha});
+                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreFamilia,arrPallets.get(i).getFechaVencimiento()});
             }
         }
     }
@@ -461,6 +466,14 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         String strIdentificadorRack = cbRack.getSelectedItem().toString();
         strIdRack = objRackBL.getByIdentificador(strIdentificadorRack).getIdRack();
         strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacion, intColumnaUbicacion,"1").getIdUbicacion();
+        UbicacionBE objUbicacion = objUbicacionBL.getUbicacionById(strIdUbicacionDestino);
+        
+        this.objUbicacionPadre.setIdUbicacion(objUbicacion.getIdUbicacion());
+        this.objUbicacionPadre.setIdRack(objUbicacion.getIdRack());
+        this.objUbicacionPadre.setColumna(objUbicacion.getColumna());
+        this.objUbicacionPadre.setFila(objUbicacion.getFila());
+        this.objUbicacionPadre.setIndActivo(objUbicacion.getIndActivo());
+        
         strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         
         MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen);
@@ -469,7 +482,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
         if (boolExito){
             PalletBE objPalletBE = objPalletBL.getPallet(strIdPallet);
-            ventanaPadre.actualizarDgv(objMovimientoInternoBE);
+            if(ventanaPadre != null)
+               ventanaPadre.actualizarDgv(objMovimientoInternoBE);
             this.dispose();
         }
         else
