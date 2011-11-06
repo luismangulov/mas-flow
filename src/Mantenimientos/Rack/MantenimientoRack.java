@@ -627,11 +627,11 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
 
             if (strOrientacion.equals("H"))
                 for (int i=0; i<intColumnasRack; i++)
-                    matrizZonaRack[intPosXRack+i][intPosYRack] = 1;
+                    matrizZonaRack[intPosXRack-intPosXZona+i][intPosYRack-intPosYZona] = 1;
 
             else
                 for (int i=0; i<intColumnasRack; i++)
-                    matrizZonaRack[intPosXRack][intPosYRack+i] = 1;
+                    matrizZonaRack[intPosXRack-intPosXZona][intPosYRack-intPosYZona+i] = 1;
             
             //2.2 se crea una matriz de la zona con las posiciones ocupadas por los racks en el sistema
 

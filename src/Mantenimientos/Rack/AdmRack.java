@@ -203,7 +203,7 @@ private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-
     int fila;
     fila = dgvRacks.getSelectedRow();
     if (fila==-1)
-        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún rack", "Mensaje",0);
     else{
         strIdentificador = (String)dgvRacks.getValueAt(fila, 0);
         strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
@@ -213,14 +213,14 @@ private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-
 }//GEN-LAST:event_lblModificarRackMouseClicked
 
 private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarRackMouseClicked
-    int answer = JOptionPane.showConfirmDialog(null, "La eliminación será irreversible. ¿Desea continuar?");
+    int answer = JOptionPane.showConfirmDialog(null, "La eliminación será irreversible. ¿Desea continuar?", "Mensaje",0);
     if (answer != 0)
         return;
     int fila;
     boolean boolExito;
     fila = dgvRacks.getSelectedRow();
     if (fila==-1)
-        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna celda", "Error", 0);
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún rack", "Mensaje",0);
     else{
 
         strIdentificador = (String)dgvRacks.getValueAt(fila, 0);
@@ -228,7 +228,7 @@ private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
         
         if (objUbicacionBL.getCantUbicacionesOcupadas(strIdRack) > 0){
             JOptionPane.showMessageDialog(null, objUbicacionBL.getCantUbicacionesOcupadas(strIdRack));
-            JOptionPane.showMessageDialog(null, "No se puede eliminar el rack. Existen ubicaciones en uso o bloqueadas");
+            JOptionPane.showMessageDialog(null, "No se puede eliminar el rack. Existen ubicaciones en uso o bloqueadas", "Error",0);
             return;       
         }
         
@@ -255,16 +255,16 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
 
     private void lblVerMapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMapaMouseClicked
         if((dgvRacks.getSelectedRowCount() == 0)){
-           JOptionPane.showMessageDialog(null, "No ha seleccionado una zona.", "Mensaje",0);
-        } else if((dgvRacks.getSelectedRowCount() > 1)){
-            JOptionPane.showMessageDialog(null, "Ha seleccionado más de una zona.", "Mensaje",0);
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un rack.", "Mensaje",0);
         }else{
             int fila;
             String codigo;
             fila = dgvRacks.getSelectedRow();
-            codigo = (String)dgvRacks.getValueAt(fila, 0);
+            strIdentificador = (String)dgvRacks.getValueAt(fila, 0);
+            objRackBL = new RackBL();
+            RackBE objRackBE = objRackBL.getByIdentificador(strIdentificador);
             objZonaBL = new ZonaBL();
-            ZonaBE zona = objZonaBL.getZona(codigo);
+            ZonaBE zona = objZonaBL.getZona(objRackBE.getIdZona());
             AlmacenBL objAlmacenBL = new AlmacenBL();
             AlmacenBE almacen = objAlmacenBL.getAlmacen(zona.getIdAlmacen());
             Mapa mapa = new Mapa(almacen);
