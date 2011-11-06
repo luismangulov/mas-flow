@@ -91,11 +91,36 @@ public class AlgoritmoBestFirst {
 
     private static double distanciaALaPuerta(UbicacionBE u)
     {
-        RackBL rackBL = new RackBL();
-        RackBE rack = rackBL.getByIdRack(u.getIdRack());
+//        RackBL rackBL = new RackBL();
+//        RackBE rack = rackBL.getByIdRack(u.getIdRack());
 
-        double dx= mapa.getPosPuertaX()- rack.getPosX();
-        double dy= mapa.getPosPuertaY() - (rack.getPosY()+u.getColumna()-1);
+        RackBE rack=null;
+
+        for (RackBE r : mapa.getListaRacks())
+        {
+            if (r.getIdRack().equals(u.getIdRack()))
+            {
+                rack=r;
+                break;
+            }
+        }
+
+        if (rack==null) return Double.POSITIVE_INFINITY;
+
+        double dx;
+        double dy;
+
+        if (rack.getOrientacion().equals("V"))
+        {
+            dx= mapa.getPosPuertaX() - rack.getPosX();
+            dy= mapa.getPosPuertaY() - (rack.getPosY()+u.getColumna()-1);
+        }
+        else
+        {
+            dx= mapa.getPosPuertaX() - (rack.getPosX()+u.getColumna()-1);
+            dy= mapa.getPosPuertaY() - rack.getPosY();
+        }
+
         double distanciaALaPuerta=Math.sqrt(dx * dx + dy * dy);
         return distanciaALaPuerta;
     }
@@ -115,10 +140,32 @@ public class AlgoritmoBestFirst {
     private static boolean ubicacionPerteneceAZona(FamiliaBE familia, UbicacionBE ubicacion)
     {
         //UbicacionBL ubicacionBL = new UbicacionBL();
-        RackBL rackBL = new RackBL();
-        ZonaBL zonaBL = new ZonaBL();
+//        RackBL rackBL = new RackBL();
+//        ZonaBL zonaBL = new ZonaBL();
+        
+        RackBE rack=null;
+        for (RackBE r : mapa.getListaRacks())
+        {
+            if (r.getIdRack().equals(ubicacion.getIdRack()))
+            {
+                rack=r;
+                break;
+            }
+        }
+        if (rack==null) return false;
 
-        ZonaBE zona = zonaBL.getZona(rackBL.getByIdRack(ubicacion.getIdRack()).getIdZona());
+//        ZonaBE zona = zonaBL.getZona(rackBL.getByIdRack(ubicacion.getIdRack()).getIdZona());
+
+        ZonaBE zona=null;
+        for (ZonaBE z : mapa.getListaZonas())
+        {
+            if (z.getIdZona().equals(rack.getIdZona()))
+            {
+                zona=z;
+                break;
+            }
+        }
+        if (zona==null) return false;
 
         for (FamiliaBE f : zona.getFamilias())
         {
