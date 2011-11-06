@@ -345,7 +345,7 @@ public class UbicacionDA {
         
         int intCantUbicaciones = 0;
         objConexion = new conexion();
-        query = "SELECT COUNT(idUbicacion) as contador FROM UBICACION WHERE indActivo = '2' OR indActivo = '0' AND idRack = '" +strIdRack + "'";
+        query = "SELECT COUNT(idUbicacion) as contador FROM UBICACION WHERE (indActivo = '2' OR indActivo = '0') AND idRack = '" +strIdRack + "'";
         
         rs = objConexion.EjecutarS(query);
         
