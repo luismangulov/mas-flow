@@ -38,8 +38,8 @@ public class conexion {
     public void EjecutarUID(String QueryUID) {
         try {
             Class.forName(driver);
-            con = DriverManager.getConnection(url, user , password);
-            stmt = con.createStatement();
+            con = DriverManager.getConnection(getUrl(), user , password);
+            stmt = getCon().createStatement();
             stmt.executeUpdate(QueryUID);
         }
         catch ( Exception e ) {
@@ -47,12 +47,23 @@ public class conexion {
         }
     }
     
+    public void SetearConexion(){
+    try {
+            Class.forName(driver);
+            con = DriverManager.getConnection(getUrl(), user , password);
+
+        }
+        catch ( Exception e ) {
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+
+}
     
      //Cerrar la Conexion
     public void SalirUID() {
         try {
             stmt.close();
-            con.close();
+            getCon().close();
         }
         catch( Exception e ){
             System.out.println(e.getMessage());
@@ -64,8 +75,8 @@ public class conexion {
         ResultSet rs = null;
         try {
             Class.forName(driver);
-            con = DriverManager.getConnection(url, user , password);
-            stmt = con.createStatement();
+            con = DriverManager.getConnection(getUrl(), user , password);
+            stmt = getCon().createStatement();
             //Query
             rs = stmt.executeQuery(QueryS);
         }
@@ -80,11 +91,32 @@ public class conexion {
         try {
             stmt.execute("END");
             stmt.close();
-            con.close();
+            getCon().close();
         }
         catch( Exception e ){
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * @return the con
+     */
+    public Connection getCon() {
+        return con;
+    }
+
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(String url) {
+        this.url = url;
     }
     
 }
