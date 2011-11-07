@@ -108,7 +108,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
 
         lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
         lblAgregar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblAgregarMousePressed(evt);
@@ -118,7 +118,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
         lblBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblBuscarMousePressed(evt);
@@ -128,7 +128,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
 
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
         lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblRefrescarMousePressed(evt);
@@ -139,7 +139,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         lblDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/detalle2.png"))); // NOI18N
         lblDetalle.setToolTipText("VisualizarDetalle");
         lblDetalle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblDetalle.setMaximumSize(new java.awt.Dimension(54, 54));
         lblDetalle.setPreferredSize(new java.awt.Dimension(54, 54));
         lblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,7 +151,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
 
         lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
         lblAprobar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAprobar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblAprobarMousePressed(evt);
@@ -162,7 +162,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/50px-Vista-forward.png"))); // NOI18N
         lblIngresar.setText("jLabel1");
         lblIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblIngresar.setMaximumSize(new java.awt.Dimension(54, 54));
         lblIngresar.setPreferredSize(new java.awt.Dimension(54, 54));
         lblIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
