@@ -530,14 +530,22 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
             }
            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
            String fecha = (String)this.tblProductos.getValueAt(i, 4);
+           Date f;
            
-            Date f = formato.parse(fecha); 
-            Date fechaActual = new Date();
+           if(!isDate(fecha)){
+                JOptionPane.showMessageDialog(null, "El formato de fecha es incorrecto", "Mensaje",1);
+                esValido = false;
+                break;
+            }else{  
+             f = formato.parse(fecha);
+             Date fechaActual = new Date();
             if(f.before(fechaActual)){
                 JOptionPane.showMessageDialog(null, "La fecha de vencimiento debe ser mayor a la fecha actual", "Mensaje",1);
                 esValido = false;
                 break;
             }
+           }
+            
             
             
             
@@ -546,7 +554,15 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
         return esValido;
     }
     
-   
+    public boolean isDate(String fechax) {
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+            Date fecha = formatoFecha.parse(fechax);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
     
      public final void cargarComboAlmacen(){
         
