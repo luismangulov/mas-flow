@@ -110,8 +110,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         jListAplicacion.setModel(modeloAplicacion);
         jListAplicacionSelected.setModel(modeloAplicacionSelected);
 
-        this.jListServicio.setEnabled(false);
-        this.jListServicioSelected.setEnabled(false);
+//        this.jListServicio.setEnabled(false);
+//        this.jListServicioSelected.setEnabled(false);
         
         this.setLocationRelativeTo(null); 
         this.setTitle("+Flow - Registrar perfil");
@@ -153,8 +153,6 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             }
             listaAplicacionesSistema.remove(ind);
         }
-
-
 
 
         modeloAplicacion= new AbstractListModel() {
@@ -200,8 +198,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.setVisible(true);
 
 
-        this.jListServicio.setEnabled(false);
-        this.jListServicioSelected.setEnabled(false);
+ //       this.jListServicio.setEnabled(false);
+ //       this.jListServicioSelected.setEnabled(false);
 
 
     }
@@ -225,15 +223,11 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         cbxActivo = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         jListAplicacion = new javax.swing.JList();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jListServicio = new javax.swing.JList();
         jLabel3 = new javax.swing.JLabel();
         lblAddAplicacion = new javax.swing.JLabel();
         lblRemoverAplicacion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListAplicacionSelected = new javax.swing.JList();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jListServicioSelected = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar perfil");
@@ -298,8 +292,6 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jListAplicacion);
 
-        jScrollPane3.setViewportView(jListServicio);
-
         jLabel3.setText("Aplicacion");
 
         lblAddAplicacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/next.png"))); // NOI18N
@@ -328,8 +320,6 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jListAplicacionSelected);
 
-        jScrollPane4.setViewportView(jListServicioSelected);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -352,54 +342,46 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
-                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAddAplicacion)
                             .addComponent(lblRemoverAplicacion))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(31, 31, 31)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
+                        .addGap(143, 143, 143)
                         .addComponent(lblAddAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblRemoverAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(72, 72, 72)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(cbxActivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
-                .addContainerGap())
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -783,12 +765,8 @@ private void jListAplicacionSelectedMouseClicked(java.awt.event.MouseEvent evt) 
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList jListAplicacion;
     private javax.swing.JList jListAplicacionSelected;
-    private javax.swing.JList jListServicio;
-    private javax.swing.JList jListServicioSelected;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblAddAplicacion;
     private javax.swing.JLabel lblRemoverAplicacion;
     private javax.swing.JTextField txtCodigo;

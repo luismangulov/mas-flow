@@ -72,4 +72,44 @@ public class UsuarioContrasenaDA {
         return "0";       
 
     }
+
+        public String insertarContrasena(String idUsuario, String nuevoPassword) {
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        String sql = "SELECT max(indDetalle) FROM UsuarioContrasena";
+        String indDetalle="";
+        try{
+            rs=objConexion.EjecutarS(sql);
+
+            if (rs.next()){
+
+                int ind=(rs.getInt(1))+1;
+                indDetalle=String.valueOf(ind);
+
+                sql = "INSERT INTO UsuarioContrasena( indDetalle,idUsuario,contrasena) VALUES('"+indDetalle+"','"+idUsuario+"','"+nuevoPassword+"')";
+
+                try{
+                    rs=objConexion.EjecutarS(sql);
+                    return "1";
+                }catch (Exception a){
+                    System.out.println(a.getMessage());
+                 }
+                 finally{
+                     objConexion.SalirS();
+                 }
+                return "0";
+             }
+
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+
+        return "0";
+
+    }
+
+
 }

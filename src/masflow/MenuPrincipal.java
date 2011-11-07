@@ -27,34 +27,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
         for(int i=0;i<nc1;i++){
             if(!UsuarioSistema.PermisoParaAplicacion(this.jLayeredPaneMantenimientos.getComponent(i).getName())){
                 this.jLayeredPaneMantenimientos.getComponent(i).setEnabled(false);
-            }            
+            }
         }
         int nc2=this.jLayeredPaneProcesos.getComponentCount();
         for(int i=0;i<nc2;i++){
             if(!UsuarioSistema.PermisoParaAplicacion(this.jLayeredPaneProcesos.getComponent(i).getName())){
                 this.jLayeredPaneProcesos.getComponent(i).setEnabled(false);
-            }            
+            }
         }
         int nc3=this.jLayeredPaneReportes.getComponentCount();
         for(int i=0;i<nc3;i++){
             if(!UsuarioSistema.PermisoParaAplicacion(this.jLayeredPaneReportes.getComponent(i).getName())){
                 this.jLayeredPaneReportes.getComponent(i).setEnabled(false);
-            }            
+            }
         }
         int nc4=this.jLayeredPaneSeguridad.getComponentCount();
         for(int i=0;i<nc4;i++){
             if(!UsuarioSistema.PermisoParaAplicacion(this.jLayeredPaneSeguridad.getComponent(i).getName())){
                 this.jLayeredPaneSeguridad.getComponent(i).setEnabled(false);
-            }            
-        }        
-        
-        
-        
-        boolean verifica=UsuarioSistema.PermisoParaAplicacion("000001");
-        
-//        ConstantesSeguridad.app_ingresarProductos
+            }
+        }
 
-        
+
         
         this.setLocationRelativeTo(null);
     }
@@ -107,6 +101,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("+Flow - Menú Principal");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setFocusable(false);
+        setFocusableWindowState(false);
         setResizable(false);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Mantenimientos.png"))); // NOI18N
@@ -130,7 +126,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setText("Mantenimientos");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -152,153 +148,153 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLayeredPaneMantenimientos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLblFamilia.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblFamilia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblFamilia.setForeground(new java.awt.Color(0, 0, 102));
         jLblFamilia.setText("Familias de Productos");
         jLblFamilia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblFamilia.setName("000008"); // NOI18N
+        jLblFamilia.setName("000005"); // NOI18N
         jLblFamilia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblFamiliaMousePressed(evt);
             }
         });
-        jLblFamilia.setBounds(20, 140, 160, -1);
+        jLblFamilia.setBounds(20, 140, 160, 17);
         jLayeredPaneMantenimientos.add(jLblFamilia, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblClientes.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblClientes.setForeground(new java.awt.Color(0, 0, 102));
         jLblClientes.setText("Clientes");
         jLblClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblClientes.setName("000011"); // NOI18N
+        jLblClientes.setName("000008"); // NOI18N
         jLblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblClientesMousePressed(evt);
             }
         });
-        jLblClientes.setBounds(20, 230, 60, -1);
+        jLblClientes.setBounds(20, 230, 120, 17);
         jLayeredPaneMantenimientos.add(jLblClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblAlmacenes.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblAlmacenes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblAlmacenes.setForeground(new java.awt.Color(0, 0, 102));
         jLblAlmacenes.setText("Almacenes");
         jLblAlmacenes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblAlmacenes.setName("000004"); // NOI18N
+        jLblAlmacenes.setName("000001"); // NOI18N
         jLblAlmacenes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblAlmacenesMousePressed(evt);
             }
         });
-        jLblAlmacenes.setBounds(20, 20, 80, -1);
+        jLblAlmacenes.setBounds(20, 20, 150, 17);
         jLayeredPaneMantenimientos.add(jLblAlmacenes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblUbicaciones.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblUbicaciones.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblUbicaciones.setForeground(new java.awt.Color(0, 0, 102));
         jLblUbicaciones.setText("Ubicaciones");
         jLblUbicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblUbicaciones.setName("000007"); // NOI18N
+        jLblUbicaciones.setName("000004"); // NOI18N
         jLblUbicaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblUbicacionesMousePressed(evt);
             }
         });
-        jLblUbicaciones.setBounds(20, 110, 90, -1);
+        jLblUbicaciones.setBounds(20, 110, 150, 17);
         jLayeredPaneMantenimientos.add(jLblUbicaciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblProveedores.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblProveedores.setForeground(new java.awt.Color(0, 0, 102));
         jLblProveedores.setText("Proveedores");
         jLblProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblProveedores.setName("000010"); // NOI18N
+        jLblProveedores.setName("000007"); // NOI18N
         jLblProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblProveedoresMousePressed(evt);
             }
         });
-        jLblProveedores.setBounds(20, 200, 90, -1);
+        jLblProveedores.setBounds(20, 200, 130, 17);
         jLayeredPaneMantenimientos.add(jLblProveedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblProductos.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblProductos.setForeground(new java.awt.Color(0, 0, 102));
         jLblProductos.setText("Productos");
         jLblProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblProductos.setName("000009"); // NOI18N
+        jLblProductos.setName("000006"); // NOI18N
         jLblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblProductosMousePressed(evt);
             }
         });
-        jLblProductos.setBounds(20, 170, 90, -1);
+        jLblProductos.setBounds(20, 170, 130, 17);
         jLayeredPaneMantenimientos.add(jLblProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblZonas.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblZonas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblZonas.setForeground(new java.awt.Color(0, 0, 102));
         jLblZonas.setText("Zonas");
         jLblZonas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblZonas.setName("000005"); // NOI18N
+        jLblZonas.setName("000002"); // NOI18N
         jLblZonas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblZonasMousePressed(evt);
             }
         });
-        jLblZonas.setBounds(20, 50, 60, -1);
+        jLblZonas.setBounds(20, 50, 150, 17);
         jLayeredPaneMantenimientos.add(jLblZonas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblRacks.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblRacks.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblRacks.setForeground(new java.awt.Color(0, 0, 102));
         jLblRacks.setText("Racks");
         jLblRacks.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblRacks.setName("000006"); // NOI18N
+        jLblRacks.setName("000003"); // NOI18N
         jLblRacks.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblRacksMousePressed(evt);
             }
         });
-        jLblRacks.setBounds(20, 80, 50, -1);
+        jLblRacks.setBounds(20, 80, 150, 17);
         jLayeredPaneMantenimientos.add(jLblRacks, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneProcesos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLblIngresarProductos.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblIngresarProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblIngresarProductos.setForeground(new java.awt.Color(0, 0, 102));
         jLblIngresarProductos.setText("Ingresar Productos");
         jLblIngresarProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblIngresarProductos.setName("000001"); // NOI18N
+        jLblIngresarProductos.setName("000009"); // NOI18N
         jLblIngresarProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblIngresarProductosMousePressed(evt);
             }
         });
-        jLblIngresarProductos.setBounds(20, 20, 150, -1);
+        jLblIngresarProductos.setBounds(20, 20, 170, 17);
         jLayeredPaneProcesos.add(jLblIngresarProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblDespacharProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblDespacharProductos.setForeground(new java.awt.Color(0, 0, 102));
         jLblDespacharProductos.setText("Despachar Productos");
         jLblDespacharProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblDespacharProductos.setName("000002"); // NOI18N
+        jLblDespacharProductos.setName("000010"); // NOI18N
         jLblDespacharProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblDespacharProductosMousePressed(evt);
             }
         });
-        jLblDespacharProductos.setBounds(20, 50, 150, 17);
+        jLblDespacharProductos.setBounds(20, 50, 170, 17);
         jLayeredPaneProcesos.add(jLblDespacharProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblMovimientosInternos.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
         jLblMovimientosInternos.setForeground(new java.awt.Color(0, 0, 100));
         jLblMovimientosInternos.setText("Movimientos Internos");
-        jLblMovimientosInternos.setName("000003"); // NOI18N
+        jLblMovimientosInternos.setName("000011"); // NOI18N
         jLblMovimientosInternos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLblMovimientosInternosMouseClicked(evt);
             }
         });
-        jLblMovimientosInternos.setBounds(20, 80, 160, -1);
+        jLblMovimientosInternos.setBounds(20, 80, 170, 17);
         jLayeredPaneProcesos.add(jLblMovimientosInternos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneReportes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLblReporteStock.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblReporteStock.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblReporteStock.setForeground(new java.awt.Color(0, 0, 102));
         jLblReporteStock.setText("Reporte de Stock");
         jLblReporteStock.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -308,10 +304,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblReporteStockMousePressed(evt);
             }
         });
-        jLblReporteStock.setBounds(30, 20, 130, -1);
+        jLblReporteStock.setBounds(30, 20, 150, 17);
         jLayeredPaneReportes.add(jLblReporteStock, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblKardek.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblKardek.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblKardek.setForeground(new java.awt.Color(0, 0, 102));
         jLblKardek.setText("Kárdex");
         jLblKardek.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -321,10 +317,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblKardekMousePressed(evt);
             }
         });
-        jLblKardek.setBounds(30, 50, 50, -1);
+        jLblKardek.setBounds(30, 50, 150, 17);
         jLayeredPaneReportes.add(jLblKardek, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblTrazabilidadPallet.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblTrazabilidadPallet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblTrazabilidadPallet.setForeground(new java.awt.Color(0, 0, 102));
         jLblTrazabilidadPallet.setText("Trazabilidad de Pallet");
         jLblTrazabilidadPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -334,10 +330,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblTrazabilidadPalletMousePressed(evt);
             }
         });
-        jLblTrazabilidadPallet.setBounds(30, 80, 150, -1);
+        jLblTrazabilidadPallet.setBounds(30, 80, 150, 17);
         jLayeredPaneReportes.add(jLblTrazabilidadPallet, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblLogAuditoria.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblLogAuditoria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblLogAuditoria.setForeground(new java.awt.Color(0, 0, 102));
         jLblLogAuditoria.setText("Log de Auditoría");
         jLblLogAuditoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -347,7 +343,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblLogAuditoriaMousePressed(evt);
             }
         });
-        jLblLogAuditoria.setBounds(30, 110, 120, -1);
+        jLblLogAuditoria.setBounds(30, 110, 150, 17);
         jLayeredPaneReportes.add(jLblLogAuditoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneSeguridad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -362,7 +358,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblPerfilesMousePressed(evt);
             }
         });
-        jLblPerfiles.setBounds(20, 20, 50, -1);
+        jLblPerfiles.setBounds(20, 20, 140, 17);
         jLayeredPaneSeguridad.add(jLblPerfiles, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblCambioContrasena.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -375,7 +371,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblCambioContrasenaMousePressed(evt);
             }
         });
-        jLblCambioContrasena.setBounds(20, 80, 140, -1);
+        jLblCambioContrasena.setBounds(20, 80, 150, 20);
         jLayeredPaneSeguridad.add(jLblCambioContrasena, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -388,7 +384,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblUsuariosMousePressed(evt);
             }
         });
-        jLblUsuarios.setBounds(20, 50, 60, -1);
+        jLblUsuarios.setBounds(20, 50, 140, 17);
         jLayeredPaneSeguridad.add(jLblUsuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPaneLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -421,15 +417,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel1)))
+                        .addGap(3, 3, 3))
                     .addComponent(jLayeredPaneMantenimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
