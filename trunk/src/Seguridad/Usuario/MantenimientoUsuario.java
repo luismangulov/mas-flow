@@ -258,28 +258,34 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     
                     PerfilBE objPerfilBE=objPerfilDA.queryByNombre(nombrePerfil);
                     
+                    UsuarioBE usuario = objUsuarioBL.queryByIdUsuario(txtIdUsuario.getText());
                     
-                    String ok= objUsuarioBL.insertar(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
+                    if (usuario == null){
 
-                    if (ok.equals("1")){                                                                   
-                        UsuarioBE usuario;
-                        usuario = objUsuarioBL.getUsuario();
-                        UsuarioContrasenaBL objUsuarioContrasenaBL=new UsuarioContrasenaBL();
-                        String ind=objUsuarioContrasenaBL.actualizarContrasena(usuario.getIdUsuario(),usuario.getIdUsuario());
-                        if (ind.equals("1")){
-                            JOptionPane.showMessageDialog(null, "Su contraseña es "+usuario.getIdUsuario(), "Mensaje", 0);
-                        }
-                        this.objPadre.recargaruno(usuario);
+                        String ok= objUsuarioBL.insertar(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
+                        if (ok.equals("1")){
+                            java.util.Date fecha = new Date();
+                            usuario = objUsuarioBL.getUsuario();
+                            UsuarioContrasenaBL objUsuarioContrasenaBL=new UsuarioContrasenaBL();
+                            String ind=objUsuarioContrasenaBL.insertarContrasena(usuario.getIdUsuario(),usuario.getIdUsuario(),fecha.getTime());
+                            if (ind.equals("1")){
+                                JOptionPane.showMessageDialog(null, "Su contraseña es "+usuario.getIdUsuario(), "Mensaje", 0);
+                            }
+                            this.objPadre.recargaruno(usuario);
+                            this.dispose();
+                        } else
+                            if (ok.equals("2")){
+                                JOptionPane.showMessageDialog(null, "Este usuario ya existe.", "Error", 0);
+                                return;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                                return;
+                            }
                         this.dispose();
-                    } else
-                        if (ok.equals("2")){
-                            JOptionPane.showMessageDialog(null, "Este usuario ya existe.", "Error", 0);
-                            return;
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
-                            return;
-                        }
-                    this.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Usuario ya exsiste.", "Error", 0);
+                        return;
+                    }
 
                  
         }
