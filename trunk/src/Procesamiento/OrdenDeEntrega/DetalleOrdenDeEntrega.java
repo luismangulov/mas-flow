@@ -55,7 +55,7 @@ public class DetalleOrdenDeEntrega extends javax.swing.JFrame {
 
             },
             new String [] {
-                "IdNotaIngreso", "IdDetalleNotaIngreso", "Cantidad", "NombreProducto", "FechaVencimiento"
+                "IdOrdenEntrega", "IdDetalleOrdenEntrega", "Cantidad", "NombreProducto", "FechaVencimiento"
             }
         ) {
             Class[] types = new Class [] {

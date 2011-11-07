@@ -22,6 +22,7 @@ import BusinessLogic.ProductoBL;
 import BusinessLogic.UnidadMedidaBL;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -347,33 +348,37 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
         // TODO add your handling code here:
         NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
         NotaIngresoBE objNotaIngresoBE;
-   if(this.valida()){     
-    try {
-        if(objNotaIngresoBL.insertar(this.jdcFecha.getDate(),this.txtProveedor.getText(),this.arrAlmacenes.get(cbAlmacen.getSelectedIndex()).getIdAlmacen())){
-            
-           
-            for(int i = 0;i<this.tblProductos.getRowCount();i++){
-                DetalleNotaIngresoBL objDetalleGuiaRemisionBL = new DetalleNotaIngresoBL();
-                try {
-                    SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-                    String fecha = (String)this.tblProductos.getValueAt(i, 4);
-                    objDetalleGuiaRemisionBL.insertar(objNotaIngresoBL.getObjNotaIngresoBE().getCodigo(), (String)this.tblProductos.getValueAt(i, 0), (Integer)this.tblProductos.getValueAt(i, 2),formato.parse(fecha));
-                }catch (FileNotFoundException ex) {
-                    Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        try {
+            if(this.valida()){     
+             try {
+                 if(objNotaIngresoBL.insertar(this.jdcFecha.getDate(),this.txtProveedor.getText(),this.arrAlmacenes.get(cbAlmacen.getSelectedIndex()).getIdAlmacen())){
+                     
+                    
+                     for(int i = 0;i<this.tblProductos.getRowCount();i++){
+                         DetalleNotaIngresoBL objDetalleGuiaRemisionBL = new DetalleNotaIngresoBL();
+                         try {
+                             SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+                             String fecha = (String)this.tblProductos.getValueAt(i, 4);
+                             objDetalleGuiaRemisionBL.insertar(objNotaIngresoBL.getObjNotaIngresoBE().getCodigo(), (String)this.tblProductos.getValueAt(i, 0), (Integer)this.tblProductos.getValueAt(i, 2),formato.parse(fecha));
+                         }catch (FileNotFoundException ex) {
+                             Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
+                         } catch (IOException ex) {
+                             Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
+                         } catch (Exception ex) {
+                             Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                     }
+                 }
+                 objNotaIngresoBE = objNotaIngresoBL.getObjNotaIngresoBE();
+                 this.objPadre.recargaruno(objNotaIngresoBE, proveedor.getRazonSocial(), proveedor.getDireccion(),(String)this.cbAlmacen.getSelectedItem());
+                 this.dispose();
+             } catch (Exception ex) {
+                 Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
+             }
             }
+        } catch (ParseException ex) {
+            Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
         }
-        objNotaIngresoBE = objNotaIngresoBL.getObjNotaIngresoBE();
-        this.objPadre.recargaruno(objNotaIngresoBE, proveedor.getRazonSocial(), proveedor.getDireccion(),(String)this.cbAlmacen.getSelectedItem());
-        this.dispose();
-    } catch (Exception ex) {
-        Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
-    }
-   }
         
         
     }//GEN-LAST:event_btnGuardarMousePressed
@@ -483,7 +488,7 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
         } 
     }
 
-    private boolean valida(){
+    private boolean valida() throws ParseException{
         boolean esValido = true;
 
         if(this.tblProductos.getRowCount() == 0){
@@ -513,10 +518,35 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
             }
             
         }
+         
+         
+          for(int i = 0;i<this.tblProductos.getRowCount();i++){
+           //String fecha = this.tblProductos.getValueAt(i, 4).toString().trim();
+            if(this.tblProductos.getValueAt(i, 4) == null){
+             //if(fecha.equals("")){    
+                JOptionPane.showMessageDialog(null, "Debe ingresar la fecha de vencimiento", "Mensaje",1);
+                esValido = false;
+                break;
+            }
+           SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+           String fecha = (String)this.tblProductos.getValueAt(i, 4);
            
+            Date f = formato.parse(fecha); 
+            Date fechaActual = new Date();
+            if(f.before(fechaActual)){
+                JOptionPane.showMessageDialog(null, "La fecha de vencimiento debe ser mayor a la fecha actual", "Mensaje",1);
+                esValido = false;
+                break;
+            }
+            
+            
+            
+        }
 
         return esValido;
     }
+    
+   
     
      public final void cargarComboAlmacen(){
         
