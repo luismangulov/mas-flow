@@ -221,9 +221,9 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private void lblDetalleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDetalleMousePressed
         // TODO add your handling code here:
          if((tblNotaIngreso.getSelectedRowCount() == 0)){
-           JOptionPane.showMessageDialog(null, "No ha seleccionado una nota de ingreso", "Mensaje",0);
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una orden de entrega", "Mensaje",0);
         } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
-            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una nota de ingreso", "Mensaje",0);
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una orden de entrega", "Mensaje",0);
         }else{
             int fila;
             String codigo;
@@ -239,14 +239,14 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         // TODO add your handling code here:
         int fila1 = 0;
          if((tblNotaIngreso.getSelectedRowCount() == 0)){
-           JOptionPane.showMessageDialog(null, "No ha seleccionado una nota de ingreso", "Mensaje",0);
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una orden de entrega", "Mensaje",0);
         } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
-            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una nota de ingreso", "Mensaje",0);
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una orden de entrega", "Mensaje",0);
         }else{
           fila1 = tblNotaIngreso.getSelectedRow();
           String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();  
          if(estado.equals("Aprobado")){
-            JOptionPane.showMessageDialog(null, "La nota de ingreso ya ha sido aprobada", "Mensaje",0);
+            JOptionPane.showMessageDialog(null, "La orden de entrega ya ha sido aprobada", "Mensaje",0);
          }else{
             int fila;
             String codigo;
@@ -386,11 +386,15 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         // TODO add your handling code here:
          int fila1 = 0;
          if((tblNotaIngreso.getSelectedRowCount() == 0)){
-           JOptionPane.showMessageDialog(null, "No ha seleccionado una nota de ingreso", "Mensaje",0);
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una orden de entrega", "Mensaje",0);
          } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
-            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una nota de ingreso", "Mensaje",0);
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una orden de entrega", "Mensaje",0);
          }else{
-          
+          fila1 = tblNotaIngreso.getSelectedRow();
+          String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();  
+         if(!estado.equals("Aprobado")){
+            JOptionPane.showMessageDialog(null, "La orden de entrega debe ser aprobada", "Mensaje",0);
+         }else{
               int fila;
             String codigo;
             String identificador;
@@ -428,7 +432,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                      
                   
     }//GEN-LAST:event_lblIngresarMousePressed
-    }
+        }
+    }        
     /**
      * @param args the command line arguments
      */
