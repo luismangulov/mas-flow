@@ -91,13 +91,11 @@ public class UsuarioBL {
         return usuario;
     }
 
-    public UsuarioBE setUsuario(String idUsuario,String nombre,String paterno,String materno,String password,String idPerfil, String idEstadoUsuario,int limiteIntentos, Date fechaCambioClave) {
+    public UsuarioBE setUsuario(String idUsuario,String nombre,String paterno,String materno,String idPerfil, String idEstadoUsuario,int limiteIntentos) {
         PerfilDA objPerfilDA=new PerfilDA();
-        PerfilBE objPerfilBE = objPerfilDA.queryByIdPerfil(idPerfil);
-        
+        PerfilBE objPerfilBE = objPerfilDA.queryByIdPerfil(idPerfil);        
         EstadoUsuarioDA objEstadoUsuarioDA=new EstadoUsuarioDA();
         EstadoUsuarioBE objEstadoUsuarioBE = objEstadoUsuarioDA.queryByIdEstadoUsuario(idEstadoUsuario);
-        
         usuario = new UsuarioBE(idUsuario,nombre,paterno,materno,objPerfilBE,objEstadoUsuarioBE,limiteIntentos);
         return usuario;
     }

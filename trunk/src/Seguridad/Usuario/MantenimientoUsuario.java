@@ -16,8 +16,11 @@ import BusinessLogic.UsuarioBL;
 import BusinessLogic.UsuarioContrasenaBL;
 import DataAccess.PerfilDA;
 import Util.Utilitario;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -245,7 +248,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     UsuarioBL objUsuarioBL = new UsuarioBL();    
     try {
            
-        Date fechaActual = new Date();
+        Date fechaHoy = new Date();
         if(this.accion.equals("registrar")){                               
                     String estado;
                     if(this.ckbActivo.isSelected()){
@@ -264,20 +267,19 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
                         String ok= objUsuarioBL.insertar(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
                         if (ok.equals("1")){
-                            java.util.Date fecha = new Date();
+                            
                             usuario = objUsuarioBL.getUsuario();
                             UsuarioContrasenaBL objUsuarioContrasenaBL=new UsuarioContrasenaBL();
-                            String ind=objUsuarioContrasenaBL.insertarContrasena(usuario.getIdUsuario(),usuario.getIdUsuario(),fecha.getTime());
+
+                          //  Date fechaFin=(java.sql.Date)fechaMas((java.sql.Date) fechaHoy,30);
+
+                            String ind=objUsuarioContrasenaBL.insertarUsuarioContrasena(usuario.getIdUsuario(),usuario.getIdUsuario(),fechaHoy,fechaHoy);
                             if (ind.equals("1")){
                                 JOptionPane.showMessageDialog(null, "Su contraseña es "+usuario.getIdUsuario(), "Mensaje", 0);
                             }
                             this.objPadre.recargaruno(usuario);
                             this.dispose();
-                        } else
-                            if (ok.equals("2")){
-                                JOptionPane.showMessageDialog(null, "Este usuario ya existe.", "Error", 0);
-                                return;
-                            } else {
+                        } else {
                                 JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
                                 return;
                             }
@@ -297,25 +299,38 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     }else estado = "0";   
                     PerfilDA objPerfilDA = new PerfilDA();
                     PerfilBE objPerfilBE=objPerfilDA.queryByNombre((String)(this.cmbPerfil.getSelectedItem()));
-                    usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),"",objPerfilBE.getIdPerfil(),estado,3,fechaActual);
-                     objUsuarioBL.modificar(usuario);
-                     int fila;
-                     fila = this.objPadre.getDgvUsuario().getSelectedRow();
-                     this.objPadre.getDgvUsuario().removeRowSelectionInterval(fila, fila);
-                     this.objPadre.getDgvUsuario().setValueAt(usuario.getIdUsuario(), fila, 0);
-                     this.objPadre.getDgvUsuario().setValueAt(usuario.getNombre(), fila, 1);
-                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
-                     this.objPadre.getDgvUsuario().setValueAt(usuario.getMaterno(), fila, 3);
-                     this.objPadre.getDgvUsuario().setValueAt(usuario.getPerfil().getDescripcion(), fila, 4);
-                     this.objPadre.getDgvUsuario().setValueAt(usuario.getEstadoUsuario().getDescripcion(), fila, 5);
-                     this.dispose();
+
+                    
+                    
+                    usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
+                    boolean ok= objUsuarioBL.modificar(usuario);
+                    int fila;
+                    fila = this.objPadre.getDgvUsuario().getSelectedRow();
+                    this.objPadre.getDgvUsuario().removeRowSelectionInterval(fila, fila);
+                    this.objPadre.getDgvUsuario().setValueAt(usuario.getIdUsuario(), fila, 0);
+                    this.objPadre.getDgvUsuario().setValueAt(usuario.getNombre(), fila, 1);
+                    this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
+                    this.objPadre.getDgvUsuario().setValueAt(usuario.getMaterno(), fila, 3);
+                    this.objPadre.getDgvUsuario().setValueAt(usuario.getPerfil().getDescripcion(), fila, 4);
+                    this.objPadre.getDgvUsuario().setValueAt(usuario.getEstadoUsuario().getDescripcion(), fila, 5);
+                    this.dispose();
                  }
       } catch (Exception ex) {
                 Logger.getLogger(MantenimientoUsuario.class.getName()).log(Level.SEVERE, null, ex);
       }
 
+
+
     
 }//GEN-LAST:event_btnGuardarActionPerformed
+
+public java.sql.Date fechaMas(java.sql.Date fch, int dias){
+     Calendar cal = new GregorianCalendar();
+     cal.setTimeInMillis(fch.getTime());
+     cal.add(Calendar.DATE, dias);
+     return (java.sql.Date) new Date(cal.getTimeInMillis());
+
+   }
 
 private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 // TODO add your handling code here:
@@ -327,7 +342,7 @@ private void txtIdUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
        char c = (char)evt.getKeyChar();
        if (!Utilitario.validarCadenaAlfaNumerica(evt.getKeyChar()) || (Character.isISOControl(c)))
             evt.consume();
-       if ((this.txtNombre.getText().length() + 1) > 11) {
+       if ((this.txtIdUsuario.getText().length() + 1) > 11) {
             evt.consume();
         }
 
