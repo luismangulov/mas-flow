@@ -488,8 +488,11 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             
         }
         strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
-        
+            
         MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen);
+        
+        if (this.ventanaPadre == null)
+            objMovimientoInternoBE.setDescripcion("Ingreso");
         
         boolExito = objMovimientoInternoBL.reubicarPallet(objMovimientoInternoBE);
         
