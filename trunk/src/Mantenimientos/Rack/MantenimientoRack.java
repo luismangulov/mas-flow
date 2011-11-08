@@ -450,8 +450,12 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     char c = (char)evt.getKeyChar();
     if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
        evt.consume();
-    if ((this.txtColumnas.getText().length() + 1) > 6) {
-       evt.consume();
+    if ((this.txtColumnas.getText().length() + 1) > 2) {
+       if ((Integer.parseInt(this.txtColumnas.getText()) > 20)){
+           JOptionPane.showConfirmDialog(null, "Debe ingresar una cantidad menor o igual a 20");
+           this.txtColumnas.setText("");
+       }
+           evt.consume();
     }
 }//GEN-LAST:event_txtColumnasKeyTyped
 
