@@ -622,12 +622,12 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         String strIdentificadorZona = cbZona.getSelectedItem().toString();
         
         objZonaBE = objZonaBL.getByIdentificadorZona(strIdentificadorZona);
-        JOptionPane.showMessageDialog(null, objZonaBE.getIdentificador());
+//        JOptionPane.showMessageDialog(null, objZonaBE.getIdentificador());
         int intPosXZona = objZonaBE.getPosX();
         int intPosYZona = objZonaBE.getPosY();
         int intAnchoZona = objZonaBE.getAncho();
         int intLargoZona = objZonaBE.getLargo();
-        JOptionPane.showMessageDialog(null, "posx"+String.valueOf(intPosXZona)+"posy"+String.valueOf(intPosYZona)+"ancho"+String.valueOf(intAnchoZona)+"largo"+String.valueOf(intLargoZona));
+//        JOptionPane.showMessageDialog(null, "posx"+String.valueOf(intPosXZona)+"posy"+String.valueOf(intPosYZona)+"ancho"+String.valueOf(intAnchoZona)+"largo"+String.valueOf(intLargoZona));
         int intPosXRack = Integer.parseInt(txtPosX.getText());
         int intPosYRack = Integer.parseInt(txtPosY.getText());
         int intColumnasRack = Integer.parseInt(txtColumnas.getText());
@@ -683,14 +683,14 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             else
                 for (int i=0; i<intColumnasRack; i++)
                     matrizZonaRack[intPosYRack-intPosYZona+i][intPosXRack-intPosXZona] = 1;
-            
-            for (int i=0; i<intLargoZona; i++){
-                for (int j=0; j<intAnchoZona; j++)
-                    System.out.print(matrizZonaRack[i][j]);
-                System.out.println();
-            }
-            System.out.println();
-            
+//            
+//            for (int i=0; i<intLargoZona; i++){
+//                for (int j=0; j<intAnchoZona; j++)
+//                    System.out.print(matrizZonaRack[i][j]);
+//                System.out.println();
+//            }
+//            System.out.println();
+//            
             //2.2 se crea una matriz de la zona con las posiciones ocupadas por los racks en el sistema
 
             int matrizZona[][] = new int[intLargoZona][intAnchoZona];
@@ -711,12 +711,12 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         matrizZona[rack.getPosY()-intPosYZona+i][rack.getPosX()-intPosXZona] = 1;
             }
             
-            for (int i=0; i<intLargoZona; i++){
-                for (int j=0; j<intAnchoZona; j++)
-                    System.out.print(matrizZona[i][j]);
-                System.out.println();
-            }
-            
+//            for (int i=0; i<intLargoZona; i++){
+//                for (int j=0; j<intAnchoZona; j++)
+//                    System.out.print(matrizZona[i][j]);
+//                System.out.println();
+//            }
+//            
             
             //3 comparar matrices
             
