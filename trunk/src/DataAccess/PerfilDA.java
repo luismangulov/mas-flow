@@ -303,14 +303,14 @@ public class PerfilDA {
         String sql = "DELETE FROM perfilDetalle";
              sql += " WHERE idPerfil='"+codigo+"'";
         
-//        try{
-//            objConexion.EjecutarUID(sql);
-//
-//         }catch (Exception a){
-//            System.out.println(a.getMessage());
-//        }
-//        finally{objConexion.SalirUID();}        
-//        
+        try{
+            objConexion.EjecutarUID(sql);
+
+         }catch (Exception a){
+            System.out.println(a.getMessage());
+        }
+        finally{objConexion.SalirUID();}        
+        
         
        
         sql = "DELETE FROM perfil";

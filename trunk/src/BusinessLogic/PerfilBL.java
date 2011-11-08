@@ -27,15 +27,6 @@ public class PerfilBL {
         return exito;
     }
     
-
-//    public String getIdFamilia(String nombreFamilia){
-//        FamiliaDA familiaDA = new FamiliaDA();
-//        familia = new FamiliaBE();
-//        familia = familiaDA.queryByNombreFamilia(nombreFamilia);
-//        if (familia == null)
-//            return "";
-//        return familia.getIdFamilia();
-//    }
     
     public PerfilBE queryByNombre(String nombre){// sin detalle
         PerfilDA objPerfilDA = new PerfilDA();
@@ -61,20 +52,6 @@ public class PerfilBL {
    }
     
 
-    
-//     public ArrayList<PerfilBE> buscar(String idPerfil,String descripcion, String indEstado){
-//          PerfilAD objPerfilDA = new PerfilAD();
-//          return objPerfilDA.buscar(idPerfil, descripcion, indEstado);
-//     }
-     
-//     public ArrayList<PerfilBE> buscarAyuda(String idPerfil,String descripcion,String indEstado){
-//         FamiliaDA objFamiliaDA = new FamiliaDA();
-//         return objFamiliaDA.buscarAyuda(codigo, nombre);
-//     }
-     
-    /**
-     * @return the familia
-     */
     public PerfilBE getPerfil() {
         return perfil;
     }
