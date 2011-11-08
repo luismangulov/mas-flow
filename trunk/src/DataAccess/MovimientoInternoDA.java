@@ -170,6 +170,9 @@ public class MovimientoInternoDA {
                 }
                     
                 objMovimientoInternoBE.setIdMovimiento(strIdMovimientoInterno);
+                
+                if (objMovimientoInternoBE.getDescripcion().equals("Ingreso"))
+                    objMovimientoInternoBE.setIdUbicacionOrigen(null);
 
                 query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idUbicacionOrigen,idUbicacionDestino, fecha ,descripcion, idPallet, idAlmacen) "
                         + "VALUES('"+strIdMovimientoInterno+"',"
