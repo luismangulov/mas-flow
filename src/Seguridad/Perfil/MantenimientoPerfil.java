@@ -137,6 +137,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             {
                 if (listaAplicacionesSistema.get(i).equals(listaAplicacionesPerfil.get(j))){
                     listaIndexMarcados.add(i);
+                    break;
                 }
 
             }
@@ -144,14 +145,14 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         boolean primer=true;
         for(int i=0; i<listaIndexMarcados.size();i++){
             int ind=listaIndexMarcados.get(i);
-            if (primer)
-            {
-                primer=false;
-            }else
-            {
-                ind--;
-            }
-            listaAplicacionesSistema.remove(ind);
+//            if (primer)
+//            {
+//                primer=false;
+//            }else
+//            {
+//                ind--;
+//            }
+            listaAplicacionesSistema.remove(0);
         }
 
 
@@ -421,7 +422,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     {   
                         perfilDetalle.setIndDetalle(String.valueOf(cont));
                         cont++;
-                        perfilDetalle.setServicio(listaServicios.get(i));
+                        perfilDetalle.setServicio(listaServicios.get(j));
                         //inserta el detalle en la tabla perfil detalle
                         objPerfilDetalleDA.insertar(perfilDetalle);
 
@@ -451,7 +452,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     {   
                         perfilDetalle.setIndDetalle(String.valueOf(cont));
                         cont++;
-                        perfilDetalle.setServicio(listaServicios.get(i));
+                        perfilDetalle.setServicio(listaServicios.get(j));
                         //inserta el detalle en la tabla perfil detalle
                         objPerfilDetalleDA.insertar(perfilDetalle);
 
