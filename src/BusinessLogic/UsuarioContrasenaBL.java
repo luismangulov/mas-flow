@@ -5,6 +5,7 @@
 package BusinessLogic;
 
 import DataAccess.UsuarioContrasenaDA;
+import java.util.Date;
 
 /**
  *
@@ -20,6 +21,11 @@ public class UsuarioContrasenaBL {
     public String actualizarContrasena(String idUsuario, String nuevoPassword) {
         UsuarioContrasenaDA objUsuarioContrasenaDA = new UsuarioContrasenaDA();
         return objUsuarioContrasenaDA.actualizarContrasena(idUsuario,nuevoPassword);
+    }
+
+    public String insertarUsuarioContrasena(String idUsuario, String password, Date fechaInicio, Date fechaFin) {
+        UsuarioContrasenaDA objUsuarioContrasenaDA = new UsuarioContrasenaDA();
+        return objUsuarioContrasenaDA.insertarUsuarioContrasena(idUsuario,password,fechaInicio,fechaFin);
     }
     
 }

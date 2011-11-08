@@ -164,7 +164,8 @@ public class UsuarioDA {
         conexion objConexion = new conexion();
        
         String sql = "UPDATE usuario SET ";
-                sql+="nombre='"+objUsuario.getNombre()+"'," +
+                sql+="idUsuario='"+objUsuario.getIdUsuario()+"'," +
+                     "nombre='"+objUsuario.getNombre()+"'," +
                     "apellidopaterno='"+objUsuario.getPaterno()+ "',"+
                     "apellidomaterno='"+objUsuario.getMaterno()+ "',"+ 
                     "idPerfil='"+objUsuario.getPerfil().getIdPerfil()+ "',"+ 
@@ -173,6 +174,9 @@ public class UsuarioDA {
                     "WHERE idUsuario='"+objUsuario.getIdUsuario()+"'";
         
         try{
+            objConexion.EjecutarUID(sql);
+            //actualiza el usuario en usuariocontrasena
+            sql="Update usuariocontrasena SET idUsuario= '"+objUsuario.getIdUsuario()+"'WHERE idUsuario='"+objUsuario.getIdUsuario()+"'";
             objConexion.EjecutarUID(sql);
             boolExito=true;
          }catch (Exception a){
@@ -183,22 +187,34 @@ public class UsuarioDA {
         return boolExito;
     }
      
-      public boolean eliminar(String IdUsuario) throws Exception{
+      public boolean eliminar(String idUsuario) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
-       
-        String sql = "DELETE FROM Usuario";
-             sql += " WHERE idUsuario='"+IdUsuario+"'";
-        
+        String sql="DELETE FROM UsuarioContrasena WHERE idUsuario='"+idUsuario+"'";
+
         try{
             objConexion.EjecutarUID(sql);
-            boolExito=true;
-         }catch (Exception a){
+            sql = "DELETE FROM Usuario WHERE idUsuario='"+idUsuario+"'";
+
+            try{
+                objConexion.EjecutarUID(sql);
+                boolExito = true;
+
+            }catch (Exception a){
+                System.out.println(a.getMessage());
+            }
+            finally{objConexion.SalirUID();
+            }
+
+
+        }catch (Exception a){
             System.out.println(a.getMessage());
         }
-        finally{objConexion.SalirUID();}        
+        finally{objConexion.SalirUID();
+        }
         return boolExito;
+
     }
     
 
