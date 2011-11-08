@@ -22,7 +22,7 @@ public class UsuarioSistema {
     public static boolean PermisoParaAplicacion(String idAplicacion){
         
         PerfilDetalleDA objPerfilDetalleDA=new PerfilDetalleDA();
-        ArrayList <String>listaAplicaciones = objPerfilDetalleDA.queryAllAplicacionesPorPerfil(usuario.getPerfil().getIdPerfil());
+        ArrayList <String>listaAplicaciones = objPerfilDetalleDA.queryAllIdAplicacionesPorPerfil(usuario.getPerfil().getIdPerfil());
         
         for (int i=0;i<listaAplicaciones.size();i++){
             
