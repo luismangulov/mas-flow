@@ -217,7 +217,7 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             codigo = (String)dgvPerfil.getValueAt(fila, 0);
             PerfilBL objPerfilBL = new PerfilBL();
             try {
-                objPerfilBL.eliminar(codigo);
+                boolean ok=objPerfilBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {
                 Logger.getLogger(AdmPerfil.class.getName()).log(Level.SEVERE, null, ex);
@@ -280,15 +280,7 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
     }
     
     public void recargaruno(PerfilBE perfil){
-//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
-//        modelo.addRow(new Object[4]);
-//        for(int i=0;i<dgvFamilia.getRowCount();i++){
-//             dgvFamilia.remove(i);
-//            dgvFamilia.removeRowSelectionInterval(i, i);
-//        }
-         
-                   //
-//          dgvFamilia.clearSelection(); 
+
          
         DefaultTableModel modelo= new DefaultTableModel(){
             @Override
@@ -335,15 +327,7 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
         dgvPerfil.getColumnModel().getColumn(1).setPreferredWidth(100);
         dgvPerfil.getColumnModel().getColumn(2).setPreferredWidth(120);
         
-        
-//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
-//        modelo.addRow(new Object[4]);
-//          for(int i=0;i<dgvFamilia.getRowCount();i++){
-//            dgvFamilia.remove(i);
-//            dgvFamilia.removeRowSelectionInterval(i, i);
-//        }
-//          dgvFamilia.clearSelection();  
-                    
+
         for(int i=0;i<perfiles.size();i++){
              modelo.addRow(new Object[3]);
             dgvPerfil.setValueAt(perfiles.get(i).getIdPerfil(),i,0 );

@@ -19,8 +19,7 @@ public class UsuarioSistema {
   
     public static UsuarioBE usuario;
     
-    public static boolean PermisoParaAplicacion(String idAplicacion){
-        
+    public static boolean PermisoParaAplicacion(String idAplicacion){        
         PerfilDetalleDA objPerfilDetalleDA=new PerfilDetalleDA();
         ArrayList <String>listaAplicaciones = objPerfilDetalleDA.queryAllIdAplicacionesPorPerfil(usuario.getPerfil().getIdPerfil());
         

@@ -5,6 +5,7 @@
 package DataAccess;
 
 import BusinessEntity.PerfilBE;
+import BusinessEntity.UsuarioContrasenaBE;
 import Util.conexion;
 import java.sql.ResultSet;
 import java.util.Date;
@@ -74,6 +75,8 @@ public class UsuarioContrasenaDA {
 
     }
 
+
+
 public String insertarUsuarioContrasena(String idUsuario, String nuevoPassword, Date fechaInicio,Date fechaFin) {
         conexion objConexion=new conexion();
         ResultSet rs = null;
@@ -92,4 +95,40 @@ public String insertarUsuarioContrasena(String idUsuario, String nuevoPassword, 
 }
 
 
+//devuelve el mas reciente objeto usuariocontrasena
+    public UsuarioContrasenaBE QueryByIdUsuario(String idUsuario) {
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        UsuarioContrasenaBE usuarioContrasenaBE = null;
+        String sql = "SELECT idUsuario,indDetalle,user,contrasena,fechaInicio,fechaFin FROM UsuarioContrasena ";
+           sql += " WHERE idUsuario='"+idUsuario+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strIdUsuario;
+            String strIndDetalle;
+            String strUser;
+            String strContrasena;
+            Date dateFechaInicio;
+            Date dateFechaFin;
+
+            if (rs.next()){
+
+                strIdUsuario = rs.getString(1).trim();
+                strIndDetalle = rs.getString(2).trim();
+                strUser = rs.getString(3).trim();
+                strContrasena = rs.getString(4).trim();
+                dateFechaInicio=rs.getDate(5);
+                dateFechaFin=rs.getDate(6);
+                usuarioContrasenaBE = new UsuarioContrasenaBE(strIndDetalle,strIdUsuario,strContrasena,dateFechaInicio,dateFechaFin);
+            }
+
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+
+        return usuarioContrasenaBE;
+    }
 }
