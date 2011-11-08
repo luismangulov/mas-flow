@@ -84,11 +84,11 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         cbFamilia = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         txtMaxCantPallet = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         cbUnidad = new javax.swing.JComboBox();
         chbxActivo = new javax.swing.JCheckBox();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar producto");
@@ -127,13 +127,14 @@ public class MantenimientoProducto extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Unidad*:");
+
+        chbxActivo.setText("Activo");
+
         btnGuardar.setText("Guardar");
-        btnGuardar.setMaximumSize(new java.awt.Dimension(75, 23));
-        btnGuardar.setMinimumSize(new java.awt.Dimension(75, 23));
-        btnGuardar.setPreferredSize(new java.awt.Dimension(75, 23));
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseClicked(evt);
             }
         });
 
@@ -143,26 +144,11 @@ public class MantenimientoProducto extends javax.swing.JFrame {
                 btnCancelarMouseClicked(evt);
             }
         });
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Unidad*:");
-
-        chbxActivo.setText("Activo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +174,13 @@ public class MantenimientoProducto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(chbxActivo)
-                .addContainerGap(322, Short.MAX_VALUE))
+                .addContainerGap(336, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(btnGuardar)
+                .addGap(55, 55, 55)
+                .addComponent(btnCancelar)
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,20 +213,15 @@ public class MantenimientoProducto extends javax.swing.JFrame {
                         .addComponent(txtMaxCantPallet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
                 .addComponent(chbxActivo)
-                .addGap(16, 16, 16)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCancelar))
+                .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-       //System.exit(0);
-       this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void insertar(){
         
@@ -295,16 +282,6 @@ public class MantenimientoProducto extends javax.swing.JFrame {
         }
     }
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
-        if (accion=='R')
-            this.insertar();
-        
-        else if(accion=='M')
-            this.modificar();
-        
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
 private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
 
     char c = (char)evt.getKeyChar();
@@ -337,10 +314,6 @@ private void txtMaxCantPalletKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:
    
 }//GEN-LAST:event_txtMaxCantPalletKeyTyped
 
-private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-    this.dispose();
-}//GEN-LAST:event_btnCancelarMouseClicked
-
 private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdProductoKeyTyped
     char c = (char)evt.getKeyChar();
     if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
@@ -350,6 +323,20 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
     
     }
 }//GEN-LAST:event_txtIdProductoKeyTyped
+
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+
+        if (accion=='R')
+            this.insertar();
+        
+        else if(accion=='M')
+            this.modificar();
+        
+    }//GEN-LAST:event_btnGuardarMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMouseClicked
 
     /**
      * @param args the command line arguments

@@ -69,9 +69,9 @@ public class BuscarPallet extends javax.swing.JFrame {
         cargarComboAlmacen();
     }
     
-    public BuscarPallet(DesecharPalletsPorCaducidad ventanaPadre) {
-        this.setLocationRelativeTo(null); 
+    public BuscarPallet(DesecharPalletsPorCaducidad ventanaPadre) {        
         initComponents();
+        this.setLocationRelativeTo(null); 
         this.ventanaPadreDesecharPallets = ventanaPadre;
         cargarComboAlmacen();
     }
@@ -97,7 +97,7 @@ public class BuscarPallet extends javax.swing.JFrame {
         cbZona.removeAllItems();
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
-        cbZona.addItem("");
+        cbZona.addItem("Seleccione");
         cbRack.addItem("");
         cbUbicacion.addItem(""); 
 
@@ -113,7 +113,7 @@ public class BuscarPallet extends javax.swing.JFrame {
         
         cbRack.removeAllItems();        
         cbUbicacion.removeAllItems();
-        cbRack.addItem("");
+        cbRack.addItem("Seleccione");
         cbUbicacion.addItem(""); 
                
         arrRacks = objRackBL.getRacksByZona(idZona);
@@ -127,13 +127,15 @@ public class BuscarPallet extends javax.swing.JFrame {
     public void cargarComboUbicacion(String idRack){
        
         cbUbicacion.removeAllItems();
-        cbUbicacion.addItem(""); 
+        
         
         arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"2"); // "2" porque se buscarán solo las ubicaciones que estén ocupadas
-        
-        if (arrUbicaciones != null)
+             
+        if (arrUbicaciones.size() > 0){
+            cbUbicacion.addItem("Seleccione"); 
             for(UbicacionBE ubicacion : arrUbicaciones)
                 cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
+        }
         
     }
     
@@ -350,14 +352,14 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     int intFila = 0;
     int intColumna = 0;
     
-    if (!cbUbicacion.getSelectedItem().toString().equals("")){
+    if (!cbUbicacion.getSelectedItem().toString().equals("Seleccione") && !cbUbicacion.getSelectedItem().toString().equals("")){
         
         intFila = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
         intColumna = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
         
     }
     
-    if (!cbRack.getSelectedItem().toString().equals("")){
+    if (!cbRack.getSelectedItem().toString().equals("Seleccione") && !cbRack.getSelectedItem().toString().equals("")){
         
         strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
 
@@ -366,7 +368,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         
         strIdRack = "";
     
-    if (!cbZona.getSelectedItem().toString().equals("")){
+    if (!cbZona.getSelectedItem().toString().equals("Seleccione") && !cbZona.getSelectedItem().toString().equals("")){
         
         strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
         
