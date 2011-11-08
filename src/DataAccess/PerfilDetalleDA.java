@@ -90,6 +90,11 @@ public class PerfilDetalleDA {
         return listaAplicaciones;
         
         }
+
+
+
+
+
       
     //obtiene todos los Id de las aplicacion para un determindo perfil  
     public ArrayList<String> queryAllIdAplicacionesPorPerfil(String idPerfil){
