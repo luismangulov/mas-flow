@@ -64,13 +64,13 @@ public class BuscarProducto extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         txtIdProducto = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         cbFamilia = new javax.swing.JComboBox();
         btnCancelar = new javax.swing.JButton();
         chbxActivo = new javax.swing.JCheckBox();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar producto");
@@ -80,21 +80,6 @@ public class BuscarProducto extends javax.swing.JFrame {
         txtIdProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdProductoKeyTyped(evt);
-            }
-        });
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.setMaximumSize(new java.awt.Dimension(75, 23));
-        btnBuscar.setMinimumSize(new java.awt.Dimension(75, 23));
-        btnBuscar.setPreferredSize(new java.awt.Dimension(75, 23));
-        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBuscarMouseClicked(evt);
-            }
-        });
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -122,6 +107,13 @@ public class BuscarProducto extends javax.swing.JFrame {
 
         chbxActivo.setText("Activo");
 
+        btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,8 +139,8 @@ public class BuscarProducto extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(chbxActivo))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(106, 106, 106)
+                        .addComponent(btnBuscar)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar)))
                 .addContainerGap(45, Short.MAX_VALUE))
@@ -172,8 +164,8 @@ public class BuscarProducto extends javax.swing.JFrame {
                 .addComponent(chbxActivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnBuscar))
                 .addGap(28, 28, 28))
         );
 
@@ -183,33 +175,6 @@ public class BuscarProducto extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
-        
-        strIdFamilia = objFamiliaBL.getIdFamilia(cbFamilia.getSelectedItem().toString());
-        strIdProducto = txtIdProducto.getText();
-        strNombre = txtNombre.getText();
-        objProductoBL = new ProductoBL();
-        
-        if (chbxActivo.isSelected())
-            strIndActivo = "1";
-        else
-            strIndActivo = "0";
-        
-        arrProductos = objProductoBL.getListSearch(strIdProducto, strNombre, strIdFamilia, strIndActivo);
-        
-        if (arrProductos.size()!=0){
-            ventanaPadre.llenarDgv(arrProductos);
-            this.dispose();
-        }
-        
-        else
-            JOptionPane.showMessageDialog(null, "No existen productos de dicho criterio", "Advertencia", 0);
-    }//GEN-LAST:event_btnBuscarMouseClicked
-
-private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_btnBuscarActionPerformed
 
 private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
     this.dispose();
@@ -236,6 +201,29 @@ private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t
     
     }
 }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+        
+        strIdFamilia = objFamiliaBL.getIdFamilia(cbFamilia.getSelectedItem().toString());
+        strIdProducto = txtIdProducto.getText();
+        strNombre = txtNombre.getText();
+        objProductoBL = new ProductoBL();
+        
+        if (chbxActivo.isSelected())
+            strIndActivo = "1";
+        else
+            strIndActivo = "0";
+        
+        arrProductos = objProductoBL.getListSearch(strIdProducto, strNombre, strIdFamilia, strIndActivo);
+        
+        if (arrProductos.size()!=0){
+            ventanaPadre.llenarDgv(arrProductos);
+            this.dispose();
+        }
+        
+        else
+            JOptionPane.showMessageDialog(null, "No existen productos de dicho criterio", "Advertencia", 0);
+    }//GEN-LAST:event_btnBuscarMouseClicked
 
     /**
      * @param args the command line arguments
