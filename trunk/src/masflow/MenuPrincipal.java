@@ -12,6 +12,7 @@ package masflow;
 
 import BusinessEntity.UsuarioSistema;
 import Seguridad.ConstantesSeguridad;
+import Seguridad.Login;
 
 /**
  *
@@ -571,7 +572,7 @@ private void jLblPerfilesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jLblPerfilesMousePressed
 
 private void jLblCambioContrasenaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblCambioContrasenaMousePressed
-   Seguridad.Usuario.AdmUsuario a = new Seguridad.Usuario.AdmUsuario();
+   Seguridad.CambiarContrasena a = new Seguridad.CambiarContrasena();
    a.setVisible(true);// TODO add your handling code here:
 }//GEN-LAST:event_jLblCambioContrasenaMousePressed
 
@@ -593,11 +594,16 @@ private void jLblMovimientosInternosMouseClicked(java.awt.event.MouseEvent evt) 
 
 private void jLblUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblUsuariosMousePressed
     // TODO add your handling code here:
+    Seguridad.Usuario.AdmUsuario a = new Seguridad.Usuario.AdmUsuario();
+   a.setVisible(true);// TODO add your handling code here:
+
 }//GEN-LAST:event_jLblUsuariosMousePressed
 
 private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
     // TODO add your handling code here:
-    this.dispose();
+        Login L = new Login();
+        L.setVisible(true);
+        this.dispose();
 }//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**

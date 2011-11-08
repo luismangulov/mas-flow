@@ -158,13 +158,13 @@ public class UsuarioDA {
 //        return familia;
 //    }
     
-     public boolean modificar(UsuarioBE objUsuario) throws Exception{
+     public boolean modificar(UsuarioBE objUsuario,String nuevoIdUsuario) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
        
         String sql = "UPDATE usuario SET ";
-                sql+="idUsuario='"+objUsuario.getIdUsuario()+"'," +
+                sql+="idUsuario='"+nuevoIdUsuario+"'," +
                      "nombre='"+objUsuario.getNombre()+"'," +
                     "apellidopaterno='"+objUsuario.getPaterno()+ "',"+
                     "apellidomaterno='"+objUsuario.getMaterno()+ "',"+ 

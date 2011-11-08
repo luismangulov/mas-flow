@@ -50,14 +50,6 @@ public class UsuarioBL {
         exito = objUsuarioDA.eliminar(idUsuario);
         return exito;
     }
-//    public String getIdUsuario(String nombreFamilia){
-//        FamiliaDA familiaDA = new FamiliaDA();
-//        familia = new FamiliaBE();
-//        familia = familiaDA.queryByNombreFamilia(nombreFamilia);
-//        if (familia == null)
-//            return "";
-//        return familia.getIdFamilia();
-//    }
 
     public ArrayList<UsuarioBE> queryAllUsuario(){
         UsuarioDA objUsuarioDA = new UsuarioDA();
@@ -69,10 +61,10 @@ public class UsuarioBL {
         return objUsuarioDA.queryByIdUsuario(idUsuario);
     }
     
-     public boolean modificar(UsuarioBE objUsuario) throws Exception{
+     public boolean modificar(UsuarioBE objUsuario, String anteriorIdUsuario) throws Exception{
           boolean exito = false;
           UsuarioDA objUsuarioDA = new UsuarioDA();
-          exito = objUsuarioDA.modificar(objUsuario);
+          exito = objUsuarioDA.modificar(objUsuario,anteriorIdUsuario);
           return exito;
      }
         
@@ -81,11 +73,7 @@ public class UsuarioBL {
           return objUsuarioDA.buscar(idUsuario, nombre,paterno,materno,idPerfil,idEstado);
      }
      
-//     public ArrayList<FamiliaBE> buscarAyuda(String codigo,String nombre){
-//         FamiliaDA objFamiliaDA = new FamiliaDA();
-//         return objFamiliaDA.buscarAyuda(codigo, nombre);
-//     }
-     
+
 
     public UsuarioBE getUsuario() {
         return usuario;

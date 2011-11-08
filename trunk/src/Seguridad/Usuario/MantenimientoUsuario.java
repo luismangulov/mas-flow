@@ -292,18 +292,17 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                  
         }
         if(this.accion.equals("modificar")){
-                     UsuarioBE usuario = null;
-                     String estado;
+
+                    UsuarioBE usuario = null;
+                    String estado;
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";   
                     PerfilDA objPerfilDA = new PerfilDA();
                     PerfilBE objPerfilBE=objPerfilDA.queryByNombre((String)(this.cmbPerfil.getSelectedItem()));
-
-                    
-                    
-                    usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
-                    boolean ok= objUsuarioBL.modificar(usuario);
+                          
+                    //usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
+                    boolean ok= objUsuarioBL.modificar(usuario,txtIdUsuario.getText());
                     int fila;
                     fila = this.objPadre.getDgvUsuario().getSelectedRow();
                     this.objPadre.getDgvUsuario().removeRowSelectionInterval(fila, fila);
