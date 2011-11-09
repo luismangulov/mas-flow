@@ -19,12 +19,14 @@ import BusinessEntity.AlmacenBE;
 import BusinessEntity.DetalleNotaIngresoBE;
 import BusinessEntity.EstadoGRBE;
 import BusinessEntity.EstadoNIBE;
+import BusinessEntity.MovimientoInternoBE;
 import BusinessEntity.NotaIngresoBE;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
 import BusinessEntity.UbicacionBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleNotaIngresoBL;
+import BusinessLogic.MovimientoInternoBL;
 import BusinessLogic.NotaIngresoBL;
 import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
@@ -150,6 +152,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         jToolBar1.add(lblDetalle);
 
         lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
+        lblAprobar.setToolTipText("Aprobar");
         lblAprobar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAprobar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,6 +164,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
 
         lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/50px-Vista-forward.png"))); // NOI18N
         lblIngresar.setText("jLabel1");
+        lblIngresar.setToolTipText("Ingresar");
         lblIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblIngresar.setMaximumSize(new java.awt.Dimension(54, 54));
@@ -263,6 +267,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             
             idAlmacen = arrAlmacenes.get(0).getIdAlmacen();
             
+            NotaIngresoBL objNotaIngreso = new NotaIngresoBL(); 
+            NotaIngresoBE objNotaIngresoBE = objNotaIngreso.queryByIdNotaIngreso(codigo);
             
             DetalleNotaIngresoBL objDetalleNotaIngresoBL = new DetalleNotaIngresoBL();        
             ArrayList<DetalleNotaIngresoBE> arrDetalleNotaIngresoBE = new ArrayList<DetalleNotaIngresoBE>();
@@ -370,6 +376,17 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
               //  arrUbicacion.add(this.objUbicacionBE);
            // }
 
+              for(int i =0;i<arrUbicacion.size();i++){
+                UbicacionBL objUbicacionBL = new UbicacionBL();
+                objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
+                
+                 MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
+                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",null,arrUbicacion.get(i).getIdUbicacion(),objNotaIngresoBE.getFecha(),"Ingresado",arrPallet.get(i).getIdPallet(),idAlmacen);
+                
+                
+            }
+              
+              
               
             
                 } catch (Exception ex) {
@@ -408,7 +425,20 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             arrAlmacenes = objAlmacenBL.buscar("", "", "1", "", "", "", identificador);
             
             idAlmacen = arrAlmacenes.get(0).getIdAlmacen();
+  
+       //cambiar estado a ingresado     
             
+//            EstadoNIDA objEstadoNIDA = new EstadoNIDA();
+//            EstadoNIBE objEstadoNIBE = new EstadoNIBE();
+//            objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Ingresado");
+//            NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
+//            try {
+//                objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
+//            } catch (Exception ex) {
+//                Logger.getLogger(AdmOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//                tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
+                
             PalletBL objPalletBL = new PalletBL();
             
             ArrayList<PalletBE> arrPallets = objPalletBL.getPalletByIdNotaIngreso(codigo);
@@ -419,10 +449,12 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                  objUbicacion = objUbicacionBL.getUbicacionById(arrPallets.get(i).getIdUbicacion());
                  arrUbicacion.add(objUbicacion);
              }
-            for(int i =0;i<arrUbicacion.size();i++){
-                UbicacionBL objUbicacionBL = new UbicacionBL();
-                objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
-            }
+             
+             //cambia ubicaciones a ocupado
+//            for(int i =0;i<arrUbicacion.size();i++){
+//                UbicacionBL objUbicacionBL = new UbicacionBL();
+//                objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
+//            }
             
               Mapa mapa = new Mapa(arrAlmacenes.get(0));
             

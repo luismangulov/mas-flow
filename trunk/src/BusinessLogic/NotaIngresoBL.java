@@ -39,6 +39,11 @@ public class NotaIngresoBL {
          return exito;
      }
     
+     public NotaIngresoBE queryByIdNotaIngreso(String codigo){
+         NotaIngresoDA objGuiaRemisionDA = new NotaIngresoDA();
+        return objGuiaRemisionDA.queryByIdNotaIngreso(codigo);
+     }
+     
     public ArrayList<NotaIngresoBE> queryAllNotaIngreso(){
         NotaIngresoDA objGuiaRemisionDA = new NotaIngresoDA();
         return objGuiaRemisionDA.queryAllNotaIngreso();
