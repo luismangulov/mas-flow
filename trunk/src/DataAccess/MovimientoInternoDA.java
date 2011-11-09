@@ -109,9 +109,19 @@ public class MovimientoInternoDA {
                         + "'"+objMovimientoInternoBE.getDescripcion()+"',"
                         + "'"+objMovimientoInternoBE.getIdUsuario() + "')";
             
-        }else{
+        }else if(objMovimientoInternoBE.getIdUbicacionDestino() == null){
         
-        query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idAlmacen,idPallet,idUbicacionDestino, idUbicacionOrigen,fecha ,descripcion,idusuario) "
+        query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idAlmacen,idPallet,idUbicacionOrigen,fecha ,descripcion,idusuario) "
+                + "VALUES('"+strIdMovimientoInterno+"',"
+                + "'"+objMovimientoInternoBE.getIdAlmacen() + "',"
+                + "'"+objMovimientoInternoBE.getIdPallet() + "',"
+                + "'"+objMovimientoInternoBE.getIdUbicacionOrigen()+"',"
+                + "'"+objMovimientoInternoBE.getFecha() +"',"
+                + "'"+objMovimientoInternoBE.getDescripcion()+"',"
+                + "'"+objMovimientoInternoBE.getIdUsuario() + "')";
+        }else
+            
+            query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idAlmacen,idPallet,idUbicacionDestino, idUbicacionOrigen,fecha ,descripcion,idusuario) "
                 + "VALUES('"+strIdMovimientoInterno+"',"
                 + "'"+objMovimientoInternoBE.getIdAlmacen() + "',"
                 + "'"+objMovimientoInternoBE.getIdPallet() + "',"
@@ -120,7 +130,7 @@ public class MovimientoInternoDA {
                 + "'"+objMovimientoInternoBE.getFecha() +"',"
                 + "'"+objMovimientoInternoBE.getDescripcion()+"',"
                 + "'"+objMovimientoInternoBE.getIdUsuario() + "')";
-        }
+        
         
         try{
             objConexion.EjecutarUID(query);
