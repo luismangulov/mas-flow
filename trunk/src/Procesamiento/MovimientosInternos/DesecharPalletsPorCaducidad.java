@@ -276,7 +276,7 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
         
         objPalletBL.desechar(objPalletBE);
         
-        String strIdUsuario = "";
+        String strIdUsuario = "000001";
         
         objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacion, "000000", fecha,strMotivo, strIdPallet, strIdAlmacen, strIdUsuario);
         objMovimientoInternoBL.insertar(objMovimientoInternoBE);
