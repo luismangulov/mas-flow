@@ -90,6 +90,7 @@ public class AlgoritmoBestFirst {
     {
         setMapa(mapa);
 
+        PalletBL palletBL = new PalletBL();
         ArrayList<PalletBE> listaPosiblesPallets = new ArrayList<PalletBE>();
 
         for (Nodo nodo : mapa.getListaNodos())
@@ -97,8 +98,7 @@ public class AlgoritmoBestFirst {
             if (nodo.getItem() != null)
             {
                 UbicacionBE ubicacion = (UbicacionBE)nodo.getItem();
-
-                PalletBL palletBL = new PalletBL();
+                
                 PalletBE pallet = palletBL.getPalletByIdUbicacion(ubicacion.getIdUbicacion());
 
                 if (pallet!=null)
