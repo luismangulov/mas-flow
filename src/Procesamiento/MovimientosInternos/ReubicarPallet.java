@@ -92,6 +92,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
         this.ventanaPadre = null;        
         Date fechaActual = new Date();
         this.jdcFecha.setDate(fechaActual);
+        this.setTitle("Ubicar Pallet");
 //        JOptionPane.showMessageDialog(null, objPalletBE.getFechaVencimiento(), "Mensaje",0);
 //        this.objUbicacionPadre = objUbicacionBE;
         llenarDgv(arrPallets);
@@ -490,24 +491,28 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         
         //FALTA
-        String strIdUsuario = "000001";
+        String strIdUsuario = "admin";
         
         MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen, strIdUsuario);
         
-        if (this.ventanaPadre == null)
-            objMovimientoInternoBE.setDescripcion("Ingreso");
-        
+        if (this.ventanaPadre == null){
+//            objMovimientoInternoBE.setDescripcion("Ingreso");
+            objPalletBL.liberarPallet(objMovimientoInternoBE.getIdPallet());
+            objPalletBL.asociarUbicacionAPallet(objMovimientoInternoBE.getIdPallet(), objMovimientoInternoBE.getIdUbicacionDestino());
+        }
+        else{
         if (objPalletBL.liberarPallet(objMovimientoInternoBE.getIdUbicacionOrigen()))
             if (objPalletBL.asociarUbicacionAPallet(objMovimientoInternoBE.getIdUbicacionOrigen(), objMovimientoInternoBE.getIdPallet()))
                 boolExito = objPalletBL.ocuparUbicacion(objMovimientoInternoBE.getIdUbicacionDestino());
         
-        if (boolExito){
-            objMovimientoInternoBL.insertar(objMovimientoInternoBE);
-            if(ventanaPadre != null)
-               ventanaPadre.actualizarDgv(objMovimientoInternoBE);
-        }
-        else
+            if (boolExito){
+                objMovimientoInternoBL.insertar(objMovimientoInternoBE);
+                if(ventanaPadre != null)
+                ventanaPadre.actualizarDgv(objMovimientoInternoBE);
+            }else
             JOptionPane.showMessageDialog(null, "No se pudo reubicar el pallet");
+        }
+        
     }
     
 }//GEN-LAST:event_btnGuardarActionPerformed
