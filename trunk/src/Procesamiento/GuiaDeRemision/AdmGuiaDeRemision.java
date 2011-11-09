@@ -18,12 +18,15 @@ import BusinessEntity.AlmacenBE;
 import BusinessEntity.DetalleGuiaRemisionBE;
 import BusinessEntity.EstadoGRBE;
 import BusinessEntity.GuiaRemisionBE;
+import BusinessEntity.MovimientoInternoBE;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
 import BusinessEntity.UbicacionBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
+import BusinessLogic.MovimientoInternoBL;
+import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
 import BusinessLogic.UbicacionBL;
 import DataAccess.EstadoGRDA;
@@ -238,6 +241,9 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             fila = tblGuiaRemision.getSelectedRow();
             codigo = (String)tblGuiaRemision.getValueAt(fila, 1);
             
+             GuiaRemisionBL objGuiaRemision = new GuiaRemisionBL(); 
+             GuiaRemisionBE objGuiaRemisionBE = objGuiaRemision.queryByIdGuiaRemision(codigo);
+            
             identificador = (String)tblGuiaRemision.getValueAt(fila, 0);
             AlmacenBL objAlmacenBL = new AlmacenBL();
             ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>(); 
@@ -322,6 +328,15 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                         for(int i =0;i<arrUbicaciones.size();i++){
                              UbicacionBL objUbicacionBL = new UbicacionBL();
                               objUbicacionBL.desocuparUbicacion(arrUbicaciones.get(i).getIdUbicacion());
+                               MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
+                                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",arrUbicaciones.get(i).getIdUbicacion(),null,objGuiaRemisionBE.getFecha(),"Despachado",arrPallet.get(i).getIdPallet(),idAlmacen,"admin");
+                
+                                objMovimientoInternoBL.insertar(objMovimientoInternoBE);
+                        }
+                        
+                        for(int i =0;i< arrPallet.size();i++){
+                            PalletBL objPalletBL = new PalletBL();
+                            objPalletBL.despacharPallet(arrPallet.get(i).getIdPallet());
                         }
                         
                         Mapa mapa = new Mapa(arrAlmacenes.get(0));
