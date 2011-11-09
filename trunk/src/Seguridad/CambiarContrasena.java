@@ -42,7 +42,6 @@ public class CambiarContrasena extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtIdUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -50,6 +49,7 @@ public class CambiarContrasena extends javax.swing.JFrame {
         txtNueva1 = new javax.swing.JPasswordField();
         txtNueva2 = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
+        txtIdUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Cambiar contraseña");
@@ -57,13 +57,6 @@ public class CambiarContrasena extends javax.swing.JFrame {
         jLabel1.setText("Usuario*:");
 
         jLabel2.setText("Contraseña anterior*:");
-
-        txtIdUsuario.setName("txtContraseña"); // NOI18N
-        txtIdUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIdUsuarioKeyTyped(evt);
-            }
-        });
 
         jLabel3.setText("Contraseña nueva*:");
 
@@ -116,12 +109,18 @@ public class CambiarContrasena extends javax.swing.JFrame {
 
         jLabel4.setText("Repetir contraseña*:");
 
+        txtIdUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtIdUsuarioMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(114, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
                 .addGap(39, 39, 39)
                 .addComponent(btnCancelar)
@@ -129,16 +128,16 @@ public class CambiarContrasena extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtIdUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                    .addComponent(txtAnterior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                    .addComponent(txtNueva1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                    .addComponent(txtNueva2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIdUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addComponent(txtAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addComponent(txtNueva1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addComponent(txtNueva2, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -146,8 +145,8 @@ public class CambiarContrasena extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,7 +163,7 @@ public class CambiarContrasena extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar))
-                .addGap(32, 32, 32))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -182,16 +181,6 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 this.dispose();
 // TODO add your handling code here:
 }//GEN-LAST:event_btnCancelarActionPerformed
-
-private void txtIdUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdUsuarioKeyTyped
-// TODO add your handling code here:
-            char c = (char)evt.getKeyChar();
-        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
-            evt.consume();
-       if ((this.txtIdUsuario.getText().length() + 1) > 6) {
-            evt.consume();
-        }
-}//GEN-LAST:event_txtIdUsuarioKeyTyped
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 // TODO add your handling code here:
@@ -283,6 +272,13 @@ private void txtNueva2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t
             evt.consume();
         }
 }//GEN-LAST:event_txtNueva2KeyTyped
+
+private void txtIdUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdUsuarioMousePressed
+    // TODO add your handling code here:
+            if ((this.txtIdUsuario.getText().length() + 1) > 8) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtIdUsuarioMousePressed
 
     /**
      * @param args the command line arguments
