@@ -490,7 +490,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         
         //FALTA
-        String strIdUsuario = "";
+        String strIdUsuario = "000001";
         
         MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen, strIdUsuario);
         
