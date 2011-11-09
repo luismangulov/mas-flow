@@ -22,6 +22,8 @@ import BusinessEntity.MovimientoInternoBE;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
 import BusinessEntity.UbicacionBE;
+import BusinessEntity.UsuarioBE;
+import BusinessEntity.UsuarioSistema;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
@@ -325,11 +327,12 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                             arrUbicaciones.add(objUbicacionBE);
                         }
                         
+                        UsuarioBE objUsuarioBE = UsuarioSistema.usuario;
                         for(int i =0;i<arrUbicaciones.size();i++){
                              UbicacionBL objUbicacionBL = new UbicacionBL();
                               objUbicacionBL.desocuparUbicacion(arrUbicaciones.get(i).getIdUbicacion());
                                MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
-                                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",arrUbicaciones.get(i).getIdUbicacion(),null,objGuiaRemisionBE.getFecha(),"Despachado",arrPallet.get(i).getIdPallet(),idAlmacen,"admin");
+                                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",arrUbicaciones.get(i).getIdUbicacion(),null,objGuiaRemisionBE.getFecha(),"Despachado",arrPallet.get(i).getIdPallet(),idAlmacen,objUsuarioBE.getIdUsuario());
                 
                                 objMovimientoInternoBL.insertar(objMovimientoInternoBE);
                         }

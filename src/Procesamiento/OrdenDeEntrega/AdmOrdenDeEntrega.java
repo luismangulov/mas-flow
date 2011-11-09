@@ -24,6 +24,8 @@ import BusinessEntity.NotaIngresoBE;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
 import BusinessEntity.UbicacionBE;
+import BusinessEntity.UsuarioBE;
+import BusinessEntity.UsuarioSistema;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleNotaIngresoBL;
 import BusinessLogic.MovimientoInternoBL;
@@ -266,6 +268,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
           String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();  
          if(estado.equals("Aprobado")){
             JOptionPane.showMessageDialog(null, "La orden de entrega ya ha sido aprobada", "Mensaje",0);
+          }else if(estado.equals("Ingresado")){
+            JOptionPane.showMessageDialog(null, "La orden de entrega ya ha sido aprobada", "Mensaje",0);   
          }else{
             int fila;
             String codigo;
@@ -388,9 +392,12 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             
             
             //for(int u = 0;u<arrPallet.size();u++){
-                ReubicarPallet r = new ReubicarPallet(this,false,arrPallet,idAlmacen);
-                r.setVisible(true);
-
+             int respuesta = 0;
+            respuesta = JOptionPane.showConfirmDialog(null, "Desea realizar la asignación de ubiciones en forma manual?", "Asignar ubicación a pallets", 0); 
+            if (respuesta == 0) {    
+               ReubicarPallet r = new ReubicarPallet(this,false,arrPallet,idAlmacen);
+              r.setVisible(true);
+            }     
               //  arrUbicacion.add(this.objUbicacionBE);
            // }
 
@@ -488,13 +495,15 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                  arrUbicacion.add(objUbicacion);
              }
              
+            UsuarioBE objUsuarioBE = UsuarioSistema.usuario;
+             
              //cambia ubicaciones a ocupado
             for(int i =0;i<arrUbicacion.size();i++){
                 UbicacionBL objUbicacionBL = new UbicacionBL();
                 objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
                 
                  MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
-                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",null,arrUbicacion.get(i).getIdUbicacion(),objNotaIngresoBE.getFecha(),"Ingresado",arrPallets.get(i).getIdPallet(),idAlmacen,"admin");
+                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",null,arrUbicacion.get(i).getIdUbicacion(),objNotaIngresoBE.getFecha(),"Ingresado",arrPallets.get(i).getIdPallet(),idAlmacen,objUsuarioBE.getIdUsuario());
                 
                 objMovimientoInternoBL.insertar(objMovimientoInternoBE);
             }
