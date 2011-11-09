@@ -84,11 +84,10 @@ public class PalletBL {
         objPalletDA = new PalletDA();
         return objPalletDA.asociarUbicacionAPallet(strIdPallet, strIdUbicacion);
     }
-    
-    public boolean ocuparUbicacion(String strIdUbicacion){
+        
+    public boolean despacharPallet(String strIdPallet){ 
         objPalletDA = new PalletDA();
-        return objPalletDA.ocuparUbicacion(strIdUbicacion);
+        return objPalletDA.despacharPallet(strIdPallet);
     }
-    
     
 }

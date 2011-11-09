@@ -90,14 +90,14 @@ public class UbicacionBL {
         return objUbicacionDA.queryDesbloquearUbicacionesByRack(strIdRack);
     }
     
-    public void ocuparUbicacion(String strIdUbicacion){
+    public boolean ocuparUbicacion(String strIdUbicacion){
         objUbicacionDA = new UbicacionDA();
-        objUbicacionDA.queryUsarUbicacion(strIdUbicacion);
+        return objUbicacionDA.queryUsarUbicacion(strIdUbicacion);
     }
     
-    public void desocuparUbicacion(String strIdUbicacion){
+    public boolean desocuparUbicacion(String strIdUbicacion){
         objUbicacionDA = new UbicacionDA();
-        objUbicacionDA.queryDesocuparUbicacion(strIdUbicacion);
+        return objUbicacionDA.queryDesocuparUbicacion(strIdUbicacion);
     }
     
 }
