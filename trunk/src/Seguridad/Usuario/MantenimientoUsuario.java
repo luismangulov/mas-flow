@@ -27,13 +27,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author DIEGO
+ * @author Florencio
  */
 public class MantenimientoUsuario extends javax.swing.JFrame {
 
     /** Creates new form MantenimientoUsuario */
     private AdmUsuario objPadre;
     private String accion;
+    private UsuarioBE usuario;
     
     public MantenimientoUsuario(AdmUsuario padre) {
         this.objPadre = padre;
@@ -51,6 +52,7 @@ public class MantenimientoUsuario extends javax.swing.JFrame {
         this.objPadre = padre;
         accion = "modificar";        
         initComponents();
+        this.usuario=usuario;
         this.setLocationRelativeTo(null);
         this.ckbActivo.setEnabled(true);
         this.setTitle("+Flow - Editar Usuario");
@@ -271,9 +273,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                             usuario = objUsuarioBL.getUsuario();
                             UsuarioContrasenaBL objUsuarioContrasenaBL=new UsuarioContrasenaBL();
 
-                          //  Date fechaFin=(java.sql.Date)fechaMas((java.sql.Date) fechaHoy,30);
-
-                            String ind=objUsuarioContrasenaBL.insertarUsuarioContrasena(usuario.getIdUsuario(),usuario.getIdUsuario(),fechaHoy,fechaHoy);
+                            String ind=objUsuarioContrasenaBL.insertarUsuarioContrasena("1",usuario.getIdUsuario(),usuario.getIdUsuario(),fechaHoy,fechaHoy);
                             if (ind.equals("1")){
                                 JOptionPane.showMessageDialog(null, "Su contraseña es "+usuario.getIdUsuario(), "Mensaje", 0);
                             }
@@ -293,25 +293,29 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
         if(this.accion.equals("modificar")){
 
-                    UsuarioBE usuario = null;
+                    UsuarioBE nuevoUsuarioBE = null;
                     String estado;
                     if(this.ckbActivo.isSelected()){
                         estado = "1";
                     }else estado = "0";   
                     PerfilDA objPerfilDA = new PerfilDA();
                     PerfilBE objPerfilBE=objPerfilDA.queryByNombre((String)(this.cmbPerfil.getSelectedItem()));
-                          
-                    //usuario = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
-                    boolean ok= objUsuarioBL.modificar(usuario,txtIdUsuario.getText());
-                    int fila;
-                    fila = this.objPadre.getDgvUsuario().getSelectedRow();
-                    this.objPadre.getDgvUsuario().removeRowSelectionInterval(fila, fila);
-                    this.objPadre.getDgvUsuario().setValueAt(usuario.getIdUsuario(), fila, 0);
-                    this.objPadre.getDgvUsuario().setValueAt(usuario.getNombre(), fila, 1);
-                    this.objPadre.getDgvUsuario().setValueAt(usuario.getPaterno(), fila, 2);
-                    this.objPadre.getDgvUsuario().setValueAt(usuario.getMaterno(), fila, 3);
-                    this.objPadre.getDgvUsuario().setValueAt(usuario.getPerfil().getDescripcion(), fila, 4);
-                    this.objPadre.getDgvUsuario().setValueAt(usuario.getEstadoUsuario().getDescripcion(), fila, 5);
+                    nuevoUsuarioBE = objUsuarioBL.setUsuario(this.txtIdUsuario.getText(),this.txtNombre.getText(), this.txtPaterno.getText(),this.txtMaterno.getText(),objPerfilBE.getIdPerfil(),estado,3);
+                    boolean ok= objUsuarioBL.modificar(nuevoUsuarioBE,usuario.getIdUsuario());
+                    if(ok==true){
+                        int fila;
+                        fila = this.objPadre.getDgvUsuario().getSelectedRow();
+                        this.objPadre.getDgvUsuario().removeRowSelectionInterval(fila, fila);
+                        this.objPadre.getDgvUsuario().setValueAt(nuevoUsuarioBE.getIdUsuario(), fila, 0);
+                        this.objPadre.getDgvUsuario().setValueAt(nuevoUsuarioBE.getNombre(), fila, 1);
+                        this.objPadre.getDgvUsuario().setValueAt(nuevoUsuarioBE.getPaterno(), fila, 2);
+                        this.objPadre.getDgvUsuario().setValueAt(nuevoUsuarioBE.getMaterno(), fila, 3);
+                        this.objPadre.getDgvUsuario().setValueAt(nuevoUsuarioBE.getPerfil().getDescripcion(), fila, 4);
+                        this.objPadre.getDgvUsuario().setValueAt(nuevoUsuarioBE.getEstadoUsuario().getDescripcion(), fila, 5);
+                    }else {
+                                JOptionPane.showMessageDialog(null, "Ocurrió un error inesperado.", "Error", 0);
+                                return;
+                    }
                     this.dispose();
                  }
       } catch (Exception ex) {

@@ -7,6 +7,8 @@ package DataAccess;
 import BusinessEntity.EstadoUsuarioBE;
 import BusinessEntity.PerfilBE;
 import BusinessEntity.UsuarioBE;
+import BusinessEntity.UsuarioContrasenaBE;
+import BusinessLogic.UsuarioContrasenaBL;
 import Util.conexion;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -127,63 +129,43 @@ public class UsuarioDA {
         return usuario;
     }
 
-//    public FamiliaBE queryByNombreFamilia(String nombreFamilia){
-//        conexion objConexion=new conexion();
-//        ResultSet rs = null;
-//        FamiliaBE familia = null;
-//        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia ";
-//           sql += " WHERE nombre='"+nombreFamilia+"'";
-//        try{
-//            rs=objConexion.EjecutarS(sql);
-//            String strCodigo;
-//            String strNombre;
-//            String strDescripcion;
-//            String strEstado;
-//            if (rs.next()){
-//
-//                strCodigo = rs.getString(1);
-//                strNombre = rs.getString(2);
-//                strDescripcion = rs.getString(3);
-//                strEstado = rs.getString(4);
-//                familia = new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado);
-//            }
-//
-//        }catch (Exception a){
-//            System.out.println(a.getMessage());
-//         }
-//         finally{
-//             objConexion.SalirS();
-//         }
-//
-//        return familia;
-//    }
-    
-     public boolean modificar(UsuarioBE objUsuario,String nuevoIdUsuario) throws Exception{
+
+     public boolean modificar(UsuarioBE objUsuario,String anteriorIdUsuario) throws Exception{
         
         boolean boolExito = false;
         conexion objConexion = new conexion();
-       
-        String sql = "UPDATE usuario SET ";
-                sql+="idUsuario='"+nuevoIdUsuario+"'," +
-                     "nombre='"+objUsuario.getNombre()+"'," +
-                    "apellidopaterno='"+objUsuario.getPaterno()+ "',"+
-                    "apellidomaterno='"+objUsuario.getMaterno()+ "',"+ 
-                    "idPerfil='"+objUsuario.getPerfil().getIdPerfil()+ "',"+ 
-                    "idEstadoUsuario='"+objUsuario.getEstadoUsuario().getIdEstadoUsuario()+ "',"+ 
-                    "limiteIntentos='"+objUsuario.getLimiteIntentos()+"' "+
-                    "WHERE idUsuario='"+objUsuario.getIdUsuario()+"'";
-        
+        String sql;
+        // grabo el usuariocontrasena correspondiente al objUsuario
+        UsuarioContrasenaBL objUsuarioContrasenaBL=new UsuarioContrasenaBL();
+        UsuarioContrasenaBE anteriorUsuarioContrasenaBE= objUsuarioContrasenaBL.QueryByIdUsuario(anteriorIdUsuario);
+        // ojo me bajo todos los registros que tengan el usuario anterior
+        sql="DELETE FROM usuariocontrasena WHERE idUsuario='"+anteriorIdUsuario+"'";
+        objConexion.EjecutarUID(sql);
+
+
         try{
             objConexion.EjecutarUID(sql);
-            //actualiza el usuario en usuariocontrasena
-            sql="Update usuariocontrasena SET idUsuario= '"+objUsuario.getIdUsuario()+"'WHERE idUsuario='"+objUsuario.getIdUsuario()+"'";
+            sql = "UPDATE usuario SET ";
+                sql+="idUsuario='"+objUsuario.getIdUsuario()+"'," +
+                     "nombre='"+objUsuario.getNombre()+"'," +
+                    "apellidopaterno='"+objUsuario.getPaterno()+ "',"+
+                    "apellidomaterno='"+objUsuario.getMaterno()+ "',"+
+                    "idPerfil='"+objUsuario.getPerfil().getIdPerfil()+ "',"+
+                    "idEstadoUsuario='"+objUsuario.getEstadoUsuario().getIdEstadoUsuario()+ "',"+
+                    "limiteIntentos='"+objUsuario.getLimiteIntentos()+"' "+
+                    "WHERE idUsuario='"+anteriorIdUsuario+"'";
+
+            objConexion.EjecutarUID(sql);
+
+            sql="INSERT INTO UsuarioContrasena(indDetalle,idUsuario,Contrasena,fechaInicio,fechaFin)VALUES ('"+anteriorUsuarioContrasenaBE.getIndDetalle()+"','"+objUsuario.getIdUsuario()+"','"+anteriorUsuarioContrasenaBE.getContrasena()+"','"+anteriorUsuarioContrasenaBE.getFechaInicio()+"','"+anteriorUsuarioContrasenaBE.getFechaFin()+"') ";
             objConexion.EjecutarUID(sql);
             boolExito=true;
+
          }catch (Exception a){
             System.out.println(a.getMessage());
         }
         finally{objConexion.SalirUID();}
-        
+
         return boolExito;
     }
      
@@ -330,53 +312,5 @@ public class UsuarioDA {
   
     }
 
-    
-//    public ArrayList<FamiliaBE> buscarAyuda(String codigo,String nombre){
-//        conexion objConexion=new conexion();
-//        ResultSet rs = null;
-//        ArrayList<FamiliaBE> arrFamilia = new ArrayList<FamiliaBE>();
-//               
-//        String sql = "SELECT idfamilia,nombre,descripcion,indactivo FROM Familia WHERE indactivo = '1'";
-//                //" WHERE indactivo ='"+indActivo+"'";
-//       boolean primero;
-//       
-//        //sql+= " WHERE";
-//        if(!(codigo.equals("")) || !(nombre.equals(""))){
-//           if (!codigo.equals("")){ 
-//               sql +=  " AND idfamilia LIKE '%"+codigo+"%'";
-//           }
-//           if (!nombre.equals("")){
-//               sql += " AND nombre LIKE '%"+nombre+"%'";
-//           }
-//        }
-//        sql +=" order by 1";
-//              
-//        
-//        try{
-//            rs=objConexion.EjecutarS(sql);
-//            String strCodigo;
-//            String strNombre;
-//            String strDescripcion;
-//            String strEstado;
-//            while (rs.next()){
-//              
-//                strCodigo = rs.getString(1);
-//                strNombre = rs.getString(2);
-//                strDescripcion = rs.getString(3);
-//                strEstado = rs.getString(4);
-//                arrFamilia.add(new FamiliaBE(strCodigo,strNombre,strDescripcion,strEstado));
-//            }
-//             
-//        }catch (Exception a){
-//            System.out.println(a.getMessage());
-//         }
-//         finally{
-//             objConexion.SalirS();
-//         }
-//      
-//        return arrFamilia;
-//    }
-//    
-    
     
 }
