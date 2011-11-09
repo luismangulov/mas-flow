@@ -91,7 +91,7 @@ public class AdmUsuario extends javax.swing.JFrame {
         lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
         lblAgregar.setToolTipText("Agregar");
         lblAgregar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblAgregarMousePressed(evt);
@@ -102,7 +102,7 @@ public class AdmUsuario extends javax.swing.JFrame {
         lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/download.png"))); // NOI18N
         lblEditar.setToolTipText("Editar");
         lblEditar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblEditarMousePressed(evt);
@@ -113,7 +113,7 @@ public class AdmUsuario extends javax.swing.JFrame {
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete_page.png"))); // NOI18N
         lblEliminar.setToolTipText("Eliminar");
         lblEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblEliminarMousePressed(evt);
@@ -124,7 +124,7 @@ public class AdmUsuario extends javax.swing.JFrame {
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
         lblBuscar.setToolTipText("Buscar");
         lblBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblBuscarMousePressed(evt);
@@ -135,7 +135,7 @@ public class AdmUsuario extends javax.swing.JFrame {
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
         lblRefrescar.setToolTipText("Refrescar");
         lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblRefrescarMousePressed(evt);
@@ -316,15 +316,7 @@ private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
     }
     
     public void recargaruno(UsuarioBE usuario){
-//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
-//        modelo.addRow(new Object[4]);
-//        for(int i=0;i<dgvFamilia.getRowCount();i++){
-//             dgvFamilia.remove(i);
-//            dgvFamilia.removeRowSelectionInterval(i, i);
-//        }
-         
-                   //
-//          dgvFamilia.clearSelection();
+
          DefaultTableModel modelo= new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -378,14 +370,7 @@ private void lblRefrescarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRS
         dgvUsuario.getColumnModel().getColumn(4).setPreferredWidth(40);
         dgvUsuario.getColumnModel().getColumn(5).setPreferredWidth(40);
         
-//        DefaultTableModel modelo=(DefaultTableModel) dgvFamilia.getModel();
-//        modelo.addRow(new Object[4]);
-//          for(int i=0;i<dgvFamilia.getRowCount();i++){
-//            dgvFamilia.remove(i);
-//            dgvFamilia.removeRowSelectionInterval(i, i);
-//        }
-//          dgvFamilia.clearSelection();  
-                    
+                   
         for(int i=0;i<usuarios.size();i++){
             
         modelo.addRow(new Object[6]);

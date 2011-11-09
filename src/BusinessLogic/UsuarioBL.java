@@ -61,10 +61,10 @@ public class UsuarioBL {
         return objUsuarioDA.queryByIdUsuario(idUsuario);
     }
     
-     public boolean modificar(UsuarioBE objUsuario, String anteriorIdUsuario) throws Exception{
+     public boolean modificar(UsuarioBE nuevoObjUsuario, String anteriorIdUsuario) throws Exception{
           boolean exito = false;
           UsuarioDA objUsuarioDA = new UsuarioDA();
-          exito = objUsuarioDA.modificar(objUsuario,anteriorIdUsuario);
+          exito = objUsuarioDA.modificar(nuevoObjUsuario,anteriorIdUsuario);
           return exito;
      }
         
