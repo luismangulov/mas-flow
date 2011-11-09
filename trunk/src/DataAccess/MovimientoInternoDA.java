@@ -99,14 +99,14 @@ public class MovimientoInternoDA {
         
         objMovimientoInternoBE.setIdMovimiento(strIdMovimientoInterno);
         
-        query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idUbicacionOrigen,idUbicacionDestino, fecha ,descripcion, idPallet, idAlmacen, idusuario) "
+        query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idAlmacen,idPallet,idUbicacionDestino, idUbicacionOrigen,fecha ,descripcion,idusuario) "
                 + "VALUES('"+strIdMovimientoInterno+"',"
-                + "'"+objMovimientoInternoBE.getIdUbicacionOrigen()+"',"
+                + "'"+objMovimientoInternoBE.getIdAlmacen() + "',"
+                + "'"+objMovimientoInternoBE.getIdPallet() + "',"
                 + "'"+objMovimientoInternoBE.getIdUbicacionDestino()+"',"
+                + "'"+objMovimientoInternoBE.getIdUbicacionOrigen()+"',"
                 + "'"+objMovimientoInternoBE.getFecha() +"',"
                 + "'"+objMovimientoInternoBE.getDescripcion()+"',"
-                + "'"+objMovimientoInternoBE.getIdPallet() + "',"
-                + "'"+objMovimientoInternoBE.getIdAlmacen() + "'"
                 + "'"+objMovimientoInternoBE.getIdUsuario() + "')";
 
         try{
