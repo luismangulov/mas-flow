@@ -507,95 +507,132 @@ private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel5MousePressed
 
 private void jLblRacksMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblRacksMousePressed
+    if(this.jLblRacks.isEnabled()){
     Mantenimientos.Rack.AdmRack a = new Mantenimientos.Rack.AdmRack();
     a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblRacksMousePressed
 
 private void jLblIngresarProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblIngresarProductosMousePressed
-        Procesamiento.OrdenDeEntrega.AdmOrdenDeEntrega a = new Procesamiento.OrdenDeEntrega.AdmOrdenDeEntrega();
+    if(this.jLblIngresarProductos.isEnabled()){
+    Procesamiento.OrdenDeEntrega.AdmOrdenDeEntrega a = new Procesamiento.OrdenDeEntrega.AdmOrdenDeEntrega();
     a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblIngresarProductosMousePressed
 
 private void jLblAlmacenesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblAlmacenesMousePressed
-    Mantenimientos.Almacen.AdmAlmacen a = new Mantenimientos.Almacen.AdmAlmacen();
-    a.setVisible(true);// TODO add your handling code here:
+    if(this.jLblAlmacenes.isEnabled()){
+        Mantenimientos.Almacen.AdmAlmacen a = new Mantenimientos.Almacen.AdmAlmacen();
+        a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblAlmacenesMousePressed
 
 private void jLblZonasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblZonasMousePressed
-   Mantenimientos.Zona.AdmZona a = new Mantenimientos.Zona.AdmZona();
+   if(this.jLblZonas.isEnabled()){
+    Mantenimientos.Zona.AdmZona a = new Mantenimientos.Zona.AdmZona();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblZonasMousePressed
 
 private void jLblUbicacionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblUbicacionesMousePressed
-   Mantenimientos.Ubicacion.AdmUbicacion a = new Mantenimientos.Ubicacion.AdmUbicacion();
+   if(this.jLblUbicaciones.isEnabled()){
+    Mantenimientos.Ubicacion.AdmUbicacion a = new Mantenimientos.Ubicacion.AdmUbicacion();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblUbicacionesMousePressed
 
 private void jLblFamiliaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblFamiliaMousePressed
-   Mantenimientos.FamiliaProd.AdmFamiliaProd a = new Mantenimientos.FamiliaProd.AdmFamiliaProd();
+   if(this.jLblFamilia.isEnabled()){
+    Mantenimientos.FamiliaProd.AdmFamiliaProd a = new Mantenimientos.FamiliaProd.AdmFamiliaProd();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblFamiliaMousePressed
 
 private void jLblProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblProductosMousePressed
-   Mantenimientos.Producto.AdmProducto a = new Mantenimientos.Producto.AdmProducto();
+   if(this.jLblProductos.isEnabled()){
+    Mantenimientos.Producto.AdmProducto a = new Mantenimientos.Producto.AdmProducto();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblProductosMousePressed
 
 private void jLblProveedoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblProveedoresMousePressed
-   Mantenimientos.Proveedor.AdmProveedor a = new Mantenimientos.Proveedor.AdmProveedor();
+   if(this.jLblProveedores.isEnabled()){
+    Mantenimientos.Proveedor.AdmProveedor a = new Mantenimientos.Proveedor.AdmProveedor();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblProveedoresMousePressed
 
 private void jLblClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblClientesMousePressed
-   Mantenimientos.Cliente.AdmCliente a = new Mantenimientos.Cliente.AdmCliente();
+   if(this.jLblClientes.isEnabled()){
+    Mantenimientos.Cliente.AdmCliente a = new Mantenimientos.Cliente.AdmCliente();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblClientesMousePressed
 
 private void jLblReporteStockMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblReporteStockMousePressed
-   Reportes.Stock a = new Reportes.Stock();
+if(this.jLblReporteStock.isEnabled()){
+    Reportes.Stock a = new Reportes.Stock();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblReporteStockMousePressed
 
 private void jLblKardekMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblKardekMousePressed
-   Reportes.Kardex a = new Reportes.Kardex();
+if(this.jLblKardek.isEnabled()){
+    Reportes.Kardex a = new Reportes.Kardex();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblKardekMousePressed
 
 private void jLblTrazabilidadPalletMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblTrazabilidadPalletMousePressed
-   Reportes.HistorialPallet a = new Reportes.HistorialPallet();
+if(this.jLblTrazabilidadPallet.isEnabled()){
+    Reportes.HistorialPallet a = new Reportes.HistorialPallet();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblTrazabilidadPalletMousePressed
 
 private void jLblPerfilesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblPerfilesMousePressed
-   Seguridad.Perfil.AdmPerfil a = new Seguridad.Perfil.AdmPerfil();
+if(this.jLblPerfiles.isEnabled()){
+    Seguridad.Perfil.AdmPerfil a = new Seguridad.Perfil.AdmPerfil();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblPerfilesMousePressed
 
 private void jLblCambioContrasenaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblCambioContrasenaMousePressed
-   Seguridad.CambiarContrasena a = new Seguridad.CambiarContrasena();
+
+    if(this.jLblCambioContrasena.isEnabled()){
+    Seguridad.CambiarContrasena a = new Seguridad.CambiarContrasena();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblCambioContrasenaMousePressed
 
 private void jLblLogAuditoriaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblLogAuditoriaMousePressed
-   Reportes.LogDeAuditoria a = new Reportes.LogDeAuditoria();
+   if(this.jLblLogAuditoria.isEnabled()){
+    Reportes.LogDeAuditoria a = new Reportes.LogDeAuditoria();
    a.setVisible(true);// TODO add your handling code here:
+    }
 }//GEN-LAST:event_jLblLogAuditoriaMousePressed
 
 private void jLblDespacharProductosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblDespacharProductosMousePressed
 // TODO add your handling code here:
+    if(this.jLblDespacharProductos.isEnabled()){
     Procesamiento.GuiaDeRemision.AdmGuiaDeRemision a = new Procesamiento.GuiaDeRemision.AdmGuiaDeRemision();
     a.setVisible(true);
+    }
 }//GEN-LAST:event_jLblDespacharProductosMousePressed
 
 private void jLblMovimientosInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblMovimientosInternosMouseClicked
+    if(this.jLblMovimientosInternos.isEnabled()){
     Procesamiento.MovimientosInternos.AdmMovimientosInternos a = new Procesamiento.MovimientosInternos.AdmMovimientosInternos();
     a.setVisible(true);
+    }
 }//GEN-LAST:event_jLblMovimientosInternosMouseClicked
 
 private void jLblUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblUsuariosMousePressed
     // TODO add your handling code here:
+    if(this.jLblUsuarios.isEnabled()){
     Seguridad.Usuario.AdmUsuario a = new Seguridad.Usuario.AdmUsuario();
    a.setVisible(true);// TODO add your handling code here:
+    }
 
 }//GEN-LAST:event_jLblUsuariosMousePressed
 

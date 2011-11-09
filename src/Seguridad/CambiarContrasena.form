@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="60" max="32767" attributes="0"/>
+              <EmptySpace pref="114" max="32767" attributes="0"/>
               <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
@@ -33,17 +33,17 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel4" pref="109" max="32767" attributes="1"/>
-                  <Component id="jLabel3" pref="109" max="32767" attributes="1"/>
+                  <Component id="jLabel4" pref="151" max="32767" attributes="1"/>
+                  <Component id="jLabel3" pref="151" max="32767" attributes="1"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="1"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="txtIdUsuario" alignment="0" pref="109" max="32767" attributes="1"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txtIdUsuario" pref="109" max="32767" attributes="0"/>
                   <Component id="txtAnterior" alignment="0" pref="109" max="32767" attributes="1"/>
                   <Component id="txtNueva1" alignment="1" pref="109" max="32767" attributes="1"/>
-                  <Component id="txtNueva2" alignment="1" min="-2" pref="109" max="-2" attributes="1"/>
+                  <Component id="txtNueva2" alignment="0" pref="109" max="32767" attributes="1"/>
               </Group>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
@@ -54,8 +54,8 @@
           <Group type="102" alignment="0" max="-2" attributes="0">
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtIdUsuario" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtIdUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -77,7 +77,7 @@
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,14 +92,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Contrase&#xf1;a anterior*:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtIdUsuario">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="txtContrase&#xf1;a" noResource="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdUsuarioKeyTyped"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -144,6 +136,11 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Repetir contrase&#xf1;a*:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtIdUsuario">
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtIdUsuarioMousePressed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
