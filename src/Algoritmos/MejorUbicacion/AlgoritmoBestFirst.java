@@ -14,6 +14,7 @@ import BusinessEntity.RackBE;
 import BusinessEntity.UbicacionBE;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.FamiliaBL;
+import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
 import BusinessLogic.RackBL;
 import BusinessLogic.UbicacionBL;
@@ -21,6 +22,7 @@ import BusinessLogic.ZonaBL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 /**
  *
@@ -83,11 +85,46 @@ public class AlgoritmoBestFirst {
         return listaPosiblesUbicaciones.get(0);  
     }
 
-    public static ArrayList<UbicacionBE> ejecutar(Mapa mapa, ArrayList<PalletBE> pallet)
-    {
-        return null;
-    }
 
+    public static PalletBE ejecutar(Mapa mapa, ProductoBE producto)
+    {
+        setMapa(mapa);
+
+        ArrayList<PalletBE> listaPosiblesPallets = new ArrayList<PalletBE>();
+
+        for (Nodo nodo : mapa.getListaNodos())
+        {
+            if (nodo.getItem() != null)
+            {
+                UbicacionBE ubicacion = (UbicacionBE)nodo.getItem();
+
+                PalletBL palletBL = new PalletBL();
+                PalletBE pallet = palletBL.getPalletByIdUbicacion(ubicacion.getIdUbicacion());
+
+                if (pallet!=null)
+                {
+                    if (pallet.getIdProducto().equals(producto.getIdProducto()))
+                    {
+                      listaPosiblesPallets.add(pallet);
+                    }
+                }
+
+            }
+        }
+
+        if (listaPosiblesPallets.isEmpty()) return null;
+        if (listaPosiblesPallets.size()==1) return listaPosiblesPallets.get(0);
+
+          Collections.sort(listaPosiblesPallets,new Comparator<PalletBE>() {
+             public int compare(PalletBE p1, PalletBE p2) {
+                Date f1 = p1.getFechaVencimiento();
+                Date f2 = p2.getFechaVencimiento();
+                return (f1.after(f2) ? -1 : (f1.before(f2)?1 : 0));
+             }
+          });
+
+        return listaPosiblesPallets.get(0);
+    }
 
     private static double distanciaALaPuerta(UbicacionBE u)
     {
