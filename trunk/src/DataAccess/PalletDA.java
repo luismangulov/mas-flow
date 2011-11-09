@@ -44,16 +44,16 @@ public class PalletDA {
         } catch (IOException ex) {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        query = "INSERT INTO PALLET(idPallet,idNotaIngreso,idProducto,idUbicacion,idAlmacen,indActivo,fechaVencimiento,  idGuiaRemision) VALUES("
+        //query = "INSERT INTO PALLET(idPallet,idNotaIngreso,idProducto,idUbicacion,idAlmacen,indActivo,fechaVencimiento,idGuiaRemision) VALUES("
+        query = "INSERT INTO PALLET(idPallet,idNotaIngreso,idProducto,idUbicacion,idAlmacen,indActivo,fechaVencimiento) VALUES("
                 + "'" +objPallet.getIdPallet()+"',"
                 + "'" +objPallet.getIdNotaIngreso()+"',"
                 + "'" +objPallet.getIdProducto()+"',"
                 + "'" +objPallet.getIdUbicacion()+"',"
                 + "'" +objPallet.getIdAlmacen()+"', "
                 + "'" +objPallet.getIndActivo()+"',"
-                + "'" +objPallet.getFechaVencimiento()+"',"
-                + "'" +objPallet.getIdGuiaRemision()+"')";
+                + "'" +objPallet.getFechaVencimiento()+"')";
+//                + "'" +objPallet.getIdGuiaRemision()+"')";
                                 
         try{
             objConexion.EjecutarUID(query);
