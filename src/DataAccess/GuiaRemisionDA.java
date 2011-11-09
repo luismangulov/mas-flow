@@ -105,6 +105,54 @@ public class GuiaRemisionDA {
     }
      
      
+      public GuiaRemisionBE queryByIdGuiaRemision(String codigo){
+        conexion objConexion=new conexion();
+        ResultSet rs = null;
+        GuiaRemisionBE objGuiaRemisionBE= null;
+        ArrayList<GuiaRemisionBE> arrGuiaRemision = new ArrayList<GuiaRemisionBE>();
+        String sql = "SELECT idguiaremision,fecha,identidad,idestadogr,idalmacen FROM guiaremision";
+             sql += " WHERE idguiaremision='"+codigo+"'";
+        try{
+            rs=objConexion.EjecutarS(sql);
+            String strCodigo;
+            Date fecha;
+            String strIdEntidad;
+            String strCodEstado;
+            String strIdAlmacen;
+            
+            while (rs.next()){
+              
+                strCodigo = rs.getString(1).trim();
+                fecha = rs.getDate(2);
+                strIdEntidad = rs.getString(3).trim();
+                strCodEstado = rs.getString(4).trim();
+                strIdAlmacen = rs.getString(5).trim();
+                
+                EntidadBL objEntidadBL = new EntidadBL();
+                EntidadBE objEntidadBE = objEntidadBL.getCliente(strIdEntidad);
+                
+                AlmacenBL objAlmacenBL = new AlmacenBL();
+                AlmacenBE objAlmacenBE = objAlmacenBL.getAlmacen(strIdAlmacen);
+               
+                EstadoGRBL objEstadoGRBL = new EstadoGRBL();
+                EstadoGRBE objEstadoGRBE = new EstadoGRBE();
+                objEstadoGRBE = objEstadoGRBL.queryByIdEstadoGRBE(strCodEstado);
+                
+                objGuiaRemisionBE = new GuiaRemisionBE(strCodigo,fecha,objEntidadBE,objAlmacenBE,objEstadoGRBE);
+            }
+             
+        }catch (Exception a){
+            System.out.println(a.getMessage());
+         }
+         finally{
+             objConexion.SalirS();
+         }
+      
+        return objGuiaRemisionBE;
+    }
+     
+     
+     
       public ArrayList<GuiaRemisionBE> buscar(String codigo,String nombcliente,String codestado,String idAlmacen){
         conexion objConexion=new conexion();
         ResultSet rs = null;

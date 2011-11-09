@@ -41,7 +41,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
 
     
     ArrayList<PalletBE> arrPallet = new ArrayList<PalletBE>();
-     
+     ArrayList<ProductoBE> arrProducto = new ArrayList<ProductoBE>();
       ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
     
     /** Creates new form AdmGuiaDeRemision */
@@ -296,20 +296,27 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                         int cantidadPallet = arrDetalleGuiaRemisionBE.get(i).getCantidad()/objProductoBE.getMaxCantPorPallet();
                       
                         for(int j=0;j<cantidadPallet;j++){
+                            this.arrProducto.add(objProductoBE);
+                            //PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, null,"");
                             
-                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, null,"");
-                            
-                            arrPallet.add(objPalletBE);
+                            //arrPallet.add(objPalletBE);
                         }
                      }
                      
-                        for(int u =0;u<arrPallet.size();u++){
+                        for(int u =0;u<arrProducto.size();u++){
                             Mapa mapa = new Mapa(arrAlmacenes.get(0));
-                            arrUbicaciones.add(AlgoritmoBestFirst.ejecutar(mapa, arrPallet.get(u)));
+                            arrPallet.add(AlgoritmoBestFirst.ejecutar(mapa, arrProducto.get(u)));
                             //JOptionPane.showMessageDialog(null, arrUbicaciones.get(i).getIdUbicacion(), "Mensaje",0);
                                                       
                             //UbicacionBL objUbicacionBL = new UbicacionBL();
                             //objUbicacionBL.ocuparUbicacion(arrUbicaciones.get(u).getIdUbicacion());
+                        }
+                        
+                        for(int i =0;i< arrPallet.size();i++){
+                            UbicacionBL objUbicacionBL = new UbicacionBL();
+                            UbicacionBE objUbicacionBE = new UbicacionBE();
+                            objUbicacionBE = objUbicacionBL.getUbicacionById(arrPallet.get(i).getIdUbicacion());
+                            arrUbicaciones.add(objUbicacionBE);
                         }
                         
                         for(int i =0;i<arrUbicaciones.size();i++){
