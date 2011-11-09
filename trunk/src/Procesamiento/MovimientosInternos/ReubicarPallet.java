@@ -39,6 +39,7 @@ import javax.swing.table.DefaultTableModel;
 public class ReubicarPallet extends javax.swing.JDialog {
 
     /** Creates new form ReubicarPallet */
+        private  UsuarioBE objUsuarioBE;
     String strIdAlmacen;
     String strIdZona;
     String strIdRack;
@@ -71,6 +72,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
     AdmMovimientosInternos ventanaPadre;
 
     PalletBE objPalletBE = new PalletBE();
+
     
     /*
      *  CONSTRUCTOR
@@ -93,8 +95,6 @@ public class ReubicarPallet extends javax.swing.JDialog {
         Date fechaActual = new Date();
         this.jdcFecha.setDate(fechaActual);
         this.setTitle("Ubicar Pallet");
-//        JOptionPane.showMessageDialog(null, objPalletBE.getFechaVencimiento(), "Mensaje",0);
-//        this.objUbicacionPadre = objUbicacionBE;
         llenarDgv(arrPallets);
         cargarComboAlmacen();
         for (int i=0; i<arrIdAlmacenes.size(); i++)
@@ -103,8 +103,6 @@ public class ReubicarPallet extends javax.swing.JDialog {
                 cbAlmacen.setEnabled(false);
                 return;
             }
-        
-        
     }
     
     /*
@@ -158,7 +156,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
 //                if (palletBE.getFechaVencimiento() != null)
 //                    strFecha = palletBE.getFechaVencimiento().toString();
 
-                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, String.valueOf(intFila) + String.valueOf(intColumna), intMaxCantPallet,strNombreFamilia,arrPallets.get(i).getFechaVencimiento()});
+                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, "F"+String.valueOf(intFila) + "C"+String.valueOf(intColumna), intMaxCantPallet,strNombreFamilia,arrPallets.get(i).getFechaVencimiento()});
             }
         }
     }
@@ -219,7 +217,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
         if (objPalletBE.getFechaVencimiento() != null)
             strFecha = objPalletBE.getFechaVencimiento().toString();
 
-        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, String.valueOf(intFila) + String.valueOf(intColumna), intMaxCantPallet,strNombreFamilia,strFecha});
+        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, "F"+String.valueOf(intFila) + "C"+String.valueOf(intColumna), intMaxCantPallet,strNombreFamilia,strFecha});
     }
     
 
@@ -437,7 +435,7 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
-        if (!cbZona.getSelectedItem().equals("")){
+        if (!cbZona.getSelectedItem().equals("Seleccione")){
             strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
             cargarComboRack(strIdZona);
         }
@@ -447,7 +445,7 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRackActionPerformed
     int intCantItem = cbRack.getItemCount() - 1;
     if (intCantItem > 0){
-        if (!cbRack.getSelectedItem().equals("")){
+        if (!cbRack.getSelectedItem().equals("Seleccione")){
             String strIdentificador = cbRack.getSelectedItem().toString();
             strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
             cargarComboUbicacion(strIdRack);
@@ -471,12 +469,17 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     else{
         
         strIdPallet = (String)dgvPallets.getValueAt(intFila, 0);
-        strIdUbicacionOrigen = (String)dgvPallets.getValueAt(intFila, 3);
-        int intFilaUbicacion = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
-        int intColumnaUbicacion = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
+        
+        int intFilaUbicacionOrigen = dgvPallets.getValueAt(intFila, 3).toString().charAt(1)-48;
+        int intColumnaUbicacionOrigen = dgvPallets.getValueAt(intFila, 3).toString().charAt(3)-48;
+        String strIdRackOrigen = objRackBL.getByIdentificador((String)dgvPallets.getValueAt(intFila,2)).getIdRack();
+        strIdUbicacionOrigen = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRackOrigen, intFilaUbicacionOrigen, intColumnaUbicacionOrigen,"3").getIdUbicacion();
+                
+        int intFilaUbicacionDestino = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
+        int intColumnaUbicacionDestino = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
         String strIdentificadorRack = cbRack.getSelectedItem().toString();
         strIdRack = objRackBL.getByIdentificador(strIdentificadorRack).getIdRack();
-        strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacion, intColumnaUbicacion,"1").getIdUbicacion();
+        strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacionDestino, intColumnaUbicacionDestino,"1").getIdUbicacion();
         UbicacionBE objUbicacion = objUbicacionBL.getUbicacionById(strIdUbicacionDestino);
         
         if (this.objUbicacionPadre != null){
@@ -490,8 +493,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
         strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         
-        //FALTA
-        String strIdUsuario = "admin";
+        String strIdUsuario = UsuarioSistema.usuario.getIdUsuario();
         
         MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen, strIdUsuario);
         
@@ -508,7 +510,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             if (boolExito){
                 objMovimientoInternoBL.insertar(objMovimientoInternoBE);
                 if(ventanaPadre != null)
-                ventanaPadre.actualizarDgv(objMovimientoInternoBE);
+                    ventanaPadre.actualizarDgv(objMovimientoInternoBE);
             }else
             JOptionPane.showMessageDialog(null, "No se pudo reubicar el pallet");
         }
