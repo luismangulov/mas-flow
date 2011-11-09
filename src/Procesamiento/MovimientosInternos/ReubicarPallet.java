@@ -158,7 +158,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
 //                if (palletBE.getFechaVencimiento() != null)
 //                    strFecha = palletBE.getFechaVencimiento().toString();
 
-                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreFamilia,arrPallets.get(i).getFechaVencimiento()});
+                modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, String.valueOf(intFila) + String.valueOf(intColumna), intMaxCantPallet,strNombreFamilia,arrPallets.get(i).getFechaVencimiento()});
             }
         }
     }
@@ -219,7 +219,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
         if (objPalletBE.getFechaVencimiento() != null)
             strFecha = objPalletBE.getFechaVencimiento().toString();
 
-        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, strIdUbicacion, intMaxCantPallet,strNombreFamilia,strFecha});
+        modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, String.valueOf(intFila) + String.valueOf(intColumna), intMaxCantPallet,strNombreFamilia,strFecha});
     }
     
 
@@ -503,7 +503,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         else{
         if (objPalletBL.liberarPallet(objMovimientoInternoBE.getIdUbicacionOrigen()))
             if (objPalletBL.asociarUbicacionAPallet(objMovimientoInternoBE.getIdUbicacionOrigen(), objMovimientoInternoBE.getIdPallet()))
-                boolExito = objPalletBL.ocuparUbicacion(objMovimientoInternoBE.getIdUbicacionDestino());
+                boolExito = objUbicacionBL.ocuparUbicacion(objMovimientoInternoBE.getIdUbicacionDestino());
         
             if (boolExito){
                 objMovimientoInternoBL.insertar(objMovimientoInternoBE);
