@@ -69,8 +69,9 @@ public class MovimientoInternoDA {
                 String strDescripcion = rs.getString("Descripcion");
                 String strIdPallet = rs.getString("IdPallet");
                 strIdAlmacen = rs.getString("IdAlmacen");
+                String strIdUsuario = rs.getString("idUsuario");
                 
-                arrMovimientosInternos.add(new MovimientoInternoBE(strIdMovimientoInterno,strIdUbicacionOrigen,strIdUbicacionDestino,dateFecha,strDescripcion,strIdPallet,strIdAlmacen));
+                arrMovimientosInternos.add(new MovimientoInternoBE(strIdMovimientoInterno,strIdUbicacionOrigen,strIdUbicacionDestino,dateFecha,strDescripcion,strIdPallet,strIdAlmacen,strIdUsuario));
             }
         }catch (SQLException ex){
             JOptionPane.showMessageDialog(null, ex);
@@ -81,10 +82,10 @@ public class MovimientoInternoDA {
         return arrMovimientosInternos;
     }
 
-    public void insertar(MovimientoInternoBE objMovimientoInternoBE) {
+    public boolean insertar(MovimientoInternoBE objMovimientoInternoBE) {
         
         objConexion = new conexion();
-        
+        boolean exito = false;
         objUtilitario = new Utilitario();
         String strIdMovimientoInterno = "";
         
@@ -105,98 +106,21 @@ public class MovimientoInternoDA {
                 + "'"+objMovimientoInternoBE.getFecha() +"',"
                 + "'"+objMovimientoInternoBE.getDescripcion()+"',"
                 + "'"+objMovimientoInternoBE.getIdPallet() + "',"
-                + "'"+objMovimientoInternoBE.getIdAlmacen() + "')";
+                + "'"+objMovimientoInternoBE.getIdAlmacen() + "'"
+                + "'"+objMovimientoInternoBE.getIdUsuario() + "')";
 
-        try{
-            objConexion.EjecutarUID(query);
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
-        }finally{objConexion.SalirUID();}
-
-    }
-    
-    public boolean reubicarPallet(MovimientoInternoBE objMovimientoInternoBE) {
-        
-        boolean exito = false;
-        objConexion = new conexion();
-        
-        // se setea la disponibilidad "1" de la ubicacion anterior
-        query = "UPDATE UBICACION SET indActivo = '1' WHERE idUbicacion = '" + objMovimientoInternoBE.getIdUbicacionOrigen() + "'";
-        
         try{
             objConexion.EjecutarUID(query);
             exito = true;
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
             exito = false;
-        }
-        finally{objConexion.SalirUID();}
+        }finally{objConexion.SalirUID();}
         
-        if (exito){
-            // se asocia el pallet a la ubicacion destino
-            query = "UPDATE PALLET SET idUbicacion = '" + objMovimientoInternoBE.getIdUbicacionDestino() + "' WHERE idPallet ='" +objMovimientoInternoBE.getIdPallet() +"'";
-
-            try{
-                objConexion.EjecutarUID(query);
-                exito = true;
-            }catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
-                exito = false;
-            }
-            finally{objConexion.SalirUID();}
-
-            // se cambia el estado de la ubicacion destino a en uso
-            query = "UPDATE UBICACION SET indActivo = '2' WHERE idUbicacion ='" + objMovimientoInternoBE.getIdUbicacionDestino() +"'";
-
-            try{
-                objConexion.EjecutarUID(query);
-                exito = true;
-            }catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
-                exito = false;
-            }
-            finally{objConexion.SalirUID();}
-            
-            if (exito){
-            
-                objUtilitario = new Utilitario();
-                String strIdMovimientoInterno = "";
-                try {
-                    strIdMovimientoInterno = objUtilitario.generaCodigo("movimientointerno", 8);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(PalletDA.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(PalletDA.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                    
-                objMovimientoInternoBE.setIdMovimiento(strIdMovimientoInterno);
-                
-                if (objMovimientoInternoBE.getDescripcion().equals("Ingreso"))
-                    objMovimientoInternoBE.setIdUbicacionOrigen(null);
-
-                query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idUbicacionOrigen,idUbicacionDestino, fecha ,descripcion, idPallet, idAlmacen) "
-                        + "VALUES('"+strIdMovimientoInterno+"',"
-                        + "'"+objMovimientoInternoBE.getIdUbicacionOrigen()+"',"
-                        + "'"+objMovimientoInternoBE.getIdUbicacionDestino()+"',"
-                        + "'"+objMovimientoInternoBE.getFecha() +"',"
-                        + "'"+objMovimientoInternoBE.getDescripcion()+"',"
-                        + "'"+objMovimientoInternoBE.getIdPallet() + "',"
-                        + "'"+objMovimientoInternoBE.getIdAlmacen() + "')";
-
-                try{
-                    objConexion.EjecutarUID(query);
-                    exito = true;
-                }catch (Exception e){
-                    JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
-                    exito = false;
-                }
-                finally{objConexion.SalirUID();}
-
-            }
-        }
         return exito;
-    }
 
+    }
+    
     public ArrayList<MovimientoInternoBE> queryAll() {
         objConexion = new conexion();
         
@@ -214,8 +138,9 @@ public class MovimientoInternoDA {
                 String strDescripcion = rs.getString("Descripcion");
                 String strIdPallet = rs.getString("IdPallet");
                 String strIdAlmacen = rs.getString("IdAlmacen");
+                String strIdUsuario = rs.getString("idUsuario");
                 
-                arrMovimientosInternos.add(new MovimientoInternoBE(strIdMovimientoInterno,strIdUbicacionOrigen,strIdUbicacionDestino,dateFecha,strDescripcion,strIdPallet,strIdAlmacen));
+                arrMovimientosInternos.add(new MovimientoInternoBE(strIdMovimientoInterno,strIdUbicacionOrigen,strIdUbicacionDestino,dateFecha,strDescripcion,strIdPallet,strIdAlmacen,strIdUsuario));
             }
         }catch (SQLException ex){
             JOptionPane.showMessageDialog(null, ex);

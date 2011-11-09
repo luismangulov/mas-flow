@@ -85,7 +85,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JButton();
+        btnDesechar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         cbAlmacen = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
@@ -102,11 +102,11 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
 
         jLabel2.setText("Almacén:");
 
-        btnGuardar.setText("Guardar");
-        btnGuardar.setToolTipText("");
-        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDesechar.setText("Desechar");
+        btnDesechar.setToolTipText("");
+        btnDesechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGuardarMouseClicked(evt);
+                btnDesecharMouseClicked(evt);
             }
         });
 
@@ -164,7 +164,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        dgvPallets.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        dgvPallets.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         dgvPallets.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(dgvPallets);
 
@@ -192,21 +192,20 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(29, 29, 29)
                                 .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(209, 209, 209)
+                                .addGap(202, 202, 202)
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
                                 .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(40, 40, 40)
-                                .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(235, 235, 235)
-                        .addComponent(btnGuardar)
+                        .addComponent(btnDesechar)
                         .addGap(40, 40, 40)
                         .addComponent(btnCancelar)))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -217,14 +216,17 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel3))
+                                .addGap(20, 20, 20))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3)))
-                        .addGap(20, 20, 20)
+                                .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -235,7 +237,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardar)
+                            .addComponent(btnDesechar)
                             .addComponent(btnCancelar))
                         .addGap(40, 40, 40))
                     .addGroup(layout.createSequentialGroup()
@@ -249,7 +251,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesecharMouseClicked
 
     if (!validar())
         return;
@@ -274,7 +276,9 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         
         objPalletBL.desechar(objPalletBE);
         
-        objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacion, "000000", fecha,strMotivo, strIdPallet, strIdAlmacen);
+        String strIdUsuario = "";
+        
+        objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacion, "000000", fecha,strMotivo, strIdPallet, strIdAlmacen, strIdUsuario);
         objMovimientoInternoBL.insertar(objMovimientoInternoBE);
         arrMovimientosInternos.add(objMovimientoInternoBE);
         
@@ -287,7 +291,7 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
 
     }
     
-}//GEN-LAST:event_btnGuardarMouseClicked
+}//GEN-LAST:event_btnDesecharMouseClicked
 
 private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
     
@@ -307,8 +311,11 @@ private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 
     private void lblRemoverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverMouseClicked
         DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();
-        int intFila = dgvPallets.getSelectedRow();
-        modelo.removeRow(intFila);
+        
+        int intFila = dgvPallets.getSelectedRowCount();
+        if (intFila != -1)
+            eliminaFilaDgv(intFila);
+        
     }//GEN-LAST:event_lblRemoverMouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
@@ -317,7 +324,7 @@ private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnDesechar;
     private javax.swing.JComboBox cbAlmacen;
     private javax.swing.JTable dgvPallets;
     private javax.swing.JLabel jLabel2;
