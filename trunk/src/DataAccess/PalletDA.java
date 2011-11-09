@@ -553,12 +553,11 @@ public class PalletDA {
 
     }
 
-    public boolean ocuparUbicacion(String strIdUbicacion){
-        
+    public boolean despacharPallet(String strIdPallet) {
         boolean exito = false;
         objConexion = new conexion();
         // se cambia el estado de la ubicacion destino a en uso
-        query = "UPDATE UBICACION SET indActivo = '2' WHERE idUbicacion ='" + strIdUbicacion +"'";
+        query = "UPDATE PALLET SET indActivo = '2' WHERE idPallet ='" + strIdPallet +"'";
 
         try{
             objConexion.EjecutarUID(query);
@@ -570,7 +569,6 @@ public class PalletDA {
         finally{objConexion.SalirUID();}
 
         return exito;
-        
     }
 
 }
