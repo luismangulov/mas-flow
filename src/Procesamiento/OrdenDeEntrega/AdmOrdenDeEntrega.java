@@ -330,7 +330,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                       
                         for(int j=0;j<cantidadPallet;j++){
                             
-                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento(),codigo);
+                            PalletBE objPalletBE = new PalletBE("",objProductoBE.getIdProducto(),"1","",idAlmacen, arrDetalleNotaIngresoBE.get(i).getFechaVencimiento(),codigo,null);
                             
                             arrPallet.add(objPalletBE);
                         }
@@ -381,9 +381,9 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
                 
                  MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
-                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",null,arrUbicacion.get(i).getIdUbicacion(),objNotaIngresoBE.getFecha(),"Ingresado",arrPallet.get(i).getIdPallet(),idAlmacen);
+                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",null,arrUbicacion.get(i).getIdUbicacion(),objNotaIngresoBE.getFecha(),"Ingresado",arrPallet.get(i).getIdPallet(),idAlmacen,"admin");
                 
-                
+                objMovimientoInternoBL.insertar(objMovimientoInternoBE);
             }
               
               
