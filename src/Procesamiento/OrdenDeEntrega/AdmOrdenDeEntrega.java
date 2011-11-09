@@ -72,6 +72,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         lblDetalle = new javax.swing.JLabel();
         lblAprobar = new javax.swing.JLabel();
         lblIngresar = new javax.swing.JLabel();
+        lblRuta = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -176,6 +177,20 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         });
         jToolBar1.add(lblIngresar);
 
+        lblRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
+        lblRuta.setText("jLabel1");
+        lblRuta.setToolTipText("Mostrar Ruta");
+        lblRuta.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRuta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRuta.setMaximumSize(new java.awt.Dimension(54, 54));
+        lblRuta.setPreferredSize(new java.awt.Dimension(54, 54));
+        lblRuta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRutaMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblRuta);
+
         jLabel7.setText("                                                                                                                                  ");
         jLabel7.setMaximumSize(new java.awt.Dimension(500, 14));
         jLabel7.setPreferredSize(new java.awt.Dimension(500, 14));
@@ -191,7 +206,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,8 +380,11 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             //ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicaciones);
             //mapa.mostrarGraficoMapa(listaNodo, true);
 
-
-            ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
+           //ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
+           
+            
+            
+            
             
             
             //for(int u = 0;u<arrPallet.size();u++){
@@ -376,15 +394,27 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
               //  arrUbicacion.add(this.objUbicacionBE);
            // }
 
-              for(int i =0;i<arrUbicacion.size();i++){
-                UbicacionBL objUbicacionBL = new UbicacionBL();
-                objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
-                
-                 MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
-                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",null,arrUbicacion.get(i).getIdUbicacion(),objNotaIngresoBE.getFecha(),"Ingresado",arrPallet.get(i).getIdPallet(),idAlmacen,"admin");
-                
-                objMovimientoInternoBL.insertar(objMovimientoInternoBE);
-            }
+//                 PalletBL objPalletBL = new PalletBL();
+//            
+//            ArrayList<PalletBE> arrPallets = objPalletBL.getPalletByIdNotaIngreso(codigo);
+//             ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
+//             for(int i = 0;i<arrPallets.size();i++){
+//                 UbicacionBL objUbicacionBL = new UbicacionBL();
+//                 UbicacionBE objUbicacion = new UbicacionBE();
+//                 objUbicacion = objUbicacionBL.getUbicacionById(arrPallets.get(i).getIdUbicacion());
+//                 arrUbicacion.add(objUbicacion);
+//             }
+//                
+//                
+//              for(int i =0;i<arrUbicacion.size();i++){
+//                UbicacionBL objUbicacionBL = new UbicacionBL();
+//                objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
+//                
+//                 MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
+//                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",null,arrUbicacion.get(i).getIdUbicacion(),objNotaIngresoBE.getFecha(),"Ingresado",arrPallet.get(i).getIdPallet(),idAlmacen,"admin");
+//                
+//                objMovimientoInternoBL.insertar(objMovimientoInternoBE);
+//            }
               
               
               
@@ -409,8 +439,12 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
          }else{
           fila1 = tblNotaIngreso.getSelectedRow();
           String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();  
-         if(!estado.equals("Aprobado")){
+         if(estado.equals("Registrado")){
             JOptionPane.showMessageDialog(null, "La orden de entrega debe ser aprobada", "Mensaje",0);
+         }else if(estado.equals("Pendiente")){
+            JOptionPane.showMessageDialog(null, "La orden de entrega debe ser aprobada", "Mensaje",0);   
+         }else if(estado.equals("Ingresado")){
+            JOptionPane.showMessageDialog(null, "La orden de entrega ya ha sido ingresada", "Mensaje",0);
          }else{
               int fila;
             String codigo;
@@ -426,18 +460,22 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             
             idAlmacen = arrAlmacenes.get(0).getIdAlmacen();
   
+            NotaIngresoBL objNotaIngreso = new NotaIngresoBL(); 
+             NotaIngresoBE objNotaIngresoBE = objNotaIngreso.queryByIdNotaIngreso(codigo);
        //cambiar estado a ingresado     
             
-//            EstadoNIDA objEstadoNIDA = new EstadoNIDA();
-//            EstadoNIBE objEstadoNIBE = new EstadoNIBE();
-//            objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Ingresado");
-//            NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
-//            try {
-//                objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
-//            } catch (Exception ex) {
-//                Logger.getLogger(AdmOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//                tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
+            EstadoNIDA objEstadoNIDA = new EstadoNIDA();
+            EstadoNIBE objEstadoNIBE = new EstadoNIBE();
+            objEstadoNIBE = objEstadoNIDA.queryByDescripcionEstadoNI("Ingresado");
+            NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
+           
+            try {
+                objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
+            } catch (Exception ex) {
+                Logger.getLogger(AdmOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
+                
                 
             PalletBL objPalletBL = new PalletBL();
             
@@ -451,21 +489,84 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
              }
              
              //cambia ubicaciones a ocupado
-//            for(int i =0;i<arrUbicacion.size();i++){
-//                UbicacionBL objUbicacionBL = new UbicacionBL();
-//                objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
-//            }
+            for(int i =0;i<arrUbicacion.size();i++){
+                UbicacionBL objUbicacionBL = new UbicacionBL();
+                objUbicacionBL.ocuparUbicacion(arrUbicacion.get(i).getIdUbicacion());
+                
+                 MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
+                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",null,arrUbicacion.get(i).getIdUbicacion(),objNotaIngresoBE.getFecha(),"Ingresado",arrPallets.get(i).getIdPallet(),idAlmacen,"admin");
+                
+                objMovimientoInternoBL.insertar(objMovimientoInternoBE);
+            }
             
+              //Mapa mapa = new Mapa(arrAlmacenes.get(0));
+            
+            
+            //ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicacion);
+            //mapa.mostrarGraficoMapa(listaNodo, true);
+         }
+         }
+    }//GEN-LAST:event_lblIngresarMousePressed
+
+    private void lblRutaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRutaMousePressed
+        // TODO add your handling code here:
+         int fila1 = 0;
+         if((tblNotaIngreso.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una orden de entrega", "Mensaje",0);
+         } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una orden de entrega", "Mensaje",0);
+         }else{
+          fila1 = tblNotaIngreso.getSelectedRow();
+          String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();  
+         if(estado.equals("Registrado")){
+            JOptionPane.showMessageDialog(null, "La orden de entrega debe ser aprobada", "Mensaje",0);
+            
+         }else if(estado.equals("Pendiente")){
+            JOptionPane.showMessageDialog(null, "La orden de entrega debe ser aprobada", "Mensaje",0);   
+         }else{
+              int fila;
+            String codigo;
+            String identificador;
+            String idAlmacen;
+            fila = tblNotaIngreso.getSelectedRow();
+            codigo = (String)tblNotaIngreso.getValueAt(fila, 1);
+            
+             identificador = (String)tblNotaIngreso.getValueAt(fila, 0);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>(); 
+            arrAlmacenes = objAlmacenBL.buscar("", "", "1", "", "", "", identificador);
+            
+            idAlmacen = arrAlmacenes.get(0).getIdAlmacen();
+  
+          
+       //cambiar estado a ingresado     
+            
+                         
+            PalletBL objPalletBL = new PalletBL();
+            
+            ArrayList<PalletBE> arrPallets = objPalletBL.getPalletByIdNotaIngreso(codigo);
+             ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
+             for(int i = 0;i<arrPallets.size();i++){
+                 UbicacionBL objUbicacionBL = new UbicacionBL();
+                 UbicacionBE objUbicacion = new UbicacionBE();
+                 objUbicacion = objUbicacionBL.getUbicacionById(arrPallets.get(i).getIdUbicacion());
+                 arrUbicacion.add(objUbicacion);
+             }
+             
+                         
               Mapa mapa = new Mapa(arrAlmacenes.get(0));
             
             
             ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicacion);
             mapa.mostrarGraficoMapa(listaNodo, true);
-                     
-                  
-    }//GEN-LAST:event_lblIngresarMousePressed
-        }
-    }        
+         }
+         }
+    }//GEN-LAST:event_lblRutaMousePressed
+        
+   
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -512,6 +613,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel lblDetalle;
     private javax.swing.JLabel lblIngresar;
     private javax.swing.JLabel lblRefrescar;
+    private javax.swing.JLabel lblRuta;
     private javax.swing.JTable tblNotaIngreso;
     // End of variables declaration//GEN-END:variables
 
