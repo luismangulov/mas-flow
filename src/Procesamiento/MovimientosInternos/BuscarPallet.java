@@ -406,7 +406,7 @@ private void cbZonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
-        if (!cbZona.getSelectedItem().equals("")){
+        if (!cbZona.getSelectedItem().equals("Seleccione")){
             strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
             cargarComboRack(strIdZona);
         }
@@ -416,7 +416,7 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRackActionPerformed
     int intCantItem = cbRack.getItemCount() - 1;
     if (intCantItem > 0){
-        if (!cbRack.getSelectedItem().equals("")){
+        if (!cbRack.getSelectedItem().equals("Seleccione")){
             String strIdentificador = cbRack.getSelectedItem().toString();
             strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
             cargarComboUbicacion(strIdRack);

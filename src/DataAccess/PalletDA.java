@@ -91,7 +91,7 @@ public class PalletDA {
         }
         
         //se setea en 0 la ubicacion del pallet
-        query = "UPDATE PALLET SET idUbicacion = '000000' WHERE idPallet ='" + objPalletBE.getIdPallet() + "'";
+        query = "UPDATE PALLET SET idUbicacion = " + null + " WHERE idPallet ='" + objPalletBE.getIdPallet() + "'";
         
         try{
             objConexion.EjecutarUID(query);
@@ -407,6 +407,8 @@ public class PalletDA {
                 String strIdNotaIngreso = rs.getString("idNotaIngreso");
                 String strIdGuiaRemision = "";
                 if (rs.getObject("idGuiaRemision")!= null)
+//                Object obj =rs.getObject("idGuiaRemision");
+//                if (obj != null)
                     strIdGuiaRemision = rs.getString("idGuiaRemision");
                 
                 arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
@@ -424,7 +426,7 @@ public class PalletDA {
         objConexion = new conexion();        
         arrPallets = new ArrayList<PalletBE>();
         
-        query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento, p.idnotaingreso"
+        query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento, p.idnotaingreso, p.idguiaremision"
                 + " FROM PALLET p, UBICACION u, RACK r, ZONA z, ALMACEN a "
                 + " WHERE p.indactivo = '1' AND a.IdAlmacen = z.IdAlmacen AND z.IdZona = r.IdZona"
                 + " AND u.idRack = r.idrack AND u.idubicacion = p.idubicacion";
@@ -455,7 +457,8 @@ public class PalletDA {
                 String strIndActivo= rs.getString("IndActivo");
                 String strIdUbicacion = rs.getString("idUbicacion");
                 strIdAlmacen = rs.getString("idAlmacen");
-                dateFechaVencimiento = rs.getDate("FechaVencimiento");
+                if (rs.getObject("FechaVencimiento") != null)
+                    dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 strIdNotaIngreso = rs.getString("idNotaIngreso");
                 String strIdGuiaRemision = "";
                 if (rs.getObject("idGuiaRemision")!= null)
@@ -493,7 +496,7 @@ public class PalletDA {
                 String strIndActivo= rs.getString("IndActivo");
                 String strIdUbicacion = rs.getString("idUbicacion");
                 String strIdAlmacen = rs.getString("idAlmacen");
-                if (rs.getDate("FechaVencimiento") != null)
+                if (rs.getObject("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 strIdNotaIngreso = rs.getString("idNotaIngreso");
                 String strIdGuiaRemision = "";
@@ -513,7 +516,7 @@ public class PalletDA {
         return arrPallets;
     }
     
-        public boolean liberarPallet(String strIdPallet) {
+    public boolean liberarPallet(String strIdPallet) {
         
         boolean exito = false;
         objConexion = new conexion();

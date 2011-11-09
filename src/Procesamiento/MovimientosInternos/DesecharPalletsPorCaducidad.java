@@ -15,6 +15,7 @@ import BusinessEntity.AlmacenBE;
 import BusinessEntity.MovimientoInternoBE;
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
+import BusinessEntity.UsuarioSistema;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.MovimientoInternoBL;
 import BusinessLogic.PalletBL;
@@ -262,7 +263,7 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
     DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();
     
     for (int i=0; i<modelo.getRowCount(); i++){
-        JOptionPane.showMessageDialog(null, "wa");
+        
         strIdUbicacion = modelo.getValueAt(i,0).toString();
         strIdPallet = modelo.getValueAt(i,1).toString();
         strIdProducto = objProductoBL.getByNombreProducto(modelo.getValueAt(i, 2).toString()).getIdProducto();
@@ -270,19 +271,19 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
         objPalletBE.setIdPallet(strIdPallet);
         objPalletBE.setIdProducto(strIdProducto);
         objPalletBE.setIdUbicacion(strIdUbicacion);
-        objPalletBE.setIndActivo("2");
+        objPalletBE.setIndActivo("3");
         objPalletBE.setFechaVencimiento(null);
         objPalletBE.setIdAlmacen(strIdAlmacen);
         
         objPalletBL.desechar(objPalletBE);
         
-        String strIdUsuario = "000001";
+        String strIdUsuario = UsuarioSistema.usuario.getIdUsuario();
         
-        objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacion, "000000", fecha,strMotivo, strIdPallet, strIdAlmacen, strIdUsuario);
+        objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacion, null, fecha,strMotivo, strIdPallet, strIdAlmacen, strIdUsuario);
         objMovimientoInternoBL.insertar(objMovimientoInternoBE);
         arrMovimientosInternos.add(objMovimientoInternoBE);
         
-        if (arrMovimientosInternos!=null){
+        if (arrMovimientosInternos.size()>0){
             ventanaPadre.llenarDgv(arrMovimientosInternos);
             this.dispose();
         }

@@ -229,7 +229,7 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
-        if (!cbZona.getSelectedItem().equals("")){
+        if (!cbZona.getSelectedItem().equals("Seleccione")){
             strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
             cargarComboRack(strIdZona);
         }
@@ -241,7 +241,7 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     
     int intCantItem = cbRack.getItemCount() - 1;
     if (intCantItem > 0){
-        if (!cbRack.getSelectedItem().equals("")){
+        if (!cbRack.getSelectedItem().equals("Seleccione")){
             String strIdentificador = cbRack.getSelectedItem().toString();
             strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
             cargarComboUbicacion(strIdRack);
@@ -343,12 +343,11 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         cbZona.removeAllItems();
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
-        cbZona.addItem("");
+        cbZona.addItem("Seleccione");
         cbRack.addItem("");
         cbUbicacion.addItem(""); 
 
-        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
-        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+        ArrayList<ZonaBE> arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
         
         if (arrZonas != null)
             for(ZonaBE zona : arrZonas)
@@ -360,15 +359,14 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         
         cbRack.removeAllItems();        
         cbUbicacion.removeAllItems();
-        cbRack.addItem("");
+        cbRack.addItem("Seleccione");
         cbUbicacion.addItem(""); 
                
-        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
-        arrRacks = objRackBL.getRacksByZona(idZona);
+        ArrayList<RackBE> arrRacks = objRackBL.getRacksByZona(idZona);
         
         if (arrRacks != null)
             for(RackBE rack : arrRacks)
-                cbRack.addItem(rack.getIdentificador().trim());
+                cbRack.addItem(rack.getIdentificador());
         
     }
     
