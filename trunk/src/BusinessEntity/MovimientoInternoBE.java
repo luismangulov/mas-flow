@@ -19,11 +19,13 @@ public class MovimientoInternoBE {
     private String descripcion;
     private String idPallet;
     private String idAlmacen;
+    private String idUsuario;
+
 
     public MovimientoInternoBE() {
     }
 
-    public MovimientoInternoBE(String idMovimiento, String idUbicacionOrigen, String idUbicacionDestino, Date fecha, String descripcion, String idPallet, String idAlmacen) {
+    public MovimientoInternoBE(String idMovimiento, String idUbicacionOrigen, String idUbicacionDestino, Date fecha, String descripcion, String idPallet, String idAlmacen,String idUsuario) {
         this.idMovimiento = idMovimiento;
         this.idUbicacionOrigen = idUbicacionOrigen;
         this.idUbicacionDestino = idUbicacionDestino;
@@ -31,7 +33,7 @@ public class MovimientoInternoBE {
         this.descripcion = descripcion;
         this.idPallet = idPallet;
         this.idAlmacen = idAlmacen;
-                
+        this.idUsuario = idUsuario;           
     }
 
     public Date getFecha() {
@@ -88,6 +90,14 @@ public class MovimientoInternoBE {
 
     public void setIdAlmacen(String idAlmacen) {
         this.idAlmacen = idAlmacen;
+    }
+    
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     

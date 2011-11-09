@@ -45,14 +45,15 @@ public class PalletDA {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        query = "INSERT INTO PALLET(idPallet,idProducto,indActivo,idUbicacion,idAlmacen,fechaVencimiento, idNotaIngreso) VALUES("
+        query = "INSERT INTO PALLET(idPallet,idProducto,indActivo,idUbicacion,idAlmacen,fechaVencimiento, idNotaIngreso, idGuiaRemision) VALUES("
                 + "'" +objPallet.getIdPallet()+"',"
                 + "'" +objPallet.getIdProducto()+"',"
                 + "'" +objPallet.getIndActivo()+"',"
                 + "'" +objPallet.getIdUbicacion()+"',"
                 + "'" +objPallet.getIdAlmacen()+"', "
                 + "'" +objPallet.getFechaVencimiento()+"',"
-                + "'" +objPallet.getIdNotaIngreso()+"')";
+                + "'" +objPallet.getIdNotaIngreso()+"'"
+                + "'" +objPallet.getIdGuiaRemision()+"')";
                                 
         try{
             objConexion.EjecutarUID(query);
@@ -111,15 +112,18 @@ public class PalletDA {
         
         try {
             rs.next();
-//            String strIdPallet = rs.getString("IdPallet");
+            strIdPallet = rs.getString("IdPallet");
             String strIdProducto = rs.getString("IdProducto");
             String strIndActivo= rs.getString("IndActivo");
             String strIdUbicacion = rs.getString("idUbicacion");
             String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             String strIdNotaIngreso = rs.getString("idNotaIngreso");
+            String strIdGuiaRemision = "";
+            if (rs.getObject("idGuiaRemision") != null)
+                strIdGuiaRemision = rs.getString("idGuiaRemision");
             
-            objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso);
+            objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision);
                 
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,8 +150,11 @@ public class PalletDA {
             String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             String strIdNotaIngreso = rs.getString("idNotaIngreso");
+            String strIdGuiaRemision = "";
+            if (rs.getObject("idGuiaRemision")!= null)
+                strIdGuiaRemision = rs.getString("idGuiaRemision");
             
-            arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+            arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
             
             }
         } catch (SQLException ex) {
@@ -175,8 +182,11 @@ public class PalletDA {
             String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             String strIdNotaIngreso = rs.getString("idNotaIngreso");
+            String strIdGuiaRemision = "";
+            if (rs.getObject("idGuiaRemision")!= null)
+                strIdGuiaRemision = rs.getString("idGuiaRemision");
             
-            arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+            arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
             
             }
         } catch (SQLException ex) {
@@ -217,8 +227,11 @@ public class PalletDA {
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 String strIdNotaIngreso = rs.getString("idNotaIngreso");
+                String strIdGuiaRemision = "";
+                if (rs.getObject("idGuiaRemision")!= null)
+                    strIdGuiaRemision = rs.getString("idGuiaRemision");;
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,8 +258,11 @@ public class PalletDA {
             String strIdAlmacen = rs.getString("idAlmacen");
             Date dateFechaVencimiento = rs.getDate("FechaVencimiento");
             String strIdNotaIngreso = rs.getString("idNotaIngreso");
+            String strIdGuiaRemision = "";
+            if (rs.getObject("idGuiaRemision")!= null)
+                strIdGuiaRemision = rs.getString("idGuiaRemision");
             
-            objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso);
+            objPalletBE = new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision);
                        
         } catch (SQLException ex) {
 //            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", 0);
@@ -279,8 +295,11 @@ public class PalletDA {
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 String strIdNotaIngreso = rs.getString("idNotaIngreso");
+                String strIdGuiaRemision = "";
+                if (rs.getObject("idGuiaRemision")!= null)
+                    strIdGuiaRemision = rs.getString("idGuiaRemision");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,8 +332,11 @@ public class PalletDA {
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 String strIdNotaIngreso = rs.getString("idNotaIngreso");
+                String strIdGuiaRemision = "";
+                if (rs.getObject("idGuiaRemision")!= null)
+                    strIdGuiaRemision = rs.getString("idGuiaRemision");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -348,8 +370,11 @@ public class PalletDA {
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 String strIdNotaIngreso = rs.getString("idNotaIngreso");
+                String strIdGuiaRemision = "";
+                if (rs.getObject("idGuiaRemision")!= null)
+                    strIdGuiaRemision = rs.getString("idGuiaRemision");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -380,8 +405,11 @@ public class PalletDA {
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 String strIdNotaIngreso = rs.getString("idNotaIngreso");
+                String strIdGuiaRemision = "";
+                if (rs.getObject("idGuiaRemision")!= null)
+                    strIdGuiaRemision = rs.getString("idGuiaRemision");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -429,8 +457,11 @@ public class PalletDA {
                 strIdAlmacen = rs.getString("idAlmacen");
                 dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 strIdNotaIngreso = rs.getString("idNotaIngreso");
+                String strIdGuiaRemision = "";
+                if (rs.getObject("idGuiaRemision")!= null)
+                    strIdGuiaRemision = rs.getString("idGuiaRemision");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
             }
             
             
@@ -465,8 +496,11 @@ public class PalletDA {
                 if (rs.getDate("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
                 strIdNotaIngreso = rs.getString("idNotaIngreso");
+                String strIdGuiaRemision = "";
+                if (rs.getObject("idGuiaRemision")!= null)
+                    strIdGuiaRemision = rs.getString("idGuiaRemision");
                 
-                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso));
+                arrPallets.add(new PalletBE(strIdPallet,strIdProducto,strIndActivo,strIdUbicacion,strIdAlmacen,dateFechaVencimiento,strIdNotaIngreso,strIdGuiaRemision));
             }
             
             
@@ -477,6 +511,66 @@ public class PalletDA {
         }
         
         return arrPallets;
+    }
+    
+        public boolean liberarPallet(String strIdPallet) {
+        
+        boolean exito = false;
+        objConexion = new conexion();
+        
+        // se setea la disponibilidad "1" de la ubicacion anterior
+        query = "UPDATE UBICACION SET indActivo = '1' WHERE idUbicacion = '" + strIdPallet + "'";
+        
+        try{
+            objConexion.EjecutarUID(query);
+            exito = true;
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+            exito = false;
+        }
+        finally{objConexion.SalirUID();}
+        
+        return exito;
+    }
+    
+    public boolean asociarUbicacionAPallet(String strIdPallet, String strIdUbicacion){
+        
+        boolean exito = false;
+        objConexion = new conexion();
+        // se asocia el pallet a la ubicacion destino
+        query = "UPDATE PALLET SET idUbicacion = '" + strIdUbicacion + "' WHERE idPallet ='" + strIdPallet+"'";
+
+        try{
+            objConexion.EjecutarUID(query);
+            exito = true;
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+            exito = false;
+        }
+        finally{objConexion.SalirUID();}
+        
+        return exito;
+
+    }
+
+    public boolean ocuparUbicacion(String strIdUbicacion){
+        
+        boolean exito = false;
+        objConexion = new conexion();
+        // se cambia el estado de la ubicacion destino a en uso
+        query = "UPDATE UBICACION SET indActivo = '2' WHERE idUbicacion ='" + strIdUbicacion +"'";
+
+        try{
+            objConexion.EjecutarUID(query);
+            exito = true;
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+            exito = false;
+        }
+        finally{objConexion.SalirUID();}
+
+        return exito;
+        
     }
 
 }

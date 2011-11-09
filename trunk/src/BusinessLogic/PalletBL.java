@@ -75,5 +75,20 @@ public class PalletBL {
         return objPalletDA.queryPalletByIdNotaIngreso(strIdNotaIngreso);
     }
     
+    public boolean liberarPallet(String strIdPallet) {
+        objPalletDA = new PalletDA();
+        return objPalletDA.liberarPallet(strIdPallet);
+    }
+    
+    public boolean asociarUbicacionAPallet(String strIdPallet, String strIdUbicacion){
+        objPalletDA = new PalletDA();
+        return objPalletDA.asociarUbicacionAPallet(strIdPallet, strIdUbicacion);
+    }
+    
+    public boolean ocuparUbicacion(String strIdUbicacion){
+        objPalletDA = new PalletDA();
+        return objPalletDA.ocuparUbicacion(strIdUbicacion);
+    }
+    
     
 }
