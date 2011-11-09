@@ -5,6 +5,7 @@
 
 package masflow;
 
+import CargaMasiva.CargaMasiva;
 import Mantenimientos.Almacen.AdmAlmacen;
 import Seguridad.Login;
 import Seguridad.Perfil.AdmPerfil;
@@ -20,7 +21,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
         // TODO code application logic here
         Login L = new Login();
         L.setVisible(true);
