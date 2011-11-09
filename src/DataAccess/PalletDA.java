@@ -45,14 +45,14 @@ public class PalletDA {
             Logger.getLogger(RackDA.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        query = "INSERT INTO PALLET(idPallet,idProducto,indActivo,idUbicacion,idAlmacen,fechaVencimiento, idNotaIngreso, idGuiaRemision) VALUES("
+        query = "INSERT INTO PALLET(idPallet,idNotaIngreso,idProducto,idUbicacion,idAlmacen,indActivo,fechaVencimiento,  idGuiaRemision) VALUES("
                 + "'" +objPallet.getIdPallet()+"',"
+                + "'" +objPallet.getIdNotaIngreso()+"',"
                 + "'" +objPallet.getIdProducto()+"',"
-                + "'" +objPallet.getIndActivo()+"',"
                 + "'" +objPallet.getIdUbicacion()+"',"
                 + "'" +objPallet.getIdAlmacen()+"', "
+                + "'" +objPallet.getIndActivo()+"',"
                 + "'" +objPallet.getFechaVencimiento()+"',"
-                + "'" +objPallet.getIdNotaIngreso()+"'"
                 + "'" +objPallet.getIdGuiaRemision()+"')";
                                 
         try{
