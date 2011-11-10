@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28">
 	<property name="ireport.zoom" value="1.1000000000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="43"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="desdeProducto" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -38,7 +38,9 @@
   ubDestino.fila as filaDestino, 
   ubDestino.columna as colDestino,
   rackOrigen.identificador as rOrigen,
-  rackdestino.identificador as rDestino 
+  rackdestino.identificador as rDestino,
+  pallet.idnotaingreso,
+  pallet.idguiaremision
 FROM 
   public.almacen, 
   public.producto, 
@@ -49,6 +51,7 @@ FROM
   left outer join public.ubicacion as ubDestino on ubDestino.idubicacion=movimientointerno.idubicaciondestino
   left outer join public.rack as rackOrigen on rackOrigen.idrack=ubOrigen.idrack
   left outer join public.rack as rackDestino on rackDestino.idrack=ubDestino.idrack
+
 WHERE 
   producto.idproducto = pallet.idproducto AND
   pallet.idalmacen = almacen.idalmacen AND
@@ -80,6 +83,8 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 	<field name="coldestino" class="java.math.BigDecimal"/>
 	<field name="rorigen" class="java.lang.String"/>
 	<field name="rdestino" class="java.lang.String"/>
+	<field name="idnotaingreso" class="java.lang.String"/>
+	<field name="idguiaremision" class="java.lang.String"/>
 	<variable name="cant_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Pallet" calculation="Sum">
 		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
 	</variable>
@@ -160,14 +165,14 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 					<text><![CDATA[Operación]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="162" y="15" width="83" height="20"/>
+					<reportElement x="241" y="15" width="83" height="20"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Ubicación Inicial]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="257" y="15" width="82" height="20"/>
+					<reportElement x="336" y="15" width="82" height="20"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>
@@ -180,6 +185,13 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 					</textElement>
 					<textFieldExpression><![CDATA["PALLET "+ $F{idpallet}+":"]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="160" y="14" width="58" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Documento]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -271,14 +283,20 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 				<textFieldExpression><![CDATA[$F{operacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="162" y="0" width="83" height="18"/>
+				<reportElement x="241" y="0" width="83" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[(($F{filaorigen}==null)? "-" : $F{rorigen}+"-F"+$F{filaorigen}+"C"+$F{colorigen})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="257" y="0" width="82" height="18"/>
+				<reportElement x="336" y="0" width="82" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[(($F{filadestino}==null)? "-" : $F{rdestino}+"-F"+$F{filadestino}+"C"+$F{coldestino})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="80" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[($F{operacion}.equals("Ingresado"))? "OE - "+$F{idnotaingreso}:
+ ($F{operacion}.equals("Despachado"))? "GR - "+$F{idguiaremision}:""]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -288,7 +306,7 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 	<pageFooter>
 		<band height="36" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="0" width="555" height="1"/>
+				<reportElement x="0" y="0" width="539" height="1"/>
 			</line>
 			<staticText>
 				<reportElement x="14" y="0" width="238" height="20"/>

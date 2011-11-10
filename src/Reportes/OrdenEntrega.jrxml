@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28">
+	<property name="ireport.zoom" value="1.1000000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="Orden" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+  detallenotaingreso.iddetallenotaingreso, 
+  notaingreso.idnotaingreso, 
+  notaingreso.fecha,
+  detallenotaingreso.idproducto, 
+  detallenotaingreso.cantidad, 
+  unidadmedida.nombre as unidadmedida, 
+  producto.nombre as producto, 
+  detallenotaingreso.fechavencimiento, 
+  almacen.nombre, 
+  almacen.identificador, 
+  almacen.direccion as almacenDir, 
+  estadoni.descripcion as estado, 
+  entidad.nrodocumento, 
+  entidad.direccion as dirEntidad, 
+  entidad.telefono, 
+  entidad.razonsocial,
+  provincia.descripcion as provincia,
+  distrito.descripcion as distrito,
+  departamento.descripcion as departamento
+FROM 
+  public.detallenotaingreso, 
+  public.notaingreso, 
+  public.almacen, 
+  public.producto, 
+  public.unidadmedida, 
+  public.estadoni, 
+  public.entidad, 
+  public.departamento, 
+  public.distrito, 
+  public.provincia
+WHERE 
+  notaingreso.idnotaingreso = detallenotaingreso.idnotaingreso AND
+  almacen.idalmacen = notaingreso.idalmacen AND
+  almacen.iddistrito = distrito.iddistrito AND
+  almacen.idprovincia = distrito.idprovincia AND
+  almacen.iddepartamento = distrito.iddepartamento AND
+  producto.idproducto = detallenotaingreso.idproducto AND
+  unidadmedida.idunidadmedida = producto.idunidadmedida AND
+  estadoni.idestadoni = notaingreso.idestadoni AND
+  entidad.identidad = notaingreso.identidad AND
+  distrito.idprovincia = provincia.idprovincia AND
+  distrito.iddepartamento = provincia.iddepartamento AND
+  provincia.iddepartamento = departamento.iddepartamento AND
+  notaingreso.idnotaingreso = $P{Orden};]]>
+	</queryString>
+	<field name="iddetallenotaingreso" class="java.lang.String"/>
+	<field name="idnotaingreso" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="idproducto" class="java.lang.String"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="unidadmedida" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="fechavencimiento" class="java.sql.Date"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="identificador" class="java.lang.String"/>
+	<field name="almacendir" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="nrodocumento" class="java.lang.String"/>
+	<field name="direntidad" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="razonsocial" class="java.lang.String"/>
+	<field name="provincia" class="java.lang.String"/>
+	<field name="distrito" class="java.lang.String"/>
+	<field name="departamento" class="java.lang.String"/>
+	<group name="Almacen">
+		<groupExpression><![CDATA[$F{idalmacen}]]></groupExpression>
+		<groupFooter>
+			<band height="12"/>
+		</groupFooter>
+	</group>
+	<group name="Orden">
+		<groupExpression><![CDATA[$F{idnotaingreso}]]></groupExpression>
+		<groupHeader>
+			<band height="102">
+				<staticText>
+					<reportElement x="14" y="81" width="149" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="325" y="81" width="58" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="397" y="81" width="58" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Unidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="14" y="34" width="61" height="20"/>
+					<textElement markup="none">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Proveedor:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="75" y="34" width="464" height="20"/>
+					<textElement markup="none">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nrodocumento} + " - " +$F{razonsocial}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="75" y="49" width="464" height="20"/>
+					<textElement markup="none">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{direntidad}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="466" y="81" width="58" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Venc.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="0" y="0" width="539" height="35" forecolor="#FFFFFF" backcolor="#CCCCFF"/>
+				</rectangle>
+				<textField>
+					<reportElement x="105" y="0" width="133" height="20"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{almacen}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="75" y="0" width="19" height="20"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{idalmacen}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="94" y="0" width="6" height="20"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[-]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="14" y="0" width="61" height="20"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Almacén:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="75" y="15" width="464" height="20"/>
+					<textElement markup="none">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{almacendir}+" "+ $F{distrito}+", "+
+ $F{provincia}+", "+$F{departamento}+ " - PERÚ"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="45" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="539" height="45" forecolor="#6C86AF" backcolor="#6C86AF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="437" y="30" width="35" height="5" forecolor="#6C86AF" backcolor="#6C86AF"/>
+			</rectangle>
+			<textField>
+				<reportElement x="14" y="10" width="390" height="34" forecolor="#FFFFFF"/>
+				<textElement markup="none">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Orden de Entrega - "+$P{Orden}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="539" height="20" forecolor="#6C86AF" backcolor="#6C86AF"/>
+			</rectangle>
+			<textField>
+				<reportElement x="14" y="0" width="366" height="20" forecolor="#FFFFFF"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="395" y="1" width="144" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="57" y="0" width="89" height="15"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="0" width="35" height="15"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idproducto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="49" y="0" width="8" height="15"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="397" y="0" width="58" height="15"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidadmedida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="466" y="0" width="58" height="15"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechavencimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="1" width="58" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="539" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="14" y="0" width="257" height="20"/>
+				<textElement textAlignment="Left" markup="none"/>
+				<textFieldExpression><![CDATA["Sistemas +Flow - Orden de Entrega" + $P{Orden}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="1" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pág. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="484" y="1" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
