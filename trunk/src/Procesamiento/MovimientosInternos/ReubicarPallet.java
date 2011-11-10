@@ -504,7 +504,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
         else{
         if (objPalletBL.liberarPallet(objMovimientoInternoBE.getIdUbicacionOrigen()))
-            if (objPalletBL.asociarUbicacionAPallet(objMovimientoInternoBE.getIdUbicacionOrigen(), objMovimientoInternoBE.getIdPallet()))
+            if (objPalletBL.asociarUbicacionAPallet(objMovimientoInternoBE.getIdPallet(),objMovimientoInternoBE.getIdUbicacionDestino()))
                 boolExito = objUbicacionBL.ocuparUbicacion(objMovimientoInternoBE.getIdUbicacionDestino());
         
             if (boolExito){

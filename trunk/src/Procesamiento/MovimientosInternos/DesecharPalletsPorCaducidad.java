@@ -38,7 +38,6 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
     /** Creates new form DesecharPalletsPorCaducidad */
 
     AdmMovimientosInternos ventanaPadre;
-    ArrayList<PalletBE> arrPallets;
     
     AlmacenBL objAlmacenBL = new AlmacenBL();
     MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
@@ -51,6 +50,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
     ArrayList<MovimientoInternoBE> arrMovimientosInternos = new ArrayList<MovimientoInternoBE>();
     ArrayList<String> arrIdAlmacenes = new ArrayList<String>();
     ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
+    ArrayList<PalletBE> arrPallets = new ArrayList<PalletBE>();
     
     Date fecha;
     
@@ -262,8 +262,14 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
     fecha = jdcFecha.getDate();
     DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();
     
-    for (int i=0; i<modelo.getRowCount(); i++){
+    int intCantFilas = dgvPallets.getSelectedRowCount();
+    String strIdUsuario = UsuarioSistema.usuario.getIdUsuario();
+    int intFila = dgvPallets.getSelectedRow();
+    
+    for (int i = intFila ; i<intFila+intCantFilas; i++){
         
+//        JOptionPane.showMessageDialog(null, modelo.getRowCount());
+
         strIdUbicacion = modelo.getValueAt(i,0).toString();
         strIdPallet = modelo.getValueAt(i,1).toString();
         strIdProducto = objProductoBL.getByNombreProducto(modelo.getValueAt(i, 2).toString()).getIdProducto();
@@ -275,23 +281,27 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
         objPalletBE.setFechaVencimiento(null);
         objPalletBE.setIdAlmacen(strIdAlmacen);
         
-        objPalletBL.desechar(objPalletBE);
-        
-        String strIdUsuario = UsuarioSistema.usuario.getIdUsuario();
-        
+        arrPallets.add(objPalletBE);
+
         objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacion, null, fecha,strMotivo, strIdPallet, strIdAlmacen, strIdUsuario);
-        objMovimientoInternoBL.insertar(objMovimientoInternoBE);
-        arrMovimientosInternos.add(objMovimientoInternoBE);
         
-        if (arrMovimientosInternos.size()>0){
-            ventanaPadre.llenarDgv(arrMovimientosInternos);
-            this.dispose();
-        }
-        else 
-            JOptionPane.showMessageDialog(null, "Error");
+        arrMovimientosInternos.add(objMovimientoInternoBE);
 
     }
     
+    for (PalletBE palletBE : arrPallets)
+        objPalletBL.desechar(palletBE);
+    
+    for (MovimientoInternoBE movimientoInternoBE : arrMovimientosInternos)
+        objMovimientoInternoBL.insertar(objMovimientoInternoBE);
+
+    if (arrMovimientosInternos.size()>0){
+        ventanaPadre.llenarDgv(arrMovimientosInternos);
+        this.dispose();
+    }
+    else 
+        JOptionPane.showMessageDialog(null, "Error");
+
 }//GEN-LAST:event_btnDesecharMouseClicked
 
 private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
@@ -302,12 +312,12 @@ private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_lblAddMouseClicked
 
     private void txtMotivoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMotivoKeyTyped
-    char c = (char)evt.getKeyChar();
-    if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
-       evt.consume();
-    if ((this.txtMotivo.getText().length() + 1) > 30) {
-       evt.consume();
-    }
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+           evt.consume();
+        if ((this.txtMotivo.getText().length() + 1) > 30) {
+           evt.consume();
+        }
     }//GEN-LAST:event_txtMotivoKeyTyped
 
     private void lblRemoverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverMouseClicked
