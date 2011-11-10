@@ -90,4 +90,9 @@ public class PalletBL {
         return objPalletDA.despacharPallet(strIdPallet);
     }
     
+    public boolean asociarGuiaRemision(String strIdPallet, String strIdGuiaRemision){
+        objPalletDA = new PalletDA();
+        return objPalletDA.asociarGuiaRemision(strIdPallet, strIdGuiaRemision);
+    }
+    
 }
