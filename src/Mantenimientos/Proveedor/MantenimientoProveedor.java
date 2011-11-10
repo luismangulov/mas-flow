@@ -86,7 +86,7 @@ public class MantenimientoProveedor extends javax.swing.JFrame {
 
         if (proveedor.getIdCIUU() == null ? "" != null : !proveedor.getIdCIUU().equals(""))
                 cmbCIUU.setSelectedItem(CIUU.getIdCIUU() + " - " + CIUU.getDescripcion());
-        else cmbCIUU.setSelectedIndex(0);
+        else cmbCIUU.setSelectedIndex(-1);
 
         if (proveedor.getIndActivo().equals("1")){
             cbxActivo.setSelected(true);

@@ -86,7 +86,7 @@ public class MantenimientoCliente extends javax.swing.JFrame {
         CIUUBE CIUU = CIUUDA.getCIUU(cliente.getIdCIUU());
         if (cliente.getIdCIUU() == null ? "" != null : !cliente.getIdCIUU().equals(""))
                 cmbCIUU.setSelectedItem(CIUU.getIdCIUU() + " - " + CIUU.getDescripcion());
-        else cmbCIUU.setSelectedIndex(0);
+        else cmbCIUU.setSelectedIndex(-1);
 
         if (cliente.getIndActivo().equals("1")){
             cbxActivo.setSelected(true);
