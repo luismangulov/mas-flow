@@ -194,7 +194,7 @@ ORDER BY  almacen.identificador, producto.idproducto;]]>
 	<pageFooter>
 		<band height="36" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="0" width="555" height="1"/>
+				<reportElement x="0" y="0" width="539" height="1"/>
 			</line>
 			<staticText>
 				<reportElement x="14" y="0" width="221" height="20"/>

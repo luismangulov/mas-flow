@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28">
 	<property name="ireport.zoom" value="1.1000000000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="41"/>
-	<parameter name="desdeProducto" class="java.lang.String">
+	<property name="ireport.y" value="0"/>
+	<parameter name="desdeUsuario" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="hastaProducto" class="java.lang.String"/>
-	<parameter name="hastaAlmacen" class="java.lang.String"/>
-	<parameter name="desdeAlmacen" class="java.lang.String"/>
-	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="hastaUsuario" class="java.lang.String"/>
+	<parameter name="hastaFecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<parameter name="desdeFecha" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="hastaFecha" class="java.util.Date">
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="desdeAlmacen" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hastaAlmacen" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="desdePallet" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hastaPallet" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -24,6 +34,7 @@
   producto.nombre as Producto, 
   producto.maxcantporpallet as cant, 
   unidadmedida.nombre as UnidadMedida,
+  pallet.idpallet,
   movimientointerno.fecha,
   movimientointerno.descripcion as operacion,
   ubOrigen.fila as filaOrigen,
@@ -31,7 +42,8 @@
   ubDestino.fila as filaDestino, 
   ubDestino.columna as colDestino,
   rackOrigen.identificador as rOrigen,
-  rackdestino.identificador as rDestino 
+  rackdestino.identificador as rDestino,
+  movimientointerno.idusuario
 FROM 
   public.almacen, 
   public.producto, 
@@ -42,19 +54,20 @@ FROM
   left outer join public.ubicacion as ubDestino on ubDestino.idubicacion=movimientointerno.idubicaciondestino
   left outer join public.rack as rackOrigen on rackOrigen.idrack=ubOrigen.idrack
   left outer join public.rack as rackDestino on rackDestino.idrack=ubDestino.idrack
+
 WHERE 
   producto.idproducto = pallet.idproducto AND
   pallet.idalmacen = almacen.idalmacen AND
   unidadmedida.idunidadmedida = producto.idunidadmedida AND
   movimientointerno.idpallet = pallet.idpallet AND
-  producto.idproducto >= $P{desdeProducto} AND
-  producto.idproducto <= $P{hastaProducto} AND
   almacen.idalmacen >= $P{desdeAlmacen} AND
   almacen.idalmacen <= $P{hastaAlmacen} AND
   movimientointerno.fecha >= $P{desdeFecha} AND
-  movimientointerno.fecha <= $P{hastaFecha} 
+  movimientointerno.fecha <= $P{hastaFecha} AND
+  pallet.idpallet >= $P{desdePallet} AND
+  pallet.idpallet <= $P{hastaPallet}
 
-ORDER BY  almacen.identificador, producto.idproducto, movimientointerno.fecha;;]]>
+ORDER BY  movimientointerno.fecha, movimientointerno.idmovimientointerno;]]>
 	</queryString>
 	<field name="idalmacen" class="java.lang.String"/>
 	<field name="almacen" class="java.lang.String"/>
@@ -62,6 +75,7 @@ ORDER BY  almacen.identificador, producto.idproducto, movimientointerno.fecha;;]
 	<field name="producto" class="java.lang.String"/>
 	<field name="cant" class="java.math.BigDecimal"/>
 	<field name="unidadmedida" class="java.lang.String"/>
+	<field name="idpallet" class="java.lang.String"/>
 	<field name="fecha" class="java.sql.Date"/>
 	<field name="operacion" class="java.lang.String"/>
 	<field name="filaorigen" class="java.math.BigDecimal"/>
@@ -70,117 +84,88 @@ ORDER BY  almacen.identificador, producto.idproducto, movimientointerno.fecha;;]
 	<field name="coldestino" class="java.math.BigDecimal"/>
 	<field name="rorigen" class="java.lang.String"/>
 	<field name="rdestino" class="java.lang.String"/>
-	<variable name="cant_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Producto" calculation="Sum">
-		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
-	</variable>
-	<group name="Almacen">
-		<groupExpression><![CDATA[$F{idalmacen}]]></groupExpression>
+	<field name="idusuario" class="java.lang.String"/>
+	<group name="Fecha">
+		<groupExpression><![CDATA[$F{fecha}]]></groupExpression>
 		<groupHeader>
-			<band height="22">
+			<band height="40">
 				<rectangle>
-					<reportElement x="0" y="0" width="539" height="16" forecolor="#FFFFFF" backcolor="#CCCCFF"/>
+					<reportElement x="0" y="0" width="786" height="16" forecolor="#FFFFFF" backcolor="#CCCCFF"/>
 				</rectangle>
-				<textField>
-					<reportElement x="44" y="0" width="133" height="20"/>
+				<textField pattern="dd-MMM-yy">
+					<reportElement x="14" y="0" width="149" height="20" printWhenGroupChanges="Fecha"/>
 					<textElement>
 						<font size="11" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{almacen}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="14" y="0" width="19" height="20"/>
-					<textElement>
-						<font size="11" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{idalmacen}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="33" y="0" width="6" height="20"/>
-					<textElement textAlignment="Right">
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[-]]></text>
-				</staticText>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="12"/>
-		</groupFooter>
-	</group>
-	<group name="Producto">
-		<groupExpression><![CDATA[$F{idproducto}]]></groupExpression>
-		<groupHeader>
-			<band height="39">
-				<rectangle>
-					<reportElement x="0" y="0" width="539" height="14" forecolor="#FFFFFF" backcolor="#EBEBFF"/>
-				</rectangle>
-				<textField>
-					<reportElement x="24" y="0" width="35" height="15"/>
+					<reportElement x="14" y="20" width="78" height="20"/>
 					<textElement>
-						<font size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{idproducto}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="59" y="0" width="8" height="15"/>
-					<textElement>
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[-]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="67" y="0" width="89" height="15"/>
-					<textElement>
-						<font size="10" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{producto}.toUpperCase()]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="14" y="15" width="53" height="20"/>
-					<textElement verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>
-					<text><![CDATA[Fecha]]></text>
+					<text><![CDATA[Usuario]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="167" y="15" width="58" height="20"/>
-					<textElement verticalAlignment="Middle">
+					<reportElement x="195" y="20" width="59" height="20"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Pallet]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="383" y="20" width="57" height="20"/>
+					<textElement>
 						<font isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Cantidad]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="225" y="15" width="58" height="20"/>
-					<textElement verticalAlignment="Middle">
+					<reportElement x="254" y="20" width="100" height="20"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="435" y="20" width="67" height="20"/>
+					<textElement>
 						<font isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Unidad]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="77" y="15" width="58" height="20"/>
-					<textElement verticalAlignment="Middle">
+					<reportElement x="508" y="20" width="67" height="20"/>
+					<textElement>
 						<font isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Operación]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="287" y="15" width="81" height="20"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<reportElement x="91" y="20" width="78" height="20"/>
+					<textElement>
 						<font isUnderline="true"/>
 					</textElement>
-					<text><![CDATA[Ubicación Inicial]]></text>
+					<text><![CDATA[Almacén]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="379" y="15" width="81" height="20"/>
+					<reportElement x="686" y="20" width="82" height="20"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Ubicación Final]]></text>
 				</staticText>
+				<staticText>
+					<reportElement x="591" y="20" width="83" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Ubicación Inicial]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="8"/>
+			<band height="12"/>
 		</groupFooter>
 	</group>
 	<background>
@@ -189,27 +174,24 @@ ORDER BY  almacen.identificador, producto.idproducto, movimientointerno.fecha;;]
 	<title>
 		<band height="45" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="539" height="45" forecolor="#6C86AF" backcolor="#6C86AF"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="437" y="30" width="35" height="5" forecolor="#6C86AF" backcolor="#6C86AF"/>
+				<reportElement x="0" y="0" width="786" height="45" forecolor="#6C86AF" backcolor="#6C86AF"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="14" y="10" width="260" height="34" forecolor="#FFFFFF"/>
+				<reportElement x="14" y="10" width="525" height="34" forecolor="#FFFFFF"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Reporte de Kárdex]]></text>
+				<text><![CDATA[Log de Auditoría]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="57" splitType="Stretch">
+		<band height="59" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="539" height="41" forecolor="#6C86AF" backcolor="#6C86AF"/>
+				<reportElement x="0" y="0" width="786" height="44" forecolor="#6C86AF" backcolor="#6C86AF"/>
 			</rectangle>
 			<textField pattern="dd/MM/yyyy h.mm a">
-				<reportElement x="380" y="0" width="144" height="20" forecolor="#FFFFFF"/>
+				<reportElement x="624" y="0" width="144" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -256,34 +238,65 @@ ORDER BY  almacen.identificador, producto.idproducto, movimientointerno.fecha;;]
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="18" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement x="14" y="0" width="53" height="18"/>
+				<reportElement x="14" y="0" width="78" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{idusuario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="77" y="0" width="83" height="18"/>
+				<reportElement x="195" y="1" width="59" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{operacion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{idpallet}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00;-###0.00">
-				<reportElement x="165" y="0" width="40" height="18"/>
+			<textField pattern="">
+				<reportElement x="370" y="1" width="53" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{cant}+".00"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="225" y="0" width="58" height="18"/>
+				<reportElement x="254" y="1" width="129" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="67" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{unidadmedida}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="287" y="0" width="81" height="18"/>
+				<reportElement x="508" y="1" width="83" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="91" y="1" width="16" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idalmacen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="101" y="1" width="6" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="113" y="1" width="82" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{almacen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="591" y="1" width="83" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[(($F{filaorigen}==null)? "-" : $F{rorigen}+"-F"+$F{filaorigen}+"C"+$F{colorigen})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="379" y="0" width="81" height="18"/>
+				<reportElement x="686" y="1" width="82" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[(($F{filadestino}==null)? "-" : $F{rdestino}+"-F"+$F{filadestino}+"C"+$F{coldestino})]]></textFieldExpression>
 			</textField>
@@ -298,17 +311,17 @@ ORDER BY  almacen.identificador, producto.idproducto, movimientointerno.fecha;;]
 				<reportElement x="0" y="0" width="539" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="14" y="0" width="178" height="20"/>
+				<reportElement x="14" y="0" width="221" height="20"/>
 				<textElement textAlignment="Left"/>
-				<text><![CDATA[Sistemas +Flow - Reporte de Kárdex]]></text>
+				<text><![CDATA[Sistemas +Flow - Log de Auditoría]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="404" y="1" width="80" height="20"/>
+				<reportElement x="648" y="0" width="80" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Pág. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="484" y="1" width="40" height="20"/>
+				<reportElement x="728" y="0" width="40" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
