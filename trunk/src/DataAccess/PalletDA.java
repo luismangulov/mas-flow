@@ -574,4 +574,22 @@ public class PalletDA {
         return exito;
     }
 
+    public boolean asociarGuiaRemision(String strIdPallet, String strIdGuiaRemision) {
+        boolean exito = false;
+        objConexion = new conexion();
+        // se cambia el estado de la ubicacion destino a en uso
+        query = "UPDATE PALLET SET idGuiaRemision = '" + strIdGuiaRemision + "' WHERE idPallet ='" + strIdPallet +"'";
+
+        try{
+            objConexion.EjecutarUID(query);
+            exito = true;
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Hubo un error en el registro", "Error", 0);
+            exito = false;
+        }
+        finally{objConexion.SalirUID();}
+
+        return exito;
+    }
+
 }
