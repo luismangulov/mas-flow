@@ -323,9 +323,15 @@ public class LogDeAuditoria extends javax.swing.JFrame {
         Date fechaDesde = null;
         Date fechaHasta = null;
         if (jdcFechaDesde.getCalendar()==null) fechaDesde= new Date(2011-1900,0,01);
-        else jdcFechaDesde.getCalendar().getTime();
+        else fechaDesde=jdcFechaDesde.getCalendar().getTime();
         if (jdcFechaHasta.getCalendar()==null) fechaHasta= new Date();
-        else jdcFechaHasta.getCalendar().getTime();
+        else fechaHasta=jdcFechaHasta.getCalendar().getTime();
+
+        if (fechaHasta.before(fechaDesde)){
+        JOptionPane.showMessageDialog(null, "Rango de fechas inválido.", "Error", 0);
+            return;
+        }
+        
         runReporte(txtAlmacenDesde.getText(), txtAlmacenHasta.getText(), txtPalletDesde.getText(),
                 txtPalletHasta.getText(),fechaDesde, fechaHasta);        // TODO add your handling code here:
 
