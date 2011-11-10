@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import Util.Utilitario;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -435,6 +436,52 @@ public class UbicacionDA {
             objConexion.SalirUID();
         }
         return boolExito;
+    }
+
+    public ArrayList<UbicacionBE> queryUbicacionListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIndActivo) {
+                
+        objConexion = new conexion();        
+        arrUbicaciones = new ArrayList<UbicacionBE>();
+        
+        query = "SELECT u.idubicacion, u.idrack, u.fila, u.columna, u.indactivo"
+                + " FROM UBICACION u, RACK r, ZONA z, ALMACEN a "
+                + " WHERE a.IdAlmacen = z.IdAlmacen AND z.IdZona = r.IdZona AND u.idRack = r.idrack";
+        
+        if (!strIdAlmacen.equals(""))
+            query = query + " AND a.IdAlmacen = '" + strIdAlmacen + "'";
+        if (!strIdZona.equals(""))
+            query = query + " AND z.idZona ='" +strIdZona+"'";
+        if (!strIdRack.equals(""))
+            query = query + " AND r.idRack ='" +strIdRack+"'";
+        if (intFila!=0 && intColumna!=0)
+            query = query + " AND u.fila = " + intFila + " AND u.columna =" +intColumna + "";
+        
+        Date dateFechaVencimiento = null;
+        String strIdNotaIngreso = "";
+        rs = objConexion.EjecutarS(query);
+        
+        try{
+            
+            while (rs.next()){
+                
+                String strIdUbicacion = rs.getString("idUbicacion");
+                strIdRack = rs.getString("idRack");
+                intFila = rs.getInt("fila");
+                intColumna = rs.getInt("columna");
+                strIndActivo = rs.getString("indActivo");
+                
+                arrUbicaciones.add(new UbicacionBE(strIdUbicacion,intFila,intColumna,strIndActivo,strIdRack));
+                
+            }
+            
+            
+        }catch (SQLException ex){
+            
+        }finally{
+            objConexion.SalirS();
+        }
+        
+        return arrUbicaciones;
     }
    
     
