@@ -164,11 +164,13 @@ public class BuscarRack extends javax.swing.JFrame {
 private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
+        String strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         if (!cbZona.getSelectedItem().equals("")){
-            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
             cargarComboRack(strIdZona);
         }
     }
+   
 }//GEN-LAST:event_cbZonaActionPerformed
 
 private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
@@ -178,7 +180,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     
         objZonaBL = new ZonaBL();
         if (!cbZona.getSelectedItem().toString().equals(""))
-            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
         else
             strIdZona = "";
         

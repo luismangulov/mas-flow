@@ -385,7 +385,9 @@ public class AyudaPallet extends javax.swing.JDialog {
     if (!cbZona.getSelectedItem().toString().equals("Seleccione") && !cbZona.getSelectedItem().toString().equals("")){
         
         objZonaBL = new ZonaBL();
-        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+        int i = cbAlmacen.getSelectedIndex();
+        strIdAlmacen = arrIdAlmacenes.get(i);
+        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
         
     }else
         
@@ -418,8 +420,9 @@ public class AyudaPallet extends javax.swing.JDialog {
     private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
         int intCantItem = cbZona.getItemCount() - 1;
         if (intCantItem > 0){
+            strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
             if (!cbZona.getSelectedItem().equals("Seleccione")){
-                strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+                strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
                 cargarComboRack(strIdZona);
             }
             else

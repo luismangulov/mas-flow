@@ -434,12 +434,12 @@ public class ZonaDA {
         return arrZonas;
     }
 
-    public ZonaBE queryByIdentificadorZona(String identificador){
+    public ZonaBE queryByIdentificadorZona(String identificador, String idAlmacen){
 
         objConexion = new conexion();
         ResultSet rs = null;
         // aquí cambié el código víctor
-        query = "SELECT * FROM Zona WHERE identificador = '"+identificador+"'";
+        query = "SELECT * FROM Zona WHERE identificador = '"+identificador+"' AND idAlmacen = '" + idAlmacen + "'";
 
         try{
             rs = objConexion.EjecutarS(query);

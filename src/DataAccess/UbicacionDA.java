@@ -447,6 +447,9 @@ public class UbicacionDA {
                 + " FROM UBICACION u, RACK r, ZONA z, ALMACEN a "
                 + " WHERE a.IdAlmacen = z.IdAlmacen AND z.IdZona = r.IdZona AND u.idRack = r.idrack";
         
+        if (!strIndActivo.equals("3"))
+            query = query + " AND u.indActivo = '" + strIndActivo + "'";
+           
         if (!strIdAlmacen.equals(""))
             query = query + " AND a.IdAlmacen = '" + strIdAlmacen + "'";
         if (!strIdZona.equals(""))
