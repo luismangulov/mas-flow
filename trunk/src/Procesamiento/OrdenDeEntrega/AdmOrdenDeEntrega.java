@@ -75,6 +75,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         lblAprobar = new javax.swing.JLabel();
         lblIngresar = new javax.swing.JLabel();
         lblRuta = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -193,6 +194,13 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         });
         jToolBar1.add(lblRuta);
 
+        jLabel1.setToolTipText("Mostrar Pallets");
+        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.setMaximumSize(new java.awt.Dimension(54, 54));
+        jLabel1.setPreferredSize(new java.awt.Dimension(54, 54));
+        jToolBar1.add(jLabel1);
+
         jLabel7.setText("                                                                                                                                  ");
         jLabel7.setMaximumSize(new java.awt.Dimension(500, 14));
         jLabel7.setPreferredSize(new java.awt.Dimension(500, 14));
@@ -208,7 +216,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -612,6 +620,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;

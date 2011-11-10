@@ -72,6 +72,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         lblRefrescar = new javax.swing.JLabel();
         lblDetalle = new javax.swing.JLabel();
         lblAprobar = new javax.swing.JLabel();
+        lblRuta = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -159,6 +160,19 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(lblAprobar);
+
+        lblRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
+        lblRuta.setToolTipText("Mostrar Ruta");
+        lblRuta.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRuta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRuta.setMaximumSize(new java.awt.Dimension(54, 54));
+        lblRuta.setPreferredSize(new java.awt.Dimension(54, 54));
+        lblRuta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRutaMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblRuta);
 
         jLabel7.setText("                                                                                                                                  ");
         jLabel7.setMaximumSize(new java.awt.Dimension(520, 14));
@@ -339,13 +353,18 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                         
                         for(int i =0;i< arrPallet.size();i++){
                             PalletBL objPalletBL = new PalletBL();
+                            objPalletBL.asociarGuiaRemision(arrPallet.get(i).getIdPallet(), objGuiaRemisionBE.getCodigo());
+                        }
+                        
+                        for(int i =0;i< arrPallet.size();i++){
+                            PalletBL objPalletBL = new PalletBL();
                             objPalletBL.despacharPallet(arrPallet.get(i).getIdPallet());
                         }
                         
-                        Mapa mapa = new Mapa(arrAlmacenes.get(0));
+                        //Mapa mapa = new Mapa(arrAlmacenes.get(0));
                         
-                         ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicaciones);
-                         mapa.mostrarGraficoMapa(listaNodo, true);
+                         //ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicaciones);
+                        // mapa.mostrarGraficoMapa(listaNodo, true);
                                                
                      
                          
@@ -359,6 +378,56 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         } 
         }  
     }//GEN-LAST:event_lblAprobarMousePressed
+
+    private void lblRutaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRutaMousePressed
+        // TODO add your handling code here:
+         int fila1 = 0;
+        if((tblGuiaRemision.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una guia de remision", "Mensaje",0);
+        } else if((tblGuiaRemision.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una guia de remision", "Mensaje",0);
+        }else{
+            fila1 = tblGuiaRemision.getSelectedRow();
+          String  estado = tblGuiaRemision.getValueAt(fila1, 5).toString().trim();  
+         if(!estado.equals("Aprobado")){
+            JOptionPane.showMessageDialog(null, "La guia de remision debe ser aprobada", "Mensaje",0);
+         }else{
+              int fila;
+            String codigo;
+            String identificador;
+            String idAlmacen;
+            fila = tblGuiaRemision.getSelectedRow();
+            codigo = (String)tblGuiaRemision.getValueAt(fila, 1);
+            
+             GuiaRemisionBL objGuiaRemision = new GuiaRemisionBL(); 
+             GuiaRemisionBE objGuiaRemisionBE = objGuiaRemision.queryByIdGuiaRemision(codigo);
+             
+              identificador = (String)tblGuiaRemision.getValueAt(fila, 0);
+            AlmacenBL objAlmacenBL = new AlmacenBL();
+            ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>(); 
+            arrAlmacenes = objAlmacenBL.buscar("", "", "1", "", "", "", identificador);
+            
+            idAlmacen = arrAlmacenes.get(0).getIdAlmacen();
+             PalletBL objPalletBL = new PalletBL(); 
+            
+              ArrayList<PalletBE> arrPallets = objPalletBL.getPalletByIdGuiaRemision(codigo);
+             ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
+             for(int i = 0;i<arrPallets.size();i++){
+                 UbicacionBL objUbicacionBL = new UbicacionBL();
+                 UbicacionBE objUbicacion = new UbicacionBE();
+                 objUbicacion = objUbicacionBL.getUbicacionById(arrPallets.get(i).getIdUbicacion());
+                 arrUbicacion.add(objUbicacion);
+             }
+             
+              Mapa mapa = new Mapa(arrAlmacenes.get(0));
+                        
+              ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicacion);
+              mapa.mostrarGraficoMapa(listaNodo, true);
+             
+             
+         }
+        }
+    }//GEN-LAST:event_lblRutaMousePressed
 
     /**
      * @param args the command line arguments
@@ -405,6 +474,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblDetalle;
     private javax.swing.JLabel lblRefrescar;
+    private javax.swing.JLabel lblRuta;
     private javax.swing.JTable tblGuiaRemision;
     // End of variables declaration//GEN-END:variables
 
