@@ -11,19 +11,19 @@
 	<parameter name="desdeAlmacen" class="java.lang.String"/>
 	<parameter name="empresa" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT 
-  almacen.identificador as idAlmacen, 
-  almacen.nombre as Almacen, 
-  producto.idproducto, 
-  producto.nombre as Producto, 
-  producto.maxcantporpallet as cant, 
+		<![CDATA[SELECT
+  almacen.identificador as idAlmacen,
+  almacen.nombre as Almacen,
+  producto.idproducto,
+  producto.nombre as Producto,
+  producto.maxcantporpallet as cant,
   unidadmedida.nombre as UnidadMedida
-FROM 
-  public.almacen, 
-  public.producto, 
-  public.pallet, 
+FROM
+  public.almacen,
+  public.producto,
+  public.pallet,
   public.unidadmedida
-WHERE 
+WHERE
   producto.idproducto = pallet.idproducto AND
   pallet.idalmacen = almacen.idalmacen AND
   unidadmedida.idunidadmedida = producto.idunidadmedida AND
@@ -153,7 +153,7 @@ ORDER BY  almacen.identificador, producto.idproducto;]]>
 				<reportElement x="437" y="30" width="35" height="5" forecolor="#6C86AF" backcolor="#6C86AF"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="14" y="10" width="260" height="34" forecolor="#FFFFFF"/>
+				<reportElement x="14" y="10" width="390" height="34" forecolor="#FFFFFF"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
