@@ -95,4 +95,9 @@ public class PalletBL {
         return objPalletDA.asociarGuiaRemision(strIdPallet, strIdGuiaRemision);
     }
     
+    public ArrayList<PalletBE> getPalletByIdGuiaRemision(String strIdGuiaRemision){
+        objPalletDA = new PalletDA();
+        return objPalletDA.queryPalletByIdGuiaRemision(strIdGuiaRemision);
+    }
+    
 }
