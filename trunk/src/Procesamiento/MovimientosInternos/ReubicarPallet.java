@@ -39,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
 public class ReubicarPallet extends javax.swing.JDialog {
 
     /** Creates new form ReubicarPallet */
-        private  UsuarioBE objUsuarioBE;
+    UsuarioBE objUsuarioBE;
     String strIdAlmacen;
     String strIdZona;
     String strIdRack;
@@ -157,6 +157,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
 //                    strFecha = palletBE.getFechaVencimiento().toString();
 
                 modelo.addRow(new Object[]{strIdPallet,strNombreProducto,strIdentificadorRack, "F"+String.valueOf(intFila) + "C"+String.valueOf(intColumna), intMaxCantPallet,strNombreFamilia,arrPallets.get(i).getFechaVencimiento()});
+
             }
         }
     }
