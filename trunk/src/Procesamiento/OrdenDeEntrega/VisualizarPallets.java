@@ -4,35 +4,30 @@
  */
 
 /*
- * DetalleGuiaDeRemision.java
+ * VisualizarPallets.java
  *
- * Created on Oct 29, 2011, 7:10:02 PM
+ * Created on Nov 10, 2011, 3:20:48 AM
  */
-package Procesamiento.GuiaDeRemision;
+package Procesamiento.OrdenDeEntrega;
 
-import BusinessEntity.DetalleGuiaRemisionBE;
-import BusinessLogic.DetalleGuiaRemisionBL;
-import java.util.ArrayList;
+import BusinessEntity.PalletBE;
+import BusinessEntity.ProductoBE;
+import BusinessLogic.ProductoBL;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  *
  * @author DIEGO
  */
-public class DetalleGuiaDeRemision extends javax.swing.JFrame {
-    private AdmGuiaDeRemision padre;
-    private String codGuiaRemision;
-    /** Creates new form DetalleGuiaDeRemision */
-    public DetalleGuiaDeRemision(AdmGuiaDeRemision objPadre,String codigo) {
+public class VisualizarPallets extends javax.swing.JFrame {
+    private AdmOrdenDeEntrega padre;
+    /** Creates new form VisualizarPallets */
+    public VisualizarPallets(AdmOrdenDeEntrega objPadre,ArrayList<PalletBE> arrPallet) {
         this.padre = objPadre;
-        this.codGuiaRemision = codigo;
         initComponents();
-        this.setLocationRelativeTo(null); 
-        DetalleGuiaRemisionBL objDetalleGuiaRemisionBL = new DetalleGuiaRemisionBL();
-        ArrayList<DetalleGuiaRemisionBE> arrDetalleGuiaRemisionBE = new ArrayList<DetalleGuiaRemisionBE>();
-        arrDetalleGuiaRemisionBE = objDetalleGuiaRemisionBL.queryAllDetalleGuiaRemision(codGuiaRemision);
         
-        this.recargar(arrDetalleGuiaRemisionBE);
+        this.recargar(arrPallet);
     }
 
     /** This method is called from within the constructor to
@@ -45,21 +40,21 @@ public class DetalleGuiaDeRemision extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblDetalleGuiaRemision = new javax.swing.JTable();
+        tblPallets = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Detalle guia de remision");
+        setTitle("+Flow - Visualizar Pallets");
 
-        tblDetalleGuiaRemision.setModel(new javax.swing.table.DefaultTableModel(
+        tblPallets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "IdGuiaRemision", "IdDetalleGuiaRemision", "Cantidad", "NombreProducto"
+                "IdNotaIngreso", "NombreProducto", "IdUbicacion", "FechaVencimiento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Byte.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -73,17 +68,17 @@ public class DetalleGuiaDeRemision extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblDetalleGuiaRemision);
+        jScrollPane1.setViewportView(tblPallets);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -106,13 +101,13 @@ public class DetalleGuiaDeRemision extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(DetalleGuiaDeRemision.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VisualizarPallets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(DetalleGuiaDeRemision.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VisualizarPallets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(DetalleGuiaDeRemision.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VisualizarPallets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(DetalleGuiaDeRemision.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VisualizarPallets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
@@ -120,16 +115,16 @@ public class DetalleGuiaDeRemision extends javax.swing.JFrame {
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //
 //            public void run() {
-//                new DetalleGuiaDeRemision().setVisible(true);
+//                new VisualizarPallets().setVisible(true);
 //            }
 //        });
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblDetalleGuiaRemision;
+    private javax.swing.JTable tblPallets;
     // End of variables declaration//GEN-END:variables
-
-public final void recargar(ArrayList<DetalleGuiaRemisionBE> detalleGuiaRemision){
+   
+    public final void recargar(ArrayList<PalletBE> arrPallet){
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
@@ -138,28 +133,33 @@ public final void recargar(ArrayList<DetalleGuiaRemisionBE> detalleGuiaRemision)
                 return false;  
             }
         };
-        tblDetalleGuiaRemision.setModel(modelo);
-        modelo.addColumn("IdGuiaRemision");
-        modelo.addColumn("IdDetalleGuiaRemision");
-        modelo.addColumn("Cantidad");
+        tblPallets.setModel(modelo);
+        modelo.addColumn("IdNotaIngreso");
         modelo.addColumn("NombreProducto");
+        modelo.addColumn("IdUbicacion");
+        modelo.addColumn("FechaVencimiento");
+        
         
 //        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
 //        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
 //        tblGuiaRemision.getColumnModel().getColumn(2).setPreferredWidth(120);
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
         
-        for(int i = 0;i<detalleGuiaRemision.size();i++){
-            modelo.addRow(new Object[5]);
-            tblDetalleGuiaRemision.setValueAt(this.codGuiaRemision,i,0 );
-            tblDetalleGuiaRemision.setValueAt(detalleGuiaRemision.get(i).getCodigo(),i,1 );
-            tblDetalleGuiaRemision.setValueAt(detalleGuiaRemision.get(i).getCantidad(),i,2 );
+        for(int i = 0;i<arrPallet.size();i++){
+            modelo.addRow(new Object[4]);
             
-            tblDetalleGuiaRemision.setValueAt(detalleGuiaRemision.get(i).getProducto().getNombre(),i,3 );
+            tblPallets.setValueAt(arrPallet.get(i).getIdNotaIngreso(),i,0 );
+            ProductoBL objProductoBL = new ProductoBL();
+             ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrPallet.get(i).getIdProducto());
+            
+            tblPallets.setValueAt(objProductoBE.getNombre(),i,1 );
+            
+            tblPallets.setValueAt(arrPallet.get(i).getIdUbicacion(),i,2 );
+             tblPallets.setValueAt(arrPallet.get(i).getFechaVencimiento(),i,3 );
             
         }
         
     }
-
-
+    
+   
 }
