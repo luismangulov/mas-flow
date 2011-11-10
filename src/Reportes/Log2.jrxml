@@ -201,14 +201,14 @@ ORDER BY  movimientointerno.fecha, movimientointerno.idmovimientointerno;]]>
 				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="39" y="20" width="68" height="20" forecolor="#FFFFFF"/>
+				<reportElement x="39" y="20" width="81" height="20" forecolor="#FFFFFF"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{desdeFecha}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="124" y="20" width="102" height="20" forecolor="#FFFFFF"/>
+				<reportElement x="137" y="20" width="102" height="20" forecolor="#FFFFFF"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -222,7 +222,7 @@ ORDER BY  movimientointerno.fecha, movimientointerno.idmovimientointerno;]]>
 				<text><![CDATA[Del]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="107" y="20" width="17" height="20" forecolor="#FFFFFF"/>
+				<reportElement x="120" y="20" width="17" height="20" forecolor="#FFFFFF"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
