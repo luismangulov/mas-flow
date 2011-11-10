@@ -311,12 +311,12 @@ public class LogDeAuditoria extends javax.swing.JFrame {
 
     private void btnImprimirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMousePressed
         if (txtAlmacenDesde.getText().compareTo( txtAlmacenHasta.getText())>0) {
-            JOptionPane.showMessageDialog(null, "Código de almacén desde mayor que almacén hasta.", "Error", 0);
+            JOptionPane.showMessageDialog(null, "Rango de almacén inválido.", "Error", 0);
             return;
         }
 
         if (txtPalletDesde.getText().compareTo( txtPalletHasta.getText())>0) {
-            JOptionPane.showMessageDialog(null, "Código de pallet desde mayor que pallet hasta.", "Error", 0);
+            JOptionPane.showMessageDialog(null, "Rango de pallet inválido.", "Error", 0);
             return;
         }
 

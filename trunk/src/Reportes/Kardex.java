@@ -314,11 +314,11 @@ public class Kardex extends javax.swing.JFrame {
 
     private void btnImprimirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMousePressed
         if (txtAlmacenDesde.getText().compareTo( txtAlmacenHasta.getText())>0) {
-            JOptionPane.showMessageDialog(null, "Código de almacén desde mayor que almacén hasta.", "Error", 0);
+            JOptionPane.showMessageDialog(null, "Rango de almacén inválido.", "Error", 0);
             return;
         }
      if (txtProductoDesde.getText().compareTo( txtProductoHasta.getText())>0) {
-            JOptionPane.showMessageDialog(null, "Código de producto desde mayor que producto hasta.", "Error", 0);
+            JOptionPane.showMessageDialog(null, "Rango de producto inválido.", "Error", 0);
             return;
         }
 
