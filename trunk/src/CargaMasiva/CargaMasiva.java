@@ -76,9 +76,9 @@ public class CargaMasiva {
                 }
                 sql+=")";
                 System.out.println(sql);
-//                rs=objConexion.EjecutarS(sql);
-//                rs=objConexion.EjecutarS("commit");
-//                objConexion.SalirS();
+                rs=objConexion.EjecutarS(sql);
+                rs=objConexion.EjecutarS("commit");
+                objConexion.SalirS();
 
              }
          }
