@@ -199,19 +199,6 @@ private void lblRegistrarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-
     frmManteminiento.setVisible(true);
 }//GEN-LAST:event_lblRegistrarRackMouseClicked
 
-private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModificarRackMouseClicked
-    int fila;
-    fila = dgvRacks.getSelectedRow();
-    if (fila==-1)
-        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún rack", "Mensaje",0);
-    else{
-        strIdentificador = (String)dgvRacks.getValueAt(fila, 0);
-        strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
-        MantenimientoRack frmManteminiento = new MantenimientoRack('M',strIdRack,this);
-        frmManteminiento.setVisible(true);
-    }
-}//GEN-LAST:event_lblModificarRackMouseClicked
-
 private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarRackMouseClicked
     int answer = JOptionPane.showConfirmDialog(null, "La eliminación será irreversible. ¿Desea continuar?", "Mensaje",0);
     if (answer != 0)
@@ -271,6 +258,10 @@ private void lblCargarRacksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
             mapa.mostrarGraficoMapa();
         }
     }//GEN-LAST:event_lblVerMapaMouseClicked
+
+    private void lblModificarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblModificarRackMouseClicked
+
+        int fila;         fila = dgvRacks.getSelectedRow();         if (fila == -1) {             JOptionPane.showMessageDialog(null, "No ha seleccionado ningún rack", "Mensaje", 0);         } else {             strIdentificador = (String) dgvRacks.getValueAt(fila, 0);             strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();             MantenimientoRack frmManteminiento = new MantenimientoRack('M', strIdRack, this);             frmManteminiento.setVisible(true);         }     }//GEN-LAST:event_lblModificarRackMouseClicked
 
     public void llenarDgv(ArrayList<RackBE> arrRacks){
         

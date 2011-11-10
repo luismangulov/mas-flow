@@ -82,6 +82,7 @@ public class BuscarUbicacion extends javax.swing.JFrame {
         cbEstado = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("+Flow - Buscar Ubicación");
 
         jLabel1.setText("Zona:");
 

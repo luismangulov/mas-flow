@@ -141,8 +141,8 @@ public class MantenimientoRack extends javax.swing.JFrame {
     
     private void modificar(){
         
-        if (!validar())
-            return;
+//        if (!validar())
+//            return;
         
         boolean cambioZona = false;
         objZonaBL = new ZonaBL();
@@ -488,15 +488,16 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     }//GEN-LAST:event_lblVerMapaMouseClicked
 
     private void txtPisosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPisosFocusLost
-        if (Integer.parseInt(txtPisos.getText()) < 0 || Integer.parseInt(txtPisos.getText()) > 6)
-            JOptionPane.showMessageDialog(null, "La cantidad de Pisos debe ser mayor a 0 y menor a 6");
-            txtPisos.setText("");
+        
+//        if (Integer.valueOf(txtPisos.getText()) < 0 || Integer.valueOf(txtPisos.getText()) > 6)
+//            JOptionPane.showMessageDialog(null, "La cantidad de Pisos debe ser mayor a 0 y menor a 6");
+//            txtPisos.setText("");
     }//GEN-LAST:event_txtPisosFocusLost
 
     private void txtColumnasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtColumnasFocusLost
-        if (Integer.parseInt(txtColumnas.getText()) <= 10 || Integer.parseInt(txtColumnas.getText()) > 20)
-            JOptionPane.showMessageDialog(null, "La cantidad de Columnas debe ser mayor a 10 y menor a 20");
-            txtColumnas.setText("");
+//        if (Integer.valueOf(txtColumnas.getText()) < 0 || Integer.valueOf(txtColumnas.getText()) > 20)
+//            JOptionPane.showMessageDialog(null, "La cantidad de Columnas debe ser mayor a 10 y menor a 20");
+//            txtColumnas.setText("");
     }//GEN-LAST:event_txtColumnasFocusLost
 
     /**
@@ -557,14 +558,20 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private void cargarComponentes(RackBE objRackBE){
         
         this.setTitle("Modificar Rack");
+        
         txtIdRack.setText(objRackBE.getIdRack());
         txtIdRack.setEnabled(false);
         txtPosX.setText(String.valueOf(objRackBE.getPosX()));
+        txtPosX.setEnabled(false);
         txtPosY.setText(String.valueOf(objRackBE.getPosY()));
+        txtPosY.setEnabled(false);
         txtPisos.setText(String.valueOf(objRackBE.getPisos()));
         txtPisos.setEnabled(false);
         txtColumnas.setText(String.valueOf(objRackBE.getColumnas()));
         txtColumnas.setEnabled(false);
+        
+        cbOrientacion.setEnabled(false);
+        cbAlmacen.setEnabled(false);
         
         if ("1".equals(objRackBE.getIndActivo()))
             chbxActivo.setSelected(true);
@@ -593,7 +600,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     public boolean validar(){
         
         if(cbOrientacion.getItemCount()==0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un almacén");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar orientación");
             return false;            
         }
         
@@ -601,6 +608,20 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             JOptionPane.showMessageDialog(null, "Debe seleccionar un almacén");
             return false;
         }
+        
+        if ( txtPisos.getText().equals("0") || txtColumnas.getText().equals("0")){
+            JOptionPane.showMessageDialog(null, "El número de pisos y de columnas no puede ser igual a cero");
+            return false;
+        }
+        
+        int intPisos = Integer.parseInt(txtPisos.getText());
+        int intColumnas = Integer.parseInt(txtColumnas.getText());
+        
+        if (intPisos < 0 || intPisos > 6 || intColumnas < 0 || intColumnas > 20){
+            JOptionPane.showMessageDialog(null, "El número de pisos no puede ser mayor a 6 y el número de columnas no puede ser mayor a 20");
+            return false;
+        }
+            
 //        
 //        if (cbZona.getItemCount()==0){
 //            JOptionPane.showMessageDialog(null, "Debe seleccionar una zona");
@@ -706,7 +727,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             else
                 for (int i=0; i<intColumnasRack; i++)
                     matrizZonaRack[intPosYRack-intPosYZona+i][intPosXRack-intPosXZona] = 1;
-//            
+            
 //            for (int i=0; i<intLargoZona; i++){
 //                for (int j=0; j<intAnchoZona; j++)
 //                    System.out.print(matrizZonaRack[i][j]);
@@ -741,7 +762,9 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             int intPuertaX = objAlmacenBE.getPuertaX();
             int intPuertaY = objAlmacenBE.getPuertaY();
             
-            matrizZona[intPuertaY][intPuertaX] = 2;
+            if (intPuertaX >= intPosXZona && intPuertaX <= intPosXZona + intAnchoZona 
+                    && intPuertaY >= intPosYZona && intPuertaY <= intPosYZona + intLargoZona)
+                matrizZona[intPuertaY][intPuertaX] = 2;
             
             
 //            for (int i=0; i<intLargoZona; i++){
@@ -749,7 +772,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
 //                    System.out.print(matrizZona[i][j]);
 //                System.out.println();
 //            }
-//            
+            
             
             //3 comparar matrices
             
