@@ -36,7 +36,9 @@ public class CargaMasiva {
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
          // hacer una lectura comoda (disponer del metodo readLine()).
-         archivo = new File ("/home/florencio/data2.txt");
+         String ruta = System.getProperty("user.dir") +
+                                "/src/CargaMasiva/DATAMASIVA.TXT";
+         archivo = new File (ruta);
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
 
@@ -74,9 +76,9 @@ public class CargaMasiva {
                 }
                 sql+=")";
                 System.out.println(sql);
-                rs=objConexion.EjecutarS(sql);
-                rs=objConexion.EjecutarS("commit");
-                objConexion.SalirS();
+//                rs=objConexion.EjecutarS(sql);
+//                rs=objConexion.EjecutarS("commit");
+//                objConexion.SalirS();
 
              }
          }
