@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28">
 	<property name="ireport.zoom" value="1.1000000000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="41"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="desdeProducto" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -17,32 +17,32 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT 
-  almacen.identificador as idAlmacen, 
-  almacen.nombre as Almacen, 
-  producto.idproducto, 
-  producto.nombre as Producto, 
-  producto.maxcantporpallet as cant, 
+		<![CDATA[SELECT
+  almacen.identificador as idAlmacen,
+  almacen.nombre as Almacen,
+  producto.idproducto,
+  producto.nombre as Producto,
+  producto.maxcantporpallet as cant,
   unidadmedida.nombre as UnidadMedida,
   movimientointerno.fecha,
   movimientointerno.descripcion as operacion,
   ubOrigen.fila as filaOrigen,
   ubOrigen.columna as colOrigen,
-  ubDestino.fila as filaDestino, 
+  ubDestino.fila as filaDestino,
   ubDestino.columna as colDestino,
   rackOrigen.identificador as rOrigen,
-  rackdestino.identificador as rDestino 
-FROM 
-  public.almacen, 
-  public.producto, 
-  public.pallet, 
+  rackdestino.identificador as rDestino
+FROM
+  public.almacen,
+  public.producto,
+  public.pallet,
   public.unidadmedida,
   public.movimientointerno
   left outer join public.ubicacion as ubOrigen on ubOrigen.idubicacion=movimientointerno.idubicacionorigen
   left outer join public.ubicacion as ubDestino on ubDestino.idubicacion=movimientointerno.idubicaciondestino
   left outer join public.rack as rackOrigen on rackOrigen.idrack=ubOrigen.idrack
   left outer join public.rack as rackDestino on rackDestino.idrack=ubDestino.idrack
-WHERE 
+WHERE
   producto.idproducto = pallet.idproducto AND
   pallet.idalmacen = almacen.idalmacen AND
   unidadmedida.idunidadmedida = producto.idunidadmedida AND
@@ -52,7 +52,7 @@ WHERE
   almacen.idalmacen >= $P{desdeAlmacen} AND
   almacen.idalmacen <= $P{hastaAlmacen} AND
   movimientointerno.fecha >= $P{desdeFecha} AND
-  movimientointerno.fecha <= $P{hastaFecha} 
+  movimientointerno.fecha <= $P{hastaFecha}
 
 ORDER BY  almacen.identificador, producto.idproducto, movimientointerno.fecha;;]]>
 	</queryString>
@@ -298,7 +298,7 @@ ORDER BY  almacen.identificador, producto.idproducto, movimientointerno.fecha;;]
 				<reportElement x="0" y="0" width="539" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="14" y="0" width="178" height="20"/>
+				<reportElement x="14" y="0" width="212" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[Sistemas +Flow - Reporte de Kárdex]]></text>
 			</staticText>

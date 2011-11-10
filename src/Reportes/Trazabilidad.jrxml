@@ -7,8 +7,8 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="hastaProducto" class="java.lang.String"/>
-	<parameter name="hastaAlmacen" class="java.lang.String"/>
 	<parameter name="desdeAlmacen" class="java.lang.String"/>
+	<parameter name="hastaAlmacen" class="java.lang.String"/>
 	<parameter name="empresa" class="java.lang.String"/>
 	<parameter name="desdeFecha" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -23,28 +23,28 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT 
-  almacen.identificador as idAlmacen, 
-  almacen.nombre as Almacen, 
-  producto.idproducto, 
-  producto.nombre as Producto, 
-  producto.maxcantporpallet as cant, 
+		<![CDATA[SELECT
+  almacen.identificador as idAlmacen,
+  almacen.nombre as Almacen,
+  producto.idproducto,
+  producto.nombre as Producto,
+  producto.maxcantporpallet as cant,
   unidadmedida.nombre as UnidadMedida,
   pallet.idpallet,
   movimientointerno.fecha,
   movimientointerno.descripcion as operacion,
   ubOrigen.fila as filaOrigen,
   ubOrigen.columna as colOrigen,
-  ubDestino.fila as filaDestino, 
+  ubDestino.fila as filaDestino,
   ubDestino.columna as colDestino,
   rackOrigen.identificador as rOrigen,
   rackdestino.identificador as rDestino,
   pallet.idnotaingreso,
   pallet.idguiaremision
-FROM 
-  public.almacen, 
-  public.producto, 
-  public.pallet, 
+FROM
+  public.almacen,
+  public.producto,
+  public.pallet,
   public.unidadmedida,
   public.movimientointerno
   left outer join public.ubicacion as ubOrigen on ubOrigen.idubicacion=movimientointerno.idubicacionorigen
@@ -52,7 +52,7 @@ FROM
   left outer join public.rack as rackOrigen on rackOrigen.idrack=ubOrigen.idrack
   left outer join public.rack as rackDestino on rackDestino.idrack=ubDestino.idrack
 
-WHERE 
+WHERE
   producto.idproducto = pallet.idproducto AND
   pallet.idalmacen = almacen.idalmacen AND
   unidadmedida.idunidadmedida = producto.idunidadmedida AND
@@ -130,21 +130,21 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 					<reportElement x="0" y="0" width="539" height="14" forecolor="#FFFFFF" backcolor="#EBEBFF"/>
 				</rectangle>
 				<textField>
-					<reportElement x="97" y="0" width="35" height="15"/>
+					<reportElement x="108" y="0" width="42" height="15"/>
 					<textElement>
 						<font size="10" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{idproducto}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="132" y="0" width="8" height="15"/>
+					<reportElement x="150" y="0" width="8" height="15"/>
 					<textElement>
 						<font size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[-]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="140" y="0" width="264" height="15"/>
+					<reportElement x="158" y="0" width="264" height="15"/>
 					<textElement>
 						<font size="10" isBold="true"/>
 					</textElement>
@@ -179,7 +179,7 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 					<text><![CDATA[Ubicación Final]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="14" y="0" width="83" height="20"/>
+					<reportElement x="14" y="0" width="93" height="20"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
@@ -210,7 +210,7 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 				<reportElement x="437" y="30" width="35" height="5" forecolor="#6C86AF" backcolor="#6C86AF"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="14" y="10" width="423" height="34" forecolor="#FFFFFF"/>
+				<reportElement x="14" y="11" width="514" height="34" forecolor="#FFFFFF"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
@@ -309,7 +309,7 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 				<reportElement x="0" y="0" width="539" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="14" y="0" width="238" height="20"/>
+				<reportElement x="14" y="0" width="281" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[Sistemas +Flow - Reporte de Trazabilidad de Pallets]]></text>
 			</staticText>

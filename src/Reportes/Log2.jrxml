@@ -3,10 +3,6 @@
 	<property name="ireport.zoom" value="1.1000000000000008"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="desdeUsuario" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="hastaUsuario" class="java.lang.String"/>
 	<parameter name="hastaFecha" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -27,27 +23,27 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT 
-  almacen.identificador as idAlmacen, 
-  almacen.nombre as Almacen, 
-  producto.idproducto, 
-  producto.nombre as Producto, 
-  producto.maxcantporpallet as cant, 
+		<![CDATA[SELECT
+  almacen.identificador as idAlmacen,
+  almacen.nombre as Almacen,
+  producto.idproducto,
+  producto.nombre as Producto,
+  producto.maxcantporpallet as cant,
   unidadmedida.nombre as UnidadMedida,
   pallet.idpallet,
   movimientointerno.fecha,
   movimientointerno.descripcion as operacion,
   ubOrigen.fila as filaOrigen,
   ubOrigen.columna as colOrigen,
-  ubDestino.fila as filaDestino, 
+  ubDestino.fila as filaDestino,
   ubDestino.columna as colDestino,
   rackOrigen.identificador as rOrigen,
   rackdestino.identificador as rDestino,
   movimientointerno.idusuario
-FROM 
-  public.almacen, 
-  public.producto, 
-  public.pallet, 
+FROM
+  public.almacen,
+  public.producto,
+  public.pallet,
   public.unidadmedida,
   public.movimientointerno
   left outer join public.ubicacion as ubOrigen on ubOrigen.idubicacion=movimientointerno.idubicacionorigen
@@ -55,7 +51,7 @@ FROM
   left outer join public.rack as rackOrigen on rackOrigen.idrack=ubOrigen.idrack
   left outer join public.rack as rackDestino on rackDestino.idrack=ubDestino.idrack
 
-WHERE 
+WHERE
   producto.idproducto = pallet.idproducto AND
   pallet.idalmacen = almacen.idalmacen AND
   unidadmedida.idunidadmedida = producto.idunidadmedida AND
