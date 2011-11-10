@@ -99,5 +99,10 @@ public class UbicacionBL {
         objUbicacionDA = new UbicacionDA();
         return objUbicacionDA.queryDesocuparUbicacion(strIdUbicacion);
     }
+
+    public ArrayList<UbicacionBE> getUbicacionListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIndActivo) {
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryUbicacionListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIndActivo);
+    }
     
 }
