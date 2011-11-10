@@ -93,6 +93,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
         strIdRack = txtIdRack.getText();
         intPosX = Integer.valueOf(txtPosX.getText());
         intPosY = Integer.valueOf(txtPosY.getText());
+
         intPisos = Integer.valueOf(txtPisos.getText());
         intColumnas = Integer.valueOf(txtColumnas.getText());
         
@@ -106,8 +107,11 @@ public class MantenimientoRack extends javax.swing.JFrame {
         else
             strOrientacion = "H";
         
-        objZonaBL = new ZonaBL();
-        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+//        objZonaBL = new ZonaBL();
+//        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+        String strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
+        
+        strIdZona = devolverZonaPorXY(intPosX, intPosY,strIdAlmacen).getIdZona();
         objRackBL = new RackBL();
         objRackBE = new RackBE("",intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, "", strOrientacion);
         objRackBL.insertar(objRackBE);
@@ -141,14 +145,15 @@ public class MantenimientoRack extends javax.swing.JFrame {
             return;
         
         boolean cambioZona = false;
-        ZonaBL objZonaBL = new ZonaBL();
+        objZonaBL = new ZonaBL();
         
-        if (!guardaIdZona.equals(cbZona.getSelectedItem().toString().trim()))
-            cambioZona = true;
-        
+//        if (!guardaIdZona.equals(cbZona.getSelectedItem().toString().trim()))
+//            cambioZona = true;
+//        
         strIdRack = txtIdRack.getText();
         intPosX = Integer.valueOf(txtPosX.getText());
         intPosY = Integer.valueOf(txtPosY.getText());
+
         intPisos = Integer.valueOf(txtPisos.getText());
         intColumnas = Integer.valueOf(txtColumnas.getText());
         
@@ -162,12 +167,22 @@ public class MantenimientoRack extends javax.swing.JFrame {
         else
             strOrientacion = "H";
         
-        String strIdentificador = cbZona.getSelectedItem().toString().trim();
-        strIdZona = objZonaBL.getByIdentificadorZona(strIdentificador).getIdZona();
+//        String strIdentificador = cbZona.getSelectedItem().toString().trim();
+//        strIdZona = objZonaBL.getByIdentificadorZona(strIdentificador).getIdZona();
+        
+        String strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
+        
+        strIdZona = devolverZonaPorXY(intPosX, intPosY,strIdAlmacen).getIdZona();
+        
+        if (!guardaIdZona.equals(strIdZona))
+            cambioZona = true;
+  
         objRackBL = new RackBL();
+        String strIdentificador = "";
         
         if (!cambioZona)
             strIdentificador = objRackBE.getIdentificador();
+        
         objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, strIdentificador,strOrientacion);
 
         UbicacionBL objUbicacionBL = new UbicacionBL();
@@ -206,8 +221,6 @@ public class MantenimientoRack extends javax.swing.JFrame {
         txtColumnas = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        cbZona = new javax.swing.JComboBox();
         chbxActivo = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         cbAlmacen = new javax.swing.JComboBox();
@@ -268,8 +281,6 @@ public class MantenimientoRack extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Zona*:");
-
         chbxActivo.setText("Activo");
 
         jLabel3.setText("Almacén*:");
@@ -320,12 +331,10 @@ public class MantenimientoRack extends javax.swing.JFrame {
                                 .addGap(44, 44, 44)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel7)
                                     .addComponent(jLabel6))))
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbOrientacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,7 +355,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnCancelar)
                                 .addGap(115, 115, 115)))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,14 +372,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(jLabel3))
                     .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -461,11 +463,11 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
 }//GEN-LAST:event_txtColumnasKeyTyped
 
     private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
-    objAlmacenBL = new AlmacenBL();
-    int i;
-    i = cbAlmacen.getSelectedIndex();
-    String strIdAlmacen = arrIdAlmacenes.get(i);
-    cargarComboZona(strIdAlmacen);
+//    objAlmacenBL = new AlmacenBL();
+//    int i;
+//    i = cbAlmacen.getSelectedIndex();
+//    String strIdAlmacen = arrIdAlmacenes.get(i);
+//    cargarComboZona(strIdAlmacen);
     }//GEN-LAST:event_cbAlmacenActionPerformed
 
     private void lblVerMapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMapaMouseClicked
@@ -490,7 +492,6 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbAlmacen;
     private javax.swing.JComboBox cbOrientacion;
-    private javax.swing.JComboBox cbZona;
     private javax.swing.JCheckBox chbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -498,7 +499,6 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel lblVerMapa;
     private javax.swing.JTextField txtColumnas;
@@ -512,7 +512,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private void cargarComboAlmacen(){
         
         cbAlmacen.removeAllItems();
-        cbZona.removeAllItems();
+//        cbZona.removeAllItems();
        
         ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
         objAlmacenBL = new AlmacenBL();
@@ -525,19 +525,19 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             }
     }
     
-    private void cargarComboZona(String idAlmacen){
-        
-        cbZona.removeAllItems();
-
-        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
-        objZonaBL = new ZonaBL();
-        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
-        
-        if (arrZonas != null)
-            for(ZonaBE zona : arrZonas)
-                cbZona.addItem(zona.getIdentificador().trim());
-    }
-    
+//    private void cargarComboZona(String idAlmacen){
+//        
+//        cbZona.removeAllItems();
+//
+//        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+//        objZonaBL = new ZonaBL();
+//        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+//        
+//        if (arrZonas != null)
+//            for(ZonaBE zona : arrZonas)
+//                cbZona.addItem(zona.getIdentificador().trim());
+//    }
+//    
     private void cargarComponentes(RackBE objRackBE){
         
         this.setTitle("Modificar Rack");
@@ -561,15 +561,15 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         
         objZonaDA = new ZonaDA();
         
-        for(int i=0; i<cbZona.getItemCount() ; i++){
-            String strIdentificadorZona = objZonaDA.queryByIdZona(objRackBE.getIdZona()).getIdentificador();
-//            JOptionPane.showMessageDialog(null, cbZona.getItemCount());
-            if(cbZona.getItemAt(i).toString().equals(strIdentificadorZona)){
-                cbZona.setSelectedIndex(i);
-                break;
-            }
-        }
-        String strIdZona = objRackBE.getIdZona();
+//        for(int i=0; i<cbZona.getItemCount() ; i++){
+//            String strIdentificadorZona = objZonaDA.queryByIdZona(objRackBE.getIdZona()).getIdentificador();
+////            JOptionPane.showMessageDialog(null, cbZona.getItemCount());
+//            if(cbZona.getItemAt(i).toString().equals(strIdentificadorZona)){
+//                cbZona.setSelectedIndex(i);
+//                break;
+//            }
+//        }
+        strIdZona = objRackBE.getIdZona();
         objZonaBL = new ZonaBL();
         guardaIdZona = objZonaBL.getZona(strIdZona).getIdentificador();
     }
@@ -585,11 +585,11 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             JOptionPane.showMessageDialog(null, "Debe seleccionar un almacén");
             return false;
         }
-        
-        if (cbZona.getItemCount()==0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una zona");
-            return false;
-        }
+//        
+//        if (cbZona.getItemCount()==0){
+//            JOptionPane.showMessageDialog(null, "Debe seleccionar una zona");
+//            return false;
+//        }
         
         if (txtPosX.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar la posición X del rack");
@@ -620,19 +620,20 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     public boolean validarPosicionamiento(){
         
         objZonaBL = new ZonaBL();
-        String strIdentificadorZona = cbZona.getSelectedItem().toString();
         
-        objZonaBE = objZonaBL.getByIdentificadorZona(strIdentificadorZona);
-//        JOptionPane.showMessageDialog(null, objZonaBE.getIdentificador());
-        int intPosXZona = objZonaBE.getPosX();
-        int intPosYZona = objZonaBE.getPosY();
-        int intAnchoZona = objZonaBE.getAncho();
-        int intLargoZona = objZonaBE.getLargo();
-//        JOptionPane.showMessageDialog(null, "posx"+String.valueOf(intPosXZona)+"posy"+String.valueOf(intPosYZona)+"ancho"+String.valueOf(intAnchoZona)+"largo"+String.valueOf(intLargoZona));
+        String strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
+        
         int intPosXRack = Integer.parseInt(txtPosX.getText());
         int intPosYRack = Integer.parseInt(txtPosY.getText());
         int intColumnasRack = Integer.parseInt(txtColumnas.getText());
         
+        objZonaBE = devolverZonaPorXY(intPosXRack, intPosYRack,strIdAlmacen);
+        
+        int intPosXZona = objZonaBE.getPosX();
+        int intPosYZona = objZonaBE.getPosY();
+        int intAnchoZona = objZonaBE.getAncho();
+        int intLargoZona = objZonaBE.getLargo();
+
         if (cbOrientacion.getSelectedItem().toString().equals("Horizontal"))
             strOrientacion = "H";
         else
@@ -656,9 +657,8 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                 JOptionPane.showMessageDialog(null, "El rack excede las dimensiones de la zona");
                 return false;
             }
-                
         
-        //2 validar que los racks no se solapen
+        //2 validar que los racks no se solapen y no se cubra la puerta
         
         objRackBL = new RackBL();
         ArrayList<RackBE> arrRacks = objRackBL.getRacksByZona(objZonaBE.getIdZona());
@@ -712,6 +712,16 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         matrizZona[rack.getPosY()-intPosYZona+i][rack.getPosX()-intPosXZona] = 1;
             }
             
+            //coloca la puerta en la matriz
+            
+            strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
+            AlmacenBE objAlmacenBE = objAlmacenBL.getAlmacen(strIdAlmacen);
+            int intPuertaX = objAlmacenBE.getPuertaX();
+            int intPuertaY = objAlmacenBE.getPuertaY();
+            
+            matrizZona[intPuertaY][intPuertaX] = 2;
+            
+            
 //            for (int i=0; i<intLargoZona; i++){
 //                for (int j=0; j<intAnchoZona; j++)
 //                    System.out.print(matrizZona[i][j]);
@@ -726,11 +736,33 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     if (matrizZonaRack[i][j] == 1 && matrizZona[i][j] == 1){
                         JOptionPane.showMessageDialog(null, "Existe solapamiento de racks");
                         return false;
+                    }else if (matrizZonaRack[i][j] == 1 && matrizZona[i][j] == 2){
+                        JOptionPane.showMessageDialog(null, "El rack está en la misma posición de la puerta");
+                        return false;
                     }
                         
         }
         
         return true;
     }
+    
+    private ZonaBE devolverZonaPorXY(int x, int y, String strIdAlmacen)
+    {
+        objZonaBL = new ZonaBL();
+        
+        for (ZonaBE zona : objZonaBL.getZonasByAlmacen(strIdAlmacen))
+        {
+            if ((x>=zona.getPosX()) &&
+               (x<=zona.getPosX()+zona.getAncho()-1) &&
+               (y>=zona.getPosY()) &&
+               (y<=zona.getPosY()+zona.getLargo()-1))
+            {
+                return zona;
+            }
+        }
+        return null;
+    }
+
+    
     
 }
