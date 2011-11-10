@@ -48,7 +48,7 @@ public class DetalleGuiaDeRemision extends javax.swing.JFrame {
         tblDetalleGuiaRemision = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Detalle guia de remision");
+        setTitle("+Flow - Detalle Orden de salida");
 
         tblDetalleGuiaRemision.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

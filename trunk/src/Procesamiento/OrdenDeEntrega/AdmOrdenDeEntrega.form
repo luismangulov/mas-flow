@@ -194,7 +194,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/caja.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Mostrar Pallets"/>
+            <Property name="toolTipText" type="java.lang.String" value="Mostrar Pallets Asignados"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
@@ -219,7 +219,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/check.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Aprobar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Verificar disponibilidad de ubicaciones"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
@@ -239,7 +239,7 @@
               <Image iconType="3" name="/Iconos/50px-Vista-forward.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
-            <Property name="toolTipText" type="java.lang.String" value="Ingresar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Ingresar a almacen"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>
@@ -265,7 +265,7 @@
               <Image iconType="3" name="/Iconos/System Map.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
-            <Property name="toolTipText" type="java.lang.String" value="Mostrar Ruta"/>
+            <Property name="toolTipText" type="java.lang.String" value="Mostrar Ruta Entrada"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
                 <BevelBorder/>

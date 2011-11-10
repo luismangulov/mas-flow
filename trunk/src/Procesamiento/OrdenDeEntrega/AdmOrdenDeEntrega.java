@@ -159,7 +159,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         jToolBar1.add(lblDetalle);
 
         lblPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/caja.png"))); // NOI18N
-        lblPallet.setToolTipText("Mostrar Pallets");
+        lblPallet.setToolTipText("Mostrar Pallets Asignados");
         lblPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPallet.setMaximumSize(new java.awt.Dimension(54, 54));
@@ -172,7 +172,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         jToolBar1.add(lblPallet);
 
         lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
-        lblAprobar.setToolTipText("Aprobar");
+        lblAprobar.setToolTipText("Verificar disponibilidad de ubicaciones");
         lblAprobar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAprobar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -184,7 +184,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
 
         lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/50px-Vista-forward.png"))); // NOI18N
         lblIngresar.setText("jLabel1");
-        lblIngresar.setToolTipText("Ingresar");
+        lblIngresar.setToolTipText("Ingresar a almacen");
         lblIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblIngresar.setMaximumSize(new java.awt.Dimension(54, 54));
@@ -198,7 +198,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
 
         lblRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
         lblRuta.setText("jLabel1");
-        lblRuta.setToolTipText("Mostrar Ruta");
+        lblRuta.setToolTipText("Mostrar Ruta Entrada");
         lblRuta.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRuta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRuta.setMaximumSize(new java.awt.Dimension(54, 54));

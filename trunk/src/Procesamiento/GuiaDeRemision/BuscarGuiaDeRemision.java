@@ -59,7 +59,7 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
         cbAlmacen = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Buscar guía de remisión");
+        setTitle("+Flow - Buscar orden de salida");
 
         btnGuardar.setText("Buscar");
         btnGuardar.setPreferredSize(new java.awt.Dimension(75, 23));
