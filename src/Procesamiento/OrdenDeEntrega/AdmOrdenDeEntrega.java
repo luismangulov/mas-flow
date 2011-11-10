@@ -72,10 +72,10 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         lblBuscar = new javax.swing.JLabel();
         lblRefrescar = new javax.swing.JLabel();
         lblDetalle = new javax.swing.JLabel();
+        lblPallet = new javax.swing.JLabel();
         lblAprobar = new javax.swing.JLabel();
         lblIngresar = new javax.swing.JLabel();
         lblRuta = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -155,6 +155,19 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         });
         jToolBar1.add(lblDetalle);
 
+        lblPallet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/caja.png"))); // NOI18N
+        lblPallet.setToolTipText("Mostrar Pallets");
+        lblPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblPallet.setMaximumSize(new java.awt.Dimension(54, 54));
+        lblPallet.setPreferredSize(new java.awt.Dimension(54, 54));
+        lblPallet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblPalletMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblPallet);
+
         lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
         lblAprobar.setToolTipText("Aprobar");
         lblAprobar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -193,13 +206,6 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(lblRuta);
-
-        jLabel1.setToolTipText("Mostrar Pallets");
-        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.setMaximumSize(new java.awt.Dimension(54, 54));
-        jLabel1.setPreferredSize(new java.awt.Dimension(54, 54));
-        jToolBar1.add(jLabel1);
 
         jLabel7.setText("                                                                                                                                  ");
         jLabel7.setMaximumSize(new java.awt.Dimension(500, 14));
@@ -579,6 +585,38 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
          }
          }
     }//GEN-LAST:event_lblRutaMousePressed
+
+    private void lblPalletMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPalletMousePressed
+        // TODO add your handling code here:
+         int fila1 = 0;
+         if((tblNotaIngreso.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una orden de entrega", "Mensaje",0);
+         } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una orden de entrega", "Mensaje",0);
+         }else{
+          fila1 = tblNotaIngreso.getSelectedRow();
+          String  estado = tblNotaIngreso.getValueAt(fila1, 5).toString().trim();  
+         if(estado.equals("Registrado")){
+            JOptionPane.showMessageDialog(null, "La orden de entrega debe ser aprobada", "Mensaje",0);
+            
+         }else if(estado.equals("Pendiente")){
+            JOptionPane.showMessageDialog(null, "La orden de entrega debe ser aprobada", "Mensaje",0);   
+         }else{
+              int fila;
+            String codigo;
+            String identificador;
+            String idAlmacen;
+            fila = tblNotaIngreso.getSelectedRow();
+            codigo = (String)tblNotaIngreso.getValueAt(fila, 1);
+             PalletBL objPalletBL = new PalletBL();
+            ArrayList<PalletBE> arrPallets = objPalletBL.getPalletByIdNotaIngreso(codigo);
+            
+            VisualizarPallets m = new  VisualizarPallets(this, arrPallets);
+           m.setVisible(true);
+            
+         }
+         } 
+    }//GEN-LAST:event_lblPalletMousePressed
         
    
 
@@ -620,7 +658,6 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
@@ -630,6 +667,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblDetalle;
     private javax.swing.JLabel lblIngresar;
+    private javax.swing.JLabel lblPallet;
     private javax.swing.JLabel lblRefrescar;
     private javax.swing.JLabel lblRuta;
     private javax.swing.JTable tblNotaIngreso;
