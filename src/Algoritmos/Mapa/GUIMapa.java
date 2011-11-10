@@ -17,10 +17,13 @@ import BusinessEntity.UbicacionBE;
 import BusinessEntity.ZonaBE;
 import BusinessLogic.RackBL;
 import BusinessLogic.ZonaBL;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -221,11 +224,17 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void dibujaZonas(Graphics g)
     {
+        Graphics2D g2d = ( Graphics2D ) g;
+        g2d.setPaint( Color.DARK_GRAY );
+        Stroke s = g2d.getStroke();
+        g2d.setStroke(new BasicStroke(6.0f));
+        
         for (ZonaBE zona : mapa.getListaZonas())
         {
-                g.setColor(Color.BLUE);
-                g.drawRect(convertirX(zona.getPosX()), convertirY(zona.getPosY()), factorX*zona.getAncho(), factorY*zona.getLargo());
+           g2d.drawRect(convertirX(zona.getPosX()), convertirY(zona.getPosY()), factorX*zona.getAncho(), factorY*zona.getLargo());
         }
+
+        g2d.setStroke(s);
     }
 
 
@@ -260,9 +269,15 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void dibujaLeyenda(Graphics g)
     {
+        if (clickX!=-1 && clickY!=-1)
+        {
+            g.setColor(Color.BLUE);
+            g.fillOval(convertirX(clickX)+factorX/4, convertirY(clickY)+factorY/4, factorX/2, factorY/2);
+        }
+
         if (click1X!=-1 && click1Y!=-1)
         {
-            g.setColor(Color.RED);
+            g.setColor(Color.BLUE);
             g.fillOval(convertirX(click1X)+factorX/4, convertirY(click1Y)+factorY/4, factorX/2, factorY/2);
 
             if (click2X!=-1 && click2Y!=-1)
@@ -283,18 +298,17 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void dibujaRecorridoOptimo(Graphics g)
     {
-//        for (Nodo nodo : recorridoOptimo)
-//        {
-//            g.setColor(Color.GREEN);
-//            g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
-//            g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
-//        }
+        Graphics2D g2d = ( Graphics2D ) g;
+        Stroke s = g2d.getStroke();
+        g2d.setStroke(new BasicStroke(4.0f));
 
-        g.setColor(Color.GREEN);
+        g.setColor(Color.CYAN);
         for (int i=0;i<recorridoOptimo.size()-1;i++)
         {
             g.drawLine(convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2, convertirX(recorridoOptimo.get(i+1).getX())+factorX/2, convertirY(recorridoOptimo.get(i+1).getY())+factorY/2);
         }
+
+        g2d.setStroke(s);
     }
 
 
@@ -365,6 +379,9 @@ public class GUIMapa extends javax.swing.JFrame {
 
         Nodo nodo = encontrarNodo(x,y);
 
+        clickX=x;
+        clickY=y;
+
         if (nodo==null) return;
 
         String cadena = "\n"+"Posición X: " + x + "\nPosición Y: " + y;
@@ -391,8 +408,14 @@ public class GUIMapa extends javax.swing.JFrame {
 
         if (nodo.isNodoInicial()) cadena =cadena + "\n"+"   (Puerta)";
 
+        repaint();
 
         JOptionPane.showMessageDialog(null,cadena, "Información",JOptionPane.INFORMATION_MESSAGE);
+        
+        clickX=-1;
+        clickY=-1;
+
+        repaint();
     }
 
     private void mostrarInformacionCuadrado(java.awt.event.MouseEvent evt)
@@ -469,6 +492,9 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private int factorX;
     private int factorY;
+
+    private int clickX=-1;
+    private int clickY=-1;
 
     private int click1X=-1;
     private int click1Y=-1;
