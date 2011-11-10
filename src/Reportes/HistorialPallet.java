@@ -399,16 +399,16 @@ public class HistorialPallet extends javax.swing.JFrame {
 
     private void btnImprimirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImprimirMousePressed
         if (txtAlmacenDesde.getText().compareTo( txtAlmacenHasta.getText())>0) {
-            JOptionPane.showMessageDialog(null, "Código de almacén desde mayor que almacén hasta.", "Error", 0);
+            JOptionPane.showMessageDialog(null, "Rango de almacén inválido.", "Error", 0);
             return;
         }
      if (txtProductoDesde.getText().compareTo( txtProductoHasta.getText())>0) {
-            JOptionPane.showMessageDialog(null, "Código de producto desde mayor que producto hasta.", "Error", 0);
+            JOptionPane.showMessageDialog(null, "Rango de producto inválido.", "Error", 0);
             return;
         }
 
         if (txtPalletDesde.getText().compareTo( txtPalletHasta.getText())>0) {
-            JOptionPane.showMessageDialog(null, "Código de pallet desde mayor que pallet hasta.", "Error", 0);
+            JOptionPane.showMessageDialog(null, "Rango de pallet inválido.", "Error", 0);
             return;
         }
         Date fechaDesde = null;
@@ -417,7 +417,7 @@ public class HistorialPallet extends javax.swing.JFrame {
         else jdcFechaDesde.getCalendar().getTime();
         if (jdcFechaHasta.getCalendar()==null) fechaHasta= new Date();
         else jdcFechaHasta.getCalendar().getTime();
-
+        
         runReporte(txtAlmacenDesde.getText(), txtAlmacenHasta.getText(), txtProductoDesde.getText(),
                 txtProductoHasta.getText(),txtPalletDesde.getText(), txtPalletHasta.getText(),
                 fechaDesde, fechaHasta);        // TODO add your handling code here:
