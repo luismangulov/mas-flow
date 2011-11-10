@@ -36,7 +36,7 @@ public class CargaMasiva {
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
          // hacer una lectura comoda (disponer del metodo readLine()).
-         archivo = new File ("/home/florencio/data1.txt");
+         archivo = new File ("/home/florencio/data2.txt");
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
 
@@ -73,8 +73,10 @@ public class CargaMasiva {
                         sql+="'"+valores.get(i)+"',";
                 }
                 sql+=")";
-                //System.out.println(sql);
+                System.out.println(sql);
                 rs=objConexion.EjecutarS(sql);
+                rs=objConexion.EjecutarS("commit");
+                objConexion.SalirS();
 
              }
          }
@@ -101,6 +103,7 @@ public class CargaMasiva {
         String delimiter = ",";
         String[] fields = input.split(delimiter,-1);
         for (int i = 0; i < fields.length; i++) {
+            fields[i].replace('/', ',');
             cadena.add(fields[i]);
             //System.out.println(fields[i]);
         }
