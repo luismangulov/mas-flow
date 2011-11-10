@@ -182,11 +182,11 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
         }
         arrMovimientosInternos = objMovimientoInternoBL.getSearchList(strIdProducto,strIdAlmacen,fechaInicio,fechaFin);
         
-        if (arrMovimientosInternos != null){
+        if (arrMovimientosInternos.size()>0){
             ventanaPadre.llenarDgv(arrMovimientosInternos);
             this.dispose();
         }else
-            JOptionPane.showMessageDialog(null, "No se pudo hacer la búsqueda");
+            JOptionPane.showMessageDialog(null, "No hay resultados de búsqueda");
         
     }//GEN-LAST:event_btnBuscarMouseClicked
 

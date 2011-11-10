@@ -251,6 +251,11 @@ public class MantenimientoRack extends javax.swing.JFrame {
 
         jLabel6.setText("Pisos*:");
 
+        txtPisos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPisosFocusLost(evt);
+            }
+        });
         txtPisos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPisosKeyTyped(evt);
@@ -259,6 +264,11 @@ public class MantenimientoRack extends javax.swing.JFrame {
 
         jLabel8.setText("Columnas*:");
 
+        txtColumnas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtColumnasFocusLost(evt);
+            }
+        });
         txtColumnas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtColumnasKeyTyped(evt);
@@ -311,14 +321,13 @@ public class MantenimientoRack extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addComponent(jLabel1)
                         .addGap(67, 67, 67)
                         .addComponent(txtIdRack, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addComponent(jLabel3)
                         .addGap(49, 49, 49)
                         .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -451,14 +460,10 @@ private void txtPisosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tx
 private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColumnasKeyTyped
     char c = (char)evt.getKeyChar();
     if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
-       evt.consume();
+        evt.consume();
     if ((this.txtColumnas.getText().length() + 1) > 2) {
-       if ((Integer.parseInt(this.txtColumnas.getText()) > 20)){
-           JOptionPane.showConfirmDialog(null, "Debe ingresar una cantidad menor o igual a 20");
-           this.txtColumnas.setText("");
+        evt.consume();
        }
-           evt.consume();
-    }
 }//GEN-LAST:event_txtColumnasKeyTyped
 
     private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
@@ -481,6 +486,18 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         
         
     }//GEN-LAST:event_lblVerMapaMouseClicked
+
+    private void txtPisosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPisosFocusLost
+        if (Integer.parseInt(txtPisos.getText()) < 0 || Integer.parseInt(txtPisos.getText()) > 6)
+            JOptionPane.showMessageDialog(null, "La cantidad de Pisos debe ser mayor a 0 y menor a 6");
+            txtPisos.setText("");
+    }//GEN-LAST:event_txtPisosFocusLost
+
+    private void txtColumnasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtColumnasFocusLost
+        if (Integer.parseInt(txtColumnas.getText()) <= 10 || Integer.parseInt(txtColumnas.getText()) > 20)
+            JOptionPane.showMessageDialog(null, "La cantidad de Columnas debe ser mayor a 10 y menor a 20");
+            txtColumnas.setText("");
+    }//GEN-LAST:event_txtColumnasFocusLost
 
     /**
      * @param args the command line arguments
@@ -627,6 +644,12 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         int intColumnasRack = Integer.parseInt(txtColumnas.getText());
         
         objZonaBE = devolverZonaPorXY(intPosXRack, intPosYRack,strIdAlmacen);
+        
+        if (objZonaBE == null){
+            JOptionPane.showMessageDialog(null, "El rack no está ubicado en una zona");
+            return false;
+        }
+            
         
         int intPosXZona = objZonaBE.getPosX();
         int intPosYZona = objZonaBE.getPosY();

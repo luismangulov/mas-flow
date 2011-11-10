@@ -95,6 +95,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
         Date fechaActual = new Date();
         this.jdcFecha.setDate(fechaActual);
         this.setTitle("Ubicar Pallet");
+        this.btnBuscarPallet.setEnabled(false);
         llenarDgv(arrPallets);
         cargarComboAlmacen();
         for (int i=0; i<arrIdAlmacenes.size(); i++)
@@ -241,7 +242,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
         cbUbicacion = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         cbAlmacen = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btnBuscarPallet = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         dgvPallets = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
@@ -297,10 +298,10 @@ public class ReubicarPallet extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Buscar Pallet");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnBuscarPallet.setText("Buscar Pallet");
+        btnBuscarPallet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnBuscarPalletMouseClicked(evt);
             }
         });
 
@@ -347,7 +348,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jButton1)
+                .addComponent(btnBuscarPallet)
                 .addGap(279, 279, 279)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
@@ -386,7 +387,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(btnBuscarPallet)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -492,6 +493,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             this.objUbicacionPadre.setIndActivo(objUbicacion.getIndActivo());
             
         }
+        
         strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         
         String strIdUsuario = UsuarioSistema.usuario.getIdUsuario();
@@ -499,19 +501,21 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen, strIdUsuario);
         
         if (this.ventanaPadre == null){
-//            objMovimientoInternoBE.setDescripcion("Ingreso");
+            // Ubicar Pallet
             objPalletBL.liberarPallet(objMovimientoInternoBE.getIdPallet());
             objPalletBL.asociarUbicacionAPallet(objMovimientoInternoBE.getIdPallet(), objMovimientoInternoBE.getIdUbicacionDestino());
         }
         else{
+            //Reubicar Pallet
         if (objPalletBL.liberarPallet(objMovimientoInternoBE.getIdUbicacionOrigen()))
             if (objPalletBL.asociarUbicacionAPallet(objMovimientoInternoBE.getIdPallet(),objMovimientoInternoBE.getIdUbicacionDestino()))
                 boolExito = objUbicacionBL.ocuparUbicacion(objMovimientoInternoBE.getIdUbicacionDestino());
         
             if (boolExito){
                 objMovimientoInternoBL.insertar(objMovimientoInternoBE);
-                if(ventanaPadre != null)
-                    ventanaPadre.actualizarDgv(objMovimientoInternoBE);
+//                if(ventanaPadre != null)
+                ventanaPadre.actualizarDgv(objMovimientoInternoBE);
+                this.dispose();
             }else
             JOptionPane.showMessageDialog(null, "No se pudo reubicar el pallet");
         }
@@ -520,12 +524,12 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     
 }//GEN-LAST:event_btnGuardarActionPerformed
 
-private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+private void btnBuscarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarPalletMouseClicked
     
     BuscarPallet ventana = new BuscarPallet(this);
     ventana.setVisible(true);
     
-}//GEN-LAST:event_jButton1MouseClicked
+}//GEN-LAST:event_btnBuscarPalletMouseClicked
 
 private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
     
@@ -548,6 +552,7 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarPallet;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbAlmacen;
@@ -555,7 +560,6 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     private javax.swing.JComboBox cbUbicacion;
     private javax.swing.JComboBox cbZona;
     private javax.swing.JTable dgvPallets;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
