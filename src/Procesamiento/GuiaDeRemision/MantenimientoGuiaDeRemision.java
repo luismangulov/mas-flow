@@ -95,7 +95,7 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
         cbAlmacen = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Registrar Guia de remisión");
+        setTitle("+Flow - Registrar Orden de Salida");
 
         jLabel1.setText("Cliente*:");
 

@@ -77,7 +77,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Administrar guia de remision");
+        setTitle("+Flow - Administrar orden de salida");
 
         tblGuiaRemision.setAutoCreateRowSorter(true);
         tblGuiaRemision.setModel(new javax.swing.table.DefaultTableModel(
@@ -109,6 +109,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add_page.png"))); // NOI18N
+        lblAgregar.setToolTipText("Agregar");
         lblAgregar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,6 +120,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jToolBar1.add(lblAgregar);
 
         lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search_page.png"))); // NOI18N
+        lblBuscar.setToolTipText("Buscar");
         lblBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,6 +131,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jToolBar1.add(lblBuscar);
 
         lblRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/refresh.png"))); // NOI18N
+        lblRefrescar.setToolTipText("Refrescar");
         lblRefrescar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRefrescar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -152,6 +155,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jToolBar1.add(lblDetalle);
 
         lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
+        lblAprobar.setToolTipText("Verificar Stock de Productos");
         lblAprobar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAprobar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -162,11 +166,9 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         jToolBar1.add(lblAprobar);
 
         lblRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
-        lblRuta.setToolTipText("Mostrar Ruta");
+        lblRuta.setToolTipText("Mostrar Ruta de Salida");
         lblRuta.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRuta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblRuta.setMaximumSize(new java.awt.Dimension(54, 54));
-        lblRuta.setPreferredSize(new java.awt.Dimension(54, 54));
         lblRuta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblRutaMousePressed(evt);
