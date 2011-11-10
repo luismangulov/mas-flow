@@ -168,6 +168,7 @@ public class AlgoritmoGenetico {
          }
       }
 
+      calcularDistanciasCromosomas();
       ordenarPoblacion();
 
       //Remueve los peores cromosomas (excedentes)
@@ -222,6 +223,13 @@ public class AlgoritmoGenetico {
       poblacion.add(new Cromosoma(hijo4));
       poblacion.add(new Cromosoma(hijo5));
       poblacion.add(new Cromosoma(hijo6));
+   }
+
+
+   private static void calcularDistanciasCromosomas()
+   {
+        for (Cromosoma cromosoma : poblacion)
+            cromosoma.calcularDistanciaTotal();
    }
 
    
