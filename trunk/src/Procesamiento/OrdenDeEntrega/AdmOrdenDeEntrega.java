@@ -403,7 +403,10 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 
            //ArrayList<UbicacionBE> arrUbicacion = new ArrayList<UbicacionBE>();
            
-            
+            for(int i =0;i<arrUbicaciones.size();i++){
+                UbicacionBL objUbicacionBL = new UbicacionBL();
+                objUbicacionBL.ocuparUbicacion(arrUbicaciones.get(i).getIdUbicacion());
+            }
             
             
             
