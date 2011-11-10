@@ -13,6 +13,7 @@ public class Configuracion {
 
     private static double largoPallet=1.2;
     private static double anchoPallet=1.2;
+    private static String empresa = "ASOCIACION CIVIL IMPACTA S.A.";
 
 
 
@@ -45,6 +46,20 @@ public class Configuracion {
      */
     public static void setAnchoPallet(double aAnchoPallet) {
         anchoPallet = aAnchoPallet;
+    }
+
+    /**
+     * @return the empresa
+     */
+    public static String getEmpresa() {
+        return empresa;
+    }
+
+    /**
+     * @param aEmpresa the empresa to set
+     */
+    public static void setEmpresa(String aEmpresa) {
+        empresa = aEmpresa;
     }
     
 
