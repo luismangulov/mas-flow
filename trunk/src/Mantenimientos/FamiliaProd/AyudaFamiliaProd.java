@@ -210,7 +210,12 @@ public class AyudaFamiliaProd extends javax.swing.JDialog {
             codigo = (String)dgvFamilia.getValueAt(fila, 0);
             FamiliaBL objFamiliaBL = new FamiliaBL();
             FamiliaBE familia = objFamiliaBL.queryByIdFamilia(codigo);
-            if(this.objPadre.familias.contains(familia)){
+            boolean esta = false;
+            for(int i=0;i<this.objPadre.familias.size();i++){
+                if (this.objPadre.familias.get(i).getIdFamilia() == null ? codigo == null : this.objPadre.familias.get(i).getIdFamilia().equals(codigo)) esta=true;
+
+            }
+            if (esta){
             JOptionPane.showMessageDialog(null, "Esta familia ya se encuentra en la zona.", "Mensaje",0);
             return;
             } else {

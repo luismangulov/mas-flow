@@ -326,7 +326,7 @@ public class Kardex extends javax.swing.JFrame {
         Date fechaHasta = null;
         if (jdcFechaDesde.getCalendar()==null) fechaDesde= new Date(2011-1900,0,01);
         else jdcFechaDesde.getCalendar().getTime();
-        if (jdcFechaHasta.getCalendar()==null) fechaHasta= new Date(3011-1900,0,01);
+        if (jdcFechaHasta.getCalendar()==null) fechaHasta= new Date();
         else jdcFechaHasta.getCalendar().getTime();
         runReporte(txtAlmacenDesde.getText(), txtAlmacenHasta.getText(), txtProductoDesde.getText(), txtProductoHasta.getText(), fechaDesde, fechaHasta);        // TODO add your handling code here:
     }//GEN-LAST:event_btnImprimirMousePressed
