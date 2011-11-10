@@ -463,11 +463,16 @@ public class AyudaPallet extends javax.swing.JDialog {
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         if (!validar())
             return;
-        
-        int intFila = dgvPallets.getSelectedRow();
-        objPalletBE = arrPallets.get(intFila);
-        
-        this.dispose();
+
+
+            int fila;
+            String codigo;
+            fila = dgvPallets.getSelectedRow();
+            codigo = (String)dgvPallets.getValueAt(fila, 0);
+
+            this.objPalletBE.setIdPallet(codigo);
+
+            this.dispose();
         
     }//GEN-LAST:event_btnAceptarMouseClicked
 
