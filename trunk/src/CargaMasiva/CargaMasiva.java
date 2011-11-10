@@ -36,7 +36,7 @@ public class CargaMasiva {
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
          // hacer una lectura comoda (disponer del metodo readLine()).
-         archivo = new File ("/home/florencio/data.txt");
+         archivo = new File ("/home/florencio/data1.txt");
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
 
@@ -57,28 +57,26 @@ public class CargaMasiva {
             while(!(linea=br.readLine()).equals("*")){
                 valores=leerCadena(linea);//valores
                 //System.out.println(linea.trim());
+                sql= "INSERT INTO "+nombreTabla+"(";
+                    for(int i=0;i<campos.size();i++){
+                    if (i==(campos.size()-1)){
+                        sql+=" "+campos.get(i)+" ";
+                    }else
+                        sql+=" "+campos.get(i)+" , ";
+                }
+                sql+=" ) VALUES ( ";
+
+                for(int i=0;i<valores.size();i++){
+                    if (i==(valores.size()-1)){
+                        sql+="'"+valores.get(i)+"'";
+                    }else
+                        sql+="'"+valores.get(i)+"',";
+                }
+                sql+=")";
+                //System.out.println(sql);
+                rs=objConexion.EjecutarS(sql);
+
              }
-
-            sql= "INSERT INTO "+nombreTabla+"(";
-            for(int i=0;i<campos.size();i++){
-                if (i==(campos.size()-1)){
-                    sql+=" "+campos.get(i)+" ";
-                }else
-                    sql+=" "+campos.get(i)+" , ";
-            }
-            sql+=" ) VALUES ( ";
-
-            for(int i=0;i<valores.size();i++){
-                if (i==(valores.size()-1)){
-                    sql+="'"+valores.get(i)+"'";
-                }else
-                    sql+="'"+valores.get(i)+"',";
-            }
-            sql+=")";
-            //System.out.println(sql);
-            rs=objConexion.EjecutarS(sql);
-
-
          }
       }
       catch(Exception e){

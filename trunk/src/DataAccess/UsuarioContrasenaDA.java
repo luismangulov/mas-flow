@@ -37,42 +37,22 @@ public class UsuarioContrasenaDA {
         return "0";
     }
 
-    public String actualizarContrasena(String idUsuario, String nuevoPassword) {
+    public String actualizarContrasena(String idUsuario, String nuevoPassword, Date fechaInicio, Date fechaFin) {
         conexion objConexion=new conexion();
         ResultSet rs = null;
-        String sql = "SELECT max(indDetalle) FROM UsuarioContrasena";
-        String indDetalle="";
+        String sql;
+        String indDetalle=String.valueOf(Integer.parseInt(indDetalleByIdUsuario(idUsuario))+1);
+        sql = "INSERT INTO UsuarioContrasena( indDetalle,idUsuario,contrasena,fechaInicio,fechaFin) VALUES('"+indDetalle+"','"+idUsuario+"','"+nuevoPassword+"','"+fechaInicio+"','"+fechaFin+"')";
         try{
             rs=objConexion.EjecutarS(sql);
-            
-            if (rs.next()){
-                
-                int ind=(rs.getInt(1))+1;
-                indDetalle=String.valueOf(ind);
-                
-                sql = "INSERT INTO UsuarioContrasena( indDetalle,idUsuario,contrasena) VALUES('"+indDetalle+"','"+idUsuario+"','"+nuevoPassword+"')";
-          
-                try{
-                    rs=objConexion.EjecutarS(sql);
-                    return "1";
-                }catch (Exception a){
-                    System.out.println(a.getMessage());
-                 }
-                 finally{
-                     objConexion.SalirS();
-                 }
-                return "0";
-             }
-
+            return "1";
         }catch (Exception a){
             System.out.println(a.getMessage());
          }
          finally{
              objConexion.SalirS();
          }
-        
-        return "0";       
-
+        return "0";
     }
 
 
@@ -127,6 +107,7 @@ public String insertarUsuarioContrasena(String indDetalle,String idUsuario, Stri
 
 //devuelve el mas reciente objeto usuariocontrasena
     public UsuarioContrasenaBE QueryByIdUsuario(String idUsuario) {
+
         conexion objConexion=new conexion();
         ResultSet rs = null;
         UsuarioContrasenaBE usuarioContrasenaBE = null;

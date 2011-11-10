@@ -17,6 +17,7 @@ import DataAccess.UsuarioDA;
 import BusinessLogic.UsuarioContrasenaBL;
 import DataAccess.UsuarioContrasenaDA;
 import Util.Utilitario;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -233,7 +234,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         {
            res=objUCBL.corroborarContrasena(idUsuario, anterior);
            if(res.equals("1")){ //contraseña correcta
-               objUCBL.actualizarContrasena(idUsuario,nueva1);
+               Date fechaHoy = new Date();
+               objUCBL.actualizarContrasena(idUsuario,nueva1,fechaHoy,fechaHoy);
                JOptionPane.showMessageDialog(null, "Su nueva contrasena es "+ nueva1, "Mensaje",0);
                
            }else{
