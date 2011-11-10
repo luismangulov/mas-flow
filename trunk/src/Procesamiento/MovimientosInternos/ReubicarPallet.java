@@ -437,8 +437,9 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
+        strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         if (!cbZona.getSelectedItem().equals("Seleccione")){
-            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
             cargarComboRack(strIdZona);
         }
     }

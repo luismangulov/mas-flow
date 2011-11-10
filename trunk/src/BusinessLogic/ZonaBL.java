@@ -73,9 +73,9 @@ public class ZonaBL {
      
      // víctor
 
-    public ZonaBE getByIdentificadorZona(String identificador){
+    public ZonaBE getByIdentificadorZona(String identificador, String idAlmacen){
         ZonaDA objZonaDA = new ZonaDA();
-        return objZonaDA.queryByIdentificadorZona(identificador);
+        return objZonaDA.queryByIdentificadorZona(identificador,idAlmacen);
     }
 
     public ArrayList<ZonaBE> getZonasByAlmacen(String idAlmacen) {

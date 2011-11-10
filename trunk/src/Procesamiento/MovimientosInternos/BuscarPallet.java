@@ -370,7 +370,8 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     
     if (!cbZona.getSelectedItem().toString().equals("Seleccione") && !cbZona.getSelectedItem().toString().equals("")){
         
-        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+        strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
+        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
         
     }else
         
@@ -406,8 +407,9 @@ private void cbZonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
+        strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         if (!cbZona.getSelectedItem().equals("Seleccione")){
-            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString()).getIdZona();
+            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
             cargarComboRack(strIdZona);
         }
     }
