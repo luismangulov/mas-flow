@@ -23,8 +23,9 @@ public class Main {
      */
     public static void main(String[] args){
         // TODO code application logic here
-        Login L = new Login();
-        L.setVisible(true);
+        CargaInicial c = new CargaInicial();
+        c.setVisible(true);
+
 
     }
 

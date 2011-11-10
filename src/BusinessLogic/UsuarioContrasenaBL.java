@@ -19,9 +19,9 @@ public class UsuarioContrasenaBL {
         return objUsuarioContrasenaDA.corroborarContrasena(idUsuario,password);
     }
 
-    public String actualizarContrasena(String idUsuario, String nuevoPassword) {
+    public String actualizarContrasena(String idUsuario, String nuevoPassword,Date fechaInicio,Date fechaFin) {
         UsuarioContrasenaDA objUsuarioContrasenaDA = new UsuarioContrasenaDA();
-        return objUsuarioContrasenaDA.actualizarContrasena(idUsuario,nuevoPassword);
+        return objUsuarioContrasenaDA.actualizarContrasena(idUsuario,nuevoPassword,fechaInicio,fechaFin);
     }
 
     public String insertarUsuarioContrasena(String indDetalle,String idUsuario, String password, Date fechaInicio, Date fechaFin) {
