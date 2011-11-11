@@ -12,7 +12,9 @@ package Procesamiento.OrdenDeEntrega;
 
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
+import BusinessEntity.UnidadMedidaBE;
 import BusinessLogic.ProductoBL;
+import BusinessLogic.UnidadMedidaBL;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
@@ -50,14 +52,14 @@ public class VisualizarPallets extends javax.swing.JFrame {
 
             },
             new String [] {
-                "IdNotaIngreso", "NombreProducto", "IdUbicacion", "FechaVencimiento"
+                "IdNotaIngreso", "NombreProducto", "IdUbicacion", "FechaVencimiento", "MaxCantPorPallet", "Unidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -74,7 +76,7 @@ public class VisualizarPallets extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +140,8 @@ public class VisualizarPallets extends javax.swing.JFrame {
         modelo.addColumn("NombreProducto");
         modelo.addColumn("IdUbicacion");
         modelo.addColumn("FechaVencimiento");
-        
+         modelo.addColumn("MaxCantPorPallet");
+          modelo.addColumn("Unidad");
         
 //        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
 //        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -146,7 +149,7 @@ public class VisualizarPallets extends javax.swing.JFrame {
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
         
         for(int i = 0;i<arrPallet.size();i++){
-            modelo.addRow(new Object[4]);
+            modelo.addRow(new Object[6]);
             
             tblPallets.setValueAt(arrPallet.get(i).getIdNotaIngreso(),i,0 );
             ProductoBL objProductoBL = new ProductoBL();
@@ -156,7 +159,10 @@ public class VisualizarPallets extends javax.swing.JFrame {
             
             tblPallets.setValueAt(arrPallet.get(i).getIdUbicacion(),i,2 );
              tblPallets.setValueAt(arrPallet.get(i).getFechaVencimiento(),i,3 );
-            
+            tblPallets.setValueAt(objProductoBE.getMaxCantPorPallet(),i,4 );
+            UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
+            UnidadMedidaBE objUnidadMedidaBE = objUnidadMedidaBL.getUnidadMedida(arrPallet.get(i).getIdProducto());
+            tblPallets.setValueAt(objUnidadMedidaBE.getNombre(),i,5 );
         }
         
     }

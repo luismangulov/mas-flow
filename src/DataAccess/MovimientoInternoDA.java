@@ -44,7 +44,7 @@ public class MovimientoInternoDA {
         strFechaFin = df.format(fechaFin).toString();
         
         query = "SELECT m.idmovimientointerno, m.idubicacionorigen, m.idubicaciondestino, m.fecha, "
-                + "m.descripcion, m.idPallet, m.idalmacen FROM MOVIMIENTOINTERNO m, PALLET p"
+                + "m.descripcion, m.idPallet, m.idalmacen, m.idusuario FROM MOVIMIENTOINTERNO m, PALLET p"
                 + " WHERE m.idPallet = p.idPallet";
         
         if (!strIdProducto.equals(""))
