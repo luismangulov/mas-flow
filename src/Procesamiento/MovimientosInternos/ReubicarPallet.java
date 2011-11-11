@@ -473,13 +473,23 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
         strIdPallet = (String)dgvPallets.getValueAt(intFila, 0);
         
+        String strFilaColumna = dgvPallets.getValueAt(intFila, 3).toString();
+        
         int intFilaUbicacionOrigen = dgvPallets.getValueAt(intFila, 3).toString().charAt(1)-48;
         int intColumnaUbicacionOrigen = dgvPallets.getValueAt(intFila, 3).toString().charAt(3)-48;
+
         String strIdRackOrigen = objRackBL.getByIdentificador((String)dgvPallets.getValueAt(intFila,2)).getIdRack();
         strIdUbicacionOrigen = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRackOrigen, intFilaUbicacionOrigen, intColumnaUbicacionOrigen,"3").getIdUbicacion();
-                
-        int intFilaUbicacionDestino = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
-        int intColumnaUbicacionDestino = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
+        
+        strFilaColumna = cbUbicacion.getSelectedItem().toString();
+        
+        int intFilaUbicacionDestino = strFilaColumna.charAt(1)-48;
+        int intColumnaUbicacionDestino = strFilaColumna.charAt(3)-48;
+        
+        if (strFilaColumna.length() != 4)
+        {
+            intColumnaUbicacionDestino = intColumnaUbicacionDestino * 10 + strFilaColumna.charAt(4)-48;
+        }
         String strIdentificadorRack = cbRack.getSelectedItem().toString();
         strIdRack = objRackBL.getByIdentificador(strIdentificadorRack).getIdRack();
         strIdUbicacionDestino = objUbicacionBL.getUbicacionByRackFilaColumna(strIdRack, intFilaUbicacionDestino, intColumnaUbicacionDestino,"1").getIdUbicacion();
