@@ -584,7 +584,9 @@ public class AlgoritmoGenetico {
 //         tiempoEjecucion=System.currentTimeMillis()-tiempoInicio;
 //         flagInicio=false;
 
-         return obtenerMejorRecorrido(obtenerMejorCromosoma());
+         Cromosoma c = obtenerMejorCromosoma();
+         return obtenerMejorRecorrido(c);
+
 
       } catch(Throwable e) {
          e.printStackTrace();
