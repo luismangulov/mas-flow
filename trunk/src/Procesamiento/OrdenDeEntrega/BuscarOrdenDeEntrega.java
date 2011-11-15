@@ -102,6 +102,11 @@ public class BuscarOrdenDeEntrega extends javax.swing.JFrame {
             }
         });
 
+        txtProveedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtProveedorFocusLost(evt);
+            }
+        });
         txtProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtProveedorKeyTyped(evt);
@@ -123,7 +128,7 @@ public class BuscarOrdenDeEntrega extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -237,6 +242,11 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             evt.consume();
         }
     }//GEN-LAST:event_txtProveedorKeyTyped
+
+    private void txtProveedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProveedorFocusLost
+        // TODO add your handling code here:
+        txtProveedor.setText( txtProveedor.getText().toUpperCase()); 
+    }//GEN-LAST:event_txtProveedorFocusLost
 
     /**
      * @param args the command line arguments
