@@ -44,6 +44,9 @@ public class BuscarUbicacion extends javax.swing.JFrame {
     UbicacionBE objUbicacionBE = new UbicacionBE();
     
     ArrayList<String> arrIdAlmacenes = new ArrayList<String>();
+    ArrayList<String> arrIdZonas = new ArrayList<String>();
+    ArrayList<String> arrIdRacks = new ArrayList<String>();
+    ArrayList<String> arrIdUbicaciones = new ArrayList<String>();
     ArrayList<UbicacionBE> arrUbicaciones;
     
     AdmUbicacion ventanaPadre;
@@ -224,6 +227,7 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     i = cbAlmacen.getSelectedIndex();
     String strIdAlmacen = arrIdAlmacenes.get(i);
     cargarComboZona(strIdAlmacen);
+    
 }//GEN-LAST:event_cbAlmacenActionPerformed
 
 private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
@@ -270,26 +274,22 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     
     if (!cbUbicacion.getSelectedItem().toString().equals("Seleccione") && !cbUbicacion.getSelectedItem().toString().equals("")){
         
-        intFila = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
-        intColumna = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
-        
-    }
+        strIdUbicacion = arrIdUbicaciones.get(cbUbicacion.getSelectedIndex()-1);
+    }else
+        strIdUbicacion = "";
     
     if (!cbRack.getSelectedItem().toString().equals("Seleccione") && !cbRack.getSelectedItem().toString().equals("")){
         
-        strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
+        strIdRack = arrIdRacks.get(cbRack.getSelectedIndex()-1);
 
-    }
-    else
-        
+    }else
         strIdRack = "";
     
     if (!cbZona.getSelectedItem().toString().equals("Seleccione") && !cbZona.getSelectedItem().toString().equals("")){
-        strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
-        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
+
+        strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
         
     }else
-        
         strIdZona = "";
     
     if (!cbAlmacen.getSelectedItem().toString().equals("")){
@@ -300,7 +300,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     }else
         strIdAlmacen = "";
     
-    arrUbicaciones = objUbicacionBL.getUbicacionListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIndActivo);
+    arrUbicaciones = objUbicacionBL.getUbicacionListSearch(strIdAlmacen, strIdZona, strIdRack, strIdUbicacion, strIndActivo);
     
     ventanaPadre.llenarDgv(arrUbicaciones);
     this.dispose();
@@ -332,6 +332,7 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
+    
     public void cargarComboAlmacen(){
         
         cbAlmacen.removeAllItems();
@@ -342,7 +343,7 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
-        if (arrAlmacenes != null)
+        if (arrAlmacenes.size() >= 0)
             for(AlmacenBE almacen : arrAlmacenes){
                 arrIdAlmacenes.add(almacen.getIdAlmacen());
                 cbAlmacen.addItem(almacen.getIdentificador().trim());
@@ -353,45 +354,67 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         
         cbZona.removeAllItems();
         cbRack.removeAllItems();
-        cbUbicacion.removeAllItems();
+
+        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+        objZonaBL = new ZonaBL();
+        arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+        
+        if (arrZonas.size() <= 0){
+            cbZona.addItem("");
+            return;
+        }
+        
         cbZona.addItem("Seleccione");
         cbRack.addItem("");
-        cbUbicacion.addItem(""); 
-
-        ArrayList<ZonaBE> arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
+        cbUbicacion.addItem("");
         
         if (arrZonas != null)
-            for(ZonaBE zona : arrZonas)
+            for(ZonaBE zona : arrZonas){
+                arrIdZonas.add(zona.getIdZona());
                 cbZona.addItem(zona.getIdentificador().trim());
-        
+            }
     }
     
     public void cargarComboRack(String idZona){
         
         cbRack.removeAllItems();        
-        cbUbicacion.removeAllItems();
+        
+        ArrayList<RackBE>arrRacks = new ArrayList<RackBE>();
+        objRackBL = new RackBL();
+        arrRacks = objRackBL.getRacksByZona(idZona);
+
+        if (arrRacks.size()<=0){
+            cbRack.addItem("");
+            return;
+        }
+        
         cbRack.addItem("Seleccione");
-        cbUbicacion.addItem(""); 
-               
-        ArrayList<RackBE> arrRacks = objRackBL.getRacksByZona(idZona);
+        cbUbicacion.addItem("");
         
-        if (arrRacks != null)
-            for(RackBE rack : arrRacks)
+        for(RackBE rack : arrRacks){
+                arrIdRacks.add(rack.getIdRack());
                 cbRack.addItem(rack.getIdentificador());
-        
+        }
     }
     
     public void cargarComboUbicacion(String idRack){
           
         cbUbicacion.removeAllItems();
-        cbUbicacion.addItem(""); 
+
         arrUbicaciones = new ArrayList<UbicacionBE>();
         arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"3");
         
-        if (arrUbicaciones != null)
-            for(UbicacionBE ubicacion : arrUbicaciones)
-                cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
-        
+        if (arrUbicaciones.size()<=0){
+            cbUbicacion.addItem(""); 
+            return;
+        }
+        cbUbicacion.addItem("Seleccione"); 
+
+        for(UbicacionBE ubicacion : arrUbicaciones){
+            arrIdUbicaciones.add(ubicacion.getIdUbicacion());
+            cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
+        }
+                
     }
     
     public void cargarComboEstado(){

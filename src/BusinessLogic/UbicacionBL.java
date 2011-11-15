@@ -100,9 +100,9 @@ public class UbicacionBL {
         return objUbicacionDA.queryDesocuparUbicacion(strIdUbicacion);
     }
 
-    public ArrayList<UbicacionBE> getUbicacionListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIndActivo) {
+    public ArrayList<UbicacionBE> getUbicacionListSearch(String strIdAlmacen, String strIdZona, String strIdRack, String strIdUbicacion, String strIndActivo) {
         objUbicacionDA = new UbicacionDA();
-        return objUbicacionDA.queryUbicacionListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIndActivo);
+        return objUbicacionDA.queryUbicacionListSearch(strIdAlmacen, strIdZona, strIdRack, strIdUbicacion, strIndActivo);
     }
     
 }

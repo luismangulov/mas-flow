@@ -438,7 +438,7 @@ public class UbicacionDA {
         return boolExito;
     }
 
-    public ArrayList<UbicacionBE> queryUbicacionListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIndActivo) {
+    public ArrayList<UbicacionBE> queryUbicacionListSearch(String strIdAlmacen, String strIdZona, String strIdRack, String strIdUbicacion, String strIndActivo) {
                 
         objConexion = new conexion();        
         arrUbicaciones = new ArrayList<UbicacionBE>();
@@ -456,8 +456,8 @@ public class UbicacionDA {
             query = query + " AND z.idZona ='" +strIdZona+"'";
         if (!strIdRack.equals(""))
             query = query + " AND r.idRack ='" +strIdRack+"'";
-        if (intFila!=0 && intColumna!=0)
-            query = query + " AND u.fila = " + intFila + " AND u.columna =" +intColumna + "";
+        if (!strIdUbicacion.equals(""))
+            query = query + " AND u.idUbicacion = '" + strIdUbicacion + "'";
         
         Date dateFechaVencimiento = null;
         String strIdNotaIngreso = "";
@@ -467,10 +467,10 @@ public class UbicacionDA {
             
             while (rs.next()){
                 
-                String strIdUbicacion = rs.getString("idUbicacion");
+                strIdUbicacion = rs.getString("idUbicacion");
                 strIdRack = rs.getString("idRack");
-                intFila = rs.getInt("fila");
-                intColumna = rs.getInt("columna");
+                int intFila = rs.getInt("fila");
+                int intColumna = rs.getInt("columna");
                 strIndActivo = rs.getString("indActivo");
                 
                 arrUbicaciones.add(new UbicacionBE(strIdUbicacion,intFila,intColumna,strIndActivo,strIdRack));
