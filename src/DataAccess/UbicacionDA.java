@@ -490,7 +490,7 @@ public class UbicacionDA {
         public UbicacionBE queryUbicacionByPallet(String strIdPallet) {
         objConexion = new conexion();
         query = "SELECT u.idubicacion, u.idrack, u.fila, u.columna, u.indactivo"
-                + " FROM UBICACION u, PALLET p WHERE u.idUbicacion= p.idpallet AND p.idpallet'"+strIdPallet+"'";
+                + " FROM UBICACION u, PALLET p WHERE u.idUbicacion= p.idpallet AND p.idpallet = '"+strIdPallet+"'";
         rs = objConexion.EjecutarS(query);
         try {
             rs.next();

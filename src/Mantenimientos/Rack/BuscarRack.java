@@ -263,7 +263,7 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         cbZona.removeAllItems();
         cbRack.removeAllItems();
 
-        arrZonas = new ArrayList<ZonaBE>();
+        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
         objZonaBL = new ZonaBL();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
         
@@ -274,6 +274,8 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         
         cbZona.addItem("Seleccione");
         cbRack.addItem("");
+        
+        arrIdZonas.clear();
         
         if (arrZonas != null)
             for(ZonaBE zona : arrZonas){
@@ -286,7 +288,7 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         
         cbRack.removeAllItems();        
         
-        arrRacks = new ArrayList<RackBE>();
+        ArrayList<RackBE>arrRacks = new ArrayList<RackBE>();
         objRackBL = new RackBL();
         arrRacks = objRackBL.getRacksByZona(idZona);
 
@@ -296,6 +298,8 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
         
         cbRack.addItem("Seleccione");
+        
+        arrIdRacks.clear();
         
         for(RackBE rack : arrRacks){
                 arrIdRacks.add(rack.getIdRack());

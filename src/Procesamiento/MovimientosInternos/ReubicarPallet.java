@@ -578,20 +578,22 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         cbRack.removeAllItems();
         cbUbicacion.removeAllItems();
 
-        cbRack.addItem("");
-        cbUbicacion.addItem(""); 
-
-
         arrZonas = objZonaBL.getZonasByFamilia(idAlmacen,strIdFamilia);
         
-        if (arrZonas.size() > 0){
-            cbZona.addItem("Seleccione");            
-            for(ZonaBE zona : arrZonas){
-                arrIdZonas.add(zona.getIdZona());
-                cbZona.addItem(zona.getIdentificador().trim());
-            }
+        if (arrZonas.size() <= 0){
+            cbZona.addItem("");
+            return;
         }
-            
+        
+        cbZona.addItem("Seleccione");
+        cbRack.addItem("");
+        cbUbicacion.addItem(""); 
+        arrIdZonas.clear();
+        
+        for(ZonaBE zona : arrZonas){
+            arrIdZonas.add(zona.getIdZona());
+            cbZona.addItem(zona.getIdentificador().trim());
+        }
         
     }
     
@@ -610,6 +612,8 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         
         cbRack.addItem("Seleccione");
         cbUbicacion.addItem("");
+        
+        arrIdRacks.clear();
         
         for(RackBE rack : arrRacks){
                 arrIdRacks.add(rack.getIdRack());
@@ -630,6 +634,8 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
             return;
         }
         cbUbicacion.addItem("Seleccione"); 
+        
+        arrIdUbicaciones.clear();
 
         for(UbicacionBE ubicacion : arrUbicaciones){
             arrIdUbicaciones.add(ubicacion.getIdUbicacion());
@@ -641,7 +647,7 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     private boolean validar() {
         
         if (cbUbicacion.getItemCount() != 0){
-            if (cbUbicacion.getSelectedItem().toString().equals("")){
+            if (cbUbicacion.getSelectedItem().toString().equals("") || cbUbicacion.getSelectedItem().toString().equals("Seleccione")){
                 JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino");
                 return false;
             }else
