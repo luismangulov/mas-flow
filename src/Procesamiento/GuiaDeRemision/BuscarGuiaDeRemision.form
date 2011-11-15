@@ -45,7 +45,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="txtCliente" pref="174" max="32767" attributes="0"/>
+                          <Component id="txtCliente" pref="185" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
@@ -135,6 +135,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCliente">
       <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtClienteFocusLost"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtClienteKeyTyped"/>
       </Events>
     </Component>

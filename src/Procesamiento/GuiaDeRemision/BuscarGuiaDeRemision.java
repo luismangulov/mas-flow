@@ -102,6 +102,11 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
             }
         });
 
+        txtCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtClienteFocusLost(evt);
+            }
+        });
         txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtClienteKeyTyped(evt);
@@ -137,7 +142,7 @@ public class BuscarGuiaDeRemision extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addGap(23, 23, 23)
-                            .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                            .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
@@ -239,6 +244,11 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             evt.consume();
         }
     }//GEN-LAST:event_txtClienteKeyTyped
+
+    private void txtClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClienteFocusLost
+        // TODO add your handling code here:
+        txtCliente.setText( txtCliente.getText().toUpperCase()); 
+    }//GEN-LAST:event_txtClienteFocusLost
 
     /**
      * @param args the command line arguments
