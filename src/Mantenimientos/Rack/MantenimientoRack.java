@@ -174,14 +174,14 @@ public class MantenimientoRack extends javax.swing.JFrame {
         
         strIdZona = devolverZonaPorXY(intPosX, intPosY,strIdAlmacen).getIdZona();
         
-        if (!guardaIdZona.equals(strIdZona))
-            cambioZona = true;
+//        if (!guardaIdZona.equals(strIdZona))
+//            cambioZona = true;
   
         objRackBL = new RackBL();
         String strIdentificador = "";
-        
-        if (!cambioZona)
-            strIdentificador = objRackBE.getIdentificador();
+//        
+//        if (!cambioZona)
+//            strIdentificador = objRackBE.getIdentificador();
         
         objRackBE = new RackBE(strIdRack,intPosX, intPosY, intPisos, intColumnas, strIndActivo, strIdZona, strIdentificador,strOrientacion);
 
@@ -190,17 +190,21 @@ public class MantenimientoRack extends javax.swing.JFrame {
         if (strIndActivo.equals("0")){
             int intCantUbicacionesOcupadas = objUbicacionBL.getCantUbicacionesOcupadas(strIdRack);
             if (intCantUbicacionesOcupadas > 0)
-                JOptionPane.showMessageDialog(null, "No se puede inactivar. Hay ubicaciones en uso o bloqueadas en el rack");
+                JOptionPane.showMessageDialog(null, "No se puede inactivar. Hay ubicaciones en uso en el rack");
             else{
                 objUbicacionBL.bloquearUbicacionByRack(strIdRack);
+                boolExito = objRackBL.modificar(objRackBE);
             }
         }
-        else
+        else{
             objUbicacionBL.desbloquearUbicacionByRack(strIdRack);
-        boolExito = objRackBL.modificar(objRackBE,cambioZona);
-        if (boolExito)
+            boolExito = objRackBL.modificar(objRackBE);
+        }
+        
+        if (boolExito){
+            objRackBE = objRackBL.getByIdRack(objRackBE.getIdRack());
             ventanaPadre.actualizaDgv(objRackBE);
-
+        }
         this.dispose();
         
     }
@@ -434,7 +438,7 @@ private void txtPosXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt
     char c = (char)evt.getKeyChar();
     if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
        evt.consume();
-    if ((this.txtPosX.getText().length() + 1) > 6) {
+    if ((this.txtPosX.getText().length() + 1) > 4) {
        evt.consume();
     }
 }//GEN-LAST:event_txtPosXKeyTyped
@@ -443,7 +447,7 @@ private void txtPosYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt
     char c = (char)evt.getKeyChar();
     if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
        evt.consume();
-    if ((this.txtPosY.getText().length() + 1) > 6) {
+    if ((this.txtPosY.getText().length() + 1) > 4) {
        evt.consume();
     }
 }//GEN-LAST:event_txtPosYKeyTyped
@@ -599,34 +603,15 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     
     public boolean validar(){
         
-        if(cbOrientacion.getItemCount()==0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar orientación");
+        if(cbOrientacion.getSelectedItem().toString().equals("Seleccione")){
+            JOptionPane.showMessageDialog(null, "Debe elegir la orientación del rack");
             return false;            
         }
         
         if (cbAlmacen.getItemCount()==0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un almacén");
+            JOptionPane.showMessageDialog(null, "No hay almacences creados");
             return false;
         }
-        
-        if ( txtPisos.getText().equals("0") || txtColumnas.getText().equals("0")){
-            JOptionPane.showMessageDialog(null, "El número de pisos y de columnas no puede ser igual a cero");
-            return false;
-        }
-        
-        int intPisos = Integer.parseInt(txtPisos.getText());
-        int intColumnas = Integer.parseInt(txtColumnas.getText());
-        
-        if (intPisos < 0 || intPisos > 6 || intColumnas < 0 || intColumnas > 20){
-            JOptionPane.showMessageDialog(null, "El número de pisos no puede ser mayor a 6 y el número de columnas no puede ser mayor a 20");
-            return false;
-        }
-            
-//        
-//        if (cbZona.getItemCount()==0){
-//            JOptionPane.showMessageDialog(null, "Debe seleccionar una zona");
-//            return false;
-//        }
         
         if (txtPosX.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar la posición X del rack");
@@ -648,6 +633,14 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             return false;
         }
         
+        intPisos = Integer.parseInt(txtPisos.getText());
+        intColumnas = Integer.parseInt(txtColumnas.getText());
+        
+        if (intPisos <= 0 || intPisos > 6 || intColumnas <= 0 || intColumnas > 20){
+            JOptionPane.showMessageDialog(null, "El número de pisos no puede ser mayor a 6 y el número de columnas no puede ser mayor a 20");
+            return false;
+        }
+
         if (!validarPosicionamiento())
             return false;
         

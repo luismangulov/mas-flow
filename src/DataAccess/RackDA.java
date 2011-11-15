@@ -67,23 +67,17 @@ public class RackDA {
         finally{objConexion.SalirUID();}
     }
     
-    public boolean modificar(RackBE objRackBE, boolean cambioZona){
+    public boolean modificar(RackBE objRackBE){
         
         boolExito = false;
         objConexion = new conexion();
         
             
-        if (cambioZona)
-            objRackBE.setIdentificador(generaIdentificador(objRackBE.getIdZona()));
+//        if (cambioZona)
+//            objRackBE.setIdentificador(generaIdentificador(objRackBE.getIdZona()));
         
         
-        query = "UPDATE RACK set posX = '"+String.valueOf(objRackBE.getPosX())+"', "
-                                + "posY='"+String.valueOf(objRackBE.getPosY())+"', "
-                                + "indActivo = '" +objRackBE.getIndActivo()+ "',"
-                                + "idZona ='"+objRackBE.getIdZona()+"',"
-                                + "identificador='"+objRackBE.getIdentificador()+"',"
-                                + "orientacion='"+objRackBE.getOrientacion()+"'"
-                                + " WHERE idRack = '"+objRackBE.getIdRack()+"'";
+        query = "UPDATE RACK set indActivo = '" +objRackBE.getIndActivo()+ "' WHERE idRack = '"+objRackBE.getIdRack()+"'";
             
         try{
             objConexion.EjecutarUID(query);

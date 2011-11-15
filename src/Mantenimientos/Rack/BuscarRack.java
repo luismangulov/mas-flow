@@ -39,6 +39,8 @@ public class BuscarRack extends javax.swing.JFrame {
     AlmacenBL objAlmacenBL;
     
     ArrayList<String> arrIdAlmacenes = new ArrayList<String>();
+    ArrayList<String> arrIdZonas = new ArrayList<String>();
+    ArrayList<String> arrIdRacks = new ArrayList<String>();
     
     
     public BuscarRack(AdmRack ventanaPadre) {
@@ -165,7 +167,7 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
         String strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
-        if (!cbZona.getSelectedItem().equals("")){
+        if (!cbZona.getSelectedItem().equals("Seleccione")){
             strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
             cargarComboRack(strIdZona);
         }
@@ -179,14 +181,16 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         String strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
     
         objZonaBL = new ZonaBL();
-        if (!cbZona.getSelectedItem().toString().equals(""))
-            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
-        else
+        if (!cbZona.getSelectedItem().toString().equals("Seleccione") && !cbZona.getSelectedItem().toString().equals("")){
+            strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
+        }
+        else 
             strIdZona = "";
         
         objRackBL = new RackBL();
-        if (!cbRack.getSelectedItem().toString().equals(""))
-            strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
+        if (!cbRack.getSelectedItem().toString().equals("Seleccione") && !cbRack.getSelectedItem().toString().equals("")){
+            strIdRack = arrIdRacks.get(cbRack.getSelectedIndex()-1);
+        }
         else 
             strIdRack = "";
         
@@ -258,31 +262,44 @@ private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         
         cbZona.removeAllItems();
         cbRack.removeAllItems();
-        cbZona.addItem("");
-        cbRack.addItem("");
 
         arrZonas = new ArrayList<ZonaBE>();
         objZonaBL = new ZonaBL();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
         
-        if (arrZonas != null)
-            for(ZonaBE zona : arrZonas)
-                cbZona.addItem(zona.getIdentificador().trim());
+        if (arrZonas.size() <= 0){
+            cbZona.addItem("");
+            return;
+        }
         
+        cbZona.addItem("Seleccione");
+        cbRack.addItem("");
+        
+        if (arrZonas != null)
+            for(ZonaBE zona : arrZonas){
+                arrIdZonas.add(zona.getIdZona());
+                cbZona.addItem(zona.getIdentificador().trim());
+            }
     }
     
     public void cargarComboRack(String idZona){
         
         cbRack.removeAllItems();        
-        cbRack.addItem("");
-               
+        
         arrRacks = new ArrayList<RackBE>();
         objRackBL = new RackBL();
         arrRacks = objRackBL.getRacksByZona(idZona);
+
+        if (arrRacks.size()<=0){
+            cbRack.addItem("");
+            return;
+        }
         
-        if (arrRacks != null)
-            for(RackBE rack : arrRacks)
+        cbRack.addItem("Seleccione");
+        
+        for(RackBE rack : arrRacks){
+                arrIdRacks.add(rack.getIdRack());
                 cbRack.addItem(rack.getIdentificador());
-        
+        }
     }
 }

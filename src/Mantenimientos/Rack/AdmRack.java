@@ -165,7 +165,7 @@ public class AdmRack extends javax.swing.JFrame {
         lblVerMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/System Map.png"))); // NOI18N
         lblVerMapa.setToolTipText("Ver en mapa");
         lblVerMapa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblVerMapa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblVerMapa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblVerMapa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblVerMapaMouseClicked(evt);
@@ -214,8 +214,7 @@ private void lblEliminarRackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
         strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
         
         if (objUbicacionBL.getCantUbicacionesOcupadas(strIdRack) > 0){
-            JOptionPane.showMessageDialog(null, objUbicacionBL.getCantUbicacionesOcupadas(strIdRack));
-            JOptionPane.showMessageDialog(null, "No se puede eliminar el rack. Existen ubicaciones en uso o bloqueadas", "Error",0);
+            JOptionPane.showMessageDialog(null, "No se puede eliminar el rack. Existen ubicaciones en uso", "Error",0);
             return;       
         }
         
