@@ -266,6 +266,8 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
     String strIdUsuario = UsuarioSistema.usuario.getIdUsuario();
     int intFila = dgvPallets.getSelectedRow();
     
+    arrPallets.clear();
+    
     for (int i = intFila ; i<intFila+intCantFilas; i++){
         
 //        JOptionPane.showMessageDialog(null, modelo.getRowCount());
@@ -274,6 +276,7 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
         strIdPallet = modelo.getValueAt(i,1).toString();
         strIdProducto = objProductoBL.getByNombreProducto(modelo.getValueAt(i, 2).toString()).getIdProducto();
         
+        objPalletBE = new PalletBE();
         objPalletBE.setIdPallet(strIdPallet);
         objPalletBE.setIdProducto(strIdProducto);
         objPalletBE.setIdUbicacion(strIdUbicacion);
@@ -288,6 +291,7 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
         arrMovimientosInternos.add(objMovimientoInternoBE);
 
     }
+    
     
     for (PalletBE palletBE : arrPallets)
         objPalletBL.desechar(palletBE);
