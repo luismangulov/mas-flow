@@ -14,6 +14,7 @@ public class UbicacionBE {
     private int columna;
     private String indActivo; // 0 bloqueada, 1 disponible, 2 en uso
     private String idRack;
+    
 
     public UbicacionBE() {
     }

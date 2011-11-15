@@ -222,10 +222,9 @@ public class BuscarUbicacion extends javax.swing.JFrame {
 
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
     
-    AlmacenBL objAlmacenBL = new AlmacenBL();
     int i;
     i = cbAlmacen.getSelectedIndex();
-    String strIdAlmacen = arrIdAlmacenes.get(i);
+    strIdAlmacen = arrIdAlmacenes.get(i);
     cargarComboZona(strIdAlmacen);
     
 }//GEN-LAST:event_cbAlmacenActionPerformed
@@ -235,8 +234,8 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
         strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
-        if (!cbZona.getSelectedItem().equals("Seleccione")){
-            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
+        if (!cbZona.getSelectedItem().equals("Seleccione") && !cbZona.getSelectedItem().equals("")){
+            strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
             cargarComboRack(strIdZona);
         }
     }
@@ -247,9 +246,8 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     
     int intCantItem = cbRack.getItemCount() - 1;
     if (intCantItem > 0){
-        if (!cbRack.getSelectedItem().equals("Seleccione")){
-            String strIdentificador = cbRack.getSelectedItem().toString();
-            strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
+        if (!cbRack.getSelectedItem().equals("Seleccione") && !cbRack.getSelectedItem().equals("")){
+            strIdRack = arrIdRacks.get(cbRack.getSelectedIndex()-1);
             cargarComboUbicacion(strIdRack);
         }
     }
@@ -302,8 +300,13 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     
     arrUbicaciones = objUbicacionBL.getUbicacionListSearch(strIdAlmacen, strIdZona, strIdRack, strIdUbicacion, strIndActivo);
     
-    ventanaPadre.llenarDgv(arrUbicaciones);
-    this.dispose();
+    if (!arrUbicaciones.isEmpty()){
+        ventanaPadre.llenarDgv(arrUbicaciones);
+        this.dispose();
+    }
+    else
+        JOptionPane.showMessageDialog(null, "No se encontraron ubicaciones", "Advertencia", 0);
+    
     
 }//GEN-LAST:event_btnBuscarMouseClicked
 

@@ -486,6 +486,27 @@ public class UbicacionDA {
         
         return arrUbicaciones;
     }
-   
     
+        public UbicacionBE queryUbicacionByPallet(String strIdPallet) {
+        objConexion = new conexion();
+        query = "SELECT u.idubicacion, u.idrack, u.fila, u.columna, u.indactivo"
+                + " FROM UBICACION u, PALLET p WHERE u.idUbicacion= p.idpallet AND p.idpallet'"+strIdPallet+"'";
+        rs = objConexion.EjecutarS(query);
+        try {
+            rs.next();
+
+                String strIdUbicacion = rs.getString("IdUbicacion");
+                int fila = rs.getInt("Fila");
+                int columna = rs.getInt("Columna");
+                String strIndActivo = rs.getString("IndActivo");
+                String idRack = rs.getString("idRack");
+                objUbicacion = new UbicacionBE(strIdUbicacion,fila,columna,strIndActivo,idRack);
+
+        } catch (SQLException ex) {
+            objUbicacion = null;
+        }finally{
+            objConexion.SalirS();
+        }
+        return objUbicacion;
+    }
 }

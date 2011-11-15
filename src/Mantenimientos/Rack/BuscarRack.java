@@ -167,8 +167,8 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     int intCantItem = cbZona.getItemCount() - 1;
     if (intCantItem > 0){
         String strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
-        if (!cbZona.getSelectedItem().equals("Seleccione")){
-            strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
+        if (!cbZona.getSelectedItem().equals("Seleccione") && !cbZona.getSelectedItem().equals("")){
+            strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
             cargarComboRack(strIdZona);
         }
     }
@@ -208,7 +208,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         }
         
         else
-            JOptionPane.showMessageDialog(null, "No existen racks de dicho criterio", "Advertencia", 0);
+            JOptionPane.showMessageDialog(null, "No se encontraron racks", "Advertencia", 0);
 }//GEN-LAST:event_btnBuscarMouseClicked
 
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed
