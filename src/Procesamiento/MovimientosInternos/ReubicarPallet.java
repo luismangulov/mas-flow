@@ -645,13 +645,19 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     }
 
     private boolean validar() {
+    
+    int fila = dgvPallets.getSelectedRow();
+    if (fila==-1){
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún pallet", "Advertencia",0);
+        return false;
+    }
         
-        if (cbUbicacion.getItemCount() != 0){
-            if (cbUbicacion.getSelectedItem().toString().equals("") || cbUbicacion.getSelectedItem().toString().equals("Seleccione")){
-                JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino");
-                return false;
-            }else
-                return true;
+    if (cbUbicacion.getItemCount() != 0){
+        if (cbUbicacion.getSelectedItem().toString().equals("") || cbUbicacion.getSelectedItem().toString().equals("Seleccione")){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino");
+            return false;
+        }else
+            return true;
         }else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino");
             return false;
