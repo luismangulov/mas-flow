@@ -105,4 +105,9 @@ public class UbicacionBL {
         return objUbicacionDA.queryUbicacionListSearch(strIdAlmacen, strIdZona, strIdRack, strIdUbicacion, strIndActivo);
     }
     
+    public UbicacionBE getUbicacionByPallet(String strIdPallet) {
+        objUbicacionDA = new UbicacionDA();
+        return objUbicacionDA.queryUbicacionByPallet(strIdPallet);
+    }
+    
 }
