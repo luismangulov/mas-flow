@@ -452,6 +452,8 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
         cbRack.addItem("");
         cbUbicacion.addItem("");
         
+        arrIdZonas.clear();
+        
         if (arrZonas != null)
             for(ZonaBE zona : arrZonas){
                 arrIdZonas.add(zona.getIdZona());
@@ -463,7 +465,7 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
         
         cbRack.removeAllItems();        
         
-        ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
+        ArrayList<RackBE>arrRacks = new ArrayList<RackBE>();
         objRackBL = new RackBL();
         arrRacks = objRackBL.getRacksByZona(idZona);
 
@@ -474,6 +476,8 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
         
         cbRack.addItem("Seleccione");
         cbUbicacion.addItem("");
+        
+        arrIdRacks.clear();
         
         for(RackBE rack : arrRacks){
                 arrIdRacks.add(rack.getIdRack());
@@ -493,6 +497,8 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
             return;
         }
         cbUbicacion.addItem("Seleccione"); 
+        
+        arrIdUbicaciones.clear();
 
         for(UbicacionBE ubicacion : arrUbicaciones){
             arrIdUbicaciones.add(ubicacion.getIdUbicacion());

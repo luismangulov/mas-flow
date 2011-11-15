@@ -244,7 +244,7 @@ public class PalletDA {
     public PalletBE queryByIdUbicacion(String idUbicacion) {
         
         objConexion = new conexion();
-        query = "SELECT * FROM Pallet WHERE idUbicacion ='" + idUbicacion + "'";
+        query = "SELECT * FROM Pallet WHERE indActivo = '1' AND idUbicacion ='" + idUbicacion + "'";
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
         

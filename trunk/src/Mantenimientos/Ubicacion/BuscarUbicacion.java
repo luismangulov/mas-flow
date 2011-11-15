@@ -371,6 +371,8 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         cbRack.addItem("");
         cbUbicacion.addItem("");
         
+        arrIdZonas.clear();
+        
         if (arrZonas != null)
             for(ZonaBE zona : arrZonas){
                 arrIdZonas.add(zona.getIdZona());
@@ -394,6 +396,8 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         cbRack.addItem("Seleccione");
         cbUbicacion.addItem("");
         
+        arrIdRacks.clear();
+        
         for(RackBE rack : arrRacks){
                 arrIdRacks.add(rack.getIdRack());
                 cbRack.addItem(rack.getIdentificador());
@@ -412,6 +416,8 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             return;
         }
         cbUbicacion.addItem("Seleccione"); 
+        
+        arrIdUbicaciones.clear();
 
         for(UbicacionBE ubicacion : arrUbicaciones){
             arrIdUbicaciones.add(ubicacion.getIdUbicacion());
