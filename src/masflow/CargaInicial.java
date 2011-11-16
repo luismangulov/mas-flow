@@ -13,6 +13,10 @@ package masflow;
 
 import CargaMasiva.CargaMasiva;
 import Seguridad.Login;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,6 +39,7 @@ public class CargaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         btnCargaDataInicial = new javax.swing.JButton();
         btnIniciarSistema = new javax.swing.JButton();
 
@@ -58,7 +63,7 @@ public class CargaInicial extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnIniciarSistema, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -68,7 +73,7 @@ public class CargaInicial extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(76, Short.MAX_VALUE)
+                .addContainerGap(98, Short.MAX_VALUE)
                 .addComponent(btnIniciarSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCargaDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -80,17 +85,64 @@ public class CargaInicial extends javax.swing.JFrame {
 
     private void btnCargaDataInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaDataInicialActionPerformed
         // TODO add your handling code here:
-        CargaMasiva c=new CargaMasiva();
-        c.cargaData();
+//        CargaMasiva c=new CargaMasiva();
+//        c.cargaData();
+
+   // permitir al usuario seleccionar el archivo a abrir
+
+      // mostrar cuadro de diálogo para que el usuario pueda seleccionar el archivo
+      JFileChooser selectorArchivo = new JFileChooser();
+      selectorArchivo.setFileSelectionMode( JFileChooser.FILES_ONLY );
+
+      int resultado = selectorArchivo.showSaveDialog( null );
+
+      // si el usuario hizo clic en el botón Cancelar del cuadro de diálogo, regresar
+      if ( resultado == JFileChooser.CANCEL_OPTION )
+         return;
+
+      // obtener el archivo seleccionado
+      File nombreArchivo = selectorArchivo.getSelectedFile();
+
+      // mostrar error si el nombre del archivo es inválido
+      if ( nombreArchivo == null || nombreArchivo.getName().equals( "" ) )
+         JOptionPane.showMessageDialog( null, "Nombre de archivo incorrecto",
+            "Nombre de archivo incorrecto", JOptionPane.ERROR_MESSAGE );
+
+      else {
+
+         // abrir el archivo
+         try {
+            CargaMasiva C=new CargaMasiva();
+            C.cargaData(nombreArchivo);
+
+            masflow.MenuPrincipal m = new masflow.MenuPrincipal();
+            m.setVisible(true);
+            this.dispose();
+
+            //System.exit( 0 );  // terminar el programa
+
+         } // fin del bloque try
+         // procesar excepciones durante operaciones de apertura, escritura o cierre del archivo
+         catch ( Exception excepcionES ){
+            JOptionPane.showMessageDialog( null, "Error al procesar el archivo",
+               "Error al procesar el archivo", JOptionPane.ERROR_MESSAGE );
+            System.exit( 1 );
+         }
+
+      } // fin de instrucción else
+
+    // fin del método crearArchivo
         this.dispose();
-        Login L = new Login();
-        L.setVisible(true);
+        masflow.MenuPrincipal m = new masflow.MenuPrincipal();
+        m.setVisible(true);
+        
+
     }//GEN-LAST:event_btnCargaDataInicialActionPerformed
 
     private void btnIniciarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSistemaActionPerformed
         // TODO add your handling code here:
-        Login L = new Login();
-        L.setVisible(true);
+        masflow.MenuPrincipal m = new masflow.MenuPrincipal();
+        m.setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_btnIniciarSistemaActionPerformed
@@ -109,6 +161,7 @@ public class CargaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargaDataInicial;
     private javax.swing.JButton btnIniciarSistema;
+    private javax.swing.JLayeredPane jLayeredPane1;
     // End of variables declaration//GEN-END:variables
 
 }

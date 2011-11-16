@@ -24,9 +24,9 @@ import java.util.Locale;
 public class CargaMasiva {
 
 
-   public void cargaData(){
+   public void cargaData(File archivo){
 
-      File archivo = null;
+     // File archivo = null;
       FileReader fr = null;
       BufferedReader br = null;
 
@@ -36,9 +36,10 @@ public class CargaMasiva {
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
          // hacer una lectura comoda (disponer del metodo readLine()).
-         String ruta = System.getProperty("user.dir") +
-                                "/src/CargaMasiva/DATAMASIVA.TXT";
-         archivo = new File (ruta);
+         //String ruta = System.getProperty("user.dir") +
+                                //nomArch;
+                               // "/src/CargaMasiva/DATAMASIVA.TXT";
+         //archivo = new File (ruta);
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
 
