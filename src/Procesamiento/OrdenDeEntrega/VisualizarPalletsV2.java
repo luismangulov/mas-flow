@@ -4,32 +4,30 @@
  */
 
 /*
- * VisualizarPallets.java
+ * VisualizarPalletsV2.java
  *
- * Created on Nov 10, 2011, 3:20:48 AM
+ * Created on Nov 15, 2011, 9:51:12 PM
  */
 package Procesamiento.OrdenDeEntrega;
 
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
-import BusinessEntity.UnidadMedidaBE;
 import BusinessLogic.ProductoBL;
-import BusinessLogic.UnidadMedidaBL;
-import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author DIEGO
  */
-public class VisualizarPallets extends javax.swing.JFrame {
-    private AdmOrdenDeEntrega padre;
-    /** Creates new form VisualizarPallets */
-    public VisualizarPallets(AdmOrdenDeEntrega objPadre,ArrayList<PalletBE> arrPallet) {
-        this.padre = objPadre;
+public class VisualizarPalletsV2 extends javax.swing.JDialog {
+
+    /** Creates new form VisualizarPalletsV2 */
+    public VisualizarPalletsV2(java.awt.Frame parent, boolean modal,ArrayList<PalletBE> arrPallet) {
+        super(parent, modal);
         initComponents();
-        this.setLocationRelativeTo(null); 
         this.recargar(arrPallet);
+        this.setLocationRelativeTo(null); 
     }
 
     /** This method is called from within the constructor to
@@ -52,14 +50,14 @@ public class VisualizarPallets extends javax.swing.JFrame {
 
             },
             new String [] {
-                "IdOrdenEntrega", "NombreProducto", "IdUbicacion", "FechaVencimiento", "MaxCantPorPallet", "Unidad"
+                "IdOrdenEntrega", "IdPallet", "NombreProducto", "FechaVencimiento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,11 +74,11 @@ public class VisualizarPallets extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -103,21 +101,29 @@ public class VisualizarPallets extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(VisualizarPallets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VisualizarPalletsV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(VisualizarPallets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VisualizarPalletsV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(VisualizarPallets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VisualizarPalletsV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(VisualizarPallets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VisualizarPalletsV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
-//        /* Create and display the form */
+//        /* Create and display the dialog */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //
 //            public void run() {
-//                new VisualizarPallets().setVisible(true);
+//                VisualizarPalletsV2 dialog = new VisualizarPalletsV2(new javax.swing.JFrame(), true);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
 //            }
 //        });
 //    }
@@ -125,8 +131,8 @@ public class VisualizarPallets extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPallets;
     // End of variables declaration//GEN-END:variables
-   
-    public final void recargar(ArrayList<PalletBE> arrPallet){
+
+ public final void recargar(ArrayList<PalletBE> arrPallet){
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
@@ -137,11 +143,11 @@ public class VisualizarPallets extends javax.swing.JFrame {
         };
         tblPallets.setModel(modelo);
         modelo.addColumn("IdOrdenEntrega");
+        modelo.addColumn("IdPallet");
         modelo.addColumn("NombreProducto");
-        modelo.addColumn("IdUbicacion");
+        
         modelo.addColumn("FechaVencimiento");
-         modelo.addColumn("MaxCantPorPallet");
-          modelo.addColumn("Unidad");
+        
         
 //        tblGuiaRemision.getColumnModel().getColumn(0).setPreferredWidth(40);
 //        tblGuiaRemision.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -149,23 +155,24 @@ public class VisualizarPallets extends javax.swing.JFrame {
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
         
         for(int i = 0;i<arrPallet.size();i++){
-            modelo.addRow(new Object[6]);
+            modelo.addRow(new Object[4]);
             
             tblPallets.setValueAt(arrPallet.get(i).getIdNotaIngreso(),i,0 );
+            tblPallets.setValueAt(arrPallet.get(i).getIdPallet(),i,1 );
+            
             ProductoBL objProductoBL = new ProductoBL();
              ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrPallet.get(i).getIdProducto());
             
-            tblPallets.setValueAt(objProductoBE.getNombre(),i,1 );
-            
-            tblPallets.setValueAt(arrPallet.get(i).getIdUbicacion(),i,2 );
+           
+            tblPallets.setValueAt(objProductoBE.getNombre(),i,2 );
              tblPallets.setValueAt(arrPallet.get(i).getFechaVencimiento(),i,3 );
-            tblPallets.setValueAt(objProductoBE.getMaxCantPorPallet(),i,4 );
-            UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
-            UnidadMedidaBE objUnidadMedidaBE = objUnidadMedidaBL.getUnidadMedida(arrPallet.get(i).getIdProducto());
-            tblPallets.setValueAt(objUnidadMedidaBE.getNombre(),i,5 );
+            
+           
         }
         
     }
-    
-   
+
+
+
+
 }
