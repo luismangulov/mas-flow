@@ -15,6 +15,7 @@ import BusinessEntity.UsuarioSistema;
 import BusinessLogic.UsuarioBL;
 import BusinessLogic.UsuarioContrasenaBL;
 import javax.swing.JOptionPane;
+import masflow.CargaInicial;
 
 /**
  *
@@ -195,9 +196,10 @@ private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     String res=objUsuarioContrasenaBL.corroborarContrasena(this.txtUsuario.getText(),this.txtPassword.getText());
     if (res.equals("1")){
         
-        UsuarioSistema.usuario=objUsuarioBE;        
-        masflow.MenuPrincipal m = new masflow.MenuPrincipal();
-        m.setVisible(true);
+        UsuarioSistema.usuario=objUsuarioBE;
+
+        CargaInicial c = new CargaInicial();
+        c.setVisible(true);
         this.dispose();
     }else
     {

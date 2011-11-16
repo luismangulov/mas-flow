@@ -22,6 +22,7 @@ import DataAccess.AplicacionxServicioDA;
 import DataAccess.PerfilDA;
 import DataAccess.PerfilDetalleDA;
 import DataAccess.ServicioDA;
+import Util.Utilitario;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -259,6 +260,12 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Nombre:");
+
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -721,6 +728,16 @@ private void jListAplicacionSelectedMouseClicked(java.awt.event.MouseEvent evt) 
 //    }
 
 }//GEN-LAST:event_jListAplicacionSelectedMouseClicked
+
+private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+    // TODO add your handling code here:
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtDescripcion.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtDescripcionKeyTyped
 
     /**
      * @param args the command line arguments
