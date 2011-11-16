@@ -12,8 +12,10 @@ package Procesamiento.OrdenDeEntrega;
 
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
+import BusinessEntity.UbicacionBE;
 import BusinessEntity.UnidadMedidaBE;
 import BusinessLogic.ProductoBL;
+import BusinessLogic.UbicacionBL;
 import BusinessLogic.UnidadMedidaBL;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
@@ -157,7 +159,10 @@ public class VisualizarPallets extends javax.swing.JFrame {
             
             tblPallets.setValueAt(objProductoBE.getNombre(),i,1 );
             
-            tblPallets.setValueAt(arrPallet.get(i).getIdUbicacion(),i,2 );
+            UbicacionBL objUbicacionBL = new UbicacionBL();
+            UbicacionBE objUbicacionBE = objUbicacionBL.getUbicacionById(arrPallet.get(i).getIdUbicacion());
+            String identificador = "F" + objUbicacionBE.getFila() + "C" + objUbicacionBE.getColumna();
+            tblPallets.setValueAt(identificador,i,2 );
              tblPallets.setValueAt(arrPallet.get(i).getFechaVencimiento(),i,3 );
             tblPallets.setValueAt(objProductoBE.getMaxCantPorPallet(),i,4 );
             UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
