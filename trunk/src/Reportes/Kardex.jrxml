@@ -164,7 +164,7 @@ ORDER BY  almacen.identificador, producto.idproducto, movimientointerno.fecha;;]
 					<text><![CDATA[Operación]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="287" y="15" width="81" height="20"/>
+					<reportElement x="281" y="15" width="96" height="20"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>

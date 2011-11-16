@@ -19,8 +19,8 @@
   producto.maxcantporpallet as cant,
   unidadmedida.nombre as UnidadMedida
 FROM
-  public.almacen,
   public.producto,
+  public.almacen,
   public.pallet,
   public.unidadmedida
 WHERE
