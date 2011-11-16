@@ -4,23 +4,22 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa" class="java.lang.String"/>
-	<parameter name="Orden" class="java.lang.String">
+	<parameter name="Guia" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-  detallenotaingreso.iddetallenotaingreso,
-  notaingreso.idnotaingreso,
-  notaingreso.fecha,
-  detallenotaingreso.idproducto,
-  detallenotaingreso.cantidad,
+  detalleguiaremision.iddetalleguiaremision,
+  guiaremision.idguiaremision,
+  guiaremision.fecha,
+  detalleguiaremision.idproducto,
+  detalleguiaremision.cantidad,
   unidadmedida.nombre as unidadmedida,
   producto.nombre as producto,
-  detallenotaingreso.fechavencimiento,
   almacen.nombre,
   almacen.identificador,
   almacen.direccion as almacenDir,
-  estadoni.descripcion as estado,
+  estadogr.descripcion as estado,
   entidad.nrodocumento,
   entidad.direccion as dirEntidad,
   entidad.telefono,
@@ -29,39 +28,38 @@
   distrito.descripcion as distrito,
   departamento.descripcion as departamento
 FROM
-  public.detallenotaingreso,
-  public.notaingreso,
+  public.detalleguiaremision,
+  public.guiaremision,
   public.almacen,
   public.producto,
   public.unidadmedida,
-  public.estadoni,
+  public.estadogr,
   public.entidad,
   public.departamento,
   public.distrito,
   public.provincia
 WHERE
-  notaingreso.idnotaingreso = detallenotaingreso.idnotaingreso AND
-  almacen.idalmacen = notaingreso.idalmacen AND
+  guiaremision.idguiaremision = detalleguiaremision.idguiaremision AND
+  almacen.idalmacen = guiaremision.idalmacen AND
   almacen.iddistrito = distrito.iddistrito AND
   almacen.idprovincia = distrito.idprovincia AND
   almacen.iddepartamento = distrito.iddepartamento AND
-  producto.idproducto = detallenotaingreso.idproducto AND
+  producto.idproducto = detalleguiaremision.idproducto AND
   unidadmedida.idunidadmedida = producto.idunidadmedida AND
-  estadoni.idestadoni = notaingreso.idestadoni AND
-  entidad.identidad = notaingreso.identidad AND
+  estadogr.idestadogr = guiaremision.idestadogr AND
+  entidad.identidad = guiaremision.identidad AND
   distrito.idprovincia = provincia.idprovincia AND
   distrito.iddepartamento = provincia.iddepartamento AND
   provincia.iddepartamento = departamento.iddepartamento AND
-  notaingreso.idnotaingreso = $P{Orden};]]>
+  guiaremision.idguiaremision = $P{Guia};]]>
 	</queryString>
-	<field name="iddetallenotaingreso" class="java.lang.String"/>
-	<field name="idnotaingreso" class="java.lang.String"/>
+	<field name="iddetalleguiaremision" class="java.lang.String"/>
+	<field name="idguiaremision" class="java.lang.String"/>
 	<field name="fecha" class="java.sql.Date"/>
 	<field name="idproducto" class="java.lang.String"/>
 	<field name="cantidad" class="java.math.BigDecimal"/>
 	<field name="unidadmedida" class="java.lang.String"/>
 	<field name="producto" class="java.lang.String"/>
-	<field name="fechavencimiento" class="java.sql.Date"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="identificador" class="java.lang.String"/>
 	<field name="almacendir" class="java.lang.String"/>
@@ -73,8 +71,8 @@ WHERE
 	<field name="provincia" class="java.lang.String"/>
 	<field name="distrito" class="java.lang.String"/>
 	<field name="departamento" class="java.lang.String"/>
-	<group name="Orden">
-		<groupExpression><![CDATA[$F{idnotaingreso}]]></groupExpression>
+	<group name="Guia">
+		<groupExpression><![CDATA[$F{idguiaremision}]]></groupExpression>
 		<groupHeader>
 			<band height="103">
 				<rectangle>
@@ -108,13 +106,6 @@ WHERE
 					</textElement>
 					<textFieldExpression><![CDATA[$F{direntidad}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="430" y="82" width="58" height="20"/>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isUnderline="true"/>
-					</textElement>
-					<text><![CDATA[Fecha Venc.]]></text>
-				</staticText>
 				<textField>
 					<reportElement x="101" y="28" width="431" height="20"/>
 					<textElement markup="none">
@@ -127,7 +118,7 @@ WHERE
 					<textElement markup="none">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Proveedor: "]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Cliente: "]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -151,7 +142,7 @@ WHERE
 				<textElement markup="none">
 					<font size="24" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Orden de Entrega - "+$P{Orden}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Guía de Remisión - "+$P{Guia}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -223,13 +214,6 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{unidadmedida}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="430" y="0" width="58" height="15"/>
-				<textElement>
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{fechavencimiento}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="271" y="1" width="58" height="15"/>
 				<textElement textAlignment="Right">
@@ -250,7 +234,7 @@ WHERE
 			<textField>
 				<reportElement x="14" y="0" width="257" height="20"/>
 				<textElement textAlignment="Left" markup="none"/>
-				<textFieldExpression><![CDATA["Sistemas +Flow - Orden de Entrega " + $P{Orden}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Sistemas +Flow - Guía de Remisión " + $P{Guia}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="404" y="1" width="80" height="20"/>

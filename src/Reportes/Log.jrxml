@@ -3,56 +3,95 @@
 	<property name="ireport.zoom" value="1.1000000000000008"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="desdeFecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="empresa" class="java.lang.String"/>
 	<parameter name="desdeUsuario" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="hastaUsuario" class="java.lang.String"/>
-	<parameter name="hastaFecha" class="java.lang.String"/>
-	<parameter name="desdeFecha" class="java.lang.String"/>
-	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="hastaUsuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hastaFecha" class="java.util.Date"/>
 	<queryString>
-		<![CDATA[SELECT 
-  usuariocontrasena.fechainicio, 
-  usuariocontrasena.idusuario, 
-  usuario.nombre, 
-  usuario.apellidopaterno, 
-  usuario.apellidomaterno, 
-  usuario.idestadousuario
-FROM 
-  public.usuariocontrasena, 
-  public.usuario
-WHERE 
-  usuariocontrasena.idusuario = usuario.idusuario;]]>
+		<![CDATA[SELECT
+     usuario."idusuario" AS usuario_idusuario,
+     usuario."nombre" AS usuario_nombre,
+     usuario."apellidopaterno" AS usuario_apellidopaterno,
+     usuario."apellidomaterno" AS usuario_apellidomaterno,
+     usuario."limiteintentos" AS usuario_limiteintentos,
+     estadousuario."descripcion" AS estadousuario_descripcion,
+     perfil."descripcion" AS perfil_descripcion,
+     usuariocontrasena."fechainicio" AS usuariocontrasena_fechainicio,
+     usuariocontrasena."fechafin" AS usuariocontrasena_fechafin
+FROM
+     "public"."estadousuario" estadousuario INNER JOIN "public"."usuario" usuario ON estadousuario."idestadousuario" = usuario."idestadousuario"
+     INNER JOIN "public"."perfil" perfil ON usuario."idperfil" = perfil."idperfil"
+     INNER JOIN "public"."usuariocontrasena" usuariocontrasena ON usuario."idusuario" = usuariocontrasena."idusuario"
+
+where
+usuariocontrasena.fechainicio >=$P{desdeFecha} and
+usuariocontrasena.fechainicio <=$P{hastaFecha} and
+usuario.idusuario >=$P{desdeUsuario} and
+usuario.idusuario <=$P{hastaUsuario}]]>
 	</queryString>
-	<field name="fechainicio" class="java.sql.Date"/>
-	<field name="idusuario" class="java.lang.String"/>
-	<field name="nombre" class="java.lang.String"/>
-	<field name="apellidopaterno" class="java.lang.String"/>
-	<field name="apellidomaterno" class="java.lang.String"/>
-	<field name="idestadousuario" class="java.lang.String"/>
-	<variable name="cant_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Producto" calculation="Sum">
-		<variableExpression><![CDATA[$F{cant}]]></variableExpression>
-	</variable>
+	<field name="usuario_idusuario" class="java.lang.String"/>
+	<field name="usuario_nombre" class="java.lang.String"/>
+	<field name="usuario_apellidopaterno" class="java.lang.String"/>
+	<field name="usuario_apellidomaterno" class="java.lang.String"/>
+	<field name="usuario_limiteintentos" class="java.lang.Integer"/>
+	<field name="estadousuario_descripcion" class="java.lang.String"/>
+	<field name="perfil_descripcion" class="java.lang.String"/>
+	<field name="usuariocontrasena_fechainicio" class="java.sql.Date"/>
+	<field name="usuariocontrasena_fechafin" class="java.sql.Date"/>
 	<group name="Usuario">
-		<groupExpression><![CDATA[$F{idalmacen}]]></groupExpression>
+		<groupExpression><![CDATA[$F{usuario_idusuario}]]></groupExpression>
 		<groupHeader>
-			<band height="43">
+			<band height="111">
 				<rectangle>
-					<reportElement x="0" y="0" width="539" height="16" forecolor="#FFFFFF" backcolor="#CCCCFF"/>
+					<reportElement x="-2" y="0" width="541" height="16" forecolor="#FFFFFF" backcolor="#CCCCFF"/>
 				</rectangle>
+				<textField pattern="dd-MMM-yy">
+					<reportElement x="14" y="0" width="149" height="20" printWhenGroupChanges="Usuario"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_idusuario}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="14" y="91" width="149" height="20"/>
+					<textElement>
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Cambios de contraseña]]></text>
+				</staticText>
+				<textField pattern="dd-MMM-yy">
+					<reportElement x="14" y="20" width="525" height="20" printWhenGroupChanges="Usuario"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Nombre: "+ $F{usuario_apellidopaterno}+ " "+$F{usuario_apellidomaterno}
++ ", " + $F{usuario_nombre}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yy">
+					<reportElement x="14" y="38" width="525" height="20" printWhenGroupChanges="Usuario"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Estado: "+ $F{estadousuario_descripcion}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yy">
+					<reportElement x="14" y="58" width="525" height="20" printWhenGroupChanges="Usuario"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Perfil: "+ $F{perfil_descripcion}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="12"/>
-		</groupFooter>
-	</group>
-	<group name="Producto">
-		<groupExpression><![CDATA[$F{idproducto}]]></groupExpression>
-		<groupHeader>
-			<band height="16"/>
-		</groupHeader>
-		<groupFooter>
-			<band/>
 		</groupFooter>
 	</group>
 	<background>
@@ -62,9 +101,6 @@ WHERE
 		<band height="45" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="0" width="539" height="45" forecolor="#6C86AF" backcolor="#6C86AF"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="437" y="30" width="35" height="5" forecolor="#6C86AF" backcolor="#6C86AF"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="14" y="10" width="525" height="34" forecolor="#FFFFFF"/>
@@ -81,7 +117,7 @@ WHERE
 				<reportElement x="0" y="0" width="539" height="44" forecolor="#6C86AF" backcolor="#6C86AF"/>
 			</rectangle>
 			<textField pattern="dd/MM/yyyy h.mm a">
-				<reportElement x="380" y="0" width="144" height="20" forecolor="#FFFFFF"/>
+				<reportElement x="367" y="0" width="144" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -95,14 +131,14 @@ WHERE
 				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="39" y="20" width="68" height="20" forecolor="#FFFFFF"/>
+				<reportElement x="39" y="20" width="81" height="20" forecolor="#FFFFFF"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{desdeFecha}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="124" y="20" width="102" height="20" forecolor="#FFFFFF"/>
+				<reportElement x="137" y="20" width="102" height="20" forecolor="#FFFFFF"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -116,7 +152,7 @@ WHERE
 				<text><![CDATA[Del]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="107" y="20" width="17" height="20" forecolor="#FFFFFF"/>
+				<reportElement x="120" y="20" width="17" height="20" forecolor="#FFFFFF"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -128,7 +164,13 @@ WHERE
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band splitType="Stretch"/>
+		<band height="21" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="14" y="0" width="78" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{usuariocontrasena_fechainicio}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="18" splitType="Stretch"/>
@@ -144,12 +186,12 @@ WHERE
 				<text><![CDATA[Sistemas +Flow - Log de Auditoría]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="404" y="1" width="80" height="20"/>
+				<reportElement x="391" y="1" width="80" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Pág. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="484" y="1" width="40" height="20"/>
+				<reportElement x="471" y="1" width="40" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
