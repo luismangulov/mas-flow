@@ -12,7 +12,9 @@ package Procesamiento.OrdenDeEntrega;
 
 import BusinessEntity.PalletBE;
 import BusinessEntity.ProductoBE;
+import BusinessEntity.UbicacionBE;
 import BusinessLogic.ProductoBL;
+import BusinessLogic.UbicacionBL;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -50,14 +52,14 @@ public class VisualizarPalletsV2 extends javax.swing.JDialog {
 
             },
             new String [] {
-                "IdOrdenEntrega", "IdPallet", "NombreProducto", "FechaVencimiento"
+                "IdOrdenEntrega", "IdPallet", "NombreProducto", "IdUbicacion", "FechaVencimiento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -74,7 +76,7 @@ public class VisualizarPalletsV2 extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +147,7 @@ public class VisualizarPalletsV2 extends javax.swing.JDialog {
         modelo.addColumn("IdOrdenEntrega");
         modelo.addColumn("IdPallet");
         modelo.addColumn("NombreProducto");
-        
+        modelo.addColumn("IdUbicacion");
         modelo.addColumn("FechaVencimiento");
         
         
@@ -155,7 +157,7 @@ public class VisualizarPalletsV2 extends javax.swing.JDialog {
 //        tblGuiaRemision.getColumnModel().getColumn(3).setPreferredWidth(40);
         
         for(int i = 0;i<arrPallet.size();i++){
-            modelo.addRow(new Object[4]);
+            modelo.addRow(new Object[5]);
             
             tblPallets.setValueAt(arrPallet.get(i).getIdNotaIngreso(),i,0 );
             tblPallets.setValueAt(arrPallet.get(i).getIdPallet(),i,1 );
@@ -165,7 +167,12 @@ public class VisualizarPalletsV2 extends javax.swing.JDialog {
             
            
             tblPallets.setValueAt(objProductoBE.getNombre(),i,2 );
-             tblPallets.setValueAt(arrPallet.get(i).getFechaVencimiento(),i,3 );
+            
+            UbicacionBL objUbicacionBL = new UbicacionBL();
+            UbicacionBE objUbicacionBE = objUbicacionBL.getUbicacionById(arrPallet.get(i).getIdUbicacion());
+            String identificador = "F" + objUbicacionBE.getFila() + "C" + objUbicacionBE.getColumna();
+            tblPallets.setValueAt(identificador,i,3 );
+             tblPallets.setValueAt(arrPallet.get(i).getFechaVencimiento(),i,4 );
             
            
         }
