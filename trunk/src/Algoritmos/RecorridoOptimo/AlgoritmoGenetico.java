@@ -28,8 +28,8 @@ public class AlgoritmoGenetico {
    private static int tamanoPoblacionInicial=100;
    private static double tasaCrecimiento=0.00075;
    private static int ratioMutacion=(int)(1/0.5);
-   private static int maxEdadMejorDistancia=100;
-   private static int maxNumGeneraciones=300;
+   private static int maxEdadMejorDistancia=70;
+   private static int maxNumGeneraciones=200;
 
 //Atributos de ejecucion
    private static Nodo nodos[]=null;
