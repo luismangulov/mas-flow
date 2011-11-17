@@ -175,6 +175,7 @@ public class AyudaPallet extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -290,7 +291,7 @@ public class AyudaPallet extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(49, 49, 49)
-                                .addComponent(cbZona, 0, 106, Short.MAX_VALUE))
+                                .addComponent(cbZona, 0, 111, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(29, 29, 29)
