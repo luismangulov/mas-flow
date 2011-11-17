@@ -12,6 +12,7 @@ package masflow;
 
 import BusinessEntity.UsuarioSistema;
 import CargaMasiva.CargaMasiva;
+import Reportes.LogUsuario;
 import Seguridad.ConstantesSeguridad;
 import Seguridad.Login;
 
@@ -93,6 +94,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblKardek = new javax.swing.JLabel();
         jLblTrazabilidadPallet = new javax.swing.JLabel();
         jLblLogAuditoria = new javax.swing.JLabel();
+        jLblLogUsuario = new javax.swing.JLabel();
         jLayeredPaneSeguridad = new javax.swing.JLayeredPane();
         jLblPerfiles = new javax.swing.JLabel();
         jLblCambioContrasena = new javax.swing.JLabel();
@@ -136,7 +138,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Mantenimientos");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
         jLabel2.setText("Procesos");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -189,7 +191,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblAlmacenesMousePressed(evt);
             }
         });
-        jLblAlmacenes.setBounds(20, 20, 140, 17);
+        jLblAlmacenes.setBounds(20, 20, 150, 17);
         jLayeredPaneMantenimientos.add(jLblAlmacenes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblUbicaciones.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -269,7 +271,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblIngresarProductosMousePressed(evt);
             }
         });
-        jLblIngresarProductos.setBounds(20, 20, 160, 17);
+        jLblIngresarProductos.setBounds(20, 20, 170, 17);
         jLayeredPaneProcesos.add(jLblIngresarProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblDespacharProductos.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -285,7 +287,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblDespacharProductos.setBounds(20, 50, 170, 17);
         jLayeredPaneProcesos.add(jLblDespacharProductos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblMovimientosInternos.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
+        jLblMovimientosInternos.setFont(new java.awt.Font("Droid Sans", 0, 14));
         jLblMovimientosInternos.setForeground(new java.awt.Color(0, 0, 100));
         jLblMovimientosInternos.setText("Movimientos Internos");
         jLblMovimientosInternos.setName("000011"); // NOI18N
@@ -338,7 +340,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblTrazabilidadPallet.setBounds(30, 80, 150, 17);
         jLayeredPaneReportes.add(jLblTrazabilidadPallet, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblLogAuditoria.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblLogAuditoria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblLogAuditoria.setForeground(new java.awt.Color(0, 0, 102));
         jLblLogAuditoria.setText("Log de Auditoría");
         jLblLogAuditoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -351,13 +353,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblLogAuditoria.setBounds(30, 110, 150, 17);
         jLayeredPaneReportes.add(jLblLogAuditoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLblLogUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblLogUsuario.setForeground(new java.awt.Color(0, 0, 102));
+        jLblLogUsuario.setText("Log de Usuario");
+        jLblLogUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLblLogUsuario.setName("000016"); // NOI18N
+        jLblLogUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLblLogUsuarioMousePressed(evt);
+            }
+        });
+        jLblLogUsuario.setBounds(30, 140, 150, 17);
+        jLayeredPaneReportes.add(jLblLogUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         jLayeredPaneSeguridad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLblPerfiles.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblPerfiles.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblPerfiles.setForeground(new java.awt.Color(0, 0, 102));
         jLblPerfiles.setText("Perfiles");
         jLblPerfiles.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblPerfiles.setName("000016"); // NOI18N
+        jLblPerfiles.setName("000017"); // NOI18N
         jLblPerfiles.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblPerfilesMousePressed(evt);
@@ -370,7 +385,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblCambioContrasena.setForeground(new java.awt.Color(0, 0, 102));
         jLblCambioContrasena.setText("Cambio contraseña");
         jLblCambioContrasena.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblCambioContrasena.setName("000018"); // NOI18N
+        jLblCambioContrasena.setName("000019"); // NOI18N
         jLblCambioContrasena.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblCambioContrasenaMousePressed(evt);
@@ -383,7 +398,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblUsuarios.setForeground(new java.awt.Color(0, 0, 102));
         jLblUsuarios.setText("Usuarios");
         jLblUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLblUsuarios.setName("000017"); // NOI18N
+        jLblUsuarios.setName("000018"); // NOI18N
         jLblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblUsuariosMousePressed(evt);
@@ -399,14 +414,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel45.setBounds(140, 100, 229, 22);
         jLayeredPaneLogo.add(jLabel45, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36));
         jLabel44.setText("<html>Sistema<br>+Flow</html>");
         jLabel44.setBounds(140, 10, 180, 86);
         jLayeredPaneLogo.add(jLabel44, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logoMasFlow.png"))); // NOI18N
-        jLabel9.setBounds(10, 10, 130, 105);
+        jLabel9.setBounds(10, 20, 130, 105);
         jLayeredPaneLogo.add(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButtonSalir.setText("Salir");
@@ -438,17 +453,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(jLabel6)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel6))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -460,18 +475,31 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel3)))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLayeredPaneSeguridad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLayeredPaneLogo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLayeredPaneLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLayeredPaneMantenimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                            .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -483,25 +511,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLayeredPaneSeguridad, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLayeredPaneLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLayeredPaneMantenimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+                            .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(62, 62, 62)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonSalir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLayeredPaneLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
         pack();
@@ -648,6 +662,14 @@ private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         this.dispose();
 }//GEN-LAST:event_jButtonSalirActionPerformed
 
+private void jLblLogUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblLogUsuarioMousePressed
+    // TODO add your handling code here:
+       if(this.jLblLogUsuario.isEnabled()){
+        Reportes.LogUsuario a = new Reportes.LogUsuario();
+        a.setVisible(true);// TODO add your handling code here:
+       }
+}//GEN-LAST:event_jLblLogUsuarioMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -709,6 +731,7 @@ private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JLabel jLblIngresarProductos;
     private javax.swing.JLabel jLblKardek;
     private javax.swing.JLabel jLblLogAuditoria;
+    private javax.swing.JLabel jLblLogUsuario;
     private javax.swing.JLabel jLblMovimientosInternos;
     private javax.swing.JLabel jLblPerfiles;
     private javax.swing.JLabel jLblProductos;
