@@ -326,7 +326,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                             //arrPallet.add(objPalletBE);
                         }
                      }
-                     
+                     arrPallet = new ArrayList<PalletBE>();
                         for(int u =0;u<arrProducto.size();u++){
                             Mapa mapa = new Mapa(arrAlmacenes.get(0));
                             arrPallet.add(AlgoritmoBestFirst.ejecutar(mapa, arrProducto.get(u)));
@@ -335,7 +335,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                             //UbicacionBL objUbicacionBL = new UbicacionBL();
                             //objUbicacionBL.ocuparUbicacion(arrUbicaciones.get(u).getIdUbicacion());
                         }
-                        
+                         arrUbicaciones = new ArrayList<UbicacionBE>();   
                         for(int i =0;i< arrPallet.size();i++){
                             UbicacionBL objUbicacionBL = new UbicacionBL();
                             UbicacionBE objUbicacionBE = new UbicacionBE();
