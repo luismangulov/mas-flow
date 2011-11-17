@@ -24,46 +24,57 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="btnBuscarPallet" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="279" pref="279" max="279" attributes="0"/>
-              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="18" pref="18" max="18" attributes="0"/>
-              <Component id="jdcFecha" min="-2" pref="277" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+                      <Component id="btnBuscarPallet" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="279" pref="279" max="279" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="18" pref="18" max="18" attributes="0"/>
+                      <Component id="jdcFecha" min="-2" pref="277" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="687" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="687" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="125" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="1">
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="cbZona" pref="106" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="cbAlmacen" min="-2" pref="106" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="1">
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="cbUbicacion" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="cbRack" min="-2" pref="121" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="200" pref="200" max="200" attributes="0"/>
-              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="39" pref="39" max="39" attributes="0"/>
-              <Component id="cbAlmacen" min="-2" pref="230" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="200" pref="200" max="200" attributes="0"/>
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="46" pref="46" max="46" attributes="0"/>
-              <Component id="cbZona" min="-2" pref="230" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="200" pref="200" max="200" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="46" pref="46" max="46" attributes="0"/>
-              <Component id="cbRack" min="-2" pref="230" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="200" pref="200" max="200" attributes="0"/>
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="36" pref="36" max="36" attributes="0"/>
-              <Component id="cbUbicacion" min="-2" pref="83" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="280" pref="280" max="280" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="287" max="-2" attributes="0"/>
               <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="30" pref="30" max="30" attributes="0"/>
               <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="288" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -79,37 +90,42 @@
                   </Group>
                   <Component id="jdcFecha" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="19" pref="19" max="19" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="100" max="-2" attributes="0"/>
-              <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="191" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbAlmacen" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="15" pref="15" max="15" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="10" pref="10" max="10" attributes="0"/>
-                      <Component id="cbZona" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbAlmacen" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                              <Component id="cbZona" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbRack" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cbUbicacion" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace min="25" pref="25" max="25" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbRack" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbUbicacion" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="30" pref="30" max="30" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
