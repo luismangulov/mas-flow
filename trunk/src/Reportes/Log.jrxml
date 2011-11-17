@@ -107,7 +107,7 @@ usuario.idusuario <=$P{hastaUsuario}]]>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Log de Auditoría]]></text>
+				<text><![CDATA[Log de Auditoría (Seguridad)]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -181,9 +181,9 @@ usuario.idusuario <=$P{hastaUsuario}]]>
 				<reportElement x="0" y="0" width="539" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="14" y="0" width="221" height="20"/>
+				<reportElement x="14" y="0" width="278" height="20"/>
 				<textElement textAlignment="Left"/>
-				<text><![CDATA[Sistemas +Flow - Log de Auditoría]]></text>
+				<text><![CDATA[Sistemas +Flow - Log de Auditoría (Seguridad)]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="391" y="1" width="80" height="20"/>
