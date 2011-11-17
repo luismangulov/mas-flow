@@ -688,7 +688,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JTable tblNotaIngreso;
     // End of variables declaration//GEN-END:variables
 
-public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String direccion,String identificador) throws ParseException{
+public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String direccion,String identificador){
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
@@ -713,16 +713,16 @@ public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String dire
           tblNotaIngreso.setValueAt(identificador,0,0 ); 
          tblNotaIngreso.setValueAt(notaIngreso.getCodigo(),0,1 );
          tblNotaIngreso.setValueAt(razonSocial,0,2 );
-         tblNotaIngreso.setValueAt(direccion,0,3 );
+//         tblNotaIngreso.setValueAt(direccion,0,3 );
 //          SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-//             String strFecha = formato.format(notaIngreso.getFecha());
+//              String strFecha = formato.format(notaIngreso.getFecha());
 //             
 //             tblNotaIngreso.setValueAt(strFecha ,0,4 );
          tblNotaIngreso.setValueAt(notaIngreso.getFecha(),0,4 );
          tblNotaIngreso.setValueAt(notaIngreso.getEstado().getDescripcion(),0,5 );
     }
 
-    public void recargar(ArrayList<NotaIngresoBE> notasIngreso) throws ParseException{
+    public void recargar(ArrayList<NotaIngresoBE> notasIngreso){
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
