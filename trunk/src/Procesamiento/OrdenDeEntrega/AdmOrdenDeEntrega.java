@@ -360,6 +360,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                    objNotaIngresoBL.cambiarEstado(codigo, objEstadoNIBE.getCodigo());
                     tblNotaIngreso.setValueAt( objEstadoNIBE.getDescripcion(),fila,5 );
                     
+                    arrPallet = new ArrayList<PalletBE>();
                      for(int i=0;i<arrDetalleNotaIngresoBE.size();i++){
                         ProductoBL objProductoBL = new ProductoBL();
                         ProductoBE objProductoBE = objProductoBL.getByIdProducto(arrDetalleNotaIngresoBE.get(i).getProducto().getIdProducto());
