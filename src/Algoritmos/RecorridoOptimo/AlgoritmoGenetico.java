@@ -46,6 +46,8 @@ public class AlgoritmoGenetico {
    private static List<Cromosoma> poblacion=Collections.synchronizedList(new ArrayList<Cromosoma>());
    private static Random rnd;
    private static int tamanoPoblacion;
+   private static int puertaPosX;
+   private static int puertaPosY;
    public static ArrayList<ArrayList<Ruta>> rutas;
 
 
@@ -495,6 +497,69 @@ public class AlgoritmoGenetico {
    }
 
    
+   public static void convertirANodoDePaso(ArrayList<Nodo> listaNodos,ArrayList<Nodo> nodosObligatorios)
+   {
+        for (int i=0; i<nodosObligatorios.size(); i++)
+        {
+            Nodo nodo = nodosObligatorios.get(i);
+            if (!nodo.isNodoInicial())
+            {
+                Nodo mejorVecino = mejorVecino(nodo, listaNodos);
+                if (mejorVecino != null)
+                {
+                    nodosObligatorios.set(i, mejorVecino);
+                }
+            }
+        }
+  
+   }
+
+
+   public static Nodo mejorVecino(Nodo nodo, ArrayList<Nodo> listaNodos)
+   {
+       ArrayList<Nodo> vecinos=new ArrayList<Nodo>();
+
+       for (Nodo n : listaNodos)
+       {
+            if ((
+                (n.getX()-1==nodo.getX() && n.getY()==nodo.getY()) ||
+                (n.getX()+1==nodo.getX() && n.getY()==nodo.getY()) ||
+                (n.getX()==nodo.getX() && n.getY()+1==nodo.getY()) ||
+                (n.getX()==nodo.getX() && n.getY()-1==nodo.getY())
+               ) && (n.getItem()!=null))
+            {
+                vecinos.add(n);
+            }
+       }
+
+       Collections.sort(vecinos,new Comparator<Nodo>() {
+       public int compare(Nodo u1, Nodo u2) {
+           double distancia1 = distanciaALaPuerta(u1);
+           double distancia2 = distanciaALaPuerta(u2);
+           return (distancia1<distancia2 ? -1 : (distancia1>distancia2?1 : 0));
+        }
+       });
+
+       if (vecinos.isEmpty()) return null;
+       return vecinos.get(0);
+   }
+
+
+    private static double distanciaALaPuerta(Nodo u)
+    {
+        double dx;
+        double dy;
+
+        dx= puertaPosX - u.getX();
+        dy= puertaPosY - u.getY();
+
+        double distanciaALaPuerta=Math.sqrt(dx * dx + dy * dy);
+        return distanciaALaPuerta;
+    }
+
+
+
+
 
 //Aplicacion
 //Recibe una lista de puntos obligatorios de tipo ArrayList UbicacionBE (primer piso) y obtiene el recorrido optimo
@@ -512,6 +577,12 @@ public class AlgoritmoGenetico {
          for (int i=0;i<listaNodos.size();i++)
          {
             arregloNodos[i]=listaNodos.get(i);
+
+            if (arregloNodos[i].isNodoInicial())
+            {
+                puertaPosX=arregloNodos[i].getX();
+                puertaPosY=arregloNodos[i].getY();
+            }
          }
          
          
@@ -536,6 +607,9 @@ public class AlgoritmoGenetico {
                 rutas.add(temp);
             }
          }
+
+         //para cada nodo obligatorio busca por donde pasar
+         convertirANodoDePaso(listaNodos,nodosObligatorios);
 
          arregloNodos = new Nodo[nodosObligatorios.size()];
          for (int i=0;i<nodosObligatorios.size();i++)
@@ -585,7 +659,13 @@ public class AlgoritmoGenetico {
 //         flagInicio=false;
 
          Cromosoma c = obtenerMejorCromosoma();
-         return obtenerMejorRecorrido(c);
+         ArrayList<Nodo> mejorRecorrido = obtenerMejorRecorrido(c);
+
+         rutas.clear();
+         poblacion.clear();
+         nodos=null;
+
+         return mejorRecorrido;
 
 
       } catch(Throwable e) {
