@@ -65,9 +65,9 @@ public class PalletBL {
         return objPalletDA.queryByIdPallet(strIdPallet);
     }
 
-    public ArrayList<PalletBE> getPalletListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIdPallet, String strIdProducto) {
+    public ArrayList<PalletBE> getPalletListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIdPallet, String strNombreProducto) {
         objPalletDA = new PalletDA();
-        return objPalletDA.queryPalletListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIdPallet, strIdProducto);
+        return objPalletDA.queryPalletListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIdPallet, strNombreProducto);
     }
     
     public ArrayList<PalletBE> getPalletByIdNotaIngreso(String strIdNotaIngreso){

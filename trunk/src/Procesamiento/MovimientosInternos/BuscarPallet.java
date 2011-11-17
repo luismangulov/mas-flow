@@ -78,7 +78,7 @@ public class BuscarPallet extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtIdPallet = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtIdProducto = new javax.swing.JTextField();
+        txtNombreProducto = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -108,9 +108,9 @@ public class BuscarPallet extends javax.swing.JFrame {
 
         jLabel4.setText("Producto:");
 
-        txtIdProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNombreProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIdProductoKeyTyped(evt);
+                txtNombreProductoKeyTyped(evt);
             }
         });
 
@@ -135,7 +135,7 @@ public class BuscarPallet extends javax.swing.JFrame {
 
         jLabel3.setText("Rack:");
 
-        jLabel5.setText("Ubicacion:");
+        jLabel5.setText("Ubicación:");
 
         jLabel6.setText("Zona:");
 
@@ -191,7 +191,7 @@ public class BuscarPallet extends javax.swing.JFrame {
                             .addGap(46, 46, 46)
                             .addComponent(jLabel4)
                             .addGap(29, 29, 29)
-                            .addComponent(txtIdProducto))
+                            .addComponent(txtNombreProducto))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(47, 47, 47)
                             .addComponent(jLabel7)
@@ -234,7 +234,7 @@ public class BuscarPallet extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -280,7 +280,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         
     PalletBE objPalletBE;
     strIdPallet = txtIdPallet.getText();
-    strIdProducto = txtIdProducto.getText();
+    String strNombreProducto = txtNombreProducto.getText();
     int intFila = 0;
     int intColumna = 0;
     
@@ -312,7 +312,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     }else
         strIdAlmacen = "";
     
-    arrPallets = objPalletBL.getPalletListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIdPallet, strIdProducto);
+    arrPallets = objPalletBL.getPalletListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIdPallet, strNombreProducto);
     
     if (!arrPallets.isEmpty()){
         if (ventanaPadreReubicar != null)
@@ -381,15 +381,15 @@ private void txtIdPalletKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     }
 }//GEN-LAST:event_txtIdPalletKeyTyped
 
-private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdProductoKeyTyped
+private void txtNombreProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProductoKeyTyped
     char c = (char)evt.getKeyChar();
-    if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+    if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
     evt.consume();
-    if ((this.txtIdProducto.getText().length() + 1) > 6) {
+    if ((this.txtNombreProducto.getText().length() + 1) > 20) {
     evt.consume();
     
     }
-}//GEN-LAST:event_txtIdProductoKeyTyped
+}//GEN-LAST:event_txtNombreProductoKeyTyped
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         this.dispose();
@@ -414,7 +414,7 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtIdPallet;
-    private javax.swing.JTextField txtIdProducto;
+    private javax.swing.JTextField txtNombreProducto;
     // End of variables declaration//GEN-END:variables
     
     public void cargarComboAlmacen(){

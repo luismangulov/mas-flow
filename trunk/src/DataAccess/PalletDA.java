@@ -421,26 +421,31 @@ public class PalletDA {
         return arrPallets;
     }
 
-    public ArrayList<PalletBE> queryPalletListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIdPallet, String strIdProducto) {
+    public ArrayList<PalletBE> queryPalletListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIdPallet, String strNombreProducto) {
         
         objConexion = new conexion();        
         arrPallets = new ArrayList<PalletBE>();
         
         query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento, p.idnotaingreso, p.idguiaremision"
-                + " FROM PALLET p, UBICACION u, RACK r, ZONA z, ALMACEN a "
+                + " FROM PRODUCTO pr, PALLET p, UBICACION u, RACK r, ZONA z, ALMACEN a "
                 + " WHERE p.indactivo = '1' AND a.IdAlmacen = z.IdAlmacen AND z.IdZona = r.IdZona"
-                + " AND u.idRack = r.idrack AND u.idubicacion = p.idubicacion";
+                + " AND u.idRack = r.idrack AND u.idubicacion = p.idubicacion AND pr.idProducto = p.idProducto";
+        
         if (!strIdAlmacen.equals(""))
             query = query + " AND a.IdAlmacen = '" + strIdAlmacen + "'";
         
         if (!strIdZona.equals(""))
             query = query + " AND z.idZona ='" +strIdZona+"'";
+        
         if (!strIdRack.equals(""))
             query = query + " AND r.idRack ='" +strIdRack+"'";
+        
         if (intFila!=0 && intColumna!=0)
             query = query + " AND u.fila = " + intFila + " AND u.columna =" +intColumna + "";
-        if (!strIdProducto.equals(""))
-            query = query + " AND p.idProducto LIKE '%"+strIdProducto+"%'";
+        
+        if (!strNombreProducto.equals(""))
+            query = query + " AND pr.nombre LIKE '%"+strNombreProducto+"%'";
+        
         if (!strIdPallet.equals(""))
             query = query + " AND p.idPallet LIKE '%"+strIdPallet+"%'";
         
@@ -453,7 +458,7 @@ public class PalletDA {
             while (rs.next()){
                 
                 strIdPallet = rs.getString("IdPallet");
-                strIdProducto = rs.getString("IdProducto");
+                String strIdProducto = rs.getString("IdProducto");
                 String strIndActivo= rs.getString("IndActivo");
                 String strIdUbicacion = rs.getString("idUbicacion");
                 strIdAlmacen = rs.getString("idAlmacen");
