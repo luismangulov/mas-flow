@@ -34,6 +34,19 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
+import Util.conexion;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
+
 /**
  *
  * @author DIEGO
@@ -333,7 +346,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 // TODO add your handling code here:
     GuiaRemisionBL objGuiaRemisionBL = new GuiaRemisionBL();
     //SimpleDateFormat df1 = new SimpleDateFormat( "dd/MM/yy" );
-     GuiaRemisionBE objGuiaRemisionBE;  
+     GuiaRemisionBE objGuiaRemisionBE = null;  
    if(this.valida()){  
      try {
         if(objGuiaRemisionBL.insertar(this.jdcFecha.getDate(),this.txtCliente.getText().trim(),this.arrAlmacenes.get(cbAlmacen.getSelectedIndex()).getIdAlmacen())){
@@ -356,9 +369,13 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         objGuiaRemisionBE = objGuiaRemisionBL.getObjGuiaRemisionBE();
         this.objPadre.recargaruno(objGuiaRemisionBE, cliente.getRazonSocial(),cliente.getDireccion(),(String)this.cbAlmacen.getSelectedItem());
         this.dispose();
+        
+        
     } catch (Exception ex) {
         Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
     }
+     
+     this.runReporte(objGuiaRemisionBE.getCodigo());
    }
        
     
@@ -582,6 +599,54 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
                 cbAlmacen.addItem(almacen.getIdentificador());
 
     }
+    
+    public void runReporte(String guia)
+    {
+
+            String master = System.getProperty("user.dir") +
+                                "/src/Reportes/GuiaRemision.jasper";
+           
+            System.out.println(master);
+            if (master == null)
+            {               
+                JOptionPane.showMessageDialog(null, "No se encontró el archivo de la Guía de Remisión.", "Mensaje",0);
+                return;
+            }
+
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                return;
+            }             
+           
+            //este es el par�metro, se pueden agregar m�s par�metros
+            //basta con poner mas parametro.put
+            Map parametro = new HashMap();
+            parametro.put("Guia",guia);
+            parametro.put("empresa",Util.Configuracion.getEmpresa());
+            //Reporte dise�ado y compilado con iReport
+            try {
+            conexion objConexion = new conexion();
+            objConexion.SetearConexion();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport,parametro,objConexion.getCon());
+            objConexion.SalirUID();
+            //Se lanza el Viewer de Jasper, no termina aplicaci�n al salir
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setTitle("+Flow - Guía de Remisión");
+            jviewer.setVisible(true);
+        }
+
+        catch (Exception j)
+        {
+            JOptionPane.showMessageDialog(null, "Mensaje de Error:"+j.getMessage(), "Mensaje",0);
+        }
+
+}
     
     
 }

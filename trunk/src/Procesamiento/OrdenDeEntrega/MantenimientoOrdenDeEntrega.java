@@ -31,6 +31,17 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
+import Util.conexion;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author DIEGO
@@ -371,7 +382,7 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
     private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
         // TODO add your handling code here:
         NotaIngresoBL objNotaIngresoBL = new NotaIngresoBL();
-        NotaIngresoBE objNotaIngresoBE;
+        NotaIngresoBE objNotaIngresoBE = null;
         try {
             if(this.valida()){     
              try {
@@ -399,10 +410,14 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
              } catch (Exception ex) {
                  Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
              }
+             
+             this.runReporte(objNotaIngresoBE.getCodigo());
+             
             }
         } catch (ParseException ex) {
             Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
         
     }//GEN-LAST:event_btnGuardarMousePressed
@@ -601,4 +616,54 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
                 cbAlmacen.addItem(almacen.getIdentificador());
 
     }
+     
+    
+ public void runReporte(String orden)
+    {
+
+            String master = System.getProperty("user.dir") +
+                                "/src/Reportes/OrdenEntrega.jasper";
+           
+            System.out.println(master);
+            if (master == null)
+            {               
+                JOptionPane.showMessageDialog(null, "No se encontró el archivo de la Orden de Entrega.", "Mensaje",0);
+                return;
+            }
+
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                JOptionPane.showMessageDialog(null, "Error cargando la Orden de Entrega: " + e.getMessage(), "Mensaje",0);
+                return;
+            }             
+           
+            //este es el par�metro, se pueden agregar m�s par�metros
+            //basta con poner mas parametro.put
+            Map parametro = new HashMap();
+            parametro.put("Orden",orden);
+            parametro.put("empresa",Util.Configuracion.getEmpresa());
+            //Reporte dise�ado y compilado con iReport
+            try {
+            conexion objConexion = new conexion();
+            objConexion.SetearConexion();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport,parametro,objConexion.getCon());
+            objConexion.SalirUID();
+            //Se lanza el Viewer de Jasper, no termina aplicaci�n al salir
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setTitle("+Flow - Orden de Entrega");
+            jviewer.setVisible(true);
+        }
+
+        catch (Exception j)
+        {
+            JOptionPane.showMessageDialog(null, "Mensaje de Error:"+j.getMessage(), "Mensaje",0);
+        }
+
+} 
+     
 }
