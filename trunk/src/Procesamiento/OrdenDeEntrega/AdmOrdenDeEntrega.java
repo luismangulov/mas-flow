@@ -381,7 +381,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                     
                
                 //Mapa mapa = new Mapa(arrAlmacenes.get(0));
-                
+          arrUbicaciones = new ArrayList<UbicacionBE>();      
             for(int i =0;i<arrPallet.size();i++){
                 Mapa mapa = new Mapa(arrAlmacenes.get(0));
                 arrUbicaciones.add(AlgoritmoBestFirst.ejecutar(mapa, arrPallet.get(i)));
