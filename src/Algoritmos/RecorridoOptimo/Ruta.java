@@ -104,7 +104,26 @@ public class Ruta {
             i++;
         }
 
+        
         //falta quitar las conexiones entre racks
+        for (i=0;i<punto.length;i++)
+        {
+            if (punto[i].getItem()!=null)
+            {
+                removerConexionesVecinas(i);
+            }
+        }
+
+
+    }
+
+    private static void removerConexionesVecinas(int pos)
+    {
+        for (int i=0;i<ady.size();i++)
+        {
+            (ady.get(pos)).set(i, Double.POSITIVE_INFINITY);
+            (ady.get(i)).set(pos, Double.POSITIVE_INFINITY);
+        }
     }
     
 
