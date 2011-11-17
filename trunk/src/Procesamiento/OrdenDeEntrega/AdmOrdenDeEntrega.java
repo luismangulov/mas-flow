@@ -147,7 +147,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         });
         jToolBar1.add(lblRefrescar);
 
-        lblDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/detalle2.png"))); // NOI18N
+        lblDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/folder_full.png"))); // NOI18N
         lblDetalle.setToolTipText("VisualizarDetalle");
         lblDetalle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -164,8 +164,6 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         lblPallet.setToolTipText("Mostrar Pallets Asignados");
         lblPallet.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblPallet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblPallet.setMaximumSize(new java.awt.Dimension(54, 54));
-        lblPallet.setPreferredSize(new java.awt.Dimension(54, 54));
         lblPallet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblPalletMousePressed(evt);
@@ -173,7 +171,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         });
         jToolBar1.add(lblPallet);
 
-        lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
+        lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/accept_page.png"))); // NOI18N
         lblAprobar.setToolTipText("Verificar disponibilidad de ubicaciones");
         lblAprobar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -184,7 +182,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         });
         jToolBar1.add(lblAprobar);
 
-        lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/50px-Vista-forward.png"))); // NOI18N
+        lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/next.png"))); // NOI18N
         lblIngresar.setText("jLabel1");
         lblIngresar.setToolTipText("Ingresar a almacen");
         lblIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));

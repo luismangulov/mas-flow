@@ -162,7 +162,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Almacen:"/>
+        <Property name="text" type="java.lang.String" value="Almac&#xe9;n:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbAlmacen">
