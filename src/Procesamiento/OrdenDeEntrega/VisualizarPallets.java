@@ -166,7 +166,7 @@ public class VisualizarPallets extends javax.swing.JFrame {
              tblPallets.setValueAt(arrPallet.get(i).getFechaVencimiento(),i,3 );
             tblPallets.setValueAt(objProductoBE.getMaxCantPorPallet(),i,4 );
             UnidadMedidaBL objUnidadMedidaBL = new UnidadMedidaBL();
-            UnidadMedidaBE objUnidadMedidaBE = objUnidadMedidaBL.getUnidadMedida(arrPallet.get(i).getIdProducto());
+            UnidadMedidaBE objUnidadMedidaBE = objUnidadMedidaBL.getUnidadMedida(objProductoBE.getIdUnidadMedida());
             tblPallets.setValueAt(objUnidadMedidaBE.getNombre(),i,5 );
         }
         
