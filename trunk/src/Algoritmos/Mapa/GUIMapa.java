@@ -441,7 +441,7 @@ public class GUIMapa extends javax.swing.JFrame {
             largo = Math.abs(click1Y-y)+1;
             
             String cadena = "Posición X: " + click1X + "\nPosición Y: " + click1Y+ "\n";
-            cadena = cadena + "Largo: " + largo + "\nAncho : " + ancho;
+            cadena = cadena + "Ancho : " + ancho + "\nLargo: " + largo;
 
             repaint();
 
