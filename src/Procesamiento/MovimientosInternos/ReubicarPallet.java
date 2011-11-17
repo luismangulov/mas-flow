@@ -102,6 +102,16 @@ public class ReubicarPallet extends javax.swing.JDialog {
     
     public void llenarDgv(ArrayList<PalletBE> arrPallets){
         
+        strIdAlmacen = arrPallets.get(0).getIdAlmacen();
+        
+        for (int i=0; i<arrIdAlmacenes.size(); i++){
+            if (strIdAlmacen.equals(arrIdAlmacenes.get(i))){
+                cbAlmacen.setSelectedIndex(i+1);
+                cbAlmacen.setEnabled(false);
+                break;
+            }
+        }
+        
         DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();    
         limpiarDgv();
         this.arrPallets = arrPallets;

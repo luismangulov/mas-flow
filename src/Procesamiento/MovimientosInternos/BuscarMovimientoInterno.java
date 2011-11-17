@@ -63,14 +63,14 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
         jdcFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jdcFechaInicio = new com.toedter.calendar.JDateChooser();
-        txtIdProducto = new javax.swing.JTextField();
+        txtNombreProducto = new javax.swing.JTextField();
         cbAlmacen = new javax.swing.JComboBox();
         btnBuscar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("<html>Código  <br>de Producto</html>");
+        jLabel1.setText("<html>Nombre<br>de Producto</html>");
 
         jLabel2.setText("Almacén:");
 
@@ -78,9 +78,9 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
 
         jLabel4.setText("y");
 
-        txtIdProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNombreProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIdProductoKeyTyped(evt);
+                txtNombreProductoKeyTyped(evt);
             }
         });
 
@@ -122,9 +122,8 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(37, 37, 37)
                         .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cbAlmacen, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtIdProducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
@@ -132,20 +131,20 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cbAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
+                            .addComponent(jLabel3)))
+                    .addComponent(jdcFechaFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -162,8 +161,8 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         
-        if (!txtIdProducto.getText().equals(""))
-            strIdProducto = txtIdProducto.getText();
+        if (!txtNombreProducto.getText().equals(""))
+            strIdProducto = txtNombreProducto.getText();
         else
             strIdProducto = "";
         
@@ -190,14 +189,14 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBuscarMouseClicked
 
-    private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdProductoKeyTyped
-    char c = (char)evt.getKeyChar();
-    if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
-       evt.consume();
-    if ((this.txtIdProducto.getText().length() + 1) > 6) {
-       evt.consume();
-    }
-    }//GEN-LAST:event_txtIdProductoKeyTyped
+    private void txtNombreProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProductoKeyTyped
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+           evt.consume();
+        if ((this.txtNombreProducto.getText().length() + 1) > 20) {
+           evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreProductoKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -209,7 +208,7 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private com.toedter.calendar.JDateChooser jdcFechaFin;
     private com.toedter.calendar.JDateChooser jdcFechaInicio;
-    private javax.swing.JTextField txtIdProducto;
+    private javax.swing.JTextField txtNombreProducto;
     // End of variables declaration//GEN-END:variables
     
     public void cargarComboAlmacen(){

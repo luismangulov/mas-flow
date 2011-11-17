@@ -45,10 +45,8 @@
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="jdcFechaFin" min="-2" pref="151" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="cbAlmacen" alignment="0" max="32767" attributes="1"/>
-                      <Component id="txtIdProducto" alignment="0" min="-2" pref="120" max="-2" attributes="1"/>
-                  </Group>
+                  <Component id="cbAlmacen" alignment="0" min="-2" max="-2" attributes="1"/>
+                  <Component id="txtNombreProducto" alignment="0" min="-2" pref="238" max="-2" attributes="1"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
@@ -59,14 +57,12 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jdcFechaFin" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNombreProducto" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtIdProducto" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="cbAlmacen" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -77,6 +73,8 @@
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Component id="jdcFechaFin" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -91,7 +89,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;C&#xf3;digo  &lt;br&gt;de Producto&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Nombre&lt;br&gt;de Producto&lt;/html&gt;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -113,9 +111,9 @@
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jdcFechaInicio">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtIdProducto">
+    <Component class="javax.swing.JTextField" name="txtNombreProducto">
       <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdProductoKeyTyped"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreProductoKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbAlmacen">

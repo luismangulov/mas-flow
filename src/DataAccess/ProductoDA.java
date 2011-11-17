@@ -45,8 +45,8 @@ public class ProductoDA {
 
         query = "INSERT INTO Producto(idProducto, nombre, descripcion,"
                 + "maxCantPorPallet, idUnidadMedida, idFamilia, indActivo) "
-                + "VALUES('"+ objProducto.getIdProducto() +"','" + objProducto.getNombre()
-                +"','" + objProducto.getDescripcion() +"','" + objProducto.getMaxCantPorPallet()
+                + "VALUES('"+ objProducto.getIdProducto() +"','" + objProducto.getNombre().toUpperCase()
+                +"','" + objProducto.getDescripcion().toUpperCase() +"','" + objProducto.getMaxCantPorPallet()
                 +"','" + objProducto.getIdUnidadMedida() +"','" + objProducto.getIdFamilia()
                 +"','" + objProducto.getEstado() +"')";
 
@@ -69,8 +69,8 @@ public class ProductoDA {
                 return boolExito;
             }
         
-        query = "UPDATE PRODUCTO set nombre = '"+ objProductoBE.getNombre() +"',"
-                             + " descripcion ='"+ objProductoBE.getDescripcion() + "', "
+        query = "UPDATE PRODUCTO set nombre = '"+ objProductoBE.getNombre().toUpperCase() +"',"
+                             + " descripcion ='"+ objProductoBE.getDescripcion().toUpperCase() + "', "
                              + "maxCantPorPallet = '"+ objProductoBE.getMaxCantPorPallet() + "', "
                              + "idUnidadMedida ='" + objProductoBE.getIdUnidadMedida() +"', "
                              + " idFamilia = '" + objProductoBE.getIdFamilia() + "', "
