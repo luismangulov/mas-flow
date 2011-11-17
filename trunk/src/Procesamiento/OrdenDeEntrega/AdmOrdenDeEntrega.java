@@ -713,7 +713,7 @@ public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String dire
           tblNotaIngreso.setValueAt(identificador,0,0 ); 
          tblNotaIngreso.setValueAt(notaIngreso.getCodigo(),0,1 );
          tblNotaIngreso.setValueAt(razonSocial,0,2 );
-//         tblNotaIngreso.setValueAt(direccion,0,3 );
+         tblNotaIngreso.setValueAt(direccion,0,3 );
 //          SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 //              String strFecha = formato.format(notaIngreso.getFecha());
 //             
