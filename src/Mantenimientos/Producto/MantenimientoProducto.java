@@ -439,13 +439,24 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
         }
         
         if(cbFamilia.getItemCount() == 0){
-            JOptionPane.showMessageDialog(null, "Debe elegir una familia de producto");
+            JOptionPane.showMessageDialog(null, "No hay familias");
             return false;
+        }else{
+            if (!cbFamilia.getSelectedItem().equals("Seleccione")){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una familia de producto");
+                return false;
+            }
         }
         
         if(cbUnidad.getItemCount() == 0){
-            JOptionPane.showMessageDialog(null, "Debe elegir una unidad de medida");
+            JOptionPane.showMessageDialog(null, "No hay unidades de medida");
             return false;
+        }else{
+            if (!cbUnidad.getSelectedItem().equals("Seleccione")){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una unidad de medida");
+                return false;
+            }
+                
         }
             
         return true;
