@@ -609,7 +609,7 @@ public class AlgoritmoGenetico {
          }
 
          //para cada nodo obligatorio busca por donde pasar
-         convertirANodoDePaso(listaNodos,nodosObligatorios);
+         //convertirANodoDePaso(listaNodos,nodosObligatorios);
 
          arregloNodos = new Nodo[nodosObligatorios.size()];
          for (int i=0;i<nodosObligatorios.size();i++)
@@ -661,9 +661,9 @@ public class AlgoritmoGenetico {
          Cromosoma c = obtenerMejorCromosoma();
          ArrayList<Nodo> mejorRecorrido = obtenerMejorRecorrido(c);
 
-         rutas.clear();
-         poblacion.clear();
-         nodos=null;
+//         rutas.clear();
+//         poblacion.clear();
+//         nodos=null;
 
          return mejorRecorrido;
 

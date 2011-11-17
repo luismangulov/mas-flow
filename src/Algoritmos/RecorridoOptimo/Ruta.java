@@ -106,13 +106,13 @@ public class Ruta {
 
         
         //falta quitar las conexiones entre racks
-        for (i=0;i<punto.length;i++)
-        {
-            if (punto[i].getItem()!=null)
-            {
-                removerConexionesVecinas(i);
-            }
-        }
+//        for (i=0;i<punto.length;i++)
+//        {
+//            if (punto[i].getItem()!=null)
+//            {
+//                removerConexionesVecinas(i);
+//            }
+//        }
 
 
     }
