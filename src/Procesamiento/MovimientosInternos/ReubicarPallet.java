@@ -106,7 +106,7 @@ public class ReubicarPallet extends javax.swing.JDialog {
         
         for (int i=0; i<arrIdAlmacenes.size(); i++){
             if (strIdAlmacen.equals(arrIdAlmacenes.get(i))){
-                cbAlmacen.setSelectedIndex(i+1);
+                cbAlmacen.setSelectedIndex(i);
                 cbAlmacen.setEnabled(false);
                 break;
             }
@@ -441,6 +441,11 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         if (!cbZona.getSelectedItem().equals("Seleccione") && !cbZona.getSelectedItem().equals("")){
             strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
             cargarComboRack(strIdZona);
+        }else if (cbZona.getSelectedItem().equals("Seleccione")){
+            cbRack.removeAllItems();
+            cbUbicacion.removeAllItems();
+            cbRack.addItem("");
+            cbUbicacion.addItem("");
         }
     }
 }//GEN-LAST:event_cbZonaActionPerformed
@@ -451,6 +456,9 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         if (!cbRack.getSelectedItem().equals("Seleccione") && !cbRack.getSelectedItem().equals("")){
             strIdRack = arrIdRacks.get(cbRack.getSelectedIndex()-1);
             cargarComboUbicacion(strIdRack);
+        }else if (cbZona.getSelectedItem().equals("Seleccione")){
+            cbUbicacion.removeAllItems();
+            cbUbicacion.addItem("");
         }
     }
 }//GEN-LAST:event_cbRackActionPerformed
@@ -609,7 +617,8 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     
     public void cargarComboRack(String idZona){
         
-        cbRack.removeAllItems();        
+        cbRack.removeAllItems();      
+        cbUbicacion.removeAllItems();
         
         ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
         objRackBL = new RackBL();

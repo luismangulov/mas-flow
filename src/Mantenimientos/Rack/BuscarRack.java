@@ -170,6 +170,9 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         if (!cbZona.getSelectedItem().equals("Seleccione") && !cbZona.getSelectedItem().equals("")){
             strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
             cargarComboRack(strIdZona);
+        }else if (cbZona.getSelectedItem().equals("Seleccione")){
+            cbRack.removeAllItems();
+            cbRack.addItem("");
         }
     }
    

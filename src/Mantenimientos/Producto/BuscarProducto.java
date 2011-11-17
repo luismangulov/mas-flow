@@ -214,7 +214,7 @@ private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t
         else
             strIndActivo = "0";
         
-        arrProductos = objProductoBL.getListSearch(strIdProducto, strNombre, strIdFamilia, strIndActivo);
+        arrProductos = objProductoBL.getListSearch(strIdProducto, strNombre.toUpperCase(), strIdFamilia, strIndActivo);
         
         if (arrProductos.size()!=0){
             ventanaPadre.llenarDgv(arrProductos);

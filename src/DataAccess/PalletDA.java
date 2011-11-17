@@ -421,7 +421,7 @@ public class PalletDA {
         return arrPallets;
     }
 
-    public ArrayList<PalletBE> queryPalletListSearch(String strIdAlmacen, String strIdZona, String strIdRack, int intFila, int intColumna, String strIdPallet, String strNombreProducto) {
+    public ArrayList<PalletBE> queryPalletListSearch(String strIdAlmacen, String strIdZona, String strIdRack, String strIdUbicacion,String strNombreProducto, String strIdPallet) {
         
         objConexion = new conexion();        
         arrPallets = new ArrayList<PalletBE>();
@@ -440,8 +440,8 @@ public class PalletDA {
         if (!strIdRack.equals(""))
             query = query + " AND r.idRack ='" +strIdRack+"'";
         
-        if (intFila!=0 && intColumna!=0)
-            query = query + " AND u.fila = " + intFila + " AND u.columna =" +intColumna + "";
+        if (!strIdUbicacion.equals(""))
+            query = query + " AND u.idubicacion = '"+strIdUbicacion + "'";
         
         if (!strNombreProducto.equals(""))
             query = query + " AND pr.nombre LIKE '%"+strNombreProducto+"%'";
@@ -460,7 +460,7 @@ public class PalletDA {
                 strIdPallet = rs.getString("IdPallet");
                 String strIdProducto = rs.getString("IdProducto");
                 String strIndActivo= rs.getString("IndActivo");
-                String strIdUbicacion = rs.getString("idUbicacion");
+                strIdUbicacion = rs.getString("idUbicacion");
                 strIdAlmacen = rs.getString("idAlmacen");
                 if (rs.getObject("FechaVencimiento") != null)
                     dateFechaVencimiento = rs.getDate("FechaVencimiento");
