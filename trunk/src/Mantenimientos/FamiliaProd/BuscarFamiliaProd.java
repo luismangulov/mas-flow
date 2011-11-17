@@ -51,6 +51,7 @@ public class BuscarFamiliaProd extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Buscar familia de productos");
+        setResizable(false);
 
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {

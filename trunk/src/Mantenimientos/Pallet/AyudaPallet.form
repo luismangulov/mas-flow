@@ -3,6 +3,7 @@
 <Form version="1.6" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -44,7 +45,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                              <Component id="cbZona" pref="106" max="32767" attributes="0"/>
+                              <Component id="cbZona" pref="111" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
