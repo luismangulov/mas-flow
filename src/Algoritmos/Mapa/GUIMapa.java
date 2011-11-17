@@ -302,10 +302,17 @@ public class GUIMapa extends javax.swing.JFrame {
         Stroke s = g2d.getStroke();
         g2d.setStroke(new BasicStroke(4.0f));
 
-        g.setColor(Color.CYAN);
+        int n=0;
+
+        
         for (int i=0;i<recorridoOptimo.size()-1;i++)
         {
+            g.setColor(Color.CYAN);
             g.drawLine(convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2, convertirX(recorridoOptimo.get(i+1).getX())+factorX/2, convertirY(recorridoOptimo.get(i+1).getY())+factorY/2);
+            
+            g.setColor(Color.WHITE);
+            g.drawString(String.valueOf(n), convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2);
+            n++;
         }
 
         g2d.setStroke(s);
