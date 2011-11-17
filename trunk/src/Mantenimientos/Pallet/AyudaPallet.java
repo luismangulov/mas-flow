@@ -46,6 +46,10 @@ public class AyudaPallet extends javax.swing.JDialog {
     ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
     ArrayList<RackBE> arrRacks = new ArrayList<RackBE>();
     ArrayList<UbicacionBE> arrUbicaciones = new ArrayList<UbicacionBE>();
+    
+    ArrayList<String> arrIdZonas = new ArrayList<String>();
+    ArrayList<String> arrIdRacks = new ArrayList<String>();
+    ArrayList<String> arrIdUbicaciones = new ArrayList<String>();
                 
     PalletBL objPalletBL = new PalletBL();
     String strIdPallet;
@@ -161,7 +165,7 @@ public class AyudaPallet extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbAlmacen = new javax.swing.JComboBox();
-        txtIdProducto = new javax.swing.JTextField();
+        txtNombreProducto = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtIdPallet = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -210,9 +214,9 @@ public class AyudaPallet extends javax.swing.JDialog {
             }
         });
 
-        txtIdProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNombreProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIdProductoKeyTyped(evt);
+                txtNombreProductoKeyTyped(evt);
             }
         });
 
@@ -261,9 +265,9 @@ public class AyudaPallet extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(220, Short.MAX_VALUE)
+                .addContainerGap(229, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -272,7 +276,7 @@ public class AyudaPallet extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(29, 29, 29)
-                        .addComponent(txtIdProducto))
+                        .addComponent(txtNombreProducto))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel7)
@@ -298,7 +302,7 @@ public class AyudaPallet extends javax.swing.JDialog {
                                 .addComponent(cbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(180, 180, 180))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(363, Short.MAX_VALUE)
+                .addContainerGap(372, Short.MAX_VALUE)
                 .addComponent(btnAceptar)
                 .addGap(290, 290, 290))
         );
@@ -317,7 +321,7 @@ public class AyudaPallet extends javax.swing.JDialog {
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -361,36 +365,26 @@ public class AyudaPallet extends javax.swing.JDialog {
            
 
     strIdPallet = txtIdPallet.getText();
-    strIdProducto = txtIdProducto.getText();
-    
-    int intFila = 0;
-    int intColumna = 0;
-    
+    String strNombreProducto = txtNombreProducto.getText();
+
     if (!cbUbicacion.getSelectedItem().toString().equals("Seleccione") && !cbUbicacion.getSelectedItem().toString().equals("")){
         
-        intFila = cbUbicacion.getSelectedItem().toString().charAt(1)-48;
-        intColumna = cbUbicacion.getSelectedItem().toString().charAt(3)-48;
-        
-    }
+        strIdUbicacion = arrIdUbicaciones.get(cbUbicacion.getSelectedIndex()-1);
+    }else
+        strIdUbicacion = "";
     
     if (!cbRack.getSelectedItem().toString().equals("Seleccione") && !cbRack.getSelectedItem().toString().equals("")){
         
-        strIdRack = objRackBL.getByIdentificador(cbRack.getSelectedItem().toString()).getIdRack();
+        strIdRack = arrIdRacks.get(cbRack.getSelectedIndex()-1);
 
-    }
-    else
-        
+    }else
         strIdRack = "";
     
     if (!cbZona.getSelectedItem().toString().equals("Seleccione") && !cbZona.getSelectedItem().toString().equals("")){
-        
-        objZonaBL = new ZonaBL();
-        int i = cbAlmacen.getSelectedIndex();
-        strIdAlmacen = arrIdAlmacenes.get(i);
-        strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
+
+        strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
         
     }else
-        
         strIdZona = "";
     
     if (!cbAlmacen.getSelectedItem().toString().equals("")){
@@ -401,7 +395,7 @@ public class AyudaPallet extends javax.swing.JDialog {
     }else
         strIdAlmacen = "";
     
-    arrPallets = objPalletBL.getPalletListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIdPallet, strIdProducto);
+    arrPallets = objPalletBL.getPalletListSearch(strIdAlmacen, strIdZona, strIdRack, strIdUbicacion, strNombreProducto.toUpperCase(), strIdPallet);
     
     if (arrPallets.size()>0)
         llenarDgv(arrPallets);
@@ -418,29 +412,32 @@ public class AyudaPallet extends javax.swing.JDialog {
     }//GEN-LAST:event_cbAlmacenActionPerformed
 
     private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZonaActionPerformed
-        int intCantItem = cbZona.getItemCount() - 1;
-        if (intCantItem > 0){
-            strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
-            if (!cbZona.getSelectedItem().equals("Seleccione")){
-                strIdZona = objZonaBL.getByIdentificadorZona(cbZona.getSelectedItem().toString(),strIdAlmacen).getIdZona();
-                cargarComboRack(strIdZona);
-            }
-            else
-                cbRack.removeAllItems();
+    int intCantItem = cbZona.getItemCount() - 1;
+    if (intCantItem > 0){
+        strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
+        if (!cbZona.getSelectedItem().equals("Seleccione") && !cbZona.getSelectedItem().equals("")){
+            strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
+            cargarComboRack(strIdZona);
+        }else if (cbZona.getSelectedItem().equals("Seleccione")){
+            cbRack.removeAllItems();
+            cbUbicacion.removeAllItems();
+            cbRack.addItem("");
+            cbUbicacion.addItem("");
         }
+    }
     }//GEN-LAST:event_cbZonaActionPerformed
 
     private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRackActionPerformed
-        int intCantItem = cbRack.getItemCount() - 1;
-        if (intCantItem > 0){
-            if (!cbRack.getSelectedItem().equals("Seleccione")){
-                String strIdentificador = cbRack.getSelectedItem().toString();
-                strIdRack = objRackBL.getByIdentificador(strIdentificador).getIdRack();
-                cargarComboUbicacion(strIdRack);
-            }
-            else
-                cbUbicacion.removeAllItems();
+    int intCantItem = cbRack.getItemCount() - 1;
+    if (intCantItem > 0){
+        if (!cbRack.getSelectedItem().equals("Seleccione") && !cbRack.getSelectedItem().equals("")){
+            strIdRack = arrIdRacks.get(cbRack.getSelectedIndex()-1);
+            cargarComboUbicacion(strIdRack);
+        }else if (cbRack.getSelectedItem().equals("Seleccione")){
+            cbUbicacion.removeAllItems();
+            cbUbicacion.addItem("");
         }
+    }
     }//GEN-LAST:event_cbRackActionPerformed
 
     private void txtIdPalletKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdPalletKeyTyped
@@ -453,15 +450,15 @@ public class AyudaPallet extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtIdPalletKeyTyped
 
-    private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdProductoKeyTyped
+    private void txtNombreProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProductoKeyTyped
         char c = (char)evt.getKeyChar();
-        if (!Utilitario.validarSoloNumeros(evt.getKeyChar()) || (Character.isISOControl(c)))
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
         evt.consume();
-        if ((this.txtIdProducto.getText().length() + 1) > 6) {
+        if ((this.txtNombreProducto.getText().length() + 1) > 20) {
         evt.consume();
     
     }
-    }//GEN-LAST:event_txtIdProductoKeyTyped
+    }//GEN-LAST:event_txtNombreProductoKeyTyped
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         if (!validar())
@@ -555,7 +552,7 @@ public class AyudaPallet extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtIdPallet;
-    private javax.swing.JTextField txtIdProducto;
+    private javax.swing.JTextField txtNombreProducto;
     // End of variables declaration//GEN-END:variables
     
     public void cargarComboAlmacen(){
@@ -563,11 +560,12 @@ public class AyudaPallet extends javax.swing.JDialog {
         cbAlmacen.removeAllItems();
         cbZona.removeAllItems();
         cbRack.removeAllItems();
-        cbUbicacion.removeAllItems();
+        cbUbicacion.removeAllItems();    
         
+        ArrayList<AlmacenBE> arrAlmacenes = new ArrayList<AlmacenBE>();
         arrAlmacenes = objAlmacenBL.getAllAlmacenActivo();
         
-        if (arrAlmacenes != null)
+        if (arrAlmacenes.size() >= 0)
             for(AlmacenBE almacen : arrAlmacenes){
                 arrIdAlmacenes.add(almacen.getIdAlmacen());
                 cbAlmacen.addItem(almacen.getIdentificador().trim());
@@ -578,44 +576,73 @@ public class AyudaPallet extends javax.swing.JDialog {
         
         cbZona.removeAllItems();
         cbRack.removeAllItems();
-        cbUbicacion.removeAllItems();
-        cbZona.addItem("Seleccione");
-        cbRack.addItem("");
-        cbUbicacion.addItem(""); 
 
+        ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
+        objZonaBL = new ZonaBL();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
         
+        if (arrZonas.size() <= 0){
+            cbZona.addItem("");
+            return;
+        }
+        
+        cbZona.addItem("Seleccione");
+        cbRack.addItem("");
+        cbUbicacion.addItem("");
+        
+        arrIdZonas.clear();
+        
         if (arrZonas != null)
-            for(ZonaBE zona : arrZonas)
-                cbZona.addItem(zona.getIdentificador());
+            for(ZonaBE zona : arrZonas){
+                arrIdZonas.add(zona.getIdZona());
+                cbZona.addItem(zona.getIdentificador().trim());
+            }
         
     }
     
     public void cargarComboRack(String idZona){
         
         cbRack.removeAllItems();        
-        cbUbicacion.removeAllItems();
-        cbRack.addItem("Seleccione");
-        cbUbicacion.addItem(""); 
-               
-        arrRacks = objRackBL.getRacksByZona(idZona);
         
-        if (arrRacks != null)
-            for(RackBE rack : arrRacks)
+        ArrayList<RackBE>arrRacks = new ArrayList<RackBE>();
+        objRackBL = new RackBL();
+        arrRacks = objRackBL.getRacksByZona(idZona);
+
+        if (arrRacks.size()<=0){
+            cbRack.addItem("");
+            return;
+        }
+        
+        cbRack.addItem("Seleccione");
+        cbUbicacion.addItem("");
+        
+        arrIdRacks.clear();
+        
+        for(RackBE rack : arrRacks){
+                arrIdRacks.add(rack.getIdRack());
                 cbRack.addItem(rack.getIdentificador());
+        }
         
     }
     
     public void cargarComboUbicacion(String idRack){
        
         cbUbicacion.removeAllItems();
+
+        arrUbicaciones = new ArrayList<UbicacionBE>();
+        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"1");
         
-        arrUbicaciones = objUbicacionBL.getUbicacionesByRack(idRack,"2"); // "2" porque se buscarán solo las ubicaciones que estén ocupadas
-             
-        if (arrUbicaciones.size() > 0){
-            cbUbicacion.addItem("Seleccione"); 
-            for(UbicacionBE ubicacion : arrUbicaciones)
-                cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
+        if (arrUbicaciones.size()<=0){
+            cbUbicacion.addItem(""); 
+            return;
+        }
+        cbUbicacion.addItem("Seleccione"); 
+        
+        arrIdUbicaciones.clear();
+
+        for(UbicacionBE ubicacion : arrUbicaciones){
+            arrIdUbicaciones.add(ubicacion.getIdUbicacion());
+            cbUbicacion.addItem("F" + ubicacion.getFila() + "C" + ubicacion.getColumna());
         }
         
     }

@@ -281,8 +281,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     PalletBE objPalletBE;
     strIdPallet = txtIdPallet.getText();
     String strNombreProducto = txtNombreProducto.getText();
-    int intFila = 0;
-    int intColumna = 0;
+
     
     if (!cbUbicacion.getSelectedItem().toString().equals("Seleccione") && !cbUbicacion.getSelectedItem().toString().equals("")){
         
@@ -312,7 +311,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     }else
         strIdAlmacen = "";
     
-    arrPallets = objPalletBL.getPalletListSearch(strIdAlmacen, strIdZona, strIdRack, intFila, intColumna, strIdPallet, strNombreProducto);
+    arrPallets = objPalletBL.getPalletListSearch(strIdAlmacen, strIdZona, strIdRack, strIdUbicacion, strNombreProducto, strIdPallet);
     
     if (!arrPallets.isEmpty()){
         if (ventanaPadreReubicar != null)
@@ -341,6 +340,11 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         if (!cbZona.getSelectedItem().equals("Seleccione") && !cbZona.getSelectedItem().equals("")){
             strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
             cargarComboRack(strIdZona);
+        }else if (cbZona.getSelectedItem().equals("Seleccione")){
+            cbRack.removeAllItems();
+            cbUbicacion.removeAllItems();
+            cbRack.addItem("");
+            cbUbicacion.addItem("");
         }
     }
 }//GEN-LAST:event_cbZonaActionPerformed
@@ -351,6 +355,9 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         if (!cbRack.getSelectedItem().equals("Seleccione") && !cbRack.getSelectedItem().equals("")){
             strIdRack = arrIdRacks.get(cbRack.getSelectedIndex()-1);
             cargarComboUbicacion(strIdRack);
+        }else if (cbRack.getSelectedItem().equals("Seleccione")){
+            cbUbicacion.removeAllItems();
+            cbUbicacion.addItem("");
         }
     }
 }//GEN-LAST:event_cbRackActionPerformed
@@ -438,6 +445,7 @@ private void txtNombreProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST
         
         cbZona.removeAllItems();
         cbRack.removeAllItems();
+        cbUbicacion.removeAllItems();
 
         ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
         objZonaBL = new ZonaBL();
@@ -463,7 +471,8 @@ private void txtNombreProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST
     
     public void cargarComboRack(String idZona){
         
-        cbRack.removeAllItems();        
+        cbRack.removeAllItems(); 
+        cbUbicacion.removeAllItems();
         
         ArrayList<RackBE>arrRacks = new ArrayList<RackBE>();
         objRackBL = new RackBL();

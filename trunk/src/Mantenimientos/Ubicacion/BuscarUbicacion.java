@@ -237,6 +237,11 @@ private void cbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         if (!cbZona.getSelectedItem().equals("Seleccione") && !cbZona.getSelectedItem().equals("")){
             strIdZona = arrIdZonas.get(cbZona.getSelectedIndex()-1);
             cargarComboRack(strIdZona);
+        }else if (cbZona.getSelectedItem().equals("Seleccione")){
+            cbRack.removeAllItems();
+            cbUbicacion.removeAllItems();
+            cbRack.addItem("");
+            cbUbicacion.addItem("");
         }
     }
 
@@ -249,6 +254,9 @@ private void cbRackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         if (!cbRack.getSelectedItem().equals("Seleccione") && !cbRack.getSelectedItem().equals("")){
             strIdRack = arrIdRacks.get(cbRack.getSelectedIndex()-1);
             cargarComboUbicacion(strIdRack);
+        }else if (cbRack.getSelectedItem().equals("Seleccione")){
+            cbUbicacion.removeAllItems();
+            cbUbicacion.addItem("");
         }
     }
 
@@ -357,7 +365,8 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         
         cbZona.removeAllItems();
         cbRack.removeAllItems();
-
+        cbUbicacion.removeAllItems();
+        
         ArrayList<ZonaBE> arrZonas = new ArrayList<ZonaBE>();
         objZonaBL = new ZonaBL();
         arrZonas = objZonaBL.getZonasByAlmacen(idAlmacen);
@@ -382,7 +391,8 @@ private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
     public void cargarComboRack(String idZona){
         
-        cbRack.removeAllItems();        
+        cbRack.removeAllItems();     
+        cbUbicacion.removeAllItems();
         
         ArrayList<RackBE>arrRacks = new ArrayList<RackBE>();
         objRackBL = new RackBL();
