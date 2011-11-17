@@ -36,6 +36,8 @@ import BusinessLogic.UbicacionBL;
 import DataAccess.EstadoGRDA;
 import DataAccess.EstadoNIDA;
 import Procesamiento.MovimientosInternos.ReubicarPallet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -686,7 +688,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JTable tblNotaIngreso;
     // End of variables declaration//GEN-END:variables
 
-public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String direccion,String identificador){
+public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String direccion,String identificador) throws ParseException{
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
@@ -712,12 +714,15 @@ public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String dire
          tblNotaIngreso.setValueAt(notaIngreso.getCodigo(),0,1 );
          tblNotaIngreso.setValueAt(razonSocial,0,2 );
          tblNotaIngreso.setValueAt(direccion,0,3 );
-         
+//          SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+//             String strFecha = formato.format(notaIngreso.getFecha());
+//             
+//             tblNotaIngreso.setValueAt(strFecha ,0,4 );
          tblNotaIngreso.setValueAt(notaIngreso.getFecha(),0,4 );
          tblNotaIngreso.setValueAt(notaIngreso.getEstado().getDescripcion(),0,5 );
     }
 
-    public void recargar(ArrayList<NotaIngresoBE> notasIngreso){
+    public void recargar(ArrayList<NotaIngresoBE> notasIngreso) throws ParseException{
     ////
          
         DefaultTableModel modelo= new DefaultTableModel(){
@@ -746,7 +751,11 @@ public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String dire
              tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getRazonSocial(),i,2 );
              tblNotaIngreso.setValueAt(notasIngreso.get(i).getProveedor().getDireccion(),i,3 );
              
-             tblNotaIngreso.setValueAt(notasIngreso.get(i).getFecha(),i,4 );
+//              SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+//             String strFecha = formato.format(notasIngreso.get(i).getFecha());
+//             
+//             tblNotaIngreso.setValueAt(strFecha ,i,4 );
+             tblNotaIngreso.setValueAt(notasIngreso.get(i).getFecha() ,i,4 );
              tblNotaIngreso.setValueAt(notasIngreso.get(i).getEstado().getDescripcion(),i,5 );
         }
         
