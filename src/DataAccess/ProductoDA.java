@@ -181,7 +181,8 @@ public class ProductoDA {
     
     public ProductoBE queryByIdProducto(String idProducto) {
         objConexion = new conexion();
-        String query = "SELECT * FROM PRODUCTO WHERE IDPRODUCTO = '" + idProducto + "' ORDER BY 1";
+        String query = "SELECT * FROM PRODUCTO WHERE IDPRODUCTO = '" + idProducto + "'";
+        query = query + "ORDER BY 1";
         rs =objConexion.EjecutarS(query);
 
         try {
@@ -211,7 +212,8 @@ public class ProductoDA {
 
     public ProductoBE queryByNombreProducto(String nombreProducto) {
         objConexion = new conexion();
-        String query = "SELECT * FROM PRODUCTO WHERE nombre = '" + nombreProducto + "' ORDER BY 1";
+        String query = "SELECT * FROM PRODUCTO WHERE nombre = '" + nombreProducto + "'";
+        query = query + "ORDER BY 1";
         rs =objConexion.EjecutarS(query);
 
         try {

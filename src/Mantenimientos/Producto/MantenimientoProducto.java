@@ -431,6 +431,11 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
         if(txtMaxCantPallet.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad máxima del producto en el pallet");
             return false;
+        }else{
+            if (Integer.getInteger(txtMaxCantPallet.getText()) <= 0){
+                JOptionPane.showMessageDialog(null, "La cantidad máxima dentro de un pallet debe ser mayor a 0");
+                return false;
+            }
         }
         
         if(cbFamilia.getItemCount() == 0){
@@ -443,7 +448,6 @@ private void txtIdProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
             return false;
         }
             
-        
         return true;
     }
 }
