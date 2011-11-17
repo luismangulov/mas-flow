@@ -58,6 +58,7 @@ public class CargaMasiva {
             //System.out.println(linea);
             campos=leerCadena(linea);// nombre campos
             while(!(linea=br.readLine()).equals("*")){
+                if(linea.trim().equals("*"))break;
                 valores=leerCadena(linea);//valores
                 //System.out.println(linea.trim());
                 sql= "INSERT INTO "+nombreTabla+"(";
@@ -98,6 +99,7 @@ public class CargaMasiva {
             e2.printStackTrace();
          }
       }
+
    }
 
     private ArrayList<String> leerCadena(String linea) {
