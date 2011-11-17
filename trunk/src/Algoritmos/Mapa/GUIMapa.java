@@ -310,8 +310,8 @@ public class GUIMapa extends javax.swing.JFrame {
             g.setColor(Color.CYAN);
             g.drawLine(convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2, convertirX(recorridoOptimo.get(i+1).getX())+factorX/2, convertirY(recorridoOptimo.get(i+1).getY())+factorY/2);
             
-            g.setColor(Color.WHITE);
-            g.drawString(String.valueOf(n), convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2);
+            //g.setColor(Color.WHITE);
+            //g.drawString(String.valueOf(n), convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2);
             n++;
         }
 
