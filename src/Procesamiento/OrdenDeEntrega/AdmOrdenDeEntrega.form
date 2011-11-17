@@ -167,7 +167,7 @@
         <Component class="javax.swing.JLabel" name="lblDetalle">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos/detalle2.png"/>
+              <Image iconType="3" name="/Iconos/folder_full.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="VisualizarDetalle"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -211,7 +211,7 @@
         <Component class="javax.swing.JLabel" name="lblAprobar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos/check.png"/>
+              <Image iconType="3" name="/Iconos/accept_page.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Verificar disponibilidad de ubicaciones"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -230,7 +230,7 @@
         <Component class="javax.swing.JLabel" name="lblIngresar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos/50px-Vista-forward.png"/>
+              <Image iconType="3" name="/Iconos/next.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
             <Property name="toolTipText" type="java.lang.String" value="Ingresar a almacen"/>

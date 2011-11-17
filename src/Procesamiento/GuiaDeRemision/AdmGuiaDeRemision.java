@@ -141,7 +141,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         });
         jToolBar1.add(lblRefrescar);
 
-        lblDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/detalle2.png"))); // NOI18N
+        lblDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/folder_full.png"))); // NOI18N
         lblDetalle.setToolTipText("VisualizarDetalle");
         lblDetalle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -154,7 +154,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         });
         jToolBar1.add(lblDetalle);
 
-        lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/check.png"))); // NOI18N
+        lblAprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/accept_page.png"))); // NOI18N
         lblAprobar.setToolTipText("Verificar Stock de Productos");
         lblAprobar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblAprobar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

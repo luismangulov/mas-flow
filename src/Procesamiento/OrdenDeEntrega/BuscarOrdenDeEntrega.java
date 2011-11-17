@@ -115,7 +115,7 @@ public class BuscarOrdenDeEntrega extends javax.swing.JFrame {
 
         jLabel3.setText("Estado:");
 
-        jLabel4.setText("Almacen:");
+        jLabel4.setText("Almacén:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
