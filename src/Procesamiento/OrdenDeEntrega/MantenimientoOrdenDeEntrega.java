@@ -548,12 +548,12 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
             ProductoBE objProductoBE = objProductoBL.getByIdProducto(this.tblProductos.getValueAt(i, 0).toString());
            //String cantProd = (String)this.tblProductos.getValueAt(i, 2);
             if(this.tblProductos.getValueAt(i, 2) == null){
-                JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de producto", "Mensaje",1);
+                JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de producto en la fila " + (i+1) , "Mensaje",1);
                 esValido = false;
                 break;
             }
             if(((Integer)this.tblProductos.getValueAt(i, 2)%objProductoBE.getMaxCantPorPallet()) != 0){
-                JOptionPane.showMessageDialog(null, "La cantidad debe ser múltiplo de la maxcantidadenpallet", "Mensaje",1);
+                JOptionPane.showMessageDialog(null, "La cantidad debe ser múltiplo de la maxcantidadenpallet en la fila " + (i+1), "Mensaje",1);
                 esValido = false;
                 break;
             }
@@ -565,7 +565,7 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
            //String fecha = this.tblProductos.getValueAt(i, 4).toString().trim();
             if(this.tblProductos.getValueAt(i, 4) == null){
              //if(fecha.equals("")){    
-                JOptionPane.showMessageDialog(null, "Debe ingresar la fecha de vencimiento", "Mensaje",1);
+                JOptionPane.showMessageDialog(null, "Debe ingresar la fecha de vencimiento en la fila" + (i+1), "Mensaje",1);
                 esValido = false;
                 break;
             }
@@ -574,14 +574,14 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
            Date f;
            
            if(!isDate(fecha)){
-                JOptionPane.showMessageDialog(null, "El formato de fecha es incorrecto", "Mensaje",1);
+                JOptionPane.showMessageDialog(null, "El formato de fecha es incorrecto en la fila" + (i+1), "Mensaje",1);
                 esValido = false;
                 break;
             }else{  
              f = formato.parse(fecha);
              Date fechaActual = new Date();
             if(f.before(fechaActual)){
-                JOptionPane.showMessageDialog(null, "La fecha de vencimiento debe ser mayor a la fecha actual", "Mensaje",1);
+                JOptionPane.showMessageDialog(null, "La fecha de vencimiento debe ser mayor a la fecha actual en la fila" + (i+1), "Mensaje",1);
                 esValido = false;
                 break;
             }
