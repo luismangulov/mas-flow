@@ -19,6 +19,7 @@ import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleNotaIngresoBL;
 import BusinessLogic.NotaIngresoBL;
 import BusinessLogic.ProductoBL;
+import BusinessLogic.UbicacionBL;
 import BusinessLogic.UnidadMedidaBL;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -506,7 +507,7 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
         DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
            
         
-         modelo.addRow(new Object[4]);
+         modelo.addRow(new Object[5]);
         tblProductos.setValueAt(producto.getIdProducto(),tblProductos.getRowCount()-1,0 );
         tblProductos.setValueAt(producto.getNombre(),tblProductos.getRowCount()-1,1 );
 //       UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
@@ -519,13 +520,14 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
         DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
         
         for(int i = 0;i<this.arrProducto.size();i++){
-             modelo.addRow(new Object[4]);
+             modelo.addRow(new Object[5]);
             tblProductos.setValueAt(arrProducto.get(i).getIdProducto(),tblProductos.getRowCount()-1,0 );
             tblProductos.setValueAt(arrProducto.get(i).getNombre(),tblProductos.getRowCount()-1,1 );
 //            UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
 //            UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
 //            objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(arrProducto.get(i).getIdUnidadMedida());
              tblProductos.setValueAt(arrProducto.get(i).getMaxCantPorPallet(),tblProductos.getRowCount()-1,3 );
+            
         } 
     }
 
