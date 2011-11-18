@@ -19,6 +19,7 @@ import BusinessLogic.AlmacenBL;
 import BusinessLogic.DetalleGuiaRemisionBL;
 import BusinessLogic.GuiaRemisionBL;
 import BusinessLogic.ProductoBL;
+import BusinessLogic.UbicacionBL;
 import BusinessLogic.UnidadMedidaBL;
 import Util.Utilitario;
 import java.io.FileNotFoundException;
@@ -152,14 +153,14 @@ public class MantenimientoGuiaDeRemision extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nombre", "Cantidad", "MaxCantEnPallet"
+                "Código", "Nombre", "Cantidad", "MaxCantEnPallet", "Stock"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -524,7 +525,7 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     public void recargaruno(ProductoBE producto){
         DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
         
-         modelo.addRow(new Object[4]);
+         modelo.addRow(new Object[5]);
         tblProductos.setValueAt(producto.getIdProducto(),tblProductos.getRowCount()-1,0 );
         tblProductos.setValueAt(producto.getNombre(),tblProductos.getRowCount()-1,1 );
 //        UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
@@ -537,13 +538,17 @@ private void lblAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         DefaultTableModel modelo=(DefaultTableModel) tblProductos.getModel();
         
         for(int i = 0;i<this.arrProducto.size();i++){
-             modelo.addRow(new Object[4]);
+             modelo.addRow(new Object[5]);
             tblProductos.setValueAt(arrProducto.get(i).getIdProducto(),tblProductos.getRowCount()-1,0 );
             tblProductos.setValueAt(arrProducto.get(i).getNombre(),tblProductos.getRowCount()-1,1 );
 //            UnidadMedidaBL objUnidadMedidadBL = new UnidadMedidaBL();
 //            UnidadMedidaBE objUnidadMedidadBE = new UnidadMedidaBE();
 //            objUnidadMedidadBE = objUnidadMedidadBL.getUnidadMedida(arrProducto.get(i).getIdUnidadMedida());
              tblProductos.setValueAt(arrProducto.get(i).getMaxCantPorPallet(),tblProductos.getRowCount()-1,3 );
+              UbicacionBL objUbicacionBL = new UbicacionBL();
+              int ubicaOcupadas = objUbicacionBL.queryCantUbicacionesOcupadas(arrProducto.get(i).getIdFamilia(), arrAlmacenes.get(this.cbAlmacen.getSelectedIndex()).getIdAlmacen(), arrProducto.get(i).getIdProducto());
+             int cantidadProd = ubicaOcupadas*arrProducto.get(i).getMaxCantPorPallet();
+              tblProductos.setValueAt(cantidadProd,tblProductos.getRowCount()-1,4 );
         } 
     }
     
