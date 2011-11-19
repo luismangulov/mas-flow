@@ -87,7 +87,7 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Descripción", "Fecha Movimiento", "Almacén", "Ubicación Origen", "Ubicación Destino", "Pallet", "Producto", "Cantidad"
+                "Código", "Descripción", "Fecha", "Almacén", "Id Origen", "Id Destino", "Pallet", "Producto", "Cantidad"
             }
         ) {
             Class[] types = new Class [] {
