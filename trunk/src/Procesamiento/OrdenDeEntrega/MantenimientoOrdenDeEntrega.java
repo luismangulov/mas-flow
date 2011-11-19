@@ -413,7 +413,7 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
                  Logger.getLogger(MantenimientoOrdenDeEntrega.class.getName()).log(Level.SEVERE, null, ex);
              }
              
-             this.runReporte(objNotaIngresoBE.getCodigo());
+             //this.runReporte(objNotaIngresoBE.getCodigo());
              
             }
         } catch (ParseException ex) {

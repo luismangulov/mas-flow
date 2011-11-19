@@ -377,7 +377,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Logger.getLogger(MantenimientoGuiaDeRemision.class.getName()).log(Level.SEVERE, null, ex);
     }
      
-     this.runReporte(objGuiaRemisionBE.getCodigo());
+     //this.runReporte(objGuiaRemisionBE.getCodigo());
    }
        
     
