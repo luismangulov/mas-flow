@@ -127,6 +127,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         lblAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add24.png"))); // NOI18N
         lblAdd.setText("jLabel8");
         lblAdd.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAdd.setPreferredSize(new java.awt.Dimension(30, 30));
         lblAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -137,6 +138,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         lblRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete24.png"))); // NOI18N
         lblRemover.setText("jLabel9");
         lblRemover.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblRemover.setPreferredSize(new java.awt.Dimension(30, 30));
         lblRemover.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -207,8 +209,8 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
                                     .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addContainerGap())))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(lblAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblRemover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,7 +222,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
                         .addComponent(btnDesechar)
                         .addGap(40, 40, 40)
                         .addComponent(btnCancelar)
-                        .addGap(286, 286, 286))))
+                        .addGap(253, 253, 253))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

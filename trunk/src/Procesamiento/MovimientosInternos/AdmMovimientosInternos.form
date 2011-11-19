@@ -53,10 +53,10 @@
               <Table columnCount="9" rowCount="0">
                 <Column editable="false" title="C&#xf3;digo" type="java.lang.String"/>
                 <Column editable="false" title="Descripci&#xf3;n" type="java.lang.String"/>
-                <Column editable="false" title="Fecha Movimiento" type="java.lang.String"/>
+                <Column editable="false" title="Fecha" type="java.lang.String"/>
                 <Column editable="false" title="Almac&#xe9;n" type="java.lang.String"/>
-                <Column editable="false" title="Ubicaci&#xf3;n Origen" type="java.lang.String"/>
-                <Column editable="false" title="Ubicaci&#xf3;n Destino" type="java.lang.String"/>
+                <Column editable="false" title="Id Origen" type="java.lang.String"/>
+                <Column editable="false" title="Id Destino" type="java.lang.String"/>
                 <Column editable="false" title="Pallet" type="java.lang.String"/>
                 <Column editable="false" title="Producto" type="java.lang.String"/>
                 <Column editable="false" title="Cantidad" type="java.lang.String"/>
