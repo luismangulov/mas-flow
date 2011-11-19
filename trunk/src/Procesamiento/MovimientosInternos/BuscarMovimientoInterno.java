@@ -175,7 +175,7 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
             fechaFin = jdcFechaFin.getDate();
         }
         else{
-            JOptionPane.showMessageDialog(null, "La fecha inicio debe ser anterior a la fecha final");
+            JOptionPane.showMessageDialog(null, "La fecha inicio debe ser anterior a la fecha final", "Error",0);
             return;
         }
         arrMovimientosInternos = objMovimientoInternoBL.getSearchList(strIdProducto,strIdAlmacen,fechaInicio,fechaFin);
@@ -184,7 +184,7 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
             ventanaPadre.llenarDgv(arrMovimientosInternos);
             this.dispose();
         }else
-            JOptionPane.showMessageDialog(null, "No hay resultados de búsqueda");
+            JOptionPane.showMessageDialog(null, "No se encontraron movimientos internos","Mensaje",1);
         
     }//GEN-LAST:event_btnBuscarMouseClicked
 
