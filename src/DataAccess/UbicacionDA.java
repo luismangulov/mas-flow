@@ -118,7 +118,8 @@ public class UbicacionDA {
     public ArrayList<UbicacionBE> queryAllUbicacionActiva(){
         
         objConexion = new conexion();
-        query = "SELECT * FROM UBICACION WHERE indActivo = '1'";
+        query = "SELECT * FROM UBICACION WHERE indActivo = '1' ";
+        query = query + "ORDER BY 1";
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
@@ -167,6 +168,8 @@ public class UbicacionDA {
             query = "SELECT * FROM UBICACION WHERE idRack ='" +idRack+"'";
         else
             query = "SELECT * FROM UBICACION WHERE indActivo = '"+indActivo+"' AND idRack ='" +idRack+"'";
+        
+        query = query + "ORDER BY 1";
         
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
@@ -224,6 +227,8 @@ public class UbicacionDA {
             query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
                 + "FROM UBICACION A, RACK B WHERE A.indActivo = '"+indActivo+"' AND A.idRack = B.idRack AND B.idZona = '" + strIdZona +"'";
         
+        query = query + "ORDER BY 1";
+        
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
@@ -255,6 +260,8 @@ public class UbicacionDA {
                 + "FROM UBICACION U, RACK R, ZONA Z "
                 + "WHERE U.indActivo = '"+ indActivo +"' AND Z.idZona = R.idZona AND U.idRack = R.idRack AND Z.idAlmacen= '" + strIdAlmacen +"'";
         
+        query = query + "ORDER BY 1";
+        
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
@@ -278,6 +285,7 @@ public class UbicacionDA {
         
         objConexion = new conexion();
         query = "SELECT * FROM UBICACION WHERE indActivo = '1'";
+        query = query + "ORDER BY 1";
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
@@ -303,6 +311,7 @@ public class UbicacionDA {
         objConexion = new conexion();
         query = "SELECT COUNT(u.idUbicacion) FROM almacen a, zona z, familia f, zonaxfamilia zxf, rack r, ubicacion u WHERE a.idalmacen = z.idalmacen ANd z.idzona = zxf.idzona AND zxf.idfamilia = f.idfamilia AND z.idzona = r.idzona AND u.idrack = r.idrack AND u.indactivo = '1'";
                 query+= " AND f.idfamilia = '"+idFamilia+"' AND a.idalmacen = '"+idAlmacen+"'";
+               
         int cantUbicacinesLibres = 0;
         try{
             rs = objConexion.EjecutarS(query);
@@ -447,6 +456,8 @@ public class UbicacionDA {
                 + " FROM UBICACION u, RACK r, ZONA z, ALMACEN a "
                 + " WHERE a.IdAlmacen = z.IdAlmacen AND z.IdZona = r.IdZona AND u.idRack = r.idrack";
         
+        query = query + "ORDER BY 1";
+        
         if (!strIndActivo.equals("3"))
             query = query + " AND u.indActivo = '" + strIndActivo + "'";
            
@@ -490,7 +501,7 @@ public class UbicacionDA {
         public UbicacionBE queryUbicacionByPallet(String strIdPallet) {
         objConexion = new conexion();
         query = "SELECT u.idubicacion, u.idrack, u.fila, u.columna, u.indactivo"
-                + " FROM UBICACION u, PALLET p WHERE u.idUbicacion= p.idpallet AND p.idpallet = '"+strIdPallet+"'";
+                + " FROM UBICACION u, PALLET p WHERE u.idUbicacion= p.idubicacion AND p.idpallet = '"+strIdPallet+"'";
         rs = objConexion.EjecutarS(query);
         try {
             rs.next();
