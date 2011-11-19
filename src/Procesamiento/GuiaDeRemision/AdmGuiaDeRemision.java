@@ -38,6 +38,17 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
+import Util.conexion;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author DIEGO
@@ -73,6 +84,7 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         lblDetalle = new javax.swing.JLabel();
         lblAprobar = new javax.swing.JLabel();
         lblRuta = new javax.swing.JLabel();
+        lblImprimir = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -145,8 +157,6 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
         lblDetalle.setToolTipText("VisualizarDetalle");
         lblDetalle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblDetalle.setMaximumSize(new java.awt.Dimension(54, 54));
-        lblDetalle.setPreferredSize(new java.awt.Dimension(54, 54));
         lblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblDetalleMousePressed(evt);
@@ -175,6 +185,21 @@ public class AdmGuiaDeRemision extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(lblRuta);
+
+        lblImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/imprimir.png"))); // NOI18N
+        lblImprimir.setText("jLabel1");
+        lblImprimir.setToolTipText("Imprimir");
+        lblImprimir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblImprimir.setMaximumSize(new java.awt.Dimension(54, 54));
+        lblImprimir.setMinimumSize(new java.awt.Dimension(54, 54));
+        lblImprimir.setPreferredSize(new java.awt.Dimension(54, 54));
+        lblImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblImprimirMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblImprimir);
 
         jLabel7.setText("                                                                                                                                  ");
         jLabel7.setMaximumSize(new java.awt.Dimension(520, 14));
@@ -431,6 +456,24 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         }
     }//GEN-LAST:event_lblRutaMousePressed
 
+    private void lblImprimirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImprimirMousePressed
+        // TODO add your handling code here:
+         if((tblGuiaRemision.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una guia de remision", "Mensaje",0);
+        } else if((tblGuiaRemision.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una guia de remision", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = tblGuiaRemision.getSelectedRow();
+            codigo = (String)tblGuiaRemision.getValueAt(fila, 1);
+                    
+          this.runReporte(codigo);
+        }    
+        
+        
+    }//GEN-LAST:event_lblImprimirMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -475,6 +518,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel lblAprobar;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblDetalle;
+    private javax.swing.JLabel lblImprimir;
     private javax.swing.JLabel lblRefrescar;
     private javax.swing.JLabel lblRuta;
     private javax.swing.JTable tblGuiaRemision;
@@ -543,6 +587,56 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             tblGuiaRemision.setValueAt(guiaRemisiones.get(i).getEstado().getDescripcion(),i,5 );
         }
         
+          
+    
+        
     }
 
+    public void runReporte(String guia)
+    {
+
+            String master = System.getProperty("user.dir") +
+                                "/src/Reportes/GuiaRemision.jasper";
+           
+            System.out.println(master);
+            if (master == null)
+            {               
+                JOptionPane.showMessageDialog(null, "No se encontró el archivo de la Guía de Remisión.", "Mensaje",0);
+                return;
+            }
+
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                JOptionPane.showMessageDialog(null, "Error cargando la Guía de Remisión: " + e.getMessage(), "Mensaje",0);
+                return;
+            }             
+           
+            //este es el par�metro, se pueden agregar m�s par�metros
+            //basta con poner mas parametro.put
+            Map parametro = new HashMap();
+            parametro.put("Guia",guia);
+            parametro.put("empresa",Util.Configuracion.getEmpresa());
+            //Reporte dise�ado y compilado con iReport
+            try {
+            conexion objConexion = new conexion();
+            objConexion.SetearConexion();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport,parametro,objConexion.getCon());
+            objConexion.SalirUID();
+            //Se lanza el Viewer de Jasper, no termina aplicaci�n al salir
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setTitle("+Flow - Guía de Remisión");
+            jviewer.setVisible(true);
+        }
+
+        catch (Exception j)
+        {
+            JOptionPane.showMessageDialog(null, "Mensaje de Error:"+j.getMessage(), "Mensaje",0);
+        }
+
+}
 }

@@ -44,6 +44,17 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
+import Util.conexion;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author DIEGO
@@ -78,6 +89,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         lblAprobar = new javax.swing.JLabel();
         lblIngresar = new javax.swing.JLabel();
         lblRuta = new javax.swing.JLabel();
+        lblImprimir = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -151,8 +163,6 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         lblDetalle.setToolTipText("VisualizarDetalle");
         lblDetalle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblDetalle.setMaximumSize(new java.awt.Dimension(54, 54));
-        lblDetalle.setPreferredSize(new java.awt.Dimension(54, 54));
         lblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblDetalleMousePressed(evt);
@@ -210,6 +220,20 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         });
         jToolBar1.add(lblRuta);
 
+        lblImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/imprimir.png"))); // NOI18N
+        lblImprimir.setText("jLabel1");
+        lblImprimir.setToolTipText("Imprimir");
+        lblImprimir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblImprimir.setMaximumSize(new java.awt.Dimension(54, 54));
+        lblImprimir.setPreferredSize(new java.awt.Dimension(54, 54));
+        lblImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblImprimirMousePressed(evt);
+            }
+        });
+        jToolBar1.add(lblImprimir);
+
         jLabel7.setText("                                                                                                                                  ");
         jLabel7.setMaximumSize(new java.awt.Dimension(500, 14));
         jLabel7.setPreferredSize(new java.awt.Dimension(500, 14));
@@ -225,7 +249,7 @@ public class AdmOrdenDeEntrega extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1042, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -631,6 +655,23 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
          }
          } 
     }//GEN-LAST:event_lblPalletMousePressed
+
+    private void lblImprimirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImprimirMousePressed
+        // TODO add your handling code here:
+         if((tblNotaIngreso.getSelectedRowCount() == 0)){
+           JOptionPane.showMessageDialog(null, "No ha seleccionado una orden de entrega", "Mensaje",0);
+        } else if((tblNotaIngreso.getSelectedRowCount() > 1)){
+            JOptionPane.showMessageDialog(null, "Ha seleccionado mas de una orden de entrega", "Mensaje",0);
+        }else{
+            int fila;
+            String codigo;
+            fila = tblNotaIngreso.getSelectedRow();
+            codigo = (String)tblNotaIngreso.getValueAt(fila, 1);
+                    
+          this.runReporte(codigo);
+        }    
+        
+    }//GEN-LAST:event_lblImprimirMousePressed
         
    
 
@@ -680,6 +721,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel lblAprobar;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblDetalle;
+    private javax.swing.JLabel lblImprimir;
     private javax.swing.JLabel lblIngresar;
     private javax.swing.JLabel lblPallet;
     private javax.swing.JLabel lblRefrescar;
@@ -760,4 +802,52 @@ public void recargaruno(NotaIngresoBE notaIngreso,String razonSocial,String dire
         
     }
 
+     public void runReporte(String orden)
+    {
+
+            String master = System.getProperty("user.dir") +
+                                "/src/Reportes/OrdenEntrega.jasper";
+           
+            System.out.println(master);
+            if (master == null)
+            {               
+                JOptionPane.showMessageDialog(null, "No se encontró el archivo de la Orden de Entrega.", "Mensaje",0);
+                return;
+            }
+
+            JasperReport masterReport = null;
+            try
+            {
+                masterReport = (JasperReport) JRLoader.loadObjectFromFile(master);//.loadObject(master);
+            }
+            catch (JRException e)
+            {
+                JOptionPane.showMessageDialog(null, "Error cargando la Orden de Entrega: " + e.getMessage(), "Mensaje",0);
+                return;
+            }             
+           
+            //este es el par�metro, se pueden agregar m�s par�metros
+            //basta con poner mas parametro.put
+            Map parametro = new HashMap();
+            parametro.put("Orden",orden);
+            parametro.put("empresa",Util.Configuracion.getEmpresa());
+            //Reporte dise�ado y compilado con iReport
+            try {
+            conexion objConexion = new conexion();
+            objConexion.SetearConexion();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(masterReport,parametro,objConexion.getCon());
+            objConexion.SalirUID();
+            //Se lanza el Viewer de Jasper, no termina aplicaci�n al salir
+            JasperViewer jviewer = new JasperViewer(jasperPrint,false);
+            jviewer.setTitle("+Flow - Orden de Entrega");
+            jviewer.setVisible(true);
+        }
+
+        catch (Exception j)
+        {
+            JOptionPane.showMessageDialog(null, "Mensaje de Error:"+j.getMessage(), "Mensaje",0);
+        }
+
+} 
+    
 }
