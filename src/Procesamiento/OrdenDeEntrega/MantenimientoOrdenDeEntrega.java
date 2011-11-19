@@ -27,6 +27,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.sql.Timestamp;
+//import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -34,6 +36,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 import Util.conexion;
+//import java.security.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -59,6 +62,7 @@ public class MantenimientoOrdenDeEntrega extends javax.swing.JFrame {
         initComponents();
          this.setLocationRelativeTo(null); 
         Date fechaActual = new Date();
+        //Timestamp d = new Timestamp(fechaActual.getTime()); 
         this.jdcFecha.setDate(fechaActual);
         this.cargarComboAlmacen();
         this.setVisible(true);
