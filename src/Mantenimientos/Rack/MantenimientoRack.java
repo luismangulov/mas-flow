@@ -190,7 +190,7 @@ public class MantenimientoRack extends javax.swing.JFrame {
         if (strIndActivo.equals("0")){
             int intCantUbicacionesOcupadas = objUbicacionBL.getCantUbicacionesOcupadas(strIdRack);
             if (intCantUbicacionesOcupadas > 0)
-                JOptionPane.showMessageDialog(null, "No se puede inactivar. Hay ubicaciones en uso en el rack");
+                JOptionPane.showMessageDialog(null, "No se puede inactivar. Hay ubicaciones en uso en el rack","Error",0);
             else{
                 objUbicacionBL.bloquearUbicacionByRack(strIdRack);
                 boolExito = objRackBL.modificar(objRackBE);
@@ -599,32 +599,32 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     public boolean validar(){
         
         if(cbOrientacion.getSelectedItem().toString().equals("Seleccione")){
-            JOptionPane.showMessageDialog(null, "Debe elegir la orientación del rack");
+            JOptionPane.showMessageDialog(null, "Debe elegir la orientación del rack","Error",0);
             return false;            
         }
         
         if (cbAlmacen.getItemCount()==0){
-            JOptionPane.showMessageDialog(null, "No hay almacences creados");
+            JOptionPane.showMessageDialog(null, "No hay almacences creados","Error",0);
             return false;
         }
         
         if (txtPosX.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Debe ingresar la posición X del rack");
+            JOptionPane.showMessageDialog(null, "Debe ingresar la posición X del rack","Error",0);
             return false;
         }
         
         if (txtPosY.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Debe ingresar la posición Y del rack");
+            JOptionPane.showMessageDialog(null, "Debe ingresar la posición Y del rack","Error",0);
             return false;
         }
          
         if (txtPisos.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de pisos del rack");
+            JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de pisos del rack","Error",0);
             return false;
         }
             
         if (txtColumnas.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de columnas del rack");
+            JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad de columnas del rack","Error",0);
             return false;
         }
         
@@ -632,7 +632,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         intColumnas = Integer.parseInt(txtColumnas.getText());
         
         if (intPisos <= 0 || intPisos > 6 || intColumnas <= 0 || intColumnas > 20){
-            JOptionPane.showMessageDialog(null, "El número de pisos no puede ser mayor a 6 y el número de columnas no puede ser mayor a 20");
+            JOptionPane.showMessageDialog(null, "El número de pisos no puede ser mayor a 6 y el número de columnas no puede ser mayor a 20","Error",0);
             return false;
         }
 
@@ -655,7 +655,7 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         objZonaBE = devolverZonaPorXY(intPosXRack, intPosYRack,strIdAlmacen);
         
         if (objZonaBE == null){
-            JOptionPane.showMessageDialog(null, "El rack no está ubicado en una zona");
+            JOptionPane.showMessageDialog(null, "El rack no está ubicado en una zona","Error",0);
             return false;
         }
             
@@ -673,19 +673,19 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         //1 validar límites de la zona
         
         if (intPosXRack < intPosXZona || intPosXRack > intPosXZona + intAnchoZona || intPosYRack < intPosYZona || intPosYRack > intPosYZona + intLargoZona){
-            JOptionPane.showMessageDialog(null, "La posición inicial del rack excede las dimensiones de la zona");
+            JOptionPane.showMessageDialog(null, "La posición inicial del rack excede las dimensiones de la zona","Error",0);
             return false;
         }
         
         if (strOrientacion.equals("H")){
             if (intPosXRack + intColumnasRack - intPosXZona > intAnchoZona){
-                JOptionPane.showMessageDialog(null, "El rack excede las dimensiones de la zona");
+                JOptionPane.showMessageDialog(null, "El rack excede las dimensiones de la zona","Error",0);
                 return false;
             }
         }
         else
             if (intPosYRack + intColumnasRack - intPosYZona > intLargoZona){
-                JOptionPane.showMessageDialog(null, "El rack excede las dimensiones de la zona");
+                JOptionPane.showMessageDialog(null, "El rack excede las dimensiones de la zona","Error",0);
                 return false;
             }
         
@@ -767,10 +767,10 @@ private void txtColumnasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             for (int i=0; i<intLargoZona; i++)
                 for (int j=0; j<intAnchoZona; j++)
                     if (matrizZonaRack[i][j] == 1 && matrizZona[i][j] == 1){
-                        JOptionPane.showMessageDialog(null, "Existe solapamiento de racks");
+                        JOptionPane.showMessageDialog(null, "Existe solapamiento de racks","Error",0);
                         return false;
                     }else if (matrizZonaRack[i][j] == 1 && matrizZona[i][j] == 2){
-                        JOptionPane.showMessageDialog(null, "El rack está en la misma posición de la puerta");
+                        JOptionPane.showMessageDialog(null, "El rack está en la misma posición de la puerta","Error",0);
                         return false;
                     }
                         

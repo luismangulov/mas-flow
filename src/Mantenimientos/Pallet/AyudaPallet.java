@@ -405,7 +405,7 @@ public class AyudaPallet extends javax.swing.JDialog {
     if (arrPallets.size()>0)
         llenarDgv(arrPallets);
     else
-        JOptionPane.showMessageDialog(null, "No se encontraron pallets");
+        JOptionPane.showMessageDialog(null, "No se encontraron pallets", "Advertencia", 2);
                                                             
     }//GEN-LAST:event_btnBuscarMouseClicked
 
@@ -488,10 +488,10 @@ public class AyudaPallet extends javax.swing.JDialog {
     public boolean validar(){
         
        if((dgvPallets.getSelectedRowCount() == 0)){
-           JOptionPane.showMessageDialog(null, "No ha seleccionado un Pallet", "Mensaje",0);
+           JOptionPane.showMessageDialog(null, "No ha seleccionado un Pallet","Error",0);
            return false;
        } else if((dgvPallets.getSelectedRowCount() > 1)){
-            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un Pallet", "Mensaje",0);
+            JOptionPane.showMessageDialog(null, "Ha seleccionado más de un Pallet","Error",0);
             return false;
        }
        

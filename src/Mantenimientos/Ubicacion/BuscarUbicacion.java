@@ -298,7 +298,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         this.dispose();
     }
     else
-        JOptionPane.showMessageDialog(null, "No se encontraron ubicaciones", "Advertencia", 0);
+        JOptionPane.showMessageDialog(null, "No se encontraron ubicaciones", "Mensaje", 1);
     
     
 }//GEN-LAST:event_btnBuscarMouseClicked
