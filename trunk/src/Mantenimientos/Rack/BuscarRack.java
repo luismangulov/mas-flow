@@ -209,7 +209,7 @@ private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
         }
         
         else
-            JOptionPane.showMessageDialog(null, "No se encontraron racks", "Advertencia", 0);
+            JOptionPane.showMessageDialog(null, "No se encontraron racks", "Mensaje", 1);
 }//GEN-LAST:event_btnBuscarMouseClicked
 
 private void cbAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlmacenActionPerformed

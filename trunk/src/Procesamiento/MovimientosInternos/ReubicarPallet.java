@@ -484,7 +484,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     boolean boolExito = false;
     intFila = dgvPallets.getSelectedRow();
     if (intFila==-1)
-        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila", "Advertencia", 0);
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila","Error",0);
     else{
         
         strIdPallet = (String)dgvPallets.getValueAt(intFila, 0);
@@ -512,7 +512,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
             if (boolExito){
                 objMovimientoInternoBL.insertar(objMovimientoInternoBE);
-//                if(ventanaPadre != null)
+                JOptionPane.showMessageDialog(null, "Se cambió la ubicación del pallet '" + objMovimientoInternoBE.getIdPallet() + "' a la ubicación '" + objMovimientoInternoBE.getIdUbicacionDestino() + "'","Mensaje",1);
                 ventanaPadre.actualizarDgv(objMovimientoInternoBE);
                 this.dispose();
             }else
@@ -676,18 +676,18 @@ private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     
     int fila = dgvPallets.getSelectedRow();
     if (fila==-1){
-        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún pallet", "Advertencia",0);
+        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún pallet","Error",0);
         return false;
     }
         
     if (cbUbicacion.getItemCount() != 0){
         if (cbUbicacion.getSelectedItem().toString().equals("") || cbUbicacion.getSelectedItem().toString().equals("Seleccione")){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino","Error",0);
             return false;
         }else
             return true;
         }else{
-            JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar ubicación destino","Error",0);
             return false;
         }
     }

@@ -260,7 +260,7 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
 
 private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDesecharMouseClicked
 
-    int intConfirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar los pallets seleccionados?", "Mensaje", 0);
+    int intConfirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar los pallets seleccionados?", "Advertencia", 2);
     if (intConfirmacion != 0)
         return;
     
@@ -309,7 +309,7 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
         this.dispose();
     }
     else 
-        JOptionPane.showMessageDialog(null, "Error");
+        JOptionPane.showMessageDialog(null, "Hubo un error en la operación", "Error", 0);
 
 }//GEN-LAST:event_btnDesecharMouseClicked
 
@@ -433,12 +433,12 @@ private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
         
         DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();
         if (modelo.getRowCount() == 0){
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún pallet");
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún pallet", "Error",0);
             return false;
         }
         
         if (txtMotivo.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Debe indicar el motivo de la operación");
+            JOptionPane.showMessageDialog(null, "Debe indicar el motivo de la operación", "Error",0);
             return false;
         }
         
