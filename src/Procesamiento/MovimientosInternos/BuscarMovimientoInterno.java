@@ -68,7 +68,7 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setText("<html>Nombre<br>de Producto:</html>");
