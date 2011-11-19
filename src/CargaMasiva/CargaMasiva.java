@@ -76,7 +76,7 @@ public class CargaMasiva {
                     }else
                         sql+="'"+valores.get(i)+"',";
                 }
-                sql+=")";
+                sql+=");";
                 System.out.println(sql);
                 rs=objConexion.EjecutarS(sql);
                 rs=objConexion.EjecutarS("commit");

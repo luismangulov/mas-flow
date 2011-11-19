@@ -82,7 +82,6 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         this.objPadre = padre;
         accion = "registrar";     
 
-   
 
        modeloAplicacion= new AbstractListModel() {
             ArrayList <String> listaLocal=listaAplicacionesSistema;
@@ -122,6 +121,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
     }
 
      public MantenimientoPerfil(AdmPerfil padre,PerfilBE perfilBE) {
+
         this.objPadre = padre;
         accion = "modificar";
         this.perfil =perfilBE;
@@ -202,7 +202,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 
  //       this.jListServicio.setEnabled(false);
  //       this.jListServicioSelected.setEnabled(false);
-
+        this.lblAgregarTodo.setEnabled(false);
+        this.lblAgregarTodo.setVisible(false);
 
     }
 
@@ -230,6 +231,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         lblRemoverAplicacion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListAplicacionSelected = new javax.swing.JList();
+        lblAgregarTodo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar perfil");
@@ -289,7 +291,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             }
         });
 
-        jListAplicacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Aplicaciones no asociadas"));
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aplicaciones no asociadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 1, 14))); // NOI18N
+
         jListAplicacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jListAplicacionMouseClicked(evt);
@@ -305,6 +308,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         jLabel3.setText("Aplicacion");
 
         lblAddAplicacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/next.png"))); // NOI18N
+        lblAddAplicacion.setToolTipText("Agregar");
         lblAddAplicacion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblAddAplicacion.setName(""); // NOI18N
         lblAddAplicacion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -314,6 +318,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         });
 
         lblRemoverAplicacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/back.png"))); // NOI18N
+        lblRemoverAplicacion.setToolTipText("Quitar");
         lblRemoverAplicacion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblRemoverAplicacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblRemoverAplicacion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -322,7 +327,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             }
         });
 
-        jListAplicacionSelected.setBorder(javax.swing.BorderFactory.createTitledBorder("Aplicaciones asociadas"));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aplicaciones asociadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 1, 14))); // NOI18N
+
         jListAplicacionSelected.setModel(modeloAplicacionSelected);
         jListAplicacionSelected.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -330,6 +336,15 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jListAplicacionSelected);
+
+        lblAgregarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trunk/src/Iconos/folder_accept.png"))); // NOI18N
+        lblAgregarTodo.setToolTipText("Seleccionar todo");
+        lblAgregarTodo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblAgregarTodo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAgregarTodoMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -346,11 +361,12 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAddAplicacion)
-                            .addComponent(lblRemoverAplicacion))
-                        .addGap(6, 6, 6)
+                            .addComponent(lblRemoverAplicacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblAgregarTodo, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                            .addComponent(lblAddAplicacion))
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,7 +376,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,26 +389,27 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addComponent(lblAddAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblRemoverAplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(cbxActivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
-                .addGap(35, 35, 35))
+                .addGap(66, 66, 66))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(191, 191, 191)
+                .addComponent(lblAddAplicacion)
+                .addGap(18, 18, 18)
+                .addComponent(lblRemoverAplicacion)
+                .addGap(24, 24, 24)
+                .addComponent(lblAgregarTodo)
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         pack();
@@ -473,23 +490,14 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 this.objPadre.recargaruno(perfil);
                 this.dispose();
 
-//////                 int fila;
-//////                 fila = this.objPadre.getDgvPerfil().getSelectedRow();
-//////                 this.objPadre.getDgvPerfil().removeRowSelectionInterval(fila, fila);
-//////                 this.objPadre.getDgvPerfil().setValueAt(perfil.getIdPerfil(), fila, 0);
-//////                 this.objPadre.getDgvPerfil().setValueAt(perfil.getDescripcion(), fila, 1);
-//////                 if(perfil.getIndActivo().equals("1")){
-//////                      this.objPadre.getDgvPerfil().setValueAt("Activo", fila, 2);
-//////                  }else if(perfil.getIndActivo().equals("0")){
-//////                     this.objPadre.getDgvPerfil().setValueAt("Inactivo", fila, 2);
-//////                  }
-////                 this.dispose();
          }
 
-         }catch (Exception ex) {
 
-                Logger.getLogger(MantenimientoPerfil.class.getName()).log(Level.SEVERE, null, ex);
-     }
+    } catch (Exception ex) {
+
+        Logger.getLogger(MantenimientoPerfil.class.getName()).log(Level.SEVERE, null, ex);
+
+    }
 
 
 }//GEN-LAST:event_btnGuardarActionPerformed
@@ -740,6 +748,90 @@ private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:ev
         }
 }//GEN-LAST:event_txtDescripcionKeyTyped
 
+private void lblAgregarTodoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarTodoMousePressed
+    // TODO add your handling code here:
+
+    PerfilBL objPerfilBL = new PerfilBL();
+    AplicacionBE objAplicacionBE=new AplicacionBE();
+
+    try {
+
+        if(this.accion.equals("registrar")){
+
+            this.listaAplicacionesSelected=listaAplicacionesSistema;
+            modeloAplicacionSelected= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesSelected;
+                public int getSize() {
+                    return listaLocal.size();
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+
+            };
+            this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
+
+
+            this.listaAplicacionesSistema=new ArrayList<String>();
+            modeloAplicacion= new AbstractListModel() {
+                ArrayList <String> listaLocal=listaAplicacionesSistema;
+                public int getSize() {
+                    return listaLocal.size();
+
+                }
+                public Object getElementAt(int index) {
+                    return listaLocal.get(index);
+                }
+
+            };
+            this.jListAplicacion.setModel(modeloAplicacion);
+        }
+
+        this.lblAddAplicacion.setEnabled(false);
+        this.lblRemoverAplicacion.setEnabled(false);
+        this.lblAgregarTodo.setEnabled(false);
+        
+
+//        if(this.accion.equals("modificar")){
+//                perfil.setDescripcion(this.txtDescripcion.getText().trim());
+//                perfil.setIndActivo(estado);
+//                objPerfilBL.modificar(perfil);
+//                //Elimina todo el detalle de la tabla detalle perfil para determinado perfil
+//                objPerfilDetalleDA.eliminarDetallePerfil(perfil.getIdPerfil());
+//                int cont=1;
+//                for(int i=0;i<listaAplicacionesPerfil.size();i++){
+//                    perfilDetalle.setPerfil(perfil);
+//                    objAplicacionBE=objAplicacionDA.queryByNombreAplicacion(listaAplicacionesPerfil.get(i));
+//                    perfilDetalle.setAplicacion(objAplicacionBE);
+//                    //Agregar todos los servicios que tiene la aplicacion en el sistema
+//                    ArrayList <ServicioBE> listaServicios=objAplicacionxServicio.queryServiciosByAplicacion(objAplicacionBE.getIdAplicacion());
+//                    for(int j=0;j<listaServicios.size();j++)
+//                    {
+//                        perfilDetalle.setIndDetalle(String.valueOf(cont));
+//                        cont++;
+//                        perfilDetalle.setServicio(listaServicios.get(j));
+//                        //inserta el detalle en la tabla perfil detalle
+//                        objPerfilDetalleDA.insertar(perfilDetalle);
+//
+//                    }
+//
+//                }
+//
+//                this.objPadre.recargaruno(perfil);
+//                this.dispose();
+//
+//         }
+
+
+    } catch (Exception ex) {
+
+        Logger.getLogger(MantenimientoPerfil.class.getName()).log(Level.SEVERE, null, ex);
+
+    }
+
+
+}//GEN-LAST:event_lblAgregarTodoMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -788,6 +880,7 @@ private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:ev
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAddAplicacion;
+    private javax.swing.JLabel lblAgregarTodo;
     private javax.swing.JLabel lblRemoverAplicacion;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
