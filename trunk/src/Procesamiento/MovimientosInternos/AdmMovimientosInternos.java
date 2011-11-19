@@ -172,8 +172,8 @@ public class AdmMovimientosInternos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +267,7 @@ private void lblReubicarPalletMouseClicked(java.awt.event.MouseEvent evt) {//GEN
     
     public void llenarDgv(ArrayList<MovimientoInternoBE> arrMovimientoInterno){
         
-        DefaultTableModel modelo=(DefaultTableModel) dgvMovimientoInterno.getModel();    
+        DefaultTableModel modelo=(DefaultTableModel) dgvMovimientoInterno.getModel();
         limpiarDgv();
         this.arrMovimientoInterno = arrMovimientoInterno;
         
