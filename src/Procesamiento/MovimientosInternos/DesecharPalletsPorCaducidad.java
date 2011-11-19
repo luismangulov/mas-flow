@@ -265,6 +265,7 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
     int intFila = dgvPallets.getSelectedRow();
     
     arrPallets.clear();
+    arrMovimientosInternos.clear();
     
     for (int i = intFila ; i<intFila+intCantFilas; i++){
         
@@ -274,13 +275,7 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
         strIdPallet = modelo.getValueAt(i,1).toString();
         strIdProducto = objProductoBL.getByNombreProducto(modelo.getValueAt(i, 2).toString()).getIdProducto();
         
-        objPalletBE = new PalletBE();
-        objPalletBE.setIdPallet(strIdPallet);
-        objPalletBE.setIdProducto(strIdProducto);
-        objPalletBE.setIdUbicacion(strIdUbicacion);
-        objPalletBE.setIndActivo("3");
-        objPalletBE.setFechaVencimiento(null);
-        objPalletBE.setIdAlmacen(strIdAlmacen);
+        objPalletBE = new PalletBE(strIdPallet, strIdProducto, "3", strIdUbicacion, strIdAlmacen, null, null, null);
         
         arrPallets.add(objPalletBE);
 
@@ -290,12 +285,11 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
 
     }
     
-    
     for (PalletBE palletBE : arrPallets)
         objPalletBL.desechar(palletBE);
     
     for (MovimientoInternoBE movimientoInternoBE : arrMovimientosInternos)
-        objMovimientoInternoBL.insertar(objMovimientoInternoBE);
+        objMovimientoInternoBL.insertar(movimientoInternoBE);
 
     if (arrMovimientosInternos.size()>0){
         ventanaPadre.llenarDgv(arrMovimientosInternos);
