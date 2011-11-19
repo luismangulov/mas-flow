@@ -504,18 +504,20 @@ public class AlgoritmoGenetico {
             Nodo nodo = nodosObligatorios.get(i);
             if (!nodo.isNodoInicial())
             {
-                Nodo mejorVecino = mejorVecino(nodo, listaNodos);
+                Nodo mejorVecino = mejorVecino(nodo, listaNodos, nodosObligatorios);
                 if (mejorVecino != null)
                 {
                     nodosObligatorios.set(i, mejorVecino);
                 }
             }
         }
-  
+
+        ArrayList<Nodo> temp = eliminarDuplicados(nodosObligatorios);
+        nodosObligatorios = temp;
    }
 
 
-   public static Nodo mejorVecino(Nodo nodo, ArrayList<Nodo> listaNodos)
+   public static Nodo mejorVecino(Nodo nodo, ArrayList<Nodo> listaNodos, ArrayList<Nodo> nodosObligatorios)
    {
        ArrayList<Nodo> vecinos=new ArrayList<Nodo>();
 
@@ -526,11 +528,13 @@ public class AlgoritmoGenetico {
                 (n.getX()+1==nodo.getX() && n.getY()==nodo.getY()) ||
                 (n.getX()==nodo.getX() && n.getY()+1==nodo.getY()) ||
                 (n.getX()==nodo.getX() && n.getY()-1==nodo.getY())
-               ) && (n.getItem()!=null))
+               ) && (n.getItem()!=null) /*&& !estaEnNodosObligatorios(n,nodosObligatorios)*/)
             {
                 vecinos.add(n);
             }
        }
+
+       if (vecinos.isEmpty()) return null;
 
        Collections.sort(vecinos,new Comparator<Nodo>() {
        public int compare(Nodo u1, Nodo u2) {
@@ -539,8 +543,7 @@ public class AlgoritmoGenetico {
            return (distancia1<distancia2 ? -1 : (distancia1>distancia2?1 : 0));
         }
        });
-
-       if (vecinos.isEmpty()) return null;
+       
        return vecinos.get(0);
    }
 
@@ -557,6 +560,18 @@ public class AlgoritmoGenetico {
         return distanciaALaPuerta;
     }
 
+
+    private static boolean estaEnNodosObligatorios(Nodo nodo, ArrayList<Nodo> nodosObligatorios)
+    {
+        for (Nodo n : nodosObligatorios)
+        {
+            if (nodo.getId()==n.getId())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 
@@ -594,22 +609,47 @@ public class AlgoritmoGenetico {
             if (esObligatorio(i,arregloNodos,listaUbicaciones,mapa))
             {
                 nodosObligatorios.add(arregloNodos[i]);
-
-                ArrayList<Ruta> temp = new ArrayList<Ruta>();
-                for (int j=0; j<arregloNodos.length; j++)
-                {
-                     if (esObligatorio(j,arregloNodos,listaUbicaciones,mapa))
-                     {
-                        Ruta r = new Ruta(arregloNodos[i],arregloNodos[j],arregloNodos);
-                        temp.add(r);
-                     }
-                }
-                rutas.add(temp);
             }
+         }         
+
+         convertirANodoDePaso(listaNodos,nodosObligatorios);
+
+//         ArrayList<Nodo> nodosObligatorios = new ArrayList<Nodo>();
+//         for (int i=0; i<arregloNodos.length; i++)
+//         {
+//            if (esObligatorio(i,arregloNodos,listaUbicaciones,mapa))
+//            {
+//                nodosObligatorios.add(arregloNodos[i]);
+//
+//                ArrayList<Ruta> temp = new ArrayList<Ruta>();
+//                for (int j=0; j<arregloNodos.length; j++)
+//                {
+//                     if (esObligatorio(j,arregloNodos,listaUbicaciones,mapa))
+//                     {
+//                        Ruta r = new Ruta(arregloNodos[i],arregloNodos[j],arregloNodos);
+//                        temp.add(r);
+//                     }
+//                }
+//                rutas.add(temp);
+//            }
+//         }
+
+
+         for (Nodo n1 : nodosObligatorios)
+         {
+            ArrayList<Ruta> temp = new ArrayList<Ruta>();
+            for (Nodo n2 : nodosObligatorios)
+            {
+                    Ruta r = new Ruta(n1,n2,arregloNodos);
+                    temp.add(r);
+            }
+            rutas.add(temp);            
          }
 
          //para cada nodo obligatorio busca por donde pasar
-         //convertirANodoDePaso(listaNodos,nodosObligatorios);
+         //falta validar duplicados (no es necesario)
+         //falta crear rutas
+         
 
          arregloNodos = new Nodo[nodosObligatorios.size()];
          for (int i=0;i<nodosObligatorios.size();i++)
@@ -661,9 +701,9 @@ public class AlgoritmoGenetico {
          Cromosoma c = obtenerMejorCromosoma();
          ArrayList<Nodo> mejorRecorrido = obtenerMejorRecorrido(c);
 
-//         rutas.clear();
-//         poblacion.clear();
-//         nodos=null;
+         rutas.clear();
+         poblacion.clear();
+         nodos=null;
 
          return mejorRecorrido;
 
