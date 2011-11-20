@@ -169,6 +169,13 @@ order by almacen.idalmacen, zona.identificador, rack.identificador, ubicacion.fi
 					</textElement>
 					<textFieldExpression><![CDATA["Rack "+$F{rack_identificador}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="435" y="16" width="83" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Venc.]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -236,7 +243,7 @@ order by almacen.idalmacen, zona.identificador, rack.identificador, ubicacion.fi
 				<textFieldExpression><![CDATA[$F{pallet_idpallet}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="369" y="0" width="80" height="16"/>
+				<reportElement x="369" y="0" width="68" height="16"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
@@ -270,6 +277,13 @@ order by almacen.idalmacen, zona.identificador, rack.identificador, ubicacion.fi
 				</textElement>
 				<text><![CDATA[-]]></text>
 			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="446" y="1" width="68" height="16"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pallet_fechavencimiento}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
