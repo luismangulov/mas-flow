@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 
 /**
  *
@@ -65,7 +66,7 @@ public class MovimientoInternoDA {
                 String strIdMovimientoInterno = rs.getString("IdMovimientoInterno");
                 String strIdUbicacionOrigen = rs.getString("IdUbicacionOrigen");
                 String strIdUbicacionDestino = rs.getString("IdUbicacionDestino");
-                Date dateFecha = rs.getDate("Fecha");
+                Timestamp dateFecha = rs.getTimestamp("Fecha");
                 String strDescripcion = rs.getString("Descripcion");
                 String strIdPallet = rs.getString("IdPallet");
                 strIdAlmacen = rs.getString("IdAlmacen");
@@ -98,6 +99,9 @@ public class MovimientoInternoDA {
         }
         
         objMovimientoInternoBE.setIdMovimiento(strIdMovimientoInterno);
+        Date time = new Date();
+        Timestamp fechaActual = new Timestamp(time.getTime());
+        objMovimientoInternoBE.setFecha(fechaActual);
         
         if (objMovimientoInternoBE.getIdUbicacionOrigen() == null){
             query = "INSERT INTO MOVIMIENTOINTERNO(idmovimientoInterno,idAlmacen,idPallet,idUbicacionDestino, fecha ,descripcion,idusuario)"
@@ -157,7 +161,7 @@ public class MovimientoInternoDA {
                 String strIdMovimientoInterno = rs.getString("IdMovimientoInterno");
                 String strIdUbicacionOrigen = rs.getString("IdUbicacionOrigen");
                 String strIdUbicacionDestino = rs.getString("IdUbicacionDestino");
-                Date dateFecha = rs.getDate("Fecha");
+                Timestamp dateFecha = rs.getTimestamp("Fecha");
                 String strDescripcion = rs.getString("Descripcion");
                 String strIdPallet = rs.getString("IdPallet");
                 String strIdAlmacen = rs.getString("IdAlmacen");

@@ -24,6 +24,7 @@ import BusinessLogic.RackBL;
 import BusinessLogic.UbicacionBL;
 import BusinessLogic.UnidadMedidaBL;
 import Util.Utilitario;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -76,7 +77,8 @@ public class DesecharPalletsPorCaducidad extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventanaPadre = ventanaPadre;
-        Date fechaActual = new Date();
+        Date f = new Date();
+        Timestamp fechaActual = new Timestamp(f.getTime());
         this.jdcFecha.setDate(fechaActual);
         this.cargarComboAlmacen();
     }
@@ -270,7 +272,7 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
     
     strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
     strMotivo = txtMotivo.getText();
-    fecha = jdcFecha.getDate();
+    //fecha = jdcFecha.getDate();
     DefaultTableModel modelo=(DefaultTableModel) dgvPallets.getModel();
     
     int intCantFilas = dgvPallets.getSelectedRowCount();
@@ -293,7 +295,7 @@ private void btnDesecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
         
         arrPallets.add(objPalletBE);
 
-        objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacion, null, fecha,strMotivo, strIdPallet, strIdAlmacen, strIdUsuario);
+        objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacion, null, null,strMotivo, strIdPallet, strIdAlmacen, strIdUsuario);
         
         arrMovimientosInternos.add(objMovimientoInternoBE);
 

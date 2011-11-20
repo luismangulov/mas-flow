@@ -4,7 +4,8 @@
  */
 package BusinessEntity;
 
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,7 +16,7 @@ public class MovimientoInternoBE {
     private String idMovimiento;
     private String idUbicacionOrigen;
     private String idUbicacionDestino;
-    private Date fecha;
+    private Timestamp fecha;
     private String descripcion;
     private String idPallet;
     private String idAlmacen;
@@ -25,7 +26,7 @@ public class MovimientoInternoBE {
     public MovimientoInternoBE() {
     }
 
-    public MovimientoInternoBE(String idMovimiento, String idUbicacionOrigen, String idUbicacionDestino, Date fecha, String descripcion, String idPallet, String idAlmacen,String idUsuario) {
+    public MovimientoInternoBE(String idMovimiento, String idUbicacionOrigen, String idUbicacionDestino, Timestamp fecha, String descripcion, String idPallet, String idAlmacen,String idUsuario) {
         this.idMovimiento = idMovimiento;
         this.idUbicacionOrigen = idUbicacionOrigen;
         this.idUbicacionDestino = idUbicacionDestino;
@@ -36,11 +37,11 @@ public class MovimientoInternoBE {
         this.idUsuario = idUsuario;           
     }
 
-    public Date getFecha() {
+    public Timestamp getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
 
