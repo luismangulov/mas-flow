@@ -628,27 +628,6 @@ public class AlgoritmoGenetico {
          nodosObligatorios = convertirANodoDePaso(listaNodos,nodosObligatorios);
          nodosObligatorios.add(arregloNodos[posInicial]);
 
-//         ArrayList<Nodo> nodosObligatorios = new ArrayList<Nodo>();
-//         for (int i=0; i<arregloNodos.length; i++)
-//         {
-//            if (esObligatorio(i,arregloNodos,listaUbicaciones,mapa))
-//            {
-//                nodosObligatorios.add(arregloNodos[i]);
-//
-//                ArrayList<Ruta> temp = new ArrayList<Ruta>();
-//                for (int j=0; j<arregloNodos.length; j++)
-//                {
-//                     if (esObligatorio(j,arregloNodos,listaUbicaciones,mapa))
-//                     {
-//                        Ruta r = new Ruta(arregloNodos[i],arregloNodos[j],arregloNodos);
-//                        temp.add(r);
-//                     }
-//                }
-//                rutas.add(temp);
-//            }
-//         }
-
-
          for (Nodo n1 : nodosObligatorios)
          {
             ArrayList<Ruta> temp = new ArrayList<Ruta>();
@@ -659,11 +638,6 @@ public class AlgoritmoGenetico {
             }
             rutas.add(temp);            
          }
-
-         //para cada nodo obligatorio busca por donde pasar
-         //falta validar duplicados (no es necesario)
-         //falta crear rutas
-         
 
          arregloNodos = new Nodo[nodosObligatorios.size()];
          for (int i=0;i<nodosObligatorios.size();i++)
