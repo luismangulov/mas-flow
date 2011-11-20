@@ -423,8 +423,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 objUbicacionBL.desocuparUbicacion(arrUbicaciones.get(i).getIdUbicacion());
             }
 
-            Mapa mapa = new Mapa(arrAlmacenes.get(0));
-            mapa.mostrarGraficoMapa(arrUbicaciones);
+            //Mapa mapa = new Mapa(arrAlmacenes.get(0));
+           // mapa.mostrarGraficoMapa(arrUbicaciones);
             
             //ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicaciones);
             //mapa.mostrarGraficoMapa(listaNodo, true);
