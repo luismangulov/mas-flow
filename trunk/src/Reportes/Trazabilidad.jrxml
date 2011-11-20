@@ -151,28 +151,28 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 					<textFieldExpression><![CDATA[$F{producto}.toUpperCase() + " (" + $F{cant}+ " "+$F{unidadmedida}.toLowerCase()+")"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="14" y="15" width="53" height="20"/>
+					<reportElement x="27" y="15" width="84" height="20"/>
 					<textElement verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>
-					<text><![CDATA[Fecha]]></text>
+					<text><![CDATA[Fecha y Hora]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="77" y="15" width="58" height="20"/>
+					<reportElement x="144" y="15" width="58" height="20"/>
 					<textElement verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Operación]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="241" y="15" width="83" height="20"/>
+					<reportElement x="308" y="15" width="83" height="20"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Ubicación Inicial]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="336" y="15" width="82" height="20"/>
+					<reportElement x="403" y="15" width="82" height="20"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>
@@ -186,7 +186,7 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 					<textFieldExpression><![CDATA["PALLET "+ $F{idpallet}+":"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="160" y="14" width="58" height="20"/>
+					<reportElement x="227" y="14" width="72" height="20"/>
 					<textElement verticalAlignment="Middle">
 						<font isUnderline="true"/>
 					</textElement>
@@ -272,31 +272,31 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 	</columnHeader>
 	<detail>
 		<band height="18" splitType="Stretch">
-			<textField>
-				<reportElement x="14" y="0" width="53" height="18"/>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="14" y="0" width="115" height="18"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="77" y="0" width="83" height="18"/>
+				<reportElement x="144" y="0" width="83" height="18"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{operacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="241" y="0" width="83" height="18"/>
+				<reportElement x="308" y="0" width="83" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[(($F{filaorigen}==null)? "-" : $F{rorigen}+"-F"+$F{filaorigen}+"C"+$F{colorigen})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="336" y="0" width="82" height="18"/>
+				<reportElement x="403" y="0" width="82" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[(($F{filadestino}==null)? "-" : $F{rdestino}+"-F"+$F{filadestino}+"C"+$F{coldestino})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="160" y="0" width="80" height="18"/>
-				<textElement/>
+				<reportElement x="227" y="0" width="59" height="18"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[($F{operacion}.equals("Ingresado"))? "OE - "+$F{idnotaingreso}:
- ($F{operacion}.equals("Despachado"))? "GR - "+$F{idguiaremision}:""]]></textFieldExpression>
+ ($F{operacion}.equals("Despachado"))? "GR - "+$F{idguiaremision}:"-"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
