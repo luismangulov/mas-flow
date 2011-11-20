@@ -169,7 +169,7 @@ public class UbicacionDA {
         else
             query = "SELECT * FROM UBICACION WHERE indActivo = '"+indActivo+"' AND idRack ='" +idRack+"'";
         
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
@@ -227,7 +227,7 @@ public class UbicacionDA {
             query = "SELECT A.idUbicacion, A.fila, A.columna, A.indActivo, A.idRack "
                 + "FROM UBICACION A, RACK B WHERE A.indActivo = '"+indActivo+"' AND A.idRack = B.idRack AND B.idZona = '" + strIdZona +"'";
         
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
@@ -260,7 +260,7 @@ public class UbicacionDA {
                 + "FROM UBICACION U, RACK R, ZONA Z "
                 + "WHERE U.indActivo = '"+ indActivo +"' AND Z.idZona = R.idZona AND U.idRack = R.idRack AND Z.idAlmacen= '" + strIdAlmacen +"'";
         
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
@@ -285,7 +285,7 @@ public class UbicacionDA {
         
         objConexion = new conexion();
         query = "SELECT * FROM UBICACION WHERE indActivo = '1'";
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         rs = objConexion.EjecutarS(query);
         arrUbicaciones = new ArrayList<UbicacionBE>();
         try {
@@ -456,8 +456,6 @@ public class UbicacionDA {
                 + " FROM UBICACION u, RACK r, ZONA z, ALMACEN a "
                 + " WHERE a.IdAlmacen = z.IdAlmacen AND z.IdZona = r.IdZona AND u.idRack = r.idrack";
         
-        query = query + "ORDER BY 1";
-        
         if (!strIndActivo.equals("3"))
             query = query + " AND u.indActivo = '" + strIndActivo + "'";
            
@@ -469,6 +467,8 @@ public class UbicacionDA {
             query = query + " AND r.idRack ='" +strIdRack+"'";
         if (!strIdUbicacion.equals(""))
             query = query + " AND u.idUbicacion = '" + strIdUbicacion + "'";
+        
+        query = query + " ORDER BY u.idubicacion";
         
         Date dateFechaVencimiento = null;
         String strIdNotaIngreso = "";

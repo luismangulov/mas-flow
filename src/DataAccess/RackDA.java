@@ -196,7 +196,7 @@ public class RackDA {
         
         objConexion = new conexion();
         query = "SELECT * FROM RACK WHERE indActivo = '1'";
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         rs = objConexion.EjecutarS(query);
         arrRacks = new ArrayList<RackBE>();
         try {
@@ -235,7 +235,7 @@ public class RackDA {
         if (!idZona.equals(""))
                 query = query + " AND z.idZona LIKE '%" + idZona + "%'";
         
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
 
         rs = objConexion.EjecutarS(query);
         arrRacks = new ArrayList<RackBE>();
@@ -293,7 +293,7 @@ public class RackDA {
 
         objConexion = new conexion();
         query = "SELECT * FROM RACK WHERE  identificador ='"+identificador +"'";
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         rs = objConexion.EjecutarS(query);
         
         try {
@@ -322,7 +322,7 @@ public class RackDA {
     public ArrayList<RackBE> queryRackByZona(String idZona) {
                 objConexion = new conexion();
         query = "SELECT * FROM RACK WHERE indActivo = '1' AND idZona ='" +idZona+"'";
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         rs = objConexion.EjecutarS(query);
         arrRacks = new ArrayList<RackBE>();
         try {

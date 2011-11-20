@@ -14,6 +14,7 @@ import BusinessEntity.AlmacenBE;
 import BusinessEntity.MovimientoInternoBE;
 import BusinessLogic.AlmacenBL;
 import BusinessLogic.MovimientoInternoBL;
+import BusinessLogic.ProductoBL;
 import Util.Utilitario;
 import java.util.ArrayList;
 import java.util.Date;
@@ -160,10 +161,11 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         
-        if (!txtNombreProducto.getText().equals(""))
-            strIdProducto = txtNombreProducto.getText();
-        else
-            strIdProducto = "";
+        String strNombreProducto = "";
+        
+        if (!txtNombreProducto.getText().equals("")){
+            strNombreProducto = txtNombreProducto.getText();
+        }
         
         if (!cbAlmacen.getSelectedItem().toString().equals("")){
             strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
@@ -178,7 +180,10 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La fecha inicio debe ser anterior a la fecha final", "Error",0);
             return;
         }
-        arrMovimientosInternos = objMovimientoInternoBL.getSearchList(strIdProducto,strIdAlmacen,fechaInicio,fechaFin);
+        
+        
+        
+        arrMovimientosInternos = objMovimientoInternoBL.getSearchList(strNombreProducto.toUpperCase(),strIdAlmacen,fechaInicio,fechaFin);
         
         if (arrMovimientosInternos.size()>0){
             ventanaPadre.llenarDgv(arrMovimientosInternos);

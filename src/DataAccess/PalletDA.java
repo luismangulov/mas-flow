@@ -246,7 +246,7 @@ public class PalletDA {
     public PalletBE queryByIdUbicacion(String idUbicacion) {
         
         objConexion = new conexion();
-        query = "SELECT * FROM Pallet WHERE indActivo = '1' AND idUbicacion ='" + idUbicacion + "' ORDER BY 1";
+        query = "SELECT * FROM Pallet WHERE indActivo = '1' AND idUbicacion ='" + idUbicacion + "'";
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
         
@@ -318,7 +318,7 @@ public class PalletDA {
         query = "SELECT p.idPallet, p.idProducto, p.indActivo, p.idUbicacion, p.idAlmacen, p.fechaVencimiento "
                 + "FROM PALLET p, UBICACION u WHERE p.indActivo = '1' AND p.idUbicacion = u.idUbicacion AND u.idrack = '" +strIdRack + "'";
 
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
@@ -358,7 +358,7 @@ public class PalletDA {
                 + " WHERE p.indactivo = '1' AND p.idUbicacion = u.idUbicacion AND u.idRack = r.idRack AND "
                 + " r.idZona = z.idZona AND z.idZona = '" +strIdZona+"'";
 
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
@@ -395,7 +395,7 @@ public class PalletDA {
         
         query = "SELECT * FROM PALLET WHERE indActivo = '1' AND idAlmacen = '" + idAlmacen + "'";
         
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
 
         rs = objConexion.EjecutarS(query);
         arrPallets = new ArrayList<PalletBE>();
@@ -457,7 +457,7 @@ public class PalletDA {
         if (!strIdPallet.equals(""))
             query = query + " AND p.idPallet LIKE '%"+strIdPallet+"%'";
         
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         
         Date dateFechaVencimiento = null;
         String strIdNotaIngreso = "";
@@ -498,7 +498,7 @@ public class PalletDA {
         arrPallets = new ArrayList<PalletBE>();
         
         query = "SELECT * FROM PALLET WHERE idNotaIngreso = '" +strIdNotaIngreso + "' and indactivo = '1'";
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         Date dateFechaVencimiento = null;
         rs = objConexion.EjecutarS(query);
         
@@ -613,7 +613,7 @@ public class PalletDA {
         arrPallets = new ArrayList<PalletBE>();
         
         query = "SELECT * FROM PALLET WHERE idGuiaRemision = '" +strIdGuiaRemision + "'  and indactivo = '1'";
-        query = query + "ORDER BY 1";
+        query = query + " ORDER BY 1";
         Date dateFechaVencimiento = null;
         rs = objConexion.EjecutarS(query);
         
