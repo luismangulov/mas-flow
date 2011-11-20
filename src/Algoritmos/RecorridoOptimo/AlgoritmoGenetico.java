@@ -13,6 +13,7 @@ import BusinessLogic.RackBL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -496,6 +497,15 @@ public class AlgoritmoGenetico {
         return listaNodosTemp;
    }
 
+   private static ArrayList<Nodo> eliminarDuplicadosObligatorios(ArrayList<Nodo> listaNodos)
+   {
+        HashSet hs = new HashSet();
+        hs.addAll(listaNodos);
+        listaNodos.clear();
+        listaNodos.addAll(hs);
+
+        return listaNodos;
+   }
    
    public static void convertirANodoDePaso(ArrayList<Nodo> listaNodos,ArrayList<Nodo> nodosObligatorios)
    {
@@ -512,7 +522,7 @@ public class AlgoritmoGenetico {
             }
         }
 
-        ArrayList<Nodo> temp = eliminarDuplicados(nodosObligatorios);
+        ArrayList<Nodo> temp = eliminarDuplicadosObligatorios(nodosObligatorios);
         nodosObligatorios = temp;
    }
 
