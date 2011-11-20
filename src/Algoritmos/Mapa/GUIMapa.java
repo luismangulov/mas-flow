@@ -86,8 +86,60 @@ public class GUIMapa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
         scrollbar1 = new java.awt.Scrollbar();
         scrollbar2 = new java.awt.Scrollbar();
+
+        jPopupMenu1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenu1PopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+
+        jMenuItem4.setText("Ver Información");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem4);
+        jPopupMenu1.add(jSeparator1);
+
+        jMenuItem2.setText("Subir Nivel");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Bajar Nivel");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem3);
+        jPopupMenu1.add(jSeparator2);
+
+        jMenuItem1.setText("Marcar Punto");
+        jMenuItem1.setName("Marcar"); // NOI18N
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
 
         setTitle("Mapa del almacén");
         setBounds(new java.awt.Rectangle(400, 400, 800, 600));
@@ -132,14 +184,38 @@ public class GUIMapa extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getButton()==evt.BUTTON3)
         {
-            mostrarInformacionCuadrado(evt);
+            evtX=evt.getX();
+            evtY=evt.getY();
+            jPopupMenu1.show( evt.getComponent(),evt.getX(), evt.getY() );            
         }
-        else
-        {
-            mostrarInformacionDialogo(evt);
-        }
-        //mostrarInformacionCuadrado(evt);
     }//GEN-LAST:event_formMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        //Marcar
+        mostrarInformacionCuadrado();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        //Bajar nivel
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        //Mostrar información
+        mostrarInformacionDialogo();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        //Subir nivel
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jPopupMenu1PopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenu1PopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+        repaint();
+    }//GEN-LAST:event_jPopupMenu1PopupMenuWillBecomeInvisible
 
     /**
     * @param args the command line arguments
@@ -153,6 +229,13 @@ public class GUIMapa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private java.awt.Scrollbar scrollbar1;
     private java.awt.Scrollbar scrollbar2;
     // End of variables declaration//GEN-END:variables
@@ -376,13 +459,13 @@ public class GUIMapa extends javax.swing.JFrame {
     }
 
 
-    private void mostrarInformacionDialogo(java.awt.event.MouseEvent evt)
+    private void mostrarInformacionDialogo()
     {
         int x;
         int y;
         
-        x=obtenerX(evt.getX());
-        y=obtenerY(evt.getY());
+        x=obtenerX(evtX);
+        y=obtenerY(evtY);
 
         Nodo nodo = encontrarNodo(x,y);
 
@@ -425,13 +508,13 @@ public class GUIMapa extends javax.swing.JFrame {
         repaint();
     }
 
-    private void mostrarInformacionCuadrado(java.awt.event.MouseEvent evt)
+    private void mostrarInformacionCuadrado()
     {
         int x;
         int y;
 
-        x=obtenerX(evt.getX());
-        y=obtenerY(evt.getY());
+        x=obtenerX(evtX);
+        y=obtenerY(evtY);
 
         int largo;
         int ancho;
@@ -499,6 +582,9 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private int factorX;
     private int factorY;
+
+    private int evtX=-1;
+    private int evtY=-1;
 
     private int clickX=-1;
     private int clickY=-1;
