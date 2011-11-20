@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Timestamp;
 
 /**
  *
@@ -72,8 +73,10 @@ public class ReubicarPallet extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventanaPadre = ventanaPadre;
-        Date fechaActual = new Date();
+        Date f = new Date();
+        Timestamp fechaActual = new Timestamp(f.getTime());
         this.jdcFecha.setDate(fechaActual);
+        
         cargarComboAlmacen();
     }
     
@@ -82,7 +85,8 @@ public class ReubicarPallet extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventanaPadre = null;        
-        Date fechaActual = new Date();
+        Date f = new Date();
+        Timestamp fechaActual = new Timestamp(f.getTime());
         this.jdcFecha.setDate(fechaActual);
         this.setTitle("Ubicar Pallet");
         this.btnBuscarPallet.setEnabled(false);
@@ -497,7 +501,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         strIdAlmacen = arrIdAlmacenes.get(cbAlmacen.getSelectedIndex());
         String strIdUsuario = UsuarioSistema.usuario.getIdUsuario();
         
-        MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, jdcFecha.getDate(), "Reubicación", strIdPallet, strIdAlmacen, strIdUsuario);
+        MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("", strIdUbicacionOrigen, strIdUbicacionDestino, null, "Reubicación", strIdPallet, strIdAlmacen, strIdUsuario);
         
         if (this.ventanaPadre == null){
             // Ubicar Pallet
