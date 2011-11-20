@@ -507,8 +507,10 @@ public class AlgoritmoGenetico {
         return listaNodos;
    }
    
-   public static void convertirANodoDePaso(ArrayList<Nodo> listaNodos,ArrayList<Nodo> nodosObligatorios)
+   public static ArrayList<Nodo> convertirANodoDePaso(ArrayList<Nodo> listaNodos,ArrayList<Nodo> nodosObligatorios)
    {
+        ArrayList<Nodo> temp = new ArrayList<Nodo>();
+
         for (int i=0; i<nodosObligatorios.size(); i++)
         {
             Nodo nodo = nodosObligatorios.get(i);
@@ -517,13 +519,13 @@ public class AlgoritmoGenetico {
                 Nodo mejorVecino = mejorVecino(nodo, listaNodos, nodosObligatorios);
                 if (mejorVecino != null)
                 {
-                    nodosObligatorios.set(i, mejorVecino);
+                    temp.add(mejorVecino);
                 }
             }
         }
 
-        ArrayList<Nodo> temp = eliminarDuplicadosObligatorios(nodosObligatorios);
-        nodosObligatorios = temp;
+        temp = eliminarDuplicadosObligatorios(temp);
+        return temp;
    }
 
 
@@ -538,7 +540,7 @@ public class AlgoritmoGenetico {
                 (n.getX()+1==nodo.getX() && n.getY()==nodo.getY()) ||
                 (n.getX()==nodo.getX() && n.getY()+1==nodo.getY()) ||
                 (n.getX()==nodo.getX() && n.getY()-1==nodo.getY())
-               ) && (n.getItem()!=null) /*&& !estaEnNodosObligatorios(n,nodosObligatorios)*/)
+               ) && (n.getItem()==null) /*&& !estaEnNodosObligatorios(n,nodosObligatorios)*/)
             {
                 vecinos.add(n);
             }
@@ -595,9 +597,9 @@ public class AlgoritmoGenetico {
          
          rutas = new ArrayList<ArrayList<Ruta>>();
 
-         ArrayList<Nodo> listaNodos = /*mapa.getListaNodos();*/eliminarDuplicados(mapa.getListaNodos());
+         ArrayList<Nodo> listaNodos = eliminarDuplicados(mapa.getListaNodos());
          
-
+         int posInicial=0;
          Nodo[] arregloNodos = new Nodo[listaNodos.size()];
          for (int i=0;i<listaNodos.size();i++)
          {
@@ -605,6 +607,7 @@ public class AlgoritmoGenetico {
 
             if (arregloNodos[i].isNodoInicial())
             {
+                posInicial = i;
                 puertaPosX=arregloNodos[i].getX();
                 puertaPosY=arregloNodos[i].getY();
             }
@@ -622,7 +625,8 @@ public class AlgoritmoGenetico {
             }
          }         
 
-         convertirANodoDePaso(listaNodos,nodosObligatorios);
+         nodosObligatorios = convertirANodoDePaso(listaNodos,nodosObligatorios);
+         nodosObligatorios.add(arregloNodos[posInicial]);
 
 //         ArrayList<Nodo> nodosObligatorios = new ArrayList<Nodo>();
 //         for (int i=0; i<arregloNodos.length; i++)
