@@ -697,8 +697,6 @@ public class AlgoritmoGenetico {
 
 
       } catch(Throwable e) {
-         e.printStackTrace();
-         System.exit(-1);
          return null;
       }
    }
