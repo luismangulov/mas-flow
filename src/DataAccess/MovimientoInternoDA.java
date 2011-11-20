@@ -41,8 +41,8 @@ public class MovimientoInternoDA {
         boolean flagProducto = false;
         boolean flagAlmacen = false;
         df = new SimpleDateFormat("yyyy-MM-dd");
-        strFechaInicio = df.format(fechaInicio).toString();
-        strFechaFin = df.format(fechaFin).toString();
+        strFechaInicio = df.format(fechaInicio).toString() + " 00:00:00.000";
+        strFechaFin = df.format(fechaFin).toString() + " 23:59:59.000";
         
         query = "SELECT m.idmovimientointerno, m.idubicacionorigen, m.idubicaciondestino, m.fecha, "
                 + "m.descripcion, m.idPallet, m.idalmacen, m.idusuario FROM MOVIMIENTOINTERNO m, PALLET p"
@@ -55,8 +55,8 @@ public class MovimientoInternoDA {
         if (!strIdAlmacen.equals(""))
             query = query + " AND m.idAlmacen ='" +strIdAlmacen + "'";
         
-        if (flagProducto || flagAlmacen)
-            query = query + " AND m.FECHA BETWEEN '" +strFechaInicio+ "' AND '" +strFechaFin+ "'";
+            query = query + " AND m.FECHA BETWEEN '" + strFechaInicio + "' AND '" + strFechaFin + "'";
+
         
         rs = objConexion.EjecutarS(query);
         
