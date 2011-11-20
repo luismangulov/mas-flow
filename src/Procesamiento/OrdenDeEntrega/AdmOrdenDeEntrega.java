@@ -612,6 +612,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                  UbicacionBE objUbicacion = new UbicacionBE();
                  objUbicacion = objUbicacionBL.getUbicacionById(arrPallets.get(i).getIdUbicacion());
                  arrUbicacion.add(objUbicacion);
+                  
              }
              
                          
