@@ -96,6 +96,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblTrazabilidadPallet = new javax.swing.JLabel();
         jLblLogAuditoria = new javax.swing.JLabel();
         jLblLogUsuario = new javax.swing.JLabel();
+        jLblGuiaDeRemision = new javax.swing.JLabel();
+        jLblOrdenDeEntrega = new javax.swing.JLabel();
         jLayeredPaneSeguridad = new javax.swing.JLayeredPane();
         jLblPerfiles = new javax.swing.JLabel();
         jLblCambioContrasena = new javax.swing.JLabel();
@@ -179,7 +181,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblClientes.setBounds(50, 220, 70, 17);
         jLayeredPaneMantenimientos.add(jLblClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblAlmacenes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblAlmacenes.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblAlmacenes.setForeground(new java.awt.Color(0, 0, 102));
         jLblAlmacenes.setText("Almacenes");
         jLblAlmacenes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -266,7 +268,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLabel10MousePressed(evt);
             }
         });
-        jLabel10.setBounds(20, 270, 54, 50);
+        jLabel10.setBounds(20, 300, 54, 50);
         jLayeredPaneMantenimientos.add(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblIngresarProductos.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -310,7 +312,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLblReporteStock.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblReporteStock.setForeground(new java.awt.Color(0, 0, 102));
-        jLblReporteStock.setText("Reporte de Stock");
+        jLblReporteStock.setText("Stock de Productos");
         jLblReporteStock.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLblReporteStock.setName("000012"); // NOI18N
         jLblReporteStock.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -373,6 +375,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblLogUsuario.setBounds(30, 130, 120, 17);
         jLayeredPaneReportes.add(jLblLogUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLblGuiaDeRemision.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblGuiaDeRemision.setForeground(new java.awt.Color(0, 0, 102));
+        jLblGuiaDeRemision.setText("Guía de Remisión");
+        jLblGuiaDeRemision.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLblGuiaDeRemision.setName("000016"); // NOI18N
+        jLblGuiaDeRemision.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLblGuiaDeRemisionMousePressed(evt);
+            }
+        });
+        jLblGuiaDeRemision.setBounds(30, 190, 130, 17);
+        jLayeredPaneReportes.add(jLblGuiaDeRemision, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLblOrdenDeEntrega.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblOrdenDeEntrega.setForeground(new java.awt.Color(0, 0, 102));
+        jLblOrdenDeEntrega.setText("Orden de Entrega");
+        jLblOrdenDeEntrega.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLblOrdenDeEntrega.setName("000016"); // NOI18N
+        jLblOrdenDeEntrega.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLblOrdenDeEntregaMousePressed(evt);
+            }
+        });
+        jLblOrdenDeEntrega.setBounds(30, 160, 140, 17);
+        jLayeredPaneReportes.add(jLblOrdenDeEntrega, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         jLblPerfiles.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblPerfiles.setForeground(new java.awt.Color(0, 0, 102));
         jLblPerfiles.setText("Perfiles");
@@ -434,26 +462,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addComponent(jLabel5)
-                            .addGap(18, 18, 18))
-                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18))
+                            .addComponent(jLabel1)))
                     .addComponent(jLayeredPaneMantenimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(15, 15, 15)
-                                        .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(46, 46, 46)
-                                        .addComponent(jLabel6))))
+                                .addGap(15, 15, 15)
+                                .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jLabel6))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(71, 71, 71)
                                 .addComponent(jLabel2)))
@@ -504,9 +530,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLayeredPaneSeguridad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)))
+                            .addComponent(jLayeredPaneSeguridad, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLayeredPaneLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -668,6 +693,20 @@ private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     // TODO add your handling code here:
 }//GEN-LAST:event_jLabel10MousePressed
 
+private void jLblGuiaDeRemisionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblGuiaDeRemisionMousePressed
+    if(this.jLblGuiaDeRemision.isEnabled()){
+        Reportes.GuiaDeRemision a = new Reportes.GuiaDeRemision();
+        a.setVisible(true);
+    }// TODO add your handling code here:
+}//GEN-LAST:event_jLblGuiaDeRemisionMousePressed
+
+private void jLblOrdenDeEntregaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblOrdenDeEntregaMousePressed
+        if(this.jLblOrdenDeEntrega.isEnabled()){
+        Reportes.OrdenDeEntrega a = new Reportes.OrdenDeEntrega();
+        a.setVisible(true);
+    }// TODO add your handling code here:
+}//GEN-LAST:event_jLblOrdenDeEntregaMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -726,11 +765,13 @@ private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private javax.swing.JLabel jLblClientes;
     private javax.swing.JLabel jLblDespacharProductos;
     private javax.swing.JLabel jLblFamilia;
+    private javax.swing.JLabel jLblGuiaDeRemision;
     private javax.swing.JLabel jLblIngresarProductos;
     private javax.swing.JLabel jLblKardek;
     private javax.swing.JLabel jLblLogAuditoria;
     private javax.swing.JLabel jLblLogUsuario;
     private javax.swing.JLabel jLblMovimientosInternos;
+    private javax.swing.JLabel jLblOrdenDeEntrega;
     private javax.swing.JLabel jLblPerfiles;
     private javax.swing.JLabel jLblProductos;
     private javax.swing.JLabel jLblProveedores;

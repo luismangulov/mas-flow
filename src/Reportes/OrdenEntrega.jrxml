@@ -109,7 +109,7 @@ WHERE
 					<textFieldExpression><![CDATA[$F{direntidad}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="430" y="82" width="58" height="20"/>
+					<reportElement x="430" y="82" width="68" height="20"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isUnderline="true"/>
 					</textElement>
