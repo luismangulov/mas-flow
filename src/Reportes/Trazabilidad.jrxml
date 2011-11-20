@@ -293,7 +293,7 @@ ORDER BY  almacen.identificador, pallet.idpallet, movimientointerno.fecha;]]>
 				<textFieldExpression><![CDATA[(($F{filadestino}==null)? "-" : $F{rdestino}+"-F"+$F{filadestino}+"C"+$F{coldestino})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="227" y="0" width="59" height="18"/>
+				<reportElement x="227" y="0" width="68" height="18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[($F{operacion}.equals("Ingresado"))? "OE - "+$F{idnotaingreso}:
  ($F{operacion}.equals("Despachado"))? "GR - "+$F{idguiaremision}:"-"]]></textFieldExpression>
