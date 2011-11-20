@@ -12,9 +12,13 @@
 package Algoritmos.Mapa;
 
 import Algoritmos.RecorridoOptimo.Cromosoma;
+import BusinessEntity.PalletBE;
+import BusinessEntity.ProductoBE;
 import BusinessEntity.RackBE;
 import BusinessEntity.UbicacionBE;
 import BusinessEntity.ZonaBE;
+import BusinessLogic.PalletBL;
+import BusinessLogic.ProductoBL;
 import BusinessLogic.RackBL;
 import BusinessLogic.ZonaBL;
 import java.awt.BasicStroke;
@@ -47,7 +51,7 @@ public class GUIMapa extends javax.swing.JFrame {
         this.mapa = mapa;
         calcularFactores();
         initComponents();
-        inicializarFrame();
+        inicializarFrame(mapa);
     }
 
     public GUIMapa(Mapa mapa, ArrayList<UbicacionBE> mejoresUbicaciones) {
@@ -55,7 +59,7 @@ public class GUIMapa extends javax.swing.JFrame {
         calcularFactores();
         this.mejoresUbicaciones= mejoresUbicaciones;
         initComponents();
-        inicializarFrame();
+        inicializarFrame(mapa);
     }
        
     public GUIMapa(ArrayList<Nodo> recorridoOptimo, Mapa mapa) {
@@ -63,17 +67,43 @@ public class GUIMapa extends javax.swing.JFrame {
         calcularFactores();
         this.recorridoOptimo = recorridoOptimo;
         initComponents();
-        inicializarFrame();
+        inicializarFrame(mapa);
     }
 
-    private void inicializarFrame()
+    private void inicializarFrame(Mapa mapa)
     {
         setBounds(new java.awt.Rectangle(0100, 0, 1024, 768));
         this.createBufferStrategy(2);
+
         scrollbar1.setMaximum((int)(1.13*(mapa.getNumY())));
         scrollbar2.setMaximum((int)(3.83*(mapa.getNumX())));
-        this.setTitle("Mapa del almacén "+mapa.getAlmacen().getNombre());
+
+        this.setTitle("Mapa del almacén " + mapa.getAlmacen().getNombre());
         bf = this.getBufferStrategy();
+
+        nivel = 1;
+        nivelMax = calcularNivelMax(mapa);
+
+        posXMax = mapa.getNumX();
+        posYMax = mapa.getNumY();
+
+        if (nivelMax == 1) jMenuItem2.setEnabled(false);
+        jMenuItem3.setEnabled(false);
+
+        actualizarListaNodos();
+    }
+
+    private int calcularNivelMax(Mapa mapa)
+    {
+        int max=0;
+
+        for (RackBE rack : mapa.getListaRacks())
+        {
+            if (rack.getPisos()>max)
+                max = rack.getPisos();
+        }
+
+        return max;
     }
 
 
@@ -150,6 +180,11 @@ public class GUIMapa extends javax.swing.JFrame {
                 formMouseClicked(evt);
             }
         });
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         scrollbar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         scrollbar1.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
@@ -199,6 +234,10 @@ public class GUIMapa extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         //Bajar nivel
+        nivel--;
+        if (nivel == 1) jMenuItem3.setEnabled(false);
+        jMenuItem2.setEnabled(true);
+        actualizarListaNodos();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -210,12 +249,34 @@ public class GUIMapa extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         //Subir nivel
+        nivel++;
+        if (nivel == nivelMax) jMenuItem2.setEnabled(false);
+        jMenuItem3.setEnabled(true);
+        actualizarListaNodos();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jPopupMenu1PopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenu1PopupMenuWillBecomeInvisible
         // TODO add your handling code here:
         repaint();
     }//GEN-LAST:event_jPopupMenu1PopupMenuWillBecomeInvisible
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        // TODO add your handling code here:
+        posX=obtenerX(evt.getX());
+        posY=obtenerY(evt.getY());
+
+        //if ((posX<=posXMax)&&(posY<=posYMax))
+        //{
+            int x=800;
+            int y=768 - 50 - (int)scrollbar2.getBounds().getHeight();
+            int ancho=150;
+            int largo=50;
+
+            if (!jPopupMenu1.isVisible()) this.repaint(x, y, ancho, largo);
+        //}
+
+
+    }//GEN-LAST:event_formMouseMoved
 
     /**
     * @param args the command line arguments
@@ -276,13 +337,18 @@ public class GUIMapa extends javax.swing.JFrame {
            if (mejoresUbicaciones != null) dibujaMejoresUbicaciones(g);
            if (recorridoOptimo != null) dibujaRecorridoOptimo(g);
 
-           dibujaLeyenda(g);
+           dibujaMarca(g);
+
+           dibujaCuadroInfo(g);
+
+           if (jPopupMenu1.isVisible()) jPopupMenu1.repaint();
+
     }
    
 
     private void dibujaUbicaciones(Graphics g)
     {
-        for (Nodo nodo : mapa.getListaNodos())
+        for (Nodo nodo : listaNodos)
         {
             if (nodo.isNodoInicial())
             {
@@ -333,24 +399,18 @@ public class GUIMapa extends javax.swing.JFrame {
                     g.setColor(Color.RED);
                     g.fillRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
                     g.drawRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
-
-                    g.setColor(Color.WHITE);
-                    g.drawString(String.valueOf(ubicacion.getFila()),convertirX(rack.getPosX())+(factorX/2), convertirY(rack.getPosY()+ubicacion.getColumna()-1)+(factorY/2));
                 }
                 else
                 {
                     g.setColor(Color.RED);
                     g.fillRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
                     g.drawRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
-
-                    g.setColor(Color.WHITE);
-                    g.drawString(String.valueOf(ubicacion.getFila()),convertirX(rack.getPosX()+ubicacion.getColumna()-1)+(factorX/2), convertirY(rack.getPosY())+(factorY/2));
                 }                
         }
     }
 
 
-    private void dibujaLeyenda(Graphics g)
+    private void dibujaMarca(Graphics g)
     {
         if (clickX!=-1 && clickY!=-1)
         {
@@ -374,8 +434,6 @@ public class GUIMapa extends javax.swing.JFrame {
                 g.drawLine(convertirX(click2X)+factorX/2, convertirY(click2Y)+factorY/2, convertirX(click2X)+factorX/2, convertirY(click1Y)+factorY/2);
             }
         }
-
-
     }
 
 
@@ -397,6 +455,31 @@ public class GUIMapa extends javax.swing.JFrame {
             //g.drawString(String.valueOf(n), convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2);
             n++;
         }
+
+        g2d.setStroke(s);
+    }
+
+
+    private void dibujaCuadroInfo(Graphics g)
+    {
+        Graphics2D g2d = ( Graphics2D ) g;        
+        Stroke s = g2d.getStroke();
+        g2d.setStroke(new BasicStroke(8.0f));
+
+        int x=800;
+        int y=768 - 50 - (int)scrollbar2.getBounds().getHeight();
+        int ancho=150;
+        int largo=50;
+
+        g2d.setPaint(Color.WHITE); //Color.getHSBColor(0.85f, 1.0f, 0.8f)
+        g2d.fill3DRect(x, y, ancho, largo, true);
+
+        g2d.setPaint(Color.lightGray);
+        g2d.drawRect(x, y, ancho, largo);
+
+        g2d.setPaint(Color.BLACK);
+        g2d.drawString("Nivel: " + nivel, x + (int)((ancho/10)*3.5), y + (int)((largo/10)*4));
+        if ((posX<posXMax)&&(posY<posYMax)) g2d.drawString("X = " + posX + "  Y = " + posY, x+ancho/4, y + (int)((largo/10)*8));
 
         g2d.setStroke(s);
     }
@@ -449,7 +532,7 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private Nodo encontrarNodo(int x, int y)
     {
-        for (Nodo nodo : mapa.getListaNodos())
+        for (Nodo nodo : listaNodos)
         {
             if ((nodo.getX()==x) && (nodo.getY()==y))
                 return nodo;
@@ -474,18 +557,37 @@ public class GUIMapa extends javax.swing.JFrame {
 
         if (nodo==null) return;
 
+        repaint();
+
         String cadena = "\n"+"Posición X: " + x + "\nPosición Y: " + y;
 
         if (nodo.getItem()!=null)
         {
             RackBL rackBL = new RackBL();
             ZonaBL zonaBL = new ZonaBL();
+            PalletBL palletBL =  new PalletBL();
 
             UbicacionBE ubicacion = (UbicacionBE)nodo.getItem();
             RackBE rack = rackBL.getByIdRack(ubicacion.getIdRack());
             ZonaBE zona = zonaBL.getZona(rack.getIdZona());
+            PalletBE pallet = palletBL.getPalletByIdUbicacion(ubicacion.getIdUbicacion());
+
+            if (pallet != null)
+            {
+                ProductoBL productoBL = new ProductoBL();
+                ProductoBE producto = productoBL.getByIdProducto(pallet.getIdProducto());
+                
+                if (producto!=null)
+                {
+                    cadena = "\n"+"Fecha de Vencimiento: " + pallet.getFechaVencimiento() + cadena;
+                    cadena = "\n"+"Cantidad: " + producto.getMaxCantPorPallet() + cadena;
+                    cadena = "\n"+"Producto: " + producto.getNombre() + cadena;
+                    cadena = "\n"+"Pallet: " + pallet.getIdPallet() + cadena;
+                }
+            }
 
             cadena = "\n"+"Columna: " + ubicacion.getColumna()+cadena;
+            cadena = "\n"+"Piso: "+nivel+cadena;
             cadena = "\n"+"N° Pisos: "+rack.getPisos()+cadena;
             cadena = "\n"+"Rack: "+rack.getIdentificador()+cadena;
             cadena = "Zona: "+zona.getNombre()+cadena;
@@ -497,8 +599,6 @@ public class GUIMapa extends javax.swing.JFrame {
         }
 
         if (nodo.isNodoInicial()) cadena =cadena + "\n"+"   (Puerta)";
-
-        repaint();
 
         JOptionPane.showMessageDialog(null,cadena, "Información",JOptionPane.INFORMATION_MESSAGE);
         
@@ -570,9 +670,35 @@ public class GUIMapa extends javax.swing.JFrame {
     }
 
 
+    private void actualizarListaNodos()
+    {
+        ArrayList<Nodo> temp = new ArrayList<Nodo>();
+        for ( Nodo nodo : mapa.getListaNodos() )
+        {
+            if (nodo.getItem()!=null)
+            {
+                UbicacionBE ubicacion = (UbicacionBE)nodo.getItem();
+                if (ubicacion.getFila() == nivel)
+                {
+                    temp.add(nodo);
+                }
+            }
+            else
+            {
+                temp.add(nodo);
+            }
+        }
+        listaNodos = temp;
+        
+        repaint();
+    }
+
+
+
     private Mapa mapa;
     private ArrayList<UbicacionBE> mejoresUbicaciones;
     private ArrayList<Nodo> recorridoOptimo;
+    private ArrayList<Nodo> listaNodos;
 
     //private int pixelesAncho=600;
     //private int pixelesLargo=600;
@@ -593,5 +719,14 @@ public class GUIMapa extends javax.swing.JFrame {
     private int click1Y=-1;
     private int click2X=-1;
     private int click2Y=-1;
+
+    private int nivel;
+    private int nivelMax;
+
+    private int posX;
+    private int posY;
+
+    private int posXMax;
+    private int posYMax;
 
 }
