@@ -35,7 +35,7 @@ public class MovimientoInternoDA {
     Utilitario objUtilitario;
 
     
-    public ArrayList<MovimientoInternoBE> queryListSearch(String strIdProducto, String strIdAlmacen, Date fechaInicio, Date fechaFin) {
+    public ArrayList<MovimientoInternoBE> queryListSearch(String strNombreProducto, String strIdAlmacen, Date fechaInicio, Date fechaFin) {
         
         objConexion = new conexion();
         boolean flagProducto = false;
@@ -45,11 +45,11 @@ public class MovimientoInternoDA {
         strFechaFin = df.format(fechaFin).toString() + " 23:59:59.000";
         
         query = "SELECT m.idmovimientointerno, m.idubicacionorigen, m.idubicaciondestino, m.fecha, "
-                + "m.descripcion, m.idPallet, m.idalmacen, m.idusuario FROM MOVIMIENTOINTERNO m, PALLET p"
-                + " WHERE m.idPallet = p.idPallet";
+                + "m.descripcion, m.idPallet, m.idalmacen, m.idusuario FROM MOVIMIENTOINTERNO m, PALLET p, PRODUCTO pr"
+                + " WHERE m.idPallet = p.idPallet AND p.idProducto = pr.idproducto ";
         
-        if (!strIdProducto.equals(""))
-            query = query + " AND p.idProducto LIKE '%" +strIdProducto+ "%' ";
+        if (!strNombreProducto.equals(""))
+            query = query + " AND pr.nombre LIKE '%" +strNombreProducto+ "%' ";
         
         
         if (!strIdAlmacen.equals(""))
