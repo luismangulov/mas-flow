@@ -373,7 +373,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                              UbicacionBL objUbicacionBL = new UbicacionBL();
                               objUbicacionBL.desocuparUbicacion(arrUbicaciones.get(i).getIdUbicacion());
                                MovimientoInternoBL objMovimientoInternoBL = new MovimientoInternoBL();
-                                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",arrUbicaciones.get(i).getIdUbicacion(),null,objGuiaRemisionBE.getFecha(),"Despachado",arrPallet.get(i).getIdPallet(),idAlmacen,objUsuarioBE.getIdUsuario());
+                                MovimientoInternoBE objMovimientoInternoBE = new MovimientoInternoBE("",arrUbicaciones.get(i).getIdUbicacion(),null,null,"Despachado",arrPallet.get(i).getIdPallet(),idAlmacen,objUsuarioBE.getIdUsuario());
                 
                                 objMovimientoInternoBL.insertar(objMovimientoInternoBE);
                         }
