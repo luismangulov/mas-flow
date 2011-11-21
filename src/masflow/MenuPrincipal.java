@@ -13,8 +13,13 @@ package masflow;
 import BusinessEntity.UsuarioSistema;
 import CargaMasiva.CargaMasiva;
 import Reportes.LogUsuario;
+import Reportes.Ubicaciones;
+import Seguridad.CambiarContrasena;
 import Seguridad.ConstantesSeguridad;
 import Seguridad.Login;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,9 +30,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /** Creates new form MenuPrincipal */
     public MenuPrincipal() {
         
-        initComponents();
-
-        
+        initComponents();        
 
         int nc1=this.jLayeredPaneMantenimientos.getComponentCount();
         for(int i=0;i<nc1;i++){
@@ -85,7 +88,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblProductos = new javax.swing.JLabel();
         jLblZonas = new javax.swing.JLabel();
         jLblRacks = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLayeredPaneProcesos = new javax.swing.JLayeredPane();
         jLblIngresarProductos = new javax.swing.JLabel();
         jLblDespacharProductos = new javax.swing.JLabel();
@@ -98,14 +100,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblLogUsuario = new javax.swing.JLabel();
         jLblGuiaDeRemision = new javax.swing.JLabel();
         jLblOrdenDeEntrega = new javax.swing.JLabel();
+        jLblReporteUbicaciones = new javax.swing.JLabel();
         jLayeredPaneSeguridad = new javax.swing.JLayeredPane();
         jLblPerfiles = new javax.swing.JLabel();
-        jLblCambioContrasena = new javax.swing.JLabel();
+        jLblCargaMasiva = new javax.swing.JLabel();
         jLblUsuarios = new javax.swing.JLabel();
+        jLblCambioContrasena = new javax.swing.JLabel();
         jLayeredPaneLogo = new javax.swing.JLayeredPane();
         jLabel45 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLblSalir = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("+Flow - Menú Principal");
@@ -243,7 +248,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblZonasMousePressed(evt);
             }
         });
-        jLblZonas.setBounds(50, 40, 60, 17);
+        jLblZonas.setBounds(50, 40, 100, 17);
         jLayeredPaneMantenimientos.add(jLblZonas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblRacks.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -256,20 +261,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblRacksMousePressed(evt);
             }
         });
-        jLblRacks.setBounds(50, 70, 60, 17);
+        jLblRacks.setBounds(50, 70, 80, 17);
         jLayeredPaneMantenimientos.add(jLblRacks, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/exit.png"))); // NOI18N
-        jLabel10.setToolTipText("Salir");
-        jLabel10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel10MousePressed(evt);
-            }
-        });
-        jLabel10.setBounds(20, 300, 54, 50);
-        jLayeredPaneMantenimientos.add(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblIngresarProductos.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblIngresarProductos.setForeground(new java.awt.Color(0, 0, 102));
@@ -320,7 +313,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblReporteStockMousePressed(evt);
             }
         });
-        jLblReporteStock.setBounds(30, 10, 140, 17);
+        jLblReporteStock.setBounds(30, 10, 150, 17);
         jLayeredPaneReportes.add(jLblReporteStock, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblKardek.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -333,7 +326,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jLblKardekMousePressed(evt);
             }
         });
-        jLblKardek.setBounds(30, 40, 70, 17);
+        jLblKardek.setBounds(30, 40, 110, 17);
         jLayeredPaneReportes.add(jLblKardek, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblTrazabilidadPallet.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -375,11 +368,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblLogUsuario.setBounds(30, 130, 120, 17);
         jLayeredPaneReportes.add(jLblLogUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblGuiaDeRemision.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblGuiaDeRemision.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblGuiaDeRemision.setForeground(new java.awt.Color(0, 0, 102));
         jLblGuiaDeRemision.setText("Guía de Remisión");
         jLblGuiaDeRemision.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLblGuiaDeRemision.setName("000016"); // NOI18N
+        jLblGuiaDeRemision.setName("000018"); // NOI18N
         jLblGuiaDeRemision.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblGuiaDeRemisionMousePressed(evt);
@@ -392,7 +385,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblOrdenDeEntrega.setForeground(new java.awt.Color(0, 0, 102));
         jLblOrdenDeEntrega.setText("Orden de Entrega");
         jLblOrdenDeEntrega.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLblOrdenDeEntrega.setName("000016"); // NOI18N
+        jLblOrdenDeEntrega.setName("000017"); // NOI18N
         jLblOrdenDeEntrega.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblOrdenDeEntregaMousePressed(evt);
@@ -401,37 +394,50 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblOrdenDeEntrega.setBounds(30, 160, 140, 17);
         jLayeredPaneReportes.add(jLblOrdenDeEntrega, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLblReporteUbicaciones.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblReporteUbicaciones.setForeground(new java.awt.Color(0, 0, 102));
+        jLblReporteUbicaciones.setText("Reporte de Ubicaciones");
+        jLblReporteUbicaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLblReporteUbicaciones.setName("000019"); // NOI18N
+        jLblReporteUbicaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLblReporteUbicacionesMousePressed(evt);
+            }
+        });
+        jLblReporteUbicaciones.setBounds(30, 220, 166, 17);
+        jLayeredPaneReportes.add(jLblReporteUbicaciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         jLblPerfiles.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblPerfiles.setForeground(new java.awt.Color(0, 0, 102));
         jLblPerfiles.setText("Perfiles");
         jLblPerfiles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLblPerfiles.setName("000017"); // NOI18N
+        jLblPerfiles.setName("000020"); // NOI18N
         jLblPerfiles.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblPerfilesMousePressed(evt);
             }
         });
-        jLblPerfiles.setBounds(20, 10, 70, 17);
+        jLblPerfiles.setBounds(20, 10, 100, 17);
         jLayeredPaneSeguridad.add(jLblPerfiles, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jLblCambioContrasena.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLblCambioContrasena.setForeground(new java.awt.Color(0, 0, 102));
-        jLblCambioContrasena.setText("Cambio contraseña");
-        jLblCambioContrasena.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLblCambioContrasena.setName("000019"); // NOI18N
-        jLblCambioContrasena.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLblCargaMasiva.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblCargaMasiva.setForeground(new java.awt.Color(0, 0, 102));
+        jLblCargaMasiva.setText("Carga Masiva");
+        jLblCargaMasiva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLblCargaMasiva.setName("000023"); // NOI18N
+        jLblCargaMasiva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLblCambioContrasenaMousePressed(evt);
+                jLblCargaMasivaMousePressed(evt);
             }
         });
-        jLblCambioContrasena.setBounds(20, 70, 150, 20);
-        jLayeredPaneSeguridad.add(jLblCambioContrasena, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLblCargaMasiva.setBounds(20, 100, 140, 20);
+        jLayeredPaneSeguridad.add(jLblCargaMasiva, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLblUsuarios.setForeground(new java.awt.Color(0, 0, 102));
         jLblUsuarios.setText("Usuarios");
         jLblUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLblUsuarios.setName("000018"); // NOI18N
+        jLblUsuarios.setName("000021"); // NOI18N
         jLblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLblUsuariosMousePressed(evt);
@@ -440,39 +446,66 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblUsuarios.setBounds(20, 40, 70, 17);
         jLayeredPaneSeguridad.add(jLblUsuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLblCambioContrasena.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLblCambioContrasena.setForeground(new java.awt.Color(0, 0, 102));
+        jLblCambioContrasena.setText("Cambio contraseña");
+        jLblCambioContrasena.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLblCambioContrasena.setName("000022"); // NOI18N
+        jLblCambioContrasena.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLblCambioContrasenaMousePressed(evt);
+            }
+        });
+        jLblCambioContrasena.setBounds(20, 70, 150, 20);
+        jLayeredPaneSeguridad.add(jLblCambioContrasena, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         jLabel45.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel45.setText("GESTIÓN DE ALMACENES");
-        jLabel45.setBounds(140, 110, 229, 22);
+        jLabel45.setBounds(140, 110, 250, 22);
         jLayeredPaneLogo.add(jLabel45, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel44.setFont(new java.awt.Font("Agency FB", 1, 36));
         jLabel44.setText("<html>Sistema<br>+Flow</html>");
-        jLabel44.setBounds(150, 10, 180, 86);
+        jLabel44.setBounds(150, 10, 200, 86);
         jLayeredPaneLogo.add(jLabel44, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logoMasFlow.png"))); // NOI18N
-        jLabel9.setBounds(10, 20, 130, 105);
+        jLabel9.setBounds(0, 20, 140, 105);
         jLayeredPaneLogo.add(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLblSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/exit.png"))); // NOI18N
+        jLblSalir.setToolTipText("Salir");
+        jLblSalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLblSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLblSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLblSalirMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(18, 18, 18))
+                                .addComponent(jLabel1)))
+                        .addComponent(jLayeredPaneMantenimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLblSalir)
+                        .addGap(71, 71, 71)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18))
-                            .addComponent(jLabel1)))
-                    .addComponent(jLayeredPaneMantenimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
@@ -486,8 +519,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLayeredPaneSeguridad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -504,14 +537,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                         .addComponent(jLabel3))
                                     .addComponent(jLabel8)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(jLayeredPaneLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25))
+                        .addGap(35, 35, 35)
+                        .addComponent(jLayeredPaneLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addGroup(layout.createSequentialGroup()
@@ -526,17 +559,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel3)))
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLayeredPaneMantenimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLayeredPaneSeguridad, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLayeredPaneLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLayeredPaneProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLayeredPaneSeguridad, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLayeredPaneReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLayeredPaneLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLayeredPaneMantenimientos)
-                        .addContainerGap())))
+                        .addGap(35, 35, 35)
+                        .addComponent(jLblSalir)))
+                .addContainerGap())
         );
 
         pack();
@@ -637,13 +671,59 @@ if(this.jLblPerfiles.isEnabled()){
     }
 }//GEN-LAST:event_jLblPerfilesMousePressed
 
-private void jLblCambioContrasenaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblCambioContrasenaMousePressed
+private void jLblCargaMasivaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblCargaMasivaMousePressed
 
-    if(this.jLblCambioContrasena.isEnabled()){
-    Seguridad.CambiarContrasena a = new Seguridad.CambiarContrasena();
-   a.setVisible(true);// TODO add your handling code here:
+    if(this.jLblCargaMasiva.isEnabled()){
+
+        //        CargaMasiva c=new CargaMasiva();
+//        c.cargaData();
+
+   // permitir al usuario seleccionar el archivo a abrir
+
+      // mostrar cuadro de diálogo para que el usuario pueda seleccionar el archivo
+      JFileChooser selectorArchivo = new JFileChooser();
+      selectorArchivo.setFileSelectionMode( JFileChooser.FILES_ONLY );
+
+      int resultado = selectorArchivo.showSaveDialog( null );
+
+      // si el usuario hizo clic en el botón Cancelar del cuadro de diálogo, regresar
+      if ( resultado == JFileChooser.CANCEL_OPTION )
+         return;
+
+      // obtener el archivo seleccionado
+      File nombreArchivo = selectorArchivo.getSelectedFile();
+
+      // mostrar error si el nombre del archivo es inválido
+      if ( nombreArchivo == null || nombreArchivo.getName().equals( "" ) )
+         JOptionPane.showMessageDialog( null, "Nombre de archivo incorrecto",
+            "Nombre de archivo incorrecto", JOptionPane.ERROR_MESSAGE );
+
+      else {
+
+         // abrir el archivo
+         try {
+            CargaMasiva C=new CargaMasiva();
+            C.cargaData(nombreArchivo);
+
+            masflow.MenuPrincipal m = new masflow.MenuPrincipal();
+            m.setVisible(true);
+            this.dispose();
+
+            //System.exit( 0 );  // terminar el programa
+
+         } // fin del bloque try
+         // procesar excepciones durante operaciones de apertura, escritura o cierre del archivo
+         catch ( Exception excepcionES ){
+            JOptionPane.showMessageDialog( null, "Error al procesar el archivo",
+               "Error al procesar el archivo", JOptionPane.ERROR_MESSAGE );
+            System.exit( 1 );
+         }
+
+      } // fin de instrucción else
+
+
     }
-}//GEN-LAST:event_jLblCambioContrasenaMousePressed
+}//GEN-LAST:event_jLblCargaMasivaMousePressed
 
 private void jLblLogAuditoriaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblLogAuditoriaMousePressed
    if(this.jLblLogAuditoria.isEnabled()){
@@ -684,14 +764,14 @@ private void jLblLogUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FI
        }
 }//GEN-LAST:event_jLblLogUsuarioMousePressed
 
-private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
+private void jLblSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblSalirMousePressed
     Login L = new Login();
     L.setVisible(true);
     this.dispose();
 
 
     // TODO add your handling code here:
-}//GEN-LAST:event_jLabel10MousePressed
+}//GEN-LAST:event_jLblSalirMousePressed
 
 private void jLblGuiaDeRemisionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblGuiaDeRemisionMousePressed
     if(this.jLblGuiaDeRemision.isEnabled()){
@@ -701,11 +781,29 @@ private void jLblGuiaDeRemisionMousePressed(java.awt.event.MouseEvent evt) {//GE
 }//GEN-LAST:event_jLblGuiaDeRemisionMousePressed
 
 private void jLblOrdenDeEntregaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblOrdenDeEntregaMousePressed
-        if(this.jLblOrdenDeEntrega.isEnabled()){
+    if(this.jLblOrdenDeEntrega.isEnabled()){
         Reportes.OrdenDeEntrega a = new Reportes.OrdenDeEntrega();
         a.setVisible(true);
     }// TODO add your handling code here:
 }//GEN-LAST:event_jLblOrdenDeEntregaMousePressed
+
+private void jLblCambioContrasenaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblCambioContrasenaMousePressed
+    // TODO add your handling code here:
+    if(this.jLblCambioContrasena.isEnabled()){
+        
+        CambiarContrasena a = new CambiarContrasena();
+        a.setVisible(true);
+    }// TODO add your handling code here:
+
+}//GEN-LAST:event_jLblCambioContrasenaMousePressed
+
+private void jLblReporteUbicacionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblReporteUbicacionesMousePressed
+    // TODO add your handling code here:
+        if(this.jLblReporteUbicaciones.isEnabled()){
+        Ubicaciones a = new Ubicaciones();
+        a.setVisible(true);
+    }// TODO add your handling code here:
+}//GEN-LAST:event_jLblReporteUbicacionesMousePressed
 
     /**
      * @param args the command line arguments
@@ -744,7 +842,6 @@ private void jLblOrdenDeEntregaMousePressed(java.awt.event.MouseEvent evt) {//GE
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -762,6 +859,7 @@ private void jLblOrdenDeEntregaMousePressed(java.awt.event.MouseEvent evt) {//GE
     private javax.swing.JLayeredPane jLayeredPaneSeguridad;
     private javax.swing.JLabel jLblAlmacenes;
     private javax.swing.JLabel jLblCambioContrasena;
+    private javax.swing.JLabel jLblCargaMasiva;
     private javax.swing.JLabel jLblClientes;
     private javax.swing.JLabel jLblDespacharProductos;
     private javax.swing.JLabel jLblFamilia;
@@ -777,6 +875,8 @@ private void jLblOrdenDeEntregaMousePressed(java.awt.event.MouseEvent evt) {//GE
     private javax.swing.JLabel jLblProveedores;
     private javax.swing.JLabel jLblRacks;
     private javax.swing.JLabel jLblReporteStock;
+    private javax.swing.JLabel jLblReporteUbicaciones;
+    private javax.swing.JLabel jLblSalir;
     private javax.swing.JLabel jLblTrazabilidadPallet;
     private javax.swing.JLabel jLblUbicaciones;
     private javax.swing.JLabel jLblUsuarios;

@@ -16,6 +16,7 @@ import BusinessLogic.UsuarioBL;
 import BusinessLogic.UsuarioContrasenaBL;
 import javax.swing.JOptionPane;
 import masflow.CargaInicial;
+import masflow.MenuPrincipal;
 
 /**
  *
@@ -238,7 +239,7 @@ private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         
         UsuarioSistema.usuario=objUsuarioBE;
 
-        CargaInicial c = new CargaInicial();
+        MenuPrincipal c = new MenuPrincipal();
         c.setVisible(true);
         this.dispose();
     }else
