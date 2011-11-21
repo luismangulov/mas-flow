@@ -59,7 +59,7 @@ WHERE
   almacen.idalmacen >= $P{desdeAlmacen} AND
   almacen.idalmacen <= $P{hastaAlmacen} AND
   movimientointerno.fecha >= $P{desdeFecha} AND
-  movimientointerno.fecha <= $P{hastaFecha} AND
+  movimientointerno.fecha < $P{hastaFecha} AND
   pallet.idpallet >= $P{desdePallet} AND
   pallet.idpallet <= $P{hastaPallet}
 
@@ -72,7 +72,7 @@ ORDER BY  movimientointerno.fecha, movimientointerno.idmovimientointerno;]]>
 	<field name="cant" class="java.math.BigDecimal"/>
 	<field name="unidadmedida" class="java.lang.String"/>
 	<field name="idpallet" class="java.lang.String"/>
-	<field name="fecha" class="java.sql.Date"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
 	<field name="operacion" class="java.lang.String"/>
 	<field name="filaorigen" class="java.math.BigDecimal"/>
 	<field name="colorigen" class="java.math.BigDecimal"/>
@@ -219,7 +219,9 @@ ORDER BY  movimientointerno.fecha, movimientointerno.idmovimientointerno;]]>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{hastaFecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.util.Date($P{hastaFecha}.getYear(),
+    $P{hastaFecha}.getMonth(),
+    $P{hastaFecha}.getDate()-1)]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="14" y="20" width="25" height="20" forecolor="#FFFFFF"/>
@@ -303,7 +305,7 @@ ORDER BY  movimientointerno.fecha, movimientointerno.idmovimientointerno;]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[(($F{filadestino}==null)? "-" : $F{rdestino}+"-F"+$F{filadestino}+"C"+$F{coldestino})]]></textFieldExpression>
 			</textField>
-			<textField pattern="h.mm.ss a">
+			<textField pattern="h:mm:ss a">
 				<reportElement x="0" y="1" width="71" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>

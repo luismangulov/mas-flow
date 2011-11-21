@@ -334,6 +334,7 @@ public class Kardex extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Rango de fechas inválido.", "Error", 0);
             return;
         }
+        fechaHasta= new Date(fechaHasta.getYear(),fechaHasta.getMonth(), fechaHasta.getDate()+1);
         runReporte(txtAlmacenDesde.getText(), txtAlmacenHasta.getText(), txtProductoDesde.getText(), txtProductoHasta.getText(), fechaDesde, fechaHasta);        // TODO add your handling code here:
     }//GEN-LAST:event_btnImprimirMousePressed
 
