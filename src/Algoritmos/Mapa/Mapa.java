@@ -111,7 +111,7 @@ public class Mapa {
     private void llenarUbicacionesRack(RackBE rack)
     {
         UbicacionBL ubicacionBL = new UbicacionBL();
-        ArrayList<UbicacionBE> listaUbicacion = ubicacionBL.getUbicacionesByRack(rack.getIdRack(), "3") ;
+        ArrayList<UbicacionBE> listaUbicacion = ubicacionBL.getUbicacionesByRack(rack.getIdRack(), "1") ;
         
         for (UbicacionBE ubicacion : listaUbicacion)
         {
