@@ -684,11 +684,7 @@ private void lblRemoverAplicacionMousePressed(java.awt.event.MouseEvent evt) {//
             };
             this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
         }
-
-
-    }
-
-    
+    }    
 }//GEN-LAST:event_lblRemoverAplicacionMousePressed
 
 private void jListAplicacionComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jListAplicacionComponentAdded
