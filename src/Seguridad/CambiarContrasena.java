@@ -17,7 +17,9 @@ import DataAccess.UsuarioDA;
 import BusinessLogic.UsuarioContrasenaBL;
 import DataAccess.UsuarioContrasenaDA;
 import Util.Utilitario;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -235,7 +237,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
            res=objUCBL.corroborarContrasena(idUsuario, anterior);
            if(res.equals("1")){ //contraseña correcta
                Date fechaHoy = new Date();
-               objUCBL.actualizarContrasena(idUsuario,nueva1,fechaHoy,fechaHoy);
+               objUCBL.actualizarContrasena(idUsuario,nueva1,fechaHoy,fechaMas(fechaHoy,90));
                JOptionPane.showMessageDialog(null, "Su nueva contrasena es "+ nueva1, "Mensaje",0);
                
            }else{
@@ -249,6 +251,14 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
     
 }//GEN-LAST:event_btnGuardarActionPerformed
+
+public java.util.Date fechaMas(java.util.Date fch, int dias){
+     Calendar cal = new GregorianCalendar();
+     cal.setTimeInMillis(fch.getTime());
+     cal.add(Calendar.DATE, dias);
+     return (java.util.Date) new Date(cal.getTimeInMillis());
+
+   }
 
 private void txtNueva2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNueva2ActionPerformed
 // TODO add your handling code here:

@@ -279,7 +279,7 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                             usuario = objUsuarioBL.getUsuario();
                             UsuarioContrasenaBL objUsuarioContrasenaBL=new UsuarioContrasenaBL();
 
-                            String ind=objUsuarioContrasenaBL.insertarUsuarioContrasena("1",usuario.getIdUsuario(),usuario.getIdUsuario(),fechaHoy,fechaHoy);
+                            String ind=objUsuarioContrasenaBL.insertarUsuarioContrasena("1",usuario.getIdUsuario(),usuario.getIdUsuario(),fechaHoy,fechaMas(fechaHoy,90));
                             if (ind.equals("1")){
                                 JOptionPane.showMessageDialog(null, "Su contraseña es "+usuario.getIdUsuario(), "Mensaje", 0);
                             }
@@ -333,11 +333,11 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     
 }//GEN-LAST:event_btnGuardarActionPerformed
 
-public java.sql.Date fechaMas(java.sql.Date fch, int dias){
+public java.util.Date fechaMas(java.util.Date fch, int dias){
      Calendar cal = new GregorianCalendar();
      cal.setTimeInMillis(fch.getTime());
      cal.add(Calendar.DATE, dias);
-     return (java.sql.Date) new Date(cal.getTimeInMillis());
+     return (java.util.Date) new Date(cal.getTimeInMillis());
 
    }
 

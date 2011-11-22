@@ -202,8 +202,8 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 
  //       this.jListServicio.setEnabled(false);
  //       this.jListServicioSelected.setEnabled(false);
-        this.lblAgregarTodo.setEnabled(false);
-        this.lblAgregarTodo.setVisible(false);
+        this.btnAgregarTodo.setEnabled(false);
+ 
 
     }
 
@@ -227,11 +227,11 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jListAplicacion = new javax.swing.JList();
         jLabel3 = new javax.swing.JLabel();
-        lblAddAplicacion = new javax.swing.JLabel();
-        lblRemoverAplicacion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListAplicacionSelected = new javax.swing.JList();
-        lblAgregarTodo = new javax.swing.JLabel();
+        btnAgregarTodo = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("+Flow - Registrar perfil");
@@ -307,26 +307,6 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
 
         jLabel3.setText("Aplicacion");
 
-        lblAddAplicacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/next.png"))); // NOI18N
-        lblAddAplicacion.setToolTipText("Agregar");
-        lblAddAplicacion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblAddAplicacion.setName(""); // NOI18N
-        lblAddAplicacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblAddAplicacionMousePressed(evt);
-            }
-        });
-
-        lblRemoverAplicacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/back.png"))); // NOI18N
-        lblRemoverAplicacion.setToolTipText("Quitar");
-        lblRemoverAplicacion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblRemoverAplicacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblRemoverAplicacion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblRemoverAplicacionMousePressed(evt);
-            }
-        });
-
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aplicaciones asociadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 1, 14))); // NOI18N
 
         jListAplicacionSelected.setModel(modeloAplicacionSelected);
@@ -337,12 +317,24 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jListAplicacionSelected);
 
-        lblAgregarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trunk/src/Iconos/folder_accept.png"))); // NOI18N
-        lblAgregarTodo.setToolTipText("Seleccionar todo");
-        lblAgregarTodo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lblAgregarTodo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblAgregarTodoMousePressed(evt);
+        btnAgregarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trunk/src/Iconos/folder_accept.png"))); // NOI18N
+        btnAgregarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarTodoActionPerformed(evt);
+            }
+        });
+
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trunk/src/Iconos/next.png"))); // NOI18N
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trunk/src/Iconos/back.png"))); // NOI18N
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
             }
         });
 
@@ -353,21 +345,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxActivo)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar))
                     .addComponent(jLabel3)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRemoverAplicacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblAgregarTodo, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                            .addComponent(lblAddAplicacion))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -375,12 +353,27 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(59, Short.MAX_VALUE))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnRemover)
+                                .addComponent(btnAdd))
+                            .addComponent(btnAgregarTodo))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxActivo)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGuardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar)))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -395,21 +388,21 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxActivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
-                .addGap(66, 66, 66))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(191, 191, 191)
-                .addComponent(lblAddAplicacion)
+                .addGap(78, 78, 78))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(208, Short.MAX_VALUE)
+                .addComponent(btnAdd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRemover)
                 .addGap(18, 18, 18)
-                .addComponent(lblRemoverAplicacion)
-                .addGap(24, 24, 24)
-                .addComponent(lblAgregarTodo)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addComponent(btnAgregarTodo)
+                .addGap(184, 184, 184))
         );
 
         pack();
@@ -536,11 +529,69 @@ private void jListAplicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
 // TODO add your handling code here:            
 }//GEN-LAST:event_jListAplicacionMouseClicked
 
-private void lblAddAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddAplicacionMousePressed
-        // TODO add your handling code here:
+private void jListAplicacionComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jListAplicacionComponentAdded
+    // TODO add your handling code here:
+
+}//GEN-LAST:event_jListAplicacionComponentAdded
+
+private void jListAplicacionSelectedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListAplicacionSelectedMouseClicked
+    // TODO add your handling code here:
+
+//    int indexSelected = jListAplicacionSelected.getSelectedIndex();//obtengo posicion en la lista
+//
+//    if (indexSelected>-1){
+//
+//        String nombreAplicacion=listaAplicacionesSelected.get(indexSelected);
+//
+//        if(accion.equals("registrar")){
+//
+//            listaServiciosSistema=objAplicacionxServicio.queryNombreServiciosByNombreAplicacion(nombreAplicacion);
+//            modeloServicio= new AbstractListModel() {
+//                ArrayList<String> listaLocal=listaServiciosSistema;
+//                public int getSize() {
+//                    return listaLocal.size();
+//                }
+//                public Object getElementAt(int index) {
+//                    return listaLocal.get(index);
+//                }
+//            };
+//            jListServicio.setModel(modeloServicio);
+//
+//        }else //modificar
+//        {
+//            String idAplicacion = objAplicacionDA.queryByNombreAplicacion(nombreAplicacion).getIdAplicacion();
+//            listaServiciosPerfil=objPerfilDetalleDA.queryAllServiciosPorAplicacionPorPerfil(perfil.getIdPerfil(),idAplicacion);
+//            modeloServicio= new AbstractListModel() {
+//                ArrayList<String> listaLocal=listaServiciosPerfil;
+//                public int getSize() {
+//                    return listaLocal.size();
+//                }
+//                public Object getElementAt(int index) {
+//                    return listaLocal.get(index);
+//                }
+//            };
+//            jListServicio.setModel(modeloServicio);
+//        }
+//    }
+
+}//GEN-LAST:event_jListAplicacionSelectedMouseClicked
+
+private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+    // TODO add your handling code here:
+        char c = (char)evt.getKeyChar();
+        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
+            evt.consume();
+       if ((this.txtDescripcion.getText().length() + 1) > 30) {
+            evt.consume();
+        }
+}//GEN-LAST:event_txtDescripcionKeyTyped
+
+private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    // TODO add your handling code here:
+            // TODO add your handling code here:
     int itemSelected=this.jListAplicacion.getSelectedIndex();
     if(itemSelected>-1){
-        
+
         if (accion.equals("registrar")){
 
             this.listaAplicacionesSelected.add(this.listaAplicacionesSistema.get(itemSelected));
@@ -606,15 +657,11 @@ private void lblAddAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-
 
     }
 
+}//GEN-LAST:event_btnAddActionPerformed
 
-
-        
-        
-}//GEN-LAST:event_lblAddAplicacionMousePressed
-
-private void lblRemoverAplicacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoverAplicacionMousePressed
-        // TODO add your handling code here:
-    int itemSelected=this.jListAplicacionSelected.getSelectedIndex();
+private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+    // TODO add your handling code here:
+        int itemSelected=this.jListAplicacionSelected.getSelectedIndex();
 
     if(itemSelected>-1){
 
@@ -684,70 +731,12 @@ private void lblRemoverAplicacionMousePressed(java.awt.event.MouseEvent evt) {//
             };
             this.jListAplicacionSelected.setModel(modeloAplicacionSelected);
         }
-    }    
-}//GEN-LAST:event_lblRemoverAplicacionMousePressed
+    }
+}//GEN-LAST:event_btnRemoverActionPerformed
 
-private void jListAplicacionComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jListAplicacionComponentAdded
+private void btnAgregarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTodoActionPerformed
     // TODO add your handling code here:
-
-}//GEN-LAST:event_jListAplicacionComponentAdded
-
-private void jListAplicacionSelectedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListAplicacionSelectedMouseClicked
-    // TODO add your handling code here:
-
-//    int indexSelected = jListAplicacionSelected.getSelectedIndex();//obtengo posicion en la lista
-//
-//    if (indexSelected>-1){
-//
-//        String nombreAplicacion=listaAplicacionesSelected.get(indexSelected);
-//
-//        if(accion.equals("registrar")){
-//
-//            listaServiciosSistema=objAplicacionxServicio.queryNombreServiciosByNombreAplicacion(nombreAplicacion);
-//            modeloServicio= new AbstractListModel() {
-//                ArrayList<String> listaLocal=listaServiciosSistema;
-//                public int getSize() {
-//                    return listaLocal.size();
-//                }
-//                public Object getElementAt(int index) {
-//                    return listaLocal.get(index);
-//                }
-//            };
-//            jListServicio.setModel(modeloServicio);
-//
-//        }else //modificar
-//        {
-//            String idAplicacion = objAplicacionDA.queryByNombreAplicacion(nombreAplicacion).getIdAplicacion();
-//            listaServiciosPerfil=objPerfilDetalleDA.queryAllServiciosPorAplicacionPorPerfil(perfil.getIdPerfil(),idAplicacion);
-//            modeloServicio= new AbstractListModel() {
-//                ArrayList<String> listaLocal=listaServiciosPerfil;
-//                public int getSize() {
-//                    return listaLocal.size();
-//                }
-//                public Object getElementAt(int index) {
-//                    return listaLocal.get(index);
-//                }
-//            };
-//            jListServicio.setModel(modeloServicio);
-//        }
-//    }
-
-}//GEN-LAST:event_jListAplicacionSelectedMouseClicked
-
-private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
-    // TODO add your handling code here:
-        char c = (char)evt.getKeyChar();
-        if (!Utilitario.validarCadenaAlfabetica(evt.getKeyChar()) || (Character.isISOControl(c)))
-            evt.consume();
-       if ((this.txtDescripcion.getText().length() + 1) > 30) {
-            evt.consume();
-        }
-}//GEN-LAST:event_txtDescripcionKeyTyped
-
-private void lblAgregarTodoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarTodoMousePressed
-    // TODO add your handling code here:
-
-    PerfilBL objPerfilBL = new PerfilBL();
+        PerfilBL objPerfilBL = new PerfilBL();
     AplicacionBE objAplicacionBE=new AplicacionBE();
 
     try {
@@ -783,10 +772,10 @@ private void lblAgregarTodoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FI
             this.jListAplicacion.setModel(modeloAplicacion);
         }
 
-        this.lblAddAplicacion.setEnabled(false);
-        this.lblRemoverAplicacion.setEnabled(false);
-        this.lblAgregarTodo.setEnabled(false);
-        
+        this.btnAdd.setEnabled(false);
+        this.btnRemover.setEnabled(false);
+        this.btnAgregarTodo.setEnabled(false);
+
 
 //        if(this.accion.equals("modificar")){
 //                perfil.setDescripcion(this.txtDescripcion.getText().trim());
@@ -826,7 +815,7 @@ private void lblAgregarTodoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FI
     }
 
 
-}//GEN-LAST:event_lblAgregarTodoMousePressed
+}//GEN-LAST:event_btnAgregarTodoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -865,8 +854,11 @@ private void lblAgregarTodoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FI
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAgregarTodo;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnRemover;
     private javax.swing.JCheckBox cbxActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -875,9 +867,6 @@ private void lblAgregarTodoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FI
     private javax.swing.JList jListAplicacionSelected;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblAddAplicacion;
-    private javax.swing.JLabel lblAgregarTodo;
-    private javax.swing.JLabel lblRemoverAplicacion;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables

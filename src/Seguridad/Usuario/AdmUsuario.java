@@ -12,6 +12,7 @@ package Seguridad.Usuario;
 
 import BusinessEntity.UsuarioBE;
 import BusinessLogic.UsuarioBL;
+import DataAccess.PerfilDA;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -238,7 +239,9 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             fila = dgvUsuario.getSelectedRow();
             codigo = (String)dgvUsuario.getValueAt(fila, 0);
             UsuarioBL objUsuarioBL = new UsuarioBL();
+
             try {
+
                 objUsuarioBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {
