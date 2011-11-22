@@ -12,6 +12,7 @@ package Seguridad.Perfil;
 
 import BusinessEntity.PerfilBE;
 import BusinessLogic.PerfilBL;
+import BusinessLogic.UsuarioBL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -216,7 +217,16 @@ private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST
             fila = dgvPerfil.getSelectedRow();
             codigo = (String)dgvPerfil.getValueAt(fila, 0);
             PerfilBL objPerfilBL = new PerfilBL();
+            UsuarioBL objUsuarioBL=new UsuarioBL();
             try {
+
+                //(String idPerfil, String descripcion, String idAplicacion, String idServicio, String indActivo)
+                if(!objUsuarioBL.buscar("","", "","",codigo, "").isEmpty()){
+                         JOptionPane.showMessageDialog(null, "El perfil no se puede eliminar porque hay usuarios activos asociados.", "Error", 0);
+                return;
+
+                }
+
                 boolean ok=objPerfilBL.eliminar(codigo);
                 this.lblRefrescarMousePressed(evt);
             } catch (Exception ex) {
