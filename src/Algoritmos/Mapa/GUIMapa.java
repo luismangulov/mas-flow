@@ -383,11 +383,11 @@ public class GUIMapa extends javax.swing.JFrame {
             }
             else
             {
-//                g.setColor(Color.BLACK);
-//                g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
-//                g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                g.setColor(Color.BLACK);
+                g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
 
-                g.drawImage(pallet, convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY, this);
+                //g.drawImage(pallet, convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY, this);
             }
         }
     }
