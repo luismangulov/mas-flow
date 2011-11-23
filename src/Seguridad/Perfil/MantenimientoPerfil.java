@@ -739,6 +739,9 @@ private void btnAgregarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GE
         PerfilBL objPerfilBL = new PerfilBL();
     AplicacionBE objAplicacionBE=new AplicacionBE();
 
+    int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea seleccionar todas las aplicaciones.", "Agregar todo", 0);
+    if(respuesta == 0){
+
     try {
 
         if(this.accion.equals("registrar")){
@@ -814,7 +817,7 @@ private void btnAgregarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
     }
 
-
+    }
 }//GEN-LAST:event_btnAgregarTodoActionPerformed
 
     /**
