@@ -72,7 +72,10 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void inicializarFrame(Mapa mapa)
     {
-        setBounds(new java.awt.Rectangle(0100, 0, 1024, 768));
+        pixelesAncho=1024;
+        pixelesLargo=768-150;
+
+        setBounds(new java.awt.Rectangle(0100, 0, pixelesAncho, pixelesLargo));
         this.createBufferStrategy(2);
 
         scrollbar1.setMaximum((int)(1.13*(mapa.getNumY())));
@@ -268,7 +271,7 @@ public class GUIMapa extends javax.swing.JFrame {
         //if ((posX<=posXMax)&&(posY<=posYMax))
         //{
             int x=800;
-            int y=768 - 50 - (int)scrollbar2.getBounds().getHeight();
+            int y=pixelesLargo - 50 - (int)scrollbar2.getBounds().getHeight();
             int ancho=150;
             int largo=50;
 
@@ -467,7 +470,7 @@ public class GUIMapa extends javax.swing.JFrame {
         g2d.setStroke(new BasicStroke(8.0f));
 
         int x=800;
-        int y=768 - 50 - (int)scrollbar2.getBounds().getHeight();
+        int y=pixelesLargo - 50 - (int)scrollbar2.getBounds().getHeight();
         int ancho=150;
         int largo=50;
 
@@ -487,7 +490,6 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void ajustarGraficoVertical(java.awt.event.AdjustmentEvent evt)
     {
-
         offSetY = 35 * (1-scrollbar1.getValue());
         repaint();
     }
@@ -502,8 +504,6 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private void calcularFactores()
     {
-//        factorX = (pixelesAncho/mapa.getNumX());
-//        factorY = (pixelesLargo/mapa.getNumY());
           factorX=40;
           factorY=40;
     }
@@ -700,8 +700,8 @@ public class GUIMapa extends javax.swing.JFrame {
     private ArrayList<Nodo> recorridoOptimo;
     private ArrayList<Nodo> listaNodos;
 
-    //private int pixelesAncho=600;
-    //private int pixelesLargo=600;
+    private int pixelesAncho;
+    private int pixelesLargo;
 
     private int offSetX=10;
     private int offSetY=35;
