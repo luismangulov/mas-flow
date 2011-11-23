@@ -92,6 +92,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblIngresarProductos = new javax.swing.JLabel();
         jLblDespacharProductos = new javax.swing.JLabel();
         jLblMovimientosInternos = new javax.swing.JLabel();
+        jLblCargaMasiva = new javax.swing.JLabel();
         jLayeredPaneReportes = new javax.swing.JLayeredPane();
         jLblReporteStock = new javax.swing.JLabel();
         jLblKardek = new javax.swing.JLabel();
@@ -103,7 +104,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblReporteUbicaciones = new javax.swing.JLabel();
         jLayeredPaneSeguridad = new javax.swing.JLayeredPane();
         jLblPerfiles = new javax.swing.JLabel();
-        jLblCargaMasiva = new javax.swing.JLabel();
         jLblUsuarios = new javax.swing.JLabel();
         jLblCambioContrasena = new javax.swing.JLabel();
         jLayeredPaneLogo = new javax.swing.JLayeredPane();
@@ -303,6 +303,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLblMovimientosInternos.setBounds(30, 70, 160, 17);
         jLayeredPaneProcesos.add(jLblMovimientosInternos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLblCargaMasiva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblCargaMasiva.setForeground(new java.awt.Color(0, 0, 102));
+        jLblCargaMasiva.setText("Carga Masiva");
+        jLblCargaMasiva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLblCargaMasiva.setName("000023"); // NOI18N
+        jLblCargaMasiva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLblCargaMasivaMousePressed(evt);
+            }
+        });
+        jLblCargaMasiva.setBounds(30, 100, 140, 20);
+        jLayeredPaneProcesos.add(jLblCargaMasiva, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         jLblReporteStock.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblReporteStock.setForeground(new java.awt.Color(0, 0, 102));
         jLblReporteStock.setText("Stock de Productos");
@@ -419,19 +432,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jLblPerfiles.setBounds(20, 10, 100, 17);
         jLayeredPaneSeguridad.add(jLblPerfiles, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jLblCargaMasiva.setFont(new java.awt.Font("Tahoma", 0, 14));
-        jLblCargaMasiva.setForeground(new java.awt.Color(0, 0, 102));
-        jLblCargaMasiva.setText("Carga Masiva");
-        jLblCargaMasiva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLblCargaMasiva.setName("000023"); // NOI18N
-        jLblCargaMasiva.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLblCargaMasivaMousePressed(evt);
-            }
-        });
-        jLblCargaMasiva.setBounds(20, 100, 140, 20);
-        jLayeredPaneSeguridad.add(jLblCargaMasiva, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLblUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLblUsuarios.setForeground(new java.awt.Color(0, 0, 102));
