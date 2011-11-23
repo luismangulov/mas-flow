@@ -21,12 +21,14 @@ import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
 import BusinessLogic.RackBL;
 import BusinessLogic.ZonaBL;
+import java.awt.Image;;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.awt.Toolkit;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
@@ -70,16 +72,31 @@ public class GUIMapa extends javax.swing.JFrame {
         inicializarFrame(mapa);
     }
 
+    public GUIMapa(Mapa mapa, ArrayList<UbicacionBE> mejoresUbicaciones, ArrayList<Nodo> recorridoOptimo) {
+        this.mapa = mapa;
+        calcularFactores();
+        this.mejoresUbicaciones= mejoresUbicaciones;
+        this.recorridoOptimo = recorridoOptimo;
+        initComponents();
+        inicializarFrame(mapa);
+    }
+
     private void inicializarFrame(Mapa mapa)
     {
         pixelesAncho=1024;
-        pixelesLargo=768-150;
+        pixelesLargo=768-75;
 
         setBounds(new java.awt.Rectangle(0100, 0, pixelesAncho, pixelesLargo));
         this.createBufferStrategy(2);
 
         scrollbar1.setMaximum((int)(1.13*(mapa.getNumY())));
         scrollbar2.setMaximum((int)(3.83*(mapa.getNumX())));
+
+        //new java.awt.Font("Tahoma", 0, 14)
+        pallet = Toolkit.getDefaultToolkit().getImage("/Iconos/caja.png");
+        puerta = Toolkit.getDefaultToolkit().getImage("/Iconos/door.png");
+        palletElegido = Toolkit.getDefaultToolkit().getImage("/Iconos/caja.png");
+
 
         this.setTitle("Mapa del almacén " + mapa.getAlmacen().getNombre());
         bf = this.getBufferStrategy();
@@ -366,9 +383,11 @@ public class GUIMapa extends javax.swing.JFrame {
             }
             else
             {
-                g.setColor(Color.BLACK);
-                g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
-                g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+//                g.setColor(Color.BLACK);
+//                g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+//                g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+
+                g.drawImage(pallet, convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY, this);
             }
         }
     }
@@ -407,7 +426,7 @@ public class GUIMapa extends javax.swing.JFrame {
                 {
                     g.setColor(Color.RED);
                     g.fillRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
-                    g.drawRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
+                    g.drawRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);                            
                 }                
         }
     }
@@ -728,5 +747,10 @@ public class GUIMapa extends javax.swing.JFrame {
 
     private int posXMax;
     private int posYMax;
+
+    Image pallet;
+    Image puerta;
+    Image palletElegido;
+
 
 }
