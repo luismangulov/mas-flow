@@ -70,6 +70,7 @@ public class BuscarMovimientoInterno extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("+ Flow - Buscar Movimiento Inteno");
         setResizable(false);
 
         jLabel1.setText("<html>Nombre<br>de Producto:</html>");

@@ -317,21 +317,21 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jListAplicacionSelected);
 
-        btnAgregarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trunk/src/Iconos/folder_accept.png"))); // NOI18N
+        btnAgregarTodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/folder_accept.png"))); // NOI18N
         btnAgregarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarTodoActionPerformed(evt);
             }
         });
 
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trunk/src/Iconos/next.png"))); // NOI18N
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/next.png"))); // NOI18N
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
 
-        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trunk/src/Iconos/back.png"))); // NOI18N
+        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/back.png"))); // NOI18N
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverActionPerformed(evt);
@@ -356,11 +356,11 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnRemover)
-                                .addComponent(btnAdd))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnAdd)
+                                .addComponent(btnRemover))
                             .addComponent(btnAgregarTodo))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -369,7 +369,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,13 +396,13 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
                     .addComponent(btnCancelar))
                 .addGap(78, 78, 78))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(208, Short.MAX_VALUE)
+                .addContainerGap(180, Short.MAX_VALUE)
                 .addComponent(btnAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnRemover)
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarTodo)
-                .addGap(184, 184, 184))
+                .addGap(176, 176, 176))
         );
 
         pack();
