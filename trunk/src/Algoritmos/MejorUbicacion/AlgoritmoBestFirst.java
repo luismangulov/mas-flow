@@ -76,12 +76,6 @@ public class AlgoritmoBestFirst {
              }
           });
 
-//        UbicacionBE mejorUbicacion;
-//        mejorUbicacion = listaPosiblesUbicaciones.get(0);
-//        for (int i=1; i<listaPosiblesUbicaciones.size(); i++)
-//        {
-//        }
-
         return listaPosiblesUbicaciones.get(0);  
     }
 
@@ -176,10 +170,6 @@ public class AlgoritmoBestFirst {
 
     private static boolean ubicacionPerteneceAZona(FamiliaBE familia, UbicacionBE ubicacion)
     {
-        //UbicacionBL ubicacionBL = new UbicacionBL();
-//        RackBL rackBL = new RackBL();
-//        ZonaBL zonaBL = new ZonaBL();
-        
         RackBE rack=null;
         for (RackBE r : mapa.getListaRacks())
         {
@@ -190,8 +180,6 @@ public class AlgoritmoBestFirst {
             }
         }
         if (rack==null) return false;
-
-//        ZonaBE zona = zonaBL.getZona(rackBL.getByIdRack(ubicacion.getIdRack()).getIdZona());
 
         ZonaBE zona=null;
         for (ZonaBE z : mapa.getListaZonas())

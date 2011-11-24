@@ -94,9 +94,7 @@ public class GUIMapa extends javax.swing.JFrame {
         scrollbar1.setMaximum((int)(1.13*(mapa.getNumY())));
         scrollbar2.setMaximum((int)(3.83*(mapa.getNumX())));
 
-        pallet = Toolkit.getDefaultToolkit().getImage("src/Iconos/Mantenimientos.png");
         puerta = Toolkit.getDefaultToolkit().getImage("src/Iconos/door.png");
-        palletElegido = Toolkit.getDefaultToolkit().getImage("src/Iconos/info.png");
 
         this.setTitle("Mapa del almacén " + mapa.getAlmacen().getNombre());
         bf = this.getBufferStrategy();
@@ -241,7 +239,9 @@ public class GUIMapa extends javax.swing.JFrame {
         {
             evtX=evt.getX();
             evtY=evt.getY();
-            jPopupMenu1.show( evt.getComponent(),evt.getX(), evt.getY() );            
+
+            if ((obtenerX(evtX)<posXMax)&&(obtenerY(evtY)<posYMax))
+                jPopupMenu1.show( evt.getComponent(),evt.getX(), evt.getY() );
         }
     }//GEN-LAST:event_formMouseClicked
 
@@ -287,10 +287,10 @@ public class GUIMapa extends javax.swing.JFrame {
 
         //if ((posX<=posXMax)&&(posY<=posYMax))
         //{
-            int x=800;
-            int y=pixelesLargo - 50 - (int)scrollbar2.getBounds().getHeight();
+            int x=0;
+            int y=pixelesLargo - 35 - (int)scrollbar2.getBounds().getHeight();
             int ancho=150;
-            int largo=50;
+            int largo=1024;
 
             if (!jPopupMenu1.isVisible()) this.repaint(x, y, ancho, largo);
         //}
@@ -324,7 +324,6 @@ public class GUIMapa extends javax.swing.JFrame {
     @Override
     public void paint(Graphics g)
     {
-//        pintar(g);
         Graphics2D g2 = null;
 
         try {
@@ -386,18 +385,15 @@ public class GUIMapa extends javax.swing.JFrame {
                 g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
             }
             else
-            {                
-                /*if (((UbicacionBE)nodo.getItem()).getIndActivo().equals("2")) */ //g.drawImage(pallet, convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY, this);
+            {   
                 if (((UbicacionBE)nodo.getItem()).getIndActivo().equals("0"))
                 {
-                    //g.setColor(Color.RED);
                     g.setColor(new Color(255,50,50));
                     g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
                     g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
                 }
                 if (((UbicacionBE)nodo.getItem()).getIndActivo().equals("1"))
                 {
-                    //g.setColor(Color.BLUE);
                     g.setColor(new Color(70,70,255));
                     g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
                     g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
@@ -407,7 +403,6 @@ public class GUIMapa extends javax.swing.JFrame {
                     g.setColor(new Color(40,40,40));
                     g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
                     g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
-                    //g.drawImage(pallet, convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY, this);
                 }
             }
         }
@@ -421,8 +416,6 @@ public class GUIMapa extends javax.swing.JFrame {
         Stroke s = g2d.getStroke();
         g2d.setStroke(new BasicStroke(6.0f));
 
-                //new java.awt.Font("Tahoma", 0, 14)
-        
         for (ZonaBE zona : mapa.getListaZonas())
         {
            g2d.drawRect(convertirX(zona.getPosX()), convertirY(zona.getPosY()), factorX*zona.getAncho(), factorY*zona.getLargo());
@@ -453,22 +446,25 @@ public class GUIMapa extends javax.swing.JFrame {
         g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
         for (RackBE rack: mapa.getListaRacks())
         {
-            if (rack.getOrientacion().equals("V"))
+            if (rack.getPisos()>=nivel)
             {
-                AffineTransform fontAT = new AffineTransform();
-                Font theFont = g2d.getFont();
-                
-                fontAT.rotate(Math.PI/2);
-                Font theDerivedFont = theFont.deriveFont(fontAT);
-                g2d.setFont(theDerivedFont);
-                g2d.drawString(rack.getIdentificador(), convertirX(rack.getPosX())+(factorX/10)*3, convertirY(rack.getPosY()) + (rack.getColumnas()*factorY*3)/10);
+                if (rack.getOrientacion().equals("V"))
+                {
+                    AffineTransform fontAT = new AffineTransform();
+                    Font theFont = g2d.getFont();
 
-                g2d.setFont(theFont);
-            }
-            else
-            {
-                g2d.drawString(rack.getIdentificador(), convertirX(rack.getPosX()) + (rack.getColumnas()*factorX*3)/10, convertirY(rack.getPosY())+(factorY/10)*7);
-            }   
+                    fontAT.rotate(Math.PI/2);
+                    Font theDerivedFont = theFont.deriveFont(fontAT);
+                    g2d.setFont(theDerivedFont);
+                    g2d.drawString(rack.getIdentificador(), convertirX(rack.getPosX())+(factorX/10)*3, convertirY(rack.getPosY()) + (rack.getColumnas()*factorY*3)/10);
+
+                    g2d.setFont(theFont);
+                }
+                else
+                {
+                    g2d.drawString(rack.getIdentificador(), convertirX(rack.getPosX()) + (rack.getColumnas()*factorX*3)/10, convertirY(rack.getPosY())+(factorY/10)*7);
+                }
+            } 
         }
 
         g2d.setFont(f);
@@ -480,21 +476,32 @@ public class GUIMapa extends javax.swing.JFrame {
     {
         for (UbicacionBE ubicacion : mejoresUbicaciones)
         {
-                RackBL rackBL = new RackBL();
-                RackBE rack = rackBL.getByIdRack(ubicacion.getIdRack());
+                RackBE rack=null;
 
-                if (rack.getOrientacion().equals("V"))
+                for (RackBE r : mapa.getListaRacks())
                 {
-                    g.setColor(Color.ORANGE);
-                    g.fillRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
-                    g.drawRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
+                    if (r.getIdRack().equals(ubicacion.getIdRack()))
+                    {
+                        rack=r;
+                    }
                 }
-                else
+
+                if (rack!=null && ubicacion.getFila()==nivel)
                 {
-                    g.setColor(Color.ORANGE);
-                    g.fillRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
-                    g.drawRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);                            
-                }                
+                    if (rack.getOrientacion().equals("V"))
+                    {
+                        g.setColor(Color.ORANGE);
+                        g.fillRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
+                        g.drawRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
+                    }
+                    else
+                    {
+                        g.setColor(Color.ORANGE);
+                        g.fillRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
+                        g.drawRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
+                    }
+                }
+           
         }
     }
 
@@ -530,17 +537,16 @@ public class GUIMapa extends javax.swing.JFrame {
     {
         Graphics2D g2d = ( Graphics2D ) g;
         Stroke s = g2d.getStroke();
-        g2d.setStroke(new BasicStroke(4.0f));
-
-        int n=0;
-
         
+        //float dash[] = { 10.0f };
+        //g2d.setStroke(new BasicStroke(4.0f,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
+
+        g2d.setStroke(new BasicStroke(6.0f));
+
         for (int i=0;i<recorridoOptimo.size()-1;i++)
         {
             g.setColor(Color.CYAN);
             g.drawLine(convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2, convertirX(recorridoOptimo.get(i+1).getX())+factorX/2, convertirY(recorridoOptimo.get(i+1).getY())+factorY/2);
-
-            n++;
         }
 
         g2d.setStroke(s);
@@ -551,7 +557,7 @@ public class GUIMapa extends javax.swing.JFrame {
     {
         Graphics2D g2d = ( Graphics2D ) g;        
         Stroke s = g2d.getStroke();
-        g2d.setStroke(new BasicStroke(8.0f));
+        g2d.setStroke(new BasicStroke(4.0f));
 
         int x=100;
         int y=pixelesLargo - 50 - (int)scrollbar2.getBounds().getHeight();
@@ -564,10 +570,16 @@ public class GUIMapa extends javax.swing.JFrame {
         g2d.setPaint(Color.lightGray);
         g2d.drawRect(x, y, ancho, largo);
 
-        g2d.setPaint(Color.BLACK);
-        g2d.drawString("Nivel: " + nivel, x + (int)((ancho/10)*3.5), y + (int)((largo/10)*4));
-        if ((posX<posXMax)&&(posY<posYMax)) g2d.drawString("X = " + posX + "  Y = " + posY, x+ancho/4, y + (int)((largo/10)*8));
+        Font f = g2d.getFont();
 
+        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
+
+        g2d.setPaint(Color.BLACK);
+        g2d.drawString("Nivel: " + nivel, x + (int)((ancho/10)*2.5), y + (int)((largo/10)*4.5));
+
+        g2d.setFont(f);
+        if ((posX<posXMax)&&(posY<posYMax)) g2d.drawString("X = " + posX + "   Y = " + posY, x+(int)(ancho/5), y + (int)((largo/10)*8.5));
+        
         g2d.setStroke(s);
     }
 
@@ -582,7 +594,7 @@ public class GUIMapa extends javax.swing.JFrame {
         int x=400;
         int largo=35;
         int y=pixelesLargo - largo - (int)scrollbar2.getBounds().getHeight();
-        int ancho=450;        
+        int ancho=550;
 
         g2d.setPaint(Color.WHITE);
         g2d.fill3DRect(x, y, ancho, largo, true);
@@ -590,21 +602,33 @@ public class GUIMapa extends javax.swing.JFrame {
         g2d.setPaint(Color.lightGray);
         g2d.drawRect(x, y, ancho, largo);
 
+        Font f = g2d.getFont();
+
+        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+
+        int a=45;
+
         g2d.setColor(new Color(70,70,255));
-        g2d.fillRect(x + (int)((ancho/10)*1) - 15, y + (int)((largo/10)*7)-10, 10, 10);
+        g2d.fillRect(x + (int)(a*1) - 15, y + (int)((largo/10)*7)-10, 10, 10);
         g2d.setPaint(Color.BLACK);        
-        g2d.drawString("Disponible", x + (int)((ancho/10)*1), y + (int)((largo/10)*7));
+        g2d.drawString("Disponible", x + (int)(a*1), y + (int)((largo/10)*7));
 
         g2d.setColor(new Color(40,40,40));
-        g2d.fillRect(x + (int)((ancho/10)*4) - 15, y + (int)((largo/10)*7)-10, 10, 10);
+        g2d.fillRect(x + (int)(a*4) - 15, y + (int)((largo/10)*7)-10, 10, 10);
         g2d.setPaint(Color.BLACK);
-        g2d.drawString("Ocupado", x + (int)((ancho/10)*4), y + (int)((largo/10)*7));
+        g2d.drawString("Ocupado", x + (int)(a*4), y + (int)((largo/10)*7));
 
         g2d.setColor(new Color(255,50,50));
-        g2d.fillRect(x + (int)((ancho/10)*7) - 15, y + (int)((largo/10)*7)-10, 10, 10);
+        g2d.fillRect(x + (int)(a*7) - 15, y + (int)((largo/10)*7)-10, 10, 10);
         g2d.setPaint(Color.BLACK);
-        g2d.drawString("Bloqueado", x + (int)((ancho/10)*7), y + (int)((largo/10)*7));
+        g2d.drawString("Bloqueado", x + (int)(a*7), y + (int)((largo/10)*7));
 
+        g2d.setColor(Color.ORANGE);
+        g2d.fillRect(x + (int)(a*10) - 15, y + (int)((largo/10)*7)-10, 10, 10);
+        g2d.setPaint(Color.BLACK);
+        g2d.drawString("Seleccionado", x + (int)(a*10), y + (int)((largo/10)*7));
+
+        g2d.setFont(f);
         g2d.setStroke(s);
     }
 
@@ -850,9 +874,7 @@ public class GUIMapa extends javax.swing.JFrame {
     private int posXMax;
     private int posYMax;
 
-    Image pallet;
     Image puerta;
-    Image palletElegido;
 
 
 }

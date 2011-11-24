@@ -89,7 +89,7 @@ public class Ruta {
         pesoMax = pesoMax + 0.2 * pesoMax;
 
         i=0;
-        while (i<punto.length && ady.size()>2)
+        while (i<punto.length && ady.size()>1)
         {
             j=0;
             while (j<punto.length)
