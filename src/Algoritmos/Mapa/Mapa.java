@@ -152,6 +152,13 @@ public class Mapa {
         guiMapa.setVisible(true);
     }
 
+
+    public void mostrarGraficoMapa(ArrayList<UbicacionBE> mejoresUbicaciones, ArrayList<Nodo> recorridoOptimo)
+    {
+        GUIMapa guiMapa = new GUIMapa(this, mejoresUbicaciones, recorridoOptimo);
+        guiMapa.setVisible(true);
+    }
+
     
     public int getNumX() {
         return numX;
