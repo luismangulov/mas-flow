@@ -92,11 +92,9 @@ public class GUIMapa extends javax.swing.JFrame {
         scrollbar1.setMaximum((int)(1.13*(mapa.getNumY())));
         scrollbar2.setMaximum((int)(3.83*(mapa.getNumX())));
 
-        //new java.awt.Font("Tahoma", 0, 14)
-        pallet = Toolkit.getDefaultToolkit().getImage("/Iconos/caja.png");
-        puerta = Toolkit.getDefaultToolkit().getImage("/Iconos/door.png");
-        palletElegido = Toolkit.getDefaultToolkit().getImage("/Iconos/caja.png");
-
+        pallet = Toolkit.getDefaultToolkit().getImage("src/Iconos/Mantenimientos.png");
+        puerta = Toolkit.getDefaultToolkit().getImage("src/Iconos/door.png");
+        palletElegido = Toolkit.getDefaultToolkit().getImage("src/Iconos/info.png");
 
         this.setTitle("Mapa del almacén " + mapa.getAlmacen().getNombre());
         bf = this.getBufferStrategy();
@@ -372,22 +370,39 @@ public class GUIMapa extends javax.swing.JFrame {
         {
             if (nodo.isNodoInicial())
             {
-                g.setColor(Color.ORANGE);
-                g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                g.setColor(Color.LIGHT_GRAY);
                 g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                g.drawImage(puerta, convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY, this);
             }
             else if (nodo.getItem()==null)
             {
-                g.setColor(Color.BLACK);
+                g.setColor(Color.LIGHT_GRAY);
                 g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
             }
             else
-            {
-                g.setColor(Color.BLACK);
-                g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
-                g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
-
-                //g.drawImage(pallet, convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY, this);
+            {                
+                /*if (((UbicacionBE)nodo.getItem()).getIndActivo().equals("2")) */ //g.drawImage(pallet, convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY, this);
+                if (((UbicacionBE)nodo.getItem()).getIndActivo().equals("0"))
+                {
+                    //g.setColor(Color.RED);
+                    g.setColor(new Color(255,50,50));
+                    g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                    g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                }
+                if (((UbicacionBE)nodo.getItem()).getIndActivo().equals("1"))
+                {
+                    //g.setColor(Color.BLUE);
+                    g.setColor(new Color(70,70,255));
+                    g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                    g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                }
+                if (((UbicacionBE)nodo.getItem()).getIndActivo().equals("2"))
+                {
+                    g.setColor(new Color(40,40,40));
+                    g.fillRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                    g.drawRect(convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY);
+                    //g.drawImage(pallet, convertirX(nodo.getX()), convertirY(nodo.getY()), factorX, factorY, this);
+                }
             }
         }
     }
@@ -399,6 +414,8 @@ public class GUIMapa extends javax.swing.JFrame {
         g2d.setPaint( Color.DARK_GRAY );
         Stroke s = g2d.getStroke();
         g2d.setStroke(new BasicStroke(6.0f));
+
+                //new java.awt.Font("Tahoma", 0, 14)
         
         for (ZonaBE zona : mapa.getListaZonas())
         {
@@ -418,13 +435,13 @@ public class GUIMapa extends javax.swing.JFrame {
 
                 if (rack.getOrientacion().equals("V"))
                 {
-                    g.setColor(Color.RED);
+                    g.setColor(Color.ORANGE);
                     g.fillRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
                     g.drawRect(convertirX(rack.getPosX()), convertirY(rack.getPosY()+ubicacion.getColumna()-1), factorX, factorY);
                 }
                 else
                 {
-                    g.setColor(Color.RED);
+                    g.setColor(Color.ORANGE);
                     g.fillRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);
                     g.drawRect(convertirX(rack.getPosX()+ubicacion.getColumna()-1), convertirY(rack.getPosY()), factorX, factorY);                            
                 }                
@@ -472,9 +489,7 @@ public class GUIMapa extends javax.swing.JFrame {
         {
             g.setColor(Color.CYAN);
             g.drawLine(convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2, convertirX(recorridoOptimo.get(i+1).getX())+factorX/2, convertirY(recorridoOptimo.get(i+1).getY())+factorY/2);
-            
-            //g.setColor(Color.WHITE);
-            //g.drawString(String.valueOf(n), convertirX(recorridoOptimo.get(i).getX())+factorX/2, convertirY(recorridoOptimo.get(i).getY())+factorY/2);
+
             n++;
         }
 
