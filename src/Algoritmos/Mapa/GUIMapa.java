@@ -361,6 +361,8 @@ public class GUIMapa extends javax.swing.JFrame {
 
            dibujaEtiquetas(g);
 
+           dibujaLeyenda(g);
+
            dibujaCuadroInfo(g);           
 
            if (jPopupMenu1.isVisible()) jPopupMenu1.repaint();
@@ -551,12 +553,12 @@ public class GUIMapa extends javax.swing.JFrame {
         Stroke s = g2d.getStroke();
         g2d.setStroke(new BasicStroke(8.0f));
 
-        int x=800;
+        int x=100;
         int y=pixelesLargo - 50 - (int)scrollbar2.getBounds().getHeight();
         int ancho=150;
         int largo=50;
 
-        g2d.setPaint(Color.WHITE); //Color.getHSBColor(0.85f, 1.0f, 0.8f)
+        g2d.setPaint(Color.WHITE); 
         g2d.fill3DRect(x, y, ancho, largo, true);
 
         g2d.setPaint(Color.lightGray);
@@ -565,6 +567,43 @@ public class GUIMapa extends javax.swing.JFrame {
         g2d.setPaint(Color.BLACK);
         g2d.drawString("Nivel: " + nivel, x + (int)((ancho/10)*3.5), y + (int)((largo/10)*4));
         if ((posX<posXMax)&&(posY<posYMax)) g2d.drawString("X = " + posX + "  Y = " + posY, x+ancho/4, y + (int)((largo/10)*8));
+
+        g2d.setStroke(s);
+    }
+
+
+
+    private void dibujaLeyenda(Graphics g)
+    {
+        Graphics2D g2d = ( Graphics2D ) g;
+        Stroke s = g2d.getStroke();
+        g2d.setStroke(new BasicStroke(4.0f));
+
+        int x=400;
+        int largo=35;
+        int y=pixelesLargo - largo - (int)scrollbar2.getBounds().getHeight();
+        int ancho=450;        
+
+        g2d.setPaint(Color.WHITE);
+        g2d.fill3DRect(x, y, ancho, largo, true);
+
+        g2d.setPaint(Color.lightGray);
+        g2d.drawRect(x, y, ancho, largo);
+
+        g2d.setColor(new Color(70,70,255));
+        g2d.fillRect(x + (int)((ancho/10)*1) - 15, y + (int)((largo/10)*7)-10, 10, 10);
+        g2d.setPaint(Color.BLACK);        
+        g2d.drawString("Disponible", x + (int)((ancho/10)*1), y + (int)((largo/10)*7));
+
+        g2d.setColor(new Color(40,40,40));
+        g2d.fillRect(x + (int)((ancho/10)*4) - 15, y + (int)((largo/10)*7)-10, 10, 10);
+        g2d.setPaint(Color.BLACK);
+        g2d.drawString("Ocupado", x + (int)((ancho/10)*4), y + (int)((largo/10)*7));
+
+        g2d.setColor(new Color(255,50,50));
+        g2d.fillRect(x + (int)((ancho/10)*7) - 15, y + (int)((largo/10)*7)-10, 10, 10);
+        g2d.setPaint(Color.BLACK);
+        g2d.drawString("Bloqueado", x + (int)((ancho/10)*7), y + (int)((largo/10)*7));
 
         g2d.setStroke(s);
     }
