@@ -21,7 +21,9 @@ import BusinessLogic.PalletBL;
 import BusinessLogic.ProductoBL;
 import BusinessLogic.RackBL;
 import BusinessLogic.ZonaBL;
-import java.awt.Image;;
+import java.awt.Font;
+import java.awt.Image;import java.awt.geom.AffineTransform;
+;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -357,7 +359,9 @@ public class GUIMapa extends javax.swing.JFrame {
 
            dibujaMarca(g);
 
-           dibujaCuadroInfo(g);
+           dibujaEtiquetas(g);
+
+           dibujaCuadroInfo(g);           
 
            if (jPopupMenu1.isVisible()) jPopupMenu1.repaint();
 
@@ -422,6 +426,50 @@ public class GUIMapa extends javax.swing.JFrame {
            g2d.drawRect(convertirX(zona.getPosX()), convertirY(zona.getPosY()), factorX*zona.getAncho(), factorY*zona.getLargo());
         }
 
+        g2d.setStroke(s);
+    }
+
+
+    private void dibujaEtiquetas(Graphics g)
+    {
+        Graphics2D g2d = ( Graphics2D ) g;
+        
+        Stroke s = g2d.getStroke();
+        g2d.setStroke(new BasicStroke(6.0f));
+
+        Font f = g2d.getFont();
+
+        g2d.setPaint( Color.DARK_GRAY );
+        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+
+        for (ZonaBE zona : mapa.getListaZonas())
+        {
+           g2d.drawString(zona.getNombre(), convertirX(zona.getPosX()) + (zona.getAncho()*factorX*4)/10 , convertirY(zona.getPosY())+(factorY/10)*8);
+        }
+
+        g2d.setPaint( Color.WHITE);
+        g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+        for (RackBE rack: mapa.getListaRacks())
+        {
+            if (rack.getOrientacion().equals("V"))
+            {
+                AffineTransform fontAT = new AffineTransform();
+                Font theFont = g2d.getFont();
+                
+                fontAT.rotate(Math.PI/2);
+                Font theDerivedFont = theFont.deriveFont(fontAT);
+                g2d.setFont(theDerivedFont);
+                g2d.drawString(rack.getIdentificador(), convertirX(rack.getPosX())+(factorX/10)*3, convertirY(rack.getPosY()) + (rack.getColumnas()*factorY*3)/10);
+
+                g2d.setFont(theFont);
+            }
+            else
+            {
+                g2d.drawString(rack.getIdentificador(), convertirX(rack.getPosX()) + (rack.getColumnas()*factorX*3)/10, convertirY(rack.getPosY())+(factorY/10)*7);
+            }   
+        }
+
+        g2d.setFont(f);
         g2d.setStroke(s);
     }
 
