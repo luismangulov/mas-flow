@@ -359,6 +359,8 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                                                       
                             //UbicacionBL objUbicacionBL = new UbicacionBL();
                             //objUbicacionBL.ocuparUbicacion(arrUbicaciones.get(u).getIdUbicacion());
+                             PalletBL objPalletBL = new PalletBL();
+                            objPalletBL.despacharPallet(arrPallet.get(u).getIdPallet());
                         }
                          arrUbicaciones = new ArrayList<UbicacionBE>();   
                         for(int i =0;i< arrPallet.size();i++){
@@ -383,10 +385,10 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                             objPalletBL.asociarGuiaRemision(arrPallet.get(i).getIdPallet(), objGuiaRemisionBE.getCodigo());
                         }
                         
-                        for(int i =0;i< arrPallet.size();i++){
-                            PalletBL objPalletBL = new PalletBL();
-                            objPalletBL.despacharPallet(arrPallet.get(i).getIdPallet());
-                        }
+//                        for(int i =0;i< arrPallet.size();i++){
+//                            PalletBL objPalletBL = new PalletBL();
+//                            objPalletBL.despacharPallet(arrPallet.get(i).getIdPallet());
+//                        }
                         
                         //Mapa mapa = new Mapa(arrAlmacenes.get(0));
                         

@@ -114,7 +114,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
+              <Color id="Cursor predeterminado"/>
             </Property>
           </Properties>
           <Events>
@@ -133,7 +133,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
+              <Color id="Cursor predeterminado"/>
             </Property>
           </Properties>
           <Events>
@@ -152,7 +152,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
+              <Color id="Cursor predeterminado"/>
             </Property>
           </Properties>
           <Events>
@@ -171,7 +171,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
+              <Color id="Cursor predeterminado"/>
             </Property>
           </Properties>
           <Events>
@@ -190,7 +190,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
+              <Color id="Cursor predeterminado"/>
             </Property>
           </Properties>
           <Events>
@@ -209,7 +209,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
+              <Color id="Cursor predeterminado"/>
             </Property>
           </Properties>
           <Events>
@@ -229,7 +229,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
+              <Color id="Cursor predeterminado"/>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[54, 54]"/>
@@ -267,7 +267,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
+              <Color id="Cursor predeterminado"/>
             </Property>
           </Properties>
         </Component>
