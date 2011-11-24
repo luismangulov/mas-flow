@@ -262,7 +262,7 @@ public class MantenimientoPerfil extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("Nombre * :");
 
         txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
