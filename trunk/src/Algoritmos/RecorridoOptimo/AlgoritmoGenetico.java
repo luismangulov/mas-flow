@@ -653,13 +653,15 @@ public class AlgoritmoGenetico {
          nodos = arregloNodos;
  
 //         tiempoInicio=System.currentTimeMillis();
-         inicializar(nodos);
 
          edadMejorDistancia=0;
 
          double distanciaAnterior=0;
          mejorDistancia=0;
-         
+
+         flagFin = false;
+
+         inicializar(nodos);
 
          //Empieza la evolucion. Finaliza cuando se cumple alguna de las condiciones de parada.
          while(!flagFin) {
@@ -698,6 +700,7 @@ public class AlgoritmoGenetico {
          poblacion.clear();
          nodos=null;
          Ruta.limpiarAdy();
+         mejorCromosoma=null;
 
          return mejorRecorrido;
 
@@ -708,6 +711,7 @@ public class AlgoritmoGenetico {
          poblacion.clear();
          nodos=null;
          Ruta.limpiarAdy();
+         mejorCromosoma=null;
 
          return null;
       }
