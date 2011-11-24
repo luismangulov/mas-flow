@@ -113,7 +113,7 @@ public class AlgoritmoBestFirst {
              public int compare(PalletBE p1, PalletBE p2) {
                 Date f1 = p1.getFechaVencimiento();
                 Date f2 = p2.getFechaVencimiento();
-                return (f1.after(f2) ? -1 : (f1.before(f2)?1 : 0));
+                return (f1.before(f2) ? -1 : (f1.after(f2)?1 : 0));
              }
           });
 
