@@ -449,7 +449,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
               Mapa mapa = new Mapa(arrAlmacenes.get(0));
                         
               ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicacion);
-              mapa.mostrarGraficoMapa(listaNodo, true);
+              mapa.mostrarGraficoMapa(arrUbicacion,listaNodo);
              
              
          }

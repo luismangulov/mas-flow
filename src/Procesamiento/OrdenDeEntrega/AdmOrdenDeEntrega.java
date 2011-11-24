@@ -621,7 +621,7 @@ private void lblBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
             
             
             ArrayList<Nodo> listaNodo = AlgoritmoGenetico.ejecutar(mapa, arrUbicacion);
-            mapa.mostrarGraficoMapa(listaNodo, true);
+            mapa.mostrarGraficoMapa(arrUbicacion,listaNodo);
          }
          }
     }//GEN-LAST:event_lblRutaMousePressed
