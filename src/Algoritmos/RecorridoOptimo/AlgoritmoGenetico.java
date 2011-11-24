@@ -593,6 +593,11 @@ public class AlgoritmoGenetico {
   public static ArrayList<Nodo> ejecutar(Mapa mapa, ArrayList<UbicacionBE> listaUbicaciones) {
       try {
 
+          if (listaUbicaciones==null)
+              return null;
+          else if (listaUbicaciones.isEmpty())
+              return null;
+
          generacion=0;
          
          rutas = new ArrayList<ArrayList<Ruta>>();
@@ -692,11 +697,18 @@ public class AlgoritmoGenetico {
          rutas.clear();
          poblacion.clear();
          nodos=null;
+         Ruta.limpiarAdy();
 
          return mejorRecorrido;
 
 
       } catch(Throwable e) {
+
+         rutas.clear();
+         poblacion.clear();
+         nodos=null;
+         Ruta.limpiarAdy();
+
          return null;
       }
    }
