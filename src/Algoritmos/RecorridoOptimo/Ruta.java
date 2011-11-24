@@ -214,8 +214,12 @@ public class Ruta {
     public static Double peso(Nodo nodoObligatorio1 , Nodo nodoObligatorio2)
     {
         //Devuelve la distancia entre dos nodos. Si es infinita entonces no hay conexion.
-        //FALTA CARGAR LA MATRIZ DE LA BD
         return (ady.get(nodoObligatorio1.getId())).get(nodoObligatorio2.getId());
+    }
+
+    public static void limpiarAdy()
+    {
+        ady.clear();
     }
 
     public Nodo getProductoOrigen() {
