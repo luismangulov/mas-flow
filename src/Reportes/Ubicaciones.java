@@ -136,7 +136,7 @@ public class Ubicaciones extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("+Flow - Reporte de Inventario");
+        setTitle("+Flow - Reporte de Ubicaciones");
         setResizable(false);
 
         btnImprimir.setText("Imprimir");

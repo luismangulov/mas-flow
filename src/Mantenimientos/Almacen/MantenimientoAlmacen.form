@@ -39,9 +39,9 @@
                       </Group>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtTelefono" alignment="0" pref="250" max="32767" attributes="1"/>
-                          <Component id="txtDireccion" alignment="1" pref="250" max="32767" attributes="1"/>
-                          <Component id="txtNombre" alignment="1" pref="250" max="32767" attributes="1"/>
+                          <Component id="txtTelefono" alignment="0" pref="255" max="32767" attributes="1"/>
+                          <Component id="txtDireccion" alignment="1" pref="255" max="32767" attributes="1"/>
+                          <Component id="txtNombre" alignment="1" pref="255" max="32767" attributes="1"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="txtCodigo" min="-2" pref="93" max="-2" attributes="1"/>
                               <EmptySpace pref="65" max="32767" attributes="0"/>
@@ -49,9 +49,9 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="txtIdentificador" min="-2" pref="56" max="-2" attributes="1"/>
                           </Group>
-                          <Component id="cmbDistrito" alignment="0" pref="250" max="32767" attributes="1"/>
-                          <Component id="cmbProvincia" alignment="0" pref="250" max="32767" attributes="1"/>
-                          <Component id="cmbDepartamento" alignment="0" pref="250" max="32767" attributes="1"/>
+                          <Component id="cmbDistrito" alignment="0" pref="255" max="32767" attributes="1"/>
+                          <Component id="cmbProvincia" alignment="0" pref="255" max="32767" attributes="1"/>
+                          <Component id="cmbDepartamento" alignment="0" pref="255" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
@@ -59,11 +59,11 @@
                       <Component id="jPanel1" min="-2" max="-2" attributes="1"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="1"/>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace pref="19" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="cbxActivo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="323" max="32767" attributes="0"/>
+                      <EmptySpace pref="328" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -72,7 +72,7 @@
               <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="81" max="32767" attributes="0"/>
+              <EmptySpace pref="86" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -405,7 +405,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel16">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID:"/>
+        <Property name="text" type="java.lang.String" value="Id*:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtIdentificador">
